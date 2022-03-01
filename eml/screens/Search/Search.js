@@ -7,32 +7,17 @@ import { useRecoilState, useRecoilValue } from "recoil";
 
 import axios from 'axios';
 
-import CategoryContainer from './../../components/CategoryContainer';
 import TopNavBar from './../../components/TopNavBar';
 
 import BottomNavBar from '../../components/BottomNavBar';
 
-import CourseContainer from './../../components/CourseContainer';
 
-import { activeCourse } from "../../recoil/selectors";
-
-import ActiveCourseTest from "./ActiveCourseTest";
-
-export default function Home(props) {
+export default function Search(props) {
 
   return (
     <View style={styles.container}>
         <View style={styles.topNavBar}>
           <TopNavBar></TopNavBar>
-        </View>
-        <View style={styles.activeCoursesContainer}>
-          <Text style={styles.activeCoursesTitle}>Active courses</Text>
-          <Suspense fallback={<Text>Loading Details...</Text>}>
-            <ActiveCourseTest></ActiveCourseTest>
-          </Suspense>
-        </View>
-        <View style={styles.activeCoursesContainer}>
-          <Text style={styles.activeCoursesTitle}>My learning</Text>
         </View>
         <View style={styles.bottomNavBarContainer}>
           <BottomNavBar nav={props.navigation}></BottomNavBar>

@@ -2,46 +2,55 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 
-import CategoryContainer from './components/CategoryContainer';
+import {
+  RecoilRoot,
+  atom,
+  selector,
+  useRecoilState,
+  useRecoilValue,
+} from 'recoil';
+
 
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
-import financeLogo from './assets/financeLogo.png';
-const financeLogoUri = Image.resolveAssetSource(financeLogo).uri;
-import healthLogo from './assets/healthLogo.png';
-const healthLogoUri = Image.resolveAssetSource(healthLogo).uri;
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import HomeScreen from './screens/Home/Home';
-import CoursesScreen from './screens/Courses/Courses';
-import ActiveCourseScreen from './screens/ActiveCourse/ActiveCourse';
-import ActiveSectionScreen from './screens/ActiveSection/ActiveSection';
+import SearchScreen from './screens/Search/Search'
 
 const AppNavigator = createStackNavigator(
   {
     Home: HomeScreen,
-    Courses: CoursesScreen,
-    ActiveCourse: ActiveCourseScreen,
-    ActiveSection: ActiveSectionScreen,
+    Search: SearchScreen,
   },
   {
     initialRouteName: 'Home',
+    headerMode: 'none',
   }
 );
 
 const AppContainer = createAppContainer(AppNavigator);
 
+const Stack = createNativeStackNavigator();
+
 export default function App() {
   return (
-    <AppContainer></AppContainer>
+    <RecoilRoot>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Home" screenOptions={{ animation: 'none', headerShown: false }}>
+          <Stack.Screen name="Home" component={HomeScreen}/>
+          <Stack.Screen name="Search" component={SearchScreen}/>
+        </Stack.Navigator>
+      </NavigationContainer>
+    </RecoilRoot>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: '#F0F1F0',
   },
 });
