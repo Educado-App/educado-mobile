@@ -11,8 +11,6 @@ export default function BottomNavBar(props) {
     const navigation = useNavigation();
     const route = useRoute().name;
 
-    console.log(route);
-
   return (
     
     <View>
@@ -29,7 +27,9 @@ export default function BottomNavBar(props) {
                 </Pressable>
             </View>
             <View style={route == 'Library' && styles.iconBox}>
-                <Feather name="book" size={36} color="#78BE20" style={styles.menu} />
+                <Pressable  onPress={() => navigation.navigate('Library')}>
+                  <Feather name="book" size={36} color="#78BE20" style={styles.menu} />
+                </Pressable>
             </View>
         </View>
     </View>

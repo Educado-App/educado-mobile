@@ -23,14 +23,13 @@ export default class CourseContainer extends Component {
 
     render() {
         const baseText = this.state.base;
-        console.log(this.props.nav);
         return (
             <Pressable
                 onPress={() => this.props.nav.navigate('ActiveCourse',{course: this.props.course,url: this.state.presignedUrl})}
             >
                 <View style={styles.container} >
               
-                  <Image style={styles.cover} source={{uri: this.state.presignedUrl}}></Image>
+                  <Image style={styles.cover} source={{uri: financeLogoUri}}></Image>
                     <View style={styles.textContainer}>
                         <Text style={styles.title}>{this.props.course.title}</Text>
                         <Text style={styles.paragraph}>{this.props.course.description}</Text>
@@ -49,8 +48,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
 
-    borderWidth: 3,
-    borderColor: 'black',
+    borderWidth: 1,
+    borderColor: '#878787',
     borderRadius: 10,
     margin: 10,
     width: Dimensions.get('window').width*0.9,
@@ -59,7 +58,7 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: 'bold',
     flexWrap: 'wrap',
-    fontSize: 20
+    fontSize: 15
   },
   cover: {
     width: '35%',
@@ -72,6 +71,6 @@ const styles = StyleSheet.create({
     flexShrink: 1,
   },    
   paragraph: {
-      fontSize: 17
+      fontSize: 13
   }
 });

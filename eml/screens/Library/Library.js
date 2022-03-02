@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState, Suspense } from 'react';
-import { StyleSheet, Text, View, Image, Button, Dimensions, ScrollView} from 'react-native';
+import { StyleSheet, Text, View, Image, Button, Dimensions} from 'react-native';
 import {useQuery,useMutation,useQueryClient} from 'react-query'
 
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -9,36 +9,25 @@ import TopNavBar from './../../components/TopNavBar';
 
 import BottomNavBar from '../../components/BottomNavBar';
 
-import CoursesList from './CoursesList';
+import { allCourses } from "../../recoil/selectors";
 
-import CategoryBar from './CategoryBar';
 
-export default function Search(props) {
+export default function Library(props) {
+
+
+  const CoursesListValue = useRecoilValue(allCourses);
 
   return (
     <View style={styles.container}>
         <View style={styles.topNavBar}>
           <TopNavBar></TopNavBar>
         </View>
-
         <View style={styles.titleContainer}>
-          <Text style={styles.activeCoursesTitle}>Search courses</Text>
+          <Text style={styles.activeCoursesTitle}>Library</Text>
         </View>
-
-        <View style={styles.categoryBarContainer}>
-              <CategoryBar></CategoryBar>
-        </View>
-
-        <View style={styles.coursesListContainer}>
-          <Suspense fallback={<Text>Loading courses...</Text>}>
-              <CoursesList></CoursesList>
-            </Suspense>
-          </View>
-
         <View style={styles.bottomNavBarContainer}>
           <BottomNavBar nav={props.navigation}></BottomNavBar>
         </View>
-
       <StatusBar style="auto" />
     </View>
   );
@@ -75,18 +64,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   titleContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    width: Dimensions.get('window').width,
-  },
-  categoryBarContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    width: Dimensions.get('window').width,
-  },
-  coursesListContainer: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',

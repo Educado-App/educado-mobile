@@ -1,0 +1,1 @@
+<Button title="Google" onPress={() => Linking.openURL('http://colibri.somethingnew.dk/auth/google')}></Button>

@@ -33,7 +33,9 @@ export default function Home(props) {
         </View>
         <View style={styles.activeCoursesContainer}>
           <Text style={styles.activeCoursesTitle}>My learning</Text>
+          <Text>Work in progress...</Text>
         </View>
+        
         <View style={styles.bottomNavBarContainer}>
           <BottomNavBar nav={props.navigation}></BottomNavBar>
         </View>
