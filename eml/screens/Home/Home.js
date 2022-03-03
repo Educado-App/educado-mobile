@@ -1,20 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState, Suspense } from 'react';
 import { StyleSheet, Text, View, Image, Button, Dimensions} from 'react-native';
-import {useQuery,useMutation,useQueryClient} from 'react-query'
 
-import { useRecoilState, useRecoilValue } from "recoil";
-
-import axios from 'axios';
-
-import CategoryContainer from './../../components/CategoryContainer';
 import TopNavBar from './../../components/TopNavBar';
 
 import BottomNavBar from '../../components/BottomNavBar';
 
-import CourseContainer from './../../components/CourseContainer';
-
-import { activeCourse } from "../../recoil/selectors";
 
 import ActiveCourseTest from "./ActiveCourseTest";
 

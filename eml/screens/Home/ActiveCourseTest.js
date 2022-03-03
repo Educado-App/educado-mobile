@@ -5,8 +5,7 @@ import {useQuery,useMutation,useQueryClient} from 'react-query'
 
 import { useRecoilState, useRecoilValue } from "recoil";
 
-
-import CourseContainer from './../../components/CourseContainer';
+import CourseContainer from '../../components/CourseContainer';
 
 import { activeCourse } from "../../recoil/selectors";
 

@@ -1,6 +1,6 @@
 import { selector } from "recoil";
 
-import {getCourses} from './../api/api';
+import {getCourses, getCoverPhoto} from './../api/api';
 
 export const activeCourse = selector({
   key: "activeCourse",
