@@ -12,30 +12,22 @@ import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { useRoute } from "@react-navigation/native";
 
-import { getCoverPhoto } from "../api/api";
+import { getPresignedUrl } from "../api/api";
 
 import loadingImage from './../assets/loadingImage.png';
 const loadingImageUri = Image.resolveAssetSource(loadingImage).uri;
 
 
-export default function SectionContainer(props) {
+export default function ComponentContainer(props) {
   const navigation = useNavigation();
-  const route = useRoute().name;
+  const route = useRoute();
 
+  
 
   return ( 
-        <Pressable
-                onPress={() => navigation.navigate('Course',{course: props.section})}
-                style={styles.container}
-            >
-                        <Text style={styles.title}>{props.section.title}</Text>
-                        <View style={styles.checkBoxContainer}>
-                            <View style={styles.checkBox}>
+        <View>
 
-                            </View>
-                        </View>
-                        
-            </Pressable>
+        </View>
   );
 }
 
@@ -57,15 +49,18 @@ const styles = StyleSheet.create({
         marginTop: 5,
         marginBottom: 5
       },
-      checkBox: { 
-        borderWidth: 1,
-        width: 15,
-        height: 15,
-        borderColor: '#878787',
-      },
-      checkBoxContainer: {
-        flex: 1,
-        width: '100%',
-        alignItems: 'flex-end',
+      video: {
+        backgroundColor: '#fff',
+    
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'flex-start',
+    
+        borderWidth: 3,
+        borderColor: 'black',
+        borderRadius: 10,
+        margin: 10,
+        width: Dimensions.get('window').width*0.9,
+        height: Dimensions.get('window').height*0.2
       }
 });

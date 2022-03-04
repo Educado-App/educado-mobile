@@ -18,7 +18,7 @@ import loadingImage from './../assets/loadingImage.png';
 const loadingImageUri = Image.resolveAssetSource(loadingImage).uri;
 
 
-export default function NewCourseContainer(props) {
+export default function CourseContainer(props) {
   const navigation = useNavigation();
   const route = useRoute().name;
 
@@ -46,7 +46,7 @@ export default function NewCourseContainer(props) {
   return ( 
     <View>
         <Pressable
-                onPress={() => navigation.navigate('ActiveCourse',{course: this.props.course,url: this.state.presignedUrl})}
+                onPress={() => navigation.navigate('Course',{course: props.course,coverImage: covImgUri})}
             >
                 <View style={styles.container} >
                     <Image style={styles.cover} source={{uri: covImgUri}}></Image>

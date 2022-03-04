@@ -6,37 +6,40 @@ import { useRoute } from "@react-navigation/native";
 
 import SectionContainer from '../../components/SectionContainer';
 
-import { getAllSections } from '../../api/api';
+import { getAllComponents, getAllSections } from '../../api/api';
 
-export default function Course(props) {
-    // Component for showcasing course overview
-    // Cover image: get passed as prop from CourseContainer
-    // Title and description: get passed as prop under Course
-    // Section information: get by async call to Api route getAllSections and return...
+export default function Section(props) {
+    // Component for showcasing single section
+    // Get all components 
+    // Make array for keeping track of progress
+    // Render top progress bar 
+        // Take length of components array to evaluate length 
+        //
 
     const navigation = useNavigation();
     const route = useRoute();
 
-    const { course, coverImage } = route.params;
+    const { section } = route.params;
 
 
-    const [sections,setSections] = useState(null);
+    const [components,setComponents] = useState(null);
+    const [progress, setProgress] = useState(0);
 
 
   useEffect(() => {
 
-        const fetchSections = async () => {
-            const data = await getAllSections(course.sections);
-            setSections(data);
+        const fetchComponents = async () => {
+            const data = await getAllComponents(section.components);
+            setComponents(data);
         };
 
-        fetchSections();
+        fetchComponents();
   },[])
 
-  let ListContent;
+  let ActiveComponent;
 
-  if (sections !== null) {
-      ListContent = sections.map((section,index) => {
+  if (components !== null) {
+      ListContent = components.map((component,index) => {
             return (
               <SectionContainer section={section} key={index}></SectionContainer>
           )
@@ -47,12 +50,7 @@ export default function Course(props) {
 
   return (
     <View style={styles.container}>
-        <Image style={styles.coverImage} source={{uri: coverImage}}></Image>
-        <Text style={styles.title}>{course.title}</Text>
-        <Text style={styles.description} >{course.description}</Text>
-        <ScrollView style={styles.sectionList} >
-            {ListContent}
-        </ScrollView>
+
     </View>
   );
 }
