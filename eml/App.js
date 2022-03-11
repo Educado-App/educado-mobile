@@ -12,6 +12,7 @@ import HomeScreen from './screens/Home/Home';
 import SearchScreen from './screens/Search/Search';
 import LibraryScreen from './screens/Library/Library';
 import CourseScreen from './screens/Course/Course';
+import SectionScreen from './screens/Section/Section';
 
 const Stack = createNativeStackNavigator();
 
@@ -24,6 +25,7 @@ export default function App() {
           <Stack.Screen name="Search" component={SearchScreen}/>
           <Stack.Screen name="Library" component={LibraryScreen}/>
           <Stack.Screen name="Course" component={CourseScreen}/>
+          <Stack.Screen name="Section" component={SectionScreen}/>
         </Stack.Navigator>
       </NavigationContainer>
     </RecoilRoot>

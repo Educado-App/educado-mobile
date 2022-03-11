@@ -1,12 +1,17 @@
 import React, { useEffect, useState, Suspense } from 'react';
-import { StyleSheet, Text, View, Image, ScrollView, } from 'react-native';
+import { StyleSheet, Text, View, Image, ScrollView, Button } from 'react-native';
 
 import { useNavigation } from "@react-navigation/native";
 import { useRoute } from "@react-navigation/native";
 
 import SectionContainer from '../../components/SectionContainer';
 
+import Component from './components/Component';
+
+import ProgressBar from '../../components/ProgressBar';
+
 import { getAllComponents, getAllSections } from '../../api/api';
+
 
 export default function Section(props) {
     // Component for showcasing single section
@@ -19,38 +24,39 @@ export default function Section(props) {
     const navigation = useNavigation();
     const route = useRoute();
 
-    const { section } = route.params;
+    const { section, course, coverImage} = route.params;
 
 
-    const [components,setComponents] = useState(null);
+    const [components,setComponents] = useState();
     const [progress, setProgress] = useState(0);
-
+    const [activeComponent,setActiveComponent] = useState(<Text>Loading content section...</Text>);
+    const [progressLength,setProgressLength] = useState(0);
 
   useEffect(() => {
-
         const fetchComponents = async () => {
             const data = await getAllComponents(section.components);
             setComponents(data);
+            setProgressLength(data.length);
+            setActiveComponent(<Component component={data[progress]} ></Component>);
         };
 
         fetchComponents();
+        
   },[])
 
-  let ActiveComponent;
-
-  if (components !== null) {
-      ListContent = components.map((component,index) => {
-            return (
-              <SectionContainer section={section} key={index}></SectionContainer>
-          )
-      });
-  } else {
-      ListContent = <Text>Waiting...</Text>
-  }
+  const handleNext = () => {
+      if (progress+1 == progressLength) {
+          navigation.navigate('Course',{course: course, coverImage: coverImage});
+      }
+      setProgress(progress+1);
+      setActiveComponent(<Component component={components[progress+1]} ></Component>);
+  } 
 
   return (
     <View style={styles.container}>
-
+        <ProgressBar activeIndex={progress} length={progressLength}></ProgressBar>
+        {activeComponent}
+        <Button onPress={handleNext} title="Next"/>
     </View>
   );
 }

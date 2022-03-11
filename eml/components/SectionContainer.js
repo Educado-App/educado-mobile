@@ -20,12 +20,13 @@ const loadingImageUri = Image.resolveAssetSource(loadingImage).uri;
 
 export default function SectionContainer(props) {
   const navigation = useNavigation();
-  const route = useRoute().name;
+  const route = useRoute();
 
+  const { course, coverImage } = route.params;
 
   return ( 
         <Pressable
-                onPress={() => navigation.navigate('Course',{course: props.section})}
+                onPress={() => navigation.navigate('Section',{section: props.section, course: course, coverImage: coverImage })}
                 style={styles.container}
             >
                         <Text style={styles.title}>{props.section.title}</Text>

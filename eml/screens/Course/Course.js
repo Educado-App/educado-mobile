@@ -38,7 +38,7 @@ export default function Course(props) {
   if (sections !== null) {
       ListContent = sections.map((section,index) => {
             return (
-              <SectionContainer section={section} key={index}></SectionContainer>
+              <SectionContainer course={course} coverImage={coverImage} section={section} key={index}></SectionContainer>
           )
       });
   } else {

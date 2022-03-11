@@ -2,32 +2,21 @@
 import React, {useEffect,useState, Component} from 'react';
 import { StyleSheet, Text, View, Dimensions, Image, Pressable } from 'react-native';
 
-import financeLogo from './../../../assets/financeLogo.png';
-const financeLogoUri = Image.resolveAssetSource(financeLogo).uri;
-
-import getPresignedUrlFile from './../../../hooks/getPresignedUrlFile';
-
-export default class ImageElement extends Component {
+export default class AudioElement extends Component {
 
     state = {
-        imageUri: financeLogoUri    
     }
 
     async componentDidMount() {
-        const res = await getPresignedUrlFile(this.props.comp.file);
-        this.setState({
-            ...this.state,
-            imageUri: res
-        });
     }
 
     render() {
         return (
-            <Image 
-                style={styles.container}
-                source={{uri: this.state.imageUri}}
-            >
-            </Image>
+            <View style={styles.container}>
+                <Text>
+                    This is a audio element!
+                </Text>
+            </View>
             
           );
     }

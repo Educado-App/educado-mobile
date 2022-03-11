@@ -9,7 +9,7 @@ export const getPresignedUrl = async (component_id) => {
     const obj = {
         component_id: component_id
     }
-    const res = await axios.post('http://educado.somethingnew.dk/api/get-presigned-url',);
+    const res = await axios.post('http://educado.somethingnew.dk/api/get-presigned-url',obj);
     return res.data;
 };
 
@@ -27,20 +27,17 @@ export const getAllSections = async(sections) => {
         sections: sections
     }
     // Send request to S3 server
-    console.log('Inside getallsections');
-    console.log(sections);
     const res = await axios.post('http://educado.somethingnew.dk/api/eml/course/getallsections', obj);
-    console.log('Im out');
-    console.log(res);
+    
     return res.data;
 }
 
 export const getAllComponents = async(components) => {
     const obj = {
         components: components
-    }
+    };
     // Send request to S3 server
-    const res = await axios.post('http://educado.somethingnew.dk/api/eml/course/getallsections', obj);
+    const res = await axios.post('http://educado.somethingnew.dk/api/component/getallcomponents', obj);
     return res.data;
 }
 
