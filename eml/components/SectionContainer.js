@@ -31,7 +31,7 @@ export default function SectionContainer(props) {
             >
                         <Text style={styles.title}>{props.section.title}</Text>
                         <View style={styles.checkBoxContainer}>
-                            <View style={styles.checkBox}>
+                            <View style={props.completed == true ? styles.checkBoxCompleted : styles.checkBox}>
 
                             </View>
                         </View>
@@ -64,9 +64,17 @@ const styles = StyleSheet.create({
         height: 15,
         borderColor: '#878787',
       },
+      checkBoxCompleted: { 
+        borderWidth: 1,
+        width: 15,
+        height: 15,
+        borderColor: '#878787',
+        color: '#878787',
+        backgroundColor: '#878787'
+      },
       checkBoxContainer: {
         flex: 1,
         width: '100%',
         alignItems: 'flex-end',
-      }
+      },
 });

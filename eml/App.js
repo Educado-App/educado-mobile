@@ -13,6 +13,7 @@ import SearchScreen from './screens/Search/Search';
 import LibraryScreen from './screens/Library/Library';
 import CourseScreen from './screens/Course/Course';
 import SectionScreen from './screens/Section/Section';
+import Login from './screens/Login/Login';
 
 const Stack = createNativeStackNavigator();
 
@@ -20,12 +21,13 @@ export default function App() {
   return (
     <RecoilRoot>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home" screenOptions={{ animation: 'none', headerShown: false }}>
+        <Stack.Navigator initialRouteName="Login" screenOptions={{ animation: 'none', headerShown: false }}>
           <Stack.Screen name="Home" component={HomeScreen}/>
           <Stack.Screen name="Search" component={SearchScreen}/>
           <Stack.Screen name="Library" component={LibraryScreen}/>
           <Stack.Screen name="Course" component={CourseScreen}/>
           <Stack.Screen name="Section" component={SectionScreen}/>
+          <Stack.Screen name="Login" component={Login}/>
         </Stack.Navigator>
       </NavigationContainer>
     </RecoilRoot>

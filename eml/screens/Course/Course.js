@@ -6,7 +6,15 @@ import { useRoute } from "@react-navigation/native";
 
 import SectionContainer from '../../components/SectionContainer';
 
+import { useRecoilState, useRecoilValue } from "recoil";
+
+import { sectionProgressFlag } from "./../../recoil/atoms";
+
 import { getAllSections } from '../../api/api';
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
+const STORAGE_PROGRESS = '@storage_progress';
+
 
 export default function Course(props) {
     // Component for showcasing course overview
@@ -19,8 +27,9 @@ export default function Course(props) {
 
     const { course, coverImage } = route.params;
 
-
     const [sections,setSections] = useState(null);
+    const [completedSections,setCompletedSections] = useState([]);
+    const [flag, setFlag] = useRecoilState(sectionProgressFlag);
 
 
   useEffect(() => {
@@ -33,12 +42,39 @@ export default function Course(props) {
         fetchSections();
   },[])
 
+
+  useEffect(() => {
+    const readCompletedSections = async () => {
+        const fetchedProgress = await AsyncStorage.getItem(STORAGE_PROGRESS);
+        const jsonProgress = JSON.parse(fetchedProgress);
+
+        if (jsonProgress.activeCourses.find(e => e.id = course._id) !== undefined ) {
+            setCompletedSections(jsonProgress.activeCourses.find(e => e.id = course._id).sections);
+        }
+
+    }; 
+
+    readCompletedSections();
+
+  },[flag])
+
   let ListContent;
 
   if (sections !== null) {
+
       ListContent = sections.map((section,index) => {
+            let completed = false;
+            console.log('completed sections in listcontent...');
+            console.log(completedSections);
+
+            completedSections.map((obj,index) => {
+                if (obj == section._id) {
+                    completed = true;
+                }
+            });
+
             return (
-              <SectionContainer course={course} coverImage={coverImage} section={section} key={index}></SectionContainer>
+              <SectionContainer course={course} coverImage={coverImage} section={section} key={index} completed={completed}></SectionContainer>
           )
       });
   } else {

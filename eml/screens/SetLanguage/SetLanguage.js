@@ -5,10 +5,10 @@ import { StyleSheet, Text, View, Image, Button, Dimensions} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useNavigation } from "@react-navigation/native";
 
-const STORAGE_ID = '@local_id';
-const STORAGE_PROGRESS = '@storage_progress';
+const STORAGE_LANGUAGE = '@storage_language';
+const STORAGE_COUNTRY = '@storage_country';
 
-export default function Login(props) {
+export default function SetLanguage(props) {
 
     const navigation = useNavigation();
 
@@ -19,7 +19,8 @@ export default function Login(props) {
         // If not, then prompt user and save
         // If yes, then continue 
 
-        const [localId, setLocalId] = useState(String(Date.now)); // Local state variable for storing local user id
+        const [language, setLanguage] = useState(''); // Local state variable for storing language
+        const [country, setCountry] = useState(''); // Local state variable for storing country
 
         // Function for reading local user id from async local storage
         const readId = async () => {
@@ -29,30 +30,11 @@ export default function Login(props) {
                 if (fetchedLocalId !== null) {
                     setLocalId(fetchedLocalId);
                     console.log('Already set, now logged in!');
-
-                    const obj = {
-                        activeCourses: [],
-                        finishedCourses: [],
-                        upNext: [],
-                    };
-
-                    await AsyncStorage.setItem(STORAGE_PROGRESS,JSON.stringify(obj));
-
-
                     navigation.navigate('Home');
                 } else {
                     
                     try {
                         await AsyncStorage.setItem(STORAGE_ID,localId);
-
-                        const obj = {
-                            activeCourses: [],
-                            finishedCourses: [],
-                            upNext: [],
-                        };
-
-                        await AsyncStorage.setItem(STORAGE_PROGRESS,JSON.stringify(obj));
-
                         console.log('User successfully created and stored!');
                         navigation.navigate('Home');
                     } catch (error) {
