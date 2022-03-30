@@ -1,5 +1,5 @@
 import React, { useEffect, useState, Suspense } from 'react';
-import { StyleSheet, Text, View, Image, ScrollView, Button } from 'react-native';
+import { StyleSheet, Text, View, Image, ScrollView, Button, Pressable, Dimensions} from 'react-native';
 
 import { useNavigation } from "@react-navigation/native";
 import { useRoute } from "@react-navigation/native";
@@ -58,13 +58,18 @@ export default function Section(props) {
   
 
   useEffect(() => {
+      console.log('WTF!!?!?!?');
     const updateProgressFunction = async () => {
+        
         try {
+            // Fetch progress from local storage
             const fetchedProgress = await AsyncStorage.getItem(STORAGE_PROGRESS);
             const jsonProgress = JSON.parse(fetchedProgress);
+
             
+            // Check if activeCourses stored locally is empty
             if (jsonProgress.activeCourses[0] === undefined) {
-                
+                // If it is empty, then create a new object with the course id and section id
                 const newObj = {
                     id: course._id,
                     sections: [section._id]
@@ -81,13 +86,32 @@ export default function Section(props) {
                   console.log('Error when writing new progress to storage');
               }
             } else {
-                const updatedProgress = {...jsonProgress};
+                // Inside else loop, meaning that json.Progress.activeCourses is NOT emtpty
+                console.log('Inside else loop, meaning that json.Progress.activeCourses is NOT emtpty');
+                const updatedProgress = {...jsonProgress}; // Copy the jsonProgress
+
+                console.log(updatedProgress);
+
+                let noActiveCourse = false;
+
                 updatedProgress.activeCourses.map(obj => {
-                    if (obj.id === course._id) {
+                    if (obj.id == course._id) { // If the course from local storage is equal to the one currently on....
+                        noActiveCourse = false;
                         obj.sections.push(section._id);
+                    } else {
+                        noActiveCourse = true;
                     }
                 });
-            
+                
+                if (noActiveCourse == true) {
+                    const newObj = {
+                        id: course._id,
+                        sections: [section._id]
+                    }
+                    
+                    updatedProgress.activeCourses.push(newObj);
+                }
+
                 try {
                     await AsyncStorage.setItem(STORAGE_PROGRESS,JSON.stringify(updatedProgress));
                     console.log('Successfully updated local storage progress!');
@@ -117,11 +141,28 @@ export default function Section(props) {
       };   
   };
 
+  const handleBack = async () => {
+        if (progress-1 == -1) {
+            navigation.navigate('Course',{course: course, coverImage: coverImage});
+        } else {
+            setProgress(progress-1);
+            setActiveComponent(<Component component={components[progress-1]} ></Component>);
+        }
+};
+
   return (
     <View style={styles.container}>
         <ProgressBar activeIndex={progress} length={progressLength}></ProgressBar>
         {activeComponent}
-        <Button onPress={handleNext} title="Next"/>
+        <View style={styles.controllerBox}>
+            <Pressable onPress={handleBack} style={styles.backBox}>
+                    <Text style={styles.backText}>Back</Text>
+            </Pressable>
+            <Pressable onPress={handleNext} style={styles.nextBox}>
+                    <Text style={styles.nextText}>Next</Text>
+            </Pressable>
+        </View>
+        
     </View>
   );
 }
@@ -134,6 +175,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
     width: '100%',
+    height: '100%',
     marginTop: '10%',
   },
   coverImage: {
@@ -151,5 +193,40 @@ const styles = StyleSheet.create({
   },
   description: {
       padding: 8
+  },
+  nextText: {
+      color: 'white',
+      fontSize: 25
+  },
+  nextBox: {
+      display: 'flex',
+      backgroundColor: 'green',
+      width: '50%',
+      height: 80,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: 5
+
+  },
+  backText: {
+    color: 'white',
+    fontSize: 25
+    },
+    backBox: {
+        display: 'flex',
+        backgroundColor: 'red',
+        width: '50%',
+        height: 80,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 5
+
+    },
+  controllerBox: {
+      display: 'flex',
+      width: Dimensions.get('window').width,
+      flexDirection: 'row',
+      position: 'absolute',
+      bottom: 20
   }
 });

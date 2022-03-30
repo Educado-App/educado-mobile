@@ -48,12 +48,24 @@ export default function Course(props) {
         const fetchedProgress = await AsyncStorage.getItem(STORAGE_PROGRESS);
         const jsonProgress = JSON.parse(fetchedProgress);
 
-        if (jsonProgress.activeCourses.find(e => e.id = course._id) !== undefined ) {
+        console.log('Local storage on course (OBJ)...: ',jsonProgress);
+        console.log('Local storage on course...: ',course._id);
+        let currentLocal;
+
+        jsonProgress.activeCourses.map(obj => {
+            if (obj.id == course._id) {
+                setCompletedSections(obj.sections);
+            }
+        });
+
+        /* if (jsonProgress.activeCourses.find(e => e.id = course._id) !== undefined ) {
+            console.log('Finished sections...',jsonProgress.activeCourses.find(e => e.id = course._id).sections);
             setCompletedSections(jsonProgress.activeCourses.find(e => e.id = course._id).sections);
-        }
+
+        } */
 
     }; 
-
+    console.log('Before reading completed sections');
     readCompletedSections();
 
   },[flag])
@@ -64,14 +76,16 @@ export default function Course(props) {
 
       ListContent = sections.map((section,index) => {
             let completed = false;
-            console.log('completed sections in listcontent...');
-            console.log(completedSections);
+
+            //console.log(section._id);
 
             completedSections.map((obj,index) => {
                 if (obj == section._id) {
                     completed = true;
                 }
             });
+
+            //console.log(completed);
 
             return (
               <SectionContainer course={course} coverImage={coverImage} section={section} key={index} completed={completed}></SectionContainer>
@@ -85,7 +99,9 @@ export default function Course(props) {
     <View style={styles.container}>
         <Image style={styles.coverImage} source={{uri: coverImage}}></Image>
         <Text style={styles.title}>{course.title}</Text>
-        <Text style={styles.description} >{course.description}</Text>
+        <ScrollView>
+            <Text style={styles.description} >{course.description}</Text>
+        </ScrollView>
         <ScrollView style={styles.sectionList} >
             {ListContent}
         </ScrollView>
@@ -117,6 +133,7 @@ const styles = StyleSheet.create({
       marginTop: 10
   },
   description: {
-      padding: 8
+      padding: 8,
+      fontSize: 18
   }
 });

@@ -6,7 +6,7 @@ export const activeCourse = selector({
   key: "activeCourse",
   get: async () => {
     const response = await getCourses();
-    return response[2];
+    return response[1];
   },
 });
 
