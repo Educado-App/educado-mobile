@@ -50,19 +50,12 @@ export default function Course(props) {
 
         console.log('Local storage on course (OBJ)...: ',jsonProgress);
         console.log('Local storage on course...: ',course._id);
-        let currentLocal;
 
         jsonProgress.activeCourses.map(obj => {
             if (obj.id == course._id) {
                 setCompletedSections(obj.sections);
             }
         });
-
-        /* if (jsonProgress.activeCourses.find(e => e.id = course._id) !== undefined ) {
-            console.log('Finished sections...',jsonProgress.activeCourses.find(e => e.id = course._id).sections);
-            setCompletedSections(jsonProgress.activeCourses.find(e => e.id = course._id).sections);
-
-        } */
 
     }; 
     console.log('Before reading completed sections');
