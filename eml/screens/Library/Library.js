@@ -15,7 +15,7 @@ import { allCourses } from "../../recoil/selectors";
 export default function Library(props) {
 
 
-  const CoursesListValue = useRecoilValue(allCourses);
+//const CoursesListValue = useRecoilValue(allCourses);
 
   return (
     <View style={styles.container}>
