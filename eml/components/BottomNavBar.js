@@ -16,21 +16,25 @@ export default function BottomNavBar(props) {
     <View>
         <View style={{height: 1, backgroundColor: '#878787'}} />
         <View  style={styles.container}>
-            <View style={route == 'Home' && styles.iconBox}>
-                <Pressable  onPress={() => navigation.navigate('Home')}>
-                    <Feather name="home" size={36} color="#78BE20" style={styles.menu} />
-                </Pressable>
-            </View>
+
             <View style={route == 'Search' && styles.iconBox}>
                 <Pressable  onPress={() => navigation.navigate('Search')}>
                     <Feather name="search" size={36} color="#78BE20" style={styles.menu} />
                 </Pressable>
             </View>
-            <View style={route == 'Library' && styles.iconBox}>
-                <Pressable  onPress={() => navigation.navigate('Library')}>
-                  <Feather name="book" size={36} color="#78BE20" style={styles.menu} />
+
+            <View style={route == 'Home' && styles.iconBox}>
+                <Pressable  onPress={() => navigation.navigate('Home')}>
+                    <Feather name="home" size={36} color="#78BE20" style={styles.menu} />
                 </Pressable>
             </View>
+
+            <View style={route == 'Library' && styles.iconBox}>
+                <Pressable  onPress={() => navigation.navigate('Library')}>
+                    <Feather name="book" size={36} color="#78BE20" style={styles.menu} />
+                </Pressable>
+            </View>
+
         </View>
     </View>
   );
@@ -54,7 +58,6 @@ const styles = StyleSheet.create({
   },
   menu: {
     margin: 5,
-    borderTopWidth: 2
   },
   iconBox: {
       borderTopWidth: 3,

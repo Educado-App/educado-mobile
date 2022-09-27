@@ -4,6 +4,8 @@ import { StyleSheet, Text, View, Image, Button, Dimensions} from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useNavigation } from "@react-navigation/native";
+import LoginButton from "../../components/LoginButton";
+import LoginForm from "../../components/LoginForm";
 
 const STORAGE_ID = '@local_id';
 const STORAGE_PROGRESS = '@storage_progress';
@@ -39,7 +41,6 @@ export default function Login(props) {
                     await AsyncStorage.setItem(STORAGE_PROGRESS,JSON.stringify(obj));
 
 
-                    navigation.navigate('Home');
                 } else {
                     
                     try {
@@ -72,12 +73,23 @@ export default function Login(props) {
 
 
   return (
-    <View>
+    <View style={styles.container}>
+        <Text>Login Page</Text>
+        <LoginForm></LoginForm>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-  },
+    container: {
+        flex: 1,
+        backgroundColor: 'lightgreen',
+        alignItems: 'flex-start',
+        justifyContent: 'flex-start',
+        display: 'flex',
+        flexDirection: 'column',
+        marginTop: '10%',
+        height: Dimensions.get('window').height
+    },
+
 });
