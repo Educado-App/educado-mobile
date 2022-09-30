@@ -1,11 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState, Suspense } from 'react';
 import { StyleSheet, Text, View, Image, Button, Dimensions} from 'react-native';
-
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useNavigation } from "@react-navigation/native";
 import LoginButton from "../../components/LoginButton";
 import LoginForm from "../../components/LoginForm";
+
+const {width, height} = Dimensions.get('window');
 
 const STORAGE_ID = '@local_id';
 const STORAGE_PROGRESS = '@storage_progress';
@@ -24,7 +25,7 @@ export default function Login(props) {
         const [localId, setLocalId] = useState(String(Date.now)); // Local state variable for storing local user id
 
         // Function for reading local user id from async local storage
-        const readId = async () => {
+       /* const readId = async () => {
             try {
                 const fetchedLocalId = await AsyncStorage.getItem(STORAGE_ID);
                 
@@ -69,12 +70,20 @@ export default function Login(props) {
     
     useEffect(() => {
         readId();
-    },[])
+    },[]) */
 
 
   return (
     <View style={styles.container}>
-        <Text>Login Page</Text>
+        <Svg height = {height / 2} width = {width}>
+            <Image
+                href = {require('./assets/backgroundcolor.jpg')}
+                width = {width}
+                height = {height}
+                preserveAspectRatio = "xMidYMid slice"
+            />
+        </Svg>
+
         <LoginForm></LoginForm>
     </View>
   );
@@ -82,14 +91,7 @@ export default function Login(props) {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: 'lightgreen',
-        alignItems: 'flex-start',
-        justifyContent: 'flex-start',
-        display: 'flex',
-        flexDirection: 'column',
-        marginTop: '10%',
-        height: Dimensions.get('window').height
+
     },
 
 });
