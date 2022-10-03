@@ -25,7 +25,7 @@ export default function Login(props) {
         const [localId, setLocalId] = useState(String(Date.now)); // Local state variable for storing local user id
 
         // Function for reading local user id from async local storage
-       /* const readId = async () => {
+       const readId = async () => {
             try {
                 const fetchedLocalId = await AsyncStorage.getItem(STORAGE_ID);
                 
@@ -70,28 +70,24 @@ export default function Login(props) {
     
     useEffect(() => {
         readId();
-    },[]) */
+    },[])
 
 
   return (
     <View style={styles.container}>
-        <Svg height = {height / 2} width = {width}>
-            <Image
-                href = {require('./assets/backgroundcolor.jpg')}
-                width = {width}
-                height = {height}
-                preserveAspectRatio = "xMidYMid slice"
-            />
-        </Svg>
 
         <LoginForm></LoginForm>
     </View>
   );
 }
 
+
+
 const styles = StyleSheet.create({
     container: {
-
+        height: '100%',
+        width: '100%',
+        backgroundColor: 'lightGreen'
     },
 
 });

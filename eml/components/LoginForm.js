@@ -1,9 +1,7 @@
 import React from "react";
 import {StyleSheet, Pressable, Text, Image, View, Dimensions, TextInput} from "react-native";
-import Svg, { Image } from 'react-native-svg';
+
 const {width, height} = Dimensions.get('window');
-
-
 
 import {useNavigation} from "@react-navigation/native";
 import {useRoute} from "@react-navigation/native";
@@ -18,37 +16,21 @@ export default function LoginForm(props) {
                 <View style ={styles.educadoTextLogoContainer}>
                     <Text>Educado</Text>
                 </View>
-
-
                 <View style={styles.closeButtonContainer}>
                     <Text>X</Text>
 
                 </View>
             </View>
             <View style={styles.bottomContainer}>
-                {/* <View style = {styles.button}>
-          <Text style = {styles.buttonText}> LOG IN </Text>
-          </View>
-        <View style = {styles.button}>
-          <Text style = {styles.buttonText}> REGISTER </Text>
-        </View> */}
                 <View style={styles.formInputContainer}>
                     <TextInput placeholder="Phone Number" placeholderTextColor="black" style={styles.textInput} />
                     <TextInput placeholder="Password" placeholderTextColor="black"  style={styles.textInput} />
                     <View style={styles.formButton}>
                         <Text style={styles.buttonText}> LOG IN</Text>
-
                     </View>
                 </View>
             </View>
         </View>
-
-
-
-       /* <View>
-            <TextInput style={styles.loginForm} placeholder="Username"/>
-            <TextInput style={styles.loginForm} placeholder="Password"/>
-        </View>*/
     );
 }
 
@@ -80,8 +62,6 @@ const styles = StyleSheet.create({
         bottomContainer:{
             justifyContent: 'center',
             height: height / 3,
-
-
         },
         textInput: {
             height: 50,
@@ -142,10 +122,4 @@ const styles = StyleSheet.create({
             width: 1000,
             justifyContent: 'top'
         }
-
-   /* loginForm: {
-        textAlign: "center",
-        padding: 5,
-        fontSize: 34,
-    }*/
 });
