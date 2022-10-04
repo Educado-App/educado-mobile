@@ -10,7 +10,7 @@ const ContinueButton = () => {
               name='arrow-right-thin'
               type='material-community'
               color='white'
-            />}>Continuar
+            />}>Continue
           </Button>
       </TouchableOpacity>
 )
