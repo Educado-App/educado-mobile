@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import {StyleSheet, Text, View} from 'react-native';
 import VeryNiceButton from './components/VeryNiceButton';
+import LearningInputVideo from './components/section/LearningInputVideoExample1';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faShapes} from '@fortawesome/free-solid-svg-icons/';
 
@@ -10,7 +11,7 @@ export default function App() {
         <Text>This is app js</Text>
         <View>
         <FontAwesomeIcon icon={faShapes}/>
-        <VeryNiceButton></VeryNiceButton>
+        <LearningInputVideo></LearningInputVideo>        
         </View>
       <StatusBar style="auto" />
     </View>
