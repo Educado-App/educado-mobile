@@ -3,33 +3,19 @@ import {StyleSheet, Pressable, Text, Image, View, Dimensions, TextInput} from "r
 
 const {width, height} = Dimensions.get('window');
 
-import {useNavigation} from "@react-navigation/native";
-import {useRoute} from "@react-navigation/native";
 
 export default function LoginForm(props) {
-    const navigation = useNavigation();
-    const route = useRoute().name;
-
     return (
         <View style ={styles.container}>
             <View style ={StyleSheet.absoluteFill}>
-                <View style ={styles.textLogoContainer}>
-                    <Text>Educado...</Text>
+                <View>
+                    <Text style={styles.textLogoContainer}>Educado</Text>
                 </View>
-
-               {/* <View style={styles.closeButtonContainer}>
-
-
-                <View style={styles.closeButtonContainer}>
-
-                    <Text>X</Text>
-
-                </View>*/}
             </View>
             <View style={styles.bottomContainer}>
                 <View style={styles.formInputContainer}>
-                    <TextInput placeholder="Phone Number" placeholderTextColor="black" style={styles.textInput} />
-                    <TextInput placeholder="Password" placeholderTextColor="black"  style={styles.textInput} />
+                    <TextInput placeholder="Phone Number" placeholderTextColor="green" keyboardType={"phone-pad"} style={styles.textInput} />
+                    <TextInput placeholder="Password" placeholderTextColor="green" secureTextEntry={true} style={styles.textInput} />
                     <View style={styles.formButton}>
                         <Text style={styles.buttonText}> LOG IN</Text>
                     </View>
@@ -39,12 +25,11 @@ export default function LoginForm(props) {
     );
 }
 
-
 const styles = StyleSheet.create({
         container: {
             flex: 1,
-            justifyContent: 'flex-center',
-            backgroundColor: 'rgba(0, 173, 35,0.8)'
+            justifyContent : 'flex-start',
+            backgroundColor: 'rgba(86, 255, 131, 0.97)'
         },
         button: {
             backgroundColor : 'rgba(123,104,238,0.8)',
@@ -118,10 +103,10 @@ const styles = StyleSheet.create({
             borderRadius: 20
         },*/
         textLogoContainer: {
-            marginHorizontal : 20,
-            marginVertical: 75,
-            fontSize: 30,
-            fontWeight: '600',
+            marginHorizontal : '33%',
+            marginVertical: '33%',
+            fontSize: 35,
+            fontWeight: '400',
             color: 'green',
             letterSpacing: 0.5,
             height: 50,
