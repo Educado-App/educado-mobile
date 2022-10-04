@@ -1,17 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import {StyleSheet, Text, View} from 'react-native';
-import VeryNiceButton from './components/VeryNiceButton';
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faShapes} from '@fortawesome/free-solid-svg-icons/';
+import AnswerButtons from './components/AnswerButtons';
 
 export default function App() {
   return (
     <View style={styles.container}>
         <Text>This is app js</Text>
-        <View>
-        <FontAwesomeIcon icon={faShapes}/>
-        <VeryNiceButton></VeryNiceButton>
-        </View>
+        <AnswerButtons></AnswerButtons>
       <StatusBar style="auto" />
     </View>
   );
@@ -24,7 +19,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  row:{
-
-  }
 });
