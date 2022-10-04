@@ -16,7 +16,12 @@ export default function LoginForm(props) {
                 <View style ={styles.textLogoContainer}>
                     <Text>Educado...</Text>
                 </View>
+
                {/* <View style={styles.closeButtonContainer}>
+
+
+                <View style={styles.closeButtonContainer}>
+
                     <Text>X</Text>
 
                 </View>*/}
