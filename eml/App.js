@@ -1,42 +1,31 @@
-import React from 'react';
-import { StyleSheet, } from 'react-native';
-
-import {
-  RecoilRoot,
-} from 'recoil';
-
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
-import HomeScreen from './screens/Home/Home';
-import SearchScreen from './screens/Search/Search';
-import LibraryScreen from './screens/Library/Library';
-import CourseScreen from './screens/Course/Course';
-import SectionScreen from './screens/Section/Section';
-import Login from './screens/Login/Login';
-
-const Stack = createNativeStackNavigator();
+import { StatusBar } from 'expo-status-bar';
+import {StyleSheet, Text, View} from 'react-native';
+import VeryNiceButton from './components/VeryNiceButton';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {faShapes} from '@fortawesome/free-solid-svg-icons/';
 
 export default function App() {
   return (
-    <RecoilRoot>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="Login" screenOptions={{ animation: 'none', headerShown: false }}>
-          <Stack.Screen name="Home" component={HomeScreen}/>
-          <Stack.Screen name="Search" component={SearchScreen}/>
-          <Stack.Screen name="Library" component={LibraryScreen}/>
-          <Stack.Screen name="Course" component={CourseScreen}/>
-          <Stack.Screen name="Section" component={SectionScreen}/>
-          <Stack.Screen name="Login" component={Login}/>
-        </Stack.Navigator>
-      </NavigationContainer>
-    </RecoilRoot>
+    <View style={styles.container}>
+        <Text>This is app js</Text>
+        <View>
+        <FontAwesomeIcon icon={faShapes}/>
+        <VeryNiceButton></VeryNiceButton>
+        </View>
+      <StatusBar style="auto" />
+    </View>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F0F1F0',
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
+  row:{
+
+  }
 });
