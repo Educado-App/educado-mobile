@@ -8,9 +8,9 @@ import SectionContainer from '../../components/SectionContainer';
 
 import { useRecoilState, useRecoilValue } from "recoil";
 
-import { sectionProgressFlag } from "./../../recoil/atoms";
+import { sectionProgressFlag } from "../../../recoil/atoms";
 
-import { getAllSections } from '../../api/api';
+import { getAllSections } from '../../../api/api';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 const STORAGE_PROGRESS = '@storage_progress';

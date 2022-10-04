@@ -1,9 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 
 import { StyleSheet, Text, View } from 'react-native';
-import AnswerButtons from './AnswerButtons';
-import ContinueButton from './ContinueButton';
-import LearningInputVideo from './section/LearningInputVideoExample2';
+import AnswerButtons from '../../components/sessions/AnswerButtons';
+import ContinueButton from '../../components/sessions/ContinueButton';
+import LearningInputVideo from '../../components/sessions/video/LearningInputVideoExample2';
 
 export default function SessionComponent() {
   return (
