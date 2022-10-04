@@ -1,11 +1,17 @@
 import { StatusBar } from 'expo-status-bar';
+
 import { StyleSheet, Text, View } from 'react-native';
 import AnswerButtons from './components/AnswerButtons';
 import ContinueButton from './components/ContinueButton';
+import LearningInputVideo from './components/section/LearningInputVideoExample1';
 
 export default function App() {
   return (
     <View style={styles.container}>
+
+      <View>
+        <LearningInputVideo></LearningInputVideo> 
+      </View>
       <View style={{flex:1, paddingTop:300}}>
         <AnswerButtons></AnswerButtons>
       </View>
