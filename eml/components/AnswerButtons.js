@@ -61,6 +61,5 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row'
   },
-  buttons:{ width: 150, height: 100 }
 });
 export default AnswerButtons;
