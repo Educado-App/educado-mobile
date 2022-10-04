@@ -3,7 +3,6 @@ import React, { useEffect, useState, Suspense } from 'react';
 import { StyleSheet, Text, View, Image, Button, Dimensions} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useNavigation } from "@react-navigation/native";
-import LoginButton from "../../components/LoginButton";
 import LoginForm from "../../components/LoginForm";
 
 const {width, height} = Dimensions.get('window');
@@ -20,7 +19,7 @@ export default function Login(props) {
         // If yes, then continue
     // Check if language and country is set
         // If not, then prompt user and save
-        // If yes, then continue 
+        // If yes, then continue
 
         const [localId, setLocalId] = useState(String(Date.now)); // Local state variable for storing local user id
 
@@ -28,7 +27,7 @@ export default function Login(props) {
        const readId = async () => {
             try {
                 const fetchedLocalId = await AsyncStorage.getItem(STORAGE_ID);
-                
+
                 if (fetchedLocalId !== null) {
                     setLocalId(fetchedLocalId);
                     console.log('Already set, now logged in!');
@@ -43,7 +42,7 @@ export default function Login(props) {
 
 
                 } else {
-                    
+
                     try {
                         await AsyncStorage.setItem(STORAGE_ID,localId);
 
@@ -61,13 +60,13 @@ export default function Login(props) {
                         console.log('Error when storing user...')
                     }
                 }
-        
+
             } catch (error) {
                 console.log('Failed to fetch the data from storage');
             }
         };
-    
-    
+
+
     useEffect(() => {
         readId();
     },[])
@@ -75,7 +74,6 @@ export default function Login(props) {
 
   return (
     <View style={styles.container}>
-
         <LoginForm></LoginForm>
     </View>
   );

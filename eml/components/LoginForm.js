@@ -16,6 +16,7 @@ export default function LoginForm(props) {
                 <View style ={styles.educadoTextLogoContainer}>
                     <Text>Educado</Text>
                 </View>
+
                 <View style={styles.closeButtonContainer}>
                     <Text>X</Text>
 
