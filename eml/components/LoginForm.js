@@ -13,13 +13,13 @@ export default function LoginForm(props) {
     return (
         <View style ={styles.container}>
             <View style ={StyleSheet.absoluteFill}>
-                <View style ={styles.educadoTextLogoContainer}>
-                    <Text>Educado</Text>
+                <View style ={styles.textLogoContainer}>
+                    <Text>Educado...</Text>
                 </View>
-                <View style={styles.closeButtonContainer}>
+               {/* <View style={styles.closeButtonContainer}>
                     <Text>X</Text>
 
-                </View>
+                </View>*/}
             </View>
             <View style={styles.bottomContainer}>
                 <View style={styles.formInputContainer}>
@@ -38,10 +38,10 @@ export default function LoginForm(props) {
 const styles = StyleSheet.create({
         container: {
             flex: 1,
-            justifyContent: 'flex-center'
+            justifyContent: 'flex-center',
+            backgroundColor: 'rgba(0, 173, 35,0.8)'
         },
         button: {
-
             backgroundColor : 'rgba(123,104,238,0.8)',
             height : 55,
             alignItems : 'center',
@@ -55,13 +55,13 @@ const styles = StyleSheet.create({
         buttonText:{
             fontSize: 20,
             fontWeight: '600',
-            color: 'white',
+            color: 'black',
             letterSpacing: 0.5
 
         },
         bottomContainer:{
             justifyContent: 'center',
-            height: height / 3,
+            height: height,
         },
         textInput: {
             height: 50,
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
             paddingLeft: 10
         },
         formButton: {
-            backgroundColor : 'rgba(0,128,0,1)',
+            backgroundColor : 'white',
             height : 55,
             alignItems : 'center',
             justifyContent : 'center',
@@ -95,8 +95,7 @@ const styles = StyleSheet.create({
         formInputContainer:{
             marginBottom: 70
         },
-        closeButtonContainer:{
-
+       /* closeButtonContainer:{
             height: 40,
             width: 40,
             justifyContent: 'center',
@@ -112,14 +111,16 @@ const styles = StyleSheet.create({
             backgroundColor: 'white',
             alignItems: 'center',
             borderRadius: 20
-        },
-        educadoTextLogoContainer: {
+        },*/
+        textLogoContainer: {
+            marginHorizontal : 20,
+            marginVertical: 75,
             fontSize: 30,
             fontWeight: '600',
             color: 'green',
             letterSpacing: 0.5,
-            height: 20,
+            height: 50,
             width: 1000,
-            justifyContent: 'top'
+            justifyContent: 'center'
         }
 });

@@ -85,9 +85,11 @@ export default function Login(props) {
 
 const styles = StyleSheet.create({
     container: {
-        height: '100%',
-        width: '100%',
-        backgroundColor: 'lightGreen'
+        /*height: {height},
+        width: {width},*/
+        flex: 1,
+        justifyContent: 'flex-end',
+        backgroundColor: 'Green'
     },
 
 });
