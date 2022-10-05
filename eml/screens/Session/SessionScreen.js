@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import AnswerButtons from '../../components/sessions/AnswerButtons';
 import ContinueButton from '../../components/sessions/ContinueButton';
 import LearningInputVideo from '../../components/sessions/video/LearningInputVideoExample2';
+import FourButtons from '../../components/sessions/FourButtons';
 
 export default function SessionComponent() {
   return (
@@ -14,10 +15,10 @@ export default function SessionComponent() {
         <LearningInputVideo></LearningInputVideo> 
       </View>
       <View style={{flex:1}}>
-        <AnswerButtons></AnswerButtons>
+        <FourButtons></FourButtons>
       </View>
       <View style={{flex:1, alignSelf:'flex-end', paddingRight:10}}>
-        <ContinueButton></ContinueButton>
+        {/* <ContinueButton></ContinueButton> */}
       </View>
       <StatusBar style="auto" />
     </View>
