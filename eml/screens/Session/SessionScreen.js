@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import AnswerButtons from '../../components/sessions/AnswerButtons';
 import ContinueButton from '../../components/sessions/ContinueButton';
 import LearningInputVideo from '../../components/sessions/video/LearningInputVideoExample1';
-import FourButtons from '../../components/sessions/FourButtons';
+import FourButtons from '../../components/sessions/FourButtons2';
 
 export default function SessionComponent() {
   return (
