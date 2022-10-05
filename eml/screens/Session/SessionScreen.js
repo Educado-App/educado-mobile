@@ -5,6 +5,8 @@ import AnswerButtons from '../../components/sessions/AnswerButtons';
 import ContinueButton from '../../components/sessions/ContinueButton';
 import CustomProgressBar from '../../components/sessions/Progressbar';
 import LearningInputVideo from '../../components/sessions/video/LearningInputVideoExample1';
+import FourButtons from '../../components/sessions/FourButtons2';
+
 export default function SessionComponent() {
   return (
     <View style={styles.container}>
@@ -13,14 +15,11 @@ export default function SessionComponent() {
         <CustomProgressBar></CustomProgressBar>
         </View>
       </View>
-      <View style={{ flex: 2, width: '100%', height: '80%' }}>
-        <LearningInputVideo></LearningInputVideo>
+      <View style={{flex:2}}>
+        <FourButtons></FourButtons>
       </View>
-      <View style={{ flex: 2 }}>
-        <AnswerButtons></AnswerButtons>
-      </View>
-      <View style={{ flex: 1, alignSelf: 'flex-end', paddingRight: 10 }}>
-        <ContinueButton></ContinueButton>
+      <View style={{flex:1, alignSelf:'flex-end', paddingRight:10}}>
+        {/* <ContinueButton></ContinueButton> */}
       </View>
       <StatusBar style="auto" />
     </View>
