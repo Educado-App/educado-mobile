@@ -10,7 +10,9 @@ const LaerningInputVideoExample1 = () => {
             isMuted={false}
             resizeMode="cover"
             shouldPlay
-            useNativeControls={true}
+            useNativeControls
+
+
             isLooping
             style={styles.backgroundVideo}
         /> 
@@ -19,8 +21,7 @@ const LaerningInputVideoExample1 = () => {
 
 const styles = StyleSheet.create({
     backgroundVideo: {
-        width: 300, 
-        height: 300
+        height:'100%'
     },
   });
 

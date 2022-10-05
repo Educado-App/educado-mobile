@@ -10,7 +10,7 @@ const AnswerButton = ({icon, }) => {
 };
 const styles = StyleSheet.create({
   iceButton:{
-    padding: 6,
+    padding: 7,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
