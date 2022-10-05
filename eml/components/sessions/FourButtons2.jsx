@@ -1,8 +1,15 @@
 import React, { useState } from "react";
 import { View, Alert, StyleSheet } from "react-native";
 import { Icon } from "@rneui/themed";
+import { useNavigation } from '@react-navigation/native';
+import {useRoute} from '@react-navigation/native';
 
-export default function FourButtons2() {
+
+export default function FourButtons2({correctAnswer, sendDataToParent}) {
+
+  const navigation = useNavigation();
+  const route = useRoute().name;
+
   const [selected, setSelected] = useState({
     btn1: false,
     btn2: false,
@@ -10,6 +17,7 @@ export default function FourButtons2() {
     btn4: false,
   });
   const [choice, setChoice] = useState("");
+
 
   function handleChange(evt) {
     if (evt == "triangle") {
@@ -50,11 +58,21 @@ export default function FourButtons2() {
   }
 
   function checkChoice(choice) {
-    let correctAnswer = "star";
     if (choice == correctAnswer) {
-      Alert.alert("Wuhuuu you awnsered correct!", "God job!");
+      Alert.alert(
+        "Wuhuuu you awnsered correct!", 
+        "God job!",
+        [
+          {
+            text:"Next question!",
+            onPress: () => {
+              sendDataToParent();
+            }
+          }
+        ]
+        );
     } else {
-      Alert.alert("Buuuuuhhh you are bad", "bad boy!");
+      navigation.navigate('WrongAnswer',)
     }
   }
 

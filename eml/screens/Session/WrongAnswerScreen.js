@@ -7,8 +7,11 @@ import LearningInputVideo from '../../components/sessions/video/LearningInputVid
 import LeaveButton from '../../components/sessions/LeaveButton';
 import CustomProgressBar from '../../components/sessions/Progressbar';
 import { Icon } from "@rneui/themed";
+import { useNavigation } from '@react-navigation/native';
+
 
 export default function WrongAnswerComponent()  {
+    const navigation = useNavigation();
     return (
         <View style={styles.container}>
             <View style={{ flex: 0.5 }}>
@@ -37,7 +40,7 @@ export default function WrongAnswerComponent()  {
                     name="chevron-right"
                     type="material-community"
                     color="white"
-                    onPress={() => checkChoice(choice)}
+                    onPress={() => navigation.navigate('Session',)}
                 />
                 </View>
             </View>

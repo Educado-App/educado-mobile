@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, ViewComponent } from 'react-native';
-
+import Session from './Session/SessionScreen'
 export default function CourseComponent()  {
     return (
         <View>
