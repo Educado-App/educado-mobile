@@ -11,15 +11,16 @@ export default function SessionComponent() {
   return (
     <View style={styles.container}>
       <View style={{ flex: 0.5}}>
-        <View style={[styles.row, {paddingTop: '10%' }]}>
+        <View style={[styles.row, {paddingTop: '15%'}]}>
+        
         <CustomProgressBar></CustomProgressBar>
         </View>
       </View>
-      <View style={{flex:2}}>
-        <FourButtons></FourButtons>
+      <View style={{flex:2, width:'100%'}}>
+        <LearningInputVideo></LearningInputVideo>
       </View>
-      <View style={{flex:1, alignSelf:'flex-end', paddingRight:10}}>
-        {/* <ContinueButton></ContinueButton> */}
+      <View style={{flex:3}}>
+        <FourButtons></FourButtons>
       </View>
       <StatusBar style="auto" />
     </View>
