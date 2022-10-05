@@ -1,10 +1,14 @@
-import React from "react";
-import {StyleSheet, Pressable, Text, Image, View, Dimensions, TextInput} from "react-native";
+import React, {useState} from 'react';
+import {StyleSheet, Pressable, Text, Image, View, Dimensions, TextInput, TouchableOpacity} from "react-native";
+import textInput from "react-native-web/dist/exports/TextInput";
 
 const {width, height} = Dimensions.get('window');
 
 
 export default function LoginForm(props) {
+
+
+
     return (
         <View style ={styles.container}>
             <View style ={StyleSheet.absoluteFill}>
@@ -16,9 +20,12 @@ export default function LoginForm(props) {
                 <View style={styles.formInputContainer}>
                     <TextInput placeholder="Phone Number" placeholderTextColor="green" keyboardType={"phone-pad"} style={styles.textInput} />
                     <TextInput placeholder="Password" placeholderTextColor="green" secureTextEntry={true} style={styles.textInput} />
-                    <View style={styles.formButton}>
-                        <Text style={styles.buttonText}> LOG IN</Text>
-                    </View>
+                    <TouchableOpacity onPress={()=>{console.log("Pressed!")}}>
+                        <View style={styles.formButton}>
+                            <Text style={styles.buttonText}> LOG IN</Text>
+                        </View>
+                    </TouchableOpacity>
+
                 </View>
             </View>
         </View>
