@@ -36,7 +36,7 @@ export default function SessionComponent() {
   return (
     <View style={styles.container}>
   <View style={{ flex: 0.5 }}>
-        <View style={[styles.row, { paddingTop: '5%', paddingRight:'7%'}]}>
+        <View style={[styles.row, { paddingTop: '7%', paddingRight:'8%'}]}>
           <View style={{}}>
             <LeaveButton></LeaveButton>
           </View>
