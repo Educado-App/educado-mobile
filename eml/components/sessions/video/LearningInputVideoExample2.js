@@ -1,6 +1,6 @@
 import { ResizeMode } from 'expo-av'
 import VideoPlayer from 'expo-video-player'
-
+import { StyleSheet, Text, View } from 'react-native';
 const LearningInputVideoExample2 = () => {
     return (
         <VideoPlayer
@@ -18,9 +18,15 @@ const LearningInputVideoExample2 = () => {
           visible: false,
         }}
         timeVisible={false}
-        style={{ height: 160 }}
+        style={styles.video}
       />
     )
 }
+
+
+const styles = StyleSheet.create({
+  video: {
+      },
+});
 
 export default LearningInputVideoExample2;
