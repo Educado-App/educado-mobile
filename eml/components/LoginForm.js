@@ -7,7 +7,12 @@ const {width, height} = Dimensions.get('window');
 
 export default function LoginForm(props) {
 
+    const [number, setNumber] = useState('');
+    const [password, setPass] = useState('');
 
+    function gatherInput (number, password) {
+        return {phoneNumber: number, password: password}
+    }
 
     return (
         <View style ={styles.container}>
@@ -18,14 +23,25 @@ export default function LoginForm(props) {
             </View>
             <View style={styles.bottomContainer}>
                 <View style={styles.formInputContainer}>
-                    <TextInput placeholder="Phone Number" placeholderTextColor="green" keyboardType={"phone-pad"} style={styles.textInput} />
-                    <TextInput placeholder="Password" placeholderTextColor="green" secureTextEntry={true} style={styles.textInput} />
-                    <TouchableOpacity onPress={()=>{console.log("Pressed!")}}>
+                    <TextInput style={styles.textInput}
+                               placeholder="Phone Number"
+                               placeholderTextColor="green"
+                               keyboardType={"phone-pad"}
+                               onChangeText={number => setNumber(number)}
+
+                    />
+                    <TextInput
+                               style={styles.textInput}
+                               placeholder="Password"
+                               placeholderTextColor="green"
+                               secureTextEntry={true}
+                               onChangeText={password => setPass(password)}
+                    />
+                    <TouchableOpacity onPress={()=>{console.log(gatherInput(number, password))}}>
                         <View style={styles.formButton}>
-                            <Text style={styles.buttonText}> LOG IN</Text>
+                            <Text style={styles.buttonText}>Login</Text>
                         </View>
                     </TouchableOpacity>
-
                 </View>
             </View>
         </View>

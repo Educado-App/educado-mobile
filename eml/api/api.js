@@ -4,7 +4,7 @@ const prod = 'http://educado.somethingnew.dk'
 const test = 'https://ancient-basin-06516.herokuapp.com'
 
 export const getCourses = async () => {
-    const res = await axios.get('https://ancient-basin-06516.herokuapp.com/api/course/eml/getall');
+    const res = await axios.get(test + '/api/course/eml/getall');
     return res.data;
 };
 
@@ -31,7 +31,7 @@ export const getAllSections = async(sections) => {
     }
     // Send request to S3 server
     const res = await axios.post('https://ancient-basin-06516.herokuapp.com/api/eml/course/getallsections', obj);
-    
+
     return res.data;
 }
 

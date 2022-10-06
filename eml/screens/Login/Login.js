@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState, Suspense } from 'react';
-import { StyleSheet, Text, View, Image, Button, Dimensions} from 'react-native';
+import {StyleSheet, Text, View, Image, Button, Dimensions, Pressable} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useNavigation } from "@react-navigation/native";
 import LoginForm from "../../components/LoginForm";
@@ -75,16 +75,19 @@ export default function Login(props) {
   return (
     <View style={styles.container}>
         <LoginForm></LoginForm>
+        <Pressable onPress={() => navigation.navigate('Register')}>
+            <Text style={styles.register}>Register a new account</Text>
+        </Pressable>
     </View>
   );
 }
-
-
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'flex-end',
     },
-
+    register: {
+        //We need styling here!
+    },
 });
