@@ -2,13 +2,17 @@ import React, { useState } from "react";
 import { View, Alert, StyleSheet } from "react-native";
 import { Icon } from "@rneui/themed";
 import { useNavigation } from '@react-navigation/native';
-import {useRoute} from '@react-navigation/native';
+import {Audio} from 'expo-av'
 
+const voiceOvers = [
+  require('/Users/karlos/Desktop/SW5 Projekt/educado-mobile-application/eml/assets/voiceOverTest.mp3'),
+  require('/Users/karlos/Desktop/SW5 Projekt/educado-mobile-application/eml/assets/questionExample1.mp3'),
+  require('/Users/karlos/Desktop/SW5 Projekt/educado-mobile-application/eml/assets/questionExample2.mp3')
+]
 
 export default function FourButtons2({correctAnswer, sendDataToParent}) {
 
   const navigation = useNavigation();
-  const route = useRoute().name;
 
   const [selected, setSelected] = useState({
     btn1: false,
@@ -18,7 +22,28 @@ export default function FourButtons2({correctAnswer, sendDataToParent}) {
   });
   const [choice, setChoice] = useState("");
 
+  handlePlaySound = async () => {
 
+    const soundObj = new Audio.Sound()
+
+    try{
+      let source = voiceOvers[Math.floor(Math.random()* (3-0) + 0)]
+      await soundObj.loadAsync(source)
+      await soundObj
+      .playAsync().then(async playbackStatus =>{
+        setTimeout(()=>{
+          soundObj.unloadAsync()
+        }, playbackStatus.playableDurationMillis)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+
+    } catch (error) {
+      console.log(error)
+
+  }
+  }
   function handleChange(evt) {
     if (evt == "triangle") {
       setSelected({
@@ -60,7 +85,7 @@ export default function FourButtons2({correctAnswer, sendDataToParent}) {
   function checkChoice(choice) {
     if (choice == correctAnswer) {
       Alert.alert(
-        "Wuhuuu you answered correct!", 
+        "Wuhuuu you awnsered correct!", 
         "God job!",
         [
           {
@@ -95,7 +120,7 @@ export default function FourButtons2({correctAnswer, sendDataToParent}) {
             name="triangle"
             type="material-community"
             color="white"
-            onPress={() => handleChange("triangle")}
+            onPress={() => {handleChange("triangle");  this.handlePlaySound()}}
           />
         </View>
         <View
@@ -114,7 +139,7 @@ export default function FourButtons2({correctAnswer, sendDataToParent}) {
             name="checkbox-blank-circle"
             type="material-community"
             color="white"
-            onPress={() => handleChange("circle")}
+            onPress={() => {handleChange("circle");  this.handlePlaySound()}}
           />
         </View>
       </View>
@@ -136,7 +161,7 @@ export default function FourButtons2({correctAnswer, sendDataToParent}) {
             name="star"
             type="material-community"
             color="white"
-            onPress={() => handleChange("star")}
+            onPress={() => {handleChange("star");  this.handlePlaySound()}}
           />
         </View>
         <View
@@ -155,7 +180,7 @@ export default function FourButtons2({correctAnswer, sendDataToParent}) {
             name="square"
             type="material-community"
             color="white"
-            onPress={() => handleChange("square")}
+            onPress={() => {handleChange("square");  this.handlePlaySound()}}
           />
         </View>
       </View>

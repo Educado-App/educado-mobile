@@ -7,7 +7,6 @@ import CustomProgressBar from '../../components/sessions/Progressbar';
 import LearningInputVideo from '../../components/sessions/video/LearningInputVideoExample1';
 import FourButtons from '../../components/sessions/FourButtons2';
 
-
 //import file/api = let filedata.
 
 export default function SessionComponent() {
