@@ -5,9 +5,9 @@ import { useNavigation } from '@react-navigation/native';
 import {Audio} from 'expo-av'
 
 const voiceOvers = [
-  require('/Users/karlos/Desktop/SW5 Projekt/educado-mobile-application/eml/assets/voiceOverTest.mp3'),
-  require('/Users/karlos/Desktop/SW5 Projekt/educado-mobile-application/eml/assets/questionExample1.mp3'),
-  require('/Users/karlos/Desktop/SW5 Projekt/educado-mobile-application/eml/assets/questionExample2.mp3')
+  require('..\educado-mobile-application\eml\assets\questionExample1.mp3'),
+  require('..\educado-mobile-application\eml\assets\questionExample2.mp3'),
+  require('..\educado-mobile-application\eml\assets\voiceOverTest.mp3')
 ]
 
 export default function FourButtons2({correctAnswer, sendDataToParent}) {
@@ -85,7 +85,7 @@ export default function FourButtons2({correctAnswer, sendDataToParent}) {
   function checkChoice(choice) {
     if (choice == correctAnswer) {
       Alert.alert(
-        "Wuhuuu you awnsered correct!", 
+        "Wuhuuu you answered correct!", 
         "God job!",
         [
           {
