@@ -6,9 +6,9 @@ import { Audio } from 'expo-av'
 import PropTypes from 'prop-types'
 
 const voiceOvers = [
-  require('/Users/karlos/Desktop/SW5 Projekt/educado-mobile-application/eml/assets/voiceOverTest.mp3'),
-  require('/Users/karlos/Desktop/SW5 Projekt/educado-mobile-application/eml/assets/questionExample1.mp3'),
-  require('/Users/karlos/Desktop/SW5 Projekt/educado-mobile-application/eml/assets/questionExample2.mp3')
+  require('..educado-mobile-applicationemlassetsquestionExample1.mp3'),
+  require('..educado-mobile-applicationemlassetsquestionExample2.mp3'),
+  require('..educado-mobile-applicationemlassets\voiceOverTest.mp3')
 ]
 
 export default function FourButtons2({ correctAnswer, sendDataToParent }) {
