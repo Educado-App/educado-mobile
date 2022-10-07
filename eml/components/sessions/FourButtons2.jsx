@@ -27,6 +27,7 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
   })
   const [choice, setChoice] = useState('')
 
+  // eslint-disable-next-line no-undef
   handlePlaySound = async () => {
     const soundObj = new Audio.Sound()
 
