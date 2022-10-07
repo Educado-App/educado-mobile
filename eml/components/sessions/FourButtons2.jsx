@@ -6,9 +6,9 @@ import { Audio } from 'expo-av'
 import PropTypes from 'prop-types'
 
 const voiceOvers = [
-  require('..educado-mobile-applicationemlassetsquestionExample1.mp3'),
-  require('..educado-mobile-applicationemlassetsquestionExample2.mp3'),
-  require('..educado-mobile-applicationemlassets\voiceOverTest.mp3')
+  require('../../assets/questionExample1.mp3'),
+  require('../../assets/questionExample2.mp3'),
+  require('../../assets/voiceOverTest.mp3')
 ]
 
 export default function FourButtons2({ correctAnswer, sendDataToParent }) {
@@ -16,7 +16,7 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
 
   FourButtons2.propTypes = {
     correctAnswer: PropTypes.string.isRequired,
-    sendDataToParent: PropTypes.function.isRequired
+    sendDataToParent: PropTypes.func.isRequired
   }
 
   const [selected, setSelected] = useState({

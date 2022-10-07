@@ -1,38 +1,36 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useEffect, useState, Suspense } from 'react';
-import { StyleSheet, Text, View, Image, Button, Dimensions} from 'react-native';
+import { StatusBar } from 'expo-status-bar'
+import React, { useEffect, useState, Suspense } from 'react'
+import { StyleSheet, Text, View, Image, Button, Dimensions } from 'react-native'
 
-import TopNavBar from './../../components/TopNavBar';
+import TopNavBar from './../../components/TopNavBar'
 
-import BottomNavBar from '../../components/BottomNavBar';
+import BottomNavBar from '../../components/BottomNavBar'
 
-
-import ActiveCourseTest from "./ActiveCourseTest";
+import ActiveCourseTest from './ActiveCourseTest'
 
 export default function Home(props) {
-
   return (
     <View style={styles.container}>
-        <View style={styles.topNavBar}>
-          <TopNavBar></TopNavBar>
-        </View>
-        <View style={styles.activeCoursesContainer}>
-          <Text style={styles.activeCoursesTitle}>Active courses</Text>
-          <Suspense fallback={<Text>Loading Details...</Text>}>
-            <ActiveCourseTest></ActiveCourseTest>
-          </Suspense>
-        </View>
-        <View style={styles.activeCoursesContainer}>
-          <Text style={styles.activeCoursesTitle}>My learning</Text>
-          <Text>Work in progress...</Text>
-        </View>
-        
-        <View style={styles.bottomNavBarContainer}>
-          <BottomNavBar nav={props.navigation}></BottomNavBar>
-        </View>
+      <View style={styles.topNavBar}>
+        <TopNavBar></TopNavBar>
+      </View>
+      <View style={styles.activeCoursesContainer}>
+        <Text style={styles.activeCoursesTitle}>Active courses</Text>
+        <Suspense fallback={<Text>Loading Details...</Text>}>
+          <ActiveCourseTest></ActiveCourseTest>
+        </Suspense>
+      </View>
+      <View style={styles.activeCoursesContainer}>
+        <Text style={styles.activeCoursesTitle}>My learning</Text>
+        <Text>Work in progress...</Text>
+      </View>
+
+      <View style={styles.bottomNavBarContainer}>
+        <BottomNavBar nav={props.navigation}></BottomNavBar>
+      </View>
       <StatusBar style="auto" />
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -63,13 +61,13 @@ const styles = StyleSheet.create({
   activeCoursesTitle: {
     fontWeight: 'bold',
     color: '#878787',
-    fontSize: 18,
+    fontSize: 18
   },
   bottomNavBarContainer: {
     height: '100%',
     flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-end',
-    marginBottom: '5%',
+    marginBottom: '5%'
   }
-});
+})
