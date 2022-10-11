@@ -1,5 +1,5 @@
 import React from "react";
-import {StyleSheet, Pressable, Text, Image, View, Dimensions, TextInput} from "react-native";
+import {StyleSheet, Pressable, Text, Image, View, Dimensions, TextInput, TouchableOpacity} from "react-native";
 
 const {width, height} = Dimensions.get('window');
 
@@ -13,27 +13,37 @@ export default function LoginForm(props) {
     return (
         <View style ={styles.container}>
             <View style ={StyleSheet.absoluteFill}>
-                <View style ={styles.textLogoContainer}>
-                    <Text>Educado...</Text>
+                <View>
+                    <Text style={styles.textLogoContainer}>Register User</Text>
                 </View>
-
-                {/* <View style={styles.closeButtonContainer}>
-
-
-                <View style={styles.closeButtonContainer}>
-
-                    <Text>X</Text>
-
-                </View>*/}
             </View>
             <View style={styles.bottomContainer}>
                 <View style={styles.formInputContainer}>
-                    <TextInput placeholder="name/nickname" placeholderTextColor="black" style={styles.textInput} />
-                    <TextInput placeholder="Phone Number" placeholderTextColor="black" style={styles.textInput} />
-                    <TextInput placeholder="Password" placeholderTextColor="black"  style={styles.textInput} />
-                    <View style={styles.formButton}>
-                        <Text style={styles.buttonText}> LOG IN</Text>
-                    </View>
+                    <TextInput style={styles.textInput}
+                               placeholder="Name"
+                               placeholderTextColor="green"
+
+
+                    />
+                    <TextInput style={styles.textInput}
+                               placeholder="Phone Number"
+                               placeholderTextColor="green"
+                               keyboardType={"phone-pad"}
+                               onChangeText={number => setNumber(number)}
+
+                    />
+                    <TextInput
+                        style={styles.textInput}
+                        placeholder="Password"
+                        placeholderTextColor="green"
+                        secureTextEntry={true}
+                        onChangeText={password => setPass(password)}
+                    />
+                    <TouchableOpacity onPress={()=>{console.log(gatherInput(number, password))}}>
+                        <View style={styles.formButton}>
+                            <Text style={styles.buttonText}>Register</Text>
+                        </View>
+                    </TouchableOpacity>
                 </View>
             </View>
         </View>
@@ -41,10 +51,11 @@ export default function LoginForm(props) {
 }
 
 const styles = StyleSheet.create({
+
     container: {
         flex: 1,
-        justifyContent: 'flex-center',
-        backgroundColor: 'rgba(0, 173, 35,0.8)'
+        justifyContent : 'flex-start',
+        backgroundColor: 'rgba(86, 255, 131, 0.97)'
     },
     button: {
         backgroundColor : 'rgba(123,104,238,0.8)',
@@ -118,10 +129,10 @@ const styles = StyleSheet.create({
          borderRadius: 20
      },*/
     textLogoContainer: {
-        marginHorizontal : 20,
-        marginVertical: 75,
-        fontSize: 30,
-        fontWeight: '600',
+        marginHorizontal : '20%',
+        marginVertical: '25%',
+        fontSize: 35,
+        fontWeight: '400',
         color: 'green',
         letterSpacing: 0.5,
         height: 50,

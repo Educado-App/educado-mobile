@@ -14,6 +14,8 @@ import LibraryScreen from './screens/Library/Library';
 import CourseScreen from './screens/Course/Course';
 import SectionScreen from './screens/Section/Section';
 import Login from './screens/Login/Login';
+import Register from "./screens/Register/Register";
+
 
 const Stack = createNativeStackNavigator();
 
@@ -28,6 +30,7 @@ export default function App() {
           <Stack.Screen name="Course" component={CourseScreen}/>
           <Stack.Screen name="Section" component={SectionScreen}/>
           <Stack.Screen name="Login" component={Login}/>
+          <Stack.Screen name="Register" component={Register}/>
         </Stack.Navigator>
       </NavigationContainer>
     </RecoilRoot>

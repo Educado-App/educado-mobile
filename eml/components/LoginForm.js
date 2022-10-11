@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {StyleSheet, Pressable, Text, Image, View, Dimensions, TextInput, TouchableOpacity} from "react-native";
 import textInput from "react-native-web/dist/exports/TextInput";
+import styles from "../../components/Styles";
 
 const {width, height} = Dimensions.get('window');
 
@@ -13,6 +14,7 @@ export default function LoginForm(props) {
     function gatherInput (number, password) {
         return {phoneNumber: number, password: password}
     }
+
 
     return (
         <View style ={styles.container}>
@@ -37,6 +39,7 @@ export default function LoginForm(props) {
                                secureTextEntry={true}
                                onChangeText={password => setPass(password)}
                     />
+
                     <TouchableOpacity onPress={()=>{console.log(gatherInput(number, password))}}>
                         <View style={styles.formButton}>
                             <Text style={styles.buttonText}>Login</Text>
@@ -52,7 +55,7 @@ const styles = StyleSheet.create({
         container: {
             flex: 1,
             justifyContent : 'flex-start',
-            backgroundColor: 'rgba(86, 255, 131, 0.97)'
+
         },
         button: {
             backgroundColor : 'rgba(123,104,238,0.8)',
@@ -73,8 +76,9 @@ const styles = StyleSheet.create({
 
         },
         bottomContainer:{
+            marginVertical: '75%',
             justifyContent: 'center',
-            height: height,
+            height: '33%',
         },
         textInput: {
             height: 50,
@@ -108,23 +112,6 @@ const styles = StyleSheet.create({
         formInputContainer:{
             marginBottom: 70
         },
-       /* closeButtonContainer:{
-            height: 40,
-            width: 40,
-            justifyContent: 'center',
-            alignSelf: 'center',
-            shadowColor: "#000",
-            shadowOffset: {
-                width: 0,
-                height: 5,
-            },
-            shadowOpacity: 0.34,
-            shadowRadius: 6.27,
-            elevation: 1,
-            backgroundColor: 'white',
-            alignItems: 'center',
-            borderRadius: 20
-        },*/
         textLogoContainer: {
             marginHorizontal : '33%',
             marginVertical: '33%',
