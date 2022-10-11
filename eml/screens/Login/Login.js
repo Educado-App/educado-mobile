@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState, Suspense } from 'react';
-import {StyleSheet, Text, View, Image, Button, Dimensions, Pressable} from 'react-native';
+import {StyleSheet, Text, View, Image, Button, Dimensions, Pressable, TouchableOpacity} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useNavigation } from "@react-navigation/native";
 import LoginForm from "../../components/LoginForm";
@@ -77,11 +77,12 @@ export default function Login(props) {
         <LoginForm></LoginForm>
 
         <View style={styles.bottomContainer}>
-        <View style={styles.formButton}>
-        <Pressable onPress={() => navigation.navigate('Register')}>
-            <Text style={styles.buttonText}>Register a new account</Text>
-        </Pressable>
-        </View>
+
+        <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+            <View style={styles.formButton}>
+                <Text style={styles.buttonText}>Register a new account</Text>
+            </View>
+        </TouchableOpacity>
         </View>
     </View>
   );

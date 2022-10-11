@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {StyleSheet, Pressable, Text, Image, View, Dimensions, TextInput, TouchableOpacity} from "react-native";
 import textInput from "react-native-web/dist/exports/TextInput";
-import styles from "../../components/Styles";
 
 const {width, height} = Dimensions.get('window');
 

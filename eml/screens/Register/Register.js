@@ -23,8 +23,6 @@ export default function Register(props) {
 
 const styles = StyleSheet.create({
     container: {
-        /*height: {height},
-        width: {width},*/
         flex: 1,
         justifyContent: 'flex-end',
         backgroundColor: 'Green'
