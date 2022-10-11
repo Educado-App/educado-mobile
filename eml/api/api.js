@@ -4,7 +4,7 @@ const prod = 'http://educado.somethingnew.dk'
 const testOld = 'https://ancient-basin-06516.herokuapp.com'
 const test = 'http://localhost:8888'
 
-const url = test;
+const url = testOld;
 
 export const getCourses = async () => {
     const res = await axios.get(url + '/api/course/eml/getall');

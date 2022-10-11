@@ -31,10 +31,8 @@ export default function LoginForm(props) {
             await console.log("User may exist");
         };
 
-        if(!userExists){
-            //Call the api to register user
-            registerUser(obj).then(r => console.log("User registered"));
-        }
+       //let res = registerUser(obj);
+
         return console.log(obj);
     }
 

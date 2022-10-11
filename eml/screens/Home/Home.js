@@ -3,10 +3,7 @@ import React, { useEffect, useState, Suspense } from 'react';
 import { StyleSheet, Text, View, Image, Button, Dimensions} from 'react-native';
 
 import TopNavBar from './../../components/TopNavBar';
-
 import BottomNavBar from '../../components/BottomNavBar';
-
-
 import ActiveCourseTest from "./ActiveCourseTest";
 
 export default function Home(props) {
@@ -26,7 +23,7 @@ export default function Home(props) {
           <Text style={styles.activeCoursesTitle}>My learning</Text>
           <Text>Work in progress...</Text>
         </View>
-        
+
         <View style={styles.bottomNavBarContainer}>
           <BottomNavBar nav={props.navigation}></BottomNavBar>
         </View>

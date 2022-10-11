@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { StyleSheet, Text, View, Dimensions, Image, Pressable } from 'react-native';
-import { Feather } from '@expo/vector-icons'; 
+import { Feather } from '@expo/vector-icons';
 
 
 export default function TopNavBar(props) {
@@ -9,7 +9,9 @@ export default function TopNavBar(props) {
   return (
     <View  style={styles.container}>
       <Text style={styles.title}>Educado</Text>
-      <Feather name="menu" size={36} color="#78BE20" style={styles.menu} />
+      <Pressable onPress={()=>{console.log("Hello")}}>
+          <Feather name="menu" size={36} color="#78BE20" style={styles.menu} />
+      </Pressable>
     </View>
   );
 }

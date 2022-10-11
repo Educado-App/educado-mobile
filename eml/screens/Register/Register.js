@@ -19,8 +19,6 @@ export default function Register(props) {
     );
 }
 
-
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,

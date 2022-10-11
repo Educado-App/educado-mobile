@@ -5,7 +5,7 @@ const testOld = 'https://ancient-basin-06516.herokuapp.com'
 const test = 'http://localhost:8888'
 const local = 'http://192.168.43.130'
 
-const url = local;
+const url = testOld;
 
 export const registerUser = async (obj) => {
     const res = await axios.post(url + "/api/eml/register", obj);
