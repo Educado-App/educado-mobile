@@ -1,14 +1,43 @@
-import React from "react";
+import React, {useState} from "react";
 import {StyleSheet, Pressable, Text, Image, View, Dimensions, TextInput, TouchableOpacity} from "react-native";
 
 const {width, height} = Dimensions.get('window');
 
 import {useNavigation} from "@react-navigation/native";
 import {useRoute} from "@react-navigation/native";
+import {registerUser} from "../api/userApi";
 
 export default function LoginForm(props) {
     const navigation = useNavigation();
     const route = useRoute().name;
+
+    const [name, setName] = useState('');
+    const [phoneNumber, setNumber] = useState('');
+    const [password, setPass] = useState('');
+
+    function validateInput (name, phoneNumber, password) {
+
+        const obj = {
+            name: name,
+            phoneNumber: phoneNumber,
+            password: password
+        };
+
+        //Check if the input is valid, if not throw exception
+        //If yes, call the api to see if the user exists
+        //If not register user in the database
+
+        let userExists = async () => {
+            await console.log("User may exist");
+        };
+
+        if(!userExists){
+            //Call the api to register user
+            registerUser(obj).then(r => console.log("User registered"));
+        }
+        return console.log(obj);
+    }
+
 
     return (
         <View style ={styles.container}>
@@ -22,6 +51,7 @@ export default function LoginForm(props) {
                     <TextInput style={styles.textInput}
                                placeholder="Name"
                                placeholderTextColor="green"
+                               onChangeText={name => setName(name)}
 
 
                     />
@@ -29,7 +59,7 @@ export default function LoginForm(props) {
                                placeholder="Phone Number"
                                placeholderTextColor="green"
                                keyboardType={"phone-pad"}
-                               onChangeText={number => setNumber(number)}
+                               onChangeText={phoneNumber => setNumber(phoneNumber)}
 
                     />
                     <TextInput
@@ -39,7 +69,7 @@ export default function LoginForm(props) {
                         secureTextEntry={true}
                         onChangeText={password => setPass(password)}
                     />
-                    <TouchableOpacity onPress={()=>{console.log(gatherInput(number, password))}}>
+                    <TouchableOpacity onPress={()=>{validateInput(name, phoneNumber, password)}}>
                         <View style={styles.formButton}>
                             <Text style={styles.buttonText}>Register</Text>
                         </View>

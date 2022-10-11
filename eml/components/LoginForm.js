@@ -7,11 +7,20 @@ const {width, height} = Dimensions.get('window');
 
 export default function LoginForm(props) {
 
-    const [number, setNumber] = useState('');
+    const [phoneNumber, setNumber] = useState('');
     const [password, setPass] = useState('');
 
-    function gatherInput (number, password) {
-        return {phoneNumber: number, password: password}
+    function validateInput (phoneNumber, password) {
+
+        //Check if the input is valid, if not throw exception
+        // If yes, call the api to see if the user exists
+
+        const obj = {
+            phoneNumber: phoneNumber,
+            password: password
+        };
+
+        return console.log(obj);
     }
 
 
@@ -28,7 +37,7 @@ export default function LoginForm(props) {
                                placeholder="Phone Number"
                                placeholderTextColor="green"
                                keyboardType={"phone-pad"}
-                               onChangeText={number => setNumber(number)}
+                               onChangeText={phoneNumber => setNumber(phoneNumber)}
 
                     />
                     <TextInput
@@ -39,7 +48,7 @@ export default function LoginForm(props) {
                                onChangeText={password => setPass(password)}
                     />
 
-                    <TouchableOpacity onPress={()=>{console.log(gatherInput(number, password))}}>
+                    <TouchableOpacity onPress={()=>{validateInput(phoneNumber, password)}}>
                         <View style={styles.formButton}>
                             <Text style={styles.buttonText}>Login</Text>
                         </View>
