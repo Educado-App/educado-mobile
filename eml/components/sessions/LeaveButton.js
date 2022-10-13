@@ -5,7 +5,8 @@ const LeaveButton = () => {
 
     return (
       <TouchableOpacity>
-          <Button buttonStyle={styles.buttons} color='white' radius='20' size='sm' icon={<Icon
+          <Button buttonStyle={styles.buttons} color='white' radius='20' size='sm' icon={
+          <Icon
               size={30}
               name='chevron-left'
               type='material-community'
