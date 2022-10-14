@@ -1,12 +1,7 @@
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import WrongAnswerComponent from './screens/Session/WrongAnswerScreen'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { RecoilRoot } from 'recoil'
 import CourseScreen from '../eml/screens/Courses/CourseScreen'
-import CourseMenu from './components/courses/courseHeader/CourseMenu'
-import CourseBody from './components/courses/CourseBody'
-import CourseSectionList from './components/courses/courseBody/CourseSectionList'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Icon } from '@rneui/themed'
 

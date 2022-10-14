@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import { DrawerLayoutAndroid, Text, StyleSheet, View } from 'react-native'
 import CourseProgress from './CourseProgress'
 import CourseTitleIcon from './CourseTitleIcon'

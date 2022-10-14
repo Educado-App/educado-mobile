@@ -1,6 +1,5 @@
 import React from 'react'
 import { StyleSheet, View, Text } from 'react-native'
-import { Icon } from '@rneui/themed'
 import Star from '../../gamificationElements/Star'
 import PropTypes from 'prop-types'
 
