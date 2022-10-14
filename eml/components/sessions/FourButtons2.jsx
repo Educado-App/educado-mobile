@@ -86,13 +86,13 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
     setChoice(evt)
   }
 
-  function setButtonState(btn1, btn2, btn3, btn4) {
+  function setButtonState(b1, b2, b3, b4) {
     setSelected({
       ...selected,
-      btn1: btn1,
-      btn2: btn2,
-      btn3: btn3,
-      btn4: btn4
+      btn1: b1,
+      btn2: b2,
+      btn3: b3,
+      btn4: b4
     })
   }
 
