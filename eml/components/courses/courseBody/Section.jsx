@@ -4,17 +4,25 @@ import * as Progress from 'react-native-progress'
 import { Icon } from '@rneui/base'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
-export default function CourseSectionList(props) {
+export default function Section({
+  SectionIcon,
+  SectionText,
+  SectionProgressText,
+  SectionProgressBarWidth,
+  SectionOpacity
+}) {
   // needs props that contain icons, text and progress for specific section.
   return (
     // Needs to have State To update Width of the view with background color which is now green
     <TouchableOpacity
       style={{
-        marginTop: 300,
         width: '95%',
-        height: '15%',
+        height: 80,
+        marginTop: 30,
         alignItems: 'center',
-        alignSelf: 'center'
+        alignSelf: 'center',
+        borderRadius: 14,
+        borderColor: 'red'
       }}
     >
       <View
@@ -25,51 +33,54 @@ export default function CourseSectionList(props) {
       >
         <View
           style={{
-            width: '40%', //we use state to change this width
-            borderRadius: 17,
+            width: '100%',
+            height: '100%',
+            backgroundColor: 'grey',
+            zIndex: 2,
+            elevation: 2,
+            opacity: SectionOpacity,
+            borderRadius: 14
+          }}
+        ></View>
+        <View
+          style={{
+            width: SectionProgressBarWidth + '%', //we use state to change this width
+            borderRadius: 14,
             height: '100%',
             backgroundColor: '#00ff18',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            opacity: 0.5,
+            zIndex: 1,
+            elevation: 1,
+            position: 'absolute'
           }}
         />
         <View
           style={{
-            width: '98%',
-            height: '89%',
+            width: '100%',
+            height: '100%',
             alignItems: 'center',
             borderRadius: 14,
-            opacity: 0.6,
-            backgroundColor: 'lightgrey',
+            backgroundColor: '#DEDEDE',
             flexDirection: 'row',
-            zIndex: 1,
-            elevation: 1,
-            position: 'absolute',
-            marginTop: '1%',
-            marginLeft: '1%'
+            position: 'absolute'
           }}
         >
-          <View style={{ flex: 0.5, alignItems: 'flex-start' }}>
-            <Icon // icon
-              size={30}
-              name="cash"
-              type="material-community"
-              color="#095410"
-            />
-          </View>
-          <View style={{ flex: 4, alignItems: 'flex-end' }}>
+          <View style={{ flex: 1, alignItems: 'center' }}>{SectionIcon}</View>
+          <View style={{ flex: 2.4, alignItems: 'center' }}>
             <Text
               style={{
                 fontSize: '18',
                 fontWeight: '700'
               }}
             >
-              How to save money
+              {SectionText}
             </Text>
             {/* Text that will change with state */}
           </View>
           <View
             style={{
-              flex: 2,
+              flex: 1,
               alignItems: 'flex-end',
               paddingRight: '2%'
             }}
@@ -81,7 +92,7 @@ export default function CourseSectionList(props) {
                   fontWeight: 'bold'
                 }}
               >
-                4 / 13
+                {SectionProgressText}
               </Text>
               <Icon // icon
                 size={30}
