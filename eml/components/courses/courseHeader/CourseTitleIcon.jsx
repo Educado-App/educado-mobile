@@ -23,7 +23,7 @@ export default function CourseTitleIcon({ color, name, type, title }) {
           {title}
         </Text>
       </View>
-      <View>
+      <View style={{ bottom: '5%' }}>
         <HeaderIcon color={color} name={name} type={type}></HeaderIcon>
       </View>
     </View>

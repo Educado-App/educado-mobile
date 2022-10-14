@@ -2,7 +2,7 @@ import React from 'react'
 import { View } from 'react-native'
 import Section from './Section'
 import { Icon } from '@rneui/base'
-export default function CourseSectionList(props) {
+export default function CourseSectionList() {
   return (
     <View
       style={{
