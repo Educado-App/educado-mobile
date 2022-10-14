@@ -23,7 +23,6 @@ export default function CourseHeader() {
 const styles = StyleSheet.create({
   container: {
     paddingTop: '8%',
-    flex: 1,
-    alignItems: 'center'
+    alignItems: 'center',
   }
 })
