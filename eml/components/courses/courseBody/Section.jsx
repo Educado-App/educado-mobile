@@ -1,8 +1,8 @@
-import React from 'react'
-import { View, Text } from 'react-native'
+import React, { useState } from 'react'
+import { View, Text, TouchableOpacity, Pressable, Alert } from 'react-native'
 import * as Progress from 'react-native-progress'
 import { Icon } from '@rneui/base'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import { State } from 'react-native-gesture-handler'
 
 export default function Section({
   SectionIcon,
@@ -11,19 +11,24 @@ export default function Section({
   SectionProgressBarWidth,
   SectionOpacity
 }) {
-  // needs props that contain icons, text and progress for specific section.
+  const [selected, setSelected] = useState({
+    pressed: 'lightgrey'
+  })
   return (
     // Needs to have State To update Width of the view with background color which is now green
-    <TouchableOpacity
-      style={{
-        width: '95%',
-        height: 80,
-        marginTop: 30,
-        alignItems: 'center',
-        alignSelf: 'center',
-        borderRadius: 14,
-        borderColor: 'red'
-      }}
+    <Pressable
+      style={[
+        {
+          width: '95%',
+          height: 80,
+          marginTop: 30,
+          alignItems: 'center',
+          alignSelf: 'center',
+          borderRadius: 14
+        }
+      ]}
+      onPressIn={() => setSelected({ pressed: 'gray' })}
+      onPressOut={() => setSelected({ pressed: 'lightgrey' })}
     >
       <View
         style={{
@@ -31,39 +36,27 @@ export default function Section({
           height: '100%'
         }}
       >
-        <View
+        <View //This is the active layer
           style={{
             width: '100%',
             height: '100%',
-            backgroundColor: 'grey',
-            zIndex: 2,
-            elevation: 2,
+            backgroundColor: '#F5F5F5',
+            zIndex: 3,
+            elevation: 3,
             opacity: SectionOpacity,
             borderRadius: 14
           }}
         ></View>
-        <View
-          style={{
-            width: SectionProgressBarWidth + '%', //we use state to change this width
-            borderRadius: 14,
-            height: '100%',
-            backgroundColor: '#00ff18',
-            justifyContent: 'center',
-            opacity: 0.5,
-            zIndex: 1,
-            elevation: 1,
-            position: 'absolute'
-          }}
-        />
-        <View
+        <View //This is the content layer
           style={{
             width: '100%',
             height: '100%',
             alignItems: 'center',
             borderRadius: 14,
-            backgroundColor: '#DEDEDE',
             flexDirection: 'row',
-            position: 'absolute'
+            position: 'absolute',
+            zIndex: 2,
+            elevation: 2
           }}
         >
           <View style={{ flex: 1, alignItems: 'center' }}>{SectionIcon}</View>
@@ -76,7 +69,6 @@ export default function Section({
             >
               {SectionText}
             </Text>
-            {/* Text that will change with state */}
           </View>
           <View
             style={{
@@ -103,7 +95,33 @@ export default function Section({
             </View>
           </View>
         </View>
+        <View //This is progress bar layer
+          style={{
+            width: SectionProgressBarWidth + '%',
+            borderRadius: 14,
+            height: '100%',
+            backgroundColor: '#00ff18',
+            justifyContent: 'center',
+            opacity: 0.5,
+            zIndex: 1,
+            elevation: 1,
+            position: 'absolute'
+          }}
+        />
+        <View //This is the background layer
+          style={[
+            {
+              width: '100%',
+              height: '100%',
+              backgroundColor: selected.pressed,
+              zIndex: 0,
+              elevation: 0,
+              borderRadius: 14,
+              position: 'absolute'
+            }
+          ]}
+        ></View>
       </View>
-    </TouchableOpacity>
+    </Pressable>
   )
 }

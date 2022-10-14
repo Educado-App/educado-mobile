@@ -15,7 +15,7 @@ export default function CourseSectionList(props) {
             size={'50%'}
             name="cash"
             type="material-community"
-            color="#095410"
+            color="green"
           />
         }
         SectionText={'How To Save Money'}
@@ -36,7 +36,7 @@ export default function CourseSectionList(props) {
         SectionText={'How To Get Money'}
         SectionProgressText={'23 / 90'}
         SectionProgressBarWidth={String((23 / 90) * 100)}
-        SectionOpacity={0.6}
+        SectionOpacity={0.8}
       ></Section>
 
       <Section
@@ -51,7 +51,7 @@ export default function CourseSectionList(props) {
         SectionText={'How To  Money'}
         SectionProgressText={'0 / 90'}
         SectionProgressBarWidth={String((0 / 90) * 100)}
-        SectionOpacity={0.6}
+        SectionOpacity={0.5}
       ></Section>
       <Section
         SectionIcon={
