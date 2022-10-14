@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { RecoilRoot } from 'recoil'
 import CourseScreen from '../eml/screens/Courses/CourseScreen'
 import CourseMenu from './components/courses/courseHeader/CourseMenu'
+import CourseBody from './components/courses/CourseBody'
 
 const Stack = createNativeStackNavigator()
 
@@ -15,7 +16,7 @@ export default function App() {
         <Stack.Navigator initialRouteName="Session">
           <Stack.Screen
             name="Session"
-            component={CourseMenu}
+            component={CourseScreen}
             options={{ headerShown: false }}
           />
           <Stack.Screen
