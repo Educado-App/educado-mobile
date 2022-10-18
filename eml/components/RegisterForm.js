@@ -1,12 +1,10 @@
 import React, {useState} from "react";
-import {StyleSheet, Pressable, Text, Image, View, Dimensions, TextInput, TouchableOpacity} from "react-native";
+import {Dimensions, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
+import {useNavigation, useRoute} from "@react-navigation/native";
+import {registerUser} from "../api/userApi";
 
 
 const {width, height} = Dimensions.get('window');
-
-import {useNavigation} from "@react-navigation/native";
-import {useRoute} from "@react-navigation/native";
-import {registerUser} from "../api/userApi";
 
 export default function LoginForm(props) {
     const navigation = useNavigation();
@@ -16,22 +14,18 @@ export default function LoginForm(props) {
     const [phoneNumber, setNumber] = useState('');
     const [password, setPassword] = useState('');
 
-    function validateInput (phoneNumber, password) {
+    async function validateInput (phoneNumber, password) {
 
         let obj = {
             phone: phoneNumber,
             password: password
         };
-
         console.log(obj);
 
-       let res = registerUser(obj);
+        await registerUser(obj)
+              .then(function(response){console.log(response)})
+              .catch(function(error){console.log(error)});
 
-        //Check if the input is valid, if not throw exception
-        //If yes, call the api to see if the user exists
-        //If not register user in the database
-
-        return console.log(res)
     }
 
 
