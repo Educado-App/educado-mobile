@@ -1,33 +1,33 @@
 import React, {useState} from "react";
 import {Dimensions, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
-import {useNavigation, useRoute} from "@react-navigation/native";
+import {useNavigation} from "@react-navigation/native";
 import {registerUser} from "../api/userApi";
-
 
 const {width, height} = Dimensions.get('window');
 
 export default function LoginForm(props) {
-    const navigation = useNavigation();
-    const route = useRoute().name;
 
-    const [name, setName] = useState('');
+    const navigation = useNavigation();
+
     const [phoneNumber, setNumber] = useState('');
     const [password, setPassword] = useState('');
 
     async function validateInput (phoneNumber, password) {
 
-        let obj = {
+        const obj = {
             phone: phoneNumber,
             password: password
         };
-        console.log(obj);
 
         await registerUser(obj)
-              .then(function(response){console.log(response)})
-              .catch(function(error){console.log(error)});
-
+              .then(function(response){
+                  console.log(response);
+                  navigation.navigate('Home');
+              })
+              .catch(function(error){
+                  console.log(error)
+              });
     }
-
 
     return (
         <View style ={styles.container}>

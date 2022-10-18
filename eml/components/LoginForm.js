@@ -1,34 +1,33 @@
 import React, {useState} from 'react';
 import {StyleSheet, Pressable, Text, Image, View, Dimensions, TextInput, TouchableOpacity} from "react-native";
-import textInput from "react-native-web/dist/exports/TextInput";
 import {useNavigation} from "@react-navigation/native";
+import {loginUser} from "../api/userApi";
 
 const {width, height} = Dimensions.get('window');
-
-
 
 export default function LoginForm(props) {
 
     const navigation = useNavigation();
 
     const [phoneNumber, setNumber] = useState('');
-    const [password, setPass] = useState('');
+    const [password, setPassword] = useState('');
 
-    function validateInput (phoneNumber, password) {
-
-        //Check if the input is valid, if not throw exception
-        // If yes, call the api to see if the user exists
-        //If all good then navigate to home
+    async function validateInput (phoneNumber, password) {
 
         const obj = {
-            phoneNumber: phoneNumber,
+            phone: phoneNumber,
             password: password
         };
 
-        navigation.navigate('Home');
-        return console.log(obj);
+        await loginUser(obj)
+            .then(function(response){
+                console.log(response);
+                navigation.navigate('Home');
+            })
+            .catch(function(error){
+                console.log(error);
+            });
     }
-
 
     return (
         <View style ={styles.container}>
@@ -51,7 +50,7 @@ export default function LoginForm(props) {
                                placeholder="Password"
                                placeholderTextColor="green"
                                secureTextEntry={true}
-                               onChangeText={password => setPass(password)}
+                               onChangeText={password => setPassword(password)}
                     />
 
                     <TouchableOpacity onPress={()=>{validateInput(phoneNumber, password)}}>

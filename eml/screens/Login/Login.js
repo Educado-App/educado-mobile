@@ -25,7 +25,7 @@ export default function Login(props) {
         const [localId, setLocalId] = useState(String(Date.now)); // Local state variable for storing local user id
 
         // Function for reading local user id from async local storage
-       const readId = async () => {
+       /*const readId = async () => {
             try {
                 const fetchedLocalId = await AsyncStorage.getItem(STORAGE_ID);
 
@@ -65,25 +65,24 @@ export default function Login(props) {
             } catch (error) {
                 console.log('Failed to fetch the data from storage');
             }
-        };
+        };*/
 
 
     useEffect(() => {
-        readId();
+        //readId();
     },[])
 
 
   return (
     <View style={styles.container}>
-        <LoginForm/>
+        <LoginForm></LoginForm>
 
         <View style={styles.bottomContainer}>
-
-        <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-            <View style={styles.formButton}>
-                <Text style={styles.buttonText}>Register a new account</Text>
-            </View>
-        </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+                <View style={styles.formButton}>
+                    <Text style={styles.buttonText}>Register a new account</Text>
+                </View>
+            </TouchableOpacity>
         </View>
     </View>
   );
