@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { StyleSheet, Text, View, Dimensions, Image, Pressable } from 'react-native';
-import { Feather } from '@expo/vector-icons'; 
+import { Feather } from '@expo/vector-icons';
 
 import { useNavigation } from '@react-navigation/native';
 import {useRoute} from '@react-navigation/native';
@@ -12,26 +12,26 @@ export default function BottomNavBar(props) {
     const route = useRoute().name;
 
   return (
-    
+
     <View>
         <View style={{height: 1, backgroundColor: '#878787'}} />
         <View  style={styles.container}>
 
-            <View style={route == 'Search' && styles.iconBox}>
-                <Pressable  onPress={() => navigation.navigate('Search')}>
-                    <Feather name="search" size={36} color="#78BE20" style={styles.menu} />
+            <View style={route === 'Library' && styles.iconBox}>
+                <Pressable  onPress={() => navigation.navigate('Library')}>
+                    <Feather name="book" size={36} color="#78BE20" style={styles.menu} />
                 </Pressable>
             </View>
 
-            <View style={route == 'Home' && styles.iconBox}>
+            <View style={route === 'Home' && styles.iconBox}>
                 <Pressable  onPress={() => navigation.navigate('Home')}>
                     <Feather name="home" size={36} color="#78BE20" style={styles.menu} />
                 </Pressable>
             </View>
 
-            <View style={route == 'Library' && styles.iconBox}>
-                <Pressable  onPress={() => navigation.navigate('Library')}>
-                    <Feather name="book" size={36} color="#78BE20" style={styles.menu} />
+            <View style={route === 'Search' && styles.iconBox}>
+                <Pressable  onPress={() => navigation.navigate('Search')}>
+                    <Feather name="search" size={36} color="#78BE20" style={styles.menu} />
                 </Pressable>
             </View>
 

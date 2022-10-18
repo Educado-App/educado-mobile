@@ -8,11 +8,13 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@expo/vector-icons": "^13.0.0",
     "@react-native-async-storage/async-storage": "~1.17.3",
     "@react-native-community/masked-view": "^0.1.10",
+    "@react-navigation/drawer": "^6.5.0",
     "@react-navigation/native": "^6.0.8",
     "@react-navigation/native-stack": "^6.5.0",
-    "axios": "^0.21.1",
+    "axios": "^0.21.4",
     "expo": "^46.0.0",
     "expo-av": "~12.0.4",
     "expo-status-bar": "~1.4.0",

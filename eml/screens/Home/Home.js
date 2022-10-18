@@ -5,6 +5,8 @@ import { StyleSheet, Text, View, Image, Button, Dimensions} from 'react-native';
 import TopNavBar from './../../components/TopNavBar';
 import BottomNavBar from '../../components/BottomNavBar';
 import ActiveCourseTest from "./ActiveCourseTest";
+import DrawerView from "../Drawer/Drawer";
+
 
 export default function Home(props) {
 

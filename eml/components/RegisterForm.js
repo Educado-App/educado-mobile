@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {StyleSheet, Pressable, Text, Image, View, Dimensions, TextInput, TouchableOpacity} from "react-native";
 
+
 const {width, height} = Dimensions.get('window');
 
 import {useNavigation} from "@react-navigation/native";
@@ -13,27 +14,22 @@ export default function LoginForm(props) {
 
     const [name, setName] = useState('');
     const [phoneNumber, setNumber] = useState('');
-    const [password, setPass] = useState('');
+    const [password, setPassword] = useState('');
 
-    function validateInput (name, phoneNumber, password) {
+    function validateInput (phoneNumber, password) {
 
-        const obj = {
-            name: name,
-            phoneNumber: phoneNumber,
-            password: password
+        let obj = {
+            phone: phoneNumber,
+            password: password,
         };
+
+        const res = registerUser(obj);
 
         //Check if the input is valid, if not throw exception
         //If yes, call the api to see if the user exists
         //If not register user in the database
 
-        let userExists = async () => {
-            await console.log("User may exist");
-        };
-
-       //let res = registerUser(obj);
-
-        return console.log(obj);
+        return console.log(res);
     }
 
 
@@ -46,28 +42,25 @@ export default function LoginForm(props) {
             </View>
             <View style={styles.bottomContainer}>
                 <View style={styles.formInputContainer}>
-                    <TextInput style={styles.textInput}
-                               placeholder="Name"
-                               placeholderTextColor="green"
-                               onChangeText={name => setName(name)}
 
-
-                    />
                     <TextInput style={styles.textInput}
+                               name={"phone"}
+                               value={phoneNumber}
                                placeholder="Phone Number"
                                placeholderTextColor="green"
                                keyboardType={"phone-pad"}
                                onChangeText={phoneNumber => setNumber(phoneNumber)}
-
                     />
                     <TextInput
                         style={styles.textInput}
+                        name={"password"}
+                        value={password}
                         placeholder="Password"
                         placeholderTextColor="green"
                         secureTextEntry={true}
-                        onChangeText={password => setPass(password)}
+                        onChangeText={password => setPassword(password)}
                     />
-                    <TouchableOpacity onPress={()=>{validateInput(name, phoneNumber, password)}}>
+                    <TouchableOpacity onPress={()=>{validateInput(phoneNumber, password)}}>
                         <View style={styles.formButton}>
                             <Text style={styles.buttonText}>Register</Text>
                         </View>

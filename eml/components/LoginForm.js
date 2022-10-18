@@ -25,9 +25,7 @@ export default function LoginForm(props) {
             password: password
         };
 
-        console.log("Before");
         navigation.navigate('Home');
-        console.log("After");
         return console.log(obj);
     }
 
