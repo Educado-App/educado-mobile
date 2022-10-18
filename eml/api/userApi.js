@@ -8,9 +8,10 @@ const local = 'exp://192.168.43.130:19000'
 const url = test;
 
 export const registerUser = async(obj) => {
-    console.log(obj);
+    console.log(test+"/api/eml/register");
     const res = await axios.post(url + "/api/eml/register", obj)
                            .then(function(response){console.log(response)})
                            .catch(function(error){console.log(error)});
+
     return res.data;
 }

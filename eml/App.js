@@ -27,7 +27,7 @@ export default function App() {
     <RecoilRoot>
       <NavigationContainer>
 
-        <Stack.Navigator initialRouteName="Home" screenOptions={{ animation: 'none', headerShown: false }}>
+        <Stack.Navigator initialRouteName="Login" screenOptions={{ animation: 'none', headerShown: false }}>
           <Stack.Screen name="Home" component={HomeScreen}/>
           <Stack.Screen name="Search" component={SearchScreen}/>
           <Stack.Screen name="Library" component={LibraryScreen}/>

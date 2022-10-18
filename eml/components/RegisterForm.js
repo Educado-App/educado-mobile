@@ -20,16 +20,18 @@ export default function LoginForm(props) {
 
         let obj = {
             phone: phoneNumber,
-            password: password,
+            password: password
         };
 
-        const res = registerUser(obj);
+        console.log(obj);
+
+       let res = registerUser(obj);
 
         //Check if the input is valid, if not throw exception
         //If yes, call the api to see if the user exists
         //If not register user in the database
 
-        return console.log(res);
+        return console.log(res)
     }
 
 
