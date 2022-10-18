@@ -14,7 +14,7 @@ export default function Register(props) {
 
     return (
         <View style={styles.container}>
-            <RegisterForm></RegisterForm>
+            <RegisterForm/>
         </View>
     );
 }

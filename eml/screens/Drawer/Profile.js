@@ -1,10 +1,49 @@
 import * as React from 'react';
-import { View, Text } from "react-native";
+import {View, Text, StyleSheet} from "react-native";
+import LogOutButton from "../../components/LogOutButton";
+import {Feather} from "@expo/vector-icons";
 
 export default function ProfileScreen() {
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Text style={{fontSize:16,fontWeight:'700'}}>Profile Screen</Text>
+        <View>
+            <View>
+                <Text style={styles.textLogoContainer}>Profile Screen</Text>
+                <Feather name="user" size={48} style={styles.tinyLogo}  />
+
+            </View>
+
+            {/*<Text>Device Settings</Text>
+            <Text> Profile Settings</Text>*/}
+
+            <LogOutButton/>
         </View>
+
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent : 'flex-start'
+    },
+
+    tinyLogo: {
+        marginVertical: 0,
+        marginHorizontal: 190,
+        width: 50,
+        height: 50,
+        alignItems : 'center',
+        justifyContent : 'center',
+    },
+    textLogoContainer: {
+        marginHorizontal : '26%',
+        marginVertical: '15%',
+        fontSize: 35,
+        fontWeight: '400',
+        color: 'green',
+        letterSpacing: 0.5,
+        height: 50,
+        width: 1000,
+        justifyContent: 'center'
+    }
+});

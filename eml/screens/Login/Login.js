@@ -4,6 +4,7 @@ import {StyleSheet, Text, View, Image, Button, Dimensions, Pressable, TouchableO
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useNavigation } from "@react-navigation/native";
 import LoginForm from "../../components/LoginForm";
+import LogOutButton from "../../components/LogOutButton";
 
 const {width, height} = Dimensions.get('window');
 
@@ -74,7 +75,7 @@ export default function Login(props) {
 
   return (
     <View style={styles.container}>
-        <LoginForm></LoginForm>
+        <LoginForm/>
 
         <View style={styles.bottomContainer}>
 
