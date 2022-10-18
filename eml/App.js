@@ -1,9 +1,9 @@
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
-import WrongAnswerComponent from './screens/Session/WrongAnswerScreen'
 import CourseScreen from '../eml/screens/Courses/CourseScreen'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Icon } from '@rneui/themed'
+import ProfileComponent from './screens/Profile/Profile'
 
 const Tab = createBottomTabNavigator()
 
@@ -30,7 +30,7 @@ export default function App() {
         />
         <Tab.Screen
           name="Profile"
-          component={WrongAnswerComponent}
+          component={ProfileComponent}
           options={{
             headerShown: false,
             tabBarIcon: () => {
