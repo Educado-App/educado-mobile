@@ -1,10 +1,13 @@
 import * as React from 'react'
 import * as Progress from 'react-native-progress'
-
-const CustomProgressBar = () => {
+import PropTypes from 'prop-types'
+const CustomProgressBar = ({ progress }) => {
+  CustomProgressBar.propTypes = {
+    progress: PropTypes.number.isRequired
+  }
   return (
     <Progress.Bar
-      progress={0.2}
+      progress={progress}
       width={275}
       height={10}
       color="rgba(123,254,77, 100)"

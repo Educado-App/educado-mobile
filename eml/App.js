@@ -4,8 +4,32 @@ import WrongAnswerComponent from './screens/Session/WrongAnswerScreen'
 import CourseScreen from '../eml/screens/Courses/CourseScreen'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Icon } from '@rneui/themed'
-
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import SessionScreen from '../eml/screens/Session/SessionScreen'
 const Tab = createBottomTabNavigator()
+
+const CourseStack = createNativeStackNavigator()
+
+function CourseStackNavigator() {
+  return (
+    <CourseStack.Navigator>
+      <CourseStack.Screen
+        name="Course"
+        component={CourseScreen}
+        options={{
+          headerShown: false
+        }}
+      />
+      <CourseStack.Screen
+        name="Exercise"
+        component={SessionScreen}
+        options={{
+          headerShown: false
+        }}
+      />
+    </CourseStack.Navigator>
+  )
+}
 
 export default function App() {
   return (
@@ -13,7 +37,7 @@ export default function App() {
       <Tab.Navigator>
         <Tab.Screen
           name="Home"
-          component={CourseScreen}
+          component={CourseStackNavigator}
           options={{
             headerShown: false,
             tabBarIcon: () => {
@@ -45,6 +69,13 @@ export default function App() {
             }
           }}
         />
+        {/*         <Tab.Screen
+          name="Exercise"
+          component={SessionScreen}
+          options={{
+            headerShown: false
+          }}
+        /> */}
       </Tab.Navigator>
     </NavigationContainer>
 

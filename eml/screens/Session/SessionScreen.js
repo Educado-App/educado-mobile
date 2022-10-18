@@ -7,15 +7,20 @@ import LearningInputVideo from '../../components/sessions/video/LearningInputVid
 import FourButtons from '../../components/sessions/FourButtons2'
 import HeaderIcon from '../../components/sessions/headerIcon'
 
+import { useNavigation } from '@react-navigation/native'
+
 export default function SessionComponent() {
+  const navigation = useNavigation()
   const answerArray = ['star', 'circle', 'square']
 
   const [answerNr, setAnswerNr] = useState(0)
+
   useEffect(() => {
     if (answerNr > answerArray.length - 1) {
       setAnswerNr(-1)
     }
   })
+
   function sendDataToParent() {
     setAnswerNr((current) => current + 1)
     console.log(answerNr)
@@ -45,12 +50,21 @@ export default function SessionComponent() {
           </View>
         </View>
         <View>
-          <CustomProgressBar></CustomProgressBar>
+          <CustomProgressBar
+            progress={Math.round((answerNr / answerArray.length) * 10) / 10}
+          ></CustomProgressBar>
         </View>
       </View>
       <View style={{ flex: 2, width: '100%' }}>
         <LearningInputVideo></LearningInputVideo>
-        {answerNr === -1 ? Alert.alert('Course is done', 'Good job!') : null}
+        {answerNr === -1
+          ? Alert.alert('Good job you completed the course!', 'Pikkelademad', [
+              {
+                text: 'Back',
+                onPress: () => console.log(navigation.navigate('Course'))
+              }
+            ])
+          : null}
       </View>
       <View style={{ flex: 3 }}>
         <FourButtons

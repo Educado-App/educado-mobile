@@ -36,7 +36,7 @@ export default function WrongAnswerComponent() {
             name="chevron-right"
             type="material-community"
             color="white"
-            onPress={() => navigation.navigate('Session')}
+            onPress={() => navigation.navigate('Exercise')}
           />
         </View>
       </View>
