@@ -53,7 +53,9 @@ export default function LoginForm(props) {
                                onChangeText={password => setPassword(password)}
                     />
 
-                    <TouchableOpacity onPress={()=>{validateInput(phoneNumber, password)}}>
+                    <TouchableOpacity onPress={()=>{
+                        validateInput(phoneNumber, password);
+                    }}>
                         <View style={styles.formButton}>
                             <Text style={styles.buttonText}>Login</Text>
                         </View>
@@ -68,7 +70,6 @@ const styles = StyleSheet.create({
         container: {
             flex: 1,
             justifyContent : 'flex-start',
-
         },
         button: {
             backgroundColor : 'rgba(123,104,238,0.8)',

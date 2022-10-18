@@ -6,16 +6,13 @@ import {Feather} from "@expo/vector-icons";
 export default function ProfileScreen() {
     return (
         <View>
+
             <View>
                 <Text style={styles.textLogoContainer}>Profile Screen</Text>
                 <Feather name="user" size={48} style={styles.tinyLogo}  />
-
             </View>
 
-            {/*<Text>Device Settings</Text>
-            <Text> Profile Settings</Text>*/}
-
-            <LogOutButton/>
+            <LogOutButton></LogOutButton>
         </View>
 
     );

@@ -5,6 +5,7 @@ import { StyleSheet, Text, View, Image, Button, Dimensions} from 'react-native';
 import TopNavBar from './../../components/TopNavBar';
 import BottomNavBar from '../../components/BottomNavBar';
 import ActiveCourseTest from "./ActiveCourseTest";
+import ProfilePicture from "../../components/ProfilePicture";
 import DrawerView from "../Drawer/Drawer";
 
 
@@ -15,15 +16,22 @@ export default function Home(props) {
         <View style={styles.topNavBar}>
           <TopNavBar></TopNavBar>
         </View>
+
+      <View style={styles.activeCoursesContainer}>
+        <Text style={styles.activeCoursesTitle}>My Profile</Text>
+        <ProfilePicture></ProfilePicture>
+      </View>
+
+        <View style={styles.activeCoursesContainer}>
+          <Text style={styles.activeCoursesTitle}>My learning</Text>
+          <Text>Work in progress...</Text>
+        </View>
+
         <View style={styles.activeCoursesContainer}>
           <Text style={styles.activeCoursesTitle}>Active courses</Text>
           <Suspense fallback={<Text>Loading Details...</Text>}>
             <ActiveCourseTest></ActiveCourseTest>
           </Suspense>
-        </View>
-        <View style={styles.activeCoursesContainer}>
-          <Text style={styles.activeCoursesTitle}>My learning</Text>
-          <Text>Work in progress...</Text>
         </View>
 
         <View style={styles.bottomNavBarContainer}>
