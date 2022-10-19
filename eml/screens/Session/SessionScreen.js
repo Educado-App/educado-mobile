@@ -8,12 +8,16 @@ import FourButtons from '../../components/sessions/FourButtons2'
 import HeaderIcon from '../../components/sessions/headerIcon'
 import { useNavigation } from '@react-navigation/native'
 import Star from '../../components/gamificationElements/Star'
+
 export default function SessionComponent() {
   const navigation = useNavigation()
   const answerArray = ['star', 'circle', 'square']
 
   const [answerNr, setAnswerNr] = useState(0)
   const [correctNr, setCorrectNr] = useState(0)
+
+  const fraqBot = answerArray.length
+  const fraqTop = correctNr
 
   useEffect(() => {
     if (answerNr > answerArray.length - 1) {
