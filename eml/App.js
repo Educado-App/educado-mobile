@@ -6,8 +6,8 @@ import { Icon } from '@rneui/themed'
 import ProfileComponent from './screens/Profile/Profile'
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import SessionScreen from '../eml/screens/Session/SessionScreen'
-import WrongAnswerComponent from './screens/Session/WrongAnswerScreen'
+import SessionScreen from './screens/excercise/ExerciseScreen'
+import WrongAnswerComponent from './screens/excercise/WrongAnswerScreen'
 const Tab = createBottomTabNavigator()
 
 const CourseStack = createNativeStackNavigator()

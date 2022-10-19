@@ -7,11 +7,11 @@ import PropTypes from 'prop-types'
 const nrArr = [
   [1, 3],
   [2, 3],
-  [3, 3],
+  [3, 30],
   [0, 3]
 ]
 
-export default function CourseSectionList() {
+export default function CourseSectionList(Sections) {
   CourseSectionList.propTypes = {
     CourseProgression: PropTypes.array.isRequired
   }
@@ -60,7 +60,7 @@ export default function CourseSectionList() {
         SectionText={'How To Invest'}
         SectionProgressText={`${nrArr[2][0]}/${nrArr[2][1]}`}
         SectionProgressBarWidth={String((nrArr[2][0] / nrArr[2][1]) * 100)}
-        SectionOpacity={0.5}
+        SectionOpacity={0}
       ></Section>
       <Section
         SectionIcon={
@@ -74,7 +74,7 @@ export default function CourseSectionList() {
         SectionText={'How To Earn Millions'}
         SectionProgressText={`${nrArr[3][0]}/${nrArr[3][1]}`}
         SectionProgressBarWidth={String((nrArr[3][0] / nrArr[3][1]) * 100)}
-        SectionOpacity={0}
+        SectionOpacity={0.8}
       ></Section>
     </View>
   )

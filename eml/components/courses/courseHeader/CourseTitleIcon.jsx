@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
-import HeaderIcon from '../../sessions/headerIcon'
+import HeaderIcon from '../../exercise/headerIcon'
 import PropTypes from 'prop-types'
 
 export default function CourseTitleIcon({ color, name, type, title }) {
