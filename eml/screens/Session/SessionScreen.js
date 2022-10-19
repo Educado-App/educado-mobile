@@ -6,7 +6,7 @@ import CustomProgressBar from '../../components/sessions/Progressbar'
 import LearningInputVideo from '../../components/sessions/video/LearningInputVideoExample1'
 import FourButtons from '../../components/sessions/FourButtons2'
 import HeaderIcon from '../../components/sessions/headerIcon'
-
+import Victory from '../../components/gamificationElements/Confetti'
 import { useNavigation } from '@react-navigation/native'
 
 export default function SessionComponent() {
@@ -58,7 +58,7 @@ export default function SessionComponent() {
       <View style={{ flex: 2, width: '100%' }}>
         <LearningInputVideo></LearningInputVideo>
         {answerNr === -1
-          ? Alert.alert('Good job you completed the course!', 'Pikkelademad', [
+          ? Alert.alert('Good job you completed the course!', 'Pogchamp', [
               {
                 text: 'Back',
                 onPress: () => console.log(navigation.navigate('Course'))

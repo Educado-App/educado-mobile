@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, Alert, StyleSheet } from 'react-native'
 import { Icon } from '@rneui/themed'
 import { useNavigation } from '@react-navigation/native'
@@ -26,6 +26,8 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
     btn4: false
   })
   const [choice, setChoice] = useState('')
+
+  const [button, setButton] = useState(true)
 
   const handlePlaySound = async () => {
     const soundObj = new Audio.Sound()
@@ -132,6 +134,7 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
             type="material-community"
             color="white"
             onPress={() => {
+              setButton()
               handleChange('triangle')
               handlePlaySound()
             }}
@@ -154,6 +157,7 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
             type="material-community"
             color="white"
             onPress={() => {
+              setButton()
               handleChange('circle')
               handlePlaySound()
             }}
@@ -178,6 +182,7 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
             type="material-community"
             color="white"
             onPress={() => {
+              setButton()
               handleChange('star')
               handlePlaySound()
             }}
@@ -200,6 +205,7 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
             type="material-community"
             color="white"
             onPress={() => {
+              setButton()
               handleChange('square')
               handlePlaySound()
             }}
@@ -210,16 +216,18 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
         <View
           style={[
             styles.nextArrow,
-            styles.buttonShadow,
-            { shadowColor: '#2db300' }
+            { backgroundColor: button ? 'lightgrey' : '#2db300' }
           ]}
         >
           <Icon
             size={70}
             name="check-bold"
+            disabledStyle={{ borderRadius: 15 }}
+            disabled={button}
             type="material-community"
             color="white"
             onPress={() => {
+              setButton(true)
               checkChoice(choice)
             }}
           />

@@ -2,7 +2,12 @@ import React from 'react'
 import { View } from 'react-native'
 import Section from './Section'
 import { Icon } from '@rneui/base'
-export default function CourseSectionList() {
+import PropTypes from 'prop-types'
+export default function CourseSectionList({ CourseProgression }) {
+  CourseSectionList.propTypes = {
+    CourseProgression: PropTypes.array.isRequired
+  }
+
   return (
     <View>
       <Section
@@ -14,9 +19,9 @@ export default function CourseSectionList() {
             color="green"
           />
         }
-        SectionText={"How To Save Money"}
-        SectionProgressText={"13 / 30"}
-        SectionProgressBarWidth={String((13 / 30) * 100)}
+        SectionText={'How To Save Money'}
+        SectionProgressText={CourseProgression}
+        SectionProgressBarWidth={String(CourseProgression * 100)}
         SectionOpacity={0}
       ></Section>
 
@@ -29,8 +34,8 @@ export default function CourseSectionList() {
             color="#095410"
           />
         }
-        SectionText={"How To Get Money"}
-        SectionProgressText={"23 / 90"}
+        SectionText={'How To Get Money'}
+        SectionProgressText={'23 / 90'}
         SectionProgressBarWidth={String((23 / 90) * 100)}
         SectionOpacity={0.8}
       ></Section>
@@ -44,8 +49,8 @@ export default function CourseSectionList() {
             color="#095410"
           />
         }
-        SectionText={"How To  Money"}
-        SectionProgressText={"0 / 90"}
+        SectionText={'How To  Money'}
+        SectionProgressText={'0 / 90'}
         SectionProgressBarWidth={String((0 / 90) * 100)}
         SectionOpacity={0.5}
       ></Section>
@@ -58,8 +63,8 @@ export default function CourseSectionList() {
             color="#095410"
           />
         }
-        SectionText={"How To  Money"}
-        SectionProgressText={"10 / 10"}
+        SectionText={'How To  Money'}
+        SectionProgressText={'10 / 10'}
         SectionProgressBarWidth={String((10 / 10) * 100)}
         SectionOpacity={0}
       ></Section>
