@@ -44,7 +44,6 @@ export default function Section({
             height: '100%',
             backgroundColor: '#F5F5F5',
             zIndex: 3,
-            elevation: 3,
             opacity: SectionOpacity,
             borderRadius: 14
           }}
@@ -57,8 +56,7 @@ export default function Section({
             borderRadius: 14,
             flexDirection: 'row',
             position: 'absolute',
-            zIndex: 2,
-            elevation: 2
+            zIndex: 2
           }}
         >
           <View style={{ flex: 1, alignItems: 'center' }}>{SectionIcon}</View>
@@ -106,7 +104,6 @@ export default function Section({
             justifyContent: 'center',
             opacity: 0.5,
             zIndex: 1,
-            elevation: 1,
             position: 'absolute'
           }}
         />
@@ -117,7 +114,6 @@ export default function Section({
               height: '100%',
               backgroundColor: selected.pressed,
               zIndex: 0,
-              elevation: 0,
               borderRadius: 14,
               position: 'absolute'
             }
