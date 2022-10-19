@@ -15,7 +15,7 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
   const navigation = useNavigation()
 
   FourButtons2.propTypes = {
-    correctAnswer: PropTypes.string.isRequired,
+    correctAnswer: PropTypes.string,
     sendDataToParent: PropTypes.func.isRequired
   }
 
@@ -27,8 +27,7 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
   })
   const [choice, setChoice] = useState('')
 
-  // eslint-disable-next-line no-undef
-  handlePlaySound = async () => {
+  const handlePlaySound = async () => {
     const soundObj = new Audio.Sound()
 
     try {
@@ -42,10 +41,10 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
           }, playbackStatus.playableDurationMillis)
         })
         .catch((error) => {
-          console.log(error)
+          console.log(' eroortis' + error)
         })
     } catch (error) {
-      console.log(error)
+      console.log(' eroortis' + error)
     }
   }
   function handleChange(evt) {
@@ -108,7 +107,7 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
       ])
       setButtonState(false, false, false, false)
     } else {
-      navigation.navigate('WrongAnswer')
+      navigation.navigate('Profile')
       setButtonState(false, false, false, false)
     }
   }
@@ -134,7 +133,7 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
             color="white"
             onPress={() => {
               handleChange('triangle')
-              this.handlePlaySound()
+              handlePlaySound()
             }}
           />
         </View>
@@ -156,7 +155,7 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
             color="white"
             onPress={() => {
               handleChange('circle')
-              this.handlePlaySound()
+              handlePlaySound()
             }}
           />
         </View>
@@ -180,7 +179,7 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
             color="white"
             onPress={() => {
               handleChange('star')
-              this.handlePlaySound()
+              handlePlaySound()
             }}
           />
         </View>
@@ -202,7 +201,7 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
             color="white"
             onPress={() => {
               handleChange('square')
-              this.handlePlaySound()
+              handlePlaySound()
             }}
           />
         </View>
