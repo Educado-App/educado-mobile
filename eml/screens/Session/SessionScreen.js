@@ -6,7 +6,6 @@ import CustomProgressBar from '../../components/sessions/Progressbar'
 import LearningInputVideo from '../../components/sessions/video/LearningInputVideoExample1'
 import FourButtons from '../../components/sessions/FourButtons2'
 import HeaderIcon from '../../components/sessions/headerIcon'
-import Victory from '../../components/gamificationElements/Confetti'
 import { useNavigation } from '@react-navigation/native'
 
 export default function SessionComponent() {
