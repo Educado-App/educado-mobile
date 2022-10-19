@@ -11,14 +11,9 @@ export default function WrongAnswerComponent() {
   return (
     <View style={styles.container}>
       <View style={{ flex: 0.5 }}>
-        <View style={[styles.row, { paddingTop: '15%', paddingRight: '7%' }]}>
-          <View style={{}}>
-            <LeaveButton></LeaveButton>
-          </View>
-          <View style={{ paddingTop: '6%' }}>
-            <CustomProgressBar></CustomProgressBar>
-          </View>
-        </View>
+        <View
+          style={[styles.row, { paddingTop: '15%', paddingRight: '7%' }]}
+        ></View>
       </View>
       <View style={{ flex: 2, width: '100%' }}>
         <LearningInputVideo></LearningInputVideo>

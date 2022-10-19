@@ -6,9 +6,10 @@ import { Audio } from 'expo-av'
 import PropTypes from 'prop-types'
 
 const voiceOvers = [
-  require('../../assets/questionExample1.mp3'),
-  require('../../assets/questionExample2.mp3'),
-  require('../../assets/voiceOverTest.mp3')
+  require('../../assets/voice1.mp3'),
+  require('../../assets/voice2.mp3'),
+  require('../../assets/voice3.mp3'),
+  require('../../assets/voice4.mp3')
 ]
 
 export default function FourButtons2({ correctAnswer, sendDataToParent }) {
@@ -33,7 +34,7 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
     const soundObj = new Audio.Sound()
 
     try {
-      const source = voiceOvers[Math.floor(Math.random() * (3 - 0) + 0)]
+      const source = voiceOvers[Math.floor(Math.random() * (4 - 0) + 0)]
       await soundObj.loadAsync(source)
       await soundObj
         .playAsync()
@@ -109,6 +110,7 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
       ])
       setButtonState(false, false, false, false)
     } else {
+      sendDataToParent()
       navigation.navigate('Profile')
       setButtonState(false, false, false, false)
     }
