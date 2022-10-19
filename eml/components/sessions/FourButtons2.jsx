@@ -104,14 +104,14 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
         {
           text: 'Next question!',
           onPress: () => {
-            sendDataToParent()
+            sendDataToParent(true)
           }
         }
       ])
       setButtonState(false, false, false, false)
     } else {
-      sendDataToParent()
-      navigation.navigate('Profile')
+      sendDataToParent(false)
+      navigation.navigate('WrongAnswer')
       setButtonState(false, false, false, false)
     }
   }

@@ -7,6 +7,7 @@ import ProfileComponent from './screens/Profile/Profile'
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import SessionScreen from '../eml/screens/Session/SessionScreen'
+import WrongAnswerComponent from './screens/Session/WrongAnswerScreen'
 const Tab = createBottomTabNavigator()
 
 const CourseStack = createNativeStackNavigator()
@@ -24,6 +25,13 @@ function CourseStackNavigator() {
       <CourseStack.Screen
         name="Exercise"
         component={SessionScreen}
+        options={{
+          headerShown: false
+        }}
+      />
+      <CourseStack.Screen
+        name="WrongAnswer"
+        component={WrongAnswerComponent}
         options={{
           headerShown: false
         }}

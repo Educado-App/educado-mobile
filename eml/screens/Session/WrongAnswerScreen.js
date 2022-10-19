@@ -1,8 +1,6 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import LearningInputVideo from '../../components/sessions/video/LearningInputVideoExample1'
-import LeaveButton from '../../components/sessions/LeaveButton'
-import CustomProgressBar from '../../components/sessions/Progressbar'
 import { Icon } from '@rneui/themed'
 import { useNavigation } from '@react-navigation/native'
 

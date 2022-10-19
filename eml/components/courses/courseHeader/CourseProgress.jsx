@@ -10,14 +10,10 @@ export default function CourseProgress({ fracTop, fracBot }) {
   }
   return (
     <View style={styles.container}>
-      <View>
-        <Text style={styles.fracStyle}>
-          {fracTop}/{fracBot}
-        </Text>
-      </View>
-      <View>
-        <Star></Star>
-      </View>
+      <Text style={styles.fracStyle}>
+        {fracTop}/{fracBot}
+      </Text>
+      <Star></Star>
     </View>
   )
 }

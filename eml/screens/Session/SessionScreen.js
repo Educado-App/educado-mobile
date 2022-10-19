@@ -1,18 +1,19 @@
 import { StatusBar } from 'expo-status-bar'
 import { React, useState, useEffect } from 'react'
-import { Alert, StyleSheet, View } from 'react-native'
+import { Alert, StyleSheet, View, Text } from 'react-native'
 import LeaveButton from '../../components/sessions/LeaveButton'
 import CustomProgressBar from '../../components/sessions/Progressbar'
 import LearningInputVideo from '../../components/sessions/video/LearningInputVideoExample1'
 import FourButtons from '../../components/sessions/FourButtons2'
 import HeaderIcon from '../../components/sessions/headerIcon'
 import { useNavigation } from '@react-navigation/native'
-
+import Star from '../../components/gamificationElements/Star'
 export default function SessionComponent() {
   const navigation = useNavigation()
   const answerArray = ['star', 'circle', 'square']
 
   const [answerNr, setAnswerNr] = useState(0)
+  const [correctNr, setCorrectNr] = useState(0)
 
   useEffect(() => {
     if (answerNr > answerArray.length - 1) {
@@ -20,9 +21,14 @@ export default function SessionComponent() {
     }
   })
 
-  function sendDataToParent() {
-    setAnswerNr((current) => current + 1)
-    console.log(answerNr)
+  function sendDataToParent(correct) {
+    if (correct) {
+      setCorrectNr((current) => current + 1)
+      setAnswerNr((current) => current + 1)
+    } else {
+      setAnswerNr((current) => current + 1)
+      console.log(answerNr)
+    }
   }
 
   const correctAnswer = answerArray[answerNr]
@@ -36,7 +42,7 @@ export default function SessionComponent() {
       <View style={{ flex: 1 }}>
         <View style={[{ paddingTop: '7%' }, styles.row]}>
           <View style={[{ paddingTop: '5%' }, { right: '50%' }]}>
-            <LeaveButton></LeaveButton>
+            <LeaveButton navigationPlace={'Home'}></LeaveButton>
           </View>
           <View
             style={[
@@ -46,6 +52,19 @@ export default function SessionComponent() {
             ]}
           >
             <HeaderIcon color={color} name={name} type={type}></HeaderIcon>
+          </View>
+          <View
+            style={{
+              left: '80%',
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection: 'column'
+            }}
+          >
+            <Star></Star>
+            <Text style={{ fontSize: 25 }}>
+              {correctNr}/{answerArray.length}
+            </Text>
           </View>
         </View>
         <View>
@@ -60,7 +79,7 @@ export default function SessionComponent() {
           ? Alert.alert('Good job you completed the course!', 'Pogchamp', [
               {
                 text: 'Back',
-                onPress: () => console.log(navigation.navigate('Course'))
+                onPress: () => navigation.navigate('Course')
               }
             ])
           : null}
