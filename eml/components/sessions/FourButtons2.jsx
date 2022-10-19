@@ -100,7 +100,7 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
 
   function checkChoice(choice) {
     if (choice === correctAnswer) {
-      Alert.alert('Wuhuuu you awnsered correct!', 'God job!', [
+      Alert.alert('Wuhuuu you answered correct!', 'God job!', [
         {
           text: 'Next question!',
           onPress: () => {
