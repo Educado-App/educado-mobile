@@ -11,7 +11,7 @@ const ProfileSettings = () => {
             name="cog"
             type="material-community"
             color="#1C1E1E"
-            size={30}/> 
+            size={50}/> 
       </View>
     );
 }
@@ -20,8 +20,8 @@ const styles = StyleSheet.create({
 
   },
   container: {
-    justifyContent: "center",
-    marginBottom: 20
+    alignSelf: "flex-end",
+    padding: 10
   }
 });
 

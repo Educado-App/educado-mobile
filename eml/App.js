@@ -3,13 +3,10 @@ import { NavigationContainer } from '@react-navigation/native'
 import CourseScreen from '../eml/screens/Courses/CourseScreen'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Icon } from '@rneui/themed'
-<<<<<<< HEAD
 import ProfileComponent from './screens/Profile/Profile'
 
-=======
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import SessionScreen from '../eml/screens/Session/SessionScreen'
->>>>>>> 30239e7968d1ee84c8d83b66364b3c62d30e3b15
 const Tab = createBottomTabNavigator()
 
 const CourseStack = createNativeStackNavigator()

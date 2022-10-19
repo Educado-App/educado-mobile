@@ -1,5 +1,5 @@
 import { React } from 'react'
-import { StyleSheet, View, SafeAreaView } from 'react-native'
+import { StyleSheet, View, SafeAreaView, Platform } from 'react-native'
 import AddFriendButton from '../../components/profile/addFriendButton'
 import ProfileImage from '../../components/profile/profileImage'
 import ProfileName from '../../components/profile/profileName'
@@ -9,13 +9,13 @@ export default function ProfileComponent() {
   return (
     <SafeAreaView style={styles.container}> 
     <View>
-      <View style={styles.topContainer}>
-        <ProfileName 
+      <ProfileSettings style={styles.settings}></ProfileSettings>
+        <ProfileName
         Name={"Jona"}
         UserName={"Jona109"}
         ></ProfileName>
-        <ProfileSettings></ProfileSettings>
-      </View>
+        
+      
       <ProfileImage></ProfileImage>
       <AddFriendButton></AddFriendButton>
     </View>
@@ -24,13 +24,10 @@ export default function ProfileComponent() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    display: 'flex',
-    flexDirection: 'column'
+  settings: {
+    textAlign: "right"
   },
-  topContainer: {
-    
-    //magic flex alligmenet here
+  container: {
+    paddingTop: Platform.OS === 'android' ? 25 : 0
   }
 })

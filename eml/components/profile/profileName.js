@@ -21,10 +21,12 @@ const styles = StyleSheet.create({
     margin: 10
   },
   profileName: {
-    fontSize: 40
+    fontSize: 40,
+    textAlign: "center"
   },
   profileUserName: {
-    fontSize: 20
+    fontSize: 20,
+    textAlign: "center"
   }
 });
 

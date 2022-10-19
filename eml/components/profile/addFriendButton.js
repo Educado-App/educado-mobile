@@ -12,7 +12,7 @@ const AddFriendButton = () => {
             style={styles.icon}
             name="account-plus"
             type="material-community"
-            color="#51EC0D"
+            color="#55747E"
             size={30}/> 
             Add Friends 
           </Text>
@@ -24,13 +24,13 @@ const styles = StyleSheet.create({
   button: {
     alignItems: "center",
     backgroundColor: "#DDDDDD",
-    padding: 20,
+    padding: 10,
     marginLeft: 50,
     marginRight: 50
   },
   text: {
     fontSize: 30,
-    color: "#51EC0D"
+    color: "#55747E"
   },
   icon: {
     marginRight: 10
