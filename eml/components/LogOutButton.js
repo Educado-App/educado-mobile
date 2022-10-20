@@ -8,12 +8,33 @@
 
 //importer state i login form
 
-import React, {useState} from 'react';
-import {StyleSheet, Image, View, Dimensions, TouchableOpacity, Text, Alert, Pressable} from "react-native";
+import axios from "axios";
+//import React, {useState} from 'react';
+import {StyleSheet, View, TouchableOpacity, Alert} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import { Feather } from '@expo/vector-icons';
+import {NavigationActions as navigation} from "react-navigation";
 
-export default function LogOutButton(props) {
+const test = 'http://192.168.43.130:8888'
+
+const url = test;
+
+
+//måske et udkast til setup af post request til server om at brugeren er logget ud
+export const postLogoutStatusAndNavigate = async(obj) => {
+
+    const res = await axios.post(url + "",obj)
+        .then(function(response){console.log(response)})
+        .catch(function (error){console.log(error)});
+
+    console.log('user logged out');
+
+    navigation.navigate('Login');
+
+    return res.data;
+}
+
+export default function LogOutButton() {
 
     const navigation = useNavigation();
 
@@ -33,9 +54,22 @@ export default function LogOutButton(props) {
 
     return (
         <View style ={styles.container}>
+
             <TouchableOpacity style={styles.formButton} onPress={logoutAlert}>
                 <Feather name="log-out" size={36}  style={styles.tinyLogo} />
             </TouchableOpacity>
+
+            <View style={styles.bottomContainer}>
+                <View style={styles.formInputContainer}>
+                    <TouchableOpacity onPress={() => postLogoutStatusAndNavigate(obj)}>
+                        <View style={styles.formButton}>
+                            <Feather name="log-out" size={36}  style={styles.menu} />
+
+                        </View>
+                    </TouchableOpacity>
+                </View>
+            </View>
+
         </View>
     );
 }
@@ -45,17 +79,6 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent : 'flex-start'
     },
- /*   button: {
-        backgroundColor : 'rgba(123,104,238,0.8)',
-        height : 55,
-        alignItems : 'center',
-        justifyContent : 'center',
-        borderRadius: 35,
-        marginHorizontal : 20,
-        marginVertical: 10,
-        borderWidth: 1,
-        borderColor: 'white'
-    },*/
     buttonText:{
         fontSize: 20,
         fontWeight: '600',
