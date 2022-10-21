@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet, Pressable, Text, Image, View, Dimensions, TextInput, TouchableOpacity} from "react-native";
+import {Dimensions, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import {loginUser} from "../api/userApi";
 
@@ -18,7 +18,6 @@ export default function LoginForm(props) {
             phone: phoneNumber,
             password: password
         };
-
         await loginUser(obj)
             .then(function(response){
                 console.log(response);
@@ -43,7 +42,6 @@ export default function LoginForm(props) {
                                placeholderTextColor="green"
                                keyboardType={"phone-pad"}
                                onChangeText={phoneNumber => setNumber(phoneNumber)}
-
                     />
                     <TextInput
                                style={styles.textInput}

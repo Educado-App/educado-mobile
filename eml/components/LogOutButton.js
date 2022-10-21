@@ -21,7 +21,7 @@ const url = test;
 
 
 //måske et udkast til setup af post request til server om at brugeren er logget ud
-export const postLogoutStatusAndNavigate = async(obj) => {
+/*export const postLogoutStatusAndNavigate = async(obj) => {
 
     const res = await axios.post(url + "",obj)
         .then(function(response){console.log(response)})
@@ -32,7 +32,7 @@ export const postLogoutStatusAndNavigate = async(obj) => {
     navigation.navigate('Login');
 
     return res.data;
-}
+}*/
 
 export default function LogOutButton() {
 
@@ -61,10 +61,9 @@ export default function LogOutButton() {
 
             <View style={styles.bottomContainer}>
                 <View style={styles.formInputContainer}>
-                    <TouchableOpacity onPress={() => postLogoutStatusAndNavigate(obj)}>
+                    <TouchableOpacity onPress={() => navigation.navigate('Login')}>
                         <View style={styles.formButton}>
                             <Feather name="log-out" size={36}  style={styles.menu} />
-
                         </View>
                     </TouchableOpacity>
                 </View>

@@ -9,7 +9,7 @@ export default function TopNavBar(props) {
   const navigation = useNavigation();
 
   return (
-    <View  style={styles.container}>
+    <View style={styles.container}>
       <TouchableOpacity>
         <Text style={styles.title}>Educado</Text>
       </TouchableOpacity>
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'flex-start',
+    justifyContent: 'space-between',
     width: '100%'
   },
   title: {
@@ -32,7 +32,10 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
   },
   menu: {
+    fontWeight: 'bold',
+    color: '#78BE20',
+    fontSize: 28,
     margin: 5,
-    paddingRight: 10
+    paddingRight: 10,
   }
 });

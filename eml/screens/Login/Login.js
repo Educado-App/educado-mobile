@@ -4,7 +4,6 @@ import {StyleSheet, Text, View, Image, Button, Dimensions, Pressable, TouchableO
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useNavigation } from "@react-navigation/native";
 import LoginForm from "../../components/LoginForm";
-import LogOutButton from "../../components/LogOutButton";
 
 const {width, height} = Dimensions.get('window');
 
@@ -22,10 +21,10 @@ export default function Login(props) {
         // If not, then prompt user and save
         // If yes, then continue
 
-        const [localId, setLocalId] = useState(String(Date.now)); // Local state variable for storing local user id
+    const [localId, setLocalId] = useState(String(Date.now)); // Local state variable for storing local user id
 
         // Function for reading local user id from async local storage
-       /*const readId = async () => {
+    const readId = async () => {
             try {
                 const fetchedLocalId = await AsyncStorage.getItem(STORAGE_ID);
 
@@ -65,18 +64,16 @@ export default function Login(props) {
             } catch (error) {
                 console.log('Failed to fetch the data from storage');
             }
-        };*/
-
+        };
 
     useEffect(() => {
-        //readId();
+        readId();
     },[])
 
 
   return (
     <View style={styles.container}>
         <LoginForm></LoginForm>
-
         <View style={styles.bottomContainer}>
             <TouchableOpacity onPress={() => navigation.navigate('Register')}>
                 <View style={styles.formButton}>
