@@ -14,6 +14,8 @@ export default function LoginForm(props) {
 
     async function validateInput (phoneNumber, password) {
 
+        //The Object must be hashed before it is sent to backend (before loginUser() is called)
+        //The Input must be conditioned (at least one capital letter, minimum 8 letters and a number etc.)
         const obj = {
             phone: phoneNumber,
             password: password
