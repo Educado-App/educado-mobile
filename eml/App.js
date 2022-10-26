@@ -8,6 +8,7 @@ import ProfileComponent from './screens/Profile/Profile'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import SessionScreen from './screens/excercise/ExerciseScreen'
 import WrongAnswerComponent from './screens/excercise/WrongAnswerScreen'
+import Explore from './screens/explore/Explore'
 const Tab = createBottomTabNavigator()
 
 const CourseStack = createNativeStackNavigator()
@@ -32,6 +33,13 @@ function CourseStackNavigator() {
       <CourseStack.Screen
         name="WrongAnswer"
         component={WrongAnswerComponent}
+        options={{
+          headerShown: false
+        }}
+      />
+      <CourseStack.Screen
+        name="Explore"
+        component={Explore}
         options={{
           headerShown: false
         }}
@@ -71,6 +79,23 @@ export default function App() {
                 <Icon
                   size={30}
                   name="account-circle"
+                  type="material-community"
+                  color="black"
+                />
+              )
+            }
+          }}
+        />
+        <Tab.Screen
+          name="Explore"
+          component={Explore}
+          options={{
+            headerShown: false,
+            tabBarIcon: () => {
+              return (
+                <Icon
+                  size={30}
+                  name="magnify"
                   type="material-community"
                   color="black"
                 />
