@@ -6,8 +6,27 @@ import TopNavBar from './../../components/TopNavBar';
 import BottomNavBar from '../../components/BottomNavBar';
 import ActiveCourseTest from "./ActiveCourseTest";
 import LogOutButton from "../../components/LogOutButton";
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
+const USER_INFO = '@userInfo';
 
 export default function Home(props) {
+
+  const testStorage = async () => {
+
+    try {
+      const userInfo = JSON.parse(await AsyncStorage.getItem(USER_INFO));
+      console.log("Phone number:" + userInfo.phoneNumber);
+      console.log("ID: " + userInfo.id);
+    }
+    catch (e){
+      console.log(e);
+    }
+  }
+
+  useEffect(() => {
+    testStorage();
+  },[])
 
   return (
     <View style={styles.container}>

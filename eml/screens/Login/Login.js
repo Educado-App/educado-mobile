@@ -9,6 +9,8 @@ const {width, height} = Dimensions.get('window');
 
 const STORAGE_ID = '@local_id';
 const STORAGE_PROGRESS = '@storage_progress';
+const LOGIN_TOKEN = '@loginToken';
+
 
 export default function Login(props) {
 
@@ -22,6 +24,7 @@ export default function Login(props) {
         // If yes, then continue
 
     const [localId, setLocalId] = useState(String(Date.now)); // Local state variable for storing local user id
+    const [loginToken, setLoginToken] = useState('');
 
         // Function for reading local user id from async local storage
     const readId = async () => {
@@ -31,7 +34,6 @@ export default function Login(props) {
                 if (fetchedLocalId !== null) {
                     setLocalId(fetchedLocalId);
                     console.log('Already set, now logged in!');
-
                     const obj = {
                         activeCourses: [],
                         finishedCourses: [],
@@ -66,9 +68,32 @@ export default function Login(props) {
             }
         };
 
+    const checkLoginToken = async () => {
+
+        try {
+            const fetchedToken = await AsyncStorage.getItem(LOGIN_TOKEN);
+
+            if (fetchedToken !== null) {
+                setLoginToken(fetchedToken);
+                console.log('Already logged in!');
+                console.log('Token: ' + fetchedToken);
+                navigation.navigate('Home');
+            }
+
+
+        } catch (error) {
+            console.log('Failed to fetch the login token from storage');
+        }
+
+
+    }
+
+
+
     useEffect(() => {
-        readId();
-    },[])
+        //readId();
+        checkLoginToken();
+    },[]);
 
 
   return (

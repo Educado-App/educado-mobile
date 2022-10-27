@@ -2,8 +2,10 @@ import React, {useState} from 'react';
 import {Dimensions, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import {loginUser} from "../api/userApi";
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
-const {width, height} = Dimensions.get('window');
+const LOGIN_TOKEN = '@loginToken';
+
 
 export default function LoginForm(props) {
 
@@ -11,6 +13,7 @@ export default function LoginForm(props) {
 
     const [phoneNumber, setNumber] = useState('');
     const [password, setPassword] = useState('');
+    const [loginState, setLoginState] = useState(false);
 
     async function validateInput (phoneNumber, password) {
 
@@ -20,14 +23,22 @@ export default function LoginForm(props) {
             phone: phoneNumber,
             password: password
         };
-        await loginUser(obj)
-            .then(function(response){
-                console.log(response);
-                navigation.navigate('Home');
-            })
-            .catch(function(error){
-                console.log(error);
-            });
+
+        try {
+            await loginUser(obj)
+                .then(function(response){
+                    AsyncStorage.setItem(LOGIN_TOKEN, response.token);
+                    console.log(response.message);
+                    navigation.navigate('Home');
+                })
+                .catch(function(error){
+                    console.log(error);
+                });
+        }
+        catch (e){
+            console.log(e);
+        }
+
     }
 
     return (

@@ -2,6 +2,9 @@ import React, {useState} from "react";
 import {Dimensions, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import {registerUser} from "../api/userApi";
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
+const USER_INFO = '@userInfo';
 
 const {width, height} = Dimensions.get('window');
 
@@ -19,14 +22,28 @@ export default function LoginForm(props) {
             password: password
         };
 
-        await registerUser(obj)
-              .then(function(response){
-                  console.log(response);
-                  navigation.navigate('Home');
-              })
-              .catch(function(error){
-                  console.log(error)
-              });
+        try {
+            await registerUser(obj)
+                .then(function(response){
+
+                    console.log(response.message);
+
+                    const obj = {
+                        phoneNumber: response.result.phone,
+                        id: response.result._id
+                    }
+
+                    AsyncStorage.setItem(USER_INFO, JSON.stringify(obj));
+                    navigation.navigate('Home');
+
+                })
+                .catch(function(error){
+                    console.log(error)
+                });
+        }
+        catch (e){
+            console.log(e);
+        }
     }
 
     return (
