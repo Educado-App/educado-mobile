@@ -7,9 +7,9 @@ export default function Courses() {
     const navigation = useNavigation()
     return (
         <View style={{ flex: 3 }}>
-            <ScrollView style={{ flexDirection: 'column', marginLeft: 30, marginRight: 30 }}>
+            <ScrollView style={{ flexDirection: 'column' }}>
                 <View style={{ flexDirection: 'row', height: 90, marginBottom: 30 }}>
-                    <View style={{ flexDirection: 'column', flex: 1, marginRight: 30 }}>
+                    <View style={{ flexDirection: 'column', flex: 1, alignItems: 'center' }}>
                         <Pressable style={styles.courses}>
                             <Icon // icon
                                 size={90}
@@ -20,7 +20,7 @@ export default function Courses() {
                         </Pressable>
                         <Text style={styles.coursesTitle}>Health 1</Text>
                     </View>
-                    <View style={{ flexDirection: 'column', flex: 1 }}>
+                    <View style={{ flexDirection: 'column', flex: 1, alignItems: 'center' }}>
                         <Pressable style={styles.courses}>
                             <Icon // icon
                                 size={90}
@@ -33,7 +33,7 @@ export default function Courses() {
                     </View>
                 </View>
                 <View style={{ flexDirection: 'row', height: 90, marginBottom: 30 }}>
-                    <View style={{ flexDirection: 'column', flex: 1, marginRight: 30 }}>
+                    <View style={{ flexDirection: 'column', flex: 1, alignItems: 'center' }}>
                         <Pressable style={styles.courses}>
                             <Icon // icon
                                 size={90}
@@ -44,31 +44,7 @@ export default function Courses() {
                         </Pressable>
                         <Text style={styles.coursesTitle}>Health 1</Text>
                     </View>
-                    <View style={{ flexDirection: 'column', flex: 1 }}>
-                        <Pressable style={styles.courses}>
-                            <Icon // icon
-                                size={90}
-                                name="plus-thick"
-                                type="material-community"
-                                color="darkgray"
-                            />
-                        </Pressable>
-                        <Text style={styles.coursesTitle}>Health 1</Text>
-                    </View>
-                </View>
-                <View style={{ flexDirection: 'row', height: 90, marginBottom: 30 }}>
-                    <View style={{ flexDirection: 'column', flex: 1, marginRight: 30 }}>
-                        <Pressable style={styles.courses}>
-                            <Icon // icon
-                                size={90}
-                                name="plus-thick"
-                                type="material-community"
-                                color="darkgray"
-                            />
-                        </Pressable>
-                        <Text style={styles.coursesTitle}>Health 1</Text>
-                    </View>
-                    <View style={{ flexDirection: 'column', flex: 1 }}>
+                    <View style={{ flexDirection: 'column', flex: 1, alignItems: 'center' }}>
                         <Pressable style={styles.courses}>
                             <Icon // icon
                                 size={90}
@@ -81,7 +57,7 @@ export default function Courses() {
                     </View>
                 </View>
                 <View style={{ flexDirection: 'row', height: 90, marginBottom: 30 }}>
-                    <View style={{ flexDirection: 'column', flex: 1, marginRight: 30 }}>
+                    <View style={{ flexDirection: 'column', flex: 1, alignItems: 'center' }}>
                         <Pressable style={styles.courses}>
                             <Icon // icon
                                 size={90}
@@ -92,31 +68,7 @@ export default function Courses() {
                         </Pressable>
                         <Text style={styles.coursesTitle}>Health 1</Text>
                     </View>
-                    <View style={{ flexDirection: 'column', flex: 1 }}>
-                        <Pressable style={styles.courses}>
-                            <Icon // icon
-                                size={90}
-                                name="plus-thick"
-                                type="material-community"
-                                color="darkgray"
-                            />
-                        </Pressable>
-                        <Text style={styles.coursesTitle}>Health 1</Text>
-                    </View>
-                </View>
-                <View style={{ flexDirection: 'row', height: 90, marginBottom: 30 }}>
-                    <View style={{ flexDirection: 'column', flex: 1, marginRight: 30 }}>
-                        <Pressable style={styles.courses}>
-                            <Icon // icon
-                                size={90}
-                                name="plus-thick"
-                                type="material-community"
-                                color="darkgray"
-                            />
-                        </Pressable>
-                        <Text style={styles.coursesTitle}>Health 1</Text>
-                    </View>
-                    <View style={{ flexDirection: 'column', flex: 1 }}>
+                    <View style={{ flexDirection: 'column', flex: 1, alignItems: 'center' }}>
                         <Pressable style={styles.courses}>
                             <Icon // icon
                                 size={90}
@@ -129,7 +81,7 @@ export default function Courses() {
                     </View>
                 </View>
                 <View style={{ flexDirection: 'row', height: 90, marginBottom: 30 }}>
-                    <View style={{ flexDirection: 'column', flex: 1, marginRight: 30 }}>
+                    <View style={{ flexDirection: 'column', flex: 1, alignItems: 'center' }}>
                         <Pressable style={styles.courses}>
                             <Icon // icon
                                 size={90}
@@ -140,7 +92,55 @@ export default function Courses() {
                         </Pressable>
                         <Text style={styles.coursesTitle}>Health 1</Text>
                     </View>
-                    <View style={{ flexDirection: 'column', flex: 1 }}>
+                    <View style={{ flexDirection: 'column', flex: 1, alignItems: 'center' }}>
+                        <Pressable style={styles.courses}>
+                            <Icon // icon
+                                size={90}
+                                name="plus-thick"
+                                type="material-community"
+                                color="darkgray"
+                            />
+                        </Pressable>
+                        <Text style={styles.coursesTitle}>Health 1</Text>
+                    </View>
+                </View>
+                <View style={{ flexDirection: 'row', height: 90, marginBottom: 30 }}>
+                    <View style={{ flexDirection: 'column', flex: 1, alignItems: 'center' }}>
+                        <Pressable style={styles.courses}>
+                            <Icon // icon
+                                size={90}
+                                name="plus-thick"
+                                type="material-community"
+                                color="darkgray"
+                            />
+                        </Pressable>
+                        <Text style={styles.coursesTitle}>Health 1</Text>
+                    </View>
+                    <View style={{ flexDirection: 'column', flex: 1, alignItems: 'center' }}>
+                        <Pressable style={styles.courses}>
+                            <Icon // icon
+                                size={90}
+                                name="plus-thick"
+                                type="material-community"
+                                color="darkgray"
+                            />
+                        </Pressable>
+                        <Text style={styles.coursesTitle}>Health 1</Text>
+                    </View>
+                </View>
+                <View style={{ flexDirection: 'row', height: 90, marginBottom: 30 }}>
+                    <View style={{ flexDirection: 'column', flex: 1, alignItems: 'center' }}>
+                        <Pressable style={styles.courses}>
+                            <Icon // icon
+                                size={90}
+                                name="plus-thick"
+                                type="material-community"
+                                color="darkgray"
+                            />
+                        </Pressable>
+                        <Text style={styles.coursesTitle}>Health 1</Text>
+                    </View>
+                    <View style={{ flexDirection: 'column', flex: 1, alignItems: 'center' }}>
                         <Pressable style={styles.courses}>
                             <Icon // icon
                                 size={90}
@@ -153,7 +153,7 @@ export default function Courses() {
                     </View>
                 </View>
                 <View style={{ flexDirection: 'row', height: 90 }}>
-                    <View style={{ flexDirection: 'column', flex: 1, marginRight: 30 }}>
+                    <View style={{ flexDirection: 'column', flex: 1, alignItems: 'center' }}>
                         <Pressable style={styles.courses}>
                             <Icon // icon
                                 size={90}
@@ -164,7 +164,7 @@ export default function Courses() {
                         </Pressable>
                         <Text style={styles.coursesTitle}>Health 1</Text>
                     </View>
-                    <View style={{ flexDirection: 'column', flex: 1 }}>
+                    <View style={{ flexDirection: 'column', flex: 1, alignItems: 'center' }}>
                         <Pressable style={styles.courses}>
                             <Icon // icon
                                 size={90}
