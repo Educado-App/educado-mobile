@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
     courses: {
         backgroundColor: 'gray',
         alignItems: 'center',
-        width: 143
+        width: '75%'
     },
     coursesTitle: {
         alignSelf: 'center',
