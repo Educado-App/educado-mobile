@@ -1,12 +1,12 @@
 import React from 'react'
-import { View, Text } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import { View, Text, Pressable } from 'react-native'
 export default function FilteringOptions() {
     return (
         <View style={{ flexDirection: 'row' }}>
-            <TouchableOpacity>
+            <Pressable>
                 <Text style={{ fontSize: 30, paddingLeft: 30 }}>Hej</Text>
-            </TouchableOpacity>
+            </Pressable>
         </View>
     )
 }
+
