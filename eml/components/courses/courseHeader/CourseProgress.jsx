@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, View, Text } from 'react-native'
-import Star from '../../gamificationElements/Star'
+import Star from '../../gamification/Star'
 import PropTypes from 'prop-types'
 
 export default function CourseProgress({ fracTop, fracBot }) {

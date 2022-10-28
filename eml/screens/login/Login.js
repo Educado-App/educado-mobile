@@ -3,14 +3,13 @@ import React, { useEffect, useState, Suspense } from 'react';
 import {StyleSheet, Text, View, Image, Button, Dimensions, Pressable, TouchableOpacity} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useNavigation } from "@react-navigation/native";
-import LoginForm from "../../components/LoginForm";
+import LoginForm from "../../components/login/LoginForm";
 
 const {width, height} = Dimensions.get('window');
 
 const STORAGE_ID = '@local_id';
 const STORAGE_PROGRESS = '@storage_progress';
 const LOGIN_TOKEN = '@loginToken';
-
 
 export default function Login(props) {
 
@@ -77,18 +76,14 @@ export default function Login(props) {
                 setLoginToken(fetchedToken);
                 console.log('Already logged in!');
                 console.log('Token: ' + fetchedToken);
-                navigation.navigate('Home');
+                navigation.navigate('HomeStack');
             }
-
 
         } catch (error) {
             console.log('Failed to fetch the login token from storage');
         }
 
-
     }
-
-
 
     useEffect(() => {
         //readId();

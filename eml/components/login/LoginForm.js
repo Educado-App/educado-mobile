@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Dimensions, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
 import {useNavigation} from "@react-navigation/native";
-import {loginUser} from "../api/userApi";
+import {loginUser} from "../../api/userApi";
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const LOGIN_TOKEN = '@loginToken';
@@ -32,7 +32,7 @@ export default function LoginForm(props) {
                 .then(function(response){
                     AsyncStorage.setItem(LOGIN_TOKEN, response.token);
                     console.log(response.message);
-                    navigation.navigate('Home');
+                    navigation.navigate('HomeStack');
                 })
                 .catch(function(error){
                     console.log(error);

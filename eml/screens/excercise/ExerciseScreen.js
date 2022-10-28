@@ -7,7 +7,7 @@ import LearningInputVideo from '../../components/exercise/video/LearningInputVid
 import FourButtons from '../../components/exercise/ExerciseButtons'
 import HeaderIcon from '../../components/exercise/headerIcon'
 import { useNavigation } from '@react-navigation/native'
-import Star from '../../components/gamificationElements/Star'
+import Star from '../../components/gamification/Star'
 
 export default function SessionComponent() {
   const navigation = useNavigation()

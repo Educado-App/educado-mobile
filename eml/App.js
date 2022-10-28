@@ -1,11 +1,11 @@
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
-import CourseScreen from '../eml/screens/Courses/CourseScreen'
+import CourseScreen from './screens/courses/CourseScreen'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Icon } from '@rneui/themed'
-import ProfileComponent from './screens/Profile/Profile'
-import LoginScreen from './screens/Login/Login';
-import RegisterScreen from "./screens/Register/Register";
+import ProfileComponent from './screens/profile/Profile'
+import LoginScreen from './screens/login/Login';
+import RegisterScreen from "./screens/register/Register";
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import SessionScreen from './screens/excercise/ExerciseScreen'
@@ -13,113 +13,124 @@ import WrongAnswerComponent from './screens/excercise/WrongAnswerScreen'
 import Explore from './screens/explore/Explore'
 
 const Tab = createBottomTabNavigator();
-const CourseStack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator();
 
-function CourseStackNavigator() {
+function CourseStack() {
   return (
-    <CourseStack.Navigator>
-      <CourseStack.Screen
+    <Stack.Navigator>
+      <Stack.Screen
         name="Course"
         component={CourseScreen}
         options={{
           headerShown: false
         }}
       />
-      <CourseStack.Screen
+      <Stack.Screen
         name="Exercise"
         component={SessionScreen}
         options={{
           headerShown: false
         }}
       />
-      <CourseStack.Screen
+      <Stack.Screen
         name="WrongAnswer"
         component={WrongAnswerComponent}
         options={{
           headerShown: false
         }}
       />
-      <CourseStack.Screen
-        name="Explore"
-        component={Explore}
-        options={{
-          headerShown: false
-        }}
-      />
-      <CourseStack.Screen
-        name="Login"
-        component={LoginScreen}
-        options={{
-            headerShown: false
-        }}
-      />
-      <CourseStack.Screen
-        name="Register"
-        component={RegisterScreen}
-        options={{
-            headerShown: false
-        }}
-      />
-    </CourseStack.Navigator>
+    </Stack.Navigator>
   )
 }
+
+function LoginStack(){
+    return(
+        <Stack.Navigator initialRouteName={"Login"}>
+            <Stack.Screen
+                name="Login"
+                component={LoginScreen}
+                options={{
+                    headerShown: false
+                }}
+            />
+            <Stack.Screen
+                name="Register"
+                component={RegisterScreen}
+                options={{
+                    headerShown: false
+                }}
+            />
+        </Stack.Navigator>
+    )
+}
+
+function HomeStack(){
+    return(
+        <Tab.Navigator initialRouteName={"Home"}>
+            <Tab.Screen
+                name="Home"
+                component={CourseStack}
+                options={{
+                    headerShown: false,
+                    tabBarIcon: () => {
+                        return (
+                            <Icon
+                                size={30}
+                                name="home"
+                                type="material-community"
+                                color="black"
+                            />
+                        )
+                    }
+                }}
+            />
+            <Tab.Screen
+                name="Profile"
+                component={ProfileComponent}
+                options={{
+                    headerShown: false,
+                    tabBarIcon: () => {
+                        return (
+                            <Icon
+                                size={30}
+                                name="account-circle"
+                                type="material-community"
+                                color="black"
+                            />
+                        )
+                    }
+                }}
+            />
+            <Tab.Screen
+                name="Explore"
+                component={Explore}
+                options={{
+                    headerShown: false,
+                    tabBarIcon: () => {
+                        return (
+                            <Icon
+                                size={30}
+                                name="magnify"
+                                type="material-community"
+                                color="black"
+                            />
+                        )
+                    }
+                }}
+            />
+        </Tab.Navigator>
+    )
+}
+
+//Change InitialRouteName to HomeStack if you want to skip Login Screen
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen
-          name="Home"
-          component={CourseStackNavigator}
-          options={{
-            headerShown: false,
-            tabBarIcon: () => {
-              return (
-                <Icon
-                  size={30}
-                  name="home"
-                  type="material-community"
-                  color="black"
-                />
-              )
-            }
-          }}
-        />
-        <Tab.Screen
-          name="Profile"
-          component={ProfileComponent}
-          options={{
-            headerShown: false,
-            tabBarIcon: () => {
-              return (
-                <Icon
-                  size={30}
-                  name="account-circle"
-                  type="material-community"
-                  color="black"
-                />
-              )
-            }
-          }}
-        />
-        <Tab.Screen
-          name="Explore"
-          component={Explore}
-          options={{
-            headerShown: false,
-            tabBarIcon: () => {
-              return (
-                <Icon
-                  size={30}
-                  name="magnify"
-                  type="material-community"
-                  color="black"
-                />
-              )
-            }
-          }}
-        />
-      </Tab.Navigator>
+        <Stack.Navigator initialRouteName={"LoginStack"}>
+            <Stack.Screen name={"LoginStack"} component={LoginStack} options={{headerShown: false}}/>
+            <Stack.Screen name={"HomeStack"} component={HomeStack} options={{headerShown: false}}/>
+        </Stack.Navigator>
     </NavigationContainer>
   )
 }

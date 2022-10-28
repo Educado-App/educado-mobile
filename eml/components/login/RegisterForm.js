@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {Dimensions, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
 import {useNavigation} from "@react-navigation/native";
-import {registerUser} from "../api/userApi";
+import {registerUser} from "../../api/userApi";
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const USER_INFO = '@userInfo';
@@ -32,13 +32,15 @@ export default function LoginForm(props) {
 
                     console.log(response.message);
 
+                    console.log(response);
+
                     const obj = {
                         phoneNumber: response.result.phone,
                         id: response.result._id
                     }
 
                     AsyncStorage.setItem(USER_INFO, JSON.stringify(obj));
-                    navigation.navigate('Home');
+                    navigation.navigate('HomeStack');
 
                 })
                 .catch(function(error){

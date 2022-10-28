@@ -25,7 +25,7 @@ export default function LogOutButton() {
                     try {
                         AsyncStorage.multiRemove([LOGIN_TOKEN, USER_INFO]).then(r => {
                             console.log("User Logged out successfully!");
-                            navigation.navigate('Login');
+                            navigation.navigate('LoginStack');
                         });
                     }
                     catch (e){

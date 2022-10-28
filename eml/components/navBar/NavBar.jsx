@@ -1,6 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import React from 'react'
-import CourseScreen from '../../screens/Courses/CourseScreen'
+import CourseScreen from '../../screens/courses/CourseScreen'
 import { NavigationContainer } from '@react-navigation/native'
 const Tab = createBottomTabNavigator()
 

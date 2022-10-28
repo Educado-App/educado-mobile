@@ -1,7 +1,7 @@
-import ProfileScreen from "../screens/Drawer/Profile";
-import SettingsScreen from "../screens/Drawer/Settings";
-import SavedScreen from "../screens/Drawer/Saved";
-import ReferScreen from "../screens/Drawer/Refer";
+import ProfileScreen from "../screens/drawer/Profile";
+import SettingsScreen from "../screens/drawer/Settings";
+import SavedScreen from "../screens/drawer/Saved";
+import ReferScreen from "../screens/drawer/Refer";
 
 export default [
     {
