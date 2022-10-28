@@ -12,7 +12,6 @@ import CourseScreen from './screens/Course/Course';
 import SectionScreen from './screens/Section/Section';
 import Login from './screens/Login/Login';
 import Register from "./screens/Register/Register";
-import Drawer from "./screens/Drawer/Drawer";
 import Profile from "./screens/Drawer/Profile";
 
 const Stack = createNativeStackNavigator();
@@ -30,7 +29,6 @@ export default function App() {
           <Stack.Screen name="Login" component={Login}/>
           <Stack.Screen name="Register" component={Register}/>
           <Stack.Screen name="Profile" component={Profile}/>
-          <Stack.Screen name="Drawer" component={Drawer}/>
         </Stack.Navigator>
       </NavigationContainer>
     </RecoilRoot>

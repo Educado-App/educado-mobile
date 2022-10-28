@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Dimensions, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
+import {Dimensions, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import {registerUser} from "../api/userApi";
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -12,10 +12,14 @@ export default function LoginForm(props) {
 
     const navigation = useNavigation();
 
-    const [phoneNumber, setNumber] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
     const [password, setPassword] = useState('');
 
     async function validateInput (phoneNumber, password) {
+
+        //clearing input
+        setPhoneNumber('');
+        setPassword('');
 
         const obj = {
             phone: phoneNumber,
@@ -62,7 +66,7 @@ export default function LoginForm(props) {
                                placeholder="Phone Number"
                                placeholderTextColor="green"
                                keyboardType={"phone-pad"}
-                               onChangeText={phoneNumber => setNumber(phoneNumber)}
+                               onChangeText={phoneNumber => setPhoneNumber(phoneNumber)}
                     />
                     <TextInput
                         style={styles.textInput}
@@ -73,11 +77,13 @@ export default function LoginForm(props) {
                         secureTextEntry={true}
                         onChangeText={password => setPassword(password)}
                     />
-                    <TouchableOpacity onPress={()=>{validateInput(phoneNumber, password)}}>
+                    <Pressable style={({ pressed }) => [
+                        { opacity: pressed ? 0.5 : 1.0 }
+                    ]} onPress={()=>{validateInput(phoneNumber, password)}}>
                         <View style={styles.formButton}>
                             <Text style={styles.buttonText}>Register</Text>
                         </View>
-                    </TouchableOpacity>
+                    </Pressable>
                 </View>
             </View>
         </View>

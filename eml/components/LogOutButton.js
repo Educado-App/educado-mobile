@@ -4,6 +4,7 @@ import { Feather } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const LOGIN_TOKEN = '@loginToken';
+const USER_INFO = '@userInfo'
 
 export default function LogOutButton() {
 
@@ -22,7 +23,7 @@ export default function LogOutButton() {
                 { text: "Yes", onPress: () =>{
 
                     try {
-                        AsyncStorage.removeItem(LOGIN_TOKEN).then(r => {
+                        AsyncStorage.multiRemove([LOGIN_TOKEN, USER_INFO]).then(r => {
                             console.log("User Logged out successfully!");
                             navigation.navigate('Login');
                         });

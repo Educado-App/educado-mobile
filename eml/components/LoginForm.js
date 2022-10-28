@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Dimensions, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
+import {Dimensions, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import {loginUser} from "../api/userApi";
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -11,11 +11,14 @@ export default function LoginForm(props) {
 
     const navigation = useNavigation();
 
-    const [phoneNumber, setNumber] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
     const [password, setPassword] = useState('');
-    const [loginState, setLoginState] = useState(false);
 
     async function validateInput (phoneNumber, password) {
+
+        //clearing input
+        setPhoneNumber('');
+        setPassword('');
 
         //The Object must be hashed before it is sent to backend (before loginUser() is called)
         //The Input must be conditioned (at least one capital letter, minimum 8 letters and a number etc.)
@@ -54,7 +57,8 @@ export default function LoginForm(props) {
                                placeholder="Phone Number"
                                placeholderTextColor="green"
                                keyboardType={"phone-pad"}
-                               onChangeText={phoneNumber => setNumber(phoneNumber)}
+                               onChangeText={phoneNumber => setPhoneNumber(phoneNumber)}
+                               value={phoneNumber}
                     />
                     <TextInput
                                style={styles.textInput}
@@ -62,15 +66,18 @@ export default function LoginForm(props) {
                                placeholderTextColor="green"
                                secureTextEntry={true}
                                onChangeText={password => setPassword(password)}
+                               value={password}
                     />
 
-                    <TouchableOpacity onPress={()=>{
+                    <Pressable style={({ pressed }) => [
+                        { opacity: pressed ? 0.5 : 1.0 }
+                    ]} onPressOut={()=>{
                         validateInput(phoneNumber, password);
                     }}>
                         <View style={styles.formButton}>
                             <Text style={styles.buttonText}>Login</Text>
                         </View>
-                    </TouchableOpacity>
+                    </Pressable>
                 </View>
             </View>
         </View>
