@@ -1,26 +1,47 @@
-import { React } from 'react'
-import { StyleSheet, View, SafeAreaView, Platform } from 'react-native'
-import AddFriendButton from '../../components/profile/addFriendButton'
-import ProfileImage from '../../components/profile/profileImage'
-import ProfileName from '../../components/profile/profileName'
-import ProfileSettings from '../../components/profile/profileSettings'
-import LogOutButton from "../../components/login/LogOutButton";
+import React, {useEffect, useState} from 'react';
+import {StyleSheet, View, SafeAreaView, Platform, ScrollView} from 'react-native';
+import AddFriendButton from '../../components/profile/addFriendButton';
+import ProfileImage from '../../components/profile/profileImage';
+import ProfileName from '../../components/profile/profileName';
+import ProfileSettings from '../../components/profile/profileSettings';
+import LogOutButton from "../../components/profile/LogOutButton";
+import DeleteAccount from "../../components/profile/deleteAccount";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+const USER_INFO = '@userInfo';
 
 export default function ProfileComponent() {
+
+  const [name, setName] = useState('');
+
+  const getProfile = async () => {
+    try {
+      const fetchedProfile = JSON.parse(await AsyncStorage.getItem(USER_INFO));
+      if(fetchedProfile !== null){
+        setName(fetchedProfile.userName);
+      }
+    }
+    catch (e){
+      console.log(e);
+    }
+  }
+
+  useEffect(() => {
+    getProfile();
+  },[]);
+
   return (
     <SafeAreaView style={styles.container}>
-    <View>
+    <ScrollView>
       <ProfileSettings style={styles.settings}></ProfileSettings>
         <ProfileName
-        Name={"Jona"}
-        UserName={"Jona109"}
+        Name={name}
         ></ProfileName>
-
-
       <ProfileImage></ProfileImage>
       <AddFriendButton></AddFriendButton>
       <LogOutButton></LogOutButton>
-    </View>
+      <DeleteAccount></DeleteAccount>
+    </ScrollView>
     </SafeAreaView>
   )
 }

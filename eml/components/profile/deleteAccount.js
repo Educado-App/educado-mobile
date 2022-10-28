@@ -2,17 +2,18 @@ import {StyleSheet, View, TouchableOpacity, Alert} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import { Feather } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import {Text} from "@rneui/base";
 
 const LOGIN_TOKEN = '@loginToken';
 const USER_INFO = '@userInfo'
 
-export default function LogOutButton() {
+export default function DeleteAccount() {
 
     const navigation = useNavigation();
 
-    const logoutAlert = () =>
+    const deleteAlert = () =>
         Alert.alert(
-            "Logout",
+            "Delete Account",
             "Are you sure?",
             [
                 {
@@ -22,36 +23,32 @@ export default function LogOutButton() {
                 },
                 { text: "Yes", onPress: () =>{
 
-                    try {
-                        AsyncStorage.multiRemove([LOGIN_TOKEN, USER_INFO]).then(r => {
-                            console.log("User Logged out successfully!");
-                            navigation.navigate('LoginStack');
-                        });
-                    }
-                    catch (e){
-                        console.log(e);
-                    }
+                        try {
+                            AsyncStorage.multiRemove([LOGIN_TOKEN, USER_INFO]).then(r => {
+                                console.log("User account deleted successfully!");
+                                navigation.navigate('LoginStack');
+                            });
+                        }
+                        catch (e){
+                            console.log(e);
+                        }
 
-                }}
+                    }}
             ]
         );
 
     return (
         <View style ={styles.container}>
 
-            <TouchableOpacity style={styles.formButton} onPress={logoutAlert}>
-                <Feather name="log-out" size={36}  style={styles.tinyLogo} />
-            </TouchableOpacity>
+            <TouchableOpacity style={styles.formButton} onPress={deleteAlert}>
+                <Text style={styles.text}>
 
-            <View style={styles.bottomContainer}>
-                <View style={styles.formInputContainer}>
-                    <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-                        <View style={styles.formButton}>
-                            <Feather name="log-out" size={36}  style={styles.menu} />
-                        </View>
-                    </TouchableOpacity>
-                </View>
-            </View>
+                    <Feather name="delete" size={36}  style={styles.tinyLogo}/>
+
+                    Delete Account
+
+                </Text>
+            </TouchableOpacity>
 
         </View>
     );
@@ -75,29 +72,34 @@ const styles = StyleSheet.create({
     },
     formButton: {
         backgroundColor : 'white',
-        width : 75,
         height : 55,
         alignItems : 'center',
         justifyContent : 'center',
-        borderRadius: 15,
-        marginHorizontal : 325,
+        borderRadius: 35,
+        marginHorizontal : 20,
         marginVertical: 10,
         borderWidth: 1,
-        borderColor: 'black',
+        borderColor: 'white',
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
             height: 4,
         },
-        shadowOpacity: 0.7,
+        shadowOpacity: 0.25,
         shadowRadius: 3.84,
         elevation: 5,
     },
     formInputContainer:{
         marginBottom: 70
     },
+    text: {
+        fontSize: 30,
+        color: "#55747E"
+    },
+
     tinyLogo: {
         width: 50,
         height: 50,
+        marginRight: 10,
     }
 });

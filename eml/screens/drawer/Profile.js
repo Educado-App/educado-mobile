@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {View, Text, StyleSheet} from "react-native";
-import LogOutButton from "../../components/login/LogOutButton";
+import LogOutButton from "../../components/profile/LogOutButton";
 import {Feather} from "@expo/vector-icons";
 
 export default function ProfileScreen() {

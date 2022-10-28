@@ -1,10 +1,11 @@
 import React, {useState} from "react";
 import {Dimensions, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
 import {useNavigation} from "@react-navigation/native";
-import {registerUser} from "../../api/userApi";
+import {loginUser, registerUser} from "../../api/userApi";
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const USER_INFO = '@userInfo';
+const LOGIN_TOKEN = '@loginToken';
 
 const {width, height} = Dimensions.get('window');
 
@@ -12,14 +13,34 @@ export default function LoginForm(props) {
 
     const navigation = useNavigation();
 
-    const [phoneNumber, setPhoneNumber] = useState('');
+    const [userName, setUserName] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('+55');
     const [password, setPassword] = useState('');
 
-    async function validateInput (phoneNumber, password) {
+    async function createProfile (userName, phoneNumber){
+
+        try {
+            const obj = {
+                userName: userName,
+                phoneNumber: phoneNumber,
+            }
+
+            await AsyncStorage.setItem(USER_INFO, JSON.stringify(obj));
+        }
+        catch (e){
+            console.log(e);
+        }
+
+    }
+
+
+    async function register (phoneNumber, password) {
 
         //clearing input
-        setPhoneNumber('');
+        setPhoneNumber('+55');
         setPassword('');
+
+        const userInfo = JSON.parse(await AsyncStorage.getItem(USER_INFO));
 
         const obj = {
             phone: phoneNumber,
@@ -28,23 +49,53 @@ export default function LoginForm(props) {
 
         try {
             await registerUser(obj)
-                .then(function(response){
-
-                    console.log(response.message);
-
+                .then(async function (response) {
                     console.log(response);
 
-                    const obj = {
-                        phoneNumber: response.result.phone,
-                        id: response.result._id
+                    try{
+                        await loginUser(obj)
+                            .then(function (response) {
+                                AsyncStorage.setItem(LOGIN_TOKEN, response.token);
+                                console.log(response);
+                                navigation.navigate('HomeStack');
+                            })
+                            .catch(error => {
+
+                                switch (error.message) {
+
+                                    case "Request failed with status code 404":
+                                        console.log("Wrong Phone Number!");
+                                        break;
+
+                                    case "Request failed with status code 400":
+                                        console.log("Wrong Password!");
+                                        break;
+
+                                    default:
+                                        console.log(error);
+                                }
+                            });
+                    } catch (e) {
+                        console.log(e);
                     }
 
-                    AsyncStorage.setItem(USER_INFO, JSON.stringify(obj));
-                    navigation.navigate('HomeStack');
+                    await createProfile(userName, phoneNumber);
 
                 })
-                .catch(function(error){
-                    console.log(error)
+                .catch(error => {
+
+                    switch (error.message){
+
+                        case userInfo.phoneNumber === phoneNumber:
+                            console.log("Phone Number already exists!");
+                            break;
+
+                        case "Request failed with status code 500":
+                            console.log("Error creating user! OR Password was not hashed correctly!");
+                            break;
+
+                        default: console.log(error);
+                    }
                 });
         }
         catch (e){
@@ -61,6 +112,14 @@ export default function LoginForm(props) {
             </View>
             <View style={styles.bottomContainer}>
                 <View style={styles.formInputContainer}>
+
+                    <TextInput style={styles.textInput}
+                               name={"userName"}
+                               value={userName}
+                               placeholder="Username"
+                               placeholderTextColor="green"
+                               onChangeText={userName => setUserName(userName)}
+                    />
 
                     <TextInput style={styles.textInput}
                                name={"phone"}
@@ -81,9 +140,20 @@ export default function LoginForm(props) {
                     />
                     <Pressable style={({ pressed }) => [
                         { opacity: pressed ? 0.5 : 1.0 }
-                    ]} onPress={()=>{validateInput(phoneNumber, password)}}>
+                    ]} onPress={()=>{
+                        register(phoneNumber, password);
+                    }}>
                         <View style={styles.formButton}>
                             <Text style={styles.buttonText}>Register</Text>
+                        </View>
+                    </Pressable>
+                    <Pressable style={({ pressed }) => [
+                        { opacity: pressed ? 0.5 : 1.0 }
+                    ]} onPress={()=>{
+                        navigation.navigate("Login");
+                    }}>
+                        <View style={styles.formButton}>
+                            <Text style={styles.buttonText}>Go to Login</Text>
                         </View>
                     </Pressable>
                 </View>
@@ -148,28 +218,10 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         elevation: 5,
-
     },
     formInputContainer:{
         marginBottom: 70
     },
-    /* closeButtonContainer:{
-         height: 40,
-         width: 40,
-         justifyContent: 'center',
-         alignSelf: 'center',
-         shadowColor: "#000",
-         shadowOffset: {
-             width: 0,
-             height: 5,
-         },
-         shadowOpacity: 0.34,
-         shadowRadius: 6.27,
-         elevation: 1,
-         backgroundColor: 'white',
-         alignItems: 'center',
-         borderRadius: 20
-     },*/
     textLogoContainer: {
         marginHorizontal : '20%',
         marginVertical: '25%',
