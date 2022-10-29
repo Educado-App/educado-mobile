@@ -12,13 +12,22 @@ const USER_INFO = '@userInfo';
 
 export default function ProfileComponent() {
 
-  const [name, setName] = useState('');
+  const [id, setId] = useState('');
+  const [userName, setUserName] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
 
   const getProfile = async () => {
+
     try {
+
       const fetchedProfile = JSON.parse(await AsyncStorage.getItem(USER_INFO));
+
       if(fetchedProfile !== null){
-        setName(fetchedProfile.userName);
+
+        setId(fetchedProfile.id);
+        setUserName(fetchedProfile.userName);
+        setPhoneNumber(fetchedProfile.phoneNumber);
+
       }
     }
     catch (e){
@@ -35,7 +44,8 @@ export default function ProfileComponent() {
     <ScrollView>
       <ProfileSettings style={styles.settings}></ProfileSettings>
         <ProfileName
-        Name={name}
+        Name={userName}
+        PhoneNumber={phoneNumber}
         ></ProfileName>
       <ProfileImage></ProfileImage>
       <AddFriendButton></AddFriendButton>

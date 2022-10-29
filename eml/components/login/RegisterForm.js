@@ -17,23 +17,6 @@ export default function LoginForm(props) {
     const [phoneNumber, setPhoneNumber] = useState('+55');
     const [password, setPassword] = useState('');
 
-    async function createProfile (userName, phoneNumber){
-
-        try {
-            const obj = {
-                userName: userName,
-                phoneNumber: phoneNumber,
-            }
-
-            await AsyncStorage.setItem(USER_INFO, JSON.stringify(obj));
-        }
-        catch (e){
-            console.log(e);
-        }
-
-    }
-
-
     async function register (phoneNumber, password) {
 
         //clearing input
@@ -50,14 +33,17 @@ export default function LoginForm(props) {
         try {
             await registerUser(obj)
                 .then(async function (response) {
+
                     console.log(response);
 
                     try{
                         await loginUser(obj)
                             .then(function (response) {
+
                                 AsyncStorage.setItem(LOGIN_TOKEN, response.token);
                                 console.log(response);
                                 navigation.navigate('HomeStack');
+
                             })
                             .catch(error => {
 
@@ -75,11 +61,12 @@ export default function LoginForm(props) {
                                         console.log(error);
                                 }
                             });
-                    } catch (e) {
+                    }
+                    catch (e) {
                         console.log(e);
                     }
 
-                    await createProfile(userName, phoneNumber);
+                    await createProfile(response.result._id, userName, phoneNumber);
 
                 })
                 .catch(error => {
@@ -102,6 +89,26 @@ export default function LoginForm(props) {
             console.log(e);
         }
     }
+
+
+    async function createProfile (id, userName, phoneNumber){
+
+        try {
+            const obj = {
+                id: id,
+                userName: userName,
+                phoneNumber: phoneNumber,
+            }
+
+            await AsyncStorage.setItem(USER_INFO, JSON.stringify(obj));
+        }
+        catch (e){
+            console.log(e);
+        }
+
+    }
+
+
 
     return (
         <View style ={styles.container}>

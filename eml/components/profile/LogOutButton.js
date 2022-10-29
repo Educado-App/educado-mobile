@@ -11,6 +11,18 @@ export default function LogOutButton() {
 
     const navigation = useNavigation();
 
+    async function logOut(){
+        try {
+            await AsyncStorage.removeItem(LOGIN_TOKEN).then(r => {
+                console.log("User logged out successfully!");
+                navigation.navigate('LoginStack');
+            });
+        }
+        catch (e){
+            console.log(e);
+        }
+    }
+
     const logoutAlert = () =>
         Alert.alert(
             "Logout",
@@ -21,19 +33,7 @@ export default function LogOutButton() {
                     onPress: () => console.log("No Pressed"),
                     style: "cancel"
                 },
-                { text: "Yes", onPress: () =>{
-
-                    try {
-                        AsyncStorage.removeItem(LOGIN_TOKEN).then(r => {
-                            console.log("User logged out successfully!");
-                            navigation.navigate('LoginStack');
-                        });
-                    }
-                    catch (e){
-                        console.log(e);
-                    }
-
-                }}
+                { text: "Yes", onPress: logOut}
             ]
         );
 

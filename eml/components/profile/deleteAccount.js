@@ -3,6 +3,7 @@ import {useNavigation} from "@react-navigation/native";
 import { Feather } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import {Text} from "@rneui/base";
+import {deleteUser, loginUser} from "../../api/userApi";
 
 const LOGIN_TOKEN = '@loginToken';
 const USER_INFO = '@userInfo'
@@ -10,6 +11,38 @@ const USER_INFO = '@userInfo'
 export default function DeleteAccount() {
 
     const navigation = useNavigation();
+
+    async function Delete () {
+
+        try {
+
+            const obj = JSON.parse(await AsyncStorage.getItem(USER_INFO));
+
+            if (obj !== null){
+
+                try {
+                    await deleteUser(obj.id)
+                        .then(function (response) {
+                            AsyncStorage.multiRemove([LOGIN_TOKEN, USER_INFO]).then(r => {
+                                console.log("User account deleted successfully!");
+                                navigation.navigate('LoginStack');
+                            });
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        });
+                } catch (e) {
+                    console.log(e);
+                }
+
+            }
+        }
+        catch (e){
+            console.log(e);
+        }
+
+    }
+
 
     const deleteAlert = () =>
         Alert.alert(
@@ -21,19 +54,7 @@ export default function DeleteAccount() {
                     onPress: () => console.log("No Pressed"),
                     style: "cancel"
                 },
-                { text: "Yes", onPress: () =>{
-
-                        try {
-                            AsyncStorage.multiRemove([LOGIN_TOKEN, USER_INFO]).then(r => {
-                                console.log("User account deleted successfully!");
-                                navigation.navigate('LoginStack');
-                            });
-                        }
-                        catch (e){
-                            console.log(e);
-                        }
-
-                    }}
+                { text: "Yes", onPress: Delete}
             ]
         );
 

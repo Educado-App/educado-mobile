@@ -28,7 +28,7 @@ export default function LoginForm(props) {
             password: password
         };
 
-        try {
+        try{
             await loginUser(obj)
                 .then(function(response){
                     AsyncStorage.setItem(LOGIN_TOKEN, response.token);
