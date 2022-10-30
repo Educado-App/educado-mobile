@@ -23,6 +23,7 @@ export default function DeleteAccount() {
                 try {
                     await deleteUser(obj.id)
                         .then(function (response) {
+                            console.log(response);
                             AsyncStorage.multiRemove([LOGIN_TOKEN, USER_INFO]).then(r => {
                                 console.log("User account deleted successfully!");
                                 navigation.navigate('LoginStack');

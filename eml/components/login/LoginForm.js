@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Dimensions, Pressable, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
+import {Dimensions, Pressable, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, Alert} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import {loginUser} from "../../api/userApi";
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -40,11 +40,11 @@ export default function LoginForm(props) {
                     switch (error.message){
 
                         case "Request failed with status code 404":
-                            console.log("Wrong Phone Number!");
+                            showAlert("Wrong Phone Number!")
                             break;
 
                         case "Request failed with status code 400":
-                            console.log("Wrong Password!");
+                            showAlert("Wrong Password!")
                             break;
 
                         default: console.log(error);
@@ -56,6 +56,22 @@ export default function LoginForm(props) {
         }
 
     }
+
+    const showAlert = (error) =>
+        Alert.alert(
+            error,
+            "Try again",
+            [
+                {
+                    text: "OK",
+                    style: "cancel",
+                },
+            ],
+            {
+                cancelable: true,
+            }
+        );
+
 
     return (
         <View style ={styles.container}>

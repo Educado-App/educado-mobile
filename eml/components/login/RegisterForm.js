@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Dimensions, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
+import {Alert, Dimensions, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import {loginUser, registerUser} from "../../api/userApi";
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -22,8 +22,6 @@ export default function LoginForm(props) {
         //clearing input
         setPhoneNumber('+55');
         setPassword('');
-
-        const userInfo = JSON.parse(await AsyncStorage.getItem(USER_INFO));
 
         const obj = {
             phone: phoneNumber,
@@ -73,12 +71,8 @@ export default function LoginForm(props) {
 
                     switch (error.message){
 
-                        case userInfo.phoneNumber === phoneNumber:
-                            console.log("Phone Number already exists!");
-                            break;
-
                         case "Request failed with status code 500":
-                            console.log("Error creating user! OR Password was not hashed correctly!");
+                            showAlert("Phone Number already exists!");
                             break;
 
                         default: console.log(error);
@@ -108,7 +102,20 @@ export default function LoginForm(props) {
 
     }
 
-
+    const showAlert = (error) =>
+        Alert.alert(
+            error,
+            "Try again",
+            [
+                {
+                    text: "OK",
+                    style: "cancel",
+                },
+            ],
+            {
+                cancelable: true,
+            }
+        );
 
     return (
         <View style ={styles.container}>
