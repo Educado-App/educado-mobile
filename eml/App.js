@@ -127,7 +127,7 @@ function HomeStack(){
 export default function App() {
   return (
     <NavigationContainer>
-        <Stack.Navigator initialRouteName={"LoginStack"}>
+        <Stack.Navigator initialRouteName={"HomeStack"}>
             <Stack.Screen name={"LoginStack"} component={LoginStack} options={{headerShown: false}}/>
             <Stack.Screen name={"HomeStack"} component={HomeStack} options={{headerShown: false}}/>
         </Stack.Navigator>
