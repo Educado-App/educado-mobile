@@ -1,6 +1,6 @@
 [
   {
-    "title": "Test course",
+    "title": "Personal Finance",
     "courseId": 1,
     "description": "A nice course about testing",
     "author": {
@@ -14,8 +14,287 @@
     "sections": [
       {
         "sectionNumber": 1,
-        "title": "Introduction: What is testing?",
-        "description": "",
+        "title": "How to make money",
+        "description": "Easy steps to make alot of money",
+        "exercises": [
+          {
+            "exerciseNumber": 1,
+            "content": {
+              "type": "video",
+              "url": "https://www.youtube.com/watch?v=C0DPdy98e4c"
+            },
+            "on_wrong_feedback": {
+              "type": "video",
+              "url": "https://www.youtube.com/watch?v=C0DPdy98e4c"
+            },
+            "answers": [
+              {
+                "answerNumber": 1,
+                "text": "Tests is a bad idea",
+                "correct": false
+              },
+              {
+                "answerNumber": 2,
+                "text": "Tests is a good idea",
+                "correct": true
+              }
+            ]
+          }
+        ],
+        "createdAt": "Thu Oct 27 2022 10:14:37 GMT+0200"
+      },
+      {
+        "sectionNumber": 2,
+        "title": "How to use money in a good way",
+        "description": "click here to view course",
+        "exercises": [
+          {
+            "exerciseNumber": 1,
+            "content": {
+              "type": "video",
+              "url": "https://www.youtube.com/watch?v=C0DPdy98e4c"
+            },
+            "on_wrong_feedback": {
+              "type": "video",
+              "url": "https://www.youtube.com/watch?v=C0DPdy98e4c"
+            },
+            "answers": [
+              {
+                "answerNumber": 1,
+                "text": "Tests is a bad idea",
+                "correct": false
+              },
+              {
+                "answerNumber": 2,
+                "text": "Tests is a good idea",
+                "correct": true
+              }
+            ]
+          }
+        ],
+        "createdAt": "Thu Oct 27 2022 10:14:37 GMT+0200"
+      },
+      {
+        "sectionNumber": 3,
+        "title": "How to make money",
+        "description": "Easy steps to make alot of money",
+        "exercises": [
+          {
+            "exerciseNumber": 1,
+            "content": {
+              "type": "video",
+              "url": "https://www.youtube.com/watch?v=C0DPdy98e4c"
+            },
+            "on_wrong_feedback": {
+              "type": "video",
+              "url": "https://www.youtube.com/watch?v=C0DPdy98e4c"
+            },
+            "answers": [
+              {
+                "answerNumber": 1,
+                "text": "Tests is a bad idea",
+                "correct": false
+              },
+              {
+                "answerNumber": 2,
+                "text": "Tests is a good idea",
+                "correct": true
+              }
+            ]
+          }
+        ],
+        "createdAt": "Thu Oct 27 2022 10:14:37 GMT+0200"
+      },
+      {
+        "sectionNumber": 4,
+        "title": "How to make money",
+        "description": "Easy steps to make alot of money",
+        "exercises": [
+          {
+            "exerciseNumber": 1,
+            "content": {
+              "type": "video",
+              "url": "https://www.youtube.com/watch?v=C0DPdy98e4c"
+            },
+            "on_wrong_feedback": {
+              "type": "video",
+              "url": "https://www.youtube.com/watch?v=C0DPdy98e4c"
+            },
+            "answers": [
+              {
+                "answerNumber": 1,
+                "text": "Tests is a bad idea",
+                "correct": false
+              },
+              {
+                "answerNumber": 2,
+                "text": "Tests is a good idea",
+                "correct": true
+              }
+            ]
+          }
+        ],
+        "createdAt": "Thu Oct 27 2022 10:14:37 GMT+0200"
+      },
+      {
+        "sectionNumber": 5,
+        "title": "How to make money",
+        "description": "Easy steps to make alot of money",
+        "exercises": [
+          {
+            "exerciseNumber": 1,
+            "content": {
+              "type": "video",
+              "url": "https://www.youtube.com/watch?v=C0DPdy98e4c"
+            },
+            "on_wrong_feedback": {
+              "type": "video",
+              "url": "https://www.youtube.com/watch?v=C0DPdy98e4c"
+            },
+            "answers": [
+              {
+                "answerNumber": 1,
+                "text": "Tests is a bad idea",
+                "correct": false
+              },
+              {
+                "answerNumber": 2,
+                "text": "Tests is a good idea",
+                "correct": true
+              }
+            ]
+          }
+        ],
+        "createdAt": "Thu Oct 27 2022 10:14:37 GMT+0200"
+      },
+      {
+        "sectionNumber": 6,
+        "title": "How to make money",
+        "description": "Easy steps to make alot of money",
+        "exercises": [
+          {
+            "exerciseNumber": 1,
+            "content": {
+              "type": "video",
+              "url": "https://www.youtube.com/watch?v=C0DPdy98e4c"
+            },
+            "on_wrong_feedback": {
+              "type": "video",
+              "url": "https://www.youtube.com/watch?v=C0DPdy98e4c"
+            },
+            "answers": [
+              {
+                "answerNumber": 1,
+                "text": "Tests is a bad idea",
+                "correct": false
+              },
+              {
+                "answerNumber": 2,
+                "text": "Tests is a good idea",
+                "correct": true
+              }
+            ]
+          }
+        ],
+        "createdAt": "Thu Oct 27 2022 10:14:37 GMT+0200"
+      },
+      {
+        "sectionNumber": 7,
+        "title": "How to make money",
+        "description": "Easy steps to make alot of money",
+        "exercises": [
+          {
+            "exerciseNumber": 1,
+            "content": {
+              "type": "video",
+              "url": "https://www.youtube.com/watch?v=C0DPdy98e4c"
+            },
+            "on_wrong_feedback": {
+              "type": "video",
+              "url": "https://www.youtube.com/watch?v=C0DPdy98e4c"
+            },
+            "answers": [
+              {
+                "answerNumber": 1,
+                "text": "Tests is a bad idea",
+                "correct": false
+              },
+              {
+                "answerNumber": 2,
+                "text": "Tests is a good idea",
+                "correct": true
+              }
+            ]
+          }
+        ],
+        "createdAt": "Thu Oct 27 2022 10:14:37 GMT+0200"
+      },
+      {
+        "sectionNumber": 8,
+        "title": "How to make money",
+        "description": "Easy steps to make alot of money",
+        "exercises": [
+          {
+            "exerciseNumber": 1,
+            "content": {
+              "type": "video",
+              "url": "https://www.youtube.com/watch?v=C0DPdy98e4c"
+            },
+            "on_wrong_feedback": {
+              "type": "video",
+              "url": "https://www.youtube.com/watch?v=C0DPdy98e4c"
+            },
+            "answers": [
+              {
+                "answerNumber": 1,
+                "text": "Tests is a bad idea",
+                "correct": false
+              },
+              {
+                "answerNumber": 2,
+                "text": "Tests is a good idea",
+                "correct": true
+              }
+            ]
+          }
+        ],
+        "createdAt": "Thu Oct 27 2022 10:14:37 GMT+0200"
+      },
+      {
+        "sectionNumber": 9,
+        "title": "How to make money",
+        "description": "Easy steps to make alot of money",
+        "exercises": [
+          {
+            "exerciseNumber": 1,
+            "content": {
+              "type": "video",
+              "url": "https://www.youtube.com/watch?v=C0DPdy98e4c"
+            },
+            "on_wrong_feedback": {
+              "type": "video",
+              "url": "https://www.youtube.com/watch?v=C0DPdy98e4c"
+            },
+            "answers": [
+              {
+                "answerNumber": 1,
+                "text": "Tests is a bad idea",
+                "correct": false
+              },
+              {
+                "answerNumber": 2,
+                "text": "Tests is a good idea",
+                "correct": true
+              }
+            ]
+          }
+        ],
+        "createdAt": "Thu Oct 27 2022 10:14:37 GMT+0200"
+      },
+      {
+        "sectionNumber": 10,
+        "title": "How to make money",
+        "description": "Easy steps to make alot of money",
         "exercises": [
           {
             "exerciseNumber": 1,
@@ -47,7 +326,7 @@
     "createdAt": "Thu Oct 27 2022 10:14:37 GMT+0200"
   },
   {
-    "title": "Test course 2",
+    "title": "Health",
     "courseId": 2,
     "description": "A nice course about testing",
     "author": {
@@ -94,7 +373,7 @@
     "createdAt": "Thu Oct 27 2022 10:14:37 GMT+0200"
   },
   {
-    "title": "Test course 3",
+    "title": "Personal Finance",
     "courseId": 3,
     "description": "A nice course about testing",
     "author": {
@@ -141,9 +420,9 @@
     "createdAt": "Thu Oct 27 2022 10:14:37 GMT+0200"
   },
   {
-    "title": "Test course 9",
+    "title": "Test course 10",
     "courseId": 1,
-    "description": "A nice course about testing",
+    "description": "Ass",
     "author": {
       "user": 2,
       "firstName": "Jakob",

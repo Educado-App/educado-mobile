@@ -6,11 +6,19 @@ import CustomProgressBar from '../../components/exercise/Progressbar'
 import LearningInputVideo from '../../components/exercise/video/LearningInputVideoExample1'
 import FourButtons from '../../components/exercise/ExerciseButtons'
 import HeaderIcon from '../../components/exercise/headerIcon'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import Star from '../../components/gamification/Star'
+import { Route } from '@react-navigation/native'
 
 export default function SessionComponent() {
   const navigation = useNavigation()
+
+  const route = useRoute()
+
+  const { itemId } = route.params
+
+  console.log(itemId)
+
   const answerArray = ['star', 'circle', 'square']
 
   const [answerNr, setAnswerNr] = useState(0)
@@ -80,12 +88,16 @@ export default function SessionComponent() {
       <View style={{ flex: 2, width: '100%' }}>
         <LearningInputVideo></LearningInputVideo>
         {answerNr === -1
-          ? Alert.alert('Good job you completed the section!', 'Congratulations!', [
-            {
-              text: 'Back',
-              onPress: () => navigation.navigate('Course')
-            }
-          ])
+          ? Alert.alert(
+              'Good job you completed the section!',
+              'Congratulations!',
+              [
+                {
+                  text: 'Back',
+                  onPress: () => navigation.navigate('Course')
+                }
+              ]
+            )
           : null}
       </View>
       <View style={{ flex: 3 }}>

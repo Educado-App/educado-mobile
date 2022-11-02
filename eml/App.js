@@ -4,16 +4,21 @@ import CourseScreen from './screens/courses/CourseScreen'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Icon } from '@rneui/themed'
 import ProfileComponent from './screens/profile/Profile'
-import LoginScreen from './screens/login/Login';
-import RegisterScreen from "./screens/register/Register";
+import LoginScreen from './screens/login/Login'
+import RegisterScreen from './screens/register/Register'
+import CourseListUi from './components/easyDynComponents/CourseListUI'
+
+import * as eva from '@eva-design/eva'
+import { ApplicationProvider, IconRegistry } from '@ui-kitten/components'
+import { EvaIconsPack } from '@ui-kitten/eva-icons'
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import SessionScreen from './screens/excercise/ExerciseScreen'
 import WrongAnswerComponent from './screens/excercise/WrongAnswerScreen'
 import Explore from './screens/explore/Explore'
 
-const Tab = createBottomTabNavigator();
-const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator()
+const Stack = createNativeStackNavigator()
 
 function CourseStack() {
   return (
@@ -43,94 +48,107 @@ function CourseStack() {
   )
 }
 
-function LoginStack(){
-    return(
-        <Stack.Navigator initialRouteName={"Login"}>
-            <Stack.Screen
-                name="Login"
-                component={LoginScreen}
-                options={{
-                    headerShown: false
-                }}
-            />
-            <Stack.Screen
-                name="Register"
-                component={RegisterScreen}
-                options={{
-                    headerShown: false
-                }}
-            />
-        </Stack.Navigator>
-    )
+function LoginStack() {
+  return (
+    <Stack.Navigator initialRouteName={'Login'}>
+      <Stack.Screen
+        name="Login"
+        component={LoginScreen}
+        options={{
+          headerShown: false
+        }}
+      />
+      <Stack.Screen
+        name="Register"
+        component={RegisterScreen}
+        options={{
+          headerShown: false
+        }}
+      />
+    </Stack.Navigator>
+  )
 }
 
-function HomeStack(){
-    return(
-        <Tab.Navigator initialRouteName={"Home"}>
-            <Tab.Screen
-                name="Home"
-                component={CourseStack}
-                options={{
-                    headerShown: false,
-                    tabBarIcon: () => {
-                        return (
-                            <Icon
-                                size={30}
-                                name="home"
-                                type="material-community"
-                                color="black"
-                            />
-                        )
-                    }
-                }}
-            />
-            <Tab.Screen
-                name="Profile"
-                component={ProfileComponent}
-                options={{
-                    headerShown: false,
-                    tabBarIcon: () => {
-                        return (
-                            <Icon
-                                size={30}
-                                name="account-circle"
-                                type="material-community"
-                                color="black"
-                            />
-                        )
-                    }
-                }}
-            />
-            <Tab.Screen
-                name="Explore"
-                component={Explore}
-                options={{
-                    headerShown: false,
-                    tabBarIcon: () => {
-                        return (
-                            <Icon
-                                size={30}
-                                name="magnify"
-                                type="material-community"
-                                color="black"
-                            />
-                        )
-                    }
-                }}
-            />
-        </Tab.Navigator>
-    )
+function HomeStack() {
+  return (
+    <Tab.Navigator initialRouteName={'Home'}>
+      <Tab.Screen
+        name="Home"
+        component={CourseStack}
+        options={{
+          headerShown: false,
+          tabBarIcon: () => {
+            return (
+              <Icon
+                size={30}
+                name="home"
+                type="material-community"
+                color="black"
+              />
+            )
+          }
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={ProfileComponent}
+        options={{
+          headerShown: false,
+          tabBarIcon: () => {
+            return (
+              <Icon
+                size={30}
+                name="account-circle"
+                type="material-community"
+                color="black"
+              />
+            )
+          }
+        }}
+      />
+      <Tab.Screen
+        name="Explore"
+        component={Explore}
+        options={{
+          headerShown: false,
+          tabBarIcon: () => {
+            return (
+              <Icon
+                size={30}
+                name="magnify"
+                type="material-community"
+                color="black"
+              />
+            )
+          }
+        }}
+      />
+    </Tab.Navigator>
+  )
 }
 
 //Change InitialRouteName to HomeStack if you want to skip Login Screen
 
 export default function App() {
   return (
-    <NavigationContainer>
-        <Stack.Navigator initialRouteName={"LoginStack"}>
-            <Stack.Screen name={"LoginStack"} component={LoginStack} options={{headerShown: false}}/>
-            <Stack.Screen name={"HomeStack"} component={HomeStack} options={{headerShown: false}}/>
-        </Stack.Navigator>
-    </NavigationContainer>
+    <>
+      <IconRegistry icons={EvaIconsPack} />
+      <ApplicationProvider {...eva} theme={eva.light}>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName={'HomeStack'}>
+            <Stack.Screen
+              name={'LoginStack'}
+              component={LoginStack}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name={'HomeStack'}
+              component={HomeStack}
+              options={{ headerShown: false }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </ApplicationProvider>
+    </>
   )
 }
