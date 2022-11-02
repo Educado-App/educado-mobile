@@ -1,0 +1,190 @@
+[
+  {
+    "title": "Test course",
+    "courseId": 1,
+    "description": "A nice course about testing",
+    "author": {
+      "user": 2,
+      "firstName": "Jakob",
+      "lastName": "Saadbye"
+    },
+    "coverImg": "https://dummyjson.com/",
+    "published": true,
+    "category": 3,
+    "sections": [
+      {
+        "sectionNumber": 1,
+        "title": "Introduction: What is testing?",
+        "description": "",
+        "exercises": [
+          {
+            "exerciseNumber": 1,
+            "content": {
+              "type": "video",
+              "url": "https://www.youtube.com/watch?v=C0DPdy98e4c"
+            },
+            "on_wrong_feedback": {
+              "type": "video",
+              "url": "https://www.youtube.com/watch?v=C0DPdy98e4c"
+            },
+            "answers": [
+              {
+                "answerNumber": 1,
+                "text": "Tests is a bad idea",
+                "correct": false
+              },
+              {
+                "answerNumber": 2,
+                "text": "Tests is a good idea",
+                "correct": true
+              }
+            ]
+          }
+        ],
+        "createdAt": "Thu Oct 27 2022 10:14:37 GMT+0200"
+      }
+    ],
+    "createdAt": "Thu Oct 27 2022 10:14:37 GMT+0200"
+  },
+  {
+    "title": "Test course 2",
+    "courseId": 2,
+    "description": "A nice course about testing",
+    "author": {
+      "user": 2,
+      "firstName": "Jakob",
+      "lastName": "Saadbye"
+    },
+    "coverImg": "https://dummyjson.com/",
+    "published": true,
+    "category": 2,
+    "sections": [
+      {
+        "sectionNumber": 1,
+        "title": "Introduction: What is testing?",
+        "description": "",
+        "exercises": [
+          {
+            "exerciseNumber": 1,
+            "content": {
+              "type": "video",
+              "url": "https://www.youtube.com/watch?v=C0DPdy98e4c"
+            },
+            "on_wrong_feedback": {
+              "type": "video",
+              "url": "https://www.youtube.com/watch?v=C0DPdy98e4c"
+            },
+            "answers": [
+              {
+                "answerNumber": 1,
+                "text": "Tests is a bad idea",
+                "correct": false
+              },
+              {
+                "answerNumber": 2,
+                "text": "Tests is a good idea",
+                "correct": true
+              }
+            ]
+          }
+        ],
+        "createdAt": "Thu Oct 27 2022 10:14:37 GMT+0200"
+      }
+    ],
+    "createdAt": "Thu Oct 27 2022 10:14:37 GMT+0200"
+  },
+  {
+    "title": "Test course 3",
+    "courseId": 3,
+    "description": "A nice course about testing",
+    "author": {
+      "user": 2,
+      "firstName": "Jakob",
+      "lastName": "Saadbye"
+    },
+    "coverImg": "https://dummyjson.com/",
+    "published": true,
+    "category": 1,
+    "sections": [
+      {
+        "sectionNumber": 1,
+        "title": "Introduction: What is testing?",
+        "description": "",
+        "exercises": [
+          {
+            "exerciseNumber": 1,
+            "content": {
+              "type": "video",
+              "url": "https://www.youtube.com/watch?v=C0DPdy98e4c"
+            },
+            "on_wrong_feedback": {
+              "type": "video",
+              "url": "https://www.youtube.com/watch?v=C0DPdy98e4c"
+            },
+            "answers": [
+              {
+                "answerNumber": 1,
+                "text": "Tests is a bad idea",
+                "correct": false
+              },
+              {
+                "answerNumber": 2,
+                "text": "Tests is a good idea",
+                "correct": true
+              }
+            ]
+          }
+        ],
+        "createdAt": "Thu Oct 27 2022 10:14:37 GMT+0200"
+      }
+    ],
+    "createdAt": "Thu Oct 27 2022 10:14:37 GMT+0200"
+  },
+  {
+    "title": "Test course 9",
+    "courseId": 1,
+    "description": "A nice course about testing",
+    "author": {
+      "user": 2,
+      "firstName": "Jakob",
+      "lastName": "Saadbye"
+    },
+    "coverImg": "https://dummyjson.com/",
+    "published": true,
+    "category": 3,
+    "sections": [
+      {
+        "sectionNumber": 1,
+        "title": "Introduction: What is testing?",
+        "description": "",
+        "exercises": [
+          {
+            "exerciseNumber": 1,
+            "content": {
+              "type": "video",
+              "url": "https://www.youtube.com/watch?v=C0DPdy98e4c"
+            },
+            "on_wrong_feedback": {
+              "type": "video",
+              "url": "https://www.youtube.com/watch?v=C0DPdy98e4c"
+            },
+            "answers": [
+              {
+                "answerNumber": 1,
+                "text": "Tests is a bad idea",
+                "correct": false
+              },
+              {
+                "answerNumber": 2,
+                "text": "Tests is a good idea",
+                "correct": true
+              }
+            ]
+          }
+        ],
+        "createdAt": "Thu Oct 27 2022 10:14:37 GMT+0200"
+      }
+    ],
+    "createdAt": "Thu Oct 27 2022 10:14:37 GMT+0200"
+  }
+]
