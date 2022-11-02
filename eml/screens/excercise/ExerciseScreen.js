@@ -8,10 +8,25 @@ import FourButtons from '../../components/exercise/ExerciseButtons'
 import HeaderIcon from '../../components/exercise/headerIcon'
 import { useNavigation } from '@react-navigation/native'
 import Star from '../../components/gamification/Star'
+import Exercises from '../../assets/exercises.json'
 
 export default function SessionComponent() {
   const navigation = useNavigation()
-  const answerArray = ['star', 'circle', 'square']
+
+  function determineRightAnswers(){
+    const rightAnswers = []
+    for(let i = 0; i < Exercises.length; i++){
+      for(let j = 0; j < Exercises[i].answers.length; j++){
+        if(Exercises[i].answers[j].correct === true){
+          rightAnswers.push(Exercises[i].answers[j].answerNumber)
+        }
+      }
+    }
+    return rightAnswers
+  }
+  
+  const answerArray = determineRightAnswers()
+  // console.log(answerArray)
 
   const [answerNr, setAnswerNr] = useState(0)
   const [correctNr, setCorrectNr] = useState(0)
@@ -31,7 +46,7 @@ export default function SessionComponent() {
       setAnswerNr((current) => current + 1)
     } else {
       setAnswerNr((current) => current + 1)
-      console.log(answerNr)
+      // console.log(answerNr)
     }
   }
 
