@@ -1,13 +1,19 @@
 import { Video } from 'expo-av'
 import { StyleSheet } from 'react-native'
 import { React } from 'react'
+import PropTypes from 'prop-types'
+import GetContent from '../video/Content'
 
-const LaerningInputVideoExample1 = () => {
+function LaerningInputVideoExample1({pathVideo}){
+  LaerningInputVideoExample1.propTypes = {
+    pathVideo: PropTypes.number,
+  }
+
+  const items = GetContent()
+  
   return (
     <Video
-      source={{
-        uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4'
-      }}
+      source={items[pathVideo].video}
       rate={1.0}
       volume={1.0}
       isMuted={false}
@@ -22,6 +28,7 @@ const LaerningInputVideoExample1 = () => {
 
 const styles = StyleSheet.create({
   backgroundVideo: {
+
     height: '100%'
   }
 })

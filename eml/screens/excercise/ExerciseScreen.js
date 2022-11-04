@@ -3,7 +3,7 @@ import { React, useState, useEffect } from 'react'
 import { Alert, StyleSheet, View, Text } from 'react-native'
 import LeaveButton from '../../components/exercise/LeaveButton'
 import CustomProgressBar from '../../components/exercise/Progressbar'
-import LearningInputVideo from '../../components/exercise/video/LearningInputVideoExample1'
+import LearningInputVideoExample1 from '../../components/exercise/video/LearningInputVideoExample1'
 import FourButtons from '../../components/exercise/ExerciseButtons'
 import HeaderIcon from '../../components/exercise/headerIcon'
 import { useNavigation } from '@react-navigation/native'
@@ -27,6 +27,7 @@ export default function SessionComponent() {
   
   const answerArray = determineRightAnswers()
   // console.log(answerArray)
+  
 
   const [answerNr, setAnswerNr] = useState(0)
   const [correctNr, setCorrectNr] = useState(0)
@@ -43,10 +44,10 @@ export default function SessionComponent() {
   function sendDataToParent(correct) {
     if (correct) {
       setCorrectNr((current) => current + 1)
+    }
+    
+    if(answerNr < answerArray.length){
       setAnswerNr((current) => current + 1)
-    } else {
-      setAnswerNr((current) => current + 1)
-      // console.log(answerNr)
     }
   }
 
@@ -93,8 +94,8 @@ export default function SessionComponent() {
         </View>
       </View>
       <View style={{ flex: 2, width: '100%' }}>
-        <LearningInputVideo></LearningInputVideo>
-        {answerNr === -1
+        <LearningInputVideoExample1 pathVideo={answerNr}></LearningInputVideoExample1>
+        {answerNr > answerArray.length -1
           ? Alert.alert('Good job you completed the section!', 'Congratulations!', [
             {
               text: 'Back',

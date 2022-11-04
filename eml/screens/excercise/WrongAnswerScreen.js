@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native'
 import LearningInputVideo from '../../components/exercise/video/LearningInputVideoExample1'
 import { Icon } from '@rneui/themed'
 import { useNavigation } from '@react-navigation/native'
+import Feedback from '../../assets/feedback.json'
 
 export default function WrongAnswerComponent() {
   const navigation = useNavigation()
