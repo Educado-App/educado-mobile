@@ -6,7 +6,7 @@ import { Icon } from '@rneui/themed'
 import ProfileComponent from './screens/profile/Profile'
 import LoginScreen from './screens/login/Login'
 import RegisterScreen from './screens/register/Register'
-import CourseListUi from './components/easyDynComponents/CourseListUI'
+
 
 import * as eva from '@eva-design/eva'
 import { ApplicationProvider, IconRegistry } from '@ui-kitten/components'
