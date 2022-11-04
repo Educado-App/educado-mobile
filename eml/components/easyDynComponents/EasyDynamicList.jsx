@@ -27,7 +27,7 @@ export default function easyDynamicList({ JSONData }) {
             {JSONData.map((item, index) => {
                 return (
                     <ListItem
-                        onPress={() => { navigation.navigate('Exercise', { itemId: item.sectionNumber },) }}
+                        onPress={() => { navigation.navigate('Exercise', { itemId: item.sectionNumber, data: JSONData },) }}
                         style={styles.listItems}
                         key={index}
                         title={item.title}

@@ -30,7 +30,7 @@
             "answers": [
               {
                 "answerNumber": 1,
-                "text": "Tests is a bad idea",
+                "text": "AnswerSection1",
                 "correct": false
               },
               {
@@ -92,7 +92,7 @@
             "answers": [
               {
                 "answerNumber": 1,
-                "text": "Tests is a bad idea",
+                "text": "AnswerSection3",
                 "correct": false
               },
               {
