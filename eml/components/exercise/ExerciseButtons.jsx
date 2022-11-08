@@ -12,12 +12,13 @@ const voiceOvers = [
   require('../../assets/voice4.mp3')
 ]
 
-export default function FourButtons2({ correctAnswer, sendDataToParent }) {
+export default function FourButtons2({ correctAnswer, sendDataToParent, answerNr }) {
   const navigation = useNavigation()
 
   FourButtons2.propTypes = {
-    correctAnswer: PropTypes.string,
-    sendDataToParent: PropTypes.func.isRequired
+    correctAnswer: PropTypes.number,
+    sendDataToParent: PropTypes.func.isRequired,
+    answerNr: PropTypes.number.isRequired
   }
 
   const [selected, setSelected] = useState({
@@ -26,7 +27,7 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
     btn3: false,
     btn4: false
   })
-  const [choice, setChoice] = useState('')
+  const [choice, setChoice] = useState(0)
 
   const [button, setButton] = useState(true)
 
@@ -51,7 +52,7 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
     }
   }
   function handleChange(evt) {
-    if (evt === 'triangle') {
+    if (evt === 1) {
       setSelected({
         ...selected,
         btn1: true,
@@ -59,7 +60,7 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
         btn3: false,
         btn4: false
       })
-    } else if (evt === 'circle') {
+    } else if (evt === 2) {
       setSelected({
         ...selected,
         btn1: false,
@@ -67,7 +68,7 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
         btn3: false,
         btn4: false
       })
-    } else if (evt === 'star') {
+    } else if (evt === 3) {
       setSelected({
         ...selected,
         btn1: false,
@@ -75,7 +76,7 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
         btn3: true,
         btn4: false
       })
-    } else if (evt === 'square') {
+    } else if (evt === 4) {
       setSelected({
         ...selected,
         btn1: false,
@@ -84,7 +85,7 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
         btn4: true
       })
     }
-    console.log(evt)
+    // console.log(evt)
     setChoice(evt)
   }
 
@@ -99,6 +100,8 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
   }
 
   function checkChoice(choice) {
+    //console.log(choice)
+    //console.log(correctAnswer)
     if (choice === correctAnswer) {
       Alert.alert('Wuhuuu you answered correct!', 'God job!', [
         {
@@ -110,7 +113,7 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
       ])
       setButtonState(false, false, false, false)
     } else {
-      navigation.navigate('WrongAnswer')
+      navigation.navigate('WrongAnswer',{answerNr: answerNr})
       sendDataToParent(false)
       setButtonState(false, false, false, false)
     }
@@ -137,7 +140,7 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
             color="white"
             onPress={() => {
               setButton()
-              handleChange('triangle')
+              handleChange(1)
               handlePlaySound()
             }}
           />
@@ -160,7 +163,7 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
             color="white"
             onPress={() => {
               setButton()
-              handleChange('circle')
+              handleChange(2)
               handlePlaySound()
             }}
           />
@@ -185,7 +188,7 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
             color="white"
             onPress={() => {
               setButton()
-              handleChange('star')
+              handleChange(3)
               handlePlaySound()
             }}
           />
@@ -208,7 +211,7 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
             color="white"
             onPress={() => {
               setButton()
-              handleChange('square')
+              handleChange(4)
               handlePlaySound()
             }}
           />

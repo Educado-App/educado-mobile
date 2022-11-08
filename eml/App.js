@@ -7,7 +7,6 @@ import ProfileComponent from './screens/profile/Profile'
 import LoginScreen from './screens/login/Login'
 import RegisterScreen from './screens/register/Register'
 
-
 import * as eva from '@eva-design/eva'
 import { ApplicationProvider, IconRegistry } from '@ui-kitten/components'
 import { EvaIconsPack } from '@ui-kitten/eva-icons'
@@ -127,7 +126,7 @@ function HomeStack() {
   )
 }
 
-//Change InitialRouteName to HomeStack if you want to skip Login Screen
+// Change InitialRouteName to HomeStack if you want to skip Login Screen
 
 export default function App() {
   return (

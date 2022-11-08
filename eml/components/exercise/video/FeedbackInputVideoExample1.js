@@ -4,8 +4,8 @@ import { React } from 'react'
 import PropTypes from 'prop-types'
 import GetContent from '../../../assets/video/content/Content'
 
-function LaerningInputVideoExample1({pathVideo}){
-  LaerningInputVideoExample1.propTypes = {
+function FeedbackInputVideoExample1({pathVideo}){
+  FeedbackInputVideoExample1.propTypes = {
     pathVideo: PropTypes.number,
   }
 
@@ -36,4 +36,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default LaerningInputVideoExample1
+export default FeedbackInputVideoExample1

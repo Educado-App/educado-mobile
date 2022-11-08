@@ -3,11 +3,12 @@ import { React, useState, useEffect } from 'react'
 import { Alert, StyleSheet, View, Text } from 'react-native'
 import LeaveButton from '../../components/exercise/LeaveButton'
 import CustomProgressBar from '../../components/exercise/Progressbar'
-import LearningInputVideo from '../../components/exercise/video/LearningInputVideoExample1'
+import LearningInputVideoExample1 from '../../components/exercise/video/LearningInputVideoExample1'
 import FourButtons from '../../components/exercise/ExerciseButtons'
 import HeaderIcon from '../../components/exercise/headerIcon'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import Star from '../../components/gamification/Star'
+<<<<<<< HEAD
 export default function SessionComponent() {
   const navigation = useNavigation()
 
@@ -18,6 +19,28 @@ export default function SessionComponent() {
   console.log(itemId)
 
   const answerArray = ['star', 'circle', 'square']
+=======
+import Exercises from '../../assets/exercises.json'
+
+export default function SessionComponent() {
+  const navigation = useNavigation()
+
+  function determineRightAnswers(){
+    const rightAnswers = []
+    for(let i = 0; i < Exercises.length; i++){
+      for(let j = 0; j < Exercises[i].answers.length; j++){
+        if(Exercises[i].answers[j].correct === true){
+          rightAnswers.push(Exercises[i].answers[j].answerNumber)
+        }
+      }
+    }
+    return rightAnswers
+  }
+  
+  const answerArray = determineRightAnswers()
+  // console.log(answerArray)
+  
+>>>>>>> 8705fb2394e100f3fc628f9636b17ce66340143b
 
   const [answerNr, setAnswerNr] = useState(0)
   const [correctNr, setCorrectNr] = useState(0)
@@ -26,19 +49,18 @@ export default function SessionComponent() {
   const fraqTop = correctNr
 
   useEffect(() => {
-    if (answerNr > answerArray.length - 1) {
+    if (answerNr > answerArray.length -1) {
       setAnswerNr(-1)
+      console.log("insideinside useEffect " + answerNr)
     }
-  })
+    console.log("insideoutside useEffect " + answerNr)
+  }, [answerNr])
 
   function sendDataToParent(correct) {
     if (correct) {
       setCorrectNr((current) => current + 1)
-      setAnswerNr((current) => current + 1)
-    } else {
-      setAnswerNr((current) => current + 1)
-      console.log(answerNr)
     }
+      setAnswerNr((current) => current + 1)
   }
 
   const correctAnswer = answerArray[answerNr]
@@ -84,8 +106,8 @@ export default function SessionComponent() {
         </View>
       </View>
       <View style={{ flex: 2, width: '100%' }}>
-        <LearningInputVideo></LearningInputVideo>
         {answerNr === -1
+<<<<<<< HEAD
           ? Alert.alert(
               'Good job you completed the section!',
               'Congratulations!',
@@ -97,11 +119,21 @@ export default function SessionComponent() {
               ]
             )
           : null}
+=======
+          ? Alert.alert('Good job you completed the section!', 'Congratulations!', [
+            {
+              text: 'Back',
+              onPress: () => navigation.navigate('Course')
+            }
+          ])
+          : <LearningInputVideoExample1 pathVideo={answerNr}></LearningInputVideoExample1>}
+>>>>>>> 8705fb2394e100f3fc628f9636b17ce66340143b
       </View>
       <View style={{ flex: 3 }}>
         <FourButtons
           correctAnswer={correctAnswer}
           sendDataToParent={sendDataToParent}
+          answerNr = {answerNr}
         ></FourButtons>
       </View>
       <StatusBar style="auto" />
