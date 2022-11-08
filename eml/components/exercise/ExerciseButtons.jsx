@@ -12,12 +12,13 @@ const voiceOvers = [
   require('../../assets/voice4.mp3')
 ]
 
-export default function FourButtons2({ correctAnswer, sendDataToParent }) {
+export default function FourButtons2({ correctAnswer, sendDataToParent, answerNr }) {
   const navigation = useNavigation()
 
   FourButtons2.propTypes = {
     correctAnswer: PropTypes.number,
-    sendDataToParent: PropTypes.func.isRequired
+    sendDataToParent: PropTypes.func.isRequired,
+    answerNr: PropTypes.number.isRequired
   }
 
   const [selected, setSelected] = useState({
@@ -99,8 +100,8 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
   }
 
   function checkChoice(choice) {
-    console.log(choice)
-    console.log(correctAnswer)
+    //console.log(choice)
+    //console.log(correctAnswer)
     if (choice === correctAnswer) {
       Alert.alert('Wuhuuu you answered correct!', 'God job!', [
         {
@@ -112,7 +113,7 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
       ])
       setButtonState(false, false, false, false)
     } else {
-      navigation.navigate('WrongAnswer')
+      navigation.navigate('WrongAnswer',{answerNr: answerNr})
       sendDataToParent(false)
       setButtonState(false, false, false, false)
     }

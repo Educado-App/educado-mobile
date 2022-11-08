@@ -2,7 +2,7 @@ import { Video } from 'expo-av'
 import { StyleSheet } from 'react-native'
 import { React } from 'react'
 import PropTypes from 'prop-types'
-import GetContent from '../video/Content'
+import GetContent from '../../../assets/video/content/Content'
 
 function LaerningInputVideoExample1({pathVideo}){
   LaerningInputVideoExample1.propTypes = {
@@ -10,6 +10,9 @@ function LaerningInputVideoExample1({pathVideo}){
   }
 
   const items = GetContent()
+  if(pathVideo === -1 || pathVideo > items.length-1){
+    pathVideo = 0;
+  }
   
   return (
     <Video
@@ -18,7 +21,7 @@ function LaerningInputVideoExample1({pathVideo}){
       volume={1.0}
       isMuted={false}
       resizeMode="cover"
-      shouldPlay
+      //shouldPlay
       useNativeControls
       isLooping
       style={styles.backgroundVideo}

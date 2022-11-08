@@ -2,11 +2,13 @@ import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import LearningInputVideo from '../../components/exercise/video/LearningInputVideoExample1'
 import { Icon } from '@rneui/themed'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import Feedback from '../../assets/feedback.json'
 
 export default function WrongAnswerComponent() {
   const navigation = useNavigation()
+  const route = useRoute()
+  const {answerNr} = route.params
   return (
     <View style={styles.container}>
       <View style={{ flex: 0.5 }}>
@@ -15,7 +17,7 @@ export default function WrongAnswerComponent() {
         ></View>
       </View>
       <View style={{ flex: 2, width: '100%' }}>
-        <LearningInputVideo></LearningInputVideo>
+        <LearningInputVideo pathVideo={answerNr}></LearningInputVideo>
       </View>
       <View style={{ top: '5%', flex: 0.7 }}>
         <View
