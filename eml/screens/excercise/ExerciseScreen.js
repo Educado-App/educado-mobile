@@ -8,8 +8,6 @@ import FourButtons from '../../components/exercise/ExerciseButtons'
 import HeaderIcon from '../../components/exercise/headerIcon'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import Star from '../../components/gamification/Star'
-import { Route } from '@react-navigation/native'
-
 export default function SessionComponent() {
   const navigation = useNavigation()
 
