@@ -51,7 +51,8 @@
     "react-navigation-stack": "^2.10.4",
     "react-query": "^3.39.2",
     "react-use-window-size": "^1.0.1",
-    "recoil": "^0.7.5"
+    "recoil": "^0.7.5",
+    "expo-file-system": "~14.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
