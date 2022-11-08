@@ -1,3 +1,5 @@
 .DS_Store
 .expo
 .idea/codeStyles/Project.xml
+/.vs
+/.gitignore
