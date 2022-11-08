@@ -18,3 +18,5 @@ export const getCourseList = async () => {
 export const getCourseById = (courseId) => {
   console.log(`STUB: getCourseById: ${courseId}`)
 }
+
+
