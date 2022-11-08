@@ -1,8 +1,8 @@
 import { React } from 'react'
 import * as FileSystem from 'expo-file-system';
 
-
 export async function CreateDirectory(name) {
+
     //Create a Directory by the (name)
 
     try {
@@ -11,7 +11,6 @@ export async function CreateDirectory(name) {
                     console.log("Created directory: " + name);
                 }
             );
-
     }
     catch (error){
         console.log(error);
@@ -31,7 +30,7 @@ export async function ReadDirectory(name){
                     console.log(items);
                 })
                 .catch(error => {
-                    console.log(error);
+                    console.log("Error reading directory (maybe it is not yet created");
                 })
         }
         catch (error){
@@ -39,8 +38,10 @@ export async function ReadDirectory(name){
         }
 
         return items;
+
     }
 export async function DeleteDirectory(name){
+
     //Delete the directory located by name
 
     try {
@@ -55,6 +56,7 @@ export async function DeleteDirectory(name){
     catch (error){
         console.log("error");
     }
+
 }
 
 export async function DownloadAndStoreVideo(url, directory){
