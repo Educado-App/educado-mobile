@@ -1,183 +1,38 @@
-import React from 'react'
+/* eslint-disable react/jsx-key */
+/* eslint-disable react/prop-types */
+import React, { useEffect, useState } from 'react'
 import { View, Text, ScrollView, StyleSheet, Pressable } from 'react-native'
 import { Icon } from '@rneui/base'
 import { useNavigation } from '@react-navigation/native'
 
-export default function Courses() {
-    const navigation = useNavigation()
+import Course from './Course'
+import json from './jsonData.json'
+
+export default function Courses({ activeCoursesToShow }) {
+    const [views, setViews] = useState([]);
+    useEffect(() => {
+        async function loadViews() {
+            var x = 0;
+            const course = json.data.notactive.map(({ data }, index) => {
+                return (
+                    <Course key={index} {...data}></Course>
+                )
+            });
+
+
+            Promise.all(course).then(setViews);
+        }
+
+        loadViews();
+    }, [activeCoursesToShow]);
     return (
-        <View style={{ flex: 3 }}>
-            <ScrollView style={{ flexDirection: 'column' }}>
-                <View style={{ flexDirection: 'row', height: 90, marginBottom: 30 }}>
-                    <View style={{ flexDirection: 'column', flex: 1, alignItems: 'center' }}>
-                        <Pressable style={styles.courses}>
-                            <Icon // icon
-                                size={90}
-                                name="plus-thick"
-                                type="material-community"
-                                color="darkgray"
-                            />
-                        </Pressable>
-                        <Text style={styles.coursesTitle}>Health 1</Text>
-                    </View>
-                    <View style={{ flexDirection: 'column', flex: 1, alignItems: 'center' }}>
-                        <Pressable style={styles.courses}>
-                            <Icon // icon
-                                size={90}
-                                name="cash"
-                                type="material-community"
-                                color="darkgray"
-                            />
-                        </Pressable>
-                        <Text style={styles.coursesTitle}>Health 1</Text>
-                    </View>
-                </View>
-                <View style={{ flexDirection: 'row', height: 90, marginBottom: 30 }}>
-                    <View style={{ flexDirection: 'column', flex: 1, alignItems: 'center' }}>
-                        <Pressable style={styles.courses}>
-                            <Icon // icon
-                                size={90}
-                                name="plus-thick"
-                                type="material-community"
-                                color="darkgray"
-                            />
-                        </Pressable>
-                        <Text style={styles.coursesTitle}>Health 1</Text>
-                    </View>
-                    <View style={{ flexDirection: 'column', flex: 1, alignItems: 'center' }}>
-                        <Pressable style={styles.courses}>
-                            <Icon // icon
-                                size={90}
-                                name="plus-thick"
-                                type="material-community"
-                                color="darkgray"
-                            />
-                        </Pressable>
-                        <Text style={styles.coursesTitle}>Health 1</Text>
-                    </View>
-                </View>
-                <View style={{ flexDirection: 'row', height: 90, marginBottom: 30 }}>
-                    <View style={{ flexDirection: 'column', flex: 1, alignItems: 'center' }}>
-                        <Pressable style={styles.courses}>
-                            <Icon // icon
-                                size={90}
-                                name="plus-thick"
-                                type="material-community"
-                                color="darkgray"
-                            />
-                        </Pressable>
-                        <Text style={styles.coursesTitle}>Health 1</Text>
-                    </View>
-                    <View style={{ flexDirection: 'column', flex: 1, alignItems: 'center' }}>
-                        <Pressable style={styles.courses}>
-                            <Icon // icon
-                                size={90}
-                                name="plus-thick"
-                                type="material-community"
-                                color="darkgray"
-                            />
-                        </Pressable>
-                        <Text style={styles.coursesTitle}>Health 1</Text>
-                    </View>
-                </View>
-                <View style={{ flexDirection: 'row', height: 90, marginBottom: 30 }}>
-                    <View style={{ flexDirection: 'column', flex: 1, alignItems: 'center' }}>
-                        <Pressable style={styles.courses}>
-                            <Icon // icon
-                                size={90}
-                                name="plus-thick"
-                                type="material-community"
-                                color="darkgray"
-                            />
-                        </Pressable>
-                        <Text style={styles.coursesTitle}>Health 1</Text>
-                    </View>
-                    <View style={{ flexDirection: 'column', flex: 1, alignItems: 'center' }}>
-                        <Pressable style={styles.courses}>
-                            <Icon // icon
-                                size={90}
-                                name="plus-thick"
-                                type="material-community"
-                                color="darkgray"
-                            />
-                        </Pressable>
-                        <Text style={styles.coursesTitle}>Health 1</Text>
-                    </View>
-                </View>
-                <View style={{ flexDirection: 'row', height: 90, marginBottom: 30 }}>
-                    <View style={{ flexDirection: 'column', flex: 1, alignItems: 'center' }}>
-                        <Pressable style={styles.courses}>
-                            <Icon // icon
-                                size={90}
-                                name="plus-thick"
-                                type="material-community"
-                                color="darkgray"
-                            />
-                        </Pressable>
-                        <Text style={styles.coursesTitle}>Health 1</Text>
-                    </View>
-                    <View style={{ flexDirection: 'column', flex: 1, alignItems: 'center' }}>
-                        <Pressable style={styles.courses}>
-                            <Icon // icon
-                                size={90}
-                                name="plus-thick"
-                                type="material-community"
-                                color="darkgray"
-                            />
-                        </Pressable>
-                        <Text style={styles.coursesTitle}>Health 1</Text>
-                    </View>
-                </View>
-                <View style={{ flexDirection: 'row', height: 90, marginBottom: 30 }}>
-                    <View style={{ flexDirection: 'column', flex: 1, alignItems: 'center' }}>
-                        <Pressable style={styles.courses}>
-                            <Icon // icon
-                                size={90}
-                                name="plus-thick"
-                                type="material-community"
-                                color="darkgray"
-                            />
-                        </Pressable>
-                        <Text style={styles.coursesTitle}>Health 1</Text>
-                    </View>
-                    <View style={{ flexDirection: 'column', flex: 1, alignItems: 'center' }}>
-                        <Pressable style={styles.courses}>
-                            <Icon // icon
-                                size={90}
-                                name="plus-thick"
-                                type="material-community"
-                                color="darkgray"
-                            />
-                        </Pressable>
-                        <Text style={styles.coursesTitle}>Health 1</Text>
-                    </View>
-                </View>
-                <View style={{ flexDirection: 'row', height: 90 }}>
-                    <View style={{ flexDirection: 'column', flex: 1, alignItems: 'center' }}>
-                        <Pressable style={styles.courses}>
-                            <Icon // icon
-                                size={90}
-                                name="plus-thick"
-                                type="material-community"
-                                color="darkgray"
-                            />
-                        </Pressable>
-                        <Text style={styles.coursesTitle}>Health 1</Text>
-                    </View>
-                    <View style={{ flexDirection: 'column', flex: 1, alignItems: 'center' }}>
-                        <Pressable style={styles.courses}>
-                            <Icon // icon
-                                size={90}
-                                name="plus-thick"
-                                type="material-community"
-                                color="darkgray"
-                            />
-                        </Pressable>
-                        <Text style={styles.coursesTitle}>Health 1</Text>
-                    </View>
-                </View>
-            </ScrollView>
-        </View >
+
+        <ScrollView style={{}}>
+
+            <View style={{ flexDirection: 'row', height: 90, marginBottom: 30, flexWrap: 'wrap' }}>
+                {views}
+            </View>
+        </ScrollView >
     )
 }
 
@@ -185,7 +40,8 @@ const styles = StyleSheet.create({
     courses: {
         backgroundColor: 'gray',
         alignItems: 'center',
-        width: '75%'
+        width: 300,
+        borderRadius: 15,
     },
     coursesTitle: {
         alignSelf: 'center',
