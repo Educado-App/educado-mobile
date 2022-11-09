@@ -1,0 +1,23 @@
+[
+  {
+    "title": "Personal Finance",
+    "courseId": 1,
+    "iconPath": "../financeLogo.png",
+    "category": 3,
+    "isDownloaded": true
+  },
+  {
+    "title": "Health",
+    "courseId": 2,
+    "iconPath": "../healthLogo.png",
+    "category": 2,
+    "isDownloaded": true
+  },
+  {
+    "title": "Cleaning",
+    "courseId": 3,
+    "iconPath": "../icon.png",
+    "category": 1,
+    "isDownloaded": false
+  }
+]

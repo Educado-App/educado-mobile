@@ -1,0 +1,6 @@
+{
+  "on_wrong_feedback": {
+    "type": "video",
+    "path": "../video/content/testvideo2.mp4"
+  }
+}
