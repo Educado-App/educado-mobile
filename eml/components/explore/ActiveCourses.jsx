@@ -11,8 +11,10 @@ export default function ActiveCourses({ activeCoursesToShow }) {
 
     useEffect(() => {
         async function loadViews() {
-            const componentPromises = courseList.data.active.map(({ data }, index) => {
-                return <ActiveCourse key={index}{...data} />;
+            const componentPromises = courseList.map(({ title, iconPath, isDownloaded }, index) => {
+                if (isDownloaded) {
+                    return <ActiveCourse key={index} title={title} />;
+                }
             });
 
             Promise.all(componentPromises).then(setViews);

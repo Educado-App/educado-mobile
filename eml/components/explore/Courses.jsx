@@ -6,17 +6,17 @@ import { Icon } from '@rneui/base'
 import { useNavigation } from '@react-navigation/native'
 
 import Course from './Course'
-import json from './jsonData.json'
+import StorageController from '../../assets/controller/storageController'
 
 export default function Courses({ activeCoursesToShow }) {
     const [views, setViews] = useState([]);
+    const courseList = StorageController.getCourseList()
     useEffect(() => {
         async function loadViews() {
-            var x = 0;
-            const course = json.data.notactive.map(({ data }, index) => {
-                return (
-                    <Course key={index} {...data}></Course>
-                )
+            const course = courseList.map(({ title, iconPath, isDownloaded }, index) => {
+                if (!isDownloaded) {
+                    return <Course key={index} title={title}></Course>
+                }
             });
 
 
