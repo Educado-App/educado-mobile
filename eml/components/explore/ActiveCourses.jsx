@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, StyleSheet, Pressable } from 'react-native'
-import { Icon } from '@rneui/base'
-import { useNavigation } from '@react-navigation/native'
+import { View, StyleSheet } from 'react-native'
 import ActiveCourse from './ActiveCourse'
-import json from './jsonData.json'
+import StorageController from '../../assets/controller/storageController'
 
 export default function ActiveCourses({ activeCoursesToShow }) {
     const [views, setViews] = useState([]);
+
+
+    const courseList = StorageController.getCourseList()
+
     useEffect(() => {
         async function loadViews() {
-            const componentPromises = json.data.active.map(({ data }, index) => {
+            const componentPromises = courseList.data.active.map(({ data }, index) => {
                 return <ActiveCourse key={index}{...data} />;
             });
 

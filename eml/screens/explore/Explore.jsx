@@ -1,15 +1,10 @@
 import React from 'react'
-import { View, Text, Platform, ScrollView } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import { View, Text, Platform } from 'react-native'
 import ActiveCourses from '../../components/explore/ActiveCourses'
 import Courses from '../../components/explore/Courses'
 import FilteringOptions from '../../components/explore/FilteringOptions'
 
 export default function Explore() {
-    const activeCoursesToShow = [
-        'health',
-        'finance',
-    ];
     return (
         <View style={{ flex: 1 }}>
             <View style={{ flex: 0.5, alignItems: 'center', marginTop: 50, paddingTop: Platform.OS === 'android' ? 25 : 0 }}>
