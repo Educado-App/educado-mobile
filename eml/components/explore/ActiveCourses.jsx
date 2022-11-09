@@ -11,9 +11,9 @@ export default function ActiveCourses({ activeCoursesToShow }) {
 
     useEffect(() => {
         async function loadViews() {
-            const componentPromises = courseList.map(({ title, iconPath, isDownloaded }, index) => {
+            const componentPromises = courseList.map(({ title, iconPath, isDownloaded, courseId }, index) => {
                 if (isDownloaded) {
-                    return <ActiveCourse key={index} title={title} />;
+                    return <ActiveCourse key={index} title={title} courseId={courseId} />;
                 }
             });
 
