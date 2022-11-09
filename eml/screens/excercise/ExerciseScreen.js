@@ -6,17 +6,12 @@ import CustomProgressBar from '../../components/exercise/Progressbar'
 import LearningInputVideoExample1 from '../../components/exercise/video/LearningInputVideoExample1'
 import FourButtons from '../../components/exercise/ExerciseButtons'
 import HeaderIcon from '../../components/exercise/headerIcon'
-import { useNavigation, useRoute } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
 import Star from '../../components/gamification/Star'
 import Exercises from '../../assets/exercises.json'
+
 export default function SessionComponent() {
   const navigation = useNavigation()
-
-  const route = useRoute()
-
-  const { itemId } = route.params
-
-  console.log(itemId)
 
   function determineRightAnswers() {
     const rightAnswers = []
@@ -33,6 +28,7 @@ export default function SessionComponent() {
   const answerArray = determineRightAnswers()
   // console.log(answerArray)
 
+
   const [answerNr, setAnswerNr] = useState(0)
   const [correctNr, setCorrectNr] = useState(0)
 
@@ -42,9 +38,9 @@ export default function SessionComponent() {
   useEffect(() => {
     if (answerNr > answerArray.length - 1) {
       setAnswerNr(-1)
-      console.log('insideinside useEffect ' + answerNr)
+      console.log("insideinside useEffect " + answerNr)
     }
-    console.log('insideoutside useEffect ' + answerNr)
+    console.log("insideoutside useEffect " + answerNr)
   }, [answerNr])
 
   function sendDataToParent(correct) {
@@ -97,22 +93,14 @@ export default function SessionComponent() {
         </View>
       </View>
       <View style={{ flex: 2, width: '100%' }}>
-        {answerNr === -1 ? (
-          Alert.alert(
-            'Good job you completed the section!',
-            'Congratulations!',
-            [
-              {
-                text: 'Back',
-                onPress: () => navigation.navigate('Course')
-              }
-            ]
-          )
-        ) : (
-          <LearningInputVideoExample1
-            pathVideo={answerNr}
-          ></LearningInputVideoExample1>
-        )}
+        {answerNr === -1
+          ? Alert.alert('Good job you completed the section!', 'Congratulations!', [
+            {
+              text: 'Back',
+              onPress: () => navigation.navigate('Course')
+            }
+          ])
+          : <LearningInputVideoExample1 pathVideo={answerNr}></LearningInputVideoExample1>}
       </View>
       <View style={{ flex: 3 }}>
         <FourButtons
