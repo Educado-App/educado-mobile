@@ -131,14 +131,6 @@ function HomeStack() {
 
 export default function App() {
   return (
-<<<<<<< HEAD
-    <NavigationContainer>
-        <Stack.Navigator initialRouteName={"HomeStack"}>
-            <Stack.Screen name={"LoginStack"} component={LoginStack} options={{headerShown: false}}/>
-            <Stack.Screen name={"HomeStack"} component={HomeStack} options={{headerShown: false}}/>
-        </Stack.Navigator>
-    </NavigationContainer>
-=======
     <>
       <IconRegistry icons={EvaIconsPack} />
       <ApplicationProvider {...eva} theme={eva.light}>
@@ -158,6 +150,5 @@ export default function App() {
         </NavigationContainer>
       </ApplicationProvider>
     </>
->>>>>>> courseView
   )
 }
