@@ -1,0 +1,21 @@
+[
+  {
+    "title": "Personal Finance",
+    "courseId": 1,
+    "iconPath": "../financeLogo.png",
+    "sections": [
+      {
+        "sectionId": 1,
+        "title": "How to make money"
+      },
+      {
+        "sectionId": 2,
+        "title": "How to be a milionair"
+      },
+      {
+        "sectionId": 3,
+        "title": "Stocks 101"
+      }
+    ]
+  }
+]
