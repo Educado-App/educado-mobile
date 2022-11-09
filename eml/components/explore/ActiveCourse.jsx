@@ -13,7 +13,6 @@ export default function ActiveCourse({ title }) {
                     name="plus-thick"
                     type="material-community"
                     color="#D00A0A"
-
                 />
             </Pressable>
             <Text style={styles.coursesTitle}>{title}</Text>

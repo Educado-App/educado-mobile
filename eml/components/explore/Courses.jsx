@@ -13,6 +13,7 @@ export default function Courses({ activeCoursesToShow }) {
     const courseList = StorageController.getCourseList()
     useEffect(() => {
         async function loadViews() {
+            // eslint-disable-next-line array-callback-return
             const course = courseList.map(({ title, iconPath, isDownloaded }, index) => {
                 if (!isDownloaded) {
                     return <Course key={index} title={title}></Course>
