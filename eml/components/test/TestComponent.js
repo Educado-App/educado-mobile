@@ -3,13 +3,28 @@ import { React, useState, useEffect } from 'react'
 import { Alert, StyleSheet, View, Text } from 'react-native'
 import { Video } from 'expo-av'
 import * as FileSystem from 'expo-file-system';
+import {
+    CreateDirectory, DeleteDirectory,
+    DeleteVideoByName,
+    DownloadAndStoreVideo,
+    ReadDirectory
+} from "../../local-storage-handler/DirectoryService";
 
+let testUrl = 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4';
 
-const TestVideo = () => {
+export default function TestComponent() {
+    useEffect(() => {
+
+            //CreateDirectory('test');
+            //ReadDirectory('test');
+            //DeleteDirectory('test');
+        }
+    );
+
     return (
         <Video
             source={{
-                uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4'
+                uri: ''
             }}
             rate={1.0}
             volume={1.0}
@@ -19,19 +34,6 @@ const TestVideo = () => {
             isLooping
             style={styles.backgroundVideo}
         />
-    )
-}
-
-
-export default function TestComponent() {
-
-    useEffect(() => {
-
-        }
-    );
-
-    return (
-        <TestVideo></TestVideo>
     );
 }
 
