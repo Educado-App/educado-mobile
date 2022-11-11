@@ -8,7 +8,7 @@ import {
     DeleteVideoByName,
     DownloadAndStoreVideo,
     ReadDirectory
-} from "../../local-storage-handler/DirectoryService";
+} from "../../services/DirectoryService";
 
 let testUrl = 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4';
 

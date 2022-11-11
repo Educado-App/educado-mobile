@@ -1,5 +1,5 @@
-import api from '../api/api.js';
-import AsyncStorage from '@react-native-async-storage/async-stroage';
+import api from '../api/api';
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export const getCourseList = async () => {
   try {
