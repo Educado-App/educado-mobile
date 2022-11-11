@@ -75,6 +75,7 @@ export function DownloadAndStoreVideo(url, directory){
               FileSystem.downloadAsync(url, localUri)
                 .then(({ uri }) => {
                     console.log('Finished downloading to', uri);
+                    return localUri;
                 })
                 .catch(error => {
                     console.error(error);
@@ -83,8 +84,6 @@ export function DownloadAndStoreVideo(url, directory){
         catch (error){
             console.log(error);
         }
-
-        return localUri;
     }
 export function DeleteVideoByUri(uri) {
 
