@@ -20,7 +20,6 @@ export const getCourseById = (courseId) => {
   //let value = AsyncStorage.getItem('@course');
   try {
     let value = await api.getCourse(courseId);
-
     await AsyncStorage.setItem('@course', value);
     console.log(`STUB: getCourseById: ${courseId}`);
     return value;
@@ -31,8 +30,15 @@ export const getCourseById = (courseId) => {
 
 export const downloadCourse = async (courseId) => {
   try {
-    let name = api.getCourseById(courseId).name;
+    let course = api.getCourse(courseId);
+    await AsyncStorage.setItem('@course', course);
+    let name = course.name;
     let directory = await DirectoryService.CreateDirectory(name);
+    for (let exercise in course.sections.exercises) {
+      let url = exercise.content.url;
+      await DirectoryService.DownloadAndStoreVideo(url, directory);
+    }
+
   } catch (e) {
     console.error(e);
   }
