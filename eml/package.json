@@ -56,7 +56,6 @@
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
-    "chai": "^4.3.7",
     "eslint": "^8.24.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-standard": "^17.0.0",

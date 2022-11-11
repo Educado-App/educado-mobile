@@ -1,3 +1,8 @@
+const { CreateDirectory } = require('../services/DirectoryService');
+
+import { React } from 'react'
+import * as FileSystem from 'expo-file-system';
+
 var expect = require('chai').expect;
 
 describe('Our application', function() {
@@ -7,7 +12,7 @@ describe('Our application', function() {
     //expect(5).to.equal(5);
     //expect(5).to.not.equal(3);
 
-    expect(CreateDirector)
+    expect(CreateDirectory("Test")).to.equal("Created directory: Test")
 
   });
 
