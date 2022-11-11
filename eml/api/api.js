@@ -11,6 +11,13 @@ export const getCourses = async () => {
     return res.data;
 };
 
+export const getCourse = async (course_id) => {
+  const res = await axios.get(url + '/api/courses/'+ course_id);
+  return res.data;
+};
+
+//TODO: Endpoint for getcoursebyid && change getCourses to getCourseList
+
 export const getPresignedUrl = async (component_id) => {
     const obj = {
         component_id: component_id
