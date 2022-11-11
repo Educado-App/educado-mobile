@@ -1,27 +1,30 @@
 import { useRoute, useNavigation } from '@react-navigation/native'
 import React from 'react'
 import CourseListUI from '../../components/easyDynComponents/courseListUI'
-import { View} from 'react-native'
-import { useEffect } from 'react';
-
+import { View } from 'react-native'
+import { useEffect } from 'react'
+import StorageController from '../../assets/controller/storageController'
 
 export default function CourseScreen() {
-  const route = useRoute();
+  const route = useRoute()
 
-  const navigation = useNavigation();
+  const navigation = useNavigation()
 
-  const [course, setCourse] = React.useState(false);
+  const [course, setCourse] = React.useState(null)
 
   useEffect(() => {
-
-    if(route.params != undefined){
-      setCourse(true)
+    if (route.params !== undefined) {
+      setCourse(StorageController.getCourseById(route.params.courseId))
     }
   }, [route.params])
 
   return (
     <View>
-      {course == true ? <CourseListUI courseId={route.params.courseId}></CourseListUI> : navigation.navigate('Explore')}
+      {course !== null ? (
+        <CourseListUI course={course}></CourseListUI>
+      ) : (
+        navigation.navigate('Explore')
+      )}
     </View>
   )
 
@@ -29,8 +32,7 @@ export default function CourseScreen() {
   //   emptyCourseList();
   // }
   // return <CourseListUI></CourseListUI>
-  
-  
+
   // (<View>
   //   <CourseListUI></CourseListUI>
   //   {route.params == "undefined"
@@ -39,5 +41,4 @@ export default function CourseScreen() {
   //   }
   // </View>
   // )
-  
 }
