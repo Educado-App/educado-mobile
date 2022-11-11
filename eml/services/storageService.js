@@ -38,7 +38,6 @@ export const downloadCourse = async (courseId) => {
       let url = exercise.content.url;
       await DirectoryService.DownloadAndStoreVideo(url, directory);
     }
-
   } catch (e) {
     console.error(e);
   }
