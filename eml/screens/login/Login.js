@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'flex-start',
-        backgroundColor: 'rgba(86, 255, 131, 0.97)'
+        backgroundColor: 'rgba(86, 255, 131, 0.6)'
     },
     register: {
         //We need styling here!

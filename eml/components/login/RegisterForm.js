@@ -3,6 +3,7 @@ import {Alert, Dimensions, Pressable, StyleSheet, Text, TextInput, TouchableOpac
 import {useNavigation} from "@react-navigation/native";
 import {loginUser, registerUser} from "../../api/userApi";
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import PasswordStrengthMeter from "./PasswordStrengthMeter";
 
 const USER_INFO = '@userInfo';
 const LOGIN_TOKEN = '@loginToken';
@@ -16,7 +17,9 @@ export default function LoginForm(props) {
     const [userName, setUserName] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('+55');
     const [password, setPassword] = useState('');
-
+  /*  const [passwordEmptyError, setPasswordEmptyError] = useState('');
+    const [passwordNotSecureError, setPasswordNotSecureError] = useState('');
+*/
     async function register (phoneNumber, password) {
 
         //clearing input
@@ -101,6 +104,9 @@ export default function LoginForm(props) {
         }
 
     }
+    const passwordObj = {
+        passwordStrength : password
+    };
 
     const showAlert = (error) =>
         Alert.alert(
@@ -152,6 +158,9 @@ export default function LoginForm(props) {
                         secureTextEntry={true}
                         onChangeText={password => setPassword(password)}
                     />
+                    <View>
+                        <PasswordStrengthMeter passwordObj={passwordObj}/>
+                    </View>
                     <Pressable style={({ pressed }) => [
                         { opacity: pressed ? 0.5 : 1.0 }
                     ]} onPress={()=>{
@@ -181,7 +190,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent : 'flex-start',
-        backgroundColor: 'rgba(86, 255, 131, 0.97)'
+        backgroundColor: 'rgba(86, 255, 131, 0.6)'
     },
     button: {
         backgroundColor : 'rgba(123,104,238,0.8)',
