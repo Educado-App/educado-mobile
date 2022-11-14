@@ -1,22 +1,19 @@
 import axios from "axios";
 
-const prod = 'http://educado.somethingnew.dk'
-const testOld = 'https://ancient-basin-06516.herokuapp.com'
-const test = 'http://localhost:8888'
-
-const url = test;
+const url = 'http://localhost:8888'
 
 export const getCourses = async () => {
-    const res = await axios.get(url + '/course/eml/getall');
+    // TODO: add bearer token to request header and omit /public/
+    const res = await axios.get(url + '/api/public/courses');
     return res.data;
 };
 
 export const getCourse = async (courseId) => {
-  const obj = {
-    courseId: courseId
-  }
-  const res = await axios.get(url + '/api/public/courses/' + obj);
-  return res.data;
+    const obj = {
+        courseId: courseId
+    }
+    const res = await axios.get(url + '/api/public/courses/' + obj);
+    return res.data;
 };
 
 //TODO: Endpoint for getcoursebyid && change getCourses to getCourseList
@@ -25,11 +22,11 @@ export const getPresignedUrl = async (component_id) => {
     const obj = {
         component_id: component_id
     }
-    const res = await axios.post(url + '/api/get-presigned-url',obj);
+    const res = await axios.post(url + '/api/get-presigned-url', obj);
     return res.data;
 };
 
-export const getCoverPhoto = async(course_id) => {
+export const getCoverPhoto = async (course_id) => {
     const obj = {
         course_id: course_id
     }
@@ -38,7 +35,7 @@ export const getCoverPhoto = async(course_id) => {
     return res.data;
 }
 
-export const getAllSections = async(sections) => {
+export const getAllSections = async (sections) => {
     const obj = {
         sections: sections
     }
@@ -48,7 +45,7 @@ export const getAllSections = async(sections) => {
     return res.data;
 }
 
-export const getAllComponents = async(components) => {
+export const getAllComponents = async (components) => {
     const obj = {
         components: components
     };
