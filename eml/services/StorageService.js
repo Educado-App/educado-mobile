@@ -1,6 +1,6 @@
 import api from '../api/api.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import DirectoryService from '../local-storage-handler/DirectoryService.js';
+import DirectoryService from './DirectoryService.js';
 
 export const getCourseList = async () => {
   try {
@@ -16,7 +16,7 @@ export const getCourseList = async () => {
   }
 }
 
-export const getCourseById = (courseId) => {
+export async function getCourseById (courseId){
   //let value = AsyncStorage.getItem('@course');
   try {
     let value = await api.getCourse(courseId);
@@ -28,9 +28,9 @@ export const getCourseById = (courseId) => {
   }
 }
 
-export const downloadCourse = async (courseId) => {
+export async function downloadCourse(courseId){
   try {
-    let course = api.getCourse(courseId);
+    let course = await api.getCourse(courseId);
     await AsyncStorage.setItem('@course', course);
     let name = course.name;
     let directory = await DirectoryService.CreateDirectory(name);

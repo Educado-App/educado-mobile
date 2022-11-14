@@ -1,4 +1,4 @@
-let type = navigator.connection.effectiveType;
+/*let type = navigator.connection.effectiveType;
 
 function updateConnectionStatus() {
   console.log(`Connection type changed from ${type} to ${navigator.connection.effectiveType}`);
@@ -13,4 +13,4 @@ if (connection) {
   if (connection.effectiveType === 'wifi') {
     downloadCourse = true;
   }
-}
+}*/

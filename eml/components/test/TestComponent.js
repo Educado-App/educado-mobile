@@ -10,15 +10,17 @@ import {
     ReadDirectory
 } from "../../services/DirectoryService";
 
+import {downloadCourse} from "../../services/StorageService"
+
 let testUrl = 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4';
 
 export default function TestComponent() {
     useEffect(() => {
-
-            //CreateDirectory('test');
-            //ReadDirectory('test');
-            //DeleteDirectory('test');
-        }
+        downloadCourse('test');
+        //CreateDirectory('test');
+        //ReadDirectory('test');
+        //DeleteDirectory('test');
+      }
     );
 
     return (

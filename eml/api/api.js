@@ -7,12 +7,15 @@ const test = 'http://localhost:8888'
 const url = test;
 
 export const getCourses = async () => {
-    const res = await axios.get(url + '/api/course/eml/getall');
+    const res = await axios.get(url + '/course/eml/getall');
     return res.data;
 };
 
 export const getCourse = async (courseId) => {
-  const res = await axios.get(url + '/api/public/courses/' + courseId);
+  const obj = {
+    courseId: courseId
+  }
+  const res = await axios.get(url + '/api/public/courses/' + obj);
   return res.data;
 };
 
