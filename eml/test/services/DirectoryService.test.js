@@ -1,37 +1,36 @@
-import { CreateDirectory, DeleteDirectory, ReadDirectory } from "../../services/DirectoryService";
+import { CreateDirectory, DeleteDirectory, DownloadAndStoreVideo, ReadDirectory } from "../../services/DirectoryService";
 import * as FileSystem from 'expo-file-system';
-import { getInfoAsync } from "expo-file-system";
 
-// it('console.log "Created directory: Test"', () => {
-//     //CreateDirectory = jest.fn();
-//     CreateDirectory('Test')
-//     // The first argument of the first call to the function was 'hello'
-//     expect(CreateDirectory.mock).toBe("Created directory: Test");
-//   });
+// jest.mock('expo-file-system', () => ({
+//     downloadAsync: jest.fn(() => Promise.resolve({ md5: 'md5', uri: 'uri' })),
+//     getInfoAsync: jest.fn(() => Promise.resolve({ exists: true, md5: 'md5', uri: 'uri' })),
+//     readAsStringAsync: jest.fn(() => Promise.resolve()),
+//     writeAsStringAsync: jest.fn(() => Promise.resolve()),
+//     deleteAsync: jest.fn(() => Promise.resolve()),
+//     moveAsync: jest.fn(() => Promise.resolve()),
+//     copyAsync: jest.fn(() => Promise.resolve()),
+//     makeDirectoryAsync: jest.fn(() => Promise.resolve()),
+//     readDirectoryAsync: jest.fn(() => Promise.resolve()),
+//     createDownloadResumable: jest.fn(() => Promise.resolve()),
+//     documentDirectory: "file:///test-directory/",
+//   }));
 
 it('Should create a directory with name "Test"', async () => {
+   expect(CreateDirectory("Test")).toBe("Created directory: Test")
+})
 
-    //CreateDirectory('Test')
-    // const p = FileSystem.makeDirectoryAsync(FileSystem.documentDirectory + "Test")
+it('Should delete a created directory with name "Test2', async () => {
+    CreateDirectory("Test2")
+    DeleteDirectory("Test2")
+})
 
-    // p.then(value => {
-    //     console.log(value);
-    // })
-    // .catch(err => {
-    //     console.log(err); // "Something went wrong"
-    // });
+it('Should read a created directory with name "Test3', async () => {
+    CreateDirectory("Test3")
+    ReadDirectory("Test3")
+})
 
-    //DeleteDirectory("Test")
-    CreateDirectory("Test")
-    const p = FileSystem.getInfoAsync(FileSystem.documentDirectory + "Test")
-    .then((exists) => {
-        console.log(exists)
-    })
+test('Should download a video to directory with name "Test4', async () => {
+    CreateDirectory("Test4")
+    DownloadAndStoreVideo('https://cdn.discordapp.com/attachments/594427121812897817/1040396889616560279/RPReplay_Final1668120192.mov', 'Test4')
     
-    //ReadDirectory("")
-    //DeleteDirectory("84373yuheysyfges")
-    //console.log(FileSystem.getInfoAsync(FileSystem.documentDirectory + "Test"))
-    
-    //console.log(FileSystem.readDirectoryAsync(FileSystem.documentDirectory))
-    //expect(FileSystem.readDirectoryAsync(FileSystem.documentDirectory + "Test")).toEqual
 })
