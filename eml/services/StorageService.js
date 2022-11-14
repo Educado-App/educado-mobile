@@ -5,6 +5,7 @@ import * as DirectoryService from '../services/DirectoryService';
 const TEST_COURSE = '@testCourse';
 
 export const getTestCourseFromApi = async () => {
+
   try {
 
     let localCourse = JSON.parse(await AsyncStorage.getItem(TEST_COURSE));
@@ -12,16 +13,14 @@ export const getTestCourseFromApi = async () => {
     if(localCourse == null){
 
       await api.getTestCourse().then(
+
           async testCourse => {
             testCourse.data.sections[0].exercises[0].content.url = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4";
-            await AsyncStorage.setItem(TEST_COURSE, JSON.stringify(testCourse));
-            return testCourse;
+            let course = JSON.stringify(testCourse);
+            await AsyncStorage.setItem(TEST_COURSE, course);
           }
       );
-
     }
-
-    else return localCourse;
 
   } catch (e) {
     console.error(e);
