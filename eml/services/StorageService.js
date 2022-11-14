@@ -16,7 +16,7 @@ export const getCourseList = async () => {
 
         // Make new list with member isDownloaded
         savedCourseList.append({
-          isDownloaded: data != null,
+          isDownloaded: data !== null,
           CourseInfo: element
         });
       });
