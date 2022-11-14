@@ -22,8 +22,8 @@ it('Should create a directory with name "Test"', async () => {
     // });
 
     //DeleteDirectory("Test")
-    CreateDirectory("./Test")
-    const p = FileSystem.getInfoAsync(FileSystem.documentDirectory + "./Test2")
+    CreateDirectory("Test")
+    const p = FileSystem.getInfoAsync(FileSystem.documentDirectory + "Test")
     .then((exists) => {
         console.log(exists)
     })
