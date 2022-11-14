@@ -1,4 +1,4 @@
-import { CreateDirectory } from "../services/DirectoryService";
+import { CreateDirectory } from "../../services/DirectoryService";
 import * as FileSystem from 'expo-file-system';
 
 // it('console.log "Created directory: Test"', () => {
@@ -16,7 +16,7 @@ it('Should create a directory with name "Test"', async () => {
         console.log(value);
     })
     .catch(err => {
-        console.log(err); // 👉️ "Something went wrong"
+        console.log(err); // "Something went wrong"
     });
     
     
