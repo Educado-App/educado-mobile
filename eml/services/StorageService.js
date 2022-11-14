@@ -30,13 +30,28 @@ export const getTestCourseFromApi = async () => {
 
 export const getCourseList = async () => {
   try {
-    let value = await AsyncStorage.getItem('@courseList');
-    if (value == null) {
-      console.log('value not in storage, fetch from api then store and return.');
-      value = await api.getCourses();
-      await AsyncStorage.setItem('@courseList', value);
+    let courseList = await AsyncStorage.getItem('@courseList');
+
+    // Check if course is downloaded
+    if (courseList == null) {
+      courseList = await api.getCourses();
+
+      let savedCourseList;
+      courseList.array.forEach(element => {
+        const data = AsyncStorage.getItem(element._id);
+
+        // Make new list with member isDownloaded
+        savedCourseList.append({
+          isDownloaded: data !== null,
+          CourseInfo: element
+        });
+      });
+
+      // Save new courseList for this key and return it.
+      await AsyncStorage.setItem('@courseList', savedCourseList);
+      courseList = savedCourseList;
     }
-    return value
+    return courseList;
   } catch (e) {
     console.error(e);
   }
