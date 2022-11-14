@@ -9,10 +9,7 @@ export const getCourses = async () => {
 };
 
 export const getCourse = async (courseId) => {
-    const obj = {
-        courseId: courseId
-    }
-    const res = await axios.get(url + '/api/public/courses/' + obj);
+    const res = await axios.get(url + '/api/public/courses/' + courseId);
     return res.data;
 };
 
