@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const testUrl = 'http://localhost:8888'
-const testExpo = 'http://192.168.43.130:8888'
+const testExpo = 'http://192.168.1.99:8888'
 
 const url = testExpo;
 
@@ -16,6 +16,12 @@ const config = {
         'Authorization': 'Bearer ' + authToken
     }
 }
+
+export const getTestCourse = async () => {
+    const res = await axios.get(url + '/api/public/courses/635fb5b9b2fb6c4f49084682');
+    return res.data;
+};
+
 
 export const getCourses = async () => {
     // TODO: add bearer token to request header and omit /public/
