@@ -1,4 +1,4 @@
-import api from '../api/api.js';
+import * as api from '../api/api.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DirectoryService from './DirectoryService.js';
 
@@ -16,7 +16,6 @@ export const getCourseList = async () => {
   }
 }
 
-// 
 export const getCourseById = async (courseId) => {
   try {
     let value = AsyncStorage.getItem(courseId);
