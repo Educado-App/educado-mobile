@@ -1,6 +1,21 @@
 import axios from "axios";
 
-const url = 'http://localhost:8888'
+const testUrl = 'http://localhost:8888'
+const testExpo = 'http://192.168.43.130:8888'
+
+const url = testExpo;
+
+//Find a solution to refresh auth-token
+let authToken = '';
+let authBody = {
+    "email": "demo@gmail.com",
+    "password": "Demo1234"
+}
+const config = {
+    headers: {
+        'Authorization': 'Bearer ' + authToken
+    }
+}
 
 export const getCourses = async () => {
     // TODO: add bearer token to request header and omit /public/

@@ -8,13 +8,13 @@ export function CreateDirectory(name) {
     try {
          FileSystem.makeDirectoryAsync(FileSystem.documentDirectory + name)
             .then( () =>{
-                    return("Created directory: " + name);
-                    console.log("Created directory: " + name);
+                console.log("Created directory: " + name);
+                return("Created directory: " + name);
                 }
             )
             .catch(error => {
-                return("Error Creating directory. (maybe It already exists)");
                 console.log("Error Creating directory. (maybe It already exists)");
+                return("Error Creating directory. (maybe It already exists)");
             });
     }
     catch (error){

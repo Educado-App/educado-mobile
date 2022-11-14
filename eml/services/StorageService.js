@@ -1,6 +1,6 @@
 import * as api from '../api/api.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import DirectoryService from '../local-storage-handler/DirectoryService.js';
+import * as DirectoryService from '../services/DirectoryService';
 
 export const getCourseList = async () => {
   try {
