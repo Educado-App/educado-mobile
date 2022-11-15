@@ -123,13 +123,72 @@ function HomeStack(){
     )
 }
 
+//for playing around
+function TestStack(){
+    return(
+        <Tab.Navigator initialRouteName={"TestScreen"}>
+            <Tab.Screen
+                name="TestScreen"
+                component={TestScreen}
+                options={{
+                    headerShown: false,
+                    tabBarIcon: () => {
+                        return (
+                            <Icon
+                                size={30}
+                                name="home"
+                                type="material-community"
+                                color="black"
+                            />
+                        )
+                    }
+                }}
+            />
+            <Tab.Screen
+                name="Profile"
+                component={ProfileComponent}
+                options={{
+                    headerShown: false,
+                    tabBarIcon: () => {
+                        return (
+                            <Icon
+                                size={30}
+                                name="account-circle"
+                                type="material-community"
+                                color="black"
+                            />
+                        )
+                    }
+                }}
+            />
+            <Tab.Screen
+                name="Explore"
+                component={Explore}
+                options={{
+                    headerShown: false,
+                    tabBarIcon: () => {
+                        return (
+                            <Icon
+                                size={30}
+                                name="magnify"
+                                type="material-community"
+                                color="black"
+                            />
+                        )
+                    }
+                }}
+            />
+        </Tab.Navigator>
+    )
+}
+
 //Change InitialRouteName to HomeStack if you want to skip Login Screen
 
 export default function App() {
   return (
     <NavigationContainer>
-        <Stack.Navigator initialRouteName={"TestScreen"}>
-            <Stack.Screen name={"TestScreen"} component={TestScreen} options={{headerShown: false}}/>
+        <Stack.Navigator initialRouteName={"TestStack"}>
+            <Stack.Screen name={"TestStack"} component={TestStack} options={{headerShown: false}}/>
             <Stack.Screen name={"LoginStack"} component={LoginStack} options={{headerShown: false}}/>
             <Stack.Screen name={"HomeStack"} component={HomeStack} options={{headerShown: false}}/>
         </Stack.Navigator>

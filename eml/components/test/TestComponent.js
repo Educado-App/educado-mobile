@@ -1,32 +1,42 @@
-import { StatusBar } from 'expo-status-bar'
-import { React, useState, useEffect } from 'react'
-import { Alert, StyleSheet, View, Text } from 'react-native'
-import { Video } from 'expo-av'
-import * as FileSystem from 'expo-file-system';
-import {
-    CreateDirectory, DeleteDirectory,
-    DeleteVideoByName,
-    DownloadAndStoreVideo,
-    ReadDirectory
-} from "../../services/DirectoryService";
-
-import {downloadCourse} from "../../services/StorageService"
+import {React, useEffect} from 'react'
+import {StyleSheet} from 'react-native'
+import {Video} from 'expo-av'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {getTestCourseFromApi} from "../../services/StorageService";
 
 let testUrl = 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4';
 
+const TEST_COURSE = '@testCourse';
+
+/*
+const getCourse = async () => {
+    await getTestCourseFromApi();
+}
+*/
+
+/*
+const getCourse = async () => {
+    console.log(await AsyncStorage.getItem(TEST_COURSE));
+}
+*/
+
 export default function TestComponent() {
+
     useEffect(() => {
-        downloadCourse('test');
-        //CreateDirectory('test');
-        //ReadDirectory('test');
-        //DeleteDirectory('test');
-      }
+
+            //console.log(testCourse);
+            //console.log("hello")
+            //CreateDirectory('test');
+            //ReadDirectory('test');
+            //DeleteDirectory('test');
+        }
     );
 
     return (
         <Video
             source={{
                 uri: ''
+
             }}
             rate={1.0}
             volume={1.0}

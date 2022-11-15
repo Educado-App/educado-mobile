@@ -1,21 +1,60 @@
 import * as api from '../api/api.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import DirectoryService from './DirectoryService.js';
+import * as DirectoryService from '../services/DirectoryService';
 
-export const getCourseList = async () => {
+const TEST_COURSE = '@testCourse';
+
+export const getTestCourseFromApi = async () => {
+
   try {
-    let value = await AsyncStorage.getItem('@courseList');
-    if (value == null) {
-      console.log('value not in storage, fetch from api then store and return.');
-      value = await api.getCourses();
-      await AsyncStorage.setItem('@courseList', value);
+
+    let localCourse = JSON.parse(await AsyncStorage.getItem(TEST_COURSE));
+
+    if(localCourse == null){
+
+      await api.getTestCourse().then(
+
+          async testCourse => {
+            testCourse.data.sections[0].exercises[0].content.url = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4";
+            let course = JSON.stringify(testCourse);
+            await AsyncStorage.setItem(TEST_COURSE, course);
+          }
+      );
     }
-    return value
+
   } catch (e) {
     console.error(e);
   }
 }
 
+export const getCourseList = async () => {
+  try {
+    let courseList = await AsyncStorage.getItem('@courseList');
+
+    // Check if course is downloaded
+    if (courseList == null) {
+      courseList = await api.getCourses();
+
+      let savedCourseList;
+      courseList.array.forEach(element => {
+        const data = AsyncStorage.getItem(element._id);
+
+        // Make new list with member isDownloaded
+        savedCourseList.append({
+          isDownloaded: data !== null,
+          CourseInfo: element
+        });
+      });
+
+      // Save new courseList for this key and return it.
+      await AsyncStorage.setItem('@courseList', savedCourseList);
+      courseList = savedCourseList;
+    }
+    return courseList;
+  } catch (e) {
+    console.error(e);
+  }
+}
 export const getCourseById = async (courseId) => {
   try {
     let value = AsyncStorage.getItem(courseId);
@@ -31,7 +70,7 @@ export const getCourseById = async (courseId) => {
 
 export async function downloadCourse(courseId) {
   try {
-    let course = await api.getCourse(courseId);
+    let course = api.getCourse(courseId);
     await AsyncStorage.setItem('@course', course);
     let name = course.name;
     let directory = await DirectoryService.CreateDirectory(name);
@@ -44,3 +83,7 @@ export async function downloadCourse(courseId) {
   }
 }
 
+//getSectionList(course-id)
+//getSectionById(section-id)
+//getExerciseList(section-id)
+//getExerciseById(exercise-id)
