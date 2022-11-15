@@ -2,7 +2,7 @@ import axios from "axios";
 
 const prod = 'http://educado.somethingnew.dk'
 const testOld = 'https://ancient-basin-06516.herokuapp.com'
-const test = 'http://192.168.0.106:8888' //Change this to your LOCAL IP address when testing.
+const test = 'http://172.20.10.8:8888' //Change this to your LOCAL IP address when testing.
 const local = 'http://localhost:8888'
 
 const url = test;

@@ -4,12 +4,12 @@ import {Text, View} from "react-native";
 
 const PasswordStrengthMeter = (passwordObj) => {
     const passwordObject = passwordObj.passwordObj;
-    console.log(passwordObject.passwordStrength);
+    //console.log(passwordObject.passwordStrength);
 
     const testResult = zxcvbn(String(passwordObject.passwordStrength));
     const num = testResult.score * 100 / 4;
 
-    console.log(testResult.score);
+    //console.log(testResult.score);
 
     const createPassLabel = () => {
         switch(testResult.score) {

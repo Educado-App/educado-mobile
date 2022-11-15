@@ -17,9 +17,7 @@ export default function LoginForm(props) {
     const [userName, setUserName] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('+55');
     const [password, setPassword] = useState('');
-  /*  const [passwordEmptyError, setPasswordEmptyError] = useState('');
-    const [passwordNotSecureError, setPasswordNotSecureError] = useState('');
-*/
+
     async function register (phoneNumber, password) {
 
         //clearing input
@@ -72,6 +70,7 @@ export default function LoginForm(props) {
                 })
                 .catch(error => {
 
+                    console.log(error);
                     switch (error.message){
 
                         case "Request failed with status code 500":
@@ -104,6 +103,7 @@ export default function LoginForm(props) {
         }
 
     }
+
     const passwordObj = {
         passwordStrength : password
     };
@@ -148,6 +148,7 @@ export default function LoginForm(props) {
                                placeholderTextColor="green"
                                keyboardType={"phone-pad"}
                                onChangeText={phoneNumber => setPhoneNumber(phoneNumber)}
+
                     />
                     <TextInput
                         style={styles.textInput}
