@@ -8,23 +8,17 @@ let testUrl = 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/
 
 const TEST_COURSE = '@testCourse';
 
-/*
 const getCourse = async () => {
     await getTestCourseFromApi();
 }
-*/
-
 /*
 const getCourse = async () => {
     console.log(await AsyncStorage.getItem(TEST_COURSE));
 }
 */
-
 export default function TestComponent() {
 
     useEffect(() => {
-
-            //console.log(testCourse);
             //console.log("hello")
             //CreateDirectory('test');
             //ReadDirectory('test');

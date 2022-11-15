@@ -18,9 +18,11 @@ export const getTestCourseFromApi = async () => {
             testCourse.data.sections[0].exercises[0].content.url = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4";
             let course = JSON.stringify(testCourse);
             await AsyncStorage.setItem(TEST_COURSE, course);
+            return course;
           }
       );
-    }
+
+    } else return localCourse;
 
   } catch (e) {
     console.error(e);
