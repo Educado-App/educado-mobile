@@ -3,18 +3,21 @@ import { View, Text, Pressable } from 'react-native'
 import { Icon } from '@rneui/base'
 import { useNavigation } from '@react-navigation/native'
 
-export default function Courses({ title }) {
+
+export default function Courses({ title, courseId }) {
     const navigation = useNavigation()
     return (
 
-        <View className="flex-col items-center w-[50%]">
-            <Pressable className="bg-[#C7CDC6] w-[75%] rounded-[15%] item-center">
+        <View>
+            <Pressable className="bg-[#c6cdc8] w-9/12 rounded-md item-center"
+                onPress={() => navigation.navigate('Course', { courseId: courseId })}>
                 <Icon // icon
                     size={90}
                     name="plus-thick"
                     type="material-community"
                     color="darkgray"
                 />
+
             </Pressable>
             <Text className="items-center text-xl">{title}</Text>
         </View>

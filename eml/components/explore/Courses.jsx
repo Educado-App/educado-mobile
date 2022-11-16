@@ -14,9 +14,9 @@ export default function Courses({ activeCoursesToShow }) {
     useEffect(() => {
         async function loadViews() {
             // eslint-disable-next-line array-callback-return
-            const course = courseList.map(({ title, iconPath, isDownloaded }, index) => {
+            const course = courseList.map(({ title, iconPath, isDownloaded, courseId }, index) => {
                 if (!isDownloaded) {
-                    return <Course key={index} title={title}></Course>
+                    return <Course key={index} title={title} courseId={courseId}></Course>
                 }
             });
 

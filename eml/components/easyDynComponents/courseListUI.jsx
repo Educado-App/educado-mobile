@@ -3,15 +3,11 @@ import { SafeAreaView, StyleSheet } from 'react-native';
 import { Layout } from '@ui-kitten/components';
 import EasyDynamicList from './EasyDynamicList';
 import CourseHeader from '../courses/CourseHeader';
-const JSONData = require('../../assets/file/testCourse.json');
-const ActiveCourse = require('../../assets/file/activeCourse.json')
 
-
-
-export default function CourseListUI() {
+export default function CourseListUI({ course }) {
 
     return (
-        <SafeAreaView style={styles.mainContainer}>
+        <SafeAreaView>
             <CourseHeader
                 nrArr={[
                     [1, 3],
@@ -19,18 +15,11 @@ export default function CourseListUI() {
                     [3, 3],
                     [0, 3]
                 ]}
-                courseTitle={JSONData[ActiveCourse.ActiveCourse].title}
+                courseTitle={course[0].title}
             ></CourseHeader>
             <Layout>
-                <EasyDynamicList JSONData={JSONData[ActiveCourse.ActiveCourse].sections} ></EasyDynamicList>
+                <EasyDynamicList courseData={course[0]} ></EasyDynamicList>
             </Layout>
         </SafeAreaView>
     );
 };
-
-const styles = StyleSheet.create({
-    mainContainer: {
-        flex: 1,
-    },
-
-});

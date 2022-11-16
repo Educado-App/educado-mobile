@@ -18,16 +18,18 @@ const ItemImage = (props) => (
 );
 
 
-export default function easyDynamicList({ JSONData }) {
+export default function easyDynamicList({ courseData }) {
     const navigation = useNavigation()
+
+    const courseSections = courseData.sections
 
 
     return (
         <ScrollView style={styles.scrollView}>
-            {JSONData.map((item, index) => {
+            {courseSections.map((item, index) => {
                 return (
                     <ListItem
-                        onPress={() => { navigation.navigate('Exercise', { itemId: item.sectionNumber, data: JSONData },) }}
+                        onPress={() => { navigation.navigate('Exercise', { sectionId: item.sectionId, courseId: courseData.courseId }) }}
                         style={styles.listItems}
                         key={index}
                         title={item.title}

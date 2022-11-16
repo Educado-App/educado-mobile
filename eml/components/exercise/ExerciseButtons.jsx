@@ -5,6 +5,8 @@ import { useNavigation } from '@react-navigation/native'
 import { Audio } from 'expo-av'
 import PropTypes from 'prop-types'
 
+import StorageController from '../../assets/controller/storageController'
+
 const voiceOvers = [
   require('../../assets/voice1.mp3'),
   require('../../assets/voice2.mp3'),
@@ -12,15 +14,25 @@ const voiceOvers = [
   require('../../assets/voice4.mp3')
 ]
 
-export default function FourButtons2({ correctAnswer, sendDataToParent, answerNr }) {
+export default function FourButtons2({ exerciseId, answers, sectionId, courseId }) {
   const navigation = useNavigation()
 
   FourButtons2.propTypes = {
-    correctAnswer: PropTypes.number,
-    sendDataToParent: PropTypes.func.isRequired,
-    answerNr: PropTypes.number.isRequired
+    answers: PropTypes.array.isRequired,
+    exerciseId: PropTypes.number.isRequired,
+    sectionId: PropTypes.number.isRequired,
+    courseId: PropTypes.number.isRequired
+
   }
 
+  function findRightAnswer() {
+    for (let i = 0; i < answers.length; i++) {
+      if (answers[i].correct === true) {
+        return answers[i].answerNumber
+      }
+    }
+    return null
+  }
   const [selected, setSelected] = useState({
     btn1: false,
     btn2: false,
@@ -85,37 +97,19 @@ export default function FourButtons2({ correctAnswer, sendDataToParent, answerNr
         btn4: true
       })
     }
-    // console.log(evt)
     setChoice(evt)
   }
 
-  function setButtonState(b1, b2, b3, b4) {
-    setSelected({
-      ...selected,
-      btn1: b1,
-      btn2: b2,
-      btn3: b3,
-      btn4: b4
-    })
-  }
 
   function checkChoice(choice) {
-    //console.log(choice)
-    //console.log(correctAnswer)
-    if (choice === correctAnswer) {
-      Alert.alert('Wuhuuu you answered correct!', 'God job!', [
-        {
-          text: 'Next question!',
-          onPress: () => {
-            sendDataToParent(true)
-          }
-        }
-      ])
-      setButtonState(false, false, false, false)
+
+    StorageController.updateExerciseBySectionId(exerciseId)
+    const rightAnswer = findRightAnswer()
+
+    if (choice === rightAnswer) {
+      navigation.navigate('RightAnswer', { courseId: courseId, sectionId: sectionId })
     } else {
-      navigation.navigate('WrongAnswer',{answerNr: answerNr})
-      sendDataToParent(false)
-      setButtonState(false, false, false, false)
+      navigation.navigate('WrongAnswer', { exerciseId: exerciseId, courseId: courseId, sectionId: sectionId })
     }
   }
 

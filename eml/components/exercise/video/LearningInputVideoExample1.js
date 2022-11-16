@@ -2,21 +2,15 @@ import { Video } from 'expo-av'
 import { StyleSheet } from 'react-native'
 import { React } from 'react'
 import PropTypes from 'prop-types'
-import GetContent from '../../../assets/video/content/Content'
 
-function LaerningInputVideoExample1({pathVideo}){
+function LaerningInputVideoExample1(uri) {
   LaerningInputVideoExample1.propTypes = {
-    pathVideo: PropTypes.number,
+    uri: PropTypes.string.isRequired
   }
 
-  const items = GetContent()
-  if(pathVideo === -1 || pathVideo > items.length-1){
-    pathVideo = 0;
-  }
-  
   return (
     <Video
-      source={items[pathVideo].video}
+      source={uri}
       rate={1.0}
       volume={1.0}
       isMuted={false}
@@ -31,7 +25,6 @@ function LaerningInputVideoExample1({pathVideo}){
 
 const styles = StyleSheet.create({
   backgroundVideo: {
-
     height: '100%'
   }
 })
