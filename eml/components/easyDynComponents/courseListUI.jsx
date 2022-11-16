@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, Dimensions } from 'react-native';
+import { SafeAreaView, StyleSheet } from 'react-native';
 import { Layout } from '@ui-kitten/components';
 import EasyDynamicList from './EasyDynamicList';
 import CourseHeader from '../courses/CourseHeader';

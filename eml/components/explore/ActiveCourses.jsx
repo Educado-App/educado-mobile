@@ -29,17 +29,3 @@ export default function ActiveCourses({ activeCoursesToShow }) {
         </View>
     )
 }
-const styles = StyleSheet.create({
-    courses: {
-        backgroundColor: 'green',
-        alignItems: 'center',
-        width: '75%',
-        borderRadius: 15,
-        borderWidth: 5,
-        borderColor: '#3D9C19',
-    },
-    coursesTitle: {
-        alignSelf: 'center',
-        fontSize: 20
-    }
-})

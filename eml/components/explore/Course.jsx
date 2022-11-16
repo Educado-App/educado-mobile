@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, Pressable } from 'react-native'
+import { View, Text, Pressable } from 'react-native'
 import { Icon } from '@rneui/base'
 import { useNavigation } from '@react-navigation/native'
 
@@ -7,8 +7,8 @@ export default function Courses({ title }) {
     const navigation = useNavigation()
     return (
 
-        <View style={{ flexDirection: 'column', alignItems: 'center', width: '50%' }}>
-            <Pressable style={styles.courses}>
+        <View className="flex-col items-center w-[50%]">
+            <Pressable className="bg-[#C7CDC6] w-[75%] rounded-[15%] item-center">
                 <Icon // icon
                     size={90}
                     name="plus-thick"
@@ -16,21 +16,8 @@ export default function Courses({ title }) {
                     color="darkgray"
                 />
             </Pressable>
-            <Text style={styles.coursesTitle}>{title}</Text>
+            <Text className="items-center text-xl">{title}</Text>
         </View>
 
     )
 }
-
-const styles = StyleSheet.create({
-    courses: {
-        backgroundColor: '#C7CDC6',
-        alignItems: 'center',
-        borderRadius: 15,
-        width: '75%'
-    },
-    coursesTitle: {
-        alignSelf: 'center',
-        fontSize: 20
-    }
-})

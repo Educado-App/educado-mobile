@@ -15,6 +15,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import SessionScreen from './screens/excercise/ExerciseScreen'
 import WrongAnswerComponent from './screens/excercise/WrongAnswerScreen'
 import Explore from './screens/explore/Explore'
+import { TailwindProvider } from 'tailwindcss-react-native'
 
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
@@ -130,24 +131,26 @@ function HomeStack() {
 
 export default function App() {
   return (
-    <>
-      <IconRegistry icons={EvaIconsPack} />
-      <ApplicationProvider {...eva} theme={eva.light}>
-        <NavigationContainer>
-          <Stack.Navigator initialRouteName={'HomeStack'}>
-            <Stack.Screen
-              name={'LoginStack'}
-              component={LoginStack}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name={'HomeStack'}
-              component={HomeStack}
-              options={{ headerShown: false }}
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </ApplicationProvider>
-    </>
+    <TailwindProvider>
+      <>
+        <IconRegistry icons={EvaIconsPack} />
+        <ApplicationProvider {...eva} theme={eva.light}>
+          <NavigationContainer>
+            <Stack.Navigator initialRouteName={'HomeStack'}>
+              <Stack.Screen
+                name={'LoginStack'}
+                component={LoginStack}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name={'HomeStack'}
+                component={HomeStack}
+                options={{ headerShown: false }}
+              />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </ApplicationProvider>
+      </>
+    </TailwindProvider>
   )
 }
