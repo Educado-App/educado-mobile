@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const testUrl = 'http://localhost:8888'
-const testExpo = 'http://192.168.1.99:8888'
+const testExpo = 'http://192.168.43.130:8888'
 
 const url = testExpo;
 
