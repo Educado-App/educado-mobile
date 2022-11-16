@@ -1,5 +1,7 @@
 import * as api from "../../api/api";
 
+jest.mock('axios')
+
 test('get CourseList from public route', async () => {
   const data = await api.getCourses();
   expect(data.status).toBe(200);
