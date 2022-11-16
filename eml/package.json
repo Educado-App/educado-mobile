@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "@eva-design/eva": "^2.1.1",
+    "@expo-google-fonts/dev": "^0.2.2",
+    "@expo-google-fonts/roboto": "^0.2.2",
     "@expo/vector-icons": "^13.0.0",
     "@expo/webpack-config": "^0.17.0",
     "@fortawesome/fontawesome-free": "^6.2.0",
@@ -25,12 +27,15 @@
     "@react-navigation/native-stack": "^6.9.0",
     "@rneui/base": "^4.0.0-rc.6",
     "@rneui/themed": "^4.0.0-rc.6",
+    "@tailwindcss/aspect-ratio": "^0.4.2",
     "@ui-kitten/components": "^5.1.2",
     "@ui-kitten/eva-icons": "^5.1.2",
     "axios": "^0.27.2",
     "bootstrap": "^5.2.1",
     "expo": "^46.0.15",
+    "expo-app-loading": "^2.1.1",
     "expo-av": "~12.0.4",
+    "expo-font": "~10.2.0",
     "expo-status-bar": "~1.4.0",
     "expo-video-player": "^2.2.0",
     "nativewind": "^2.0.11",
@@ -56,6 +61,7 @@
     "react-query": "^3.39.2",
     "react-use-window-size": "^1.0.1",
     "recoil": "^0.7.5",
+    "source-code-pro": "^2.38.0",
     "tailwindcss-react-native": "^1.7.10"
   },
   "devDependencies": {

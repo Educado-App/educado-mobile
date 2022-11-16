@@ -1,4 +1,5 @@
 import React from 'react'
+import { View } from "react-native";
 import { NavigationContainer } from '@react-navigation/native'
 import CourseScreen from './screens/courses/CourseScreen'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
@@ -16,6 +17,7 @@ import SessionScreen from './screens/excercise/ExerciseScreen'
 import WrongAnswerComponent from './screens/excercise/WrongAnswerScreen'
 import Explore from './screens/explore/Explore'
 import { TailwindProvider } from 'tailwindcss-react-native'
+import ExploreCard from './components/explore/ExploreCard'
 
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
@@ -138,7 +140,10 @@ function HomeStack() {
 
 export default function App() {
   return (
-    <TailwindProvider>
+  /*   <View className= "items-center pt-52 h-full">
+      <ExploreCard></ExploreCard>
+    </View> */
+   <TailwindProvider>
       <>
         <IconRegistry icons={EvaIconsPack} />
         <ApplicationProvider {...eva} theme={eva.light}>
