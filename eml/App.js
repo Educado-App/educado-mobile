@@ -6,10 +6,10 @@ import { Icon } from '@rneui/themed'
 import ProfileComponent from './screens/profile/Profile'
 import LoginScreen from './screens/login/Login'
 import RegisterScreen from './screens/register/Register'
-
 import * as eva from '@eva-design/eva'
 import { ApplicationProvider, IconRegistry } from '@ui-kitten/components'
 import { EvaIconsPack } from '@ui-kitten/eva-icons'
+import RightAnswerScreen from './screens/excercise/RightAnswerScreen'
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import SessionScreen from './screens/excercise/ExerciseScreen'
@@ -39,6 +39,13 @@ function CourseStack() {
       <Stack.Screen
         name="WrongAnswer"
         component={WrongAnswerComponent}
+        options={{
+          headerShown: false
+        }}
+      />
+      <Stack.Screen
+        name="RightAnswer"
+        component={RightAnswerScreen}
         options={{
           headerShown: false
         }}

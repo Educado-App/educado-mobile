@@ -1,6 +1,6 @@
 {
   "on_wrong_feedback": {
     "type": "video",
-    "path": "../video/content/testvideo2.mp4"
+    "uri": "https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
   }
 }

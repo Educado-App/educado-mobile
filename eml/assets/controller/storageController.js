@@ -19,9 +19,12 @@ function getFeedBackByExerciseId(exerciseId) {
   return getFeedBackByExerciseIdData
 }
 
+function updateExerciseBySectionId(exerciseId) {}
+
 export default {
   getCourseList,
   getCourseById,
   getNextExerciseBySectionId,
-  getFeedBackByExerciseId
+  getFeedBackByExerciseId,
+  updateExerciseBySectionId
 }

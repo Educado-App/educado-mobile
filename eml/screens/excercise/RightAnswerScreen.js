@@ -1,28 +1,31 @@
-import React, { useEffect, useState } from 'react'
-import { StyleSheet, View } from 'react-native'
-import FeedBackVideo from '../../components/exercise/video/LearningInputVideoExample1'
-import { Icon } from '@rneui/themed'
+import React from 'react'
+import { View, StyleSheet } from 'react-native'
 import { useNavigation, useRoute } from '@react-navigation/native'
-import StorageController from '../../assets/controller/storageController'
+import { Icon } from '@rneui/themed'
 
-export default function WrongAnswerComponent() {
+export default function RightAnswerScreen() {
   const navigation = useNavigation()
+
   const route = useRoute()
-  const { exerciseId, courseId, sectionId } = route.params
-
-  const feedback = StorageController.getFeedBackByExerciseId(exerciseId)
-
-  console.log(feedback)
+  const { courseId, sectionId } = route.params
 
   return (
     <View style={styles.container}>
       <View style={{ flex: 0.5 }}>
-        <View
-          style={[styles.row, { paddingTop: '15%', paddingRight: '7%' }]}
-        ></View>
-      </View>
-      <View style={{ flex: 2, width: '100%' }}>
-        <FeedBackVideo uri={feedback.on_wrong_feedback.uri}></FeedBackVideo>
+        <View style={[styles.row, { paddingTop: '15%', paddingRight: '7%' }]}>
+          <Icon
+            style={{
+              shadowOpacity: 0.8,
+              shadowRadius: 2,
+              shadowOffset: { width: 0, height: 0 },
+              shadowColor: '#ffd633'
+            }}
+            size={80}
+            name="star"
+            type="material-community"
+            color="#ffd633"
+          />
+        </View>
       </View>
       <View style={{ top: '5%', flex: 0.7 }}>
         <View
