@@ -1,19 +1,25 @@
 import { React } from 'react'
 import * as FileSystem from 'expo-file-system';
 
-export function CreateDirectory(name) {
+export async function CreateDirectory(name) {
 
     //Create a Directory by the (name)
 
+    let string = "";
+
     try {
-         FileSystem.makeDirectoryAsync(FileSystem.documentDirectory + name)
+         await FileSystem.makeDirectoryAsync(FileSystem.documentDirectory + name)
             .then( () =>{
-                    console.log("Created directory: " + name);
+                    string = "Created directory: " + name
                 }
             )
             .catch(error => {
-                console.log("Error Creating directory. (maybe It already exists)");
+                string = "Error Creating directory. (maybe It already exists)"
             });
+
+            return string
+
+            
     }
     catch (error){
         console.log(error);
@@ -43,18 +49,22 @@ export function ReadDirectory(name){
         return items;
 
     }
-export function DeleteDirectory(name){
+export async function DeleteDirectory(name){
 
     //Delete the directory located by name
+
+    let string = "";
 
     try {
          FileSystem.deleteAsync(FileSystem.documentDirectory + name)
             .then(() => {
-                console.log("Deleted directory " + name);
+                string = "Deleted directory " + name
             })
             .catch(error => {
-                console.log("Error deleting the directory");
+                string = "Error deleting the directory"
             });
+
+            return string
     }
     catch (error){
         console.log("error");
