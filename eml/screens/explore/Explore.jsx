@@ -11,7 +11,7 @@ export default function Explore() {
                 <Text style={{ fontSize: 35, fontWeight: '500' }}> Explorar Novos Cursos </Text>
             </View>
             <View style={{ flex: 0.5 }}>
-                <FilteringOptions></FilteringOptions>
+                 {/* <FilteringOptions></FilteringOptions> */}
             </View>
             <View style={{ flex: 5 }}>
                 <View style={{ flex: 1 }}>

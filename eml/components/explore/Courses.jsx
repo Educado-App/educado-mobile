@@ -27,18 +27,17 @@ export default function Courses({ activeCoursesToShow }) {
     }, [activeCoursesToShow]);
     return (
 
-        <ScrollView style={{}}>
-
-            <View style={{ flexDirection: 'row', height: '100%', marginBottom: 30, flexWrap: 'wrap' }}>
+        <ScrollView>
+            <View className="flex-wrap flex-row flex-1 justify-evenly">
                 {views}
             </View>
-        </ScrollView >
+        </ScrollView>
     )
 }
 
 const styles = StyleSheet.create({
     courses: {
-        backgroundColor: 'gray',
+        backgroundColor: 'grey',
         width: 300,
         borderRadius: 15,
     },
