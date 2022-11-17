@@ -8,7 +8,7 @@ import PasswordStrengthMeter from "./PasswordStrengthMeter";
 const USER_INFO = '@userInfo';
 const LOGIN_TOKEN = '@loginToken';
 
-const {width, height} = Dimensions.get('window');
+const {height} = Dimensions.get('window');
 
 export default function LoginForm(props) {
 

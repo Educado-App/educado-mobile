@@ -48,14 +48,14 @@ const PasswordStrengthMeter = (passwordObj) => {
 
     const changePasswordColor = () => ({
         marginHorizontal: '5%',
-        width: `${num}-25%`,
+        width: `${num}%`,
         backgroundColor: funcProgressColor(),
-        height: '50%'
+        height: '200%'
     })
 
     return (
         <View>
-            <View className="progress" style={{ height: '15%', width: '90%' }}>
+            <View className="progress" style={{ height: '5%', width: '90%' }}>
                 <View className="progress-bar" style={changePasswordColor()}/>
             </View>
             <Text style={{ color: funcProgressColor(), marginHorizontal: '5%' }}>{createPassLabel()}</Text>
