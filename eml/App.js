@@ -123,7 +123,7 @@ function HomeStack(){
     )
 }
 
-//for playing around
+// for playing around
 function TestStack(){
     return(
         <Tab.Navigator initialRouteName={"TestScreen"}>
@@ -182,7 +182,7 @@ function TestStack(){
     )
 }
 
-//Change InitialRouteName to HomeStack if you want to skip Login Screen
+// Change InitialRouteName to HomeStack if you want to skip Login Screen
 
 export default function App() {
   return (

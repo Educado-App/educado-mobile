@@ -24,12 +24,12 @@ export default function TestComponent() {
     }
 
     useEffect(() => {
-            //console.log(getTestCourseFromApi());
-            //console.log("hello")
-            //CreateDirectory('test');
-            //ReadDirectory('test');
-            //DeleteDirectory('test');
-            //let obj = Promise.resolve(getTestCourseFromApi());
+            // console.log(getTestCourseFromApi());
+            // console.log("hello")
+            // CreateDirectory('test');
+            // ReadDirectory('test');
+            // DeleteDirectory('test');
+            // let obj = Promise.resolve(getTestCourseFromApi());
         }
     );
 

@@ -1,13 +1,13 @@
 import axios from "axios";
 
 const testUrl = 'http://localhost:8888'
-const testExpo = 'http://192.168.43.130:8888'
+const testExpo = 'http://192.168.1.99:8888'
 
 const url = testExpo;
 
-//Find a solution to refresh auth-token
-let authToken = '';
-let authBody = {
+// Find a solution to refresh auth-token
+const authToken = '';
+const authBody = {
     "email": "demo@gmail.com",
     "password": "Demo1234"
 }
@@ -34,11 +34,11 @@ export const getCourse = async (courseId) => {
     return res.data;
 };
 
-//TODO: Endpoint for getcoursebyid && change getCourses to getCourseList
+// TODO: Endpoint for getcoursebyid && change getCourses to getCourseList
 
 export const getPresignedUrl = async (component_id) => {
     const obj = {
-        component_id: component_id
+        component_id
     }
     const res = await axios.post(url + '/api/get-presigned-url', obj);
     return res.data;
@@ -46,7 +46,7 @@ export const getPresignedUrl = async (component_id) => {
 
 export const getCoverPhoto = async (course_id) => {
     const obj = {
-        course_id: course_id
+        course_id
     }
     // Send request to S3 server
     const res = await axios.post(url + '/api/eml/get-presigned-url', obj);
@@ -55,7 +55,7 @@ export const getCoverPhoto = async (course_id) => {
 
 export const getAllSections = async (sections) => {
     const obj = {
-        sections: sections
+        sections
     }
     // Send request to S3 server
     const res = await axios.post(url + '/api/eml/course/getallsections', obj);
@@ -65,7 +65,7 @@ export const getAllSections = async (sections) => {
 
 export const getAllComponents = async (components) => {
     const obj = {
-        components: components
+        components
     };
     // Send request to S3 server
     const res = await axios.post(url + '/api/component/getallcomponents', obj);
