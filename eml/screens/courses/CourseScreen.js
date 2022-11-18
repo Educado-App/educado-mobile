@@ -12,13 +12,13 @@ export default function CourseScreen() {
   let course = null;
 
   if (route.params !== undefined) {
-    course = StorageController.getCourseById(route.params.courseId)    
+    course = StorageController.getCourseById(route.params.courseId)
   }
 
   return (
-    <View className="bg-lime-200">
+    <View className="bg-lime-200 flex-1">
       {course !== null ? (
-        <CourseListUI course={course}></CourseListUI>
+        <CourseListUI className="bg-yellow-300" course={course}></CourseListUI>
       ) : (
         navigation.navigate('Explore')
       )}

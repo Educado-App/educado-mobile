@@ -12,9 +12,7 @@ export default function CourseListUI({ course }) {
                 courseTitle={course.title}
                 courseIcon={course.iconPath}
             ></CourseHeader>
-            <View>
-                <EasyDynamicList courseData={course} ></EasyDynamicList>
-            </View>
+            <EasyDynamicList courseData={course} ></EasyDynamicList>
         </View>
     );
 };
