@@ -18,7 +18,7 @@ export default function CourseScreen() {
   return (
     <View className="bg-lime-200 flex-1">
       {course !== null ? (
-        <CourseListUI className="bg-yellow-300" course={course}></CourseListUI>
+        <CourseListUI course={course}></CourseListUI>
       ) : (
         navigation.navigate('Explore')
       )}
