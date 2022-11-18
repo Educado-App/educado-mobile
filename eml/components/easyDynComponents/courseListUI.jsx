@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Layout } from '@ui-kitten/components';
 import EasyDynamicList from './EasyDynamicList';
 import CourseHeader from '../courses/CourseHeader';
@@ -7,19 +7,14 @@ import CourseHeader from '../courses/CourseHeader';
 export default function CourseListUI({ course }) {
 
     return (
-        <SafeAreaView>
+        <View>
             <CourseHeader
-                nrArr={[
-                    [1, 3],
-                    [2, 3],
-                    [3, 3],
-                    [0, 3]
-                ]}
-                courseTitle={course[0].title}
+                courseTitle={course.title}
+                courseIcon={course.iconPath}
             ></CourseHeader>
-            <Layout>
-                <EasyDynamicList courseData={course[0]} ></EasyDynamicList>
-            </Layout>
-        </SafeAreaView>
+            <View>
+                <EasyDynamicList courseData={course} ></EasyDynamicList>
+            </View>
+        </View>
     );
 };

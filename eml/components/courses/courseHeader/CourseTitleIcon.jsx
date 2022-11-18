@@ -1,14 +1,13 @@
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, Image } from 'react-native'
 
-import { Text } from '@ui-kitten/components';
-
-import HeaderIcon from '../../exercise/headerIcon'
+import { Text } from '@ui-kitten/components'
 import PropTypes from 'prop-types'
 
-export default function CourseTitleIcon({ title }) {
+export default function CourseTitleIcon({ title, courseIcon }) {
   CourseTitleIcon.propTypes = {
-    title: PropTypes.string.isRequired
+    title: PropTypes.string.isRequired,
+    courseIcon: PropTypes.string.isRequired
   }
 
   return (
@@ -23,10 +22,10 @@ export default function CourseTitleIcon({ title }) {
         </Text>
       </View>
       <View style={{ padding: '5%' }}>
-        <HeaderIcon
-          name='circle'
-          type='entypo'>
-        </HeaderIcon>
+        <Image source={{ uri: courseIcon}}
+        style={{width: 50, height: 50}}
+        className="rounded-xl"
+        ></Image>
       </View>
     </View>
   )

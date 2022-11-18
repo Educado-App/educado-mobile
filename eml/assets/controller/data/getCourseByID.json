@@ -1,21 +1,65 @@
-[
-  {
-    "title": "Personal Finance",
-    "courseId": 1,
-    "iconPath": "../financeLogo.png",
-    "sections": [
-      {
-        "sectionId": 1,
-        "title": "How to make money"
-      },
-      {
-        "sectionId": 2,
-        "title": "How to be a milionair"
-      },
-      {
-        "sectionId": 3,
-        "title": "Stocks 101"
-      }
-    ]
-  }
-]
+
+{
+  "title": "Personal Finance",
+  "courseId": 1,
+  "iconPath": "https://images.unsplash.com/photo-1666387459346-626a7ae47819?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=50&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY2ODY3NDkyOA&ixlib=rb-4.0.3&q=80&w=50",
+  "sections": [
+    {
+      "sectionId": 1,
+      "title": "How to make money"
+    },
+    {
+      "sectionId": 2,
+      "title": "How to be a milionair"
+    },
+    {
+      "sectionId": 3,
+      "title": "Stocks 101"
+    },{
+      "sectionId": 1,
+      "title": "How to make money"
+    },
+    {
+      "sectionId": 2,
+      "title": "How to be a milionair"
+    },
+    {
+      "sectionId": 3,
+      "title": "Stocks 101"
+    },{
+      "sectionId": 1,
+      "title": "How to make money"
+    },
+    {
+      "sectionId": 2,
+      "title": "How to be a milionair"
+    },
+    {
+      "sectionId": 3,
+      "title": "Stocks 101"
+    },{
+      "sectionId": 1,
+      "title": "How to make money"
+    },
+    {
+      "sectionId": 2,
+      "title": "How to be a milionair"
+    },
+    {
+      "sectionId": 3,
+      "title": "Stocks 101"
+    },
+    {
+      "sectionId": 1,
+      "title": "How to make money"
+    },
+    {
+      "sectionId": 2,
+      "title": "How to be a milionair"
+    },
+    {
+      "sectionId": 3,
+      "title": "Stocks 101"
+    }
+  ]
+}

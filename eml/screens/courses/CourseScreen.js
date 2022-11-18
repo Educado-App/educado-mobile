@@ -2,7 +2,6 @@ import { useRoute, useNavigation } from '@react-navigation/native'
 import React from 'react'
 import CourseListUI from '../../components/easyDynComponents/courseListUI'
 import { View } from 'react-native'
-import { useEffect } from 'react'
 import StorageController from '../../assets/controller/storageController'
 
 export default function CourseScreen() {
@@ -10,16 +9,14 @@ export default function CourseScreen() {
 
   const navigation = useNavigation()
 
-  const [course, setCourse] = React.useState(null)
+  let course = null;
 
-  useEffect(() => {
-    if (route.params !== undefined) {
-      setCourse(StorageController.getCourseById(route.params.courseId))
-    }
-  }, [route.params])
+  if (route.params !== undefined) {
+    course = StorageController.getCourseById(route.params.courseId)    
+  }
 
   return (
-    <View>
+    <View className="bg-lime-200">
       {course !== null ? (
         <CourseListUI course={course}></CourseListUI>
       ) : (
@@ -27,18 +24,4 @@ export default function CourseScreen() {
       )}
     </View>
   )
-
-  // if(route.params == "undefined"){
-  //   emptyCourseList();
-  // }
-  // return <CourseListUI></CourseListUI>
-
-  // (<View>
-  //   <CourseListUI></CourseListUI>
-  //   {route.params == "undefined"
-  //     ? <CourseListUI></CourseListUI>
-  //     : navigation.navigate('Explore')
-  //   }
-  // </View>
-  // )
 }
