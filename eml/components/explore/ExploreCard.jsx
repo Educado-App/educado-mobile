@@ -17,7 +17,7 @@ export default function ExploreCard({ key, title, courseId }) {
     return (
       <Pressable
         style={{ shadowColor: 'black', elevation: 10 }}
-        className="w-2/5 h-24 rounded-md items-center flex-col bg-blue-300 m-2"
+        className="w-2/5 h-24 rounded-md items-center flex-col bg-cyanBlue m-2"
         onPress={() => navigation.navigate('Course', { courseId: courseId })}
       >
         <Text style={{ fontFamily: 'VarelaRound_400Regular', fontSize: 16 }} className="pt-4">

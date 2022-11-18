@@ -16,7 +16,7 @@ export default function CourseScreen() {
   }
 
   return (
-    <View className="bg-lime-200 flex-1">
+    <View className="bg-babyBlue flex-1">
       {course !== null ? (
         <CourseListUI course={course}></CourseListUI>
       ) : (

@@ -3,7 +3,7 @@ import { React } from 'react'
 import { Alert, StyleSheet, View } from 'react-native'
 import LeaveButton from '../../components/exercise/LeaveButton'
 import LearningInputVideoExample1 from '../../components/exercise/video/LearningInputVideoExample1'
-import FourButtons from '../../components/exercise/ExerciseButtons'
+import ExerciseButtons from '../../components/exercise/ExerciseButtons'
 import { useNavigation, useRoute } from '@react-navigation/native'
 
 import StorageController from '../../assets/controller/storageController'
@@ -18,7 +18,7 @@ export default function SessionComponent() {
   const exercise = StorageController.getNextExerciseBySectionId(sectionId)
 
   return (
-    <View style={styles.container} className="bg-lime-200">
+    <View style={styles.container} className="bg-babyBlue">
       <View style={{ flex: 1 }}>
         <View style={[{ paddingTop: '7%' }, styles.row]}>
           <View style={[{ paddingTop: '15%' }, { right: '120%' }]}>
@@ -73,12 +73,12 @@ export default function SessionComponent() {
         )}
       </View>
       <View style={{ flex: 3 }}>
-        <FourButtons
+        <ExerciseButtons
           answers={exercise.answers}
           exerciseId={exercise.exerciseId}
           courseId={courseId}
           sectionId={sectionId}
-        ></FourButtons>
+        ></ExerciseButtons>
       </View>
       <StatusBar style="auto" />
     </View>

@@ -14,10 +14,10 @@ const voiceOvers = [
   require('../../assets/voice4.mp3')
 ]
 
-export default function FourButtons2({ exerciseId, answers, sectionId, courseId }) {
+export default function ExerciseButtons({ exerciseId, answers, sectionId, courseId }) {
   const navigation = useNavigation()
 
-  FourButtons2.propTypes = {
+  ExerciseButtons.propTypes = {
     answers: PropTypes.array.isRequired,
     exerciseId: PropTypes.number.isRequired,
     sectionId: PropTypes.number.isRequired,
@@ -126,12 +126,12 @@ export default function FourButtons2({ exerciseId, answers, sectionId, courseId 
           <Icon
             style={[
               styles.button,
-              { backgroundColor: selected.btn1 ? '#991f00' : '#ff3300' }
+              { backgroundColor: selected.btn1 ? '#991f00' : '#FF5252' }
             ]}
             size={60}
             name="triangle"
             type="material-community"
-            color="white"
+            color="#CFE9EF"
             onPress={() => {
               setButton()
               handleChange(1)
@@ -149,12 +149,12 @@ export default function FourButtons2({ exerciseId, answers, sectionId, courseId 
           <Icon
             style={[
               styles.button,
-              { backgroundColor: selected.btn2 ? '#003d99' : '#0066ff' }
+              { backgroundColor: selected.btn2 ? '#003d99' : '#65D4EE' }
             ]}
             size={60}
             name="checkbox-blank-circle"
             type="material-community"
-            color="white"
+            color='#CFE9EF'
             onPress={() => {
               setButton()
               handleChange(2)
@@ -174,12 +174,12 @@ export default function FourButtons2({ exerciseId, answers, sectionId, courseId 
           <Icon
             style={[
               styles.button,
-              { backgroundColor: selected.btn3 ? '#997a00' : '#ffcc00' }
+              { backgroundColor: selected.btn3 ? '#FAC12F' : '#FFFF8D' }
             ]}
             size={60}
             name="star"
             type="material-community"
-            color="white"
+            color="#CFE9EF"
             onPress={() => {
               setButton()
               handleChange(3)
@@ -197,12 +197,12 @@ export default function FourButtons2({ exerciseId, answers, sectionId, courseId 
           <Icon
             style={[
               styles.button,
-              { backgroundColor: selected.btn4 ? '#267326' : '#009900' }
+              { backgroundColor: selected.btn4 ? '#267326' : '#9DE89C' }
             ]}
             size={60}
             name="square"
             type="material-community"
-            color="white"
+            color="#CFE9EF"
             onPress={() => {
               setButton()
               handleChange(4)
@@ -224,7 +224,7 @@ export default function FourButtons2({ exerciseId, answers, sectionId, courseId 
             disabledStyle={{ borderRadius: 15 }}
             disabled={button}
             type="material-community"
-            color="white"
+            color="#CFE9EF"
             onPress={() => {
               setButton(true)
               checkChoice(choice)

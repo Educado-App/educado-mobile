@@ -16,7 +16,7 @@ export default function ActiveExploreCard({ key, title, courseId, uri }) {
     return (
       <Pressable
         style={{ shadowColor: 'black', elevation: 10 }}
-        className="w-2/5 h-24 rounded-md items-center flex-col bg-lime-300 m-2"
+        className="w-2/5 h-24 rounded-md items-center flex-col bg-limeGreen m-2"
         onPress={() => navigation.navigate('Course', { courseId: courseId })}
       >
         <View className="">
