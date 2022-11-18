@@ -17,9 +17,13 @@ jest.mock('expo-file-system', () => ({
 
 
 describe('CreateDirectory', () => {
-    it('Should create a directory with name "Test"', async () => {
+    it('Should return a string confirming that a directory named "Test" was successfully created', async () => {
         CreateDirectory("Test").then(r => {expect(r).toBe("Created directory: Test")} )
     })
+})
+
+it('Should read and return contents of a directory with name "Test', async () => {
+    ReadDirectory("Test").then(r => {expect(r).toBe(undefined)})
 })
 
 describe('DeleteDirectory', () => {
@@ -28,12 +32,10 @@ describe('DeleteDirectory', () => {
     })
 })
 
-// it('Should read a created directory with name "Test3', async () => {
-//     ReadDirectory("Test3")
-// })
-
-// test('Should download a video to directory with name "Test4', async () => {
-//     CreateDirectory("Test4")
-//     DownloadAndStoreVideo('https://cdn.discordapp.com/attachments/594427121812897817/1040396889616560279/RPReplay_Final1668120192.mov', 'Test4')
+test('Should return a URI to a locally stored downloaded video', async () => {
+    DownloadAndStoreVideo('https://cdn.discordapp.com/attachments/594427121812897817/1040396889616560279/RPReplay_Final1668120192.mov', 'Test4')
+    .then(r => {expect.toBe(undefined)})
     
-// })
+})
+
+test('Should return ')

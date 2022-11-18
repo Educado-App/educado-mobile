@@ -26,7 +26,7 @@ export async function CreateDirectory(name) {
     }
 
 }
-export function ReadDirectory(name){
+export async function ReadDirectory(name){
 
         //Returns an ARRAY containing the names of existing items in the directory (name)
 
@@ -36,7 +36,7 @@ export function ReadDirectory(name){
              FileSystem.readDirectoryAsync(FileSystem.documentDirectory + name)
                 .then(filesInDirectory => {
                     items = filesInDirectory;
-                    console.log(items);
+                    //console.log(items);
                 })
                 .catch(error => {
                     console.log("Error Reading directory (maybe it is not yet created)");
@@ -72,7 +72,7 @@ export async function DeleteDirectory(name){
 
 }
 
-export function DownloadAndStoreVideo(url, directory){
+export async function DownloadAndStoreVideo(url, directory){
 
         //DOWNLOAD the video from the 'url' and STORE it in the 'directory'
         //Returns the local uri to the file
@@ -84,7 +84,7 @@ export function DownloadAndStoreVideo(url, directory){
         try {
               FileSystem.downloadAsync(url, localUri)
                 .then(({ uri }) => {
-                    console.log('Finished downloading to', uri);
+                    //console.log('Finished downloading to', uri);
                     return localUri;
                 })
                 .catch(error => {
