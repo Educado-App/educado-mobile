@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { View, Alert, StyleSheet } from 'react-native'
+import React, { useState } from 'react'
+import { View, StyleSheet } from 'react-native'
 import { Icon } from '@rneui/themed'
 import { useNavigation } from '@react-navigation/native'
 import { Audio } from 'expo-av'

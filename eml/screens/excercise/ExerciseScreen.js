@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar'
-import { React, useState, useEffect } from 'react'
-import { Alert, StyleSheet, View, Text } from 'react-native'
+import { React } from 'react'
+import { Alert, StyleSheet, View } from 'react-native'
 import LeaveButton from '../../components/exercise/LeaveButton'
 import LearningInputVideoExample1 from '../../components/exercise/video/LearningInputVideoExample1'
 import FourButtons from '../../components/exercise/ExerciseButtons'
@@ -18,10 +18,10 @@ export default function SessionComponent() {
   const exercise = StorageController.getNextExerciseBySectionId(sectionId)
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} className="bg-lime-200">
       <View style={{ flex: 1 }}>
         <View style={[{ paddingTop: '7%' }, styles.row]}>
-          <View style={[{ paddingTop: '5%' }, { right: '50%' }]}>
+          <View style={[{ paddingTop: '15%' }, { right: '120%' }]}>
             <LeaveButton
               navigationPlace={'Course'}
               courseId={courseId}
