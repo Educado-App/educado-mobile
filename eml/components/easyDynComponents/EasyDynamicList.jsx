@@ -19,15 +19,11 @@ export default function easyDynamicList({ courseData }) {
       {courseSections.map((item, index) => {
         return (
             <SectionItem
-              onPress={() => {
-                navigation.navigate('Exercise', {
-                  sectionId: item.sectionId,
-                  courseId: courseId
-                })
-              }}
+              courseId={courseId}
+              sectionId={item.sectionId}
               key={index}
               title={item.title}
-              index = {index}
+              index = {index +1}
             />
         )
       })}
