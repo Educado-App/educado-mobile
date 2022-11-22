@@ -5,8 +5,6 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import SectionItem from '../courses/courseBody/SectionItem'
 
-const SectionNumber = (index) => <Text>{index}</Text>
-
 export default function easyDynamicList({ courseData }) {
     const navigation = useNavigation()
 
@@ -21,7 +19,7 @@ export default function easyDynamicList({ courseData }) {
                         <SectionItem
                             onPress={() => {
                                 navigation.navigate('Exercise', {
-                                    sectionId: item.sectionId,
+                                    sectionId: item[index].sectionId,
                                     courseId: courseId
                                 })
                             }}

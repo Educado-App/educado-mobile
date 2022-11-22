@@ -105,6 +105,13 @@ export default function ExerciseButtons({ exerciseId, answers, sectionId, course
 
     StorageController.updateExerciseBySectionId(exerciseId)
     const rightAnswer = findRightAnswer()
+    setSelected({
+      ...selected,
+      btn1: false,
+      btn2: false,
+      btn3: false,
+      btn4: false
+    })
 
     if (choice === rightAnswer) {
       navigation.navigate('RightAnswer', { courseId: courseId, sectionId: sectionId })

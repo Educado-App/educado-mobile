@@ -31,6 +31,7 @@ export default function WrongAnswerComponent() {
           ] } 
         >
           <Icon
+          
             size={70}
             name="chevron-right"
             type="material-community"
