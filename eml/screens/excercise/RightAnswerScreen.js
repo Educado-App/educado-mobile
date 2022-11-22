@@ -39,12 +39,13 @@ export default function RightAnswerScreen() {
                 shadowOpacity: 0.8,
                 shadowRadius: 2,
                 shadowOffset: { width: 0, height: 0 },
-                shadowColor: '#ffd633'
+                shadowColor: '#ffd633',
+                elevation: 10
               }}
               size={200}
               name="star"
               type="material-community"
-              color="#ffd633"
+              color="#fac12f"
             />
           </View>
         </View>
