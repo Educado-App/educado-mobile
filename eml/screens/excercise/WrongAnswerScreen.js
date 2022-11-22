@@ -12,10 +12,8 @@ export default function WrongAnswerComponent() {
 
   const feedback = StorageController.getFeedBackByExerciseId(exerciseId)
 
-  console.log(feedback)
-
   return (
-    <View style={styles.container}>
+    <View style={styles.container} className="bg-babyBlue">
       <View style={{ flex: 0.5 }}>
         <View
           style={[styles.row, { paddingTop: '15%', paddingRight: '7%' }]}
@@ -30,7 +28,7 @@ export default function WrongAnswerComponent() {
             styles.nextArrow,
             styles.buttonShadow,
             { shadowColor: '#2db300' }
-          ]}
+          ] } 
         >
           <Icon
             size={70}
@@ -53,7 +51,6 @@ export default function WrongAnswerComponent() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center'
   },
