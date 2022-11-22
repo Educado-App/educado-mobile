@@ -4,7 +4,7 @@ import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/dev'
 import { useNavigation } from '@react-navigation/native'
 import { AppLoading } from 'expo-app-loading'
 
-export default function ActiveExploreCard({ key, title, courseId, uri }) {
+export default function ActiveExploreCard({ title, courseId, uri }) {
   const navigation = useNavigation()
   let [fontsLoaded] = useFonts({
     VarelaRound_400Regular

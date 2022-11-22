@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { View, StyleSheet } from 'react-native'
 import ActiveExploreCard from './ActiveExploreCard'
-import StorageController from '../../assets/controller/storageController'
 
-export default function ActiveCourses({ activeCoursesToShow }) {
+export default function ActiveCourses({ courseList, filter }) {
     const [views, setViews] = useState([]);
-
-
-    const courseList = StorageController.getCourseList()
 
     useEffect(() => {
         async function loadViews() {
-            const componentPromises = courseList.map(({ title, iconPath, isDownloaded, courseId }, index) => {
-                if (isDownloaded) {
+            const componentPromises = courseList.map(({ title, iconPath, isDownloaded, courseId, category }, index) => {
+                if (isDownloaded && category === filter) {
+                    return <ActiveExploreCard key={index} title={title} courseId={courseId} uri={iconPath} />;
+                } else if(isDownloaded && filter === -1){
                     return <ActiveExploreCard key={index} title={title} courseId={courseId} uri={iconPath} />;
                 }
             });
@@ -21,7 +19,7 @@ export default function ActiveCourses({ activeCoursesToShow }) {
         }
 
         loadViews();
-    }, [activeCoursesToShow]);
+    }, [filter]);
 
     return (
         <View className="flex-wrap flex-row flex-1 justify-evenly">

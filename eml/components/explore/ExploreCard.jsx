@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native'
 import { AppLoading } from 'expo-app-loading'
 
 
-export default function ExploreCard({ key, title, courseId }) {
+export default function ExploreCard({ title, courseId }) {
   const navigation = useNavigation()
   let [fontsLoaded] = useFonts({
     VarelaRound_400Regular

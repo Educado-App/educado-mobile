@@ -5,17 +5,18 @@ import { View, Text, ScrollView, StyleSheet, Pressable } from 'react-native'
 import { Icon } from '@rneui/base'
 import { useNavigation } from '@react-navigation/native'
 import ExploreCard from './ExploreCard'
-import StorageController from '../../assets/controller/storageController'
 
-export default function Courses({ activeCoursesToShow }) {
+export default function Courses({ courseList, filter }) {
     const [views, setViews] = useState([]);
-    const courseList = StorageController.getCourseList()
+    
     useEffect(() => {
         async function loadViews() {
             // eslint-disable-next-line array-callback-return
-            const course = courseList.map(({ title, iconPath, isDownloaded, courseId }, index) => {
-                if (!isDownloaded) {
+            const course = courseList.map(({ title, iconPath, isDownloaded, courseId, category }, index) => {
+                if (!(isDownloaded) && category === filter) {
                     return <ExploreCard key={index} title={title} courseId={courseId}></ExploreCard>
+                } else if(!(isDownloaded) && filter === -1){
+                    return <ExploreCard key={index} title={title} courseId={courseId} uri={iconPath} />;
                 }
             });
 
@@ -24,7 +25,7 @@ export default function Courses({ activeCoursesToShow }) {
         }
 
         loadViews();
-    }, [activeCoursesToShow]);
+    }, [filter]);
     return (
 
         <ScrollView>

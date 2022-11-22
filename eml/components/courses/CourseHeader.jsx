@@ -2,6 +2,7 @@ import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import CourseTitleIcon from './courseHeader/CourseTitleIcon'
 import PropTypes from 'prop-types'
+
 export default function CourseHeader({ courseTitle, courseIcon }) {
   CourseHeader.propTypes = {
     courseTitle: PropTypes.string.isRequired,
@@ -9,7 +10,7 @@ export default function CourseHeader({ courseTitle, courseIcon }) {
   }
 
   return (
-    <View className="items-center pt-10">
+    <View className="items-center pt-8" >
       <CourseTitleIcon
         title={courseTitle}
         courseIcon={courseIcon}

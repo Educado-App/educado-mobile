@@ -22,7 +22,21 @@
   },
   {
     "title": "Cleaning",
-    "courseId": 3,
+    "courseId": 4,
+    "iconPath": "../icon.png",
+    "category": 1,
+    "isDownloaded": false
+  },
+  {
+    "title": "Cleaning",
+    "courseId": 5,
+    "iconPath": "../icon.png",
+    "category": 1,
+    "isDownloaded": false
+  },
+  {
+    "title": "Cleaning",
+    "courseId": 6,
     "iconPath": "../icon.png",
     "category": 1,
     "isDownloaded": false
@@ -42,21 +56,7 @@
     "isDownloaded": false
   },
   {
-    "title": "Cleaning",
-    "courseId": 3,
-    "iconPath": "../icon.png",
-    "category": 1,
-    "isDownloaded": false
-  },
-  {
-    "title": "Cleaning",
-    "courseId": 3,
-    "iconPath": "../icon.png",
-    "category": 1,
-    "isDownloaded": false
-  },
-  {
-    "title": "Cleaning",
+    "title": "Cleaning Finance",
     "courseId": 3,
     "iconPath": "../icon.png",
     "category": 1,
