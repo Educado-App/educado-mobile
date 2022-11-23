@@ -8,10 +8,18 @@ import ActiveExploreCard from '../../components/explore/ActiveExploreCard'
 import ExploreCard from '../../components/explore/ExploreCard'
 
 export default function Explore() {
-    const [views, setViews] = useState([]);
+
+    const courseList = StorageController.getCourseList()
 
     const [selected, setSelected] = useState(-1);
 
+<<<<<<< HEAD
+=======
+    const [views, setViews] = useState([]);
+
+    const uniqueCategories = [{ key: 1, value: "Cleaning" }, { key: 2, value: "Health" }, { key: 3, value: "Personal Finance" }]
+
+>>>>>>> origin/fix_videoes_COWS
     useEffect(() => {
         async function loadViews() {
             const componentPromises = courseList.map(({ title, iconPath, isDownloaded, courseId, category }, index) => {
@@ -23,15 +31,23 @@ export default function Explore() {
             });
             Promise.all(componentPromises).then(setViews);
         }
-
         loadViews();
 
     }, [selected])
+<<<<<<< HEAD
     const courseList = StorageController.getCourseList()
 
     const uniqueCategories = [{ key: 1, value: "Cleaning" }, { key: 2, value: "Health" }, { key: 3, value: "Personal Finance" }]
+=======
 
-    let [fontsLoaded] = useFonts({
+
+
+
+    // constant categories to be shown in filter. If more are added, you should update this.
+
+>>>>>>> origin/fix_videoes_COWS
+
+    const [fontsLoaded] = useFonts({
         VarelaRound_400Regular
     })
     if (!fontsLoaded) {
@@ -39,17 +55,24 @@ export default function Explore() {
     } else {
         return (
             <View className="bg-babyBlue basis-full flex">
-                <View className="basis-1/6" style={{ justifyContent: 'center', alignItems: 'center', paddingTop: Platform.OS === 'android' ? 25 : 0 }}>
-                    <Text style={{ fontSize: 30, fontFamily: 'VarelaRound_400Regular' }}> Explorar Novos Cursos </Text>
+                <View className="basis-1/6" style={{ justifyContent: 'center', alignItems: 'center', paddingTop: Platform.OS === 'android' ? 20 : 0 }}>
+                    <Text style={{ fontSize: 40, fontFamily: 'VarelaRound_400Regular' }}> Educado</Text>
                 </View>
+<<<<<<< HEAD
                 <View style={{ elevation: 15, zIndex: 15 }} className="w-10/12 self-center">
                     <SelectList
                         setSelected={setSelected}
+=======
+                <View style={{ elevation: 15, zIndex: 15 }} className="w-11/12 self-center pb-4">
+                    <SelectList
+                        setSelected={(val) => setSelected(val)}
+>>>>>>> origin/fix_videoes_COWS
                         data={uniqueCategories}
                         search={false}
                         dropdownStyles={{ backgroundColor: '#CFE9EF' }}
                         save="key"
-                        label="categories"
+                        label="catagories"
+                        placeholder='Filter by'
                     />
                 </View>
                 <ScrollView>

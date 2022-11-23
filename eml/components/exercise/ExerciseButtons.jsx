@@ -14,15 +14,15 @@ const voiceOvers = [
   require('../../assets/voice4.mp3')
 ]
 
-export default function ExerciseButtons({ exerciseId, answers, sectionId, courseId }) {
+export default function ExerciseButtons({ exerciseId, answers, sectionId, courseId, setSignal }) {
   const navigation = useNavigation()
 
   ExerciseButtons.propTypes = {
     answers: PropTypes.array.isRequired,
     exerciseId: PropTypes.number.isRequired,
     sectionId: PropTypes.number.isRequired,
-    courseId: PropTypes.number.isRequired
-
+    courseId: PropTypes.number.isRequired,
+    setSignal: PropTypes.func.isRequired
   }
 
   function findRightAnswer() {
@@ -102,7 +102,7 @@ export default function ExerciseButtons({ exerciseId, answers, sectionId, course
 
 
   function checkChoice(choice) {
-
+    setSignal(0)
     StorageController.updateExerciseBySectionId(exerciseId)
     const rightAnswer = findRightAnswer()
     setSelected({
