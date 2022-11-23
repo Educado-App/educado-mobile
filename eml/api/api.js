@@ -2,7 +2,7 @@ import axios from "axios";
 
 const testUrl = 'http://localhost:8888'
 //Change to local expo ip
-const testExpo = 'http://192.168.7.126:8888'
+const testExpo = 'http://192.168.1.99:8888'
 
 const url = testExpo;
 

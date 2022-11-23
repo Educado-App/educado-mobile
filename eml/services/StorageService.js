@@ -28,7 +28,6 @@ export const getTestCourseFromApi = async () => {
     console.error(e);
   }
 }
-
 export const getCourseList = async () => {
 
   try {
@@ -98,21 +97,60 @@ export const getCourseById = async (courseId) => {
 }
 
 export async function downloadCourse(courseId) {
-  try {
 
-    const course = await api.getCourse(courseId);
+    if (courseId !== undefined){
 
-    await AsyncStorage.setItem(courseId, course);
+        try {
 
-    let name = course.name;
-    let directory = await DirectoryService.CreateDirectory(name);
-    for (let exercise in course.sections.exercises) {
-      let url = exercise.content.url;
-      await DirectoryService.DownloadAndStoreVideo(url, directory);
-    }
-  } catch (e) {
-    console.error(e);
-  }
+            const course = JSON.parse(await AsyncStorage.getItem(courseId));
+
+            if (course !== null){
+
+                const courseDirectory = course.data.title;
+                const category = course.data.category.name;
+                const icon = course.data.category.icon;
+                const sections = course.data.sections;
+
+                //making directory for the course
+                await DirectoryService.CreateDirectory(courseDirectory);
+
+                //downloading the icon for the course
+                await DirectoryService.DownloadAndStoreContent(icon, courseDirectory, category)
+                      .then(localUri => {
+                          course.data.category.icon = localUri;
+                      })
+                    .catch(error => {console.log(error)});
+
+                //downloading each video of the exercises and storing in their respective sections
+                for (const section of sections){
+
+                    const sectionDirectory = courseDirectory + '/' + sections.title;
+                    await DirectoryService.CreateDirectory(sectionDirectory);
+
+                    for (const exercise of section){
+
+                        const url = exercise.content.url;
+
+                        await DirectoryService.DownloadAndStoreContent(url, sectionDirectory, exercise.title)
+                              .then(localUri => {
+                                  exercise.content.url = localUri;
+                              })
+                              .catch(error =>{console.log(error)});
+                    }
+                }
+
+                //store the downloaded course back in the AsyncStorage
+                await AsyncStorage.setItem(courseId, JSON.stringify(course));
+
+            } else {
+                return console.log("error: course not found!");
+            }
+
+        } catch (e) {
+            console.error(e);
+        }
+
+    } else console.log("error: course id is not defined!");
 }
 
 //getSectionList(course-id)

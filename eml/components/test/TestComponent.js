@@ -2,32 +2,60 @@ import {React, useEffect, useState} from 'react'
 import {StyleSheet, Text, View} from 'react-native'
 import {Video} from 'expo-av'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {getCourseById, getCourseList, getTestCourseFromApi} from "../../services/StorageService";
-import {getCourse} from "../../api/api";
+import * as StorageService from "../../services/StorageService";
+import * as DirectoryService from "../../services/DirectoryService";
 
-let testUrl = 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4';
-
+const testUrl = 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4';
 const TEST_COURSE = '@testCourse';
+const COURSE_LIST = '@courseList';
 
 export default function TestComponent() {
 
+    let text = "Hello"
+
     async function test () {
-        console.log(JSON.parse(await AsyncStorage.getItem('@courseList')))
+        console.log(JSON.parse(await AsyncStorage.getItem(COURSE_LIST)))
     }
 
     async function test2 () {
-        const course = await getCourseById("635fb5b9b2fb6c4f49084682");
-        console.log(course);
+        const course = await StorageService.getCourseById("635fb5b9b2fb6c4f49084682");
+        console.log(course.data);
     }
 
     async function test3 () {
-        const course = await getCourseList();
+        const course = await StorageService.getCourseList();
         console.log(course);
     }
 
+    async function test5 () {
+        const course = await StorageService.getTestCourseFromApi();
+        console.log(course.data.sections[0].exercises[0]);
+    }
+
+    async function readDir (name) {
+        return await DirectoryService.ReadDirectory(name);
+    }
+
+    async function createDir (name) {
+        return await DirectoryService.CreateDirectory(name);
+    }
+
+    async function deleteDir (name) {
+        return await DirectoryService.DeleteDirectory(name);
+    }
+
+    async function test4(x) {
+        if (x === 1){
+            console.log("this is ");
+        } else {
+            console.log("that is ");
+        }
+
+        console.log("nice!");
+    }
 
     useEffect(() => {
-        //test();
+        //test5();
         //CreateDirectory('test');
         //ReadDirectory('test');
         //DeleteDirectory('test');
@@ -36,7 +64,7 @@ export default function TestComponent() {
 
     return (
         <View>
-            <Text style={{fontSize: 50, paddingTop: 100}}>HELLO</Text>
+            <Text style={{fontSize: 50, paddingTop: 100}}>{text}</Text>
             <Video
                 source={{
                     uri: ''
