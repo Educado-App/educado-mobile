@@ -1,12 +1,11 @@
 import { StatusBar } from 'expo-status-bar'
-import { React } from 'react'
+import { React, useEffect, useRef, useState } from 'react'
 import { Alert, StyleSheet, View } from 'react-native'
 import LeaveButton from '../../components/exercise/LeaveButton'
-import LearningInputVideoExample1 from '../../components/exercise/video/LearningInputVideoExample1'
 import ExerciseButtons from '../../components/exercise/ExerciseButtons'
 import { useNavigation, useRoute } from '@react-navigation/native'
-
 import StorageController from '../../assets/controller/storageController'
+import { Video } from 'expo-av'
 
 export default function SessionComponent() {
   const navigation = useNavigation()
@@ -15,7 +14,17 @@ export default function SessionComponent() {
 
   const { sectionId, courseId } = route.params
 
+  const [status, setStatus] = useState([])
+
   const exercise = StorageController.getNextExerciseBySectionId(sectionId)
+
+  const video = useRef(0)
+
+  useEffect(()=>{
+    video.current.pauseAsync()
+  }, [status])
+
+  console.log("signal from exercise: " + status)
 
   return (
     <View style={styles.container} className="bg-babyBlue">
@@ -67,9 +76,22 @@ export default function SessionComponent() {
             ]
           )
         ) : (
-          <LearningInputVideoExample1
-            uri={exercise.content.uri}
-          ></LearningInputVideoExample1>
+          /* <LearningInputVideoExample1
+            uri={exercise.content.uri} signal={status}
+          ></LearningInputVideoExample1> */
+          <Video
+            source={{uri:exercise.content.uri}}
+            rate={1.0}
+            volume={1.0}
+            isMuted={false}
+            resizeMode="cover"
+            shouldPlay
+            useNativeControls
+            isLooping
+            ref={video}
+            // onPlaybackStatusUpdate={status => setStatus(() => status)}
+            style={styles.backgroundVideo}
+          />
         )}
       </View>
       <View style={{ flex: 3 }}>
@@ -78,6 +100,7 @@ export default function SessionComponent() {
           exerciseId={exercise.exerciseId}
           courseId={courseId}
           sectionId={sectionId}
+          setStatus={setStatus}
         ></ExerciseButtons>
       </View>
       <StatusBar style="auto" />
@@ -104,5 +127,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.4,
     shadowRadius: 10,
     shadowOffset: { width: 0, height: 0 }
+  },
+  backgroundVideo: {
+    height: '100%'
   }
 })

@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { View, Text, Platform, ScrollView } from 'react-native'
-import ActiveCourses from '../../components/explore/ActiveCourses'
-import Courses from '../../components/explore/Courses'
 import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/dev'
 import { AppLoading } from 'expo-app-loading'
 import { SelectList } from 'react-native-dropdown-select-list'
@@ -21,6 +19,8 @@ export default function Explore() {
                     return <ActiveExploreCard key={index} title={title} courseId={courseId} uri={iconPath} />;
                 } else if ((!(isDownloaded) && category === selected) || (!(isDownloaded) && selected === -1)) {
                     return <ExploreCard key={index} title={title} courseId={courseId}></ExploreCard>
+                } else {
+                    throw new Error('course neither downloaded or fits in category')
                 }
             });
             Promise.all(componentPromises).then(setViews);
@@ -31,9 +31,10 @@ export default function Explore() {
     },[selected])
     const courseList = StorageController.getCourseList()
 
+    // constant categories to be shown in filter. If more are added, you should update this.
     const uniqueCategories = [{key: 1, value: "Cleaning"},{key: 2, value: "Health"},{key: 3, value: "Personal Finance"}]
 
-    let [fontsLoaded] = useFonts({
+    const [fontsLoaded] = useFonts({
         VarelaRound_400Regular
     })
     if (!fontsLoaded) {

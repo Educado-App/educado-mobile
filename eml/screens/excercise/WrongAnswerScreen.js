@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import FeedBackVideo from '../../components/exercise/video/LearningInputVideoExample1'
 import { Icon } from '@rneui/themed'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import StorageController from '../../assets/controller/storageController'
+import { Video } from 'expo-av'
 
 export default function WrongAnswerComponent() {
   const navigation = useNavigation()
@@ -11,6 +12,8 @@ export default function WrongAnswerComponent() {
   const { exerciseId, courseId, sectionId } = route.params
 
   const feedback = StorageController.getFeedBackByExerciseId(exerciseId)
+
+  const video = useRef(0)
 
   return (
     <View style={styles.container} className="bg-babyBlue">
@@ -20,7 +23,18 @@ export default function WrongAnswerComponent() {
         ></View>
       </View>
       <View style={{ flex: 2, width: '100%' }}>
-        <FeedBackVideo uri={feedback.on_wrong_feedback.uri}></FeedBackVideo>
+        <Video
+          source={{uri: feedback.on_wrong_feedback.uri}}
+          rate={1.0}
+          volume={1.0}
+          isMuted={false}
+          resizeMode="cover"
+          shouldPlay
+          useNativeControls
+          isLooping
+          ref={video}
+          style={styles.backgroundVideo}
+        />
       </View>
       <View style={{ top: '5%', flex: 0.7 }}>
         <View
@@ -78,5 +92,8 @@ const styles = StyleSheet.create({
   },
   paddingButtons: {
     padding: 10
+  },
+  backgroundVideo: {
+    height: '100%'
   }
 })
