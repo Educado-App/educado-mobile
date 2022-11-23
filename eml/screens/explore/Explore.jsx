@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { View, Text, Platform, ScrollView } from 'react-native'
-import ActiveCourses from '../../components/explore/ActiveCourses'
-import Courses from '../../components/explore/Courses'
 import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/dev'
 import { AppLoading } from 'expo-app-loading'
 import { SelectList } from 'react-native-dropdown-select-list'
@@ -14,10 +12,10 @@ export default function Explore() {
 
     const [selected, setSelected] = useState(-1);
 
-    useEffect(()=>{
+    useEffect(() => {
         async function loadViews() {
             const componentPromises = courseList.map(({ title, iconPath, isDownloaded, courseId, category }, index) => {
-                if ((isDownloaded && category === selected) ||(isDownloaded && selected === -1)) {
+                if ((isDownloaded && category === selected) || (isDownloaded && selected === -1)) {
                     return <ActiveExploreCard key={index} title={title} courseId={courseId} uri={iconPath} />;
                 } else if ((!(isDownloaded) && category === selected) || (!(isDownloaded) && selected === -1)) {
                     return <ExploreCard key={index} title={title} courseId={courseId}></ExploreCard>
@@ -28,10 +26,10 @@ export default function Explore() {
 
         loadViews();
 
-    },[selected])
+    }, [selected])
     const courseList = StorageController.getCourseList()
 
-    const uniqueCategories = [{key: 1, value: "Cleaning"},{key: 2, value: "Health"},{key: 3, value: "Personal Finance"}]
+    const uniqueCategories = [{ key: 1, value: "Cleaning" }, { key: 2, value: "Health" }, { key: 3, value: "Personal Finance" }]
 
     let [fontsLoaded] = useFonts({
         VarelaRound_400Regular
@@ -44,12 +42,12 @@ export default function Explore() {
                 <View className="basis-1/6" style={{ justifyContent: 'center', alignItems: 'center', paddingTop: Platform.OS === 'android' ? 25 : 0 }}>
                     <Text style={{ fontSize: 30, fontFamily: 'VarelaRound_400Regular' }}> Explorar Novos Cursos </Text>
                 </View>
-                <View style={{elevation:15, zIndex:15 }} className="w-10/12 self-center">
-                    <SelectList 
-                        setSelected={setSelected} 
+                <View style={{ elevation: 15, zIndex: 15 }} className="w-10/12 self-center">
+                    <SelectList
+                        setSelected={setSelected}
                         data={uniqueCategories}
-                        search={false} 
-                        dropdownStyles={{backgroundColor: '#CFE9EF'}}
+                        search={false}
+                        dropdownStyles={{ backgroundColor: '#CFE9EF' }}
                         save="key"
                         label="categories"
                     />
