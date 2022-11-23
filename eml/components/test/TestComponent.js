@@ -37,13 +37,12 @@ export default function TestComponent() {
 
     useEffect(() => {
         //test3();
-            // console.log(getTestCourseFromApi());
-            //console.log("hello")
-            test2();
-            // CreateDirectory('test');
-            // ReadDirectory('test');
-            // DeleteDirectory('test');
-            // let obj = Promise.resolve(getTestCourseFromApi());
+        // console.log(getTestCourseFromApi());
+        //console.log("hello")
+        // CreateDirectory('test');
+        // ReadDirectory('test');
+        // DeleteDirectory('test');
+        // let obj = Promise.resolve(getTestCourseFromApi());
         }
     );
 
