@@ -3,33 +3,37 @@ import { View, Text, Platform, ScrollView } from 'react-native'
 import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/dev'
 import { AppLoading } from 'expo-app-loading'
 import { SelectList } from 'react-native-dropdown-select-list'
-import StorageController from '../../assets/controller/storageController'
 import ActiveExploreCard from '../../components/explore/ActiveExploreCard'
 import ExploreCard from '../../components/explore/ExploreCard'
+import * as StorageService from '../../services/StorageService'
 
 export default function Explore() {
-    const [views, setViews] = useState([]);
+
+
 
     const [selected, setSelected] = useState(-1);
 
+    const [views, setViews] = useState([]);
+
+    const uniqueCategories = [{ key: 1, value: "Cleaning" }, { key: 2, value: "Health" }, { key: '6368be5d71e079ae8d537eb1', value: "Personal Finance" }]
+
+
+
     useEffect(() => {
         async function loadViews() {
-            const componentPromises = courseList.map(({ title, iconPath, isDownloaded, courseId, category }, index) => {
-                if ((isDownloaded && category === selected) || (isDownloaded && selected === -1)) {
-                    return <ActiveExploreCard key={index} title={title} courseId={courseId} uri={iconPath} />;
-                } else if ((!(isDownloaded) && category === selected) || (!(isDownloaded) && selected === -1)) {
+            const courseList = await StorageService.getCourseList()
+            const componentPromises = courseList.map(({ title, iconPath, isActive, courseId, categoryId }, index) => {
+                if ((isActive && categoryId === selected) || (isActive && selected === -1)) {
+                    return <ActiveExploreCard key={index} title={title} courseId={courseId} iconPath={iconPath} />;
+                } else if ((!(isActive) && categoryId === selected) || (!(isActive) && selected === -1)) {
                     return <ExploreCard key={index} title={title} courseId={courseId}></ExploreCard>
                 }
             });
             Promise.all(componentPromises).then(setViews);
         }
-
         loadViews();
 
     }, [selected])
-    const courseList = StorageController.getCourseList()
-
-    const uniqueCategories = [{ key: 1, value: "Cleaning" }, { key: 2, value: "Health" }, { key: 3, value: "Personal Finance" }]
 
     let [fontsLoaded] = useFonts({
         VarelaRound_400Regular

@@ -5,67 +5,83 @@
   "sections": [
     {
       "sectionId": 1,
-      "title": "How to make money"
+      "title": "How to make money",
+      "isComplete": false
     },
     {
       "sectionId": 2,
-      "title": "How to be a milionair"
+      "title": "How to be a milionair",
+      "isComplete": false
     },
     {
       "sectionId": 3,
-      "title": "Stocks 101"
+      "title": "Stocks 101",
+      "isComplete": false
     },
     {
       "sectionId": 1,
-      "title": "How to make money"
+      "title": "How to make money",
+      "isComplete": false
     },
     {
       "sectionId": 2,
-      "title": "How to be a milionair"
+      "title": "How to be a milionair",
+      "isComplete": false
     },
     {
       "sectionId": 3,
-      "title": "Stocks 101"
+      "title": "Stocks 101",
+      "isComplete": false
     },
     {
       "sectionId": 1,
-      "title": "How to make money"
+      "title": "How to make money",
+      "isComplete": false
     },
     {
       "sectionId": 2,
-      "title": "How to be a milionair"
+      "title": "How to be a milionair",
+      "isComplete": false
     },
     {
       "sectionId": 3,
-      "title": "Stocks 101"
+      "title": "Stocks 101",
+      "isComplete": false
     },
     {
       "sectionId": 1,
-      "title": "How to make money"
+      "title": "How to make money",
+      "isComplete": false
     },
     {
       "sectionId": 2,
-      "title": "How to be a milionaire"
+      "title": "How to be a milionaire",
+      "isComplete": false
     },
     {
       "sectionId": 3,
-      "title": "Stocks 101"
+      "title": "Stocks 101",
+      "isComplete": false
     },
     {
       "sectionId": 1,
-      "title": "How to make money"
+      "title": "How to make money",
+      "isComplete": false
     },
     {
       "sectionId": 2,
-      "title": "How to be a milionair"
+      "title": "How to be a milionair",
+      "isComplete": false
     },
     {
       "sectionId": 3,
-      "title": "Stocks 101"
+      "title": "Stocks 101",
+      "isComplete": false
     },
     {
       "sectionId": 3,
-      "title": "Stocks 101"
+      "title": "Stocks 101",
+      "isComplete": false
     }
   ]
 }

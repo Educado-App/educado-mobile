@@ -2,7 +2,7 @@ import {React, useEffect, useState} from 'react'
 import {StyleSheet, Text, View} from 'react-native'
 import {Video} from 'expo-av'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {GetCourseById, GetCourseList, GetTestCourseFromApi} from "../../services/StorageService";
+import {getCourseById, getCourseList, getTestCourseFromApi} from "../../services/StorageService";
 import {getCourse} from "../../api/api";
 
 let testUrl = 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4';
@@ -25,19 +25,21 @@ export default function TestComponent() {
     }
 
     async function test2 () {
-        const course = await GetCourseById("635fb5b9b2fb6c4f49084682");
-        console.log(course.data.sections[0].exercises[0].content);
+        const course = await getCourseById("635fb5b9b2fb6c4f49084682");
+        console.log(course);
     }
 
     async function test3 () {
-        const course = await GetCourseList();
+        const course = await getCourseList();
         console.log(course);
     }
 
 
     useEffect(() => {
+        //test3();
             // console.log(getTestCourseFromApi());
-            // console.log("hello")
+            //console.log("hello")
+            test2();
             // CreateDirectory('test');
             // ReadDirectory('test');
             // DeleteDirectory('test');
