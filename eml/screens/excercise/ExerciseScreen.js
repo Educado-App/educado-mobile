@@ -15,16 +15,19 @@ export default function SessionComponent() {
   const { sectionId, courseId } = route.params
 
   const [status, setStatus] = useState([])
+  const [signal, setSignal] = useState([])
 
   const exercise = StorageController.getNextExerciseBySectionId(sectionId)
 
   const video = useRef(0)
 
-  useEffect(()=>{
-    video.current.pauseAsync()
-  }, [status])
-
-  console.log("signal from exercise: " + status)
+  useEffect(() => {
+    if (signal === 0 && status.isPlaying) {
+      video.current.pauseAsync()
+    }
+    console.log(signal)
+    setSignal(1)
+  }, [signal])
 
   return (
     <View style={styles.container} className="bg-babyBlue">
@@ -80,16 +83,15 @@ export default function SessionComponent() {
             uri={exercise.content.uri} signal={status}
           ></LearningInputVideoExample1> */
           <Video
-            source={{uri:exercise.content.uri}}
+            source={{ uri: exercise.content.uri }}
             rate={1.0}
             volume={1.0}
             isMuted={false}
             resizeMode="cover"
             shouldPlay
             useNativeControls
-            isLooping
             ref={video}
-            // onPlaybackStatusUpdate={status => setStatus(() => status)}
+            onPlaybackStatusUpdate={(status) => setStatus(() => status)}
             style={styles.backgroundVideo}
           />
         )}
@@ -100,7 +102,7 @@ export default function SessionComponent() {
           exerciseId={exercise.exerciseId}
           courseId={courseId}
           sectionId={sectionId}
-          setStatus={setStatus}
+          setSignal={setSignal}
         ></ExerciseButtons>
       </View>
       <StatusBar style="auto" />
