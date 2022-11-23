@@ -1,5 +1,5 @@
 import React from 'react'
-import { View } from "react-native";
+import { View } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import CourseScreen from './screens/courses/CourseScreen'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
@@ -79,7 +79,14 @@ function LoginStack() {
 
 function HomeStack() {
   return (
-    <Tab.Navigator initialRouteName={'Home'}>
+    <Tab.Navigator
+      initialRouteName={'Home'}
+      screenOptions={{
+        tabBarActiveTintColor: 'black',
+        tabBarActiveBackgroundColor: '#d9d9d9',
+        tabBarStyle: { backgroundColor: 'hsl(0, 0%, 92%)' } //Oneplus menubar color
+      }}
+    >
       <Tab.Screen
         name="Home"
         component={CourseStack}
@@ -91,7 +98,7 @@ function HomeStack() {
                 size={30}
                 name="home"
                 type="material-community"
-                color="black"
+                color="#8DD08C"
               />
             )
           }
@@ -108,7 +115,7 @@ function HomeStack() {
                 size={30}
                 name="account-circle"
                 type="material-community"
-                color="black"
+                color="#8DD08C"
               />
             )
           }
@@ -125,7 +132,7 @@ function HomeStack() {
                 size={30}
                 name="magnify"
                 type="material-community"
-                color="black"
+                color="#8DD08C"
               />
             )
           }
@@ -202,7 +209,7 @@ export default function App() {
         <IconRegistry icons={EvaIconsPack} />
         <ApplicationProvider {...eva} theme={eva.light}>
           <NavigationContainer>
-            <Stack.Navigator initialRouteName={'TestStack'}>
+            <Stack.Navigator initialRouteName={'HomeStack'}>
               <Stack.Screen
                 name={'LoginStack'}
                 component={LoginStack}

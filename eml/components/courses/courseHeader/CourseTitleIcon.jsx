@@ -12,23 +12,23 @@ export default function CourseTitleIcon({ title, courseIcon }) {
 
   let [fontsLoaded] = useFonts({
     VarelaRound_400Regular
-})
+  })
 
   return (
     <View style={styles.container}>
       <View>
         <Text
           numberOfLines={1}
-          ellipsizeMode={'clip'}
-          style={{fontSize: 30, fontFamily: 'VarelaRound_400Regular'}}
+          ellipsizeMode={'tail'}
+          style={{ fontSize: 30, fontFamily: 'VarelaRound_400Regular', color: 'rgb(75,85,99)' }}
         >
           {title}
         </Text>
       </View>
       <View style={{ padding: '5%' }}>
-        <Image source={{ uri: courseIcon}}
-        style={{width: 50, height: 50}}
-        className="rounded-xl"
+        <Image source={{ uri: courseIcon }}
+          style={{ width: 50, height: 50 }}
+          className="rounded-xl"
         ></Image>
       </View>
     </View>
@@ -42,10 +42,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-  titlestyle: {
-    top: '20%',
-    fontSize: 30,
-    fontWeight: 'bold',
-    overflow: 'visible'
-  }
 })

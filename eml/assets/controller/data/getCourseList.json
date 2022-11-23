@@ -11,7 +11,7 @@
     "courseId": 2,
     "iconPath": "../healthLogo.png",
     "category": 2,
-    "isDownloaded": false
+    "isDownloaded": true
   },
   {
     "title": "Cleaning",
