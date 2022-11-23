@@ -1,12 +1,12 @@
 import { React } from 'react'
 import * as FileSystem from 'expo-file-system';
 
-export function CreateDirectory(name) {
+export async function CreateDirectory(name) {
 
     //Create a Directory by the (name)
 
     try {
-         FileSystem.makeDirectoryAsync(FileSystem.documentDirectory + name)
+         await FileSystem.makeDirectoryAsync(FileSystem.documentDirectory + name)
             .then( () =>{
                     console.log("Created directory: " + name);
                 }
@@ -20,14 +20,14 @@ export function CreateDirectory(name) {
     }
 
 }
-export function ReadDirectory(name){
+export async function ReadDirectory(name){
 
         //Returns an ARRAY containing the names of existing items in the directory (name)
 
         let items;
 
         try {
-             FileSystem.readDirectoryAsync(FileSystem.documentDirectory + name)
+             await FileSystem.readDirectoryAsync(FileSystem.documentDirectory + name)
                 .then(filesInDirectory => {
                     items = filesInDirectory;
                     console.log(items);
@@ -43,12 +43,12 @@ export function ReadDirectory(name){
         return items;
 
     }
-export function DeleteDirectory(name){
+export async function DeleteDirectory(name){
 
     //Delete the directory located by name
 
     try {
-         FileSystem.deleteAsync(FileSystem.documentDirectory + name)
+         await FileSystem.deleteAsync(FileSystem.documentDirectory + name)
             .then(() => {
                 console.log("Deleted directory " + name);
             })
@@ -62,7 +62,7 @@ export function DeleteDirectory(name){
 
 }
 
-export function DownloadAndStoreVideo(url, directory){
+export async function DownloadAndStoreVideo(url, directory){
 
         //DOWNLOAD the video from the 'url' and STORE it in the 'directory'
         //Returns the local uri to the file
@@ -72,7 +72,7 @@ export function DownloadAndStoreVideo(url, directory){
         const localUri = FileSystem.documentDirectory + directory + '/' + url.substring(url.lastIndexOf('/') + 1);
 
         try {
-              FileSystem.downloadAsync(url, localUri)
+              await FileSystem.downloadAsync(url, localUri)
                 .then(({ uri }) => {
                     console.log('Finished downloading to', uri);
                     return localUri;
@@ -85,12 +85,12 @@ export function DownloadAndStoreVideo(url, directory){
             console.log(error);
         }
     }
-export function DeleteVideoByUri(uri) {
+export async function DeleteVideoByUri(uri) {
 
         //Delete the video located in the uri
 
         try {
-             FileSystem.deleteAsync(uri)
+             await FileSystem.deleteAsync(uri)
                 .then(() => {
                     console.log(uri.substring(uri.lastIndexOf('/') + 1) + " Successfully Deleted!");
                 })
@@ -103,14 +103,14 @@ export function DeleteVideoByUri(uri) {
             console.log(error);
         }
     }
-export function DeleteVideoByName(name, directory) {
+export async function DeleteVideoByName(name, directory) {
 
         //Delete the video located in the local directory by its name
 
         let localName = FileSystem.documentDirectory + directory + '/' + name;
 
         try {
-             FileSystem.deleteAsync(localName)
+             await FileSystem.deleteAsync(localName)
                 .then(() => {
                     console.log(name + " deleted!");
                 })

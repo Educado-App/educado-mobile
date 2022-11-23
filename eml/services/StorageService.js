@@ -5,7 +5,7 @@ import * as DirectoryService from '../services/DirectoryService';
 const TEST_COURSE = '@testCourse';
 const COURSE_LIST = '@courseList';
 
-export const getTestCourseFromApi = async () => {
+export const GetTestCourseFromApi = async () => {
 
   try {
 
@@ -29,7 +29,7 @@ export const getTestCourseFromApi = async () => {
   }
 }
 
-export const getCourseList = async () => {
+export const GetCourseList = async () => {
 
   try {
 
@@ -39,6 +39,7 @@ export const getCourseList = async () => {
     if (courseList == null) {
 
       return await api.getCourses().then(
+
           async list => {
 
             let newCourseList = [];
@@ -58,6 +59,7 @@ export const getCourseList = async () => {
             await AsyncStorage.setItem(COURSE_LIST, JSON.stringify(newCourseList));
             return newCourseList;
           }
+
       );
 
     } else return courseList;
@@ -65,25 +67,38 @@ export const getCourseList = async () => {
   } catch (e) {
     console.error(e);
   }
-}
 
-export const getCourseById = async (courseId) => {
+}
+export const GetCourseById = async (courseId) => {
+
   try {
-    let value = AsyncStorage.getItem(courseId);
-    if (value == null) {
-      value = await api.getCourse(courseId);
-      await AsyncStorage.setItem(courseId, value);
-    }
-    return value;
+
+    const course = JSON.parse(await AsyncStorage.getItem(courseId));
+
+    if (course == null) {
+
+      return await api.getCourse(courseId).then(
+          async requestedCourse => {
+            await AsyncStorage.setItem(courseId, JSON.stringify(requestedCourse));
+            return requestedCourse;
+          }
+      );
+
+    } else return course;
+
   } catch (e) {
     console.error(e);
   }
+
 }
 
-export async function downloadCourse(courseId) {
+export async function DownloadCourse(courseId) {
   try {
-    let course = api.getCourse(courseId);
-    await AsyncStorage.setItem('@course', course);
+
+    const course = await api.getCourse(courseId);
+
+    await AsyncStorage.setItem(courseId, course);
+
     let name = course.name;
     let directory = await DirectoryService.CreateDirectory(name);
     for (let exercise in course.sections.exercises) {
