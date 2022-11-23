@@ -1,15 +1,34 @@
-import React from 'react'
-import { View, Text, Platform } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { View, Text, Platform, ScrollView } from 'react-native'
 import ActiveCourses from '../../components/explore/ActiveCourses'
 import Courses from '../../components/explore/Courses'
 import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/dev'
 import { AppLoading } from 'expo-app-loading'
 import { SelectList } from 'react-native-dropdown-select-list'
 import StorageController from '../../assets/controller/storageController'
+import ActiveExploreCard from '../../components/explore/ActiveExploreCard'
+import ExploreCard from '../../components/explore/ExploreCard'
 
 export default function Explore() {
-    const [selected, setSelected] = React.useState(-1);
+    const [views, setViews] = useState([]);
 
+    const [selected, setSelected] = useState(-1);
+
+    useEffect(()=>{
+        async function loadViews() {
+            const componentPromises = courseList.map(({ title, iconPath, isDownloaded, courseId, category }, index) => {
+                if ((isDownloaded && category === selected) ||(isDownloaded && selected === -1)) {
+                    return <ActiveExploreCard key={index} title={title} courseId={courseId} uri={iconPath} />;
+                } else if ((!(isDownloaded) && category === selected) || (!(isDownloaded) && selected === -1)) {
+                    return <ExploreCard key={index} title={title} courseId={courseId}></ExploreCard>
+                }
+            });
+            Promise.all(componentPromises).then(setViews);
+        }
+
+        loadViews();
+
+    },[selected])
     const courseList = StorageController.getCourseList()
 
     const uniqueCategories = [{key: 1, value: "Cleaning"},{key: 2, value: "Health"},{key: 3, value: "Personal Finance"}]
@@ -21,28 +40,25 @@ export default function Explore() {
         return AppLoading
     } else {
         return (
-            <View style={{ flex: 1 }} className="bg-babyBlue">
-                <View style={{ flex: 0.5, justifyContent: 'center', alignItems: 'center', paddingTop: Platform.OS === 'android' ? 25 : 0 }}>
+            <View className="bg-babyBlue basis-full flex">
+                <View className="basis-1/6" style={{ justifyContent: 'center', alignItems: 'center', paddingTop: Platform.OS === 'android' ? 25 : 0 }}>
                     <Text style={{ fontSize: 30, fontFamily: 'VarelaRound_400Regular' }}> Explorar Novos Cursos </Text>
                 </View>
                 <View style={{elevation:15, zIndex:15 }} className="w-10/12 self-center">
-                <SelectList 
-                setSelected={setSelected} 
-                data={uniqueCategories}
-                search={false} 
-                dropdownStyles={{backgroundColor: '#CFE9EF'}}
-                save="key"
-                label="categories"
-            />
+                    <SelectList 
+                        setSelected={setSelected} 
+                        data={uniqueCategories}
+                        search={false} 
+                        dropdownStyles={{backgroundColor: '#CFE9EF'}}
+                        save="key"
+                        label="categories"
+                    />
                 </View>
-                <View style={{ flex: 5 }}>
-                    <View style={{ flex: 1 }}>
-                        <ActiveCourses courseList={courseList} filter={selected}></ActiveCourses>
-                    </View >
-                    <View style={{ flex: 3, flexDirection: 'column' }}>
-                        <Courses courseList={courseList} filter={selected}></Courses>
+                <ScrollView>
+                    <View className="grid grid-cols-2 grid-flow-col flex-wrap flex-row flex-1 justify-evenly">
+                        {views}
                     </View>
-                </View>
+                </ScrollView>
             </View>
         )
     }
