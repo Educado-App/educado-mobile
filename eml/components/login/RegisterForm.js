@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Alert, Dimensions, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
+import {Alert, Dimensions, Pressable, StyleSheet, Text, TextInput, View} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import {loginUser, registerUser} from "../../api/userApi";
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -20,7 +20,7 @@ export default function LoginForm(props) {
 
     async function register (phoneNumber, password) {
 
-        //clearing input
+        // clearing input
         setPhoneNumber('+55');
         setPassword('');
 

@@ -1,52 +1,31 @@
 import { StatusBar } from 'expo-status-bar'
-import { React, useState, useEffect } from 'react'
-import { Alert, StyleSheet, View, Text } from 'react-native'
+import { React } from 'react'
+import { Alert, StyleSheet, View } from 'react-native'
 import LeaveButton from '../../components/exercise/LeaveButton'
-import CustomProgressBar from '../../components/exercise/Progressbar'
-import LearningInputVideo from '../../components/exercise/video/LearningInputVideoExample1'
-import FourButtons from '../../components/exercise/ExerciseButtons'
-import HeaderIcon from '../../components/exercise/headerIcon'
-import { useNavigation } from '@react-navigation/native'
-import Star from '../../components/gamification/Star'
+import LearningInputVideoExample1 from '../../components/exercise/video/LearningInputVideoExample1'
+import ExerciseButtons from '../../components/exercise/ExerciseButtons'
+import { useNavigation, useRoute } from '@react-navigation/native'
+
+import StorageController from '../../assets/controller/storageController'
 
 export default function SessionComponent() {
   const navigation = useNavigation()
-  const answerArray = ['star', 'circle', 'square']
 
-  const [answerNr, setAnswerNr] = useState(0)
-  const [correctNr, setCorrectNr] = useState(0)
+  const route = useRoute()
 
-  const fraqBot = answerArray.length
-  const fraqTop = correctNr
+  const { sectionId, courseId } = route.params
 
-  useEffect(() => {
-    if (answerNr > answerArray.length - 1) {
-      setAnswerNr(-1)
-    }
-  })
-
-  function sendDataToParent(correct) {
-    if (correct) {
-      setCorrectNr((current) => current + 1)
-      setAnswerNr((current) => current + 1)
-    } else {
-      setAnswerNr((current) => current + 1)
-      console.log(answerNr)
-    }
-  }
-
-  const correctAnswer = answerArray[answerNr]
-
-  const color = '#00e600'
-  const type = 'material-community'
-  const name = 'finance'
+  const exercise = StorageController.getNextExerciseBySectionId(sectionId)
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} className="bg-babyBlue">
       <View style={{ flex: 1 }}>
         <View style={[{ paddingTop: '7%' }, styles.row]}>
-          <View style={[{ paddingTop: '5%' }, { right: '50%' }]}>
-            <LeaveButton navigationPlace={'Home'}></LeaveButton>
+          <View style={[{ paddingTop: '15%' }, { right: '120%' }]}>
+            <LeaveButton
+              navigationPlace={'Course'}
+              courseId={courseId}
+            ></LeaveButton>
           </View>
           <View
             style={[
@@ -54,9 +33,7 @@ export default function SessionComponent() {
               { paddingLeft: '17%' },
               { shadowColor: '#00e600' }
             ]}
-          >
-            <HeaderIcon color={color} name={name} type={type}></HeaderIcon>
-          </View>
+          ></View>
           <View
             style={{
               left: '80%',
@@ -65,34 +42,43 @@ export default function SessionComponent() {
               flexDirection: 'column'
             }}
           >
-            <Star></Star>
-            <Text style={{ fontSize: 25 }}>
+            {/* <Star></Star> */}
+            {/* <Text style={{ fontSize: 25 }}>
               {correctNr}/{answerArray.length}
-            </Text>
+            </Text> */}
           </View>
         </View>
         <View>
-          <CustomProgressBar
+          {/* <CustomProgressBar
             progress={Math.round((answerNr / answerArray.length) * 10) / 10}
-          ></CustomProgressBar>
+          ></CustomProgressBar> */}
         </View>
       </View>
       <View style={{ flex: 2, width: '100%' }}>
-        <LearningInputVideo></LearningInputVideo>
-        {answerNr === -1
-          ? Alert.alert('Good job you completed the section!', 'Congratulations!', [
-            {
-              text: 'Back',
-              onPress: () => navigation.navigate('Course')
-            }
-          ])
-          : null}
+        {exercise === null ? (
+          Alert.alert(
+            'Good job you completed the section!',
+            'Congratulations!',
+            [
+              {
+                text: 'Back',
+                onPress: () => navigation.navigate('Course')
+              }
+            ]
+          )
+        ) : (
+          <LearningInputVideoExample1
+            uri={exercise.content.uri}
+          ></LearningInputVideoExample1>
+        )}
       </View>
       <View style={{ flex: 3 }}>
-        <FourButtons
-          correctAnswer={correctAnswer}
-          sendDataToParent={sendDataToParent}
-        ></FourButtons>
+        <ExerciseButtons
+          answers={exercise.answers}
+          exerciseId={exercise.exerciseId}
+          courseId={courseId}
+          sectionId={sectionId}
+        ></ExerciseButtons>
       </View>
       <StatusBar style="auto" />
     </View>

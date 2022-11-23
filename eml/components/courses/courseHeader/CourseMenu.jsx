@@ -3,7 +3,7 @@ import { DrawerLayoutAndroid, Text, StyleSheet, View } from 'react-native'
 import CourseProgress from './CourseProgress'
 import CourseTitleIcon from './CourseTitleIcon'
 
-import { Icon } from '@rneui/themed'
+import { Icon } from '@rneui/themed' // Checkout all supported icons https://oblador.github.io/react-native-vector-icons/
 const color = '#006622'
 const type = 'material-community'
 const name = 'cash'

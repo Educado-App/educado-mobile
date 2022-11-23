@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native'
 import { Icon, Button } from '@rneui/base'
 import PropTypes from 'prop-types'
 
-const LeaveButton = ({ navigationPlace }) => {
+const LeaveButton = ({ navigationPlace, courseId }) => {
   LeaveButton.propTypes = {
     navigationPlace: PropTypes.string.isRequired
   }
@@ -15,7 +15,9 @@ const LeaveButton = ({ navigationPlace }) => {
       color="invisible"
       radius="20"
       size="sm"
-      onPress={() => navigation.navigate('Course')}
+      onPress={() =>
+        navigation.navigate(navigationPlace, { courseId: courseId })
+      }
       icon={
         <Icon
           size={40}

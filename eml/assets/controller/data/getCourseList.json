@@ -1,0 +1,100 @@
+[
+  {
+    "title": "Personal Finance 2",
+    "courseId": 1,
+    "iconPath": "../financeLogo.png",
+    "category": 3,
+    "isDownloaded": true
+  },
+  {
+    "title": "Health",
+    "courseId": 2,
+    "iconPath": "../healthLogo.png",
+    "category": 2,
+    "isDownloaded": false
+  },
+  {
+    "title": "Cleaning",
+    "courseId": 3,
+    "iconPath": "../icon.png",
+    "category": 1,
+    "isDownloaded": false
+  },
+  {
+    "title": "Cleaning",
+    "courseId": 4,
+    "iconPath": "../icon.png",
+    "category": 1,
+    "isDownloaded": false
+  },
+  {
+    "title": "Cleaning",
+    "courseId": 5,
+    "iconPath": "../icon.png",
+    "category": 1,
+    "isDownloaded": false
+  },
+  {
+    "title": "Cleaning",
+    "courseId": 6,
+    "iconPath": "../icon.png",
+    "category": 1,
+    "isDownloaded": false
+  },
+  {
+    "title": "Cleaning",
+    "courseId": 3,
+    "iconPath": "../icon.png",
+    "category": 1,
+    "isDownloaded": false
+  },
+  {
+    "title": "Cleaning",
+    "courseId": 3,
+    "iconPath": "../icon.png",
+    "category": 1,
+    "isDownloaded": false
+  },
+  {
+    "title": "Cleaning Finance",
+    "courseId": 3,
+    "iconPath": "../icon.png",
+    "category": 1,
+    "isDownloaded": false
+  },
+  {
+    "title": "Cleaning",
+    "courseId": 5,
+    "iconPath": "../icon.png",
+    "category": 1,
+    "isDownloaded": false
+  },
+  {
+    "title": "Cleaning",
+    "courseId": 6,
+    "iconPath": "../icon.png",
+    "category": 1,
+    "isDownloaded": false
+  },
+  {
+    "title": "Cleaning",
+    "courseId": 3,
+    "iconPath": "../icon.png",
+    "category": 1,
+    "isDownloaded": false
+  },
+  {
+    "title": "Cleaning",
+    "courseId": 3,
+    "iconPath": "../icon.png",
+    "category": 1,
+    "isDownloaded": false
+  },
+  {
+    "title": "Cleaning Finance",
+    "courseId": 3,
+    "iconPath": "../icon.png",
+    "category": 1,
+    "isDownloaded": false
+  }
+]

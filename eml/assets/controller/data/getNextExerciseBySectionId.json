@@ -1,0 +1,29 @@
+{
+  "exerciseId": 1,
+  "content": {
+    "type": "video",
+    "uri": "https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
+  },
+  "answers": [
+    {
+      "answerNumber": 1,
+      "text": "AnswerSection1",
+      "correct": false
+    },
+    {
+      "answerNumber": 2,
+      "text": "Tests is a good idea",
+      "correct": false
+    },
+    {
+      "answerNumber": 3,
+      "text": "AnswerSection2",
+      "correct": false
+    },
+    {
+      "answerNumber": 4,
+      "text": "Tests is a good idea",
+      "correct": true
+    }
+  ]
+}

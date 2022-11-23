@@ -1,16 +1,18 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-
-import HeaderIcon from '../../exercise/headerIcon'
+import { StyleSheet, View, Image } from 'react-native'
+import { Text } from '@ui-kitten/components'
 import PropTypes from 'prop-types'
+import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/dev'
 
-export default function CourseTitleIcon({ color, name, type, title }) {
+export default function CourseTitleIcon({ title, courseIcon }) {
   CourseTitleIcon.propTypes = {
-    color: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired
+    title: PropTypes.string.isRequired,
+    courseIcon: PropTypes.string.isRequired
   }
+
+  let [fontsLoaded] = useFonts({
+    VarelaRound_400Regular
+})
 
   return (
     <View style={styles.container}>
@@ -18,13 +20,16 @@ export default function CourseTitleIcon({ color, name, type, title }) {
         <Text
           numberOfLines={1}
           ellipsizeMode={'clip'}
-          style={styles.titlestyle}
+          style={{fontSize: 30, fontFamily: 'VarelaRound_400Regular'}}
         >
           {title}
         </Text>
       </View>
-      <View style={{ bottom: '5%' }}>
-        <HeaderIcon color={color} name={name} type={type}></HeaderIcon>
+      <View style={{ padding: '5%' }}>
+        <Image source={{ uri: courseIcon}}
+        style={{width: 50, height: 50}}
+        className="rounded-xl"
+        ></Image>
       </View>
     </View>
   )

@@ -41,17 +41,17 @@ export default function ProfileComponent() {
 
   return (
     <SafeAreaView style={styles.container}>
-    <ScrollView>
-      <ProfileSettings style={styles.settings}></ProfileSettings>
-        <ProfileName
-        Name={userName}
-        PhoneNumber={phoneNumber}
-        ></ProfileName>
-      <ProfileImage></ProfileImage>
-      <AddFriendButton></AddFriendButton>
-      <LogOutButton></LogOutButton>
-      <DeleteAccount></DeleteAccount>
-    </ScrollView>
+      <ScrollView>
+        <ProfileSettings style={styles.settings}></ProfileSettings>
+          <ProfileName
+          Name={userName}
+          PhoneNumber={phoneNumber}
+          ></ProfileName>
+        <ProfileImage></ProfileImage>
+        <AddFriendButton></AddFriendButton>
+        <LogOutButton></LogOutButton>
+        <DeleteAccount></DeleteAccount>
+      </ScrollView>
     </SafeAreaView>
   )
 }

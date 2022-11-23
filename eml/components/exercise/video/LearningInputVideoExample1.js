@@ -1,18 +1,21 @@
 import { Video } from 'expo-av'
 import { StyleSheet } from 'react-native'
 import { React } from 'react'
+import PropTypes from 'prop-types'
 
-const LaerningInputVideoExample1 = () => {
+function LaerningInputVideoExample1(uri) {
+  LaerningInputVideoExample1.propTypes = {
+    uri: PropTypes.string.isRequired
+  }
+
   return (
     <Video
-      source={{
-        uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4'
-      }}
+      source={uri}
       rate={1.0}
       volume={1.0}
       isMuted={false}
       resizeMode="cover"
-      shouldPlay
+      //shouldPlay
       useNativeControls
       isLooping
       style={styles.backgroundVideo}

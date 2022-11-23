@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import { View, Alert, StyleSheet } from 'react-native'
+import React, { useState } from 'react'
+import { View, StyleSheet } from 'react-native'
 import { Icon } from '@rneui/themed'
 import { useNavigation } from '@react-navigation/native'
 import { Audio } from 'expo-av'
 import PropTypes from 'prop-types'
+
+import StorageController from '../../assets/controller/storageController'
 
 const voiceOvers = [
   require('../../assets/voice1.mp3'),
@@ -12,21 +14,32 @@ const voiceOvers = [
   require('../../assets/voice4.mp3')
 ]
 
-export default function FourButtons2({ correctAnswer, sendDataToParent }) {
+export default function ExerciseButtons({ exerciseId, answers, sectionId, courseId }) {
   const navigation = useNavigation()
 
-  FourButtons2.propTypes = {
-    correctAnswer: PropTypes.string,
-    sendDataToParent: PropTypes.func.isRequired
+  ExerciseButtons.propTypes = {
+    answers: PropTypes.array.isRequired,
+    exerciseId: PropTypes.number.isRequired,
+    sectionId: PropTypes.number.isRequired,
+    courseId: PropTypes.number.isRequired
+
   }
 
+  function findRightAnswer() {
+    for (let i = 0; i < answers.length; i++) {
+      if (answers[i].correct === true) {
+        return answers[i].answerNumber
+      }
+    }
+    return null
+  }
   const [selected, setSelected] = useState({
     btn1: false,
     btn2: false,
     btn3: false,
     btn4: false
   })
-  const [choice, setChoice] = useState('')
+  const [choice, setChoice] = useState(0)
 
   const [button, setButton] = useState(true)
 
@@ -51,7 +64,7 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
     }
   }
   function handleChange(evt) {
-    if (evt === 'triangle') {
+    if (evt === 1) {
       setSelected({
         ...selected,
         btn1: true,
@@ -59,7 +72,7 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
         btn3: false,
         btn4: false
       })
-    } else if (evt === 'circle') {
+    } else if (evt === 2) {
       setSelected({
         ...selected,
         btn1: false,
@@ -67,7 +80,7 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
         btn3: false,
         btn4: false
       })
-    } else if (evt === 'star') {
+    } else if (evt === 3) {
       setSelected({
         ...selected,
         btn1: false,
@@ -75,7 +88,7 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
         btn3: true,
         btn4: false
       })
-    } else if (evt === 'square') {
+    } else if (evt === 4) {
       setSelected({
         ...selected,
         btn1: false,
@@ -84,35 +97,26 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
         btn4: true
       })
     }
-    console.log(evt)
     setChoice(evt)
   }
 
-  function setButtonState(b1, b2, b3, b4) {
-    setSelected({
-      ...selected,
-      btn1: b1,
-      btn2: b2,
-      btn3: b3,
-      btn4: b4
-    })
-  }
 
   function checkChoice(choice) {
-    if (choice === correctAnswer) {
-      Alert.alert('Wuhuuu you answered correct!', 'God job!', [
-        {
-          text: 'Next question!',
-          onPress: () => {
-            sendDataToParent(true)
-          }
-        }
-      ])
-      setButtonState(false, false, false, false)
+
+    StorageController.updateExerciseBySectionId(exerciseId)
+    const rightAnswer = findRightAnswer()
+    setSelected({
+      ...selected,
+      btn1: false,
+      btn2: false,
+      btn3: false,
+      btn4: false
+    })
+
+    if (choice === rightAnswer) {
+      navigation.navigate('RightAnswer', { courseId: courseId, sectionId: sectionId })
     } else {
-      navigation.navigate('WrongAnswer')
-      sendDataToParent(false)
-      setButtonState(false, false, false, false)
+      navigation.navigate('WrongAnswer', { exerciseId: exerciseId, courseId: courseId, sectionId: sectionId })
     }
   }
 
@@ -129,15 +133,15 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
           <Icon
             style={[
               styles.button,
-              { backgroundColor: selected.btn1 ? '#991f00' : '#ff3300' }
+              { backgroundColor: selected.btn1 ? '#991f00' : '#FF5252' }
             ]}
             size={60}
             name="triangle"
             type="material-community"
-            color="white"
+            color="#CFE9EF"
             onPress={() => {
               setButton()
-              handleChange('triangle')
+              handleChange(1)
               handlePlaySound()
             }}
           />
@@ -152,15 +156,15 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
           <Icon
             style={[
               styles.button,
-              { backgroundColor: selected.btn2 ? '#003d99' : '#0066ff' }
+              { backgroundColor: selected.btn2 ? '#003d99' : '#65D4EE' }
             ]}
             size={60}
             name="checkbox-blank-circle"
             type="material-community"
-            color="white"
+            color='#CFE9EF'
             onPress={() => {
               setButton()
-              handleChange('circle')
+              handleChange(2)
               handlePlaySound()
             }}
           />
@@ -177,15 +181,15 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
           <Icon
             style={[
               styles.button,
-              { backgroundColor: selected.btn3 ? '#997a00' : '#ffcc00' }
+              { backgroundColor: selected.btn3 ? '#FAC12F' : '#FFFF8D' }
             ]}
             size={60}
             name="star"
             type="material-community"
-            color="white"
+            color="#CFE9EF"
             onPress={() => {
               setButton()
-              handleChange('star')
+              handleChange(3)
               handlePlaySound()
             }}
           />
@@ -200,15 +204,15 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
           <Icon
             style={[
               styles.button,
-              { backgroundColor: selected.btn4 ? '#267326' : '#009900' }
+              { backgroundColor: selected.btn4 ? '#267326' : '#9DE89C' }
             ]}
             size={60}
             name="square"
             type="material-community"
-            color="white"
+            color="#CFE9EF"
             onPress={() => {
               setButton()
-              handleChange('square')
+              handleChange(4)
               handlePlaySound()
             }}
           />
@@ -227,7 +231,7 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
             disabledStyle={{ borderRadius: 15 }}
             disabled={button}
             type="material-community"
-            color="white"
+            color="#CFE9EF"
             onPress={() => {
               setButton(true)
               checkChoice(choice)

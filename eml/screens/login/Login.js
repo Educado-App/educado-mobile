@@ -1,11 +1,8 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useEffect, useState, Suspense } from 'react';
-import {StyleSheet, Text, View, Image, Button, Dimensions, Pressable, TouchableOpacity} from 'react-native';
+import React, { useEffect, useState} from 'react';
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useNavigation } from "@react-navigation/native";
 import LoginForm from "../../components/login/LoginForm";
-
-const {width, height} = Dimensions.get('window');
 
 const STORAGE_ID = '@local_id';
 const STORAGE_PROGRESS = '@storage_progress';
@@ -23,9 +20,11 @@ export default function Login(props) {
         // If yes, then continue
 
     const [localId, setLocalId] = useState(String(Date.now)); // Local state variable for storing local user id
+    // eslint-disable-next-line no-unused-vars
     const [loginToken, setLoginToken] = useState('');
 
         // Function for reading local user id from async local storage
+    // eslint-disable-next-line no-unused-vars
     const readId = async () => {
             try {
                 const fetchedLocalId = await AsyncStorage.getItem(STORAGE_ID);
@@ -86,7 +85,7 @@ export default function Login(props) {
     }
 
     useEffect(() => {
-        //readId();
+        // readId();
         checkLoginToken();
     },[]);
 
@@ -112,7 +111,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(86, 255, 131, 0.6)'
     },
     register: {
-        //We need styling here!
+        // We need styling here!
     },
     button: {
         backgroundColor : 'rgba(123,104,238,0.8)',
@@ -169,23 +168,6 @@ const styles = StyleSheet.create({
     formInputContainer:{
         marginBottom: 70
     },
-    /* closeButtonContainer:{
-         height: 40,
-         width: 40,
-         justifyContent: 'center',
-         alignSelf: 'center',
-         shadowColor: "#000",
-         shadowOffset: {
-             width: 0,
-             height: 5,
-         },
-         shadowOpacity: 0.34,
-         shadowRadius: 6.27,
-         elevation: 1,
-         backgroundColor: 'white',
-         alignItems: 'center',
-         borderRadius: 20
-     },*/
     textLogoContainer: {
         marginHorizontal : '33%',
         marginVertical: '33%',

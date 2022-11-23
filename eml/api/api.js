@@ -1,36 +1,61 @@
 import axios from "axios";
 
-const prod = 'http://educado.somethingnew.dk'
-const testOld = 'https://ancient-basin-06516.herokuapp.com'
-const test = 'http://localhost:8888'
+const testUrl = 'http://localhost:8888'
+const testExpo = 'http://192.168.43.130:8888'
 
-const url = testOld;
+const url = testExpo;
 
-export const getCourses = async () => {
-    const res = await axios.get(url + '/api/course/eml/getall');
+// Find a solution to refresh auth-token
+const authToken = '';
+const authBody = {
+    "email": "demo@gmail.com",
+    "password": "Demo1234"
+}
+const config = {
+    headers: {
+        'Authorization': 'Bearer ' + authToken
+    }
+}
+
+export const getTestCourse = async () => {
+    const res = await axios.get(url + '/api/public/courses/635fb5b9b2fb6c4f49084682');
     return res.data;
 };
+
+
+export const getCourses = async () => {
+    // TODO: add bearer token to request header and omit /public/
+    const res = await axios.get(url + '/api/public/courses');
+    return res.data;
+};
+
+export const getCourse = async (courseId) => {
+    const res = await axios.get(url + '/api/public/courses/' + courseId);
+    return res.data;
+};
+
+// TODO: Endpoint for getcoursebyid && change getCourses to getCourseList
 
 export const getPresignedUrl = async (component_id) => {
     const obj = {
-        component_id: component_id
+        component_id
     }
-    const res = await axios.post(url + '/api/get-presigned-url',obj);
+    const res = await axios.post(url + '/api/get-presigned-url', obj);
     return res.data;
 };
 
-export const getCoverPhoto = async(course_id) => {
+export const getCoverPhoto = async (course_id) => {
     const obj = {
-        course_id: course_id
+        course_id
     }
     // Send request to S3 server
     const res = await axios.post(url + '/api/eml/get-presigned-url', obj);
     return res.data;
 }
 
-export const getAllSections = async(sections) => {
+export const getAllSections = async (sections) => {
     const obj = {
-        sections: sections
+        sections
     }
     // Send request to S3 server
     const res = await axios.post(url + '/api/eml/course/getallsections', obj);
@@ -38,9 +63,9 @@ export const getAllSections = async(sections) => {
     return res.data;
 }
 
-export const getAllComponents = async(components) => {
+export const getAllComponents = async (components) => {
     const obj = {
-        components: components
+        components
     };
     // Send request to S3 server
     const res = await axios.post(url + '/api/component/getallcomponents', obj);
