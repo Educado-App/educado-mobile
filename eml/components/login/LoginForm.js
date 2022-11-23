@@ -1,23 +1,24 @@
 import React, {useState} from 'react';
-import {Dimensions, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
+import {Dimensions, Pressable, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, Alert} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import {loginUser} from "../../api/userApi";
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const LOGIN_TOKEN = '@loginToken';
+const USER_INFO = '@userInfo';
 
 
 export default function LoginForm(props) {
 
     const navigation = useNavigation();
 
-    const [phoneNumber, setPhoneNumber] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('+55');
     const [password, setPassword] = useState('');
 
-    async function validateInput (phoneNumber, password) {
+    async function login (phoneNumber, password) {
 
         //clearing input
-        setPhoneNumber('');
+        setPhoneNumber('+55');
         setPassword('');
 
         //The Object must be hashed before it is sent to backend (before loginUser() is called)
@@ -27,15 +28,27 @@ export default function LoginForm(props) {
             password: password
         };
 
-        try {
+        try{
             await loginUser(obj)
                 .then(function(response){
                     AsyncStorage.setItem(LOGIN_TOKEN, response.token);
-                    console.log(response.message);
+                    console.log(response);
                     navigation.navigate('HomeStack');
                 })
-                .catch(function(error){
-                    console.log(error);
+                .catch(error => {
+
+                    switch (error.message){
+
+                        case "Request failed with status code 404":
+                            showAlert("Wrong Phone Number!")
+                            break;
+
+                        case "Request failed with status code 400":
+                            showAlert("Wrong Password!")
+                            break;
+
+                        default: console.log(error);
+                    }
                 });
         }
         catch (e){
@@ -43,6 +56,22 @@ export default function LoginForm(props) {
         }
 
     }
+
+    const showAlert = (error) =>
+        Alert.alert(
+            error,
+            "Try again",
+            [
+                {
+                    text: "OK",
+                    style: "cancel",
+                },
+            ],
+            {
+                cancelable: true,
+            }
+        );
+
 
     return (
         <View style ={styles.container}>
@@ -72,7 +101,7 @@ export default function LoginForm(props) {
                     <Pressable style={({ pressed }) => [
                         { opacity: pressed ? 0.5 : 1.0 }
                     ]} onPressOut={()=>{
-                        validateInput(phoneNumber, password);
+                        login(phoneNumber, password);
                     }}>
                         <View style={styles.formButton}>
                             <Text style={styles.buttonText}>Login</Text>

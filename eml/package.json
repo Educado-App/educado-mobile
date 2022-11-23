@@ -5,7 +5,17 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "test": "jest --watchAll"
+  },
+  "jest": {
+    "setupFiles": [
+      "./jestSetupFile.js"
+    ],
+    "preset": "jest-expo",
+    "transformIgnorePatterns": [
+      "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg)"
+    ]
   },
   "dependencies": {
     "@eva-design/eva": "^2.1.1",
@@ -39,6 +49,9 @@
     "expo-status-bar": "~1.4.0",
     "expo-video-player": "^2.2.0",
     "nativewind": "^2.0.11",
+    "expo-file-system": "~14.1.0",
+    "jest": "^26.6.3",
+    "jest-expo": "^47.0.1",
     "react": "18.0.0",
     "react-bootstrap": "^2.5.0",
     "react-confetti": "^6.1.0",
@@ -60,6 +73,7 @@
     "react-navigation": "^4.4.4",
     "react-navigation-stack": "^2.10.4",
     "react-query": "^3.39.2",
+    "react-test-renderer": "^18.0.0",
     "react-use-window-size": "^1.0.1",
     "recoil": "^0.7.5",
     "source-code-pro": "^2.38.0",

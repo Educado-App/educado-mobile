@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View } from "react-native";
 
-const ProfileName = ({UserName, Name}) => {
+const ProfileName = ({UserName, Name, PhoneNumber}) => {
 
     return (
       <View>
@@ -11,6 +11,9 @@ const ProfileName = ({UserName, Name}) => {
           </Text>
           <Text style={styles.profileUserName}>
             {UserName}
+          </Text>
+          <Text style={styles.profileUserName}>
+            {PhoneNumber}
           </Text>
         </View>
       </View>
