@@ -29,6 +29,7 @@ export default function RightAnswerScreen() {
           <View style={{ paddingTop: '40%', paddingBottom: '10%' }}>
             <Text
               style={{ fontSize: 45, fontFamily: 'VarelaRound_400Regular' }}
+              className="text-gray-600"
             >
               GOOD JOB!
             </Text>
