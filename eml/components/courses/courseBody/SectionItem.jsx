@@ -43,7 +43,7 @@ export default function SectionItem({ title, index, courseId, sectionId }) {
         </Text>
         <Text style={{
           fontFamily: 'VarelaRound_400Regular', fontSize: 16,
-        }} ellipsizeMode={'tail'} numberOfLines={1} className="pl-10 text-gray-500">
+        }} ellipsizeMode={'tail'} numberOfLines={1} className="pl-10 text-gray-600">
           {title}
         </Text>
       </View>

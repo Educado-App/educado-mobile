@@ -3,29 +3,29 @@ import { View, Text, Platform, ScrollView } from 'react-native'
 import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/dev'
 import { AppLoading } from 'expo-app-loading'
 import { SelectList } from 'react-native-dropdown-select-list'
-import StorageController from '../../assets/controller/storageController'
 import ActiveExploreCard from '../../components/explore/ActiveExploreCard'
 import ExploreCard from '../../components/explore/ExploreCard'
+import * as StorageService from '../../services/StorageService'
 
 export default function Explore() {
 
-    const courseList = StorageController.getCourseList()
-
     const [selected, setSelected] = useState(-1);
 
-<<<<<<< HEAD
-=======
     const [views, setViews] = useState([]);
 
-    const uniqueCategories = [{ key: 1, value: "Cleaning" }, { key: 2, value: "Health" }, { key: 3, value: "Personal Finance" }]
+    const uniqueCategories = [{ key: 1, value: "Cleaning" }, { key: 2, value: "Health" }, { key: '6368be5d71e079ae8d537eb1', value: "Personal Finance" }]
 
->>>>>>> origin/fix_videoes_COWS
+    const [fontsLoaded] = useFonts({
+        VarelaRound_400Regular
+    })
+
     useEffect(() => {
         async function loadViews() {
-            const componentPromises = courseList.map(({ title, iconPath, isDownloaded, courseId, category }, index) => {
-                if ((isDownloaded && category === selected) || (isDownloaded && selected === -1)) {
-                    return <ActiveExploreCard key={index} title={title} courseId={courseId} uri={iconPath} />;
-                } else if ((!(isDownloaded) && category === selected) || (!(isDownloaded) && selected === -1)) {
+            const courseList = await StorageService.getCourseList();
+            const componentPromises = courseList.map(({ title, iconPath, isActive, courseId, categoryId }, index) => {
+                if ((isActive && categoryId === selected) || (isActive && selected === -1)) {
+                    return <ActiveExploreCard key={index} title={title} courseId={courseId} iconPath={iconPath} />;
+                } else if ((!(isActive) && categoryId === selected) || (!(isActive) && selected === -1)) {
                     return <ExploreCard key={index} title={title} courseId={courseId}></ExploreCard>
                 }
             });
@@ -34,22 +34,8 @@ export default function Explore() {
         loadViews();
 
     }, [selected])
-<<<<<<< HEAD
-    const courseList = StorageController.getCourseList()
-
-    const uniqueCategories = [{ key: 1, value: "Cleaning" }, { key: 2, value: "Health" }, { key: 3, value: "Personal Finance" }]
-=======
 
 
-
-
-    // constant categories to be shown in filter. If more are added, you should update this.
-
->>>>>>> origin/fix_videoes_COWS
-
-    const [fontsLoaded] = useFonts({
-        VarelaRound_400Regular
-    })
     if (!fontsLoaded) {
         return AppLoading
     } else {
@@ -58,15 +44,9 @@ export default function Explore() {
                 <View className="basis-1/6" style={{ justifyContent: 'center', alignItems: 'center', paddingTop: Platform.OS === 'android' ? 20 : 0 }}>
                     <Text style={{ fontSize: 40, fontFamily: 'VarelaRound_400Regular' }} className="text-gray-600"> Educado</Text>
                 </View>
-<<<<<<< HEAD
-                <View style={{ elevation: 15, zIndex: 15 }} className="w-10/12 self-center">
-                    <SelectList
-                        setSelected={setSelected}
-=======
                 <View style={{ elevation: 15, zIndex: 15 }} className="w-11/12 self-center pb-4">
                     <SelectList
                         setSelected={(val) => setSelected(val)}
->>>>>>> origin/fix_videoes_COWS
                         data={uniqueCategories}
                         search={false}
                         dropdownStyles={{ backgroundColor: '#CFE9EF' }}

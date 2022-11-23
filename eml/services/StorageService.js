@@ -5,7 +5,7 @@ import * as DirectoryService from '../services/DirectoryService';
 const TEST_COURSE = '@testCourse';
 const COURSE_LIST = '@courseList';
 
-export const GetTestCourseFromApi = async () => {
+export const getTestCourseFromApi = async () => {
 
   try {
 
@@ -29,7 +29,7 @@ export const GetTestCourseFromApi = async () => {
   }
 }
 
-export const GetCourseList = async () => {
+export const getCourseList = async () => {
 
   try {
 
@@ -37,20 +37,25 @@ export const GetCourseList = async () => {
     let courseList = JSON.parse(await AsyncStorage.getItem(COURSE_LIST));
 
     if (courseList == null) {
-
+      
       return await api.getCourses().then(
-
+       
           async list => {
 
             let newCourseList = [];
 
             for (const course of list.data) {
-
-              const localCourse = JSON.parse(await AsyncStorage.getItem(course._id));
-
+              
+              const courseId = course.id;
+              
+              const localCourse = JSON.parse(await AsyncStorage.getItem(courseId));
+              
               // Make new list with member isDownloaded
               newCourseList.push({
-                course: course,
+                title: course.title,
+                courseId: course.id,
+                iconPath: course.category.icon,
+                categoryId: course.category.id,
                 isActive: localCourse !== null,
               });
             }
@@ -69,7 +74,7 @@ export const GetCourseList = async () => {
   }
 
 }
-export const GetCourseById = async (courseId) => {
+export const getCourseById = async (courseId) => {
 
   try {
 
@@ -92,7 +97,7 @@ export const GetCourseById = async (courseId) => {
 
 }
 
-export async function DownloadCourse(courseId) {
+export async function downloadCourse(courseId) {
   try {
 
     const course = await api.getCourse(courseId);
@@ -113,5 +118,15 @@ export async function DownloadCourse(courseId) {
 //getSectionList(course-id)
 //getSectionById(section-id)
 //getExerciseList(section-id)
-//getExerciseById(exercise-id)
-//getNextExercise(exercise-id)
+//getNextExerciseBySectionId(section-id)
+//getWrongFeedback(exercise-id)
+
+//updateExercise(exercise-id)
+
+/* {
+  "on_wrong_feedback": {
+    "type": "video",
+    "uri": "https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
+  }
+}
+ */
