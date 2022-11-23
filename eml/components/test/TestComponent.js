@@ -11,15 +11,6 @@ const TEST_COURSE = '@testCourse';
 
 export default function TestComponent() {
 
-    /*
-    const [course, setCourse] = useState('some')
-
-    async function getCourse (){
-        const course = await getTestCourseFromApi();
-        setCourse(course);
-    }
-    */
-
     async function test () {
         console.log(JSON.parse(await AsyncStorage.getItem('@courseList')))
     }
@@ -36,13 +27,10 @@ export default function TestComponent() {
 
 
     useEffect(() => {
-        //test3();
-        // console.log(getTestCourseFromApi());
-        //console.log("hello")
-        // CreateDirectory('test');
-        // ReadDirectory('test');
-        // DeleteDirectory('test');
-        // let obj = Promise.resolve(getTestCourseFromApi());
+        //test();
+        //CreateDirectory('test');
+        //ReadDirectory('test');
+        //DeleteDirectory('test');
         }
     );
 

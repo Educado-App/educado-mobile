@@ -37,24 +37,24 @@ export const getCourseList = async () => {
     let courseList = JSON.parse(await AsyncStorage.getItem(COURSE_LIST));
 
     if (courseList == null) {
-      
+
       return await api.getCourses().then(
-       
+
           async list => {
 
             let newCourseList = [];
 
             for (const course of list.data) {
-              
+
               const courseId = course.id;
-              
+
               const localCourse = JSON.parse(await AsyncStorage.getItem(courseId));
-              
+
               // Make new list with member isDownloaded
               newCourseList.push({
                 title: course.title,
                 courseId: course.id,
-                iconPath: course.category.icon,
+                iconPath: course.category.icon, //Icon should be downloaded too
                 categoryId: course.category.id,
                 isActive: localCourse !== null,
               });
@@ -130,3 +130,7 @@ export async function downloadCourse(courseId) {
   }
 }
  */
+
+//Icon also should be downloaded
+
+//When Logout: back button should be disabled!!!!
