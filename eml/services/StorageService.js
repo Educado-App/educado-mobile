@@ -86,18 +86,16 @@ export const getCourseById = async (courseId) => {
           async requestedCourse => {
               let courseContent = [];
 
-              const localCourse = JSON.parse(await AsyncStorage.getItem(courseId));
-
               courseContent.title = requestedCourse.data.title;
 
-              for (const section of requestedCourse.data) {
+              for (const section of requestedCourse.data.section) {
                   courseContent.push({
                       sectionId: section.id,
                       isComplete: false,
-                      sectionNumber: section.SectionNumber
+                      sectionNumber: section.sectionNumber
                   });
               }   
-              corseContent.SortBy(sectionNumber);
+              corseContent.SortBy(courseContent.sectionNumber);
           
               await AsyncStorage.setItem(COURSE_LIST, JSON.stringify(courseContent));
               return corseContent;
