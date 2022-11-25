@@ -1,10 +1,10 @@
-import {React, useEffect, useState} from 'react'
-import {StyleSheet, Text, View} from 'react-native'
-import {Video} from 'expo-av'
+import { React, useEffect, useState } from 'react'
+import { StyleSheet, Text, View } from 'react-native'
+import { Video } from 'expo-av'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as StorageService from "../../services/StorageService";
 import * as DirectoryService from "../../services/DirectoryService";
-import {getAuthToken, getCoursesWithAuth} from "../../api/api";
+import { getAuthToken, getCoursesWithAuth } from "../../api/api";
 
 const testUrl = 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4';
 const TEST_COURSE = '@testCourse';
@@ -14,32 +14,32 @@ export default function TestComponent() {
 
     let text = "Hello"
 
-    async function test () {
+    async function test() {
         console.log(JSON.parse(await AsyncStorage.getItem(COURSE_LIST)))
     }
 
-    async function test2 () {
+    async function test2() {
         const course = await StorageService.getCourseById("635fb5b9b2fb6c4f49084682");
         console.log(course.data);
     }
 
-    async function test3 () {
+    async function test3() {
         const course = await StorageService.getCourseList();
         console.log(course);
     }
 
-    async function test4 () {
+    async function test4() {
         const course = await getCoursesWithAuth();
         console.log(course);
     }
 
-    async function test5 () {
+    async function test5() {
         const auth = await getAuthToken();
         console.log(auth.data.accessToken);
     }
 
     async function test6(x) {
-        if (x === 1){
+        if (x === 1) {
             console.log("this is ");
         } else {
             console.log("that is ");
@@ -49,20 +49,20 @@ export default function TestComponent() {
     }
 
 
-    async function test7 () {
+    async function test7() {
         const course = await StorageService.getTestCourseFromApi();
         console.log(course.data.sections[0].exercises[0]);
     }
 
-    async function readDir (name) {
+    async function readDir(name) {
         return await DirectoryService.ReadDirectory(name);
     }
 
-    async function createDir (name) {
+    async function createDir(name) {
         return await DirectoryService.CreateDirectory(name);
     }
 
-    async function deleteDir (name) {
+    async function deleteDir(name) {
         return await DirectoryService.DeleteDirectory(name);
     }
 
@@ -71,21 +71,29 @@ export default function TestComponent() {
         console.log(arrayFromCourse);
     }
 
+    async function updateExercise(sid, eid) {
+        await StorageService.updateCompletionStatus(sid, eid);
+    }
 
-
+    async function getNextExercise(id) {
+        const ex = await StorageService.getNextExercise(id);
+        console.log(ex);
+    }
 
     useEffect(() => {
         checkNewGetCourseById("635fb5b9b2fb6c4f49084682");
+        updateExercise('63679d8119dd0a38a4673fd4', '637609e627a91f4ba637f98e');
+        getNextExercise('63679d8119dd0a38a4673fd4');
         //test4();
         //CreateDirectory('test');
         //ReadDirectory('test');
         //DeleteDirectory('test');
-        }
+    }
     );
 
     return (
         <View>
-            <Text style={{fontSize: 50, paddingTop: 100}}>{text}</Text>
+            <Text style={{ fontSize: 50, paddingTop: 100 }}>{text}</Text>
             <Video
                 source={{
                     uri: ''
