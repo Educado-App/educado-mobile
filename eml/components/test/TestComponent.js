@@ -66,9 +66,17 @@ export default function TestComponent() {
         return await DirectoryService.DeleteDirectory(name);
     }
 
+    async function checkNewGetCourseById(courseId) {
+        const arrayFromCourse = await StorageService.getCourseById(courseId);
+        console.log(arrayFromCourse);
+    }
+
+
+
 
     useEffect(() => {
-        test4();
+        checkNewGetCourseById("635fb5b9b2fb6c4f49084682");
+        //test4();
         //CreateDirectory('test');
         //ReadDirectory('test');
         //DeleteDirectory('test');

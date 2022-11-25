@@ -88,17 +88,17 @@ export const getCourseById = async (courseId) => {
 
               courseContent.title = requestedCourse.data.title;
 
-              for (const section of requestedCourse.data.section) {
+              for (const section of requestedCourse.data.sections) {
                   courseContent.push({
                       sectionId: section.id,
                       isComplete: false,
                       sectionNumber: section.sectionNumber
                   });
               }   
-              corseContent.SortBy(courseContent.sectionNumber);
+              //courseContent.SortBy(courseContent.sectionNumber);
           
               await AsyncStorage.setItem(COURSE_LIST, JSON.stringify(courseContent));
-              return corseContent;
+              return courseContent;
           }
       );
 
