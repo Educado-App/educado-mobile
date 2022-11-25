@@ -36,7 +36,7 @@ export const getCourseList = async () => {
     let courseList = JSON.parse(await AsyncStorage.getItem(COURSE_LIST));
 
     if (courseList == null) {
-
+                    //should be changed to new api method with auth
       return await api.getCourses().then(
 
           async list => {
@@ -96,7 +96,7 @@ export const getCourseById = async (courseId) => {
 
 }
 
-export async function downloadCourse(courseId) {
+export const downloadCourse = async (courseId) => {
 
     if (courseId !== undefined){
 
@@ -135,7 +135,7 @@ export async function downloadCourse(courseId) {
                               .then(localUri => {
                                   exercise.content.url = localUri;
                               })
-                              .catch(error =>{console.log(error)});
+                              .catch(error =>{console.log(error);});
                     }
                 }
 
@@ -161,7 +161,8 @@ export async function downloadCourse(courseId) {
 
 //updateExercise(exercise-id)
 
-/* {
+/*
+ {
   "on_wrong_feedback": {
     "type": "video",
     "uri": "https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
