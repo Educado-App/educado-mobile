@@ -28,6 +28,7 @@ export const getTestCourseFromApi = async () => {
     console.error(e);
   }
 }
+
 export const getCourseList = async () => {
 
   try {
@@ -83,13 +84,27 @@ export const getCourseById = async (courseId) => {
 
       return await api.getCourse(courseId).then(
           async requestedCourse => {
-            await AsyncStorage.setItem(courseId, JSON.stringify(requestedCourse));
-            return requestedCourse;
+              let courseContent = [];
+
+              const localCourse = JSON.parse(await AsyncStorage.getItem(courseId));
+
+              courseContent.title = requestedCourse.data.title;
+
+              for (const section of requestedCourse.data) {
+                  courseContent.push({
+                      sectionId: section.id,
+                      isComplete: false,
+                      sectionNumber: section.SectionNumber
+                  });
+              }   
+              corseContent.SortBy(sectionNumber);
+          
+              await AsyncStorage.setItem(COURSE_LIST, JSON.stringify(courseContent));
+              return corseContent;
           }
       );
 
     } else return course;
-
   } catch (e) {
     console.error(e);
   }
