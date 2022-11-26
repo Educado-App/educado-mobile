@@ -66,30 +66,51 @@ export default function TestComponent() {
         return await DirectoryService.DeleteDirectory(name);
     }
 
-    async function checkNewGetCourseById(courseId) {
+    const checkNewGetCourseById = useCallBack(async (courseId) => {
         const arrayFromCourse = await StorageService.getCourseById(courseId);
-        console.log(arrayFromCourse);
-    }
+        setData(arrayFromCourse);
+    }, [])
 
-    async function updateExercise(sid, eid) {
-        await StorageService.updateCompletionStatus(sid, eid);
-    }
+    const updateExercise = useCallBack(async (sid, eid) => {
+        const updateStatus = await StorageService.updateCompletionStatus(sid, eid);
+        setData(updateStatus)
+    }, [])
 
-    async function getNextExercise(id) {
+    const getNextExercise = useCallBack(async(id) => {
         const ex = await StorageService.getNextExercise(id);
-        console.log(ex);
-    }
+        setData(ex);
+    }, [])
 
     useEffect(() => {
-        checkNewGetCourseById("635fb5b9b2fb6c4f49084682");
-        updateExercise('63679d8119dd0a38a4673fd4', '637609e627a91f4ba637f98e');
-        getNextExercise('63679d8119dd0a38a4673fd4');
+        (async () => {
+            checkNewGetCourseById("635fb5b9b2fb6c4f49084682");
+        })();
+        (async () => {
+            updateExercise('63679d8119dd0a38a4673fd4', '637609e627a91f4ba637f98e');
+        })();
+        (async () => {
+            getNextExercise('63679d8119dd0a38a4673fd4');
+        })();
         //test4();
         //CreateDirectory('test');
         //ReadDirectory('test');
         //DeleteDirectory('test');
     }
     );
+
+    // declare the async data fetching function
+    const fetchData = useCallback(async () => {
+        const data = await fetch('https://yourapi.com');
+
+        setData(data);
+    }, [])
+
+    // the useEffect is only there to call `fetchData` at the right time
+    useEffect(() => {
+        fetchData()
+            // make sure to catch any error
+            .catch(console.error);;
+    }, [fetchData])
 
     return (
         <View>
