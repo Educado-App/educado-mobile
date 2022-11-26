@@ -12,8 +12,6 @@ const COURSE_LIST = '@courseList';
 
 export default function TestComponent() {
 
-    let text = "Hello"
-
     async function test() {
         console.log(JSON.parse(await AsyncStorage.getItem(COURSE_LIST)))
     }
@@ -81,9 +79,10 @@ export default function TestComponent() {
     }
 
     useEffect(() => {
-        checkNewGetCourseById("635fb5b9b2fb6c4f49084682");
-        updateExercise('63679d8119dd0a38a4673fd4', '637609e627a91f4ba637f98e');
-        getNextExercise('63679d8119dd0a38a4673fd4');
+        //checkNewGetCourseById("635fb5b9b2fb6c4f49084682");
+        //updateExercise('63679d8119dd0a38a4673fd4', '637609e627a91f4ba637f98e'); // set exercise 1 as complete
+        //updateExercise('63679d8119dd0a38a4673fd4', '637b87706af7d5d52cd27504'); // set exercise 2 as complete
+        //getNextExercise('63679d8119dd0a38a4673fd4'); // get first exercise of this sectionId where isComplete = false
         //test4();
         //CreateDirectory('test');
         //ReadDirectory('test');
@@ -91,25 +90,6 @@ export default function TestComponent() {
     }
     );
 
-    return (
-        <View>
-            <Text style={{ fontSize: 50, paddingTop: 100 }}>{text}</Text>
-            <Video
-                source={{
-                    uri: ''
-
-                }}
-                rate={1.0}
-                volume={1.0}
-                isMuted={false}
-                resizeMode="cover"
-                useNativeControls
-                isLooping
-                style={styles.backgroundVideo}
-            />
-        </View>
-
-    );
 }
 
 const styles = StyleSheet.create({
