@@ -107,7 +107,7 @@ export const getCourseById = async (courseId) => {
                             exerciseContent.push(currentExercise)
                         }
 
-                        currentSection.exercises.push(exerciseContent);
+                        currentSection.exercises = exerciseContent;
 
                         courseContent.push(currentSection);
                         await AsyncStorage.setItem(section.id, JSON.stringify(currentSection));
@@ -131,12 +131,10 @@ export const updateCompletionStatus = async (sectionId, exerciseId) => {
         let section = JSON.parse(await AsyncStorage.getItem(sectionId));
 
         if (section !== null && exerciseId != null) {
-            for (const ex of section.exercises[0]) {
-                if (ex.obj.id == exerciseId && ex.isComplete == true) {
+            for (const ex of section.exercises) {
+                if (ex.obj.id == exerciseId && ex.isComplete != true) {
                     ex.isComplete = true;
                     break;
-                } else {
-                    console.log(ex)
                 }
             }
 
@@ -155,7 +153,7 @@ export const getNextExercise = async (sectionId) => {
     try {
         let currentSection = JSON.parse(await AsyncStorage.getItem(sectionId))
 
-        for (const exercise of currentSection.exercises[0]) {
+        for (const exercise of currentSection.exercises) {
             if (!exercise.isComplete) {
                 return exercise;
             }
