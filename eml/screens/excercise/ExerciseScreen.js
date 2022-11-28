@@ -86,7 +86,7 @@ export default function ExerciseScreen() {
             uri={exercise.content.uri} signal={status}
           ></LearningInputVideoExample1> */
           <Video
-            source={{ uri: exercise.content.uri }}
+            source={{ uri: exercise.content }}
             rate={1.0}
             volume={1.0}
             isMuted={false}
@@ -102,7 +102,7 @@ export default function ExerciseScreen() {
       <View style={{ flex: 3 }}>
         <ExerciseButtons
           answers={exercise.answers}
-          exerciseId={exercise.exerciseId}
+          exerciseId={exercise.id}
           courseId={courseId}
           sectionId={sectionId}
           setSignal={setSignal}

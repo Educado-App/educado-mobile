@@ -6,9 +6,10 @@ import { useNavigation } from '@react-navigation/native'
 import SectionItem from '../courses/courseBody/SectionItem'
 
 export default function easyDynamicList({ course }) {
+
     const navigation = useNavigation()
 
-    const courseSections = course.sections
+    const courseSections = course.sections;
 
     return (
         <View className="flex-auto grow pb-40 h-full">

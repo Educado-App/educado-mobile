@@ -104,19 +104,19 @@ export const getCourseById = async (courseId) => {
                             number: section.sectionNumber,
                             isComplete: false,
                         }
-                        
+
                         //Future Work: Return object should be different for UI
-                        
+
                         currentSection.exercises = exerciseContent;
                         sections.push(currentSection);
                         await AsyncStorage.setItem(section.id, JSON.stringify(currentSection));
                     }
 
                     const courseContent = {
-                        title: requestedCourse.title,
-                        id: requestedCourse.id,
-                        icon: requestedCourse.category.icon,
-                        categoryId: requestedCourse.category.id,
+                        title: requestedCourse.data.title,
+                        id: requestedCourse.data.id,
+                        icon: requestedCourse.data.category.icon,
+                        categoryId: requestedCourse.data.category.id,
                         sections: sections,
                         isActive: false,
                     }

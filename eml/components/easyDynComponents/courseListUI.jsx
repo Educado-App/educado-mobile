@@ -5,7 +5,7 @@ import EasyDynamicList from './EasyDynamicList';
 import CourseHeader from '../courses/CourseHeader';
 
 export default function CourseListUI({ course }) {
-
+    console.log(course);
     return (
         <View>
             <CourseHeader
