@@ -1,5 +1,4 @@
-import { CreateDirectory, DeleteDirectory, DownloadAndStoreVideo, ReadDirectory } from "../../services/DirectoryService";
-import * as FileSystem from 'expo-file-system';
+import { CreateDirectory, DeleteDirectory, DeleteVideoByName, DeleteVideoByUri, DownloadAndStoreVideo, ReadDirectory } from "../../services/DirectoryService";
 
 jest.mock('expo-file-system', () => ({
     downloadAsync: jest.fn(() => Promise.resolve({ md5: 'md5', uri: 'uri' })),
@@ -38,4 +37,12 @@ test('Should return a URI to a locally stored downloaded video', async () => {
     
 })
 
-test('Should return ')
+test('Should return confirmation that the specified video was deleted', async () => {
+    DeleteVideoByUri("Test")
+    .then(r => {expect.toBe("Test Successfully Deleted!")})
+})
+
+test('Should return confirmation that video in the specified directory was deleted', async () => {
+    DeleteVideoByName("testVideo", "testDirectory")
+    .then(r => {expect.toBe("testVideo deleted!")})
+})

@@ -95,38 +95,50 @@ export async function DownloadAndStoreVideo(url, directory){
             console.log(error);
         }
     }
-export function DeleteVideoByUri(uri) {
+export async function DeleteVideoByUri(uri) {
 
         //Delete the video located in the uri
+
+        let str = ""
 
         try {
              FileSystem.deleteAsync(uri)
                 .then(() => {
-                    console.log(uri.substring(uri.lastIndexOf('/') + 1) + " Successfully Deleted!");
+                    str = uri.substring(uri.lastIndexOf('/') + 1) + " Successfully Deleted!"
+                    
                 })
                 .catch(error => {
+                    returnstr = "Error deleting specified video"
                     console.log(error);
                 });
+
+            return str
         }
         catch (error){
 
             console.log(error);
         }
     }
-export function DeleteVideoByName(name, directory) {
+export async function DeleteVideoByName(name, directory) {
 
         //Delete the video located in the local directory by its name
 
         let localName = FileSystem.documentDirectory + directory + '/' + name;
 
+        let str = ""
+
         try {
              FileSystem.deleteAsync(localName)
                 .then(() => {
-                    console.log(name + " deleted!");
+                    str = name + " deleted!"
+                    //console.log(name + " deleted!");
                 })
                 .catch(error => {
                     console.log(error);
+                    str = "Error deleting video in specified directory"
                 });
+
+            return str
         }
         catch (error){
             console.log(error);
