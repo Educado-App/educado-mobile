@@ -71,10 +71,14 @@ export default function TestComponent() {
 
     async function getApiCourse(){
         const course = await getCourse('635fb5b9b2fb6c4f49084682');
-        console.log(course.data.sections[0].exercises[0].answers);
+        course.data.category.icon = "http://cdn-icons-png.flaticon.com/512/2783/2783925.png";
+        course.data.sections[0].exercises[0].content = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4";
+        await AsyncStorage.setItem('@testKev', JSON.stringify(course));
+        console.log(course.data.sections[0].exercises[0].content);
     }
 
     useEffect(() => {
+        //getApiCourse();
         //checkNewGetCourseById("635fb5b9b2fb6c4f49084682");
         //updateExercise('63679d8119dd0a38a4673fd4', '637609e627a91f4ba637f98e'); // set exercise 1 as complete
         //updateExercise('63679d8119dd0a38a4673fd4', '637b87706af7d5d52cd27504'); // set exercise 2 as complete

@@ -155,7 +155,6 @@ export const updateCompletionStatus = async (sectionId, exerciseId) => {
         console.error(e);
     }
 }
-
 export const getNextExercise = async (sectionId) => {
 
     try {
@@ -185,7 +184,7 @@ export const downloadCourse = async (courseId) => {
 
             if (course !== null) {
 
-                const courseDirectory = course.data.title;
+                const courseDirectory = course.data.id;
                 const category = course.data.category.name;
                 const icon = course.data.category.icon;
                 const sections = course.data.sections;
@@ -203,16 +202,16 @@ export const downloadCourse = async (courseId) => {
                 //downloading each video of the exercises and storing in their respective sections
                 for (const section of sections) {
 
-                    const sectionDirectory = courseDirectory + '/' + sections.title;
+                    const sectionDirectory = courseDirectory + '/' + sections.id;
                     await DirectoryService.CreateDirectory(sectionDirectory);
 
                     for (const exercise of section) {
 
-                        const url = exercise.content.url;
+                        const url = exercise.content;
 
-                        await DirectoryService.DownloadAndStoreContent(url, sectionDirectory, exercise.title)
+                        await DirectoryService.DownloadAndStoreContent(url, sectionDirectory, exercise.id)
                             .then(localUri => {
-                                exercise.content.url = localUri;
+                                exercise.content = localUri;
                             })
                             .catch(error => { console.log(error); });
                     }
