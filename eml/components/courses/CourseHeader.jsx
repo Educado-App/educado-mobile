@@ -4,6 +4,7 @@ import CourseTitleIcon from './courseHeader/CourseTitleIcon'
 import PropTypes from 'prop-types'
 
 export default function CourseHeader({ courseTitle, courseIcon }) {
+
   CourseHeader.propTypes = {
     courseTitle: PropTypes.string.isRequired,
     courseIcon: PropTypes.string.isRequired
@@ -15,6 +16,14 @@ export default function CourseHeader({ courseTitle, courseIcon }) {
         title={courseTitle}
         courseIcon={courseIcon}
       ></CourseTitleIcon>
+        <DownloadCourseButton courseId={'@testKev'} style={styles.downloadButton}></DownloadCourseButton>
     </View>
   )
 }
+
+
+const styles = StyleSheet.create({
+    downloadButton: {
+        marginLeft: '75%'
+    }
+})

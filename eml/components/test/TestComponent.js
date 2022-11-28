@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as StorageService from "../../services/StorageService";
 import * as DirectoryService from "../../services/DirectoryService";
 import {getAuthToken, getCourse, getCoursesWithAuth} from "../../api/api";
+import {downloadCourse} from "../../services/StorageService";
 
 const testUrl = 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4';
 const TEST_COURSE = '@testCourse';
@@ -31,15 +32,16 @@ export default function TestComponent() {
         const auth = await getAuthToken();
         console.log(auth.data.accessToken);
     }
-    async function test6(x) {
-        if (x === 1) {
-            console.log("this is ");
-        } else {
-            console.log("that is ");
-        }
 
-        console.log("nice!");
+    async function test6() {
+        let y = 10
+
+        let x = {
+            number : y,
+        }
+        console.log(x);
     }
+
     async function test7() {
         const course = await StorageService.getTestCourseFromApi();
         console.log(course.data.sections[0].exercises[0]);
@@ -69,16 +71,30 @@ export default function TestComponent() {
         console.log(ex);
     }
 
-    async function getApiCourse(){
+    async function makeTestCourse(){
+
         const course = await getCourse('635fb5b9b2fb6c4f49084682');
         course.data.category.icon = "http://cdn-icons-png.flaticon.com/512/2783/2783925.png";
-        course.data.sections[0].exercises[0].content = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4";
+        for(const section of course.data.sections){
+            for (const exercise of section.exercises){
+                exercise.content = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4";
+            }
+        }
+
         await AsyncStorage.setItem('@testKev', JSON.stringify(course));
-        console.log(course.data.sections[0].exercises[0].content);
+
+        for(const section of course.data.sections){
+            for (const exercise of section.exercises){
+                console.log(exercise.content);
+            }
+        }
     }
 
     useEffect(() => {
-        //getApiCourse();
+        //test6()
+        //makeTestCourse();
+        //readDir('635fb5b9b2fb6c4f49084682');
+        //downloadTest();
         //checkNewGetCourseById("635fb5b9b2fb6c4f49084682");
         //updateExercise('63679d8119dd0a38a4673fd4', '637609e627a91f4ba637f98e'); // set exercise 1 as complete
         //updateExercise('63679d8119dd0a38a4673fd4', '637b87706af7d5d52cd27504'); // set exercise 2 as complete
