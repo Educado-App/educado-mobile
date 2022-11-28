@@ -15,13 +15,13 @@ export default function LoginForm(props) {
     const navigation = useNavigation();
 
     const [userName, setUserName] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('+55');
+    const [phoneNumber, setPhoneNumber] = useState('');
     const [password, setPassword] = useState('');
 
     async function register (phoneNumber, password) {
 
         // clearing input
-        setPhoneNumber('+55');
+        setPhoneNumber('');
         setPassword('');
 
         const obj = {
@@ -39,7 +39,7 @@ export default function LoginForm(props) {
                         await loginUser(obj)
                             .then(function (response) {
 
-                                AsyncStorage.setItem(LOGIN_TOKEN, response.token);
+                                AsyncStorage.setItem(LOGIN_TOKEN, response.data.accessToken);
                                 console.log(response);
                                 navigation.navigate('HomeStack');
 
@@ -65,7 +65,7 @@ export default function LoginForm(props) {
                         console.log(e);
                     }
 
-                    await createProfile(response.result._id, userName, phoneNumber);
+                    await createProfile(response._id, userName, phoneNumber);
 
                 })
                 .catch(error => {

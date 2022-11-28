@@ -12,13 +12,13 @@ export default function LoginForm(props) {
 
     const navigation = useNavigation();
 
-    const [phoneNumber, setPhoneNumber] = useState('+55');
+    const [phoneNumber, setPhoneNumber] = useState('');
     const [password, setPassword] = useState('');
 
     async function login (phoneNumber, password) {
 
         //clearing input
-        setPhoneNumber('+55');
+        setPhoneNumber('');
         setPassword('');
 
         //The Object must be hashed before it is sent to backend (before loginUser() is called)
@@ -30,8 +30,8 @@ export default function LoginForm(props) {
 
         try{
             await loginUser(obj)
-                .then(function(response){
-                    AsyncStorage.setItem(LOGIN_TOKEN, response.token);
+                .then((response) => {
+                    AsyncStorage.setItem(LOGIN_TOKEN, response.data.accessToken);
                     console.log(response);
                     navigation.navigate('HomeStack');
                 })
