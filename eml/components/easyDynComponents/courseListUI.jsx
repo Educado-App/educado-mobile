@@ -13,7 +13,7 @@ export default function CourseListUI({ course }) {
                 courseIcon={course.iconPath}
                 courseId={course.id}
             ></CourseHeader>
-            <EasyDynamicList courseData={course} ></EasyDynamicList>
+            <EasyDynamicList course={course} ></EasyDynamicList>
         </View>
     );
 };

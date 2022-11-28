@@ -4,10 +4,11 @@ import { Alert, StyleSheet, View } from 'react-native'
 import LeaveButton from '../../components/exercise/LeaveButton'
 import ExerciseButtons from '../../components/exercise/ExerciseButtons'
 import { useNavigation, useRoute } from '@react-navigation/native'
-import StorageController from '../../assets/controller/storageController'
 import { Video } from 'expo-av'
+import * as StorageService from "../../services/StorageService";
 
-export default function SessionComponent() {
+export default function ExerciseScreen() {
+
   const navigation = useNavigation()
 
   const route = useRoute()
@@ -17,7 +18,9 @@ export default function SessionComponent() {
   const [status, setStatus] = useState([])
   const [signal, setSignal] = useState([])
 
-  const exercise = StorageController.getNextExerciseBySectionId(sectionId)
+  const exercise = async () => {
+      return await StorageService.getNextExercise(sectionId);
+  }
 
   const video = useRef(0)
 

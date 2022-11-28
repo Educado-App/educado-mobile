@@ -2,9 +2,9 @@ import { useRoute, useNavigation } from '@react-navigation/native'
 import React from 'react'
 import CourseListUI from '../../components/easyDynComponents/courseListUI'
 import { View, Pressable, Text } from 'react-native'
-import StorageController from '../../assets/controller/storageController'
 import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/dev'
 import { AppLoading } from 'expo-app-loading'
+import  * as StorageService from "../../services/StorageService";
 
 export default function CourseScreen() {
   const route = useRoute()
@@ -14,7 +14,9 @@ export default function CourseScreen() {
   let course = null;
 
   if (route.params !== undefined) {
-    course = StorageController.getCourseById(route.params.courseId)
+    const course = async () => {
+      return await StorageService.getCourseById(route.params.courseId);
+    }
   }
 
   let [fontsLoaded] = useFonts({

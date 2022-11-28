@@ -104,7 +104,9 @@ export const getCourseById = async (courseId) => {
                             number: section.sectionNumber,
                             isComplete: false,
                         }
-
+                        
+                        //Future Work: Return object should be different for UI
+                        
                         currentSection.exercises = exerciseContent;
                         sections.push(currentSection);
                         await AsyncStorage.setItem(section.id, JSON.stringify(currentSection));
@@ -160,6 +162,7 @@ export const updateCompletionStatus = async (sectionId, exerciseId) => {
         console.error(e);
     }
 }
+
 export const getNextExercise = async (sectionId) => {
 
     try {

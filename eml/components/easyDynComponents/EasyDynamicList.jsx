@@ -5,11 +5,10 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import SectionItem from '../courses/courseBody/SectionItem'
 
-export default function easyDynamicList({ courseData }) {
+export default function easyDynamicList({ course }) {
     const navigation = useNavigation()
 
-    const courseSections = courseData.sections
-    const courseId = courseData.courseId
+    const courseSections = course.sections
 
     return (
         <View className="flex-auto grow pb-40 h-full">
@@ -17,9 +16,9 @@ export default function easyDynamicList({ courseData }) {
                 {courseSections.map((item, index) => {
                     return (
                         <SectionItem
-                            sectionId={courseSections[index].sectionId}
-                            courseId={courseId}
+                            sectionId={courseSections[index].id}
                             key={index}
+                            courseId={course.id}
                             title={item.title}
                             index={index + 1}
                         />

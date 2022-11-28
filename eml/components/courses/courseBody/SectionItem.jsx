@@ -3,7 +3,7 @@ import { Pressable, Text, View } from 'react-native'
 import PropTypes from 'prop-types'
 import { useNavigation } from '@react-navigation/native'
 
-export default function SectionItem({ title, index, courseId, sectionId }) {
+export default function SectionItem({ title, index, sectionId, courseId }) {
   SectionItem.propTypes = {
     title: PropTypes.string.isRequired,
     index: PropTypes.number.isRequired,
@@ -21,7 +21,7 @@ export default function SectionItem({ title, index, courseId, sectionId }) {
       onPress={() => {
         navigation.navigate('Exercise', {
           sectionId: sectionId,
-          courseId: courseId
+          courseId : courseId,
         })
       }}
     >

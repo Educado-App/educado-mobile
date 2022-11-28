@@ -12,7 +12,7 @@ import { ApplicationProvider, IconRegistry } from '@ui-kitten/components'
 import { EvaIconsPack } from '@ui-kitten/eva-icons'
 import RightAnswerScreen from './screens/excercise/RightAnswerScreen'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import SessionScreen from './screens/excercise/ExerciseScreen'
+import ExerciseScreen from './screens/excercise/ExerciseScreen'
 import WrongAnswerComponent from './screens/excercise/WrongAnswerScreen'
 import Explore from './screens/explore/Explore'
 import { TailwindProvider } from 'tailwindcss-react-native'
@@ -33,7 +33,7 @@ function CourseStack() {
       />
       <Stack.Screen
         name="Exercise"
-        component={SessionScreen}
+        component={ExerciseScreen}
         options={{
           headerShown: false
         }}
