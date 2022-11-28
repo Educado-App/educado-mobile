@@ -37,7 +37,7 @@ export const getCourseList = async () => {
         let courseList = JSON.parse(await AsyncStorage.getItem(COURSE_LIST));
 
         if (courseList == null) {
-            //should be changed to new api method with auth
+
             return await api.getCourses().then(
 
                 async list => {
@@ -50,11 +50,11 @@ export const getCourseList = async () => {
 
                         const localCourse = JSON.parse(await AsyncStorage.getItem(courseId));
 
-                        // Make new list with member isDownloaded
+                        // Make new list with required members
                         newCourseList.push({
                             title: course.title,
                             courseId: course.id,
-                            iconPath: course.category.icon, //Icon should be downloaded too
+                            iconPath: course.category.icon,
                             categoryId: course.category.id,
                             isActive: localCourse !== null,
                         });
@@ -83,9 +83,10 @@ export const getCourseById = async (courseId) => {
         if (course == null) {
 
             return await api.getCourse(courseId).then(
-                async requestedCourse => {
-                    let courseContent = [];
 
+                async requestedCourse => {
+
+                    let courseContent = [];
 
                     courseContent.title = requestedCourse.data.title;
 
@@ -97,7 +98,9 @@ export const getCourseById = async (courseId) => {
                             sectionNumber: section.sectionNumber,
                             exercises: []
                         }
+
                         let exerciseContent = [];
+
                         for (const exercise of section.exercises) {
                             let currentExercise = {
                                 obj: exercise,
@@ -108,32 +111,34 @@ export const getCourseById = async (courseId) => {
                         }
 
                         currentSection.exercises = exerciseContent;
-
                         courseContent.push(currentSection);
+
                         await AsyncStorage.setItem(section.id, JSON.stringify(currentSection));
                     }
-                    //courseContent.SortBy(courseContent.sectionNumber);
-
                     await AsyncStorage.setItem(courseId, JSON.stringify(courseContent));
                     return courseContent;
                 }
             );
 
         } else return course;
+
     } catch (e) {
         console.error(e);
     }
-
 }
 
 export const updateCompletionStatus = async (sectionId, exerciseId) => {
+
     try {
+
         let section = JSON.parse(await AsyncStorage.getItem(sectionId));
 
-        if (section !== null && exerciseId != null) {
-            for (const ex of section.exercises) {
-                if (ex.obj.id == exerciseId && ex.isComplete != true) {
-                    ex.isComplete = true;
+        if (section !== null && exerciseId !== null) {
+
+            for (const exercise of section.exercises) {
+
+                if (exercise.obj.id === exerciseId && exercise.isComplete !== true) {
+                    exercise.isComplete = true;
                     break;
                 }
             }
@@ -143,20 +148,26 @@ export const updateCompletionStatus = async (sectionId, exerciseId) => {
         } else {
             // explode
         }
+
         await AsyncStorage.setItem(sectionId, JSON.stringify(section));
+
     } catch (e) {
         console.error(e);
     }
 }
 
 export const getNextExercise = async (sectionId) => {
+
     try {
+
         let currentSection = JSON.parse(await AsyncStorage.getItem(sectionId))
 
         for (const exercise of currentSection.exercises) {
+
             if (!exercise.isComplete) {
                 return exercise;
             }
+
         }
 
     } catch (e) {
@@ -239,5 +250,4 @@ export const downloadCourse = async (courseId) => {
  */
 
 //Icon also should be downloaded
-
 //When Logout: back button should be disabled!!!!
