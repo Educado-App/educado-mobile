@@ -235,6 +235,62 @@ export const downloadCourse = async (courseId) => {
     } else console.log("error: course id is not defined!");
 }
 
+export const downloadTestCourse = async (courseId) => {
+
+    if (courseId !== undefined) {
+
+        try {
+
+            const course = JSON.parse(await AsyncStorage.getItem(courseId));
+
+            if (course !== null) {
+
+                const courseDirectory = course.data.id;
+                const icon = course.data.category.icon;
+                const sections = course.data.sections;
+
+                //making directory for the course
+                await DirectoryService.CreateDirectory(courseDirectory);
+
+                //downloading the icon for the course
+                await DirectoryService.DownloadAndStoreContent(icon, courseDirectory, 'courseIcon')
+                    .then(localUri => {
+                        course.data.icon = localUri;
+                    })
+                    .catch(error => { console.log(error) });
+
+                //downloading each video of the exercises and storing in their respective sections
+                for (const section of sections) {
+
+                    const sectionDirectory = courseDirectory + '/' + section.id;
+                    await DirectoryService.CreateDirectory(sectionDirectory);
+
+                    for (const exercise of section.exercises) {
+
+                        const url = exercise.content;
+
+                        await DirectoryService.DownloadAndStoreContent(url, sectionDirectory, exercise.id)
+                            .then(localUri => {
+                                exercise.content = localUri;
+                            })
+                            .catch(error => { console.log(error); });
+                    }
+                }
+
+                //store the downloaded course back in the AsyncStorage
+                await AsyncStorage.setItem(courseId, JSON.stringify(course));
+
+            } else {
+                return console.log("error: course not found!");
+            }
+
+        } catch (e) {
+            console.error(e);
+        }
+
+    } else console.log("error: course id is not defined!");
+}
+
 //getSectionList(course-id)
 //getSectionById(section-id)
 //getExerciseList(section-id)

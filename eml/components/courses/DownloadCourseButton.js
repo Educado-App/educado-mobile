@@ -13,7 +13,7 @@ const downloadCourseButton = ({courseId}) => {
 
     const downloadCourse = async () => {
         setDownloadState(0);
-        await StorageService.downloadCourse(courseId)
+        await StorageService.downloadTestCourse(courseId)
             .then(()=>{
                 console.log("download finished"); setDownloadState(1)})
             .catch((error)=>{

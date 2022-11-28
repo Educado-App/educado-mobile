@@ -2,8 +2,9 @@ import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import CourseTitleIcon from './courseHeader/CourseTitleIcon'
 import PropTypes from 'prop-types'
+import DownloadCourseButton from "./DownloadCourseButton";
 
-export default function CourseHeader({ courseTitle, courseIcon }) {
+export default function CourseHeader({ courseTitle, courseIcon, courseId }) {
 
   CourseHeader.propTypes = {
     courseTitle: PropTypes.string.isRequired,

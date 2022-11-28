@@ -16,6 +16,9 @@ export default function TestComponent() {
     async function test() {
         console.log(await AsyncStorage.getAllKeys());
     }
+    async function clear() {
+        console.log(await AsyncStorage.clear());
+    }
     async function test2() {
         const course = await StorageService.getCourseById("635fb5b9b2fb6c4f49084682");
         console.log(course.data);
@@ -91,7 +94,7 @@ export default function TestComponent() {
     }
 
     useEffect(() => {
-        //test6()
+        //test()
         //makeTestCourse();
         //readDir('635fb5b9b2fb6c4f49084682');
         //downloadTest();

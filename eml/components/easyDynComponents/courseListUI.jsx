@@ -11,6 +11,7 @@ export default function CourseListUI({ course }) {
             <CourseHeader
                 courseTitle={course.title}
                 courseIcon={course.iconPath}
+                courseId={course.id}
             ></CourseHeader>
             <EasyDynamicList courseData={course} ></EasyDynamicList>
         </View>
