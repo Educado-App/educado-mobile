@@ -224,6 +224,7 @@ export const downloadCourse = async (courseId) => {
                     }
                 }
 
+
                 //store the downloaded course back in the AsyncStorage
                 course.isActive = true;
                 await AsyncStorage.setItem(courseId, JSON.stringify(course));
