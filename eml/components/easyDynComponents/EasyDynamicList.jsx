@@ -11,7 +11,9 @@ export default function easyDynamicList({ course }) {
 
     const courseSections = course.sections;
 
-    
+    course
+
+
 
 
     return (
