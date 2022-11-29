@@ -12,8 +12,6 @@ export async function CreateDirectory(name) {
       } catch (error) {
         return "Error Creating directory. (Maybe It already exists?)"
       }
-    }
-
 }
 
 export function ReadDirectory(name){
@@ -23,7 +21,7 @@ export function ReadDirectory(name){
         let items;
 
         try {
-             await FileSystem.readDirectoryAsync(FileSystem.documentDirectory + name)
+             FileSystem.readDirectoryAsync(FileSystem.documentDirectory + name)
                 .then(filesInDirectory => {
                     items = filesInDirectory;
                 })
