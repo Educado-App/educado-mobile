@@ -18,55 +18,82 @@ jest.mock('expo-file-system', () => ({
 //Success cases
 
 describe('CreateDirectory', () => {
-    it('Should return a string confirming that a directory named "Test" was successfully created', async () => {
-        CreateDirectory("Test").then(r => {expect(r).toBe("Created directory: Test")} )
+    it('Should return a string confirming that a directory named "Test" was successfully created', () => {
+        expect(CreateDirectory("Test")).toBe("Created directory: Test")
     })
 })
 
-it('Should read and return contents of a directory with name "Test', async () => {
-    ReadDirectory("Test").then(r => {expect(r).toBe(undefined)})
+it('Should read and return contents of a directory with name "Test', () => {
+    expect(ReadDirectory("Test")).toBe(undefined)
 })
 
 describe('DeleteDirectory', () => {
-    it('Should delete a created directory with name "Test2', async () => {
-        DeleteDirectory("Test").then(r => {expect(r).toBe("Deleted directory: Test")})
+    it('Should delete a created directory with name "Test', () => {
+        expect(DeleteDirectory("Test")).toBe("Deleted directory: Test")
     })
 })
 
-test('Should return a URI to a locally stored downloaded video', async () => {
-    DownloadAndStoreVideo('https://cdn.discordapp.com/attachments/594427121812897817/1040396889616560279/RPReplay_Final1668120192.mov', 'Test4')
-    .then(r => {expect.toBe(undefined)})
+test('Should return a URI to a locally stored downloaded video', () => {
+    expect(DownloadAndStoreVideo('TestVideo', 'TestDirectory')).toBe("file:///test-directory/TestDirectory/TestVideo")
     
 })
 
-test('Should return confirmation that the specified video was deleted', async () => {
-    DeleteVideoByUri("Test")
-    .then(r => {expect.toBe("Test Successfully Deleted!")})
+test('Should return confirmation that the specified video was deleted', () => {
+    expect(DeleteVideoByUri("Test")).toBe("Test Successfully Deleted!")
 })
 
 test('Should return confirmation that video in the specified directory was deleted', async () => {
-    DeleteVideoByName("testVideo", "testDirectory")
-    .then(r => {expect.toBe("testVideo deleted!")})
+    expect(DeleteVideoByName("testVideo", "testDirectory")).toBe("testVideo deleted!")
 })
+
 
 //Function failure cases
 
 describe('CreateDirectory', () => {
-    it('Should return an error string', async () => {
-        FileSystem.makeDirectoryAsync.mockResolvedValue(new Error())
-        CreateDirectory("Test").then(r => {expect(r).toBe("Error Creating directory. (maybe It already exists)")} )
+    it('Should return an error string', () => {
+        FileSystem.makeDirectoryAsync.mockImplementation(() => {
+            throw new Error();
+          });
+        expect(CreateDirectory("Test")).toBe("Error Creating directory. (Maybe It already exists?)")
     })
 })
 
 
 it('Should return an error string', async () => {
-    FileSystem.readDirectoryAsync.mockResolvedValue(new Error())
-    ReadDirectory("Test").then(r => {expect(r).toBe("Error Reading directory (maybe it is not yet created)")})
+    FileSystem.readDirectoryAsync.mockImplementation(() => {
+        throw new Error();
+      });
+    expect(ReadDirectory("Test")).toBe("Error reading directory. (Maybe it doesn't exist?)")
 })
 
 describe('DeleteDirectory', () => {
-    FileSystem.deleteAsync.mockResolvedValue(new Error())
     it('Should return an error string', async () => {
-        DeleteDirectory("Test").then(r => {expect(r).toBe("Error deleting the directory")})
+        FileSystem.deleteAsync.mockImplementation(() => {
+            throw new Error();
+          });
+        expect(DeleteDirectory("Test")).toBe("Error deleting the directory")
     })
+})
+
+test('Should return an error string', async () => {
+    FileSystem.downloadAsync.mockImplementation(() => {
+        throw new Error();
+      });
+    expect(DownloadAndStoreVideo('TestVideo', 'TestDirectory')).toBe("Error downloading content")
+    
+})
+
+test('Should return confirmation that the specified video was deleted', () => {
+    FileSystem.deleteAsync.mockImplementation(() => {
+        throw new Error();
+      });
+    expect(DeleteVideoByUri("Test")).toBe("Error deleting specified video")
+})
+
+
+test('Should return an error string', () => {
+    FileSystem.deleteAsync.mockImplementation(() => {
+        throw new Error();
+      });
+    expect(DeleteVideoByName("testVideo", "testDirectory")).toBe("Error deleting video in specified directory")
 })
