@@ -1,4 +1,5 @@
 import { CreateDirectory, DeleteDirectory, DeleteVideoByName, DeleteVideoByUri, DownloadAndStoreVideo, ReadDirectory } from "../../services/DirectoryService";
+import * as FileSystem from 'expo-file-system';
 
 jest.mock('expo-file-system', () => ({
     downloadAsync: jest.fn(() => Promise.resolve({ md5: 'md5', uri: 'uri' })),
@@ -45,4 +46,26 @@ test('Should return confirmation that the specified video was deleted', async ()
 test('Should return confirmation that video in the specified directory was deleted', async () => {
     DeleteVideoByName("testVideo", "testDirectory")
     .then(r => {expect.toBe("testVideo deleted!")})
+})
+
+//Function failure cases
+
+describe('CreateDirectory', () => {
+    it('Should return an error string', async () => {
+        FileSystem.makeDirectoryAsync.mockResolvedValue(new Error())
+        CreateDirectory("Test").then(r => {expect(r).toBe("Error Creating directory. (maybe It already exists)")} )
+    })
+})
+
+
+it('Should return an error string', async () => {
+    FileSystem.readDirectoryAsync.mockResolvedValue(new Error())
+    ReadDirectory("Test").then(r => {expect(r).toBe("Error Reading directory (maybe it is not yet created)")})
+})
+
+describe('DeleteDirectory', () => {
+    FileSystem.deleteAsync.mockResolvedValue(new Error())
+    it('Should return an error string', async () => {
+        DeleteDirectory("Test").then(r => {expect(r).toBe("Error deleting the directory")})
+    })
 })
