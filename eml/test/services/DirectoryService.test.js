@@ -15,6 +15,7 @@ jest.mock('expo-file-system', () => ({
     documentDirectory: "file:///test-directory/",
   }));
 
+//Success cases
 
 describe('CreateDirectory', () => {
     it('Should return a string confirming that a directory named "Test" was successfully created', async () => {
