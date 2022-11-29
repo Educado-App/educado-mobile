@@ -11,15 +11,12 @@ export default function easyDynamicList({ course }) {
 
     const courseSections = course.sections;
 
-    course
-
-
-
+    const isActive = course.isActive;
 
     return (
         <View className="flex-auto grow pb-40 h-full">
             <ScrollView>
-                {courseSections.map((item, index) => {
+                {isActive ? courseSections.map((item, index) => {
                     return (
                         <SectionItem
                             sectionId={item.id}
@@ -29,7 +26,7 @@ export default function easyDynamicList({ course }) {
                             index={index + 1}
                         />
                     )
-                })}
+                }) : <Text className="text-center text-2xl">This course is not downloaded!</Text>}
             </ScrollView>
         </View>
     )
