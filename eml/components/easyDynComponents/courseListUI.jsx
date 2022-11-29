@@ -10,7 +10,7 @@ export default function CourseListUI({ course }) {
         <View>
             <CourseHeader
                 courseTitle={course.title}
-                courseIcon={course.iconPath}
+                courseIcon={course.icon}
                 courseId={course.id}
             ></CourseHeader>
             <EasyDynamicList course={course} ></EasyDynamicList>

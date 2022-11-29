@@ -95,6 +95,7 @@ export default function TestComponent() {
 
     useEffect(() => {
         //test()
+        //clear()
         //makeTestCourse();
         //readDir('635fb5b9b2fb6c4f49084682');
         //downloadTest();

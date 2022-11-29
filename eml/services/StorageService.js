@@ -101,6 +101,7 @@ export const getCourseById = async (courseId) => {
 
                         let currentSection = {
                             id: section.id,
+                            title: section.title,
                             number: section.sectionNumber,
                             isComplete: false,
                         }
