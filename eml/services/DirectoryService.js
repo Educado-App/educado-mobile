@@ -7,13 +7,14 @@ export function CreateDirectory(name) {
 
     try {
         FileSystem.makeDirectoryAsync(FileSystem.documentDirectory + name);
-      
+
         return "Created directory: " + name;
       } catch (error) {
         return "Error Creating directory. (Maybe It already exists?)"
       }
 
 }
+
 export function ReadDirectory(name){
 
         //Returns an ARRAY containing the names of existing items in the directory (name)
@@ -25,12 +26,14 @@ export function ReadDirectory(name){
                 .then(filesInDirectory => {
                     items = filesInDirectory;
                 })
+
                 return items;
         }
         catch (error){
             return "Error reading directory. (Maybe it doesn't exist?)"
         }
     }
+
 export function DeleteDirectory(name){
 
     //Delete the directory located by name
@@ -61,6 +64,7 @@ export function DownloadAndStoreVideo(url, directory){
             return "Error downloading content"
         }
     }
+
 export function DeleteVideoByUri(uri) {
 
         //Delete the video located in the uri
@@ -73,6 +77,7 @@ export function DeleteVideoByUri(uri) {
             return "Error deleting specified video";
         }
     }
+    
 export function DeleteVideoByName(name, directory) {
 
         //Delete the video located in the local directory by its name
