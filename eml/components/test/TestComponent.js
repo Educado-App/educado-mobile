@@ -20,7 +20,7 @@ export default function TestComponent() {
         console.log(await AsyncStorage.clear());
     }
     async function test2() {
-        const course = await StorageService.getCourseById("635fb5b9b2fb6c4f49084682");
+        const course = await StorageService.getCourseById("637b9c65c4e8874614ff3bb2");
         console.log(course.data);
     }
     async function test3() {
@@ -95,14 +95,16 @@ export default function TestComponent() {
 
     useEffect(() => {
         //test()
+        //test3()
+        //test2()
         //clear()
         //makeTestCourse();
         //readDir('635fb5b9b2fb6c4f49084682');
         //downloadTest();
         //checkNewGetCourseById("635fb5b9b2fb6c4f49084682");
-        //updateExercise('63679d8119dd0a38a4673fd4', '637609e627a91f4ba637f98e'); // set exercise 1 as complete
-        //updateExercise('63679d8119dd0a38a4673fd4', '637b87706af7d5d52cd27504'); // set exercise 2 as complete
-        //getNextExercise('63679d8119dd0a38a4673fd4'); // get first exercise of this sectionId where isComplete = false
+        //updateExercise('637b9c65c4e8874614ff3bb2', '637b87706af7d5d52cd27504'); // set exercise 1 as complete
+        //updateExercise('637b9c65c4e8874614ff3bb2', '637b9bdf4868f03e24dcb097'); // set exercise 2 as complete
+        //getNextExercise('6385d6f6ca2ade86fca55f33'); // get first exercise of this sectionId where isComplete = false
         //test4();
         //CreateDirectory('test');
         //ReadDirectory('test');

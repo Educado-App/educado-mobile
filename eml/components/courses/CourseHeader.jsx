@@ -17,14 +17,14 @@ export default function CourseHeader({ courseTitle, courseIcon, courseId }) {
         title={courseTitle}
         courseIcon={courseIcon}
       ></CourseTitleIcon>
-        <DownloadCourseButton courseId={'@testKev'} style={styles.downloadButton}></DownloadCourseButton>
+      <DownloadCourseButton courseId={courseId} style={styles.downloadButton}></DownloadCourseButton>
     </View>
   )
 }
 
 
 const styles = StyleSheet.create({
-    downloadButton: {
-        marginLeft: '75%'
-    }
+  downloadButton: {
+    marginLeft: '75%'
+  }
 })

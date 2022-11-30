@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar'
 import { React, useEffect, useRef, useState } from 'react'
-import { Alert, StyleSheet, View } from 'react-native'
+import { Alert, StyleSheet, View, Text } from 'react-native'
 import LeaveButton from '../../components/exercise/LeaveButton'
 import ExerciseButtons from '../../components/exercise/ExerciseButtons'
 import { useNavigation, useRoute } from '@react-navigation/native'
@@ -15,12 +15,26 @@ export default function ExerciseScreen() {
 
   const { sectionId, courseId } = route.params
 
+  const [flag, setFlag] = useState(false)
+
   const [status, setStatus] = useState([])
   const [signal, setSignal] = useState([])
+  const [exerciseData, setExerciseData] = useState({})
 
-  const exercise = async () => {
-      return await StorageService.getNextExercise(sectionId);
+
+  async function getExercise() {
+      const exercise = await StorageService.getNextExercise(sectionId)
+      setExerciseData(exercise)
   }
+
+  useEffect(() => {
+      getExercise().then(() => {
+        setFlag(true)
+    });
+      
+  }, [exerciseData])
+
+
 
   const video = useRef(0)
 
@@ -41,6 +55,9 @@ export default function ExerciseScreen() {
               navigationPlace={'Course'}
               courseId={courseId}
             ></LeaveButton>
+          </View>
+          <View>
+            {flag ?  <Text>{exerciseData.answers[0].text}</Text>  : <Text>loading</Text>}
           </View>
           <View
             style={[
@@ -70,7 +87,7 @@ export default function ExerciseScreen() {
         </View>
       </View>
       <View style={{ flex: 2, width: '100%' }}>
-        {exercise === null ? (
+        {exerciseData === null ? (
           Alert.alert(
             'Good job you completed the section!',
             'Congratulations!',
@@ -86,7 +103,7 @@ export default function ExerciseScreen() {
             uri={exercise.content.uri} signal={status}
           ></LearningInputVideoExample1> */
           <Video
-            source={{ uri: exercise.content }}
+            source={{ uri: exerciseData.content }}
             rate={1.0}
             volume={1.0}
             isMuted={false}
@@ -101,8 +118,8 @@ export default function ExerciseScreen() {
       </View>
       <View style={{ flex: 3 }}>
         <ExerciseButtons
-          answers={exercise.answers}
-          exerciseId={exercise.id}
+          answers={exerciseData.answers}
+          exerciseId={exerciseData.id}
           courseId={courseId}
           sectionId={sectionId}
           setSignal={setSignal}

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Layout, Button, ListItem } from '@ui-kitten/components'
 import { Icon } from '@rneui/base'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
@@ -11,12 +11,17 @@ export default function easyDynamicList({ course }) {
 
     const courseSections = course.sections;
 
-    const isActive = course.isActive;
+
+    const [active, setActive] = React.useState(null);
+
+    useEffect(() => {
+        setActive(course.isActive);
+    }, [active])
 
     return (
         <View className="flex-auto grow pb-40 h-full">
             <ScrollView>
-                {isActive ? courseSections.map((item, index) => {
+                {courseSections.map((item, index) => {
                     return (
                         <SectionItem
                             sectionId={item.id}
@@ -26,8 +31,23 @@ export default function easyDynamicList({ course }) {
                             index={index + 1}
                         />
                     )
-                }) : <Text className="text-center text-2xl">This course is not downloaded!</Text>}
+                })}
             </ScrollView>
         </View>
     )
 }
+
+
+{/* <ScrollView>
+{active ? courseSections.map((item, index) => {
+    return (
+        <SectionItem
+            sectionId={item.id}
+            key={index}
+            courseId={course.id}
+            title={item.title}
+            index={index + 1}
+        />
+    )
+}) : <Text className="text-center text-2xl">This course is not downloaded!</Text>}
+</ScrollView> */}

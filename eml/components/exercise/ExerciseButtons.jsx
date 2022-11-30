@@ -7,6 +7,8 @@ import PropTypes from 'prop-types'
 
 import * as StorageService from '../../services/StorageService';
 
+
+
 const voiceOvers = [
   require('../../assets/voice1.mp3'),
   require('../../assets/voice2.mp3'),
@@ -241,6 +243,7 @@ export default function ExerciseButtons({ exerciseId, answers, sectionId, course
             type="material-community"
             color="#CFE9EF"
             onPress={() => {
+              StorageService.updateCompletionStatus(sectionId, exerciseId)
               setButton(true)
               checkChoice(choice)
             }}

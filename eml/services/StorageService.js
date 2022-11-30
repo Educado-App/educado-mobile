@@ -172,6 +172,7 @@ export const getNextExercise = async (sectionId) => {
         for (const exercise of currentSection.exercises) {
 
             if (!exercise.isComplete) {
+                
                 return exercise;
             }
 

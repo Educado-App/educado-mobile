@@ -17,7 +17,7 @@ export default function CourseScreen() {
     const [bool, setBool] = useState(false);
     let courseId = null
     if (route.params !== undefined) {
-      courseId  = route.params.courseId;
+        courseId = route.params.courseId;
 
     }
 
