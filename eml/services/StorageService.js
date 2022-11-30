@@ -197,33 +197,30 @@ export const downloadCourse = async (courseId) => {
                 const sections = course.sections;
 
                 //making directory for the course
-                DirectoryService.CreateDirectory(courseDirectory);
+                await DirectoryService.CreateDirectory(courseDirectory);
 
                 //downloading the icon for the course
-                try {
-                    course.icon = DirectoryService.DownloadAndStoreContent(icon, courseDirectory, 'courseIcon')
-                }
-                catch(error){
-                    console.log(error)
-                }
+                await DirectoryService.DownloadAndStoreContent(icon, courseDirectory, 'courseIcon')
+                    .then(localUri => {
+                        course.icon = localUri;
+                    })
+                    .catch(error => { console.log(error) });
 
                 //downloading each video of the exercises and storing in their respective sections
                 for (const section of sections) {
 
                     const sectionDirectory = courseDirectory + '/' + section.id;
-                    DirectoryService.CreateDirectory(sectionDirectory);
+                    await DirectoryService.CreateDirectory(sectionDirectory);
 
                     for (const exercise of section.exercises) {
 
                         const url = exercise.content;
 
-                        try{
-                            DirectoryService.DownloadAndStoreContent(url, sectionDirectory, exercise.id)
-    
-                            exercise.content = localUri;
-                            
-                        }
-                        catch(error) {console.log(error) }
+                        await DirectoryService.DownloadAndStoreContent(url, sectionDirectory, exercise.id)
+                            .then(localUri => {
+                                exercise.content = localUri;
+                            })
+                            .catch(error => { console.log(error); });
                     }
                 }
 
@@ -258,29 +255,30 @@ export const downloadTestCourse = async (courseId) => {
                 const sections = course.data.sections;
 
                 //making directory for the course
-                DirectoryService.CreateDirectory(courseDirectory);
+                await DirectoryService.CreateDirectory(courseDirectory);
 
                 //downloading the icon for the course
-                try {
-                    course.data.icon = DirectoryService.DownloadAndStoreContent(icon, courseDirectory, 'courseIcon')
-                }
-                catch(error) {console.log(error)}
+                await DirectoryService.DownloadAndStoreContent(icon, courseDirectory, 'courseIcon')
+                    .then(localUri => {
+                        course.data.icon = localUri;
+                    })
+                    .catch(error => { console.log(error) });
 
                 //downloading each video of the exercises and storing in their respective sections
                 for (const section of sections) {
 
                     const sectionDirectory = courseDirectory + '/' + section.id;
-                    DirectoryService.CreateDirectory(sectionDirectory);
+                    await DirectoryService.CreateDirectory(sectionDirectory);
 
                     for (const exercise of section.exercises) {
 
                         const url = exercise.content;
 
-                        try {
-                            exercise.content = DirectoryService.DownloadAndStoreContent(url, sectionDirectory, exercise.id)
-                        }
-        
-                        catch(error){ console.log(error)}
+                        await DirectoryService.DownloadAndStoreContent(url, sectionDirectory, exercise.id)
+                            .then(localUri => {
+                                exercise.content = localUri;
+                            })
+                            .catch(error => { console.log(error); });
                     }
                 }
 
