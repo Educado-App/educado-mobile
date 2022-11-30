@@ -7,7 +7,6 @@ import { SelectList } from 'react-native-dropdown-select-list'
 import ActiveExploreCard from '../../components/explore/ActiveExploreCard'
 import ExploreCard from '../../components/explore/ExploreCard'
 import * as StorageService from '../../services/StorageService'
-import StorageController from '../../assets/controller/storageController'
 
 export default function Explore() {
 
@@ -21,29 +20,20 @@ export default function Explore() {
         VarelaRound_400Regular
     })
 
-
-
-    //const courseList = StorageService.getCourseList();
-    const courseList = StorageController.getCourseList()
+    async function loadViews() {
+        const courseList = await StorageService.getCourseList();
+        const componentPromises = courseList.map(({ title, iconPath, isActive, courseId, categoryId }, index) => {
+            if ((isActive && categoryId === selected) || (isActive && selected === -1)) {
+                return <ActiveExploreCard key={index} title={title} courseId={courseId} iconPath={iconPath} />;
+            } else if ((!(isActive) && categoryId === selected) || (!(isActive) && selected === -1)) {
+                return <ExploreCard key={index} title={title} courseId={courseId}></ExploreCard>
+            }
+        });
+        Promise.all(componentPromises).then(setViews);
+    }
 
     useEffect(() => {
-        async function loadViews() {
-            try {
-                const componentPromises = courseList.map(({ title, iconPath, isDownloaded, courseId, category }, index) => {
-                    if ((isDownloaded && category === selected) || (isDownloaded && selected === -1)) {
-                        return <ActiveExploreCard key={index} title={title} courseId={courseId} iconPath={iconPath} />;
-                    } else if ((!(isDownloaded) && category === selected) || (!(isDownloaded) && selected === -1)) {
-                        return <ExploreCard key={index} title={title} courseId={courseId}></ExploreCard>
-                    }
-                    Promise.reject(new Error("Undefined courseList"))
-                    return null
-                });
-                await Promise.all(componentPromises).then(setViews);
-            } catch (e) {
-                console.log("this is the error " + e)
-            }
-            return null
-        }
+
         loadViews();
 
     }, [selected])

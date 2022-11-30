@@ -4,20 +4,24 @@ import * as FileSystem from 'expo-file-system';
 export async function CreateDirectory(name) {
 
     //Create a Directory by the (name)
+    if (name !== undefined){
 
-    try {
-         await FileSystem.makeDirectoryAsync(FileSystem.documentDirectory + name)
-            .then( () =>{
-                    console.log("Created directory: " + name);
-                }
-            )
-            .catch(error => {
-                console.log("Error Creating directory. (maybe It already exists)");
-            });
-    }
-    catch (error){
-        console.log(error);
-    }
+        try {
+            await FileSystem.makeDirectoryAsync(FileSystem.documentDirectory + name)
+                .then( () =>{
+                        console.log("Created directory: " + name);
+                        return name;
+                    }
+                )
+                .catch(error => {
+                    console.log(error)
+                });
+        }
+        catch (error){
+            console.log(error);
+        }
+
+    } else console.log("error: directory must have a name!");
 
 }
 export async function ReadDirectory(name){
@@ -53,7 +57,7 @@ export async function DeleteDirectory(name){
                 console.log("Deleted directory " + name);
             })
             .catch(error => {
-                console.log("Error deleting the directory");
+                console.log("Error deleting the directory. (maybe it doesn't exist)");
             });
     }
     catch (error){
@@ -62,14 +66,14 @@ export async function DeleteDirectory(name){
 
 }
 
-export async function DownloadAndStoreVideo(url, directory){
+export async function DownloadAndStoreContent(url, directory, name){
 
         //DOWNLOAD the video from the 'url' and STORE it in the 'directory'
         //Returns the local uri to the file
         //The name of the file is a substring of the url from the last '/'
         //For example : http://example.com/video.mp4 will be named 'video.mp4'
 
-        const localUri = FileSystem.documentDirectory + directory + '/' + url.substring(url.lastIndexOf('/') + 1);
+        const localUri = FileSystem.documentDirectory + directory + '/' + name;
 
         try {
               await FileSystem.downloadAsync(url, localUri)

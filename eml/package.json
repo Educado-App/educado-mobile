@@ -38,6 +38,7 @@
     "@rneui/base": "^4.0.0-rc.6",
     "@rneui/themed": "^4.0.0-rc.6",
     "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@types/react": "^18.0.25",
     "@ui-kitten/components": "^5.1.2",
     "@ui-kitten/eva-icons": "^5.1.2",
     "axios": "^0.27.2",

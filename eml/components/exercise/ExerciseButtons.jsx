@@ -4,8 +4,10 @@ import { Icon } from '@rneui/themed'
 import { useNavigation } from '@react-navigation/native'
 import { Audio } from 'expo-av'
 import PropTypes from 'prop-types'
-import StorageController from '../../assets/controller/storageController'
-import * as Speech from 'expo-speech'
+
+import * as StorageService from '../../services/StorageService';
+
+
 
 const voiceOvers = [
   require('../../assets/voice1.mp3'),
@@ -87,11 +89,19 @@ export default function ExerciseButtons({ exerciseId, answers, sectionId, course
     setChoice(evt)
   }
 
+  const updateExercise = async (sectionId, exerciseId) => {
+    await StorageService.updateCompletionStatus(sectionId, exerciseId)
+
+  }
 
   function checkChoice(choice) {
+
     setSignal(0)
-    StorageController.updateExerciseBySectionId(exerciseId)
-    const rightAnswer = findRightAnswer()
+
+    updateExercise(sectionId, exerciseId);
+
+    const rightAnswer = findRightAnswer();
+
     setSelected({
       ...selected,
       btn1: false,
@@ -220,6 +230,7 @@ export default function ExerciseButtons({ exerciseId, answers, sectionId, course
             type="material-community"
             color="#CFE9EF"
             onPress={() => {
+              StorageService.updateCompletionStatus(sectionId, exerciseId)
               setButton(true)
               checkChoice(choice)
             }}
