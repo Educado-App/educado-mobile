@@ -4,9 +4,8 @@ import { Icon } from '@rneui/themed'
 import { useNavigation } from '@react-navigation/native'
 import { Audio } from 'expo-av'
 import PropTypes from 'prop-types'
-
 import * as StorageService from '../../services/StorageService';
-
+import * as Speech from 'expo-speech'
 
 
 const voiceOvers = [
