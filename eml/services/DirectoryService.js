@@ -3,20 +3,28 @@ import * as FileSystem from 'expo-file-system';
 
 export async function CreateDirectory(name) {
 
-    //Create a Directory with "name"
+    //Create a Directory by the (name)
+    if (name !== undefined){
 
-    try {
-        FileSystem.makeDirectoryAsync(FileSystem.documentDirectory + name);
+        try {
+            await FileSystem.makeDirectoryAsync(FileSystem.documentDirectory + name)
+                .then( () =>{
+                        console.log("Created directory: " + name);
+                        return name;
+                    }
+                )
+                .catch(error => {
+                    console.log(error)
+                });
+        }
+        catch (error){
+            console.log(error);
+        }
 
-        return "Created directory: " + name;
-      } catch (error) {
-        return "Error Creating directory. (Maybe It already exists?)"
-      }
-    }
+    } else console.log("error: directory must have a name!");
 
 }
-
-export function ReadDirectory(name){
+export async function ReadDirectory(name){
 
         //Returns an ARRAY containing the names of existing items in the directory (name)
 
@@ -26,26 +34,36 @@ export function ReadDirectory(name){
              await FileSystem.readDirectoryAsync(FileSystem.documentDirectory + name)
                 .then(filesInDirectory => {
                     items = filesInDirectory;
+                    console.log(items);
                 })
-
-                return items;
+                .catch(error => {
+                    console.log("Error Reading directory (maybe it is not yet created)");
+                })
         }
         catch (error){
-            return "Error reading directory. (Maybe it doesn't exist?)"
+            console.log(error);
         }
-    }
 
-export function DeleteDirectory(name){
+        return items;
+
+    }
+export async function DeleteDirectory(name){
 
     //Delete the directory located by name
 
     try {
-        FileSystem.deleteAsync(FileSystem.documentDirectory + name)
-        return "Deleted directory: " + name;
-        }
-    catch (error){
-        return "Error deleting the directory";
+         await FileSystem.deleteAsync(FileSystem.documentDirectory + name)
+            .then(() => {
+                console.log("Deleted directory " + name);
+            })
+            .catch(error => {
+                console.log("Error deleting the directory. (maybe it doesn't exist)");
+            });
     }
+    catch (error){
+        console.log("error");
+    }
+
 }
 
 export async function DownloadAndStoreContent(url, directory, name){
@@ -58,39 +76,54 @@ export async function DownloadAndStoreContent(url, directory, name){
         const localUri = FileSystem.documentDirectory + directory + '/' + name;
 
         try {
-            FileSystem.downloadAsync(url, localUri)
-            return localUri;
+              await FileSystem.downloadAsync(url, localUri)
+                .then(({ uri }) => {
+                    console.log('Finished downloading to', uri);
+                    return localUri;
+                })
+                .catch(error => {
+                    console.error(error);
+                });
         }
         catch (error){
-            return "Error downloading content"
+            console.log(error);
         }
     }
-
-export function DeleteVideoByUri(uri) {
+export async function DeleteVideoByUri(uri) {
 
         //Delete the video located in the uri
 
         try {
-            FileSystem.deleteAsync(uri)
-            return uri.substring(uri.lastIndexOf('/') + 1) + " Successfully Deleted!";
+             await FileSystem.deleteAsync(uri)
+                .then(() => {
+                    console.log(uri.substring(uri.lastIndexOf('/') + 1) + " Successfully Deleted!");
+                })
+                .catch(error => {
+                    console.log(error);
+                });
         }
         catch (error){
-            return "Error deleting specified video";
+
+            console.log(error);
         }
     }
-    
-export function DeleteVideoByName(name, directory) {
+export async function DeleteVideoByName(name, directory) {
 
         //Delete the video located in the local directory by its name
 
         let localName = FileSystem.documentDirectory + directory + '/' + name;
 
         try {
-            FileSystem.deleteAsync(localName)
-            return name + " deleted!";
+             await FileSystem.deleteAsync(localName)
+                .then(() => {
+                    console.log(name + " deleted!");
+                })
+                .catch(error => {
+                    console.log(error);
+                });
         }
         catch (error){
-            return "Error deleting video in specified directory";
+            console.log(error);
         }
     }
 
