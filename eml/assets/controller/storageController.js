@@ -8,7 +8,7 @@ function getCourseList() {
 }
 
 function getCourseById(id) {
-  return getCourseByIdData
+  return getCourseByIdData[id - 1]
 }
 
 function getNextExerciseBySectionId(sectionId) {
@@ -19,12 +19,17 @@ function getFeedBackByExerciseId(exerciseId) {
   return getFeedBackByExerciseIdData
 }
 
-function updateExerciseBySectionId(exerciseId) {}
+function updateExerciseBySectionId(exerciseId) { }
+
+function isCourseActive(courseId) {
+  return getCourseListData[courseId - 1].isDownloaded
+}
 
 export default {
   getCourseList,
   getCourseById,
   getNextExerciseBySectionId,
   getFeedBackByExerciseId,
-  updateExerciseBySectionId
+  updateExerciseBySectionId,
+  isCourseActive
 }

@@ -23,22 +23,22 @@ export default function CourseScreen() {
 
   if (!fontsLoaded) {
     return AppLoading
-} else {
-  return (
-    <View className="bg-babyBlue flex-1">
-      {course !== null ? (
-        <CourseListUI course={course}></CourseListUI>
-      ) : (
-        <View className="flex-1 justify-center items-center">
-        <Pressable
-        style={{elevation:10}}
-        className="border border-cyanBlue rounded-md bg-cyanBlue p-2"
-        onPress={() => navigation.navigate('Explore')}>
-        <Text className ="text-white" style={{ fontSize: 30, fontFamily: 'VarelaRound_400Regular' }}> Click to explore courses</Text>
-        </Pressable>
-        </View>
-      )}
-    </View>
-  )
-}
+  } else {
+    return (
+      <View className="bg-babyBlue flex-1">
+        {course !== null ? (
+          <CourseListUI course={course}></CourseListUI>
+        ) : (
+          <View className="flex-1 justify-center items-center">
+            <Pressable
+              style={{ elevation: 10 }}
+              className="border border-cyanBlue rounded-md bg-cyanBlue p-2"
+              onPress={() => navigation.navigate('Explore')}>
+              <Text className="text-white" style={{ fontSize: 30, fontFamily: 'VarelaRound_400Regular' }}> Click to explore courses</Text>
+            </Pressable>
+          </View>
+        )}
+      </View>
+    )
+  }
 }

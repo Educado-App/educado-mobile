@@ -4,8 +4,8 @@ import { Icon } from '@rneui/themed'
 import { useNavigation } from '@react-navigation/native'
 import { Audio } from 'expo-av'
 import PropTypes from 'prop-types'
-
 import StorageController from '../../assets/controller/storageController'
+import * as Speech from 'expo-speech'
 
 const voiceOvers = [
   require('../../assets/voice1.mp3'),
@@ -43,25 +43,12 @@ export default function ExerciseButtons({ exerciseId, answers, sectionId, course
 
   const [button, setButton] = useState(true)
 
-  const handlePlaySound = async () => {
-    const soundObj = new Audio.Sound()
-
-    try {
-      const source = voiceOvers[Math.floor(Math.random() * (4 - 0) + 0)]
-      await soundObj.loadAsync(source)
-      await soundObj
-        .playAsync()
-        .then(async (playbackStatus) => {
-          setTimeout(() => {
-            soundObj.unloadAsync()
-          }, playbackStatus.playableDurationMillis)
-        })
-        .catch((error) => {
-          console.log(' eroortis' + error)
-        })
-    } catch (error) {
-      console.log(' eroortis' + error)
+  function handlePlaySound(tts) {
+    Speech.speak(tts, {
+      language: "portuguese",
+      voice: "com.apple.ttsbundle.Luciana-compact"
     }
+    )
   }
   function handleChange(evt) {
     if (evt === 1) {
@@ -142,7 +129,7 @@ export default function ExerciseButtons({ exerciseId, answers, sectionId, course
             onPress={() => {
               setButton()
               handleChange(1)
-              handlePlaySound()
+              handlePlaySound(answers[0].text)
             }}
           />
         </View>
@@ -165,7 +152,7 @@ export default function ExerciseButtons({ exerciseId, answers, sectionId, course
             onPress={() => {
               setButton()
               handleChange(2)
-              handlePlaySound()
+              handlePlaySound(answers[1].text)
             }}
           />
         </View>
@@ -190,7 +177,7 @@ export default function ExerciseButtons({ exerciseId, answers, sectionId, course
             onPress={() => {
               setButton()
               handleChange(3)
-              handlePlaySound()
+              handlePlaySound(answers[2].text)
             }}
           />
         </View>
@@ -213,7 +200,7 @@ export default function ExerciseButtons({ exerciseId, answers, sectionId, course
             onPress={() => {
               setButton()
               handleChange(4)
-              handlePlaySound()
+              handlePlaySound(answers[3].text)
             }}
           />
         </View>
