@@ -23,6 +23,11 @@ export default function TestComponent() {
         const course = await StorageService.getCourseById("637b9c65c4e8874614ff3bb2");
         console.log(course.data);
     }
+
+    async function getCourse(id) {
+        const course = await StorageService.getCourseById(id);
+        console.log(course);
+    }
     async function test3() {
         const course = await StorageService.getCourseList();
         console.log(course);
@@ -95,9 +100,10 @@ export default function TestComponent() {
 
     useEffect(() => {
         //test()
+        //getCourse('635fb90624e7fa5085caba29');
         //test3()
         //test2()
-        //clear()
+        clear()
         //makeTestCourse();
         //readDir('635fb5b9b2fb6c4f49084682');
         //downloadTest();

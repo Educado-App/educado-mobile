@@ -15,6 +15,9 @@ export default function CourseScreen() {
     const [course, setCourse] = useState({});
 
     const [bool, setBool] = useState(false);
+
+    const [downloadState, setDownloadState] = useState(null);
+
     let courseId = null
     if (route.params !== undefined) {
         courseId = route.params.courseId;
@@ -36,15 +39,14 @@ export default function CourseScreen() {
     }
 
     useEffect(() => {
-
         if (route.params !== undefined) {
             loadCourse().then(() => {
                 setBool(true);
             });
-
         }
 
-    }, [route.params])
+
+    }, [route.params,downloadState])
 
 
     if (!fontsLoaded) {
@@ -54,7 +56,7 @@ export default function CourseScreen() {
             <View className="flex-1 items-center justify-center bg-babyBlue">
                 {bool ?
                     <View className="bg-babyBlue flex-1 justify-center items-center">
-                        <CourseListUI course={course}></CourseListUI>
+                        <CourseListUI course={course} downloadState={setDownloadState}></CourseListUI>
                     </View>
                     :
                     <View className="justify-center items-center">

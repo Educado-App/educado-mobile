@@ -14,7 +14,7 @@ export default function Explore() {
 
     const [views, setViews] = useState([]);
 
-    const uniqueCategories = [{ key: 1, value: "Cleaning" }, { key: 2, value: "Health" }, { key: '6368be5d71e079ae8d537eb1', value: "Personal Finance" }]
+    const uniqueCategories = [{ key: -1, value: "All" }, { key: '635f9ae2991d8c6da796a1cc', value: "Sustainability" }, { key: '6368be5d71e079ae8d537eb1', value: "Finance" }];
 
     const [fontsLoaded] = useFonts({
         VarelaRound_400Regular

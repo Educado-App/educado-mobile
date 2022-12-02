@@ -3,19 +3,21 @@ import {ActivityIndicator, Pressable, StyleSheet, Text, TouchableOpacity, View} 
 import { Icon } from '@rneui/themed'
 import * as StorageService from "../../services/StorageService";
 
-const downloadCourseButton = ({courseId}) => {
+const downloadCourseButton = ({courseId, downloadStateSignal}) => {
 
     const [downloadState, setDownloadState] = useState(2);
+    console.log(courseId)
 
     function testLog () {
         return console.log("hello");
     }
 
     const downloadCourse = async () => {
+
         setDownloadState(0);
         await StorageService.downloadCourse(courseId)
             .then(()=>{
-                console.log("download finished"); setDownloadState(1)})
+                console.log("download finished"); setDownloadState(1); downloadStateSignal(courseId);})
             .catch((error)=>{
                 console.log(error); setDownloadState(-1);
             });
@@ -80,6 +82,7 @@ const downloadCourseButton = ({courseId}) => {
                 <Text style={styles.text}>
                     <View>
                         <TouchableOpacity onPress={downloadCourse}>
+
                             {downloadStateIcon(downloadState)}
                             {downloadStateLabel(downloadState)}
                         </TouchableOpacity>

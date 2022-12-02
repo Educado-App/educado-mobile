@@ -17,7 +17,7 @@ export default function easyDynamicList({ course }) {
                 {courseSections.map((item, index) => {
                     return (
                         <SectionItem
-                            active={item.active}
+                            active={course.isActive}
                             sectionId={item.id}
                             key={index}
                             courseId={course.id}

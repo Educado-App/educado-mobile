@@ -12,8 +12,8 @@ export default function SectionItem({ active, title, index, sectionId, courseId 
   }
 
   const navigation = useNavigation()
-  // if (active) {
-  if (true) {
+  if (active) {
+    // if (true) {
     return (
       <Pressable
         style={{ shadowColor: 'black', elevation: 10 }}
