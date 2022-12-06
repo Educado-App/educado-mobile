@@ -104,7 +104,7 @@ export default function TestComponent() {
         const beforeDelete = AsyncStorage.getItem('635fb5b9b2fb6c4f49084682');
         console.log(beforeDelete)
 
-        await StorageService.deleteElementFromLocalStorage(element.id);
+        await StorageService.deleteCourse(element.id);
 
         const afterDelete = await AsyncStorage.getItem('635fb5b9b2fb6c4f49084682')
 

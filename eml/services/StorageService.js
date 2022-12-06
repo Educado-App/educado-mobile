@@ -269,13 +269,14 @@ export const downloadCourse = async (courseId) => {
     } else console.log("error: course id is not defined!");
 }
 
-export const deleteElementFromLocalStorage = async (id) => {
+export const deleteCourse = async (id) => {
     if (id !== undefined) {
         try {
-            const element = JSON.parse(await AsyncStorage.getItem(id));
+            const course = JSON.parse(await AsyncStorage.getItem(id));
 
-            if (element != null) {
-                await DirectoryService.DeleteDirectory(element)
+            if (course !== null) {
+                await DirectoryService.DeleteDirectory(course);
+                await AsyncStorage.removeItem(id);
             }
         }
         catch (e) {
