@@ -1,3 +1,4 @@
+// @flow
 import React from 'react'
 import { Pressable, Text, View, Alert } from 'react-native'
 import PropTypes from 'prop-types'

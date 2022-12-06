@@ -49,31 +49,28 @@ export default function Explore() {
     }, [selected])
 
 
-    if (!fontsLoaded) {
-        return AppLoading
-    } else {
-        return (
-            <View className="bg-babyBlue basis-full flex">
-                <View className="basis-1/6" style={{ justifyContent: 'center', alignItems: 'center', paddingTop: Platform.OS === 'android' ? 20 : 0 }}>
-                    <Text style={{ fontSize: 40, fontFamily: 'VarelaRound_400Regular' }} className="text-gray-600"> Educado</Text>
-                </View>
-                <View style={{ elevation: 15, zIndex: 15 }} className="w-11/12 self-center pb-4">
-                    <SelectList
-                        setSelected={(val) => setSelected(val)}
-                        data={uniqueCategories}
-                        search={false}
-                        dropdownStyles={{ backgroundColor: '#CFE9EF' }}
-                        save="key"
-                        label="catagories"
-                        placeholder='Filter by'
-                    />
-                </View>
-                <ScrollView>
-                    <View className="grid grid-cols-2 grid-flow-col flex-wrap flex-row flex-1 justify-evenly">
-                        {views}
-                    </View>
-                </ScrollView>
+    return (
+        <View className="bg-babyBlue basis-full flex">
+            <View className="basis-1/6" style={{ justifyContent: 'center', alignItems: 'center', paddingTop: Platform.OS === 'android' ? 20 : 0 }}>
+                <Text style={{ fontSize: 40, fontFamily: 'VarelaRound_400Regular' }} className="text-gray-600"> Educado</Text>
             </View>
-        )
-    }
+            <View style={{ elevation: 15, zIndex: 15 }} className="w-11/12 self-center pb-4">
+                <SelectList
+                    setSelected={(val) => setSelected(val)}
+                    data={uniqueCategories}
+                    search={false}
+                    dropdownStyles={{ backgroundColor: '#CFE9EF' }}
+                    save="key"
+                    label="catagories"
+                    placeholder='Filter by'
+                />
+            </View>
+            <ScrollView>
+                <View className="grid grid-cols-2 grid-flow-col flex-wrap flex-row flex-1 justify-evenly">
+                    {views}
+                </View>
+            </ScrollView>
+        </View>
+    )
+
 }
