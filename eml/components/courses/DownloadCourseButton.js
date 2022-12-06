@@ -15,7 +15,7 @@ const downloadCourseButton = ({courseId}) => {
         setDownloadState(0);
         await StorageService.downloadCourse(courseId)
             .then(()=>{
-                console.log("download finished"); setDownloadState(1)})
+                console.log("Download Finished!"); setDownloadState(1)})
             .catch((error)=>{
                 console.log(error); setDownloadState(-1);
             });

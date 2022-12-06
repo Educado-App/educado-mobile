@@ -34,9 +34,11 @@ export const getCourseList = async () => {
     try {
 
         //Uncomment to clear async storage cache upon loading explore screen
-        /*console.log(await AsyncStorage.getAllKeys());
+        /*
+        console.log(await AsyncStorage.getAllKeys());
         console.log(await AsyncStorage.clear());
-        console.log(await AsyncStorage.getAllKeys());*/
+        console.log(await AsyncStorage.getAllKeys());
+        */
 
         // Check if the course list already exists in AsyncStorage
         let courseList = JSON.parse(await AsyncStorage.getItem(COURSE_LIST));
@@ -136,6 +138,7 @@ export const getCourseById = async (courseId) => {
                         categoryId: requestedCourse.data.category == null ? '' : requestedCourse.data.category.id,
                         sections: sections,
                         isActive: false,
+                        isComplete: false,
                     }
 
                     //console.log("STORAGE SERVICE \n " , courseContent.sections[0].exercises[0])
@@ -155,7 +158,7 @@ export const updateCompletionStatus = async (sectionId, exerciseId) => {
 
     try {
 
-        let section = JSON.parse(await AsyncStorage.getItem(sectionId));
+        const section = JSON.parse(await AsyncStorage.getItem(sectionId));
 
         if (section !== null && exerciseId !== null) {
 
@@ -167,7 +170,7 @@ export const updateCompletionStatus = async (sectionId, exerciseId) => {
                 }
             }
 
-        } else if (exerciseId == null) {
+        } else if (exerciseId === null) {
             section.isComplete = true
         }
 
@@ -182,17 +185,15 @@ export const getNextExercise = async (sectionId) => {
 
     try {
 
-        let currentSection = JSON.parse(await AsyncStorage.getItem(sectionId))
+        const currentSection = JSON.parse(await AsyncStorage.getItem(sectionId))
 
         //console.log("GET NEXT EXERCISE \n ", currentSection);
 
         for (const exercise of currentSection.exercises) {
 
             if (!exercise.isComplete) {
-
                 return exercise;
             }
-
         }
 
     } catch (e) {
@@ -209,7 +210,7 @@ export const downloadCourse = async (courseId) => {
             const courseList = JSON.parse(await AsyncStorage.getItem(COURSE_LIST));
             const course = JSON.parse(await AsyncStorage.getItem(courseId));
 
-            if (course !== null) {
+            if (course !== null && courseList !== null) {
 
                 const courseDirectory = course.id;
                 const icon = course.icon;

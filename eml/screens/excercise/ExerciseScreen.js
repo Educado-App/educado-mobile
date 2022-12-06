@@ -21,7 +21,7 @@ export default function ExerciseScreen() {
   const [signal, setSignal] = useState([])
   const [exerciseData, setExerciseData] = useState({})
 
-
+//Dead loop here: getExercise triggers useEffect that again calls on getExercise and so on!
   async function getExercise() {
       const exercise = await StorageService.getNextExercise(sectionId)
       setExerciseData(exercise)
@@ -31,10 +31,7 @@ export default function ExerciseScreen() {
       getExercise().then(() => {
         setFlag(true)
     });
-      
   }, [exerciseData])
-
-
 
   const video = useRef(0)
 
