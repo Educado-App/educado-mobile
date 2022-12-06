@@ -4,15 +4,16 @@ import { Layout } from '@ui-kitten/components';
 import EasyDynamicList from './EasyDynamicList';
 import CourseHeader from '../courses/CourseHeader';
 
-export default function CourseListUI({ course }) {
-
+export default function CourseListUI({ course, downloadState }) {
     return (
         <View>
             <CourseHeader
+                downloadState={downloadState}
                 courseTitle={course.title}
-                courseIcon={course.iconPath}
+                courseIcon={course.icon}
+                courseId={course.id}
             ></CourseHeader>
-            <EasyDynamicList courseData={course} ></EasyDynamicList>
+            <EasyDynamicList course={course} ></EasyDynamicList>
         </View>
     );
 };

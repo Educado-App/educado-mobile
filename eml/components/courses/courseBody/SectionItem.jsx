@@ -3,20 +3,19 @@ import React from 'react'
 import { Pressable, Text, View, Alert } from 'react-native'
 import PropTypes from 'prop-types'
 import { useNavigation } from '@react-navigation/native'
-import storageController from '../../../assets/controller/storageController'
 
-export default function SectionItem({ title, index, courseId, sectionId }) {
+export default function SectionItem({ active, title, index, sectionId, courseId }) {
   SectionItem.propTypes = {
     title: PropTypes.string.isRequired,
     index: PropTypes.number.isRequired,
     courseId: PropTypes.number.isRequired,
     sectionId: PropTypes.number.isRequired
   }
-  const isActive = storageController.isCourseActive(courseId)
-  const navigation = useNavigation()
-  if (isActive) {
-    return (
 
+  const navigation = useNavigation()
+  if (active) {
+    // if (true) {
+    return (
       <Pressable
         style={{ shadowColor: 'black', elevation: 10 }}
         className="w-max h-12 rounded-xl bg-limeGreen m-1"
@@ -28,6 +27,7 @@ export default function SectionItem({ title, index, courseId, sectionId }) {
         }}
       >
         {/* <View className="flex-row flex-1">
+
         {/* <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} className="rounded-xl bg-limeGreenDarker">
           <Text style={{ fontFamily: 'VarelaRound_400Regular', fontSize: 16 }}>
             {index}
