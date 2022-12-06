@@ -19,18 +19,20 @@ export default function Explore() {
         VarelaRound_400Regular
     })
 
+    async function loadViews() {
+        const courseList = await StorageService.getCourseList();
+        const componentPromises = courseList.map(({ title, iconPath, isActive, courseId, categoryId }, index) => {
+            if ((isActive && categoryId === selected) || (isActive && selected === -1)) {
+                return <ActiveExploreCard key={index} title={title} courseId={courseId} iconPath={iconPath} />;
+            } else if ((!(isActive) && categoryId === selected) || (!(isActive) && selected === -1)) {
+                return <ExploreCard key={index} title={title} courseId={courseId}></ExploreCard>
+            }
+        });
+        Promise.all(componentPromises).then(setViews);
+    }
+
     useEffect(() => {
-        async function loadViews() {
-            const courseList = await StorageService.getCourseList();
-            const componentPromises = courseList.map(({ title, iconPath, isActive, courseId, categoryId }, index) => {
-                if ((isActive && categoryId === selected) || (isActive && selected === -1)) {
-                    return <ActiveExploreCard key={index} title={title} courseId={courseId} iconPath={iconPath} />;
-                } else if ((!(isActive) && categoryId === selected) || (!(isActive) && selected === -1)) {
-                    return <ExploreCard key={index} title={title} courseId={courseId}></ExploreCard>
-                }
-            });
-            Promise.all(componentPromises).then(setViews);
-        }
+
         loadViews();
 
     }, [selected])

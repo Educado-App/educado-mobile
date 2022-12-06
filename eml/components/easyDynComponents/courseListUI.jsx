@@ -5,14 +5,15 @@ import EasyDynamicList from './EasyDynamicList';
 import CourseHeader from '../courses/CourseHeader';
 
 export default function CourseListUI({ course }) {
-
+    console.log(course);
     return (
         <View>
             <CourseHeader
                 courseTitle={course.title}
-                courseIcon={course.iconPath}
+                courseIcon={course.icon}
+                courseId={course.id}
             ></CourseHeader>
-            <EasyDynamicList courseData={course} ></EasyDynamicList>
+            <EasyDynamicList course={course} ></EasyDynamicList>
         </View>
     );
 };

@@ -1,11 +1,11 @@
 import axios from "axios";
 
 const testUrl = 'http://localhost:8888'
-const testExpo = 'http://172.30.213.130:8888' //Change to local expo ip
+const testExpo = 'http://172.30.245.222:8888' //Change to local expo ip
 const url = testExpo;
 
 // Find a solution to refresh auth-token
-const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjM0ZTdiM2NhMDE2MWFkNGU2YjNiODBkIiwiaWF0IjoxNjY5Mjk5MzU4LCJleHAiOjE2NjkzMDAyNTh9.DRY3ZFXjq4vbkxqMeIhYX7PxphvZKDdh2riqQ28o4Qg';
+const authToken = '';
 const authBody = {
     "email": "demo@gmail.com",
     "password": "Demo1234"
@@ -27,7 +27,6 @@ export const getTestCourse = async () => {
 };
 
 export const getCoursesWithAuth = async () => {
-    // TODO: add bearer token to request header and omit /public
     const res = await axios.get(url + '/api/courses', config);
     return res.data;
 };

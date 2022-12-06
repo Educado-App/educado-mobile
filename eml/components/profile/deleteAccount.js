@@ -44,7 +44,6 @@ export default function DeleteAccount() {
 
     }
 
-
     const deleteAlert = () =>
         Alert.alert(
             "Delete Account",
