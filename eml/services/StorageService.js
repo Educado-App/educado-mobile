@@ -106,11 +106,14 @@ export const getCourseById = async (courseId) => {
 
                         for (const exercise of section.exercises) {
 
-                            if(exercise.content === ""){
+                            if(exercise.length === 0){
+                                exercise.push({content: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4"});
+                            }
+                            else if (exercise.content === ""){
                                 exercise.content = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4";
                             }
-                            exercise.isComplete = false;
 
+                            exercise.isComplete = false;
                             exerciseContent.push(exercise)
                         }
 
