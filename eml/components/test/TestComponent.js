@@ -103,7 +103,7 @@ export default function TestComponent() {
   }
 
   useEffect(() => {
-    test()
+    //test()
     //getCourse('635fb90624e7fa5085caba29');
     //test3()
     //test2()

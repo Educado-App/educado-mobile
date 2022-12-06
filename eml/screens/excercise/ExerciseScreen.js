@@ -23,6 +23,9 @@ export default function ExerciseScreen() {
 
   async function getExercise() {
     const exercise = await StorageService.getNextExercise(sectionId)
+    if (exercise === undefined) {
+      navigation.navigate('ErrorScreen')
+    }
     setExerciseData(exercise)
   }
 
@@ -71,17 +74,8 @@ export default function ExerciseScreen() {
         </View>
       </View>
       <View style={{ flex: 2, width: '100%' }}>
-        {exerciseData === null ? (
-          Alert.alert(
-            'Good job you completed the section!',
-            'Congratulations!',
-            [
-              {
-                text: 'Back',
-                onPress: () => navigation.navigate('Course')
-              }
-            ]
-          )
+        {exerciseData === undefined ? (
+          <Text>No Data</Text>
         ) : (
           <Video
             source={{ uri: exerciseData.content }}
@@ -98,13 +92,17 @@ export default function ExerciseScreen() {
         )}
       </View>
       <View style={{ flex: 3 }}>
-        <ExerciseButtons
-          answers={exerciseData.answers}
-          exerciseId={exerciseData.id}
-          courseId={courseId}
-          sectionId={sectionId}
-          setSignal={setSignal}
-        ></ExerciseButtons>
+        {exerciseData === undefined ? (
+          <Text> No data</Text>
+        ) : (
+          <ExerciseButtons
+            answers={exerciseData.answers}
+            exerciseId={exerciseData.id}
+            courseId={courseId}
+            sectionId={sectionId}
+            setSignal={setSignal}
+          ></ExerciseButtons>
+        )}
       </View>
       <StatusBar style="auto" />
     </View>

@@ -17,6 +17,7 @@ import WrongAnswerComponent from './screens/excercise/WrongAnswerScreen'
 import Explore from './screens/explore/Explore'
 import { TailwindProvider } from 'tailwindcss-react-native'
 import TestScreen from './screens/test/TestScreen'
+import ErrorScreen from './screens/errors/ErrorScreen'
 
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
@@ -48,6 +49,13 @@ function CourseStack() {
       <Stack.Screen
         name="RightAnswer"
         component={RightAnswerScreen}
+        options={{
+          headerShown: false
+        }}
+      />
+      <Stack.Screen
+        name="ErrorScreen"
+        component={ErrorScreen}
         options={{
           headerShown: false
         }}
