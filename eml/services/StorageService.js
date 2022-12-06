@@ -269,6 +269,21 @@ export const downloadCourse = async (courseId) => {
     } else console.log("error: course id is not defined!");
 }
 
+export const deleteElementFromLocalStorage = async (id) => {
+    if (id !== undefined) {
+        try {
+            const element = JSON.parse(await AsyncStorage.getItem(id));
+
+            if (element != null) {
+                await DirectoryService.DeleteDirectory(element)
+            }
+        }
+        catch (e) {
+            console.error(e);
+        }
+    }
+}
+
 export const downloadTestCourse = async (courseId) => {
 
     if (courseId !== undefined) {
