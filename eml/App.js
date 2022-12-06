@@ -16,7 +16,7 @@ import ExerciseScreen from './screens/excercise/ExerciseScreen'
 import WrongAnswerComponent from './screens/excercise/WrongAnswerScreen'
 import Explore from './screens/explore/Explore'
 import { TailwindProvider } from 'tailwindcss-react-native'
-import TestScreen from "./screens/test/TestScreen";
+import TestScreen from './screens/test/TestScreen'
 
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
@@ -143,68 +143,68 @@ function HomeStack() {
 }
 
 // for playing around
-function TestStack(){
-    return(
-        <Tab.Navigator initialRouteName={"TestScreen"}>
-            <Tab.Screen
-                name="TestScreen"
-                component={TestScreen}
-                options={{
-                    headerShown: false,
-                    tabBarIcon: () => {
-                        return (
-                            <Icon
-                                size={30}
-                                name="home"
-                                type="material-community"
-                                color="black"
-                            />
-                        )
-                    }
-                }}
-            />
-            <Tab.Screen
-                name="Profile"
-                component={ProfileComponent}
-                options={{
-                    headerShown: false,
-                    tabBarIcon: () => {
-                        return (
-                            <Icon
-                                size={30}
-                                name="account-circle"
-                                type="material-community"
-                                color="black"
-                            />
-                        )
-                    }
-                }}
-            />
-            <Tab.Screen
-                name="Explore"
-                component={Explore}
-                options={{
-                    headerShown: false,
-                    tabBarIcon: () => {
-                        return (
-                            <Icon
-                                size={30}
-                                name="magnify"
-                                type="material-community"
-                                color="black"
-                            />
-                        )
-                    }
-                }}
-            />
-        </Tab.Navigator>
-    )
+function TestStack() {
+  return (
+    <Tab.Navigator initialRouteName={'TestScreen'}>
+      <Tab.Screen
+        name="TestScreen"
+        component={TestScreen}
+        options={{
+          headerShown: false,
+          tabBarIcon: () => {
+            return (
+              <Icon
+                size={30}
+                name="home"
+                type="material-community"
+                color="black"
+              />
+            )
+          }
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={ProfileComponent}
+        options={{
+          headerShown: false,
+          tabBarIcon: () => {
+            return (
+              <Icon
+                size={30}
+                name="account-circle"
+                type="material-community"
+                color="black"
+              />
+            )
+          }
+        }}
+      />
+      <Tab.Screen
+        name="Explore"
+        component={Explore}
+        options={{
+          headerShown: false,
+          tabBarIcon: () => {
+            return (
+              <Icon
+                size={30}
+                name="magnify"
+                type="material-community"
+                color="black"
+              />
+            )
+          }
+        }}
+      />
+    </Tab.Navigator>
+  )
 }
 
 // Change InitialRouteName to HomeStack if you want to skip Login Screen
 export default function App() {
   return (
-   <TailwindProvider>
+    <TailwindProvider>
       <>
         <IconRegistry icons={EvaIconsPack} />
         <ApplicationProvider {...eva} theme={eva.light}>
@@ -221,9 +221,9 @@ export default function App() {
                 options={{ headerShown: false }}
               />
               <Stack.Screen
-                name={"TestStack"}
+                name={'TestStack'}
                 component={TestStack}
-                options={{headerShown: false}}
+                options={{ headerShown: false }}
               />
             </Stack.Navigator>
           </NavigationContainer>

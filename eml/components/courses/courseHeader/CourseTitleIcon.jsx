@@ -28,12 +28,15 @@ export default function CourseTitleIcon({ title, courseIcon }) {
         </Text>
       </View>
       <View style={{ padding: '5%' }}>
-        {courseIcon !== null ?
+        {courseIcon !== undefined ?
           <Image source={{ uri: courseIcon }}
             style={{ width: 50, height: 50 }}
             className="rounded-xl"
           ></Image>
-          : null}
+          : <Image
+            className="w-10 h-10"
+            source={require('../../../assets/favicon.png')}
+          ></Image>}
       </View>
     </View>
   )
