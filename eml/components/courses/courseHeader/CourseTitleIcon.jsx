@@ -14,8 +14,7 @@ export default function CourseTitleIcon({ title, courseIcon }) {
     VarelaRound_400Regular
   })
 
-  console.log(courseIcon)
-
+  console.log("tis" + courseIcon)
   return (
     <View style={styles.container}>
       <View>
@@ -28,14 +27,15 @@ export default function CourseTitleIcon({ title, courseIcon }) {
         </Text>
       </View>
       <View style={{ padding: '5%' }}>
-        {courseIcon !== undefined ?
+        {courseIcon === undefined || courseIcon === null || courseIcon === "" ?
+          <Image
+            className="w-10 h-10"
+            source={require('../../../assets/favicon.png')}
+          ></Image>
+          :
           <Image source={{ uri: courseIcon }}
             style={{ width: 50, height: 50 }}
             className="rounded-xl"
-          ></Image>
-          : <Image
-            className="w-10 h-10"
-            source={require('../../../assets/favicon.png')}
           ></Image>}
       </View>
     </View>
