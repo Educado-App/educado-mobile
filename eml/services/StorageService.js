@@ -33,39 +33,17 @@ export const getCourseList = async () => {
 
     try {
 
-        // Check if the course list is already downloaded
+        //Uncomment to clear async storage cache upon loading explore screen
+        /*console.log(await AsyncStorage.getAllKeys());
+        console.log(await AsyncStorage.clear());
+        console.log(await AsyncStorage.getAllKeys());*/
+
+        // Check if the course list already exists in AsyncStorage
         let courseList = JSON.parse(await AsyncStorage.getItem(COURSE_LIST));
 
         if (courseList == null) {
 
-            return await api.getCourses().then(
-
-                async list => {
-
-                    let newCourseList = [];
-
-                    for (const course of list.data) {
-
-                        const courseId = course.id;
-
-                        const localCourse = JSON.parse(await AsyncStorage.getItem(courseId));
-
-                        // Make new list with required members
-                        newCourseList.push({
-                            title: course.title,
-                            courseId: course.id,
-                            iconPath: course.category.icon,
-                            categoryId: course.category.id,
-                            isActive: localCourse !== null,
-                        });
-                    }
-
-                    // Save new courseList for this key and return it.
-                    await AsyncStorage.setItem(COURSE_LIST, JSON.stringify(newCourseList));
-                    return newCourseList;
-                }
-
-            );
+            return await refreshCourseList();
 
         } else return courseList;
 
@@ -74,6 +52,40 @@ export const getCourseList = async () => {
     }
 
 }
+
+export const refreshCourseList = async () => {
+
+    return await api.getCourses().then(
+
+        async list => {
+
+            let newCourseList = [];
+
+            for (const course of list.data) {
+
+                const courseId = course.id;
+
+                const localCourse = JSON.parse(await AsyncStorage.getItem(courseId));
+
+                // Make new list with required members
+                newCourseList.push({
+                    title: course.title,
+                    courseId: course.id,
+                    iconPath: course.category == null ? '' : course.category.icon,
+                    categoryId: course.category == null ? '' : course.category.id,
+                    isActive: localCourse !== null,
+                });
+            }
+
+            // Save new courseList for this key and return it.
+            await AsyncStorage.setItem(COURSE_LIST, JSON.stringify(newCourseList));
+            return newCourseList;
+        }
+    ).catch(e=>{
+        console.log(e);
+    })
+}
+
 export const getCourseById = async (courseId) => {
 
     try {
@@ -94,8 +106,14 @@ export const getCourseById = async (courseId) => {
 
                         for (const exercise of section.exercises) {
 
-                            exercise.isComplete = false;
+                            if(exercise.length === 0){
+                                exercise.push({content: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4"});
+                            }
+                            else if (exercise.content === ""){
+                                exercise.content = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4";
+                            }
 
+                            exercise.isComplete = false;
                             exerciseContent.push(exercise)
                         }
 
@@ -106,8 +124,6 @@ export const getCourseById = async (courseId) => {
                             isComplete: false,
                         }
 
-                        //Future Work: Return object should be different for UI
-
                         currentSection.exercises = exerciseContent;
                         sections.push(currentSection);
                         await AsyncStorage.setItem(section.id, JSON.stringify(currentSection));
@@ -116,20 +132,19 @@ export const getCourseById = async (courseId) => {
                     const courseContent = {
                         title: requestedCourse.data.title,
                         id: requestedCourse.data.id,
-                        icon: requestedCourse.data.category.icon,
-                        categoryId: requestedCourse.data.category.id,
+                        icon: requestedCourse.data.category == null ? '' : requestedCourse.data.category.icon,
+                        categoryId: requestedCourse.data.category == null ? '' : requestedCourse.data.category.id,
                         sections: sections,
                         isActive: false,
                     }
 
+                    //console.log("STORAGE SERVICE \n " , courseContent.sections[0].exercises[0])
                     await AsyncStorage.setItem(courseId, JSON.stringify(courseContent));
                     return courseContent;
                 }
             );
 
-        } else {
-            return course;
-        }
+        } else return course;
 
     } catch (e) {
         console.error(e);
@@ -169,10 +184,12 @@ export const getNextExercise = async (sectionId) => {
 
         let currentSection = JSON.parse(await AsyncStorage.getItem(sectionId))
 
+        //console.log("GET NEXT EXERCISE \n ", currentSection);
+
         for (const exercise of currentSection.exercises) {
 
             if (!exercise.isComplete) {
-                
+
                 return exercise;
             }
 
@@ -189,6 +206,7 @@ export const downloadCourse = async (courseId) => {
 
         try {
 
+            const courseList = JSON.parse(await AsyncStorage.getItem(COURSE_LIST));
             const course = JSON.parse(await AsyncStorage.getItem(courseId));
 
             if (course !== null) {
@@ -229,6 +247,15 @@ export const downloadCourse = async (courseId) => {
                 //store the downloaded course back in the AsyncStorage
                 course.isActive = true;
                 await AsyncStorage.setItem(courseId, JSON.stringify(course));
+
+                //store the updated course list back in the AsyncStorage
+                for(const course of courseList){
+                    if (course.courseId === courseId){
+                        course.isActive = true;
+                        break;
+                    }
+                }
+                await AsyncStorage.setItem(COURSE_LIST, JSON.stringify(courseList));
 
             } else {
                 return console.log("error: course not found!");
@@ -312,14 +339,6 @@ export const downloadTestCourse = async (courseId) => {
     } else console.log("error: course id is not defined!");
 }
 
-//getSectionList(course-id)
-//getSectionById(section-id)
-//getExerciseList(section-id)
-//getNextExerciseBySectionId(section-id)
-//getWrongFeedback(exercise-id)
-
-//updateExercise(exercise-id)
-
 /*
  {
   "on_wrong_feedback": {
@@ -329,5 +348,4 @@ export const downloadTestCourse = async (courseId) => {
 }
  */
 
-//Icon also should be downloaded
 //When Logout: back button should be disabled!!!!
