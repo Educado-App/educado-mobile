@@ -16,7 +16,8 @@ export default function Explore() {
 
     const [selected, setSelected] = useState(-1);
 
-    const [views, setViews] = useState([]);
+    const [nonActiveViews, setViews] = useState([]);
+    const [activeViews, setViews2] = useState([]);
 
     const uniqueCategories = [{ key: -1, value: "All" }, { key: '635f9ae2991d8c6da796a1cc', value: "Sustainability" }, { key: '6368be5d71e079ae8d537eb1', value: "Finance" }];
 
@@ -26,19 +27,33 @@ export default function Explore() {
 
     async function loadViews() {
         const courseList = await StorageService.getCourseList();
-        const componentPromises = courseList.map(({ title, iconPath, isActive, courseId, categoryId }, index) => {
-            if ((isActive && categoryId === selected) || (isActive && selected === -1)) {
-                return <ActiveExploreCard key={index} title={title} courseId={courseId} iconPath={iconPath} />;
-            } else if ((!(isActive) && categoryId === selected) || (!(isActive) && selected === -1)) {
-                return <ExploreCard key={index} title={title} courseId={courseId}></ExploreCard>
+        let componentPromises = courseList.map(({ title, iconPath, isActive, courseId, categoryId }, index) => {
+            if (isActive == false) {
+                if ((isActive && categoryId === selected) || (isActive && selected === -1)) {
+                    return <ActiveExploreCard key={index} title={title} courseId={courseId} iconPath={iconPath} />;
+                } else if ((!(isActive) && categoryId === selected) || (!(isActive) && selected === -1)) {
+                    return <ExploreCard key={index} title={title} courseId={courseId}></ExploreCard>
+                }
             }
         });
         Promise.all(componentPromises).then(setViews);
+
+        let componentPromises2 = courseList.map(({ title, iconPath, isActive, courseId, categoryId }, index) => {
+            if (isActive == true) {
+                if ((isActive && categoryId === selected) || (isActive && selected === -1)) {
+                    return <ActiveExploreCard key={index} title={title} courseId={courseId} iconPath={iconPath} />;
+                } else if ((!(isActive) && categoryId === selected) || (!(isActive) && selected === -1)) {
+                    return <ExploreCard key={index} title={title} courseId={courseId}></ExploreCard>
+                }
+            }
+        });
+        Promise.all(componentPromises2).then(setViews2);
     }
 
     useEffect(() => {
 
         loadViews();
+
 
     }, [selected, isFocused])
 
@@ -61,7 +76,8 @@ export default function Explore() {
             </View>
             <ScrollView>
                 <View className="grid grid-cols-2 grid-flow-col flex-wrap flex-row flex-1 justify-evenly">
-                    {views}
+                    {activeViews}
+                    {nonActiveViews}
                 </View>
             </ScrollView>
         </View>
