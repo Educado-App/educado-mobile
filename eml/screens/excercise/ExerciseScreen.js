@@ -28,7 +28,7 @@ export default function ExerciseScreen() {
     }
     setExerciseData(exercise)
   }
-
+  //Find en anden løsning end useEffect...
   useEffect(() => {
     getExercise().then(() => {
       setFlag(true)
@@ -41,7 +41,6 @@ export default function ExerciseScreen() {
     if (signal === 0 && status.isPlaying) {
       video.current.pauseAsync()
     }
-    console.log(signal)
     setSignal(1)
   }, [signal])
 

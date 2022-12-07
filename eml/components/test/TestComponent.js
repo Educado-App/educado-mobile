@@ -1,11 +1,8 @@
 import { React, useEffect, useState } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import { Video } from 'expo-av'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import * as StorageService from '../../services/StorageService'
 import * as DirectoryService from '../../services/DirectoryService'
-import { getAuthToken, getCourse, getCoursesWithAuth } from '../../api/api'
-import { downloadCourse } from '../../services/StorageService'
+import { getAuthToken, getCourse } from '../../api/api'
 
 const testUrl =
   'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4'
@@ -18,18 +15,15 @@ export default function TestComponent() {
     console.log(await AsyncStorage.getAllKeys())
   }
   async function clear() {
+    console.log(await AsyncStorage.getAllKeys())
     console.log(await AsyncStorage.clear())
+    console.log(await AsyncStorage.getAllKeys())
   }
   async function test2() {
     const course = await StorageService.getCourseById(
       '637b9c65c4e8874614ff3bb2'
     )
     console.log(course.data)
-  }
-
-  async function getCourse(id) {
-    const course = await StorageService.getCourseById(id)
-    console.log(course)
   }
   async function test3() {
     const course = await StorageService.getCourseList()
@@ -100,30 +94,33 @@ export default function TestComponent() {
         console.log(exercise.content)
       }
     }
-  }
 
-  useEffect(() => {
-    //test()
-    //getCourse('635fb90624e7fa5085caba29');
-    //test3()
-    //test2()
-    //clear()
-    //makeTestCourse();
-    //readDir('635fb5b9b2fb6c4f49084682');
-    //downloadTest();
-    //checkNewGetCourseById("635fb5b9b2fb6c4f49084682");
-    //updateExercise('637b9c65c4e8874614ff3bb2', '637b87706af7d5d52cd27504'); // set exercise 1 as complete
-    //updateExercise('637b9c65c4e8874614ff3bb2', '637b9bdf4868f03e24dcb097'); // set exercise 2 as complete
-    //getNextExercise('6385d6f6ca2ade86fca55f33'); // get first exercise of this sectionId where isComplete = false
-    //test4();
-    //CreateDirectory('test');
-    //ReadDirectory('test');
-    //DeleteDirectory('test');
-  })
+    async function tryDeleteDirectory() {
+      const element = await StorageService.downloadCourse(
+        '635fb5b9b2fb6c4f49084682'
+      )
+
+      if (element == null) {
+        return null
+      }
+
+      console.log(element)
+
+      const beforeDelete = AsyncStorage.getItem('635fb5b9b2fb6c4f49084682')
+      console.log(beforeDelete)
+
+      await StorageService.deleteCourse(element.id)
+
+      const afterDelete = await AsyncStorage.getItem('635fb5b9b2fb6c4f49084682')
+
+      if (afterDelete != null) {
+        console.log(afterDelete)
+      }
+    }
+
+    useEffect(() => {
+      //readDir("");
+      //clear();
+    })
+  }
 }
-
-const styles = StyleSheet.create({
-  backgroundVideo: {
-    height: '100%'
-  }
-})
