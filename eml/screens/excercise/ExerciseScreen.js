@@ -33,7 +33,7 @@ export default function ExerciseScreen() {
     getExercise().then(() => {
       setFlag(true)
     })
-  }, [exerciseData])
+  }, [route.params])
 
   const video = useRef(0)
 
