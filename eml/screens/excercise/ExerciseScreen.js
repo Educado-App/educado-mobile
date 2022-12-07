@@ -5,10 +5,10 @@ import LeaveButton from '../../components/exercise/LeaveButton'
 import ExerciseButtons from '../../components/exercise/ExerciseButtons'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { Video } from 'expo-av'
-import * as StorageService from "../../services/StorageService";
+import * as StorageService from '../../services/StorageService'
+import CustomProgressBar from '../../components/exercise/Progressbar'
 
 export default function ExerciseScreen() {
-
   const navigation = useNavigation()
 
   const route = useRoute()
@@ -21,20 +21,19 @@ export default function ExerciseScreen() {
   const [signal, setSignal] = useState([])
   const [exerciseData, setExerciseData] = useState({})
 
-
   async function getExercise() {
-      const exercise = await StorageService.getNextExercise(sectionId)
-      setExerciseData(exercise)
+    const exercise = await StorageService.getNextExercise(sectionId)
+    if (exercise === undefined) {
+      navigation.navigate('ErrorScreen')
+    }
+    setExerciseData(exercise)
   }
 
   useEffect(() => {
-      getExercise().then(() => {
-        setFlag(true)
-    });
-      
+    getExercise().then(() => {
+      setFlag(true)
+    })
   }, [exerciseData])
-
-
 
   const video = useRef(0)
 
@@ -49,23 +48,13 @@ export default function ExerciseScreen() {
   return (
     <View style={styles.container} className="bg-babyBlue">
       <View style={{ flex: 1 }}>
-        <View style={[{ paddingTop: '7%' }, styles.row]}>
-          <View style={[{ paddingTop: '15%' }, { right: '120%' }]}>
+        <View className="pt-8 flex-row w-screen">
+          <View className="">
             <LeaveButton
               navigationPlace={'Course'}
               courseId={courseId}
             ></LeaveButton>
           </View>
-          <View>
-            {flag ?  <Text>{exerciseData.answers[0].text}</Text>  : <Text>loading</Text>}
-          </View>
-          <View
-            style={[
-              styles.buttonShadow,
-              { paddingLeft: '17%' },
-              { shadowColor: '#00e600' }
-            ]}
-          ></View>
           <View
             style={{
               left: '80%',
@@ -80,28 +69,14 @@ export default function ExerciseScreen() {
             </Text> */}
           </View>
         </View>
-        <View>
-          {/* <CustomProgressBar
-            progress={Math.round((answerNr / answerArray.length) * 10) / 10}
-          ></CustomProgressBar> */}
+        <View className="items-center">
+          <CustomProgressBar progress={0.5 / 1}></CustomProgressBar>
         </View>
       </View>
       <View style={{ flex: 2, width: '100%' }}>
-        {exerciseData === null ? (
-          Alert.alert(
-            'Good job you completed the section!',
-            'Congratulations!',
-            [
-              {
-                text: 'Back',
-                onPress: () => navigation.navigate('Course')
-              }
-            ]
-          )
+        {exerciseData === undefined ? (
+          <Text>No Data</Text>
         ) : (
-          /* <LearningInputVideoExample1
-            uri={exercise.content.uri} signal={status}
-          ></LearningInputVideoExample1> */
           <Video
             source={{ uri: exerciseData.content }}
             rate={1.0}
@@ -117,13 +92,17 @@ export default function ExerciseScreen() {
         )}
       </View>
       <View style={{ flex: 3 }}>
-        <ExerciseButtons
-          answers={exerciseData.answers}
-          exerciseId={exerciseData.id}
-          courseId={courseId}
-          sectionId={sectionId}
-          setSignal={setSignal}
-        ></ExerciseButtons>
+        {exerciseData === undefined ? (
+          <Text> No data</Text>
+        ) : (
+          <ExerciseButtons
+            answers={exerciseData.answers}
+            exerciseId={exerciseData.id}
+            courseId={courseId}
+            sectionId={sectionId}
+            setSignal={setSignal}
+          ></ExerciseButtons>
+        )}
       </View>
       <StatusBar style="auto" />
     </View>

@@ -20,7 +20,7 @@ export default function ExploreCard({ title, courseId }) {
         className="w-2/5 h-24 rounded-md items-center flex-col bg-cyanBlue m-2"
         onPress={() => navigation.navigate('Course', { courseId: courseId })}
       >
-        <Text style={{ fontFamily: 'VarelaRound_400Regular', fontSize: 16 }} className="pt-4 text-gray-600">
+        <Text numberOfLines={1} style={{ fontFamily: 'VarelaRound_400Regular', fontSize: 14, }} className="pt-4 text-gray-600">
           {title}
         </Text>
         <View className="pt-2">

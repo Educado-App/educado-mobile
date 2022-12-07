@@ -20,8 +20,8 @@ export default function ActiveExploreCard({ title, courseId, iconPath }) {
         className="w-2/5 h-24 rounded-md items-center flex-col bg-limeGreen m-2"
         onPress={() => navigation.navigate('Course', { courseId: courseId })}
       >
-        <View>
-          <Text style={{ fontFamily: 'VarelaRound_400Regular', fontSize: 16, alignSelf: 'center' }} className="pt-4 text-gray-600">
+        <View className="">
+          <Text numberOfLines={1} style={{ fontFamily: 'VarelaRound_400Regular', fontSize: 16, alignSelf: 'center' }} className="pt-4 text-gray-600">
             {title}
           </Text>
         </View>
