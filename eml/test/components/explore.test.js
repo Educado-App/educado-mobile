@@ -5,6 +5,9 @@ import ExerciseScreen from "../../screens/excercise/ExerciseScreen"
 import { expect, test } from "@jest/globals"
 import { useNavigation } from "@react-navigation/native"
 import { useRoute } from "@react-navigation/native"
+import RightAnswerScreen from "../../screens/excercise/RightAnswerScreen"
+import WrongAnswerComponent from "../../screens/excercise/WrongAnswerScreen"
+import CourseScreen from "../../screens/courses/CourseScreen"
 import sum from "./sum"
 
 import { Animated } from 'react-native';
@@ -31,13 +34,29 @@ jest.mock('@react-navigation/native', () => ({
     ...jest.requireActual('@react-navigation/native'),
     useNavigation: () => mockedUsedNavigate,
     useRoute: () => mockedUseRoute,
-    params: {
-        sectionId: '0',
-        courseId: '0',
-    }
+    useParams: () => ({
+        courseId: 0,
+        sectionId: 0,
+    }),
 }))
 
-// Does'nt work cause of route.params
+// Doesn't work cause route.params
+// test('Testing if RightAnswerScreen render', () => {
+//     render(<RightAnswerScreen courseId={0} />);
+//     expect(screen.toJSON()).toMatchSnapshot();
+// })
+
+// test('Testing if WrongAnswerScreen render', () => {
+//     render(<WrongAnswerComponent />);
+//     expect(screen.toJSON()).toMatchSnapshot();
+// })
+
+test('Testing if CourseScreen render', () => {
+    render(<CourseScreen />);
+    expect(screen.toJSON()).toMatchSnapshot();
+})
+
+// Doesn't work cause of route.params
 
 // test('Testing if ExerciseScreen renders', () => {
 //     render(<ExerciseScreen sectionId={0} />);
