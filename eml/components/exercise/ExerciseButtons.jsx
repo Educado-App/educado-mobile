@@ -45,6 +45,7 @@ export default function ExerciseButtons({ exerciseId, answers, sectionId, course
   const [button, setButton] = useState(true)
 
   function handlePlaySound(tts) {
+    Speech.stop()
     Speech.speak(tts, {
       language: "portuguese",
       voice: "com.apple.ttsbundle.Luciana-compact"

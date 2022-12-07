@@ -38,10 +38,12 @@ export default function ExerciseScreen() {
   const video = useRef(0)
 
   useEffect(() => {
-    if (signal === 0 && status.isPlaying) {
-      video.current.pauseAsync()
-    }
+    if(video !== undefined){
+      if (signal === 0 && status.isPlaying) {
+        video.current.pauseAsync()
+      }
     setSignal(1)
+    }
   }, [signal])
 
   return (
