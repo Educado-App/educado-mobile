@@ -27,12 +27,12 @@ export const getCourseList = async () => {
   try {
     //Uncomment to clear async storage cache upon loading explore screen
 
-    // console.log(await AsyncStorage.getAllKeys())
-    // console.log(await AsyncStorage.clear())
-    // console.log(await AsyncStorage.getAllKeys())
-    // console.log(
-    //   await DirectoryService.DeleteDirectory('635fb5b9b2fb6c4f49084682')
-    // )
+   /*   console.log(await AsyncStorage.getAllKeys())
+     console.log(await AsyncStorage.clear())
+     console.log(await AsyncStorage.getAllKeys())
+     console.log(
+       await DirectoryService.DeleteDirectory('')
+     ) */
 
     // Check if the course list already exists in AsyncStorage
     let courseList = JSON.parse(await AsyncStorage.getItem(COURSE_LIST))

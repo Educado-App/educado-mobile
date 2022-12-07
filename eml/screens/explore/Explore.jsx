@@ -7,8 +7,12 @@ import { SelectList } from 'react-native-dropdown-select-list'
 import ActiveExploreCard from '../../components/explore/ActiveExploreCard'
 import ExploreCard from '../../components/explore/ExploreCard'
 import * as StorageService from '../../services/StorageService'
+import { useIsFocused } from '@react-navigation/native'
+
 
 export default function Explore() {
+
+    const isFocused = useIsFocused()
 
     const [selected, setSelected] = useState(-1);
 
@@ -36,7 +40,7 @@ export default function Explore() {
 
         loadViews();
 
-    }, [selected])
+    }, [selected, isFocused])
 
 
     return (
