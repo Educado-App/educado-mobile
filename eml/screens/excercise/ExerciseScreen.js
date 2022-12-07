@@ -41,7 +41,6 @@ export default function ExerciseScreen() {
     if (signal === 0 && status.isPlaying) {
       video.current.pauseAsync()
     }
-    console.log(signal)
     setSignal(1)
   }, [signal])
 
