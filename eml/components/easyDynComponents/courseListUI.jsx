@@ -6,7 +6,6 @@ import CourseHeader from '../courses/CourseHeader';
 
 export default function CourseListUI({ course, downloadState }) {
 
-    console.log(course.icon)
     return (
         <View>
             <CourseHeader

@@ -8,8 +8,9 @@ export default function SectionItem({ active, title, index, sectionId, courseId 
   SectionItem.propTypes = {
     title: PropTypes.string.isRequired,
     index: PropTypes.number.isRequired,
-    courseId: PropTypes.number.isRequired,
-    sectionId: PropTypes.number.isRequired
+    courseId: PropTypes.string.isRequired,
+    sectionId: PropTypes.string.isRequired,
+    active: PropTypes.bool.isRequired
   }
 
   const navigation = useNavigation()

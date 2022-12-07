@@ -15,16 +15,20 @@ const voiceOvers = [
   require('../../assets/voice4.mp3')
 ]
 
-export default function ExerciseButtons({ exerciseId, answers, sectionId, courseId, setSignal }) {
+export default function ExerciseButtons({ exerciseId, answers, sectionId, courseId, setSignal, hasData }) {
   const navigation = useNavigation()
 
   ExerciseButtons.propTypes = {
-    answers: PropTypes.array.isRequired,
-    exerciseId: PropTypes.number.isRequired,
-    sectionId: PropTypes.number.isRequired,
-    courseId: PropTypes.number.isRequired,
+    answers: PropTypes.array,
+    exerciseId: PropTypes.string,
+    sectionId: PropTypes.string.isRequired,
+    courseId: PropTypes.string.isRequired,
     setSignal: PropTypes.func.isRequired
   }
+  if (hasData === true) {
+    console.log(answers)
+  }
+
 
   function findRightAnswer() {
     for (let i = 0; i < answers.length; i++) {
@@ -98,6 +102,7 @@ export default function ExerciseButtons({ exerciseId, answers, sectionId, course
 
     setSignal(0)
 
+
     updateExercise(sectionId, exerciseId);
 
     const rightAnswer = findRightAnswer();
@@ -120,100 +125,104 @@ export default function ExerciseButtons({ exerciseId, answers, sectionId, course
   return (
     <View style={styles.container}>
       <View style={styles.container2}>
-        <View
-          style={[
-            styles.buttonShadow,
-            styles.paddingButtons,
-            { shadowColor: selected.btn1 ? '#991f00' : '#ff3300' }
-          ]}
-        >
-          <Icon
+        {hasData === true && answers[0] !== undefined ?
+          <View
             style={[
-              styles.button,
-              { backgroundColor: selected.btn1 ? '#991f00' : '#FF5252' }
+              styles.buttonShadow,
+              styles.paddingButtons,
+              { shadowColor: selected.btn1 ? '#991f00' : '#ff3300' }
             ]}
-            size={60}
-            name="triangle"
-            type="material-community"
-            color="#CFE9EF"
-            onPress={() => {
-              setButton()
-              handleChange(1)
-              handlePlaySound(answers[0].text)
-            }}
-          />
-        </View>
-        <View
-          style={[
-            styles.buttonShadow,
-            styles.paddingButtons,
-            { shadowColor: selected.btn2 ? '#003d99' : '#0066ff' }
-          ]}
-        >
-          <Icon
+          >
+            <Icon
+              style={[
+                styles.button,
+                { backgroundColor: selected.btn1 ? '#991f00' : '#FF5252' }
+              ]}
+              size={60}
+              name="triangle"
+              type="material-community"
+              color="#CFE9EF"
+              onPress={() => {
+                setButton()
+                handleChange(1)
+                handlePlaySound(answers[0].text)
+              }}
+            />
+          </View> : null}
+        {hasData === true && answers[1] !== undefined ?
+          <View
             style={[
-              styles.button,
-              { backgroundColor: selected.btn2 ? '#003d99' : '#65D4EE' }
+              styles.buttonShadow,
+              styles.paddingButtons,
+              { shadowColor: selected.btn2 ? '#003d99' : '#0066ff' }
             ]}
-            size={60}
-            name="checkbox-blank-circle"
-            type="material-community"
-            color='#CFE9EF'
-            onPress={() => {
-              setButton()
-              handleChange(2)
-              handlePlaySound(answers[1].text)
-            }}
-          />
-        </View>
+          >
+            <Icon
+              style={[
+                styles.button,
+                { backgroundColor: selected.btn2 ? '#003d99' : '#65D4EE' }
+              ]}
+              size={60}
+              name="checkbox-blank-circle"
+              type="material-community"
+              color='#CFE9EF'
+              onPress={() => {
+                setButton()
+                handleChange(2)
+                handlePlaySound(answers[1].text)
+              }}
+            />
+          </View> : null}
       </View>
       <View style={styles.container2}>
-        <View
-          style={[
-            styles.buttonShadow,
-            styles.paddingButtons,
-            { shadowColor: selected.btn3 ? '#997a00' : '#ffcc00' }
-          ]}
-        >
-          <Icon
+        {hasData === true && answers[2] !== undefined ?
+          <View
             style={[
-              styles.button,
-              { backgroundColor: selected.btn3 ? '#FAC12F' : '#FFFF8D' }
+              styles.buttonShadow,
+              styles.paddingButtons,
+              { shadowColor: selected.btn3 ? '#997a00' : '#ffcc00' }
             ]}
-            size={60}
-            name="star"
-            type="material-community"
-            color="#CFE9EF"
-            onPress={() => {
-              setButton()
-              handleChange(3)
-              handlePlaySound(answers[2].text)
-            }}
-          />
-        </View>
-        <View
-          style={[
-            styles.buttonShadow,
-            styles.paddingButtons,
-            { shadowColor: selected.btn4 ? '#267326' : '#009900' }
-          ]}
-        >
-          <Icon
+          >
+            <Icon
+              style={[
+                styles.button,
+                { backgroundColor: selected.btn3 ? '#FAC12F' : '#FFFF8D' }
+              ]}
+              size={60}
+              name="star"
+              type="material-community"
+              color="#CFE9EF"
+              onPress={() => {
+                setButton()
+                handleChange(3)
+                handlePlaySound(answers[2].text)
+              }}
+            />
+          </View> : null}
+        {hasData === true && answers[3] !== undefined ?
+          <View
             style={[
-              styles.button,
-              { backgroundColor: selected.btn4 ? '#267326' : '#9DE89C' }
+              styles.buttonShadow,
+              styles.paddingButtons,
+              { shadowColor: selected.btn4 ? '#267326' : '#009900' }
             ]}
-            size={60}
-            name="square"
-            type="material-community"
-            color="#CFE9EF"
-            onPress={() => {
-              setButton()
-              handleChange(4)
-              handlePlaySound(answers[3].text)
-            }}
-          />
-        </View>
+          >
+            <Icon
+              style={[
+                styles.button,
+                { backgroundColor: selected.btn4 ? '#267326' : '#9DE89C' }
+              ]}
+              size={60}
+              name="square"
+              type="material-community"
+              color="#CFE9EF"
+              onPress={() => {
+                setButton()
+                handleChange(4)
+                handlePlaySound(answers[3].text)
+              }}
+            />
+          </View> : null}
       </View>
       <View style={{ top: '2%' }}>
         <View

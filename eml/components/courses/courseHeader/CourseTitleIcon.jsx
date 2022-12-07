@@ -7,14 +7,13 @@ import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/dev'
 export default function CourseTitleIcon({ title, courseIcon }) {
   CourseTitleIcon.propTypes = {
     title: PropTypes.string.isRequired,
-    courseIcon: PropTypes.string.isRequired
+    courseIcon: PropTypes.string
   }
 
   let [fontsLoaded] = useFonts({
     VarelaRound_400Regular
   })
 
-  console.log("tis" + courseIcon)
   return (
     <View style={styles.container}>
       <View>

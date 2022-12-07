@@ -12,7 +12,6 @@ import * as StorageService from '../../services/StorageService'
 
 const downloadCourseButton = ({ courseId, downloadStateSignal }) => {
   const [downloadState, setDownloadState] = useState(2)
-  console.log(courseId)
 
   function testLog() {
     return console.log('hello')

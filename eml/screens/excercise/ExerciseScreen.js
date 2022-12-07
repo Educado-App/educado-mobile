@@ -15,9 +15,8 @@ export default function ExerciseScreen() {
 
   const { sectionId, courseId } = route.params
 
-  const [flag, setFlag] = useState(false)
+  const [hasData, setHasData] = useState(false)
 
-  const [status, setStatus] = useState([])
   const [signal, setSignal] = useState([])
   const [exerciseData, setExerciseData] = useState({})
 
@@ -31,7 +30,7 @@ export default function ExerciseScreen() {
   //Find en anden løsning end useEffect...
   useEffect(() => {
     getExercise().then(() => {
-      setFlag(true)
+      setHasData(true)
     })
   }, [route.params])
 
@@ -39,11 +38,12 @@ export default function ExerciseScreen() {
 
   useEffect(() => {
     if(video !== undefined){
-      if (signal === 0 && status.isPlaying) {
+      if (signal === 0) {
         video.current.pauseAsync()
       }
     setSignal(1)
     }
+    
   }, [signal])
 
   return (
@@ -87,7 +87,6 @@ export default function ExerciseScreen() {
             shouldPlay
             useNativeControls
             ref={video}
-            onPlaybackStatusUpdate={(status) => setStatus(() => status)}
             style={styles.backgroundVideo}
           />
         )}
@@ -102,6 +101,7 @@ export default function ExerciseScreen() {
             courseId={courseId}
             sectionId={sectionId}
             setSignal={setSignal}
+            hasData={hasData}
           ></ExerciseButtons>
         )}
       </View>
