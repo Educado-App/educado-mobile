@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const testUrl = 'http://localhost:8888'
-const testExpo = 'http://192.168.229.56:8888' //Change to local expo ip
+const testExpo = 'http://192.168.43.88:8888' //Change to local expo ip
 const url = testExpo
 
 // Find a solution to refresh auth-token

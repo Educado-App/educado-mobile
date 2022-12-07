@@ -28,7 +28,7 @@ export default function ExerciseScreen() {
     }
     setExerciseData(exercise)
   }
-
+  //Find en anden løsning end useEffect...
   useEffect(() => {
     getExercise().then(() => {
       setFlag(true)

@@ -24,61 +24,54 @@ export const getTestCourseFromApi = async () => {
 }
 
 export const getCourseList = async () => {
+  try {
+    //Uncomment to clear async storage cache upon loading explore screen
 
-    try {
+    console.log(await AsyncStorage.getAllKeys())
+    console.log(await AsyncStorage.clear())
+    console.log(await AsyncStorage.getAllKeys())
+    console.log(
+      await DirectoryService.DeleteDirectory('635fb5b9b2fb6c4f49084682')
+    )
 
-        //Uncomment to clear async storage cache upon loading explore screen
-        /*
-        console.log(await AsyncStorage.getAllKeys());
-        console.log(await AsyncStorage.clear());
-        console.log(await AsyncStorage.getAllKeys());
-        */
+    // Check if the course list already exists in AsyncStorage
+    let courseList = JSON.parse(await AsyncStorage.getItem(COURSE_LIST))
 
-        // Check if the course list already exists in AsyncStorage
-        let courseList = JSON.parse(await AsyncStorage.getItem(COURSE_LIST));
-
-        if (courseList == null) {
-
-            return await refreshCourseList();
-
-        } else return courseList;
-
-    } catch (e) {
-        console.error(e);
-    }
-
+    if (courseList == null) {
+      return await refreshCourseList()
+    } else return courseList
+  } catch (e) {
+    console.error(e)
+  }
 }
 
 export const refreshCourseList = async () => {
+  return await api
+    .getCourses()
+    .then(async (list) => {
+      let newCourseList = []
 
-    return await api.getCourses().then(
+      for (const course of list.data) {
+        const courseId = course.id
 
-        async list => {
+        const localCourse = JSON.parse(await AsyncStorage.getItem(courseId))
 
-            let newCourseList = [];
+        // Make new list with required members
+        newCourseList.push({
+          title: course.title,
+          courseId: course.id,
+          iconPath: course.category == null ? '' : course.category.icon,
+          categoryId: course.category == null ? '' : course.category.id,
+          isActive: localCourse !== null
+        })
+      }
 
-            for (const course of list.data) {
-
-                const courseId = course.id;
-
-                const localCourse = JSON.parse(await AsyncStorage.getItem(courseId));
-
-                // Make new list with required members
-                newCourseList.push({
-                    title: course.title,
-                    courseId: course.id,
-                    iconPath: course.category == null ? '' : course.category.icon,
-                    categoryId: course.category == null ? '' : course.category.id,
-                    isActive: localCourse !== null,
-                });
-            }
-
-            // Save new courseList for this key and return it.
-            await AsyncStorage.setItem(COURSE_LIST, JSON.stringify(newCourseList));
-            return newCourseList;
-        }
-    ).catch(e=>{
-        console.log(e);
+      // Save new courseList for this key and return it.
+      await AsyncStorage.setItem(COURSE_LIST, JSON.stringify(newCourseList))
+      return newCourseList
+    })
+    .catch((e) => {
+      console.log(e)
     })
 }
 
@@ -93,18 +86,20 @@ export const getCourseById = async (courseId) => {
         for (const section of requestedCourse.data.sections) {
           let exerciseContent = []
 
-                        for (const exercise of section.exercises) {
+          for (const exercise of section.exercises) {
+            if (exercise.length === 0) {
+              exercise.push({
+                content:
+                  'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4'
+              })
+            } else if (exercise.content === '') {
+              exercise.content =
+                'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4'
+            }
 
-                            if(exercise.length === 0){
-                                exercise.push({content: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4"});
-                            }
-                            else if (exercise.content === ""){
-                                exercise.content = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4";
-                            }
-
-                            exercise.isComplete = false;
-                            exerciseContent.push(exercise)
-                        }
+            exercise.isComplete = false
+            exerciseContent.push(exercise)
+          }
 
           let currentSection = {
             id: section.id,
@@ -113,32 +108,35 @@ export const getCourseById = async (courseId) => {
             isComplete: false
           }
 
-                        currentSection.exercises = exerciseContent;
-                        sections.push(currentSection);
-                        await AsyncStorage.setItem(section.id, JSON.stringify(currentSection));
-                    }
+          currentSection.exercises = exerciseContent
+          sections.push(currentSection)
+          await AsyncStorage.setItem(section.id, JSON.stringify(currentSection))
+        }
 
-                    const courseContent = {
-                        title: requestedCourse.data.title,
-                        id: requestedCourse.data.id,
-                        icon: requestedCourse.data.category == null ? '' : requestedCourse.data.category.icon,
-                        categoryId: requestedCourse.data.category == null ? '' : requestedCourse.data.category.id,
-                        sections: sections,
-                        isActive: false,
-                        isComplete: false,
-                    }
+        const courseContent = {
+          title: requestedCourse.data.title,
+          id: requestedCourse.data.id,
+          icon:
+            requestedCourse.data.category == null
+              ? ''
+              : requestedCourse.data.category.icon,
+          categoryId:
+            requestedCourse.data.category == null
+              ? ''
+              : requestedCourse.data.category.id,
+          sections: sections,
+          isActive: false,
+          isComplete: false
+        }
 
-                    //console.log("STORAGE SERVICE \n " , courseContent.sections[0].exercises[0])
-                    await AsyncStorage.setItem(courseId, JSON.stringify(courseContent));
-                    return courseContent;
-                }
-            );
-
-        } else return course;
-
-    } catch (e) {
-        console.error(e);
-    }
+        //console.log("STORAGE SERVICE \n " , courseContent.sections[0].exercises[0])
+        await AsyncStorage.setItem(courseId, JSON.stringify(courseContent))
+        return courseContent
+      })
+    } else return course
+  } catch (e) {
+    console.error(e)
+  }
 }
 
 export const updateCompletionStatus = async (sectionId, exerciseId) => {
@@ -163,12 +161,10 @@ export const updateCompletionStatus = async (sectionId, exerciseId) => {
 }
 
 export const getNextExercise = async (sectionId) => {
+  try {
+    const currentSection = JSON.parse(await AsyncStorage.getItem(sectionId))
 
-    try {
-
-        const currentSection = JSON.parse(await AsyncStorage.getItem(sectionId))
-
-        //console.log("GET NEXT EXERCISE \n ", currentSection);
+    //console.log("GET NEXT EXERCISE \n ", currentSection);
 
     for (const exercise of currentSection.exercises) {
       if (!exercise.isComplete) {
@@ -178,32 +174,18 @@ export const getNextExercise = async (sectionId) => {
   } catch (e) {
     console.error(e)
   }
-        for (const exercise of currentSection.exercises) {
-
-            if (!exercise.isComplete) {
-                return exercise;
-            }
-        }
-
-    } catch (e) {
-        console.error(e);
-    }
 }
 
 export const downloadCourse = async (courseId) => {
+  if (courseId !== undefined) {
+    try {
+      const courseList = JSON.parse(await AsyncStorage.getItem(COURSE_LIST))
+      const course = JSON.parse(await AsyncStorage.getItem(courseId))
 
-    if (courseId !== undefined) {
-
-        try {
-
-            const courseList = JSON.parse(await AsyncStorage.getItem(COURSE_LIST));
-            const course = JSON.parse(await AsyncStorage.getItem(courseId));
-
-            if (course !== null && courseList !== null) {
-
-                const courseDirectory = course.id;
-                const icon = course.icon;
-                const sections = course.sections;
+      if (course !== null && courseList !== null) {
+        const courseDirectory = course.id
+        const icon = course.icon
+        const sections = course.sections
 
         //making directory for the course
         await DirectoryService.CreateDirectory(courseDirectory)
@@ -243,45 +225,40 @@ export const downloadCourse = async (courseId) => {
           }
         }
 
+        //store the downloaded course back in the AsyncStorage
+        course.isActive = true
+        await AsyncStorage.setItem(courseId, JSON.stringify(course))
 
-                //store the downloaded course back in the AsyncStorage
-                course.isActive = true;
-                await AsyncStorage.setItem(courseId, JSON.stringify(course));
-
-                //store the updated course list back in the AsyncStorage
-                for(const course of courseList){
-                    if (course.courseId === courseId){
-                        course.isActive = true;
-                        break;
-                    }
-                }
-                await AsyncStorage.setItem(COURSE_LIST, JSON.stringify(courseList));
-
-            } else {
-                return console.log("error: course not found!");
-            }
-
-        } catch (e) {
-            console.error(e);
+        //store the updated course list back in the AsyncStorage
+        for (const course of courseList) {
+          if (course.courseId === courseId) {
+            course.isActive = true
+            break
+          }
         }
-
-    } else console.log("error: course id is not defined!");
+        await AsyncStorage.setItem(COURSE_LIST, JSON.stringify(courseList))
+      } else {
+        return console.log('error: course not found!')
+      }
+    } catch (e) {
+      console.error(e)
+    }
+  } else console.log('error: course id is not defined!')
 }
 
 export const deleteCourse = async (id) => {
-    if (id !== undefined) {
-        try {
-            const course = JSON.parse(await AsyncStorage.getItem(id));
+  if (id !== undefined) {
+    try {
+      const course = JSON.parse(await AsyncStorage.getItem(id))
 
-            if (course !== null) {
-                await DirectoryService.DeleteDirectory(course);
-                await AsyncStorage.removeItem(id);
-            }
-        }
-        catch (e) {
-            console.error(e);
-        }
+      if (course !== null) {
+        await DirectoryService.DeleteDirectory(course)
+        await AsyncStorage.removeItem(id)
+      }
+    } catch (e) {
+      console.error(e)
     }
+  }
 }
 
 export const downloadTestCourse = async (courseId) => {
