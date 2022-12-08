@@ -17,7 +17,6 @@ export default function TestScreen() {
         //console.log(await DirectoryService.DeleteDirectory('6388ab98d77d454f20d070ff'));
         console.log(await DirectoryService.ReadDirectory(''), "READDIR");
         //console.log(await DirectoryService.DeleteDirectory('635fb5b9b2fb6c4f49084682'));
-
     }
 
     useEffect(() => {

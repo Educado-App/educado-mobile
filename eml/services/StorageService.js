@@ -64,17 +64,17 @@ export const getCourseById = async (courseId) => {
             if (exercise.length === 0) {
               exercise.push({
                 content: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4',
-                onWrongFeedback: 'https://drive.google.com/file/d/10av_XwIKYjGCNBfb38wuVWBT3GQC2PGN/view?usp=share_link',
+                onWrongFeedback: 'https://drive.google.com/uc?export=download&id=10av_XwIKYjGCNBfb38wuVWBT3GQC2PGN',
               });
             } else if (exercise.content === '' && exercise.onWrongFeedback === '') {
               exercise.content = 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4';
-              exercise.onWrongFeedback = 'https://drive.google.com/file/d/10av_XwIKYjGCNBfb38wuVWBT3GQC2PGN/view?usp=share_link';
+              exercise.onWrongFeedback = 'https://drive.google.com/uc?export=download&id=10av_XwIKYjGCNBfb38wuVWBT3GQC2PGN';
             }
             else if (exercise.content === '') {
               exercise.content = 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4';
             }
             else if (exercise.onWrongFeedback === '') {
-              exercise.onWrongFeedback = 'https://drive.google.com/file/d/10av_XwIKYjGCNBfb38wuVWBT3GQC2PGN/view?usp=share_link';
+              exercise.onWrongFeedback = 'https://drive.google.com/uc?export=download&id=10av_XwIKYjGCNBfb38wuVWBT3GQC2PGN';
             }
 
             exercise.isComplete = false
@@ -154,6 +154,7 @@ export const downloadCourse = async (courseId) => {
             const secondaryUrl = exercise.onWrongFeedback;
             exercise.onWrongFeedback = await DirectoryService.DownloadAndStoreContent(secondaryUrl, sectionDirectory, exercise.id + 'feedback');
           }
+          await AsyncStorage.setItem(section.id, JSON.stringify(section));
         }
 
         //store the downloaded course back in the AsyncStorage
@@ -201,6 +202,7 @@ export const getFeedBackByExerciseId = async (sectionId, exerciseId) => {
 
     for (const exercise of currentSection.exercises) {
       if (exercise.id === exerciseId) {
+        console.log(exercise.onWrongFeedback);
         return exercise.onWrongFeedback;
       }
     }
@@ -211,15 +213,19 @@ export const getFeedBackByExerciseId = async (sectionId, exerciseId) => {
 
 }
 export const updateCompletionStatus = async (sectionId, exerciseId) => {
+
   try {
     const section = JSON.parse(await AsyncStorage.getItem(sectionId))
 
     if (section !== null && exerciseId !== null) {
+
       for (const exercise of section.exercises) {
+
         if (exercise.id === exerciseId && exercise.isComplete !== true) {
-          exercise.isComplete = true
-          break
+          exercise.isComplete = true;
+          break;
         }
+
       }
     } else if (exerciseId === null) {
       section.isComplete = true
@@ -252,7 +258,7 @@ export const deleteCourse = async (courseId) => {
         await AsyncStorage.removeItem(element.id);
       });
 
-      await DirectoryService.DeleteDirectory(courseId);      
+      await DirectoryService.DeleteDirectory(courseId);
       await AsyncStorage.removeItem(courseId);
 
     } catch (e) {

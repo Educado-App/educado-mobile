@@ -11,62 +11,96 @@ export default function WrongAnswerComponent() {
   const route = useRoute();
   const { exerciseId, courseId, sectionId } = route.params;
   const [feedback, setFeedback] = useState('');
+  const [bool, setBool] = useState(false);
+  const video = useRef(0);
 
-  async function getFeedbackVideo () {
+  const getFeedbackVideo = async () => {
     const feedback = await StorageService.getFeedBackByExerciseId(sectionId, exerciseId);
-    const video = useRef(0);
-    return(
-        <View style={styles.container} className="bg-babyBlue">
-          <View style={{ flex: 0.5 }}>
-            <View
-                style={[styles.row, { paddingTop: '15%', paddingRight: '7%' }]}
-            ></View>
-          </View>
-          <View style={{ flex: 2, width: '100%' }}>
-            <Video
-                source={{uri: feedback}}
-                rate={1.0}
-                volume={1.0}
-                isMuted={false}
-                resizeMode="cover"
-                shouldPlay
-                useNativeControls
-                isLooping
-                ref={video}
-                style={styles.backgroundVideo}
-            />
-          </View>
-          <View style={{ top: '5%', flex: 0.7 }}>
-            <View
-                style={[
-                  styles.nextArrow,
-                  styles.buttonShadow,
-                  { shadowColor: '#2db300' }
-                ] }
-            >
-              <Icon
-
-                  size={70}
-                  name="chevron-right"
-                  type="material-community"
-                  color="white"
-                  onPress={() =>
-                      navigation.navigate('Exercise', {
-                        sectionId: sectionId,
-                        courseId: courseId
-                      })
-                  }
-              />
-            </View>
-          </View>
-        </View>
-    )
+    setFeedback(feedback);
+    console.log(feedback, "INSIDEEE");
   }
 
   useEffect(() => {
+      getFeedbackVideo().then(()=>{setBool(true)});
+      console.log(feedback, "HEELO");
   });
 
-  return (<View>{getFeedbackVideo}</View>)
+  return (
+      bool === true ?
+      <View>
+          <View style={styles.container} className="bg-babyBlue">
+              <View style={{ flex: 0.5 }}>
+                  <View
+                      style={[styles.row, { paddingTop: '15%', paddingRight: '7%' }]}
+                  ></View>
+              </View>
+              <View style={{ flex: 2, width: '100%' }}>
+                  <Video
+                      source={{uri: feedback}}
+                      rate={1.0}
+                      volume={1.0}
+                      isMuted={false}
+                      resizeMode="cover"
+                      shouldPlay
+                      useNativeControls
+                      isLooping
+                      ref={video}
+                      style={styles.backgroundVideo}
+                  />
+              </View>
+              <View style={{ top: '5%', flex: 0.7 }}>
+                  <View
+                      style={[
+                          styles.nextArrow,
+                          styles.buttonShadow,
+                          { shadowColor: '#2db300' }
+                      ] }
+                  >
+                      <Icon
+
+                          size={70}
+                          name="chevron-right"
+                          type="material-community"
+                          color="white"
+                          onPress={() =>
+                              navigation.navigate('Exercise', {
+                                  sectionId: sectionId,
+                                  courseId: courseId
+                              })
+                          }
+                      />
+                  </View>
+              </View>
+          </View>
+      </View>
+      :
+      <View>
+          <View style={styles.container} className="bg-babyBlue">
+              <View style={{ top: '5%', flex: 0.7 }}>
+                  <View
+                      style={[
+                          styles.nextArrow,
+                          styles.buttonShadow,
+                          { shadowColor: '#2db300' }
+                      ] }
+                  >
+                      <Icon
+                          size={70}
+                          name="loading"
+                          type="material-community"
+                          color="white"
+                          onPress={() =>
+                              navigation.navigate('Exercise', {
+                                  sectionId: sectionId,
+                                  courseId: courseId
+                              })
+                          }
+                      />
+                  </View>
+              </View>
+          </View>
+      </View>
+  )
 }
 
 const styles = StyleSheet.create({
