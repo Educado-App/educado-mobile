@@ -5,19 +5,17 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
+  Alert
 } from 'react-native'
 import { Icon } from '@rneui/themed'
 import * as StorageService from '../../services/StorageService'
 
 const downloadCourseButton = ({ courseId, downloadStateSignal }) => {
-  const [downloadState, setDownloadState] = useState(2)
 
-  function testLog() {
-    return console.log('hello')
-  }
+  const [downloadState, setDownloadState] = useState(2);
 
-  const downloadCourse = async () => {
+  const downloadCourseById = async () => {
     setDownloadState(0)
     await StorageService.downloadCourse(courseId)
       .then(() => {
@@ -31,6 +29,38 @@ const downloadCourseButton = ({ courseId, downloadStateSignal }) => {
       })
   }
 
+  const deleteCourseById = async () => {
+    setDownloadState(0)
+    await StorageService.deleteCourse(courseId)
+        .then(() => {
+          console.log('Delete finished')
+          setDownloadState(2)
+          downloadStateSignal(courseId)
+        })
+        .catch((error) => {
+          console.log(error)
+          setDownloadState(-1)
+        })
+  }
+
+  const deleteAlertButton = () => {
+    Alert.alert(
+        "Delete Downloaded Course",
+        "Are you sure you want to delete the downloaded course?",
+        [
+          {
+            text: "Yes",
+            onPress: () => deleteCourseById(courseId)
+          },
+          {
+            text: "Cancel",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel"
+          }
+        ]
+    );
+  }
+
   // by default the switch will return the download icon,
   // if the user has pressed the download button the loading indicator will be return
   // when the download is finished it return a checkmark
@@ -38,7 +68,7 @@ const downloadCourseButton = ({ courseId, downloadStateSignal }) => {
   const downloadStateIcon = (state) => {
     switch (state) {
       case 0:
-        return <ActivityIndicator size="small" color="#00ff00" />
+        return <ActivityIndicator size="small" color="#55747E" />
 
       case 1:
         return (
@@ -95,7 +125,7 @@ const downloadCourseButton = ({ courseId, downloadStateSignal }) => {
       <View>
         <Text style={styles.text}>
           <View>
-            <TouchableOpacity onPress={downloadCourse}>
+            <TouchableOpacity onPress={downloadState === 1 ? deleteAlertButton : downloadCourseById }>
               {downloadStateIcon(downloadState)}
               {downloadStateLabel(downloadState)}
             </TouchableOpacity>
