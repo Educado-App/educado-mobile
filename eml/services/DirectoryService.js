@@ -76,7 +76,7 @@ export async function DownloadAndStoreContent(url, directory, name){
         const localUri = FileSystem.documentDirectory + directory + '/' + name;
 
         try {
-              await FileSystem.downloadAsync(url, localUri)
+              return await FileSystem.downloadAsync(url, localUri)
                 .then(({ uri }) => {
                     console.log('Finished downloading to', uri);
                     return localUri;

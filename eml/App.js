@@ -55,7 +55,6 @@ function CourseStack() {
     </Stack.Navigator>
   )
 }
-
 function LoginStack() {
   return (
     <Stack.Navigator initialRouteName={'Login'}>
@@ -76,7 +75,6 @@ function LoginStack() {
     </Stack.Navigator>
   )
 }
-
 function HomeStack() {
   return (
     <Tab.Navigator
@@ -141,64 +139,62 @@ function HomeStack() {
     </Tab.Navigator>
   )
 }
-
-// for playing around
-function TestStack(){
-    return(
-        <Tab.Navigator initialRouteName={"TestScreen"}>
-            <Tab.Screen
-                name="TestScreen"
-                component={TestScreen}
-                options={{
-                    headerShown: false,
-                    tabBarIcon: () => {
-                        return (
-                            <Icon
-                                size={30}
-                                name="home"
-                                type="material-community"
-                                color="black"
-                            />
-                        )
-                    }
-                }}
-            />
-            <Tab.Screen
-                name="Profile"
-                component={ProfileComponent}
-                options={{
-                    headerShown: false,
-                    tabBarIcon: () => {
-                        return (
-                            <Icon
-                                size={30}
-                                name="account-circle"
-                                type="material-community"
-                                color="black"
-                            />
-                        )
-                    }
-                }}
-            />
-            <Tab.Screen
-                name="Explore"
-                component={Explore}
-                options={{
-                    headerShown: false,
-                    tabBarIcon: () => {
-                        return (
-                            <Icon
-                                size={30}
-                                name="magnify"
-                                type="material-community"
-                                color="black"
-                            />
-                        )
-                    }
-                }}
-            />
-        </Tab.Navigator>
-    )
+function TestStack() {
+  return (
+    <Tab.Navigator initialRouteName={'TestScreen'}>
+      <Tab.Screen
+        name="TestScreen"
+        component={TestScreen}
+        options={{
+          headerShown: false,
+          tabBarIcon: () => {
+            return (
+              <Icon
+                size={30}
+                name="home"
+                type="material-community"
+                color="black"
+              />
+            )
+          }
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={ProfileComponent}
+        options={{
+          headerShown: false,
+          tabBarIcon: () => {
+            return (
+              <Icon
+                size={30}
+                name="account-circle"
+                type="material-community"
+                color="black"
+              />
+            )
+          }
+        }}
+      />
+      <Tab.Screen
+        name="Explore"
+        component={Explore}
+        options={{
+          headerShown: false,
+          tabBarIcon: () => {
+            return (
+              <Icon
+                size={30}
+                name="magnify"
+                type="material-community"
+                color="black"
+              />
+            )
+          }
+        }}
+      />
+    </Tab.Navigator>
+  )
 }
 
 // Change InitialRouteName to HomeStack if you want to skip Login Screen

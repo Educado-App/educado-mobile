@@ -6,6 +6,8 @@ import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/dev'
 import { AppLoading } from 'expo-app-loading'
 import * as StorageService from "../../services/StorageService";
 import { constSelector } from 'recoil'
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as DirectoryService from "../../services/DirectoryService";
 
 export default function CourseScreen() {
 
@@ -29,6 +31,13 @@ export default function CourseScreen() {
         VarelaRound_400Regular
     })
 
+    async function clearStorage () {
+        //Uncomment to clear async storage cache upon loading explore screen
+        console.log(await AsyncStorage.getAllKeys())
+        console.log(await AsyncStorage.clear())
+        console.log(await AsyncStorage.getAllKeys())
+        console.log(await DirectoryService.DeleteDirectory('635fb5b9b2fb6c4f49084682'));
+    }
 
     async function loadCourse() {
         const courseData = await StorageService.getCourseById(courseId);
@@ -41,10 +50,8 @@ export default function CourseScreen() {
             loadCourse().then(() => {
                 setBool(true);
             });
-
         }
-
-    }, [route.params])
+    }, [route.params,downloadState])
 
 
     if (!fontsLoaded) {

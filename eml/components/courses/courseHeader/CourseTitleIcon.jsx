@@ -28,11 +28,11 @@ export default function CourseTitleIcon({ title, courseIcon }) {
         </Text>
       </View>
       <View style={{ padding: '5%' }}>
-        {courseIcon !== '' ?
+        {courseIcon !== undefined || courseIcon !== 'https://s3.eu-central-1.amazonaws.com/' || courseIcon !== null || courseIcon !== '' ?
           <Image source={{ uri: courseIcon }}
             style={{ width: 50, height: 50 }}
             className="rounded-xl"
-          ></Image> :
+          /> :
           <Image source={require('../../../assets/loadingImage.png')}
                  style={{ width: 50, height: 50 }}
                  className="rounded-xl"

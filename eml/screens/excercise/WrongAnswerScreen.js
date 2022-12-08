@@ -3,64 +3,70 @@ import { StyleSheet, View } from 'react-native'
 import FeedBackVideo from '../../components/exercise/video/LearningInputVideoExample1'
 import { Icon } from '@rneui/themed'
 import { useNavigation, useRoute } from '@react-navigation/native'
-import StorageController from '../../assets/controller/storageController'
 import { Video } from 'expo-av'
+import * as StorageService from "../../services/StorageService";
 
 export default function WrongAnswerComponent() {
-  const navigation = useNavigation()
-  const route = useRoute()
-  const { exerciseId, courseId, sectionId } = route.params
+  const navigation = useNavigation();
+  const route = useRoute();
+  const { exerciseId, courseId, sectionId } = route.params;
+  const [feedback, setFeedback] = useState('');
 
-  const feedback = StorageController.getFeedBackByExerciseId(exerciseId)
+  async function getFeedbackVideo () {
+    const feedback = await StorageService.getFeedBackByExerciseId(sectionId, exerciseId);
+    const video = useRef(0);
+    return(
+        <View style={styles.container} className="bg-babyBlue">
+          <View style={{ flex: 0.5 }}>
+            <View
+                style={[styles.row, { paddingTop: '15%', paddingRight: '7%' }]}
+            ></View>
+          </View>
+          <View style={{ flex: 2, width: '100%' }}>
+            <Video
+                source={{uri: feedback}}
+                rate={1.0}
+                volume={1.0}
+                isMuted={false}
+                resizeMode="cover"
+                shouldPlay
+                useNativeControls
+                isLooping
+                ref={video}
+                style={styles.backgroundVideo}
+            />
+          </View>
+          <View style={{ top: '5%', flex: 0.7 }}>
+            <View
+                style={[
+                  styles.nextArrow,
+                  styles.buttonShadow,
+                  { shadowColor: '#2db300' }
+                ] }
+            >
+              <Icon
 
-  const video = useRef(0)
-
-  return (
-    <View style={styles.container} className="bg-babyBlue">
-      <View style={{ flex: 0.5 }}>
-        <View
-          style={[styles.row, { paddingTop: '15%', paddingRight: '7%' }]}
-        ></View>
-      </View>
-      <View style={{ flex: 2, width: '100%' }}>
-        <Video
-          source={{uri: feedback.on_wrong_feedback.uri}}
-          rate={1.0}
-          volume={1.0}
-          isMuted={false}
-          resizeMode="cover"
-          shouldPlay
-          useNativeControls
-          isLooping
-          ref={video}
-          style={styles.backgroundVideo}
-        />
-      </View>
-      <View style={{ top: '5%', flex: 0.7 }}>
-        <View
-          style={[
-            styles.nextArrow,
-            styles.buttonShadow,
-            { shadowColor: '#2db300' }
-          ] } 
-        >
-          <Icon
-          
-            size={70}
-            name="chevron-right"
-            type="material-community"
-            color="white"
-            onPress={() =>
-              navigation.navigate('Exercise', {
-                sectionId: sectionId,
-                courseId: courseId
-              })
-            }
-          />
+                  size={70}
+                  name="chevron-right"
+                  type="material-community"
+                  color="white"
+                  onPress={() =>
+                      navigation.navigate('Exercise', {
+                        sectionId: sectionId,
+                        courseId: courseId
+                      })
+                  }
+              />
+            </View>
+          </View>
         </View>
-      </View>
-    </View>
-  )
+    )
+  }
+
+  useEffect(() => {
+  });
+
+  return (<View>{getFeedbackVideo}</View>)
 }
 
 const styles = StyleSheet.create({

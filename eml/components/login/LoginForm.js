@@ -7,6 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 const LOGIN_TOKEN = '@loginToken';
 const USER_INFO = '@userInfo';
 
+//When Logout: back button should be disabled!!!!
 
 export default function LoginForm(props) {
 
