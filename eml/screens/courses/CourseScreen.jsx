@@ -1,11 +1,12 @@
 import { useRoute, useNavigation } from '@react-navigation/native'
 import { React, useEffect, useState } from 'react'
 import CourseListUI from '../../components/easyDynComponents/courseListUI'
-import { View, Pressable, Text } from 'react-native'
+import {View, Pressable, Text, AsyncStorage} from 'react-native'
 import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/dev'
 import { AppLoading } from 'expo-app-loading'
 import * as StorageService from "../../services/StorageService";
 import { constSelector } from 'recoil'
+import * as DirectoryService from "../../services/DirectoryService";
 
 export default function CourseScreen() {
 
