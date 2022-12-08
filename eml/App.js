@@ -144,13 +144,6 @@ function HomeStack() {
           }
         }}
       />
-    </Tab.Navigator>
-  )
-}
-
-function TestStack() {
-  return (
-    <Tab.Navigator initialRouteName={'TestScreen'}>
       <Tab.Screen
         name="TestScreen"
         component={TestScreen}
@@ -161,40 +154,6 @@ function TestStack() {
               <Icon
                 size={30}
                 name="home"
-                type="material-community"
-                color="black"
-              />
-            )
-          }
-        }}
-      />
-      <Tab.Screen
-        name="Profile"
-        component={ProfileComponent}
-        options={{
-          headerShown: false,
-          tabBarIcon: () => {
-            return (
-              <Icon
-                size={30}
-                name="account-circle"
-                type="material-community"
-                color="black"
-              />
-            )
-          }
-        }}
-      />
-      <Tab.Screen
-        name="Explore"
-        component={Explore}
-        options={{
-          headerShown: false,
-          tabBarIcon: () => {
-            return (
-              <Icon
-                size={30}
-                name="magnify"
                 type="material-community"
                 color="black"
               />
@@ -223,11 +182,6 @@ export default function App() {
               <Stack.Screen
                 name={'HomeStack'}
                 component={HomeStack}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name={'TestStack'}
-                component={TestStack}
                 options={{ headerShown: false }}
               />
             </Stack.Navigator>
