@@ -98,6 +98,8 @@ export default function ExerciseButtons({ exerciseId, answers, sectionId, course
 
   }
 
+
+
   function checkChoice(choice) {
 
     setSignal(0)

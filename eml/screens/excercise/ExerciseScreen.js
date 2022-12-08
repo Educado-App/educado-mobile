@@ -22,11 +22,29 @@ export default function ExerciseScreen() {
 
   async function getExercise() {
     const exercise = await StorageService.getNextExercise(sectionId)
-    if (exercise === undefined) {
-      navigation.navigate('ErrorScreen')
+    
+    if (isSectionComplete(courseId, sectionId) === true) {
+      navigation.navigate('SectionComplete', { courseId: courseId, sectionId: sectionId })
+  
+    }else{
+      if (exercise === undefined) {
+        navigation.navigate('ErrorScreen')
+      }
     }
     setExerciseData(exercise)
   }
+
+  async function isSectionComplete(courseId, sectionId) {
+    const course = await StorageService.getCourseById(courseId)
+    const sections = course.sections
+
+    for (let i = 0; i < sections.length; i++) {
+      if (sections[i].id === sectionId) {
+        return sections[i].isComplete
+      }
+    }
+  }
+
   //Find en anden løsning end useEffect...
   useEffect(() => {
     getExercise().then(() => {
