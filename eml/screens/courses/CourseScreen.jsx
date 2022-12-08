@@ -2,7 +2,6 @@ import { useRoute, useNavigation } from '@react-navigation/native'
 import { React, useEffect, useState } from 'react'
 import CourseListUI from '../../components/easyDynComponents/courseListUI'
 import { View, Pressable, Text } from 'react-native'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/dev'
 import { AppLoading } from 'expo-app-loading'
 import * as StorageService from "../../services/StorageService";
@@ -38,14 +37,6 @@ export default function CourseScreen() {
     async function loadCourse() {
         const courseData = await StorageService.getCourseById(courseId);
         setCourse(courseData);
-    }
-
-    async function clearStorage() {
-        //Uncomment to clear async storage cache upon loading explore screen
-        console.log(await AsyncStorage.getAllKeys())
-        console.log(await AsyncStorage.clear())
-        console.log(await AsyncStorage.getAllKeys())
-        console.log(await DirectoryService.DeleteDirectory('635fb5b9b2fb6c4f49084682'));
     }
 
     useEffect(() => {
