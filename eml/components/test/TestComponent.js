@@ -37,7 +37,6 @@ export default function TestComponent() {
     const auth = await getAuthToken()
     console.log(auth.data.accessToken)
   }
-
   async function test6() {
     let y = 10
 
@@ -75,7 +74,6 @@ export default function TestComponent() {
     const ex = await StorageService.getNextExercise(id)
     console.log(ex)
   }
-
   async function makeTestCourse() {
     const course = await getCourse('635fb5b9b2fb6c4f49084682')
     course.data.category.icon =

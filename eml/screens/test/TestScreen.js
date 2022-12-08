@@ -6,15 +6,16 @@ import * as DirectoryService from "../../services/DirectoryService";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function TestScreen() {
-    
+
     async function clearStorage () {
         //Uncomment to clear async storage cache upon loading explore screen
-        console.log(await AsyncStorage.getAllKeys())
-        console.log(await AsyncStorage.clear())
+        console.log(await AsyncStorage.getAllKeys(), "BEFORE")
+        console.log(await AsyncStorage.clear(), "CLEAR")
+        console.log(await AsyncStorage.getAllKeys(), "AFTER")
         //console.log(await AsyncStorage.removeItem("635fb5b9b2fb6c4f49084682"))
         //console.log(await AsyncStorage.getAllKeys())
         //console.log(await DirectoryService.DeleteDirectory('6388ab98d77d454f20d070ff'));
-        console.log(await DirectoryService.ReadDirectory(''));
+        console.log(await DirectoryService.ReadDirectory(''), "READDIR");
         //console.log(await DirectoryService.DeleteDirectory('635fb5b9b2fb6c4f49084682'));
 
     }

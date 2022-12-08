@@ -34,7 +34,7 @@ export async function ReadDirectory(name){
              await FileSystem.readDirectoryAsync(FileSystem.documentDirectory + name)
                 .then(filesInDirectory => {
                     items = filesInDirectory;
-                    console.log(items);
+                    console.log("ITEMS: ", items);
                 })
                 .catch(error => {
                     console.log("Error Reading directory (maybe it is not yet created)");
