@@ -235,7 +235,7 @@ export const deleteCourse = async (courseId) => {
 
   if (courseId !== undefined) {
 
-    const courseList = await AsyncStorage.getItem(COURSE_LIST);
+    const courseList = JSON.parse(await AsyncStorage.getItem(COURSE_LIST));
 
     try {
 
@@ -246,7 +246,13 @@ export const deleteCourse = async (courseId) => {
       }
 
       await AsyncStorage.setItem(COURSE_LIST, JSON.stringify(courseList));
-      await DirectoryService.DeleteDirectory(courseId);
+      // delete sections of course
+      const course = JSON.parse(await AsyncStorage.getItem(courseId));
+      course.sections.forEach(async element => {
+        await AsyncStorage.removeItem(element.id);
+      });
+
+      await DirectoryService.DeleteDirectory(courseId);      
       await AsyncStorage.removeItem(courseId);
 
     } catch (e) {
