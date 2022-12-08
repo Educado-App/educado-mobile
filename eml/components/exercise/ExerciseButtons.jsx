@@ -33,7 +33,7 @@ export default function ExerciseButtons({ exerciseId, answers, sectionId, course
   function findRightAnswer() {
     for (let i = 0; i < answers.length; i++) {
       if (answers[i].correct === true) {
-        return answers[i].answerNumber
+        return i + 1
       }
     }
     return null
@@ -98,11 +98,11 @@ export default function ExerciseButtons({ exerciseId, answers, sectionId, course
 
   }
 
+
+
   function checkChoice(choice) {
 
     setSignal(0)
-
-
     updateExercise(sectionId, exerciseId);
 
     const rightAnswer = findRightAnswer();
@@ -239,7 +239,6 @@ export default function ExerciseButtons({ exerciseId, answers, sectionId, course
             type="material-community"
             color="#CFE9EF"
             onPress={() => {
-              StorageService.updateCompletionStatus(sectionId, exerciseId)
               setButton(true)
               checkChoice(choice)
             }}

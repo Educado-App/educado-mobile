@@ -6,7 +6,6 @@ const COURSE_LIST = '@courseList'
 
 export const getCourseList = async () => {
   try {
-
     // Check if the course list already exists in AsyncStorage
     let courseList = JSON.parse(await AsyncStorage.getItem(COURSE_LIST))
 
