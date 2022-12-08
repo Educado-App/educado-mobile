@@ -1,10 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { StyleSheet, View } from 'react-native'
+import {StyleSheet, Text, View} from 'react-native'
 import FeedBackVideo from '../../components/exercise/video/LearningInputVideoExample1'
 import { Icon } from '@rneui/themed'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { Video } from 'expo-av'
 import * as StorageService from "../../services/StorageService";
+import LeaveButton from "../../components/exercise/LeaveButton";
+import CustomProgressBar from "../../components/exercise/Progressbar";
+import ExerciseButtons from "../../components/exercise/ExerciseButtons";
+import {StatusBar} from "expo-status-bar";
 
 export default function WrongAnswerComponent() {
   const navigation = useNavigation();
@@ -17,89 +21,58 @@ export default function WrongAnswerComponent() {
   const getFeedbackVideo = async () => {
     const feedback = await StorageService.getFeedBackByExerciseId(sectionId, exerciseId);
     setFeedback(feedback);
-    console.log(feedback, "INSIDEEE");
   }
 
   useEffect(() => {
       getFeedbackVideo().then(()=>{setBool(true)});
-      console.log(feedback, "HEELO");
   });
 
   return (
       bool === true ?
-      <View>
           <View style={styles.container} className="bg-babyBlue">
-              <View style={{ flex: 0.5 }}>
-                  <View
-                      style={[styles.row, { paddingTop: '15%', paddingRight: '7%' }]}
-                  ></View>
-              </View>
               <View style={{ flex: 2, width: '100%' }}>
                   <Video
-                      source={{uri: feedback}}
+                      source={{ uri: feedback }}
                       rate={1.0}
                       volume={1.0}
                       isMuted={false}
                       resizeMode="cover"
                       shouldPlay
                       useNativeControls
-                      isLooping
                       ref={video}
                       style={styles.backgroundVideo}
                   />
               </View>
-              <View style={{ top: '5%', flex: 0.7 }}>
-                  <View
-                      style={[
-                          styles.nextArrow,
-                          styles.buttonShadow,
-                          { shadowColor: '#2db300' }
-                      ] }
-                  >
-                      <Icon
+              <StatusBar style="auto" />
+          </View>
+          :
+          <View>
+              <View style={styles.container} className="bg-babyBlue">
+                  <View style={{ top: '5%', flex: 0.7, paddingTop: 700 }}>
+                      <View
+                          style={[
+                              styles.nextArrow,
+                              styles.buttonShadow,
+                              { shadowColor: '#2db300' }
+                          ] }
+                      >
+                          <Icon
 
-                          size={70}
-                          name="chevron-right"
-                          type="material-community"
-                          color="white"
-                          onPress={() =>
-                              navigation.navigate('Exercise', {
-                                  sectionId: sectionId,
-                                  courseId: courseId
-                              })
-                          }
-                      />
+                              size={70}
+                              name="reload-alert"
+                              type="material-community"
+                              color="white"
+                              onPress={() =>
+                                  navigation.navigate('Exercise', {
+                                      sectionId: sectionId,
+                                      courseId: courseId
+                                  })
+                              }
+                          />
+                      </View>
                   </View>
               </View>
           </View>
-      </View>
-      :
-      <View>
-          <View style={styles.container} className="bg-babyBlue">
-              <View style={{ top: '5%', flex: 0.7 }}>
-                  <View
-                      style={[
-                          styles.nextArrow,
-                          styles.buttonShadow,
-                          { shadowColor: '#2db300' }
-                      ] }
-                  >
-                      <Icon
-                          size={70}
-                          name="loading"
-                          type="material-community"
-                          color="white"
-                          onPress={() =>
-                              navigation.navigate('Exercise', {
-                                  sectionId: sectionId,
-                                  courseId: courseId
-                              })
-                          }
-                      />
-                  </View>
-              </View>
-          </View>
-      </View>
   )
 }
 

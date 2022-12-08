@@ -201,7 +201,6 @@ export const getFeedBackByExerciseId = async (sectionId, exerciseId) => {
 
     for (const exercise of currentSection.exercises) {
       if (exercise.id === exerciseId) {
-        console.log(exercise.onWrongFeedback);
         return exercise.onWrongFeedback;
       }
     }
@@ -211,14 +210,17 @@ export const getFeedBackByExerciseId = async (sectionId, exerciseId) => {
   }
 
 }
-export const updateCompletionStatus = async (sectionId, exerciseId) => {
+export const updateCompletionStatus = async (courseId, sectionId, exerciseId) => {
 
   try {
-    const section = JSON.parse(await AsyncStorage.getItem(sectionId))
 
-    if (section !== null && exerciseId !== null) {
+    const course = JSON.parse(await AsyncStorage.getItem(courseId));
+    const updatedSection = JSON.parse(await AsyncStorage.getItem(sectionId));
 
-      for (const exercise of section.exercises) {
+
+    if (updatedSection !== null && exerciseId !== null) {
+
+      for (const exercise of updatedSection.exercises) {
 
         if (exercise.id === exerciseId && exercise.isComplete !== true) {
           exercise.isComplete = true;
@@ -226,11 +228,27 @@ export const updateCompletionStatus = async (sectionId, exerciseId) => {
         }
 
       }
+
+      for (let section of course.sections){
+        if (section.id === sectionId){
+          section = updatedSection;
+        }
+      }
+
     } else if (exerciseId === null) {
-      section.isComplete = true
+
+      updatedSection.isComplete = true;
+
+      for (const section of course.sections){
+        if (section.id === sectionId){
+          section.isComplete = true;
+        }
+      }
     }
 
-    await AsyncStorage.setItem(sectionId, JSON.stringify(section))
+    await AsyncStorage.setItem(courseId, JSON.stringify(course));
+    await AsyncStorage.setItem(sectionId, JSON.stringify(updatedSection));
+
   } catch (e) {
     console.error(e)
   }

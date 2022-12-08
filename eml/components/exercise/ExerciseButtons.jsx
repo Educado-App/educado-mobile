@@ -93,17 +93,14 @@ export default function ExerciseButtons({ exerciseId, answers, sectionId, course
     setChoice(evt)
   }
 
-  const updateExercise = async (sectionId, exerciseId) => {
-    await StorageService.updateCompletionStatus(sectionId, exerciseId)
-
+  const updateExercise = async () => {
+    await StorageService.updateCompletionStatus(courseId, sectionId, exerciseId)
   }
-
-
 
   function checkChoice(choice) {
 
     setSignal(0)
-    updateExercise(sectionId, exerciseId);
+    updateExercise();
 
     const rightAnswer = findRightAnswer();
 
