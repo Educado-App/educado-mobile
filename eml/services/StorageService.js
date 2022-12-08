@@ -230,18 +230,24 @@ export const updateCompletionStatus = async (sectionId, exerciseId) => {
     console.error(e)
   }
 }
+
 export const deleteCourse = async (courseId) => {
+
   if (courseId !== undefined) {
+
     const courseList = await AsyncStorage.getItem(COURSE_LIST);
+
     try {
-      await DirectoryService.DeleteDirectory(courseId);
-      await AsyncStorage.removeItem(courseId);
+
       for (const course of courseList){
         if(course.courseId === courseId){
           course.isActive = false;
         }
       }
+
       await AsyncStorage.setItem(COURSE_LIST, JSON.stringify(courseList));
+      await DirectoryService.DeleteDirectory(courseId);
+      await AsyncStorage.removeItem(courseId);
 
     } catch (e) {
       console.error(e)
