@@ -240,3 +240,13 @@ export const deleteCourse = async (courseId) => {
     }
   }
 }
+export const clearStorage = async () => {
+  //Uncomment to clear async storage cache upon loading explore screen
+  console.log(await AsyncStorage.getAllKeys())
+  console.log(await AsyncStorage.clear())
+  console.log(await AsyncStorage.getAllKeys())
+}
+
+export const logKeys = async () => {
+  console.log(await AsyncStorage.getAllKeys())
+}

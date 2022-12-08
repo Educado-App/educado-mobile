@@ -40,6 +40,11 @@ export default function CourseScreen() {
     }
 
     useEffect(() => {
+        StorageService.clearStorage();
+        StorageService.downloadCourse('635fb5b9b2fb6c4f49084682')
+        StorageService.logKeys()
+        StorageService.deleteCourse('635fb5b9b2fb6c4f49084682')
+        StorageService.logKeys()
         if (route.params !== undefined) {
             loadCourse().then(() => {
                 setBool(true);
