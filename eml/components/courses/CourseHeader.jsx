@@ -4,11 +4,11 @@ import CourseTitleIcon from './courseHeader/CourseTitleIcon'
 import PropTypes from 'prop-types'
 import DownloadCourseButton from "./DownloadCourseButton";
 
-export default function CourseHeader({ courseTitle, courseIcon, courseId }) {
+export default function CourseHeader({ courseTitle, courseIcon, courseId, downloadState }) {
 
   CourseHeader.propTypes = {
     courseTitle: PropTypes.string.isRequired,
-    courseIcon: PropTypes.string.isRequired
+    courseIcon: PropTypes.string,
   }
 
   return (
@@ -17,7 +17,7 @@ export default function CourseHeader({ courseTitle, courseIcon, courseId }) {
         title={courseTitle}
         courseIcon={courseIcon}
       ></CourseTitleIcon>
-      <DownloadCourseButton courseId={courseId} style={styles.downloadButton}></DownloadCourseButton>
+      <DownloadCourseButton downloadStateSignal={downloadState} courseId={courseId} style={styles.downloadButton}></DownloadCourseButton>
     </View>
   )
 }

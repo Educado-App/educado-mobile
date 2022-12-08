@@ -7,22 +7,22 @@
   "answers": [
     {
       "answerNumber": 1,
-      "text": "AnswerSection1",
+      "text": "this is answer one",
       "correct": false
     },
     {
       "answerNumber": 2,
-      "text": "Tests is a good idea",
+      "text": "eu sou a segunda resposta",
       "correct": false
     },
     {
       "answerNumber": 3,
-      "text": "AnswerSection2",
+      "text": "eu sou a terceira resposta",
       "correct": false
     },
     {
       "answerNumber": 4,
-      "text": "Tests is a good idea",
+      "text": "eu sou a última resposta",
       "correct": true
     }
   ]

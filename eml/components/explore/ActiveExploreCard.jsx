@@ -21,12 +21,12 @@ export default function ActiveExploreCard({ title, courseId, iconPath }) {
         onPress={() => navigation.navigate('Course', { courseId: courseId })}
       >
         <View className="">
-          <Text style={{ fontFamily: 'VarelaRound_400Regular', fontSize: 16, alignSelf: 'center' }} className="pt-4 text-gray-600">
+          <Text numberOfLines={1} style={{ fontFamily: 'VarelaRound_400Regular', fontSize: 16, alignSelf: 'center' }} className="pt-4 text-gray-600">
             {title}
           </Text>
         </View>
         <View className="pt-2">
-          <Image className="w-10 h-10" source={{ uri: iconPath }}></Image>
+          {iconPath === "" ? <Image className="w-10 h-10" source={require('../../assets/favicon.png')}></Image> : <Image className="w-10 h-10" source={{ uri: iconPath }}></Image>}
         </View>
       </Pressable>
     )

@@ -7,14 +7,12 @@ import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/dev'
 export default function CourseTitleIcon({ title, courseIcon }) {
   CourseTitleIcon.propTypes = {
     title: PropTypes.string.isRequired,
-    courseIcon: PropTypes.string.isRequired
+    courseIcon: PropTypes.string
   }
 
   let [fontsLoaded] = useFonts({
     VarelaRound_400Regular
   })
-
-  console.log(courseIcon)
 
   return (
     <View style={styles.container}>
@@ -34,8 +32,8 @@ export default function CourseTitleIcon({ title, courseIcon }) {
             className="rounded-xl"
           /> :
           <Image source={require('../../../assets/loadingImage.png')}
-                 style={{ width: 50, height: 50 }}
-                 className="rounded-xl"
+            style={{ width: 50, height: 50 }}
+            className="rounded-xl"
           />
         }
       </View>

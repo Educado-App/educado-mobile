@@ -110,6 +110,7 @@ export const getCourseById = async (courseId) => {
         return courseContent
       })
     } else return course
+
   } catch (e) {
     console.error(e)
   }
@@ -135,7 +136,7 @@ export const downloadCourse = async (courseId) => {
         await DirectoryService.CreateDirectory(courseDirectory);
 
         //downloading the icon for the course
-        course.icon = await DirectoryService.DownloadAndStoreContent(icon, courseDirectory,'courseIcon');
+        course.icon = await DirectoryService.DownloadAndStoreContent(icon, courseDirectory, 'courseIcon');
 
         //downloading each video of the exercises and storing in their respective sections
         for (const section of sections) {
@@ -151,7 +152,7 @@ export const downloadCourse = async (courseId) => {
 
             //Second download all the secondary (onWrongFeedback) video content
             const secondaryUrl = exercise.onWrongFeedback;
-            exercise.onWrongFeedback = await DirectoryService.DownloadAndStoreContent(secondaryUrl, sectionDirectory,exercise.id + 'feedback');
+            exercise.onWrongFeedback = await DirectoryService.DownloadAndStoreContent(secondaryUrl, sectionDirectory, exercise.id + 'feedback');
           }
         }
 
@@ -243,13 +244,3 @@ export const deleteCourse = async (courseId) => {
     }
   }
 }
-
-/*
- {
-  "on_wrong_feedback": {
-    "type": "video",
-    "uri": "https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
-  }
-}
- */
-

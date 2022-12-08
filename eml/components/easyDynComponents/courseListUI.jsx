@@ -4,11 +4,12 @@ import { Layout } from '@ui-kitten/components';
 import EasyDynamicList from './EasyDynamicList';
 import CourseHeader from '../courses/CourseHeader';
 
-export default function CourseListUI({ course }) {
-    console.log("COURSE LIST UI \n ", course);
+export default function CourseListUI({ course, downloadState }) {
+
     return (
         <View>
             <CourseHeader
+                downloadState={downloadState}
                 courseTitle={course.title}
                 courseIcon={course.icon}
                 courseId={course.id}

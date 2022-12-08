@@ -9,7 +9,8 @@ export default function SectionItem({ active, title, index, sectionId, courseId 
     title: PropTypes.string.isRequired,
     index: PropTypes.number.isRequired,
     courseId: PropTypes.string.isRequired,
-    sectionId: PropTypes.string.isRequired
+    sectionId: PropTypes.string.isRequired,
+    active: PropTypes.bool.isRequired
   }
 
   const navigation = useNavigation()
@@ -81,3 +82,4 @@ export default function SectionItem({ active, title, index, sectionId, courseId 
     )
   }
 }
+
