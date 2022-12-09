@@ -21,12 +21,27 @@ export const deleteUser = async(user_id) => {
     return res.data;
 }
 
-export const enrollInCourse = async (user_id, course_id) => {
+// send the POST request to enroll in a course
+export const enrollInCourse = async (user_Id, course_Id) => {
+  try {
     // When user enrolls in a course it sends the course id to the database,
     // and then stores the course and completion status in the user document.
-    const res = await axios.post(url + '/api/eml/' + user_id + '/enroll/' + course_id);
-    return res.data
-}
+    const res = await axios.post(url + '/api/eml/' + user_Id + '/enroll/' + course_Id);
+
+    // if the course does not already exist in the user's activeCourses list, return the response data
+    if (!res.data.course) {
+      return res.data;
+    }
+
+    // if the course already exists, return the information about the existing course
+    return {
+      course: response.data.course,
+    };
+  } catch (err) {
+    // if there is an error, return the error message
+    return err.message;
+  }
+};
 
 export const updateCourseStatus = async (user_id, course_id) => {
     // When user completes course it should update the user document from 
