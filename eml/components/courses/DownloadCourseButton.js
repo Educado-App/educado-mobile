@@ -12,8 +12,7 @@ import { Icon } from '@rneui/themed'
 import * as StorageService from '../../services/StorageService'
 
 const downloadCourseButton = ({ courseId, downloadStateSignal }) => {
-
-  const [downloadState, setDownloadState] = useState(2);
+  const [downloadState, setDownloadState] = useState(2)
 
   const downloadCourseById = async () => {
     setDownloadState(0)
@@ -32,33 +31,33 @@ const downloadCourseButton = ({ courseId, downloadStateSignal }) => {
   const deleteCourseById = async () => {
     setDownloadState(0)
     await StorageService.deleteCourse(courseId)
-        .then(() => {
-          console.log('Delete finished')
-          setDownloadState(2)
-          downloadStateSignal(courseId)
-        })
-        .catch((error) => {
-          console.log(error)
-          setDownloadState(-1)
-        })
+      .then(() => {
+        console.log('Delete finished')
+        setDownloadState(2)
+        downloadStateSignal(null)
+      })
+      .catch((error) => {
+        console.log(error)
+        setDownloadState(-1)
+      })
   }
 
   const deleteAlertButton = () => {
     Alert.alert(
-        "Delete Downloaded Course",
-        "Are you sure you want to delete the downloaded course?",
-        [
-          {
-            text: "Yes",
-            onPress: () => deleteCourseById(courseId)
-          },
-          {
-            text: "Cancel",
-            onPress: () => console.log("Cancel Pressed"),
-            style: "cancel"
-          }
-        ]
-    );
+      'Delete Downloaded Course',
+      'Are you sure you want to delete the downloaded course?',
+      [
+        {
+          text: 'Yes',
+          onPress: () => deleteCourseById(courseId)
+        },
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel'
+        }
+      ]
+    )
   }
 
   // by default the switch will return the download icon,
@@ -125,7 +124,11 @@ const downloadCourseButton = ({ courseId, downloadStateSignal }) => {
       <View>
         <Text style={styles.text}>
           <View>
-            <TouchableOpacity onPress={downloadState === 1 ? deleteAlertButton : downloadCourseById }>
+            <TouchableOpacity
+              onPress={
+                downloadState === 1 ? deleteAlertButton : downloadCourseById
+              }
+            >
               {downloadStateIcon(downloadState)}
               {downloadStateLabel(downloadState)}
             </TouchableOpacity>
