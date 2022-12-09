@@ -7,7 +7,6 @@ import { AppLoading } from 'expo-app-loading'
 
 export default function RightAnswerScreen() {
   const navigation = useNavigation()
-
   const route = useRoute()
   const { courseId, sectionId } = route.params
   const [fontsLoaded] = useFonts({

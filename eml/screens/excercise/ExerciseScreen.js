@@ -21,20 +21,26 @@ export default function ExerciseScreen() {
   const [exerciseData, setExerciseData] = useState({})
 
   async function getExercise() {
-    const exercise = await StorageService.getNextExercise(sectionId)
 
-    if (isSectionComplete(courseId, sectionId) === true) {
-      console.log('hey')
-      navigation.navigate('SectionComplete', {
-        courseId: courseId,
-        sectionId: sectionId
-      })
-    } else {
-      if (exercise === undefined) {
-        navigation.navigate('ErrorScreen')
+    const exercise = await StorageService.getNextExercise(sectionId);
+
+    if(exercise !== null){
+
+      console.log(exercise);
+
+      if (exercise === true) {
+
+        navigation.navigate('SectionComplete', {
+          courseId: courseId,
+          sectionId: sectionId
+        })
+      } else {
+        setExerciseData(exercise);
       }
+
+    } else {
+      navigation.navigate('ErrorScreen');
     }
-    setExerciseData(exercise)
   }
 
   async function isSectionComplete(courseId, sectionId) {
@@ -42,7 +48,7 @@ export default function ExerciseScreen() {
     const sections = course.sections
 
     for (let i = 0; i < sections.length; i++) {
-      console.log(sections[i].isComplete)
+      console.log("Section is complete: ", sections[i].isComplete)
       if (sections[i].id === sectionId) {
         return sections[i].isComplete
       }

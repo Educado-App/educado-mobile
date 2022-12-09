@@ -30,7 +30,7 @@ export default function RightAnswerScreen() {
               style={{ fontSize: 45, fontFamily: 'VarelaRound_400Regular' }}
               className="text-gray-600"
             >
-              Course Complete! 
+              Course Complete!
             </Text>
           </View>
           <View style={{ justifyContent: 'space-evenly' }}>
@@ -63,7 +63,7 @@ export default function RightAnswerScreen() {
               type="material-community"
               color="white"
               onPress={() =>
-                navigation.navigate('Exercise', {
+                navigation.navigate('Course', {
                   sectionId: sectionId,
                   courseId: courseId
                 })
