@@ -1,12 +1,13 @@
 import { useRoute, useNavigation } from '@react-navigation/native'
 import { React, useEffect, useState } from 'react'
 import CourseListUI from '../../components/easyDynComponents/courseListUI'
-import {View, Pressable, Text} from 'react-native'
+import { View, Pressable, Text } from 'react-native'
 import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/dev'
 import { AppLoading } from 'expo-app-loading'
 import * as StorageService from "../../services/StorageService";
 
 export default function CourseScreen() {
+
 
     const route = useRoute();
 
@@ -55,6 +56,7 @@ export default function CourseScreen() {
                     </View>
                     :
                     <View className="justify-center items-center">
+                        <Text className=" pb-10 text-2xl">No active courses</Text>
                         <Pressable
                             style={{ elevation: 10 }}
                             className="border border-cyanBlue rounded-md bg-cyanBlue p-2"

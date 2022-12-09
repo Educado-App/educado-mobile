@@ -24,9 +24,12 @@ export default function ExerciseScreen() {
     const exercise = await StorageService.getNextExercise(sectionId)
 
     if (isSectionComplete(courseId, sectionId) === true) {
-      navigation.navigate('SectionComplete', { courseId: courseId, sectionId: sectionId })
-
-    }else{
+      console.log('hey')
+      navigation.navigate('SectionComplete', {
+        courseId: courseId,
+        sectionId: sectionId
+      })
+    } else {
       if (exercise === undefined) {
         navigation.navigate('ErrorScreen')
       }
@@ -39,6 +42,7 @@ export default function ExerciseScreen() {
     const sections = course.sections
 
     for (let i = 0; i < sections.length; i++) {
+      console.log(sections[i].isComplete)
       if (sections[i].id === sectionId) {
         return sections[i].isComplete
       }
@@ -55,13 +59,16 @@ export default function ExerciseScreen() {
   const video = useRef(0)
 
   useEffect(() => {
-    if(video !== undefined){
+    if (video !== undefined) {
       if (signal === 0) {
-        video.current.pauseAsync()
+        try {
+          video.current.pauseAsync()
+        } catch (e) {
+          console.log('Something went wrong :' + e)
+        }
       }
-    setSignal(1)
+      setSignal(1)
     }
-
   }, [signal])
 
   return (
