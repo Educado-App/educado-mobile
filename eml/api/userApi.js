@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const prod = 'http://educado.somethingnew.dk'
-const test = 'http://192.168.229.56:8888' // Change this to your LOCAL IP address when testing.
+const test = 'http://192.168.43.130:8888' // Change this to your LOCAL IP address when testing.
 const local = 'http://localhost:8888'
 
 const url = test

@@ -65,14 +65,9 @@ export const getCourseById = async (courseId) => {
                 content: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4',
                 onWrongFeedback: 'https://drive.google.com/uc?export=download&id=10av_XwIKYjGCNBfb38wuVWBT3GQC2PGN',
               });
-            } else if (exercise.content === '' && exercise.onWrongFeedback === '') {
-              exercise.content = 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4';
-              exercise.onWrongFeedback = 'https://drive.google.com/uc?export=download&id=10av_XwIKYjGCNBfb38wuVWBT3GQC2PGN';
             }
-            else if (exercise.content === '') {
+            else if ((exercise.content === '' || exercise.content === 'https://s3.eu-central-1.amazonaws.com/') && (exercise.onWrongFeedback === '' || exercise.onWrongFeedback === 'https://s3.eu-central-1.amazonaws.com/')) {
               exercise.content = 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4';
-            }
-            else if (exercise.onWrongFeedback === '') {
               exercise.onWrongFeedback = 'https://drive.google.com/uc?export=download&id=10av_XwIKYjGCNBfb38wuVWBT3GQC2PGN';
             }
 
@@ -236,8 +231,9 @@ export const updateCompletionStatus = async (courseId, sectionId, exerciseId) =>
           section = updatedSection;
         }
       }
-
-      console.log(await getNextExercise(sectionId));
+      //Need fix
+      console.log("UPDTAECOMPLETION ", await getNextExercise(sectionId));
+      console.log("UPDTAECOMPLETION ", course.sections[0].exercises);
 
     }/* else if (exerciseId === null) {
 
