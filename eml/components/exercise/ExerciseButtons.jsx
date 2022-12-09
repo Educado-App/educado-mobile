@@ -26,7 +26,7 @@ export default function ExerciseButtons({ exerciseId, answers, sectionId, course
     setSignal: PropTypes.func.isRequired
   }
   if (hasData === true) {
-    console.log(answers)
+    //console.log(answers)
   }
 
 
@@ -100,23 +100,24 @@ export default function ExerciseButtons({ exerciseId, answers, sectionId, course
   function checkChoice(choice) {
 
     setSignal(0)
-    updateExercise();
+    updateExercise().then(()=>{
 
-    const rightAnswer = findRightAnswer();
+      const rightAnswer = findRightAnswer();
 
-    setSelected({
-      ...selected,
-      btn1: false,
-      btn2: false,
-      btn3: false,
-      btn4: false
-    })
+      setSelected({
+        ...selected,
+        btn1: false,
+        btn2: false,
+        btn3: false,
+        btn4: false
+      })
 
-    if (choice === rightAnswer) {
-      navigation.navigate('RightAnswer', { courseId: courseId, sectionId: sectionId })
-    } else {
-      navigation.navigate('WrongAnswer', { exerciseId: exerciseId, courseId: courseId, sectionId: sectionId })
-    }
+      if (choice === rightAnswer) {
+        navigation.navigate('RightAnswer', { courseId: courseId, sectionId: sectionId })
+      } else {
+        navigation.navigate('WrongAnswer', { exerciseId: exerciseId, courseId: courseId, sectionId: sectionId })
+      }
+    });
   }
 
   return (

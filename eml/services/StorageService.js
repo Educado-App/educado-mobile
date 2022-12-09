@@ -176,19 +176,22 @@ export const getNextExercise = async (sectionId) => {
 
   try {
 
-    const currentSection = JSON.parse(await AsyncStorage.getItem(sectionId))
+    const currentSection = JSON.parse(await AsyncStorage.getItem(sectionId));
 
     for (const exercise of currentSection.exercises) {
+
       if (!exercise.isComplete) {
         return exercise
       }
+
     }
 
-    return undefined;
+    return true;
 
   } catch (e) {
     console.error(e)
   }
+
 }
 
 export const getFeedBackByExerciseId = async (sectionId, exerciseId) => {
@@ -231,9 +234,6 @@ export const updateCompletionStatus = async (courseId, sectionId, exerciseId) =>
           section = updatedSection;
         }
       }
-      //Need fix
-      console.log("UPDTAECOMPLETION ", await getNextExercise(sectionId));
-      console.log("UPDTAECOMPLETION ", course.sections[0].exercises);
 
     }/* else if (exerciseId === null) {
 
