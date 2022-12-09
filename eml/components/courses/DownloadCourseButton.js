@@ -74,7 +74,7 @@ const downloadCourseButton = ({ courseId, downloadStateSignal }) => {
           <Icon
             // make this disappear after a few seconds after download
             style={styles.tinyLogo}
-            name="check"
+            name="trash-can-outline"
             type="material-community"
             color="#55747E"
             size={30}

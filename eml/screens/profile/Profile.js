@@ -1,56 +1,52 @@
-import React, {useEffect, useState} from 'react';
-import {StyleSheet, View, SafeAreaView, Platform, ScrollView} from 'react-native';
-import AddFriendButton from '../../components/profile/addFriendButton';
-import ProfileImage from '../../components/profile/profileImage';
-import ProfileName from '../../components/profile/profileName';
-import ProfileSettings from '../../components/profile/profileSettings';
-import LogOutButton from "../../components/profile/LogOutButton";
-import DeleteAccount from "../../components/profile/deleteAccount";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import React, { useEffect, useState } from 'react'
+import {
+  StyleSheet,
+  View,
+  SafeAreaView,
+  Platform,
+  ScrollView
+} from 'react-native'
+import AddFriendButton from '../../components/profile/addFriendButton'
+import ProfileImage from '../../components/profile/profileImage'
+import ProfileName from '../../components/profile/profileName'
+import ProfileSettings from '../../components/profile/profileSettings'
+import LogOutButton from '../../components/profile/LogOutButton'
+import DeleteAccount from '../../components/profile/deleteAccount'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
-const USER_INFO = '@userInfo';
+const USER_INFO = '@userInfo'
 
 export default function ProfileComponent() {
-
-  const [id, setId] = useState('');
-  const [userName, setUserName] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const [id, setId] = useState('')
+  const [userName, setUserName] = useState('')
+  const [phoneNumber, setPhoneNumber] = useState('')
 
   const getProfile = async () => {
-
     try {
+      const fetchedProfile = JSON.parse(await AsyncStorage.getItem(USER_INFO))
 
-      const fetchedProfile = JSON.parse(await AsyncStorage.getItem(USER_INFO));
-
-      if(fetchedProfile !== null){
-
-        setId(fetchedProfile.id);
-        setUserName(fetchedProfile.userName);
-        setPhoneNumber(fetchedProfile.phoneNumber);
-
+      if (fetchedProfile !== null) {
+        setId(fetchedProfile.id)
+        setUserName(fetchedProfile.userName)
+        setPhoneNumber(fetchedProfile.phoneNumber)
       }
-    }
-    catch (e){
-      console.log(e);
+    } catch (e) {
+      console.log(e)
     }
   }
 
   useEffect(() => {
-    getProfile();
-  },[]);
+    getProfile()
+  }, [])
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView className="bg-babyBlue">
       <ScrollView>
-        <ProfileSettings style={styles.settings}></ProfileSettings>
-          <ProfileName
-          Name={userName}
-          PhoneNumber={phoneNumber}
-          ></ProfileName>
-        <ProfileImage></ProfileImage>
-        <AddFriendButton></AddFriendButton>
-        <LogOutButton></LogOutButton>
-        <DeleteAccount></DeleteAccount>
+        <View className="flex-1 flex-col justify-center h-screen">
+          <ProfileName Name={userName} PhoneNumber={phoneNumber}></ProfileName>
+          <LogOutButton></LogOutButton>
+          <DeleteAccount></DeleteAccount>
+        </View>
       </ScrollView>
     </SafeAreaView>
   )
@@ -58,7 +54,7 @@ export default function ProfileComponent() {
 
 const styles = StyleSheet.create({
   settings: {
-    textAlign: "right"
+    textAlign: 'right'
   },
   container: {
     paddingTop: Platform.OS === 'android' ? 25 : 0
