@@ -46,7 +46,7 @@ export default function SectionItem({ active, title, index, sectionId, courseId 
           </Text>
           <Text style={{
             fontFamily: 'VarelaRound_400Regular', fontSize: 16,
-          }} ellipsizeMode={'tail'} numberOfLines={1} className="pl-10 text-gray-600">
+          }} ellipsizeMode={'tail'} numberOfLines={1} className="pl-10 pr-4 text-gray-600">
             {title}
           </Text>
         </View>
@@ -74,7 +74,7 @@ export default function SectionItem({ active, title, index, sectionId, courseId 
           </Text>
           <Text style={{
             fontFamily: 'VarelaRound_400Regular', fontSize: 16,
-          }} ellipsizeMode={'tail'} numberOfLines={1} className="pl-10 text-gray-800">
+          }} ellipsizeMode={'tail'} numberOfLines={1} className="pl-10 pr-4 text-gray-800">
             {title}
           </Text>
         </View>

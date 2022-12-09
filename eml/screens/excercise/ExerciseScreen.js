@@ -22,6 +22,7 @@ export default function ExerciseScreen() {
 
   async function getExercise() {
     const exercise = await StorageService.getNextExercise(sectionId)
+
     if (isSectionComplete(courseId, sectionId) === true) {
       console.log('hey')
       navigation.navigate('SectionComplete', {
