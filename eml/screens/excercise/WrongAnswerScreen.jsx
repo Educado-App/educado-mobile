@@ -1,33 +1,32 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import FeedBackVideo from '../../components/exercise/video/LearningInputVideoExample1'
-import { Icon } from '@rneui/themed'
-import { useNavigation, useRoute } from '@react-navigation/native'
-import { Video } from 'expo-av'
-import * as StorageService from '../../services/StorageService'
-import { StatusBar } from 'expo-status-bar'
+import React, { useEffect, useRef, useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { Icon } from '@rneui/themed';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { Video } from 'expo-av';
+import { StatusBar } from 'expo-status-bar';
+import * as StorageService from '../../services/StorageService';
 
 export default function WrongAnswerComponent() {
-  const navigation = useNavigation()
-  const route = useRoute()
-  const { exerciseId, courseId, sectionId } = route.params
-  const [feedback, setFeedback] = useState('')
-  const [bool, setBool] = useState(false)
-  const video = useRef(0)
+  const navigation = useNavigation();
+  const route = useRoute();
+  const { exerciseId, courseId, sectionId } = route.params;
+  const [feedback, setFeedback] = useState('');
+  const [bool, setBool] = useState(false);
+  const video = useRef(0);
 
   const getFeedbackVideo = async () => {
-    const feedback = await StorageService.getFeedBackByExerciseId(
+    const feedbackData = await StorageService.getFeedBackByExerciseId(
       sectionId,
       exerciseId
-    )
-    setFeedback(feedback)
-  }
+    );
+    setFeedback(feedbackData);
+  };
 
   useEffect(() => {
     getFeedbackVideo().then(() => {
-      setBool(true)
-    })
-  })
+      setBool(true);
+    });
+  });
 
   return bool === true ? (
     <View style={styles.container} className="bg-babyBlue">
@@ -49,7 +48,7 @@ export default function WrongAnswerComponent() {
           style={[
             styles.nextArrow,
             styles.buttonShadow,
-            { shadowColor: '#2db300' }
+            { shadowColor: '#2db300' },
           ]}
         >
           <Icon
@@ -60,13 +59,13 @@ export default function WrongAnswerComponent() {
             onPress={() =>
               navigation.navigate('Exercise', {
                 sectionId: sectionId,
-                courseId: courseId
+                courseId: courseId,
               })
             }
           />
         </View>
       </View>
-      <StatusBar style="auto" />
+      <StatusBar />
     </View>
   ) : (
     <View>
@@ -76,7 +75,7 @@ export default function WrongAnswerComponent() {
             style={[
               styles.nextArrow,
               styles.buttonShadow,
-              { shadowColor: '#2db300' }
+              { shadowColor: '#2db300' },
             ]}
           >
             <Icon
@@ -87,7 +86,7 @@ export default function WrongAnswerComponent() {
               onPress={() =>
                 navigation.navigate('Exercise', {
                   sectionId: sectionId,
-                  courseId: courseId
+                  courseId: courseId,
                 })
               }
             />
@@ -95,40 +94,40 @@ export default function WrongAnswerComponent() {
         </View>
       </View>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   row: {
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   button: {
     borderRadius: 15,
     justifyContent: 'center',
     width: 140,
-    height: 110
+    height: 110,
   },
   buttonShadow: {
     shadowOpacity: 0.6,
     shadowRadius: 10,
-    shadowOffset: { width: 0, height: 0 }
+    shadowOffset: { width: 0, height: 0 },
   },
   nextArrow: {
     borderRadius: 15,
     backgroundColor: '#2db300',
     width: 300,
     height: 75,
-    position: 'relative'
+    position: 'relative',
   },
   paddingButtons: {
-    padding: 10
+    padding: 10,
   },
   backgroundVideo: {
-    height: '100%'
-  }
-})
+    height: '100%',
+  },
+});
