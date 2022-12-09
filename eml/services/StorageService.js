@@ -66,9 +66,11 @@ export const getCourseById = async (courseId) => {
                 onWrongFeedback: 'https://drive.google.com/uc?export=download&id=10av_XwIKYjGCNBfb38wuVWBT3GQC2PGN',
               });
             }
-            else if ((exercise.content === '' || exercise.content === 'https://s3.eu-central-1.amazonaws.com/') && (exercise.onWrongFeedback === '' || exercise.onWrongFeedback === 'https://s3.eu-central-1.amazonaws.com/')) {
-              exercise.content = 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4';
+            if (exercise.onWrongFeedback === '') {
               exercise.onWrongFeedback = 'https://drive.google.com/uc?export=download&id=10av_XwIKYjGCNBfb38wuVWBT3GQC2PGN';
+            }
+            if (exercise.content === ''){
+              exercise.content = 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4';
             }
 
             exercise.isComplete = false
@@ -218,6 +220,10 @@ export const updateCompletionStatus = async (courseId, sectionId, exerciseId) =>
     const course = JSON.parse(await AsyncStorage.getItem(courseId));
     const updatedSection = JSON.parse(await AsyncStorage.getItem(sectionId));
 
+    console.log("FIRST EX BEFORE: ", updatedSection.exercises[0].isComplete);
+    console.log("SECOND EX BEFORE: ", updatedSection.exercises[1].isComplete);
+
+
     if (course !== null && updatedSection !== null && exerciseId !== null) {
 
       for (const exercise of updatedSection.exercises) {
@@ -235,16 +241,10 @@ export const updateCompletionStatus = async (courseId, sectionId, exerciseId) =>
         }
       }
 
-    }/* else if (exerciseId === null) {
+      console.log("FIRST EX AFTER: ", updatedSection.exercises[0].isComplete);
+      console.log("SECOND EX AFTER: ", updatedSection.exercises[1].isComplete);
 
-      updatedSection.isComplete = true;
-
-      for (let section of course.sections){
-        if (section.id === sectionId){
-          section.isComplete = true;
-        }
-      }
-    }*/
+    }
 
     await AsyncStorage.setItem(courseId, JSON.stringify(course));
     await AsyncStorage.setItem(sectionId, JSON.stringify(updatedSection));
