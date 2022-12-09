@@ -22,10 +22,10 @@ export default function ExerciseScreen() {
 
   async function getExercise() {
     const exercise = await StorageService.getNextExercise(sectionId)
-    
+
     if (isSectionComplete(courseId, sectionId) === true) {
       navigation.navigate('SectionComplete', { courseId: courseId, sectionId: sectionId })
-  
+
     }else{
       if (exercise === undefined) {
         navigation.navigate('ErrorScreen')
@@ -61,7 +61,7 @@ export default function ExerciseScreen() {
       }
     setSignal(1)
     }
-    
+
   }, [signal])
 
   return (
