@@ -73,7 +73,8 @@
     "recoil": "^0.7.5",
     "source-code-pro": "^2.38.0",
     "tailwindcss-react-native": "^1.7.10",
-    "zxcvbn": "^4.4.2"
+    "zxcvbn": "^4.4.2",
+    "expo-updates": "~0.14.7"
   },
   "devDependencies": {
     "@babel/cli": "^7.18.6",

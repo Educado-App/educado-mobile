@@ -28,7 +28,7 @@ export default function Explore() {
     async function loadViews() {
         const courseList = await StorageService.getCourseList();
         let componentPromises = courseList.map(({ title, iconPath, isActive, courseId, categoryId }, index) => {
-            if (isActive == false) {
+            if (isActive === false) {
                 if ((isActive && categoryId === selected) || (isActive && selected === -1)) {
                     return <ActiveExploreCard key={index} title={title} courseId={courseId} iconPath={iconPath} />;
                 } else if ((!(isActive) && categoryId === selected) || (!(isActive) && selected === -1)) {
@@ -39,7 +39,7 @@ export default function Explore() {
         Promise.all(componentPromises).then(setViews);
 
         let componentPromises2 = courseList.map(({ title, iconPath, isActive, courseId, categoryId }, index) => {
-            if (isActive == true) {
+            if (isActive === true) {
                 if ((isActive && categoryId === selected) || (isActive && selected === -1)) {
                     return <ActiveExploreCard key={index} title={title} courseId={courseId} iconPath={iconPath} />;
                 } else if ((!(isActive) && categoryId === selected) || (!(isActive) && selected === -1)) {

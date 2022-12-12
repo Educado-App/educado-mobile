@@ -45,7 +45,7 @@ export default function CourseScreen() {
     }, [route.params, downloadState])
 
 
-    if (!courseLoaded) {
+    if (!fontsLoaded) {
         return AppLoading
     } else {
         return (
