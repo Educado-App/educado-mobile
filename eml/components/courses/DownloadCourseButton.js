@@ -12,6 +12,7 @@ import { Icon } from '@rneui/themed'
 import * as StorageService from '../../services/StorageService'
 
 const downloadCourseButton = ({ courseId, downloadStateSignal }) => {
+
   const [downloadState, setDownloadState] = useState(2)
 
   const downloadCourseById = async () => {
