@@ -22,6 +22,7 @@
         "react"
     ],
     "rules": {
-        "indent": ["error", 4]
+        "indent": ["error", 4],
+        "no-use-before-define": "off"
     }
 }
