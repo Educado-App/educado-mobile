@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   ActivityIndicator,
   Pressable,
@@ -10,16 +10,34 @@ import {
 } from 'react-native'
 import { Icon } from '@rneui/themed'
 import * as StorageService from '../../services/StorageService'
+import {getCourseById} from "../../services/StorageService";
+import {useIsFocused} from '@react-navigation/native'
 
 const downloadCourseButton = ({ courseId, downloadStateSignal }) => {
 
-  const [downloadState, setDownloadState] = useState(2)
+  const [downloadState, setDownloadState] = useState(2);
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    checkIfActive()
+  },[isFocused]);
+
+  async function checkIfActive () {
+   await getCourseById(courseId).then(
+     (course) => {
+       if(course.isActive){
+          setDownloadState(1)
+      }else{
+         setDownloadState(2)
+       }
+   })
+  }
 
   const downloadCourseById = async () => {
-    setDownloadState(0)
-    await StorageService.downloadCourse(courseId)
-      .then(() => {
-        console.log('download finished')
+      setDownloadState(0)
+      await StorageService.downloadCourse(courseId)
+        .then(() => {
+          console.log('download finished')
         setDownloadState(1)
         downloadStateSignal(courseId)
       })
@@ -30,7 +48,7 @@ const downloadCourseButton = ({ courseId, downloadStateSignal }) => {
   }
 
   const deleteCourseById = async () => {
-    setDownloadState(0)
+    await checkIfActive()
     await StorageService.deleteCourse(courseId)
       .then(() => {
         console.log('Delete finished')

@@ -24,6 +24,7 @@ export default function SectionItem({ active, title, index, sectionId, courseId 
   }
 
   useEffect(() => {
+    setIsComplete(false);
     isSectionComplete().then((exercise)=>{
       if(exercise === true){
         setIsComplete(exercise);
