@@ -13,7 +13,7 @@ export default function CourseScreen() {
 
     const [course, setCourse] = useState({});
 
-    const [bool, setBool] = useState(false);
+    const [courseLoaded, setCourseLoaded] = useState(false);
 
     const [downloadState, setDownloadState] = useState(null);
 
@@ -38,19 +38,19 @@ export default function CourseScreen() {
 
         if (route.params !== undefined) {
             loadCourse().then(() => {
-                setBool(true);
+                setCourseLoaded(true);
             });
         }
 
     }, [route.params, downloadState])
 
 
-    if (!fontsLoaded) {
+    if (!courseLoaded) {
         return AppLoading
     } else {
         return (
             <View className="flex-1 items-center justify-center bg-babyBlue">
-                {bool ?
+                {courseLoaded ?
                     <View className="bg-babyBlue flex-1 justify-center items-center">
                         <CourseListUI course={course} downloadState={setDownloadState}></CourseListUI>
                     </View>

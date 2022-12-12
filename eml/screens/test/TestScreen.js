@@ -16,7 +16,7 @@ export default function TestScreen() {
         //console.log(await AsyncStorage.getAllKeys())
         //console.log(await DirectoryService.DeleteDirectory('6388ab98d77d454f20d070ff'));
         console.log(await DirectoryService.ReadDirectory(''), "READDIR");
-        //console.log(await DirectoryService.DeleteDirectory('6391b6d031d32d4a78813825'));
+        //console.log(await DirectoryService.DeleteDirectory('6380899d9394944d380de499'));
     }
 
     useEffect(() => {

@@ -20,7 +20,9 @@ export default function SectionItem({ active, title, index, sectionId, courseId 
   const navigation = useNavigation();
 
   const isSectionComplete = async () => {
-    return await getNextExercise(sectionId);
+    if (active){
+      return await getNextExercise(sectionId);
+    }
   }
 
   useEffect(() => {

@@ -220,7 +220,7 @@ export const updateCompletionStatus = async (courseId, sectionId, exerciseId) =>
     const updatedSection = JSON.parse(await AsyncStorage.getItem(sectionId));
 
     console.log("FIRST EX BEFORE: ", updatedSection.exercises[0].isComplete);
-    console.log("SECOND EX BEFORE: ", updatedSection.exercises[1].isComplete);
+    //console.log("SECOND EX BEFORE: ", updatedSection.exercises[1].isComplete);
 
 
     if (course !== null && updatedSection !== null && exerciseId !== null) {
@@ -241,7 +241,7 @@ export const updateCompletionStatus = async (courseId, sectionId, exerciseId) =>
       }
 
       console.log("FIRST EX AFTER: ", updatedSection.exercises[0].isComplete);
-      console.log("SECOND EX AFTER: ", updatedSection.exercises[1].isComplete);
+      //console.log("SECOND EX AFTER: ", updatedSection.exercises[1].isComplete);
 
     }
 

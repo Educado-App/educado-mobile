@@ -19,18 +19,21 @@ const downloadCourseButton = ({ courseId, downloadStateSignal }) => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    checkIfActive()
+
+    checkIfActive().then(
+        (isActive) => {
+          if(isActive){
+            setDownloadState(1)
+          }else{
+            setDownloadState(2)
+          }
+        })
   },[isFocused]);
 
   async function checkIfActive () {
-   await getCourseById(courseId).then(
-     (course) => {
-       if(course.isActive){
-          setDownloadState(1)
-      }else{
-         setDownloadState(2)
-       }
-   })
+   const course = await getCourseById(courseId);
+   return course.isActive;
+
   }
 
   const downloadCourseById = async () => {
