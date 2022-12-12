@@ -92,10 +92,9 @@ export const getCourseById = async (courseId) => {
         const courseContent = {
           title: requestedCourse.data.title,
           id: requestedCourse.data.id,
-          icon: requestedCourse.data.category === null ||
-                requestedCourse.data.category.icon === 'https://s3.eu-central-1.amazonaws.com/'
+          icon: requestedCourse.data.category === undefined || requestedCourse.data.category === null
                 ? 'https://sashabarab.org/wp-content/uploads/2015/02/course-icon.png' : requestedCourse.data.category.icon,
-          categoryId: requestedCourse.data.category === null ? '' : requestedCourse.data.category.id,
+          categoryId: requestedCourse.data.category === undefined || requestedCourse.data.category === null ? '' : requestedCourse.data.category.id,
           sections: sections,
           isActive: false,
           isComplete: false

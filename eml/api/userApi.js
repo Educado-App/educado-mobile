@@ -44,22 +44,23 @@ export const enrollInCourse = async (user_Id, course_Id) => {
 };
 
 export const updateCourseStatus = async (user_id, course_id) => {
-    // When user completes course it should update the user document from 
+    // When user completes course it should update the user document from
     // isComplete: false, to isComplete: true for that course
-    const res = await axios.post(url + '/api/eml/' + user_id + '/updateCourse/' + course_id);
-    return res.data
+    const res = await axios.put(url + '/api/eml/' + user_id + '/updateCourse/' + course_id);
+    return res.data;
 }
 
 export const updateSectionStatus = async (user_id, course_id, section_id) => {
-    // When user completes section it should update the user document from 
+    // When user completes section it should update the user document from
     // isComplete: false, to isComplete: true for that section
-    const res = await axios.post(url + '/api/eml/' + user_id + '/updateSection/' + course_id + '/' + section_id);
-    return res.data
+    const res = await axios.put(url + '/api/eml/' + user_id + '/updateSection/' + course_id + '/' + section_id);
+    return res.data;
 }
 
 export const updateExerciseStatus = async (user_id, course_id, section_id, exercise_id) => {
-    // When user completes an exercise it should update the user document from 
+    // When user completes an exercise it should update the user document from
     // isComplete: false, to isComplete: true for that exercise
-    const res = await axios.post(url + '/api/eml/' + user_id + '/updateExercise/' + course_id + '/' + section_id + '/' + exercise_id);
-    return res.data
+    const res = await axios.put(url + '/api/eml/' + user_id + '/updateExercise/' + course_id + '/' + section_id + '/' + exercise_id);
+    return res.data;
 }
+
