@@ -4,6 +4,7 @@ import { Feather } from '@expo/vector-icons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Text } from '@rneui/base'
 import { deleteUser, loginUser } from '../../api/userApi'
+import {clearAsyncStorage} from "../../services/StorageService";
 
 const LOGIN_TOKEN = '@loginToken'
 const USER_INFO = '@userInfo'
@@ -28,6 +29,7 @@ export default function DeleteAccount() {
             .catch((error) => {
               console.log(error)
             })
+          await clearAsyncStorage();
         } catch (e) {
           console.log(e)
         }

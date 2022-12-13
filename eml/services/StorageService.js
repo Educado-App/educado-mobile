@@ -5,27 +5,32 @@ import * as DirectoryService from '../services/DirectoryService'
 const COURSE_LIST = '@courseList'
 
 export const getCourseList = async () => {
-  try {
-    // Check if the course list already exists in AsyncStorage
-    let courseList = JSON.parse(await AsyncStorage.getItem(COURSE_LIST))
 
-    if (courseList == null) {
-      return await refreshCourseList()
-    } else return courseList
+  try {
+
+    return await refreshCourseList();
+
   } catch (e) {
-    console.error(e)
+    
+    // Check if the course list already exists in AsyncStorage
+    let courseList = JSON.parse(await AsyncStorage.getItem(COURSE_LIST));
+    if (courseList !== null) {
+      return courseList;
+    }
+    console.error(e);
   }
 }
 export const refreshCourseList = async () => {
   return await api
     .getCourses()
     .then(async (list) => {
-      let newCourseList = []
+
+      let newCourseList = [];
 
       for (const course of list.data) {
-        const courseId = course.id
 
-        const localCourse = JSON.parse(await AsyncStorage.getItem(courseId))
+        const courseId = course.id;
+        const localCourse = JSON.parse(await AsyncStorage.getItem(courseId));
 
         // Make new list with required members
         newCourseList.push({
@@ -34,15 +39,15 @@ export const refreshCourseList = async () => {
           iconPath: course.category == null ? '' : course.category.icon,
           categoryId: course.category == null ? '' : course.category.id,
           isActive: localCourse !== null
-        })
+        });
       }
 
       // Save new courseList for this key and return it.
-      await AsyncStorage.setItem(COURSE_LIST, JSON.stringify(newCourseList))
-      return newCourseList
+      await AsyncStorage.setItem(COURSE_LIST, JSON.stringify(newCourseList));
+      return newCourseList;
     })
     .catch((e) => {
-      console.log(e)
+      console.log(e);
     })
 }
 export const getCourseById = async (courseId) => {
@@ -219,7 +224,7 @@ export const updateCompletionStatus = async (courseId, sectionId, exerciseId) =>
     const course = JSON.parse(await AsyncStorage.getItem(courseId));
     const updatedSection = JSON.parse(await AsyncStorage.getItem(sectionId));
 
-    console.log("FIRST EX BEFORE: ", updatedSection.exercises[0].isComplete);
+    //console.log("FIRST EX BEFORE: ", updatedSection.exercises[0].isComplete);
     //console.log("SECOND EX BEFORE: ", updatedSection.exercises[1].isComplete);
 
 
@@ -239,10 +244,8 @@ export const updateCompletionStatus = async (courseId, sectionId, exerciseId) =>
           section = updatedSection;
         }
       }
-
-      console.log("FIRST EX AFTER: ", updatedSection.exercises[0].isComplete);
-      //console.log("SECOND EX AFTER: ", updatedSection.exercises[1].isComplete);
-
+      //console.log("FIRST EX AFTER: ", updatedSection.exercises[0].isComplete);
+      // console.log("SECOND EX AFTER: ", updatedSection.exercises[1].isComplete);
     }
 
     await AsyncStorage.setItem(courseId, JSON.stringify(course));
@@ -252,7 +255,6 @@ export const updateCompletionStatus = async (courseId, sectionId, exerciseId) =>
     console.error(e)
   }
 }
-
 export const deleteCourse = async (courseId) => {
 
   if (courseId !== undefined) {
@@ -282,14 +284,9 @@ export const deleteCourse = async (courseId) => {
     }
   }
 }
-export const clearStorage = async () => {
-  //Uncomment to clear async storage cache upon loading explore screen
-  console.log(await AsyncStorage.getAllKeys())
-  console.log(await AsyncStorage.clear())
-  console.log(await AsyncStorage.getAllKeys())
-  console.log(await DirectoryService.ReadDirectory(''));
+export const clearAsyncStorage = async () => {
+  console.log(await AsyncStorage.getAllKeys());
+  await AsyncStorage.clear();
+  console.log(await AsyncStorage.getAllKeys());
 }
 
-export const logKeys = async () => {
-  console.log(await AsyncStorage.getAllKeys())
-}

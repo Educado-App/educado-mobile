@@ -20,7 +20,7 @@ export default function TestScreen() {
     }
 
     useEffect(() => {
-        clearStorage()
+        //clearStorage()
     })
 
     return (
