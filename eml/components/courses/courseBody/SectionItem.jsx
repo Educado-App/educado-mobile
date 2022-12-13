@@ -1,9 +1,9 @@
 // @flow
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { Pressable, Text, View, Alert } from 'react-native'
 import PropTypes from 'prop-types'
-import {useIsFocused, useNavigation} from '@react-navigation/native'
-import {getNextExercise} from "../../../services/StorageService";
+import { useIsFocused, useNavigation } from '@react-navigation/native'
+import { getNextExercise } from "../../../services/StorageService";
 
 export default function SectionItem({ active, title, index, sectionId, courseId }) {
 
@@ -16,23 +16,22 @@ export default function SectionItem({ active, title, index, sectionId, courseId 
   }
 
   const [isComplete, setIsComplete] = useState(false);
-  const isFocused = useIsFocused();
   const navigation = useNavigation();
 
   const isSectionComplete = async () => {
-    if (active){
+    if (active) {
       return await getNextExercise(sectionId);
     }
   }
 
   useEffect(() => {
     setIsComplete(false);
-    isSectionComplete().then((exercise)=>{
-      if(exercise === true){
+    isSectionComplete().then((exercise) => {
+      if (exercise === true) {
         setIsComplete(exercise);
       }
     });
-  },[isFocused]);
+  }, [courseId]);
 
   if (active) {
     // if (true) {
@@ -41,14 +40,14 @@ export default function SectionItem({ active, title, index, sectionId, courseId 
         style={{ shadowColor: 'black', elevation: 10 }}
         className="w-max h-12 rounded-xl bg-limeGreen m-1"
         onPress={() => {
-          if (!isComplete){
+          if (!isComplete) {
             navigation.navigate('Exercise', {
               sectionId: sectionId,
               courseId: courseId
             })
-          }else {
+          } else {
             Alert.alert('Section already completed!', 'Delete and re-download the course to try again.', [{
-              text:'Close',
+              text: 'Close',
             }])
           }
         }}
@@ -71,13 +70,13 @@ export default function SectionItem({ active, title, index, sectionId, courseId 
             {index}
           </Text>
           {isComplete ?
-          <Text className='pl-24'>Completed</Text>
-          :
-          <Text style={{
-            fontFamily: 'VarelaRound_400Regular', fontSize: 16,
-          }} ellipsizeMode={'tail'} numberOfLines={1} className="pl-10 pr-4 text-gray-600">
-            {title}
-          </Text> }
+            <Text className='pl-24'>Completed</Text>
+            :
+            <Text style={{
+              fontFamily: 'VarelaRound_400Regular', fontSize: 16,
+            }} ellipsizeMode={'tail'} numberOfLines={1} className="pl-10 pr-4 text-gray-600">
+              {title}
+            </Text>}
 
         </View>
       </Pressable>

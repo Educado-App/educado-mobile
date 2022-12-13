@@ -1,27 +1,27 @@
-import React from 'react'
-import { View } from 'react-native'
-import { NavigationContainer } from '@react-navigation/native'
-import CourseScreen from './screens/courses/CourseScreen'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { Icon } from '@rneui/themed'
-import ProfileComponent from './screens/profile/Profile'
-import LoginScreen from './screens/login/Login'
-import RegisterScreen from './screens/register/Register'
-import * as eva from '@eva-design/eva'
-import { ApplicationProvider, IconRegistry } from '@ui-kitten/components'
-import { EvaIconsPack } from '@ui-kitten/eva-icons'
-import RightAnswerScreen from './screens/excercise/RightAnswerScreen'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import ExerciseScreen from './screens/excercise/ExerciseScreen'
-import WrongAnswerComponent from './screens/excercise/WrongAnswerScreen'
-import Explore from './screens/explore/Explore'
-import { TailwindProvider } from 'tailwindcss-react-native'
-import TestScreen from './screens/test/TestScreen'
-import ErrorScreen from './screens/errors/ErrorScreen'
-import SectionCompleteScreen from './screens/excercise/SectionCompleteScreen'
+import React from 'react';
+import { View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import CourseScreen from './screens/courses/CourseScreen';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Icon } from '@rneui/themed';
+import ProfileComponent from './screens/profile/Profile';
+import LoginScreen from './screens/login/Login';
+import RegisterScreen from './screens/register/Register';
+import * as eva from '@eva-design/eva';
+import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
+import { EvaIconsPack } from '@ui-kitten/eva-icons';
+import RightAnswerScreen from './screens/excercise/RightAnswerScreen';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import ExerciseScreen from './screens/excercise/ExerciseScreen';
+import WrongAnswerComponent from './screens/excercise/WrongAnswerScreen';
+import Explore from './screens/explore/Explore';
+import { TailwindProvider } from 'tailwindcss-react-native';
+import TestScreen from './screens/test/TestScreen';
+import ErrorScreen from './screens/errors/ErrorScreen';
+import SectionCompleteScreen from './screens/excercise/SectionCompleteScreen';
 
-const Tab = createBottomTabNavigator()
-const Stack = createNativeStackNavigator()
+const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
 
 function CourseStack() {
   return (
@@ -30,46 +30,46 @@ function CourseStack() {
         name="Course"
         component={CourseScreen}
         options={{
-          headerShown: false
+          headerShown: false,
         }}
       />
       <Stack.Screen
         name="Exercise"
         component={ExerciseScreen}
         options={{
-          headerShown: false
+          headerShown: false,
         }}
       />
       <Stack.Screen
         name="WrongAnswer"
         component={WrongAnswerComponent}
         options={{
-          headerShown: false
+          headerShown: false,
         }}
       />
       <Stack.Screen
         name="RightAnswer"
         component={RightAnswerScreen}
         options={{
-          headerShown: false
+          headerShown: false,
         }}
       />
       <Stack.Screen
         name="SectionComplete"
         component={SectionCompleteScreen}
         options={{
-          headerShown: false
+          headerShown: false,
         }}
       />
       <Stack.Screen
         name="ErrorScreen"
         component={ErrorScreen}
         options={{
-          headerShown: false
+          headerShown: false,
         }}
       />
     </Stack.Navigator>
-  )
+  );
 }
 function LoginStack() {
   return (
@@ -78,18 +78,18 @@ function LoginStack() {
         name="Login"
         component={LoginScreen}
         options={{
-          headerShown: false
+          headerShown: false,
         }}
       />
       <Stack.Screen
         name="Register"
         component={RegisterScreen}
         options={{
-          headerShown: false
+          headerShown: false,
         }}
       />
     </Stack.Navigator>
-  )
+  );
 }
 function HomeStack() {
   return (
@@ -98,7 +98,7 @@ function HomeStack() {
       screenOptions={{
         tabBarActiveTintColor: 'black',
         tabBarActiveBackgroundColor: '#d9d9d9',
-        tabBarStyle: { backgroundColor: 'hsl(0, 0%, 92%)' } //Oneplus menubar color
+        tabBarStyle: { backgroundColor: 'hsl(0, 0%, 92%)' }, //Oneplus menubar color
       }}
     >
       <Tab.Screen
@@ -114,8 +114,8 @@ function HomeStack() {
                 type="material-community"
                 color="#8DD08C"
               />
-            )
-          }
+            );
+          },
         }}
       />
       <Tab.Screen
@@ -131,8 +131,8 @@ function HomeStack() {
                 type="material-community"
                 color="#8DD08C"
               />
-            )
-          }
+            );
+          },
         }}
       />
       <Tab.Screen
@@ -148,11 +148,11 @@ function HomeStack() {
                 type="material-community"
                 color="#8DD08C"
               />
-            )
-          }
+            );
+          },
         }}
       />
-      {/*<Tab.Screen
+      {/*       <Tab.Screen
         name="TestScreen"
         component={TestScreen}
         options={{
@@ -165,12 +165,12 @@ function HomeStack() {
                 type="material-community"
                 color="black"
               />
-            )
-          }
+            );
+          },
         }}
-      />*/}
+      /> */}
     </Tab.Navigator>
-  )
+  );
 }
 
 // Change InitialRouteName to HomeStack if you want to skip Login Screen
@@ -197,5 +197,5 @@ export default function App() {
         </ApplicationProvider>
       </>
     </TailwindProvider>
-  )
+  );
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 import {
   ActivityIndicator,
   Pressable,
@@ -6,60 +6,57 @@ import {
   Text,
   TouchableOpacity,
   View,
-  Alert
-} from 'react-native'
-import { Icon } from '@rneui/themed'
-import * as StorageService from '../../services/StorageService'
-import {getCourseById} from "../../services/StorageService";
-import {useIsFocused} from '@react-navigation/native'
+  Alert,
+} from 'react-native';
+import { Icon } from '@rneui/themed';
+import * as StorageService from '../../services/StorageService';
+import { getCourseById } from '../../services/StorageService';
+import { useIsFocused } from '@react-navigation/native';
 
 const downloadCourseButton = ({ courseId, downloadStateSignal }) => {
-
   const [downloadState, setDownloadState] = useState(2);
-  const isFocused = useIsFocused();
 
   useEffect(() => {
-    checkIfActive()
-  },[isFocused]);
+    checkIfActive();
+  }, [courseId]);
 
-  async function checkIfActive () {
-   await getCourseById(courseId).then(
-        (course) => {
-          if(course.isActive){
-            setDownloadState(1)
-          }else{
-            setDownloadState(2)
-          }
-        });
+  async function checkIfActive() {
+    await getCourseById(courseId).then((course) => {
+      if (course.isActive) {
+        setDownloadState(1);
+      } else {
+        setDownloadState(2);
+      }
+    });
   }
 
   const downloadCourseById = async () => {
-      setDownloadState(0)
-      await StorageService.downloadCourse(courseId)
-        .then(() => {
-          console.log('download finished')
-        setDownloadState(1)
-        downloadStateSignal(courseId)
+    setDownloadState(0);
+    await StorageService.downloadCourse(courseId)
+      .then(() => {
+        console.log('download finished');
+        setDownloadState(1);
+        downloadStateSignal(courseId);
       })
       .catch((error) => {
-        console.log(error)
-        setDownloadState(-1)
-      })
-  }
+        console.log(error);
+        setDownloadState(-1);
+      });
+  };
 
   const deleteCourseById = async () => {
-    await checkIfActive()
+    await checkIfActive();
     await StorageService.deleteCourse(courseId)
       .then(() => {
-        console.log('Delete finished')
-        setDownloadState(2)
-        downloadStateSignal(null)
+        console.log('Delete finished');
+        setDownloadState(2);
+        downloadStateSignal(null);
       })
       .catch((error) => {
-        console.log(error)
-        setDownloadState(-1)
-      })
-  }
+        console.log(error);
+        setDownloadState(-1);
+      });
+  };
 
   const deleteAlertButton = () => {
     Alert.alert(
@@ -68,16 +65,16 @@ const downloadCourseButton = ({ courseId, downloadStateSignal }) => {
       [
         {
           text: 'Yes',
-          onPress: () => deleteCourseById(courseId)
+          onPress: () => deleteCourseById(courseId),
         },
         {
           text: 'Cancel',
           onPress: () => console.log('Cancel Pressed'),
-          style: 'cancel'
-        }
+          style: 'cancel',
+        },
       ]
-    )
-  }
+    );
+  };
 
   // by default the switch will return the download icon,
   // if the user has pressed the download button the loading indicator will be return
@@ -86,7 +83,7 @@ const downloadCourseButton = ({ courseId, downloadStateSignal }) => {
   const downloadStateIcon = (state) => {
     switch (state) {
       case 0:
-        return <ActivityIndicator size="small" color="#55747E" />
+        return <ActivityIndicator size="small" color="#55747E" />;
 
       case 1:
         return (
@@ -98,7 +95,7 @@ const downloadCourseButton = ({ courseId, downloadStateSignal }) => {
             color="#55747E"
             size={30}
           />
-        )
+        );
 
       case -1:
         return (
@@ -109,7 +106,7 @@ const downloadCourseButton = ({ courseId, downloadStateSignal }) => {
             color="#55747E"
             size={25}
           />
-        )
+        );
 
       case 2:
         return (
@@ -120,23 +117,23 @@ const downloadCourseButton = ({ courseId, downloadStateSignal }) => {
             color="#55747E"
             size={30}
           />
-        )
+        );
     }
-  }
+  };
   const downloadStateLabel = (state) => {
     //test state - change between values: null, 0 and 1 to see different states
 
     switch (state) {
       case 0:
-        return <Text>downloading...</Text>
+        return <Text>downloading...</Text>;
       case 1:
-        return <Text></Text>
+        return <Text></Text>;
       case -1:
-        return <Text style={styles.alertMessage}> Can't download </Text>
+        return <Text style={styles.alertMessage}> Can't download </Text>;
       case 2:
-        return <Text></Text>
+        return <Text></Text>;
     }
-  }
+  };
 
   return (
     <View style={styles.takeItToTheRight}>
@@ -155,23 +152,23 @@ const downloadCourseButton = ({ courseId, downloadStateSignal }) => {
         </Text>
       </View>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   takeItToTheRight: {
-    marginLeft: 275
+    marginLeft: 275,
   },
   button: {
     alignItems: 'center',
     backgroundColor: '#DDDDDD',
     padding: 10,
     marginLeft: 65,
-    marginRight: 65
+    marginRight: 65,
   },
   text: {
     fontSize: 3,
-    color: '#55747E'
+    color: '#55747E',
   },
 
   tinyLogo: {
@@ -179,12 +176,12 @@ const styles = StyleSheet.create({
     height: 35,
     marginRight: 0,
     marginLeft: 15,
-    marginTop: 5
+    marginTop: 5,
   },
   alertMessage: {
     color: 'red',
-    fontSize: 7
-  }
-})
+    fontSize: 7,
+  },
+});
 
-export default downloadCourseButton
+export default downloadCourseButton;
