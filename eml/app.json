@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Educado",
-    "slug": "Educado",
+    "slug": "educado",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -32,8 +32,9 @@
     },
     "extra": {
       "eas": {
-        "projectId": "f8d354ad-7933-442f-aad3-6bb1db7ccc38"
+        "projectId": "905e0110-07e0-404f-a525-ab1ae18052d9"
       }
-    }
+    },
+    "owner": "ebjona"
   }
 }
