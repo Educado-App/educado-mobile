@@ -70,7 +70,8 @@ export default function SectionItem({ active, title, index, sectionId, courseId 
             {index}
           </Text>
           {isComplete ?
-            <Text className='pl-24'>Completed</Text>
+            // Completed
+            <Text className='pl-24'>Concluído</Text>
             :
             <Text style={{
               fontFamily: 'VarelaRound_400Regular', fontSize: 16,

@@ -5,13 +5,16 @@ export default function FilteringOptions() {
     return (
         <View style={{ flexDirection: 'row' }}>
             <Pressable>
-                <Text style={{ fontSize: 24, paddingLeft: 10 }}>{'\u29BF'} All </Text>
+                {/* All */}
+                <Text style={{ fontSize: 24, paddingLeft: 10 }}>{'\u29BF'} Todos </Text>
             </Pressable>
             <Pressable>
-                <Text style={{ fontSize: 24, paddingLeft: 10 }}>{'\u29BF'} Finance  </Text>
+                {/* Finance */}
+                <Text style={{ fontSize: 24, paddingLeft: 10 }}>{'\u29BF'} Finança  </Text>
             </Pressable>
             <Pressable>
-                <Text style={{ fontSize: 24, paddingLeft: 10 }}>{'\u29BF'} Health</Text>
+                {/* Health */}
+                <Text style={{ fontSize: 24, paddingLeft: 10 }}>{'\u29BF'} Saúde</Text>
             </Pressable>
         </View>
     );

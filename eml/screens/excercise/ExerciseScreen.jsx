@@ -99,7 +99,8 @@ export default function ExerciseScreen() {
       </View>
       <View style={{ flex: 2, width: '100%' }}>
         {exerciseData === undefined ? (
-          <Text>No Data</Text>
+          //No Data
+          <Text> Sem dados</Text>
         ) : (
           <Video
             source={{ uri: exerciseData.content }}
@@ -116,7 +117,8 @@ export default function ExerciseScreen() {
       </View>
       <View style={{ flex: 3 }}>
         {exerciseData === undefined ? (
-          <Text> No data</Text>
+          //No Data
+          <Text> Sem dados</Text>
         ) : (
           <ExerciseButtons
             answers={exerciseData.answers}

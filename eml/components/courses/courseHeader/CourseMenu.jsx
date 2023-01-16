@@ -25,7 +25,8 @@ export default function CourseMenu() {
       <View style={styles.container2}>
         <View style={styles.menuItems}>
           <Icon size={45} name="home" type="material-community" color="black" />
-          <Text style={styles.menuText}>Home</Text>
+          {/* Home */}
+          <Text style={styles.menuText}>Casa</Text>
         </View>
         <View style={styles.menuItems}>
           <Icon
@@ -34,7 +35,8 @@ export default function CourseMenu() {
             type="material-community"
             color="black"
           />
-          <Text style={styles.menuText}>Profile</Text>
+          {/* Profile */}
+          <Text style={styles.menuText}>Perfil</Text>
         </View>
       </View>
     </View>

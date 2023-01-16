@@ -18,8 +18,8 @@ export default function Explore() {
 
     const [nonActiveViews, setViews] = useState([]);
     const [activeViews, setViews2] = useState([]);
-
-    const uniqueCategories = [{ key: -1, value: "All" }, { key: '635f9ae2991d8c6da796a1cc', value: "Sustainability" }, { key: '6368be5d71e079ae8d537eb1', value: "Finance" }, { key: '639208a0f467689fde25b5fa', value: "Other" }];
+    // All, Sustainability, Finance, Other
+    const uniqueCategories = [{ key: -1, value: "Todos" }, { key: '635f9ae2991d8c6da796a1cc', value: "Sustentabilidade" }, { key: '6368be5d71e079ae8d537eb1', value: "Finança" }, { key: '639208a0f467689fde25b5fa', value: "De outros" }];
 
     const [fontsLoaded] = useFonts({
         VarelaRound_400Regular
@@ -71,7 +71,8 @@ export default function Explore() {
                     dropdownStyles={{ backgroundColor: '#CFE9EF' }}
                     save="key"
                     label="catagories"
-                    placeholder='Filter by'
+                    // Filter by
+                    placeholder='Filtrar por'
                 />
             </View>
             <ScrollView>

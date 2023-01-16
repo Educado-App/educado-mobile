@@ -56,12 +56,14 @@ export default function CourseScreen() {
                     </View>
                     :
                     <View className="justify-center items-center">
-                        <Text className=" pb-10 text-2xl">No active courses</Text>
+                        {/* No active courses */}
+                        <Text className=" pb-10 text-2xl">Nenhum curso ativo</Text>
                         <Pressable
                             style={{ elevation: 10 }}
                             className="border border-cyanBlue rounded-md bg-cyanBlue p-2"
                             onPress={() => navigation.navigate('Explore')}>
-                            <Text className="text-white" style={{ fontSize: 30, fontFamily: 'VarelaRound_400Regular' }}> Click to explore courses</Text>
+                            {/* Click to explore courses */}
+                            <Text className="text-white" style={{ fontSize: 30, fontFamily: 'VarelaRound_400Regular', textAlign: 'center' }}> Clique para explorar os cursos</Text>
                         </Pressable>
                     </View>}
             </View>

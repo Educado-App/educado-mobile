@@ -44,7 +44,8 @@ export default function LogOutButton() {
             />
           </View>
           <View>
-            <Text style={styles.text}>Log out</Text>
+            {/* Log out */}
+            <Text style={styles.text}>Sair</Text>
           </View>
         </View>
       </TouchableOpacity>

@@ -34,7 +34,8 @@ export default function RightAnswerScreen() {
             }}
             className="text-gray-600"
           >
-            GOOD JOB!
+            {/* GOOD JOB! */}
+            BOM TRABALHO!
           </Text>
         </View>
         <View style={{ justifyContent: 'space-evenly' }}>

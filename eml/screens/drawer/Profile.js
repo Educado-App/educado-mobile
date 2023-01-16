@@ -7,7 +7,8 @@ export default function ProfileScreen() {
     return (
         <View>
             <View>
-                <Text style={styles.textLogoContainer}>Profile Screen</Text>
+                {/* Profile Screen */}
+                <Text style={styles.textLogoContainer}>Tela de perfil</Text>
                 <Feather name="user" size={48} style={styles.tinyLogo}/>
             </View>
             <LogOutButton></LogOutButton>

@@ -16,7 +16,8 @@ const AddFriendButton = () => {
             />
           </View>
           <View>
-            <Text style={styles.text}>Add Friends</Text>
+            {/* Add Friends */}
+            <Text style={styles.text}>Adicionar amigos</Text>
           </View>
         </View>
       </View>

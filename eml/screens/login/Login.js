@@ -96,7 +96,8 @@ export default function Login(props) {
         <View style={styles.bottomContainer}>
             <TouchableOpacity onPress={() => navigation.navigate('Register')}>
                 <View style={styles.formButton}>
-                    <Text style={styles.buttonText}>Register a new account</Text>
+                    {/* Register a new account */}
+                    <Text style={styles.buttonText}>Registrar uma nova conta</Text>
                 </View>
             </TouchableOpacity>
         </View>

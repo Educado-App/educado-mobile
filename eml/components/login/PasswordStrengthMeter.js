@@ -12,17 +12,23 @@ const PasswordStrengthMeter = (passwordObj) => {
     //console.log(testResult.score);
 
     const createPassLabel = () => {
+        // Password Strength
         switch(testResult.score) {
             case 0:
-                return <Text>Password strength: Very weak</Text>;
+                // Password Strength: Very weak
+                return <Text>Força da senha: Muito fraco</Text>;
             case 1:
-                return <Text>Password strength: Weak</Text>;
+                // Password strength: Weak
+                return <Text>Força da senha: Fraca</Text>;
             case 2:
-                return <Text>Password strength: Fair</Text>;
+                // Password strength: Fair
+                return <Text>Força da senha: Feira</Text>;
             case 3:
-                return <Text>Password strength: Good</Text>;
+                // Password strength: Good
+                return <Text>Força da senha: Bom</Text>;
             case 4:
-                return <Text>Password strength: Strong</Text>;
+                // Password strength: Strong
+                return <Text>Força da senha: Forte</Text>;
             default:
                 return <Text> </Text>;
         }

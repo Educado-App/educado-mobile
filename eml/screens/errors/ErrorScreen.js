@@ -5,7 +5,8 @@ export default function ErrorScreen() {
   const navigation = useNavigation()
   return (
     <View className="flex-1 justify-center items-center">
-      <Text className="text-2xl pb-10">Something went wrong</Text>
+      {/* Something went wrong */}
+      <Text className="text-2xl pb-10">Algo deu errado</Text>
       <Pressable
         style={{ elevation: 10 }}
         className="border border-cyanBlue rounded-md bg-cyanBlue p-2"
@@ -13,7 +14,8 @@ export default function ErrorScreen() {
           navigation.navigate('Explore')
         }}
       >
-        <Text style={{ fontSize: 20 }}>Go to Explore</Text>
+        {/* Go to Explore */}
+        <Text style={{ fontSize: 20 }}>Ir para explorar</Text>
       </Pressable>
     </View>
   )

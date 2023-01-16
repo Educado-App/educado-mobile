@@ -125,11 +125,13 @@ const downloadCourseButton = ({ courseId, downloadStateSignal }) => {
 
     switch (state) {
       case 0:
-        return <Text>downloading...</Text>;
+        //downloading
+        return <Text>baixando...</Text>;
       case 1:
         return <Text></Text>;
       case -1:
-        return <Text style={styles.alertMessage}> Can't download </Text>;
+        //Can't download
+        return <Text style={styles.alertMessage}> não consigo baixar </Text>;
       case 2:
         return <Text></Text>;
     }

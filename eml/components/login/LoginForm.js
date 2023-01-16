@@ -41,11 +41,13 @@ export default function LoginForm(props) {
                     switch (error.message){
 
                         case "Request failed with status code 404":
-                            showAlert("Wrong Phone Number!")
+                            //Wrong Phone Number
+                            showAlert("Número de telefone errado!")
                             break;
 
                         case "Request failed with status code 400":
-                            showAlert("Wrong Password!")
+                            //Wrong Password
+                            showAlert("Senha incorreta!")
                             break;
 
                         default: console.log(error);
@@ -61,10 +63,12 @@ export default function LoginForm(props) {
     const showAlert = (error) =>
         Alert.alert(
             error,
-            "Try again",
+            //Try again
+            "Tente novamente",
             [
                 {
-                    text: "OK",
+                    //OK
+                    text: "Certo",
                     style: "cancel",
                 },
             ],
@@ -84,28 +88,30 @@ export default function LoginForm(props) {
             <View style={styles.bottomContainer}>
                 <View style={styles.formInputContainer}>
                     <TextInput style={styles.textInput}
-                               placeholder="Phone Number"
-                               placeholderTextColor="green"
-                               keyboardType={"phone-pad"}
-                               onChangeText={phoneNumber => setPhoneNumber(phoneNumber)}
-                               value={phoneNumber}
+                        //Phone Number
+                        placeholder="Número de telefone"
+                        placeholderTextColor="green"
+                        keyboardType={"phone-pad"}
+                        onChangeText={phoneNumber => setPhoneNumber(phoneNumber)}
+                        value={phoneNumber}
                     />
                     <TextInput
-                               style={styles.textInput}
-                               placeholder="Password"
-                               placeholderTextColor="green"
-                               secureTextEntry={true}
-                               onChangeText={password => setPassword(password)}
-                               value={password}
+                        style={styles.textInput}
+                        //Password
+                        placeholder="Senha"
+                        placeholderTextColor="green"
+                        secureTextEntry={true}
+                        onChangeText={password => setPassword(password)}
+                        value={password}
                     />
-
                     <Pressable style={({ pressed }) => [
                         { opacity: pressed ? 0.5 : 1.0 }
                     ]} onPressOut={()=>{
                         login(phoneNumber, password);
                     }}>
                         <View style={styles.formButton}>
-                            <Text style={styles.buttonText}>Login</Text>
+                            {/* Login */}
+                            <Text style={styles.buttonText}>Conecte-se</Text>
                         </View>
                     </Pressable>
                 </View>

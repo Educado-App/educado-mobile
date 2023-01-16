@@ -49,11 +49,13 @@ export default function LoginForm(props) {
                                 switch (error.message) {
 
                                     case "Request failed with status code 404":
-                                        console.log("Wrong Phone Number!");
+                                        // Wrong Phone Number
+                                        console.log("Número de telefone errado!");
                                         break;
 
                                     case "Request failed with status code 400":
-                                        console.log("Wrong Password!");
+                                        //Wrong Password
+                                        console.log("Senha incorreta!");
                                         break;
 
                                     default:
@@ -74,7 +76,8 @@ export default function LoginForm(props) {
                     switch (error.message){
 
                         case "Request failed with status code 500":
-                            showAlert("Phone Number already exists!");
+                            // Phone Number already exists
+                            showAlert("Número de telefone já existe!");
                             break;
 
                         default: console.log(error);
@@ -111,10 +114,13 @@ export default function LoginForm(props) {
     const showAlert = (error) =>
         Alert.alert(
             error,
-            "Try again",
+            //Try again
+            "Tente novamente",
+
             [
                 {
-                    text: "OK",
+                    //OK
+                    text: "Certo",
                     style: "cancel",
                 },
             ],
@@ -127,7 +133,8 @@ export default function LoginForm(props) {
         <View style ={styles.container}>
             <View style ={StyleSheet.absoluteFill}>
                 <View>
-                    <Text style={styles.textLogoContainer}>Register User</Text>
+                    {/* Register user */}
+                    <Text style={styles.textLogoContainer}>Registrar usuário</Text>
                 </View>
             </View>
             <View style={styles.bottomContainer}>
@@ -136,7 +143,8 @@ export default function LoginForm(props) {
                     <TextInput style={styles.textInput}
                                name={"userName"}
                                value={userName}
-                               placeholder="Username"
+                               //Username
+                               placeholder="Nome do usuário"
                                placeholderTextColor="green"
                                onChangeText={userName => setUserName(userName)}
                     />
@@ -144,7 +152,8 @@ export default function LoginForm(props) {
                     <TextInput style={styles.textInput}
                                name={"phone"}
                                value={phoneNumber}
-                               placeholder="Phone Number"
+                               //Phone Number
+                               placeholder="Número de telefone"
                                placeholderTextColor="green"
                                keyboardType={"phone-pad"}
                                onChangeText={phoneNumber => setPhoneNumber(phoneNumber)}
@@ -154,7 +163,8 @@ export default function LoginForm(props) {
                         style={styles.textInput}
                         name={"password"}
                         value={password}
-                        placeholder="Password"
+                        //Password
+                        placeholder="Senha"
                         placeholderTextColor="green"
                         secureTextEntry={true}
                         onChangeText={password => setPassword(password)}
@@ -168,7 +178,8 @@ export default function LoginForm(props) {
                         register(phoneNumber, password);
                     }}>
                         <View style={styles.formButton}>
-                            <Text style={styles.buttonText}>Register</Text>
+                            {/* Register */}
+                            <Text style={styles.buttonText}>Registro</Text>
                         </View>
                     </Pressable>
                     <Pressable style={({ pressed }) => [
@@ -177,7 +188,8 @@ export default function LoginForm(props) {
                         navigation.navigate("Login");
                     }}>
                         <View style={styles.formButton}>
-                            <Text style={styles.buttonText}>Go to Login</Text>
+                            {/* Go to Login */}
+                            <Text style={styles.buttonText}>Ir para Entrar</Text>
                         </View>
                     </Pressable>
                 </View>

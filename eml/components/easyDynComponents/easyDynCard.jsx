@@ -5,7 +5,8 @@ import { View, Text } from 'react-native'
 
 const Header = (props) => (
     <View {...props}>
-        <Text category='h6'>Personal Finance</Text>
+        {/* Personal Finance */}
+        <Text category='h6'>Finanças pessoais</Text>
     </View>
 );
 export default function EasyDynCard(params) {

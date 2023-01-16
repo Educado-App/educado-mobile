@@ -62,7 +62,8 @@ export default function DeleteAccount() {
             />
           </View>
           <View>
-            <Text style={styles.text}>Delete account</Text>
+            {/* Delete Account */}
+            <Text style={styles.text}>Deletar conta</Text>
           </View>
         </View>
       </TouchableOpacity>

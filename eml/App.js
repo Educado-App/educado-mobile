@@ -102,7 +102,8 @@ function HomeStack() {
       }}
     >
       <Tab.Screen
-        name="Home"
+        //Home
+        name="Casa"
         component={CourseStack}
         options={{
           headerShown: false,
@@ -119,7 +120,8 @@ function HomeStack() {
         }}
       />
       <Tab.Screen
-        name="Profile"
+        //Perfil
+        name="Perfil"
         component={ProfileComponent}
         options={{
           headerShown: false,
@@ -136,7 +138,8 @@ function HomeStack() {
         }}
       />
       <Tab.Screen
-        name="Explore"
+      // Explore
+        name="Explorar"
         component={Explore}
         options={{
           headerShown: false,

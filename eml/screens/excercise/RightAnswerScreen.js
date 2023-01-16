@@ -30,7 +30,8 @@ export default function RightAnswerScreen() {
               style={{ fontSize: 45, fontFamily: 'VarelaRound_400Regular' }}
               className="text-gray-600"
             >
-              GOOD JOB!
+              {/* GOOD JOB */}
+              BOM TRABALHO!
             </Text>
           </View>
           <View style={{ justifyContent: 'space-evenly' }}>
