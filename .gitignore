@@ -1,0 +1,7 @@
+coverage
+.DS_Store
+.idea/codeStyles/Project.xml
+/.vs
+/.gitignore
+.expo
+.idea
