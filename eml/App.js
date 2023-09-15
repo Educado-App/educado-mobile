@@ -19,6 +19,7 @@ import { TailwindProvider } from 'tailwindcss-react-native';
 import TestScreen from './screens/test/TestScreen';
 import ErrorScreen from './screens/errors/ErrorScreen';
 import SectionCompleteScreen from './screens/excercise/SectionCompleteScreen';
+import ProfileSettings from './screens/profile/ProfileSettings';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -193,6 +194,11 @@ export default function App() {
               <Stack.Screen
                 name={'HomeStack'}
                 component={HomeStack}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name={'ProfileSettings'}
+                component={ProfileSettings}
                 options={{ headerShown: false }}
               />
             </Stack.Navigator>
