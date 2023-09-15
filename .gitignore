@@ -5,3 +5,8 @@ coverage
 /.gitignore
 .expo
 .idea
+
+# Added files to get repo to work #
+node_modules/
+package-lock.json
+package.json
