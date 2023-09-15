@@ -61,7 +61,7 @@ export default function CourseScreen() {
                         <Pressable
                             style={{ elevation: 10 }}
                             className="border border-cyanBlue rounded-md bg-cyanBlue p-2"
-                            onPress={() => navigation.navigate('Explore')}>
+                            onPress={() => navigation.navigate('Explorar')} >
                             {/* Click to explore courses */}
                             <Text className="text-white" style={{ fontSize: 30, fontFamily: 'VarelaRound_400Regular', textAlign: 'center' }}> Clique para explorar os cursos</Text>
                         </Pressable>
