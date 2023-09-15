@@ -4,8 +4,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function WelcomeScreen({ navigation }) {
   const [hasShownWelcome, setHasShownWelcome] = useState(false);
-  // Clear all AsyncStorage data (use with caution)
-  AsyncStorage.clear();
+  //Makes it so the user has not seen the welcome screen before
+  AsyncStorage.setItem("hasShownWelcome", "false");
 
   useEffect(() => {
     AsyncStorage.getItem("hasShownWelcome").then((value) => {
