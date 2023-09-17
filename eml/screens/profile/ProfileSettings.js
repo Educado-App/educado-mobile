@@ -8,6 +8,7 @@ import {
   TextInput,
   TouchableOpacity,
   Text,
+  Modal,
 } from 'react-native';
 import ProfileImage from '../../components/profile/profileImage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -22,6 +23,8 @@ export default function ProfileComponent() {
   const [editingPhoneNumber, setEditingPhoneNumber] = useState(false);
   const [newUserName, setNewUserName] = useState('');
   const [newPhoneNumber, setNewPhoneNumber] = useState('');
+  const [userNameModalVisible, setUserNameModalVisible] = useState(false);
+  const [phoneNumberModalVisible, setPhoneNumberModalVisible] = useState(false);
 
   const getProfile = async () => {
     try {
@@ -41,24 +44,40 @@ export default function ProfileComponent() {
     getProfile();
   }, []);
 
-  const saveChanges = async () => {
-    // Update user information with new values
-    try {
-      // Update the state with new values
+  const saveUserNameChanges = async () => {
+    if (newUserName !== userName) {
+      // Update the state with new username
       setUserName(newUserName);
-      setPhoneNumber(newPhoneNumber);
 
       // Save changes to AsyncStorage or your API
       const updatedProfile = {
         id,
         userName: newUserName,
+        phoneNumber,
+      };
+
+      await AsyncStorage.setItem(USER_INFO, JSON.stringify(updatedProfile));
+    }
+    setEditingUserName(false);
+    setUserNameModalVisible(false); // Close the username modal
+  }
+
+  const savePhoneNumberChanges = async () => {
+    if (newPhoneNumber !== phoneNumber) {
+      // Update the state with new phone number
+      setPhoneNumber(newPhoneNumber);
+
+      // Save changes to AsyncStorage or your API
+      const updatedProfile = {
+        id,
+        userName,
         phoneNumber: newPhoneNumber,
       };
 
       await AsyncStorage.setItem(USER_INFO, JSON.stringify(updatedProfile));
-    } catch (e) {
-      console.log(e);
     }
+    setEditingPhoneNumber(false);
+    setPhoneNumberModalVisible(false); // Close the phone number modal
   }
 
   return (
@@ -68,43 +87,78 @@ export default function ProfileComponent() {
           <ProfileImage />
           <TouchableOpacity
             style={styles.formButton}
-            onPress={() => setEditingUserName(true)}
+            onPress={() => setUserNameModalVisible(true)}
           >
             <Text style={styles.text}>Username: {userName}</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.formButton}
-            onPress={() => setEditingPhoneNumber(true)}
+            onPress={() => setPhoneNumberModalVisible(true)}
           >
             <Text style={styles.text}>Phone Number: {phoneNumber}</Text>
           </TouchableOpacity>
-          {/* Editable Username */}
-          {editingUserName ? (
-            <TextInput
-              value={newUserName}
-              onChangeText={setNewUserName}
-              placeholder="Enter new username"
-              style={styles.input}
-            />
-          ) : null}
-          {/* Editable Phone Number */}
-          {editingPhoneNumber ? (
-            <TextInput
-              value={newPhoneNumber}
-              onChangeText={setNewPhoneNumber}
-              placeholder="Enter new phone number"
-              style={styles.input}
-            />
-          ) : null}
-          {/* Save Changes Button */}
-          {editingUserName || editingPhoneNumber ? (
-            <TouchableOpacity
-              onPress={saveChanges}
-              style={styles.saveButton}
-            >
-              <Text style={styles.saveButtonText}>Save Changes</Text>
-            </TouchableOpacity>
-          ) : null}
+
+          {/* Editable Username Modal */}
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={userNameModalVisible}
+            onRequestClose={() => setUserNameModalVisible(false)}
+          >
+            <View style={styles.modalContainer}>
+              <View style={styles.modalContent}>
+                <TextInput
+                  value={newUserName}
+                  onChangeText={setNewUserName}
+                  placeholder="Enter new username"
+                  style={styles.input}
+                />
+                <TouchableOpacity
+                  onPress={saveUserNameChanges}
+                  style={styles.saveButton}
+                >
+                  <Text style={styles.saveButtonText}>Save Changes</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => setUserNameModalVisible(false)}
+                  style={styles.cancelButton}
+                >
+                  <Text style={styles.cancelButtonText}>Cancel</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </Modal>
+
+          {/* Editable Phone Number Modal */}
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={phoneNumberModalVisible}
+            onRequestClose={() => setPhoneNumberModalVisible(false)}
+          >
+            <View style={styles.modalContainer}>
+              <View style={styles.modalContent}>
+                <TextInput
+                  value={newPhoneNumber}
+                  onChangeText={setNewPhoneNumber}
+                  placeholder="Enter new phone number"
+                  style={styles.input}
+                />
+                <TouchableOpacity
+                  onPress={savePhoneNumberChanges}
+                  style={styles.saveButton}
+                >
+                  <Text style={styles.saveButtonText}>Save Changes</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => setPhoneNumberModalVisible(false)}
+                  style={styles.cancelButton}
+                >
+                  <Text style={styles.cancelButtonText}>Cancel</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </Modal>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -113,8 +167,8 @@ export default function ProfileComponent() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: 'white',
+    paddingTop: Platform.OS === 'android' ? 25 : 0,
+    alignItems: 'center', // Center the content horizontally
   },
   content: {
     alignItems: 'center',
@@ -131,6 +185,7 @@ const styles = StyleSheet.create({
   formButton: {
     backgroundColor: 'hsl(0, 0%, 92%)',
     height: 55,
+    width: '100%', // Change the width to '100%' to make it stretch across the screen
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 35,
@@ -144,11 +199,25 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-    marginTop: 10,
+    marginBottom: 20, // Add some space between buttons
   },
   text: {
-    fontSize: 16,
-    color: 'black',
+    fontSize: 30, // Adjust the font size to your preference
+    color: '#9DE89C',
+    textAlign: 'center', // Center the text horizontally
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 10,
+    width: '80%',
+    alignItems: 'center',
   },
   saveButton: {
     backgroundColor: 'blue',
@@ -157,6 +226,16 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   saveButtonText: {
+    color: 'white',
+    textAlign: 'center',
+  },
+  cancelButton: {
+    backgroundColor: 'red',
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 10,
+  },
+  cancelButtonText: {
     color: 'white',
     textAlign: 'center',
   },
