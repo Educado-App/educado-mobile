@@ -169,6 +169,7 @@ const styles = StyleSheet.create({
   container: {
     paddingTop: Platform.OS === 'android' ? 25 : 0,
     alignItems: 'center', // Center the content horizontally
+    backgroundColor: '#E4F2F5',
   },
   content: {
     alignItems: 'center',
@@ -181,11 +182,12 @@ const styles = StyleSheet.create({
     padding: 10,
     marginTop: 10,
     width: '100%',
+    color: '#383838', // Set text color to #383838
   },
   formButton: {
     backgroundColor: 'hsl(0, 0%, 92%)',
     height: 55,
-    width: '100%', // Change the width to '100%' to make it stretch across the screen
+    width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 35,
@@ -194,17 +196,17 @@ const styles = StyleSheet.create({
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 4
+      height: 4,
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-    marginBottom: 20, // Add some space between buttons
+    marginBottom: 20,
   },
   text: {
-    fontSize: 30, // Adjust the font size to your preference
-    color: '#9DE89C',
-    textAlign: 'center', // Center the text horizontally
+    fontSize: 30,
+    color: '#383838', // Set text color to #383838
+    textAlign: 'center',
   },
   modalContainer: {
     flex: 1,
@@ -220,7 +222,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   saveButton: {
-    backgroundColor: 'blue',
+    backgroundColor: '#00897B', // Updated color
     padding: 10,
     borderRadius: 5,
     marginTop: 10,
@@ -230,7 +232,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   cancelButton: {
-    backgroundColor: 'red',
+    backgroundColor: '#CF6679', // Updated color
     padding: 10,
     borderRadius: 5,
     marginTop: 10,

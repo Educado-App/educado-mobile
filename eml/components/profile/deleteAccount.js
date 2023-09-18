@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Text } from '@rneui/base'
 import { deleteUser, loginUser } from '../../api/userApi'
 import {clearAsyncStorage} from "../../services/StorageService";
+import { styles } from './styles'; // Import the styles from styles.js
 
 const LOGIN_TOKEN = '@loginToken'
 const USER_INFO = '@userInfo'
@@ -70,33 +71,3 @@ export default function DeleteAccount() {
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  formButton: {
-    backgroundColor: 'hsl(0, 0%, 92%)',
-    height: 55,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 35,
-    borderWidth: 1,
-    borderColor: 'hsl(0, 0%, 92%)',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 4
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5
-  },
-  text: {
-    fontSize: 30,
-    color: '#9DE89C'
-  },
-  tinyLogo: {
-    flex: 1,
-    alignItems: 'center',
-    width: 50,
-    height: 50
-  }
-})
