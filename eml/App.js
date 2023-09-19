@@ -19,7 +19,7 @@ import { TailwindProvider } from "tailwindcss-react-native";
 import TestScreen from "./screens/test/TestScreen";
 import ErrorScreen from "./screens/errors/ErrorScreen";
 import SectionCompleteScreen from "./screens/excercise/SectionCompleteScreen";
-import WelcomeScreen from "./screens/welcome/welcomeScreen";
+import WelcomeScreen from "./screens/welcome/Welcome";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();

@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Button } from "react-native";
+import { View, Text, Button, Image, StyleSheet } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { BgLinearGradient } from "../../constants/BgGradient";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { globalStyles } from "../../constants/GlobalStyles";
+import { isMontserratFontLoaded } from "../../constants/Font";
 
 function WelcomeScreen({ navigation }) {
   const [hasShownWelcome, setHasShownWelcome] = useState(false);
+  const logo = require("../../assets/images/logo.png");
   //Makes it so the user has not seen the welcome screen before
   AsyncStorage.setItem("hasShownWelcome", "false");
 
@@ -27,21 +32,27 @@ function WelcomeScreen({ navigation }) {
     });
   }, []);
 
+  if (!isMontserratFontLoaded()) {
+    return null;
+  }
+
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      {hasShownWelcome ? (
-        <>
-          <Text>Welcome to MyApp!</Text>
-          <Button
-            title="Get Started"
-            onPress={() => {
-              navigation.navigate("LoginStack");
-            }}
-          />
-        </>
-      ) : null}
-    </View>
+    <BgLinearGradient>
+      <SafeAreaView style={styles.container}>
+        <Image source={logo} />
+        <Text style={globalStyles["body-regular"]}>
+          Transformando conhecimento em liberdade
+        </Text>
+      </SafeAreaView>
+    </BgLinearGradient>
   );
 }
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
 export default WelcomeScreen;
