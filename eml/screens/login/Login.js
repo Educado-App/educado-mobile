@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useNavigation } from "@react-navigation/native";
 import LoginForm from "../../components/login/LoginForm";
+import FormButton from '../../components/login/FormButton';
 
 const STORAGE_ID = '@local_id';
 const STORAGE_PROGRESS = '@storage_progress';
@@ -96,12 +97,7 @@ export default function Login(props) {
         <Text style={styles.textLogoContainer}>Educado</Text>
       </View>
       <LoginForm></LoginForm>
-      <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-        <View /*style={styles.formButton}*/>
-          {/* Register a new account */}
-          <Text /*style={styles.buttonText}*/>Registrar uma nova conta</Text>
-        </View>
-      </TouchableOpacity>
+      <FormButton label='Registrar uma nova conta' onPress={() => navigation.navigate('Register')}></FormButton>
     </View>
 
 

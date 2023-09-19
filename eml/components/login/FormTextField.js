@@ -4,19 +4,24 @@ import { Text, View, TextInput } from "react-native";
 
 export default function FormTextField(props) {
   return (
-    <View>
-      <Text>{props.label ? props.label : 'Label'}</Text>
-      <TextInput className='h-50, border-2, border-red-500, mh-20, mv-10, br-25, pl-10'
-      //Phone Number
-      placeholder={props.placeholder ? props.placeholder : "Placeholder"}
-      placeholderTextColor="green"
-      keyboardType={"email-address"}
-      autoComplete='email'
-      name='email'
-      //onChangeText={phoneNumber => setPhoneNumber(phoneNumber)}
-      //value={phoneNumber}
-    />
+    <View className='mx-10'>
+      <View className='flex flex-row'>
+        <Text className='ml-2 text-xs'>{props.label ? props.label : ''}</Text>
+        <Text className='ml-1 text-xs color-red-600'>{props.required ? '*' : ''}</Text>
+      </View>
+      <View className=''>
+        <TextInput className='h-50 border-solid border-2 br-25 py-1 pl-[10px] border-gray-200 rounded-xl'
+          //Phone Number
+          placeholder={props.placeholder ? props.placeholder : ""}
+          keyboardType={props.keyboardType ? props.keyboardType : "default"}
+          autoComplete={props.autoComplete ? props.autoComplete : "off"}
+          secureTextEntry={props.secureTextEntry ? props.secureTextEntry : false}
+        //onChangeText={phoneNumber => setPhoneNumber(phoneNumber)}
+        //value={phoneNumber}
+        />
+      </View>
+      
     </View>
-    
+
   )
 }

@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import { loginUser } from "../../api/userApi";
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import FormTextField from "./FormTextField";
+import FormButton from './FormButton';
 
 const LOGIN_TOKEN = '@loginToken';
 const USER_INFO = '@userInfo';
@@ -83,21 +84,19 @@ export default function LoginForm(props) {
     <View>
       <View>
         <FormTextField 
-          placeholder='Email'
+          placeholder='user@email.com'
           onChangeText={phoneNumber => setPhoneNumber(phoneNumber)}
           label='Email'
+          required={true}
         />
-        <FormTextField></FormTextField>
-        <Pressable style={({ pressed }) => [
-          { opacity: pressed ? 0.5 : 1.0 }
-        ]} onPressOut={() => {
-          login(phoneNumber, password);
-        }}>
-          <View>
-            {/* Login */}
-            <Text>Conecte-se</Text>
-          </View>
-        </Pressable>
+        <FormTextField
+          placeholder='Senha'
+          onChangeText={password => setPassword(password)}
+          label='Senha'
+          required={true}
+          secureTextEntry={true}
+        />
+        <FormButton label='Connect-se'/>
       </View>
     </View>
   );
