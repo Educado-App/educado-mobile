@@ -39,8 +39,8 @@ function WelcomeScreen({ navigation }) {
   return (
     <BgLinearGradient>
       <SafeAreaView style={styles.container}>
-        <Image source={logo} />
-        <Text style={globalStyles["body-regular"]}>
+        <Image source={logo} style={styles.logo} />
+        <Text style={[globalStyles["body-regular"], styles.text]}>
           Transformando conhecimento em liberdade
         </Text>
       </SafeAreaView>
@@ -53,6 +53,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    paddingHorizontal: 20,
+  },
+  logo: {
+    marginBottom: 16, // Add margin at the bottom of the image
+  },
+  text: {
+    textAlign: "center",
+    marginTop: 16, // Add margin at the top of the text
   },
 });
+
 export default WelcomeScreen;
