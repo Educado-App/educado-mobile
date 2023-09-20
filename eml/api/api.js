@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const testUrl = 'http://localhost:8888';
 const testExpo = 'http://192.168.1.31:8888'; //Change to local expo ip
-const digitalOcean = 'http://207.154.213.68:8888';
+const digitalOcean = 'http://207.154.213.68:8888'; // Doesn't work anymore
 
 const url = digitalOcean;
 
