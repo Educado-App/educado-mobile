@@ -51,6 +51,7 @@ export const getCourseList = async () => {
     console.error(e);
   }
 };
+
 export const refreshCourseList = async () => {
   return await api
     .getCourses()
@@ -127,30 +128,7 @@ export const downloadCourse = async (courseId) => {
         );
 
         //downloading each video of the exercises and storing in their respective sections
-        for (const section of sections) {
-          const sectionDirectory = courseDirectory + '/' + section.id;
-          await DirectoryService.CreateDirectory(sectionDirectory);
-
-          for (const exercise of section.exercises) {
-            //First download all the primary video content
-            const primaryUrl = exercise.content;
-            exercise.content = await DirectoryService.DownloadAndStoreContent(
-              primaryUrl,
-              sectionDirectory,
-              exercise.id
-            );
-
-            //Second download all the secondary (onWrongFeedback) video content
-            const secondaryUrl = exercise.onWrongFeedback;
-            exercise.onWrongFeedback =
-              await DirectoryService.DownloadAndStoreContent(
-                secondaryUrl,
-                sectionDirectory,
-                exercise.id + 'feedback'
-              );
-          }
-          await AsyncStorage.setItem(section.id, JSON.stringify(section));
-        }
+        await processSections(sections, courseDirectory);
 
         //store the downloaded course back in the AsyncStorage
         course.isActive = true;
@@ -158,12 +136,8 @@ export const downloadCourse = async (courseId) => {
         await AsyncStorage.setItem(courseId, JSON.stringify(course));
 
         //store the updated course list back in the AsyncStorage
-        for (const course of courseList) {
-          if (course.courseId === courseId) {
-            course.isActive = true;
-            break;
-          }
-        }
+        setCoursesToActive(courseList);
+
         await AsyncStorage.setItem(COURSE_LIST, JSON.stringify(courseList));
       } else {
         return console.log('error: course not found!');
@@ -173,6 +147,7 @@ export const downloadCourse = async (courseId) => {
     }
   } else console.log('error: course id is not defined!');
 };
+
 export const getNextExercise = async (sectionId) => {
   try {
     const currentSection = JSON.parse(await AsyncStorage.getItem(sectionId));
@@ -237,6 +212,7 @@ export const updateCompletionStatus = async (
     console.error(e);
   }
 };
+
 export const deleteCourse = async (courseId) => {
   if (courseId !== undefined) {
     const courseList = JSON.parse(await AsyncStorage.getItem(COURSE_LIST));
@@ -263,6 +239,7 @@ export const deleteCourse = async (courseId) => {
     }
   }
 };
+
 export const clearAsyncStorage = async () => {
   console.log(await AsyncStorage.getAllKeys());
   await AsyncStorage.clear();
@@ -284,4 +261,47 @@ function processExercise(exercise) {
   }
 
   exercise.isComplete = false;
+}
+
+async function setCoursesToActive(courseList) {
+  for (const course of courseList) {
+    if (course.courseId === courseId) {
+      course.isActive = true;
+        break;
+    }
+  }
+}
+
+async function downloadAndStoreExerciseContent(
+  exercise,
+  sectionDirectory
+) {
+  // Download and store the primary video content
+  const primaryUrl = exercise.content;
+  exercise.content = await DirectoryService.DownloadAndStoreContent(
+    primaryUrl,
+    sectionDirectory,
+    exercise.id
+  );
+
+  // Download and store the secondary (onWrongFeedback) video content
+  const secondaryUrl = exercise.onWrongFeedback;
+  exercise.onWrongFeedback = await DirectoryService.DownloadAndStoreContent(
+    secondaryUrl,
+    sectionDirectory,
+    exercise.id + 'feedback'
+  );
+}
+
+async function processSections(sections, courseDirectory) {
+  for (const section of sections) {
+    const sectionDirectory = courseDirectory + '/' + section.id;
+    await DirectoryService.CreateDirectory(sectionDirectory);
+
+    for (const exercise of section.exercises) {
+      await downloadAndStoreExerciseContent(exercise, sectionDirectory);
+    }
+
+    await AsyncStorage.setItem(section.id, JSON.stringify(section));
+  }
 }
