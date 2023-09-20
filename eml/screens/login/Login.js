@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import { View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useNavigation } from "@react-navigation/native";
 import LoginForm from "../../components/login/LoginForm";
 import FormButton from '../../components/login/FormButton';
-import LeaveButton from '../../components/exercise/LeaveButton';
 import LogoBackButton from '../../components/login/LogoBackButton';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -96,10 +95,12 @@ export default function Login(props) {
 
 
   return (
-    <SafeAreaView className='mt-10'>
-      <LogoBackButton 
-        navigationPlace='Login'
-      />
+    <SafeAreaView className='justify-start bg-secondary flex-1'>
+      <View className='mt-10'>
+        <LogoBackButton
+          navigationPlace='Login'
+        />
+      </View>
       {/* Login form */}
       <View className='my-8'>
         <LoginForm />

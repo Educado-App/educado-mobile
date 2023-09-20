@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Alert, Pressable, StyleSheet, Text, View } from "react-native";
+import { Alert, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { loginUser, registerUser } from "../../api/userApi";
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import LogoBackButton from "./LogoBackButton";
 import FormTextField from "./FormTextField";
+import FormButton from "./FormButton";
 
 const USER_INFO = '@userInfo';
 const LOGIN_TOKEN = '@loginToken';
@@ -129,136 +129,64 @@ export default function LoginForm(props) {
     );
 
   return (
-    <View className='bg-secondary flex-1 justify-start'>
-      <View className='justify-center'>
-        <View className='mb-16'>
-          <View className="mb-6">
-            <FormTextField
-              label='Nome'
-              name={'Name'}
-              value={realName}
-              //Real name
-              placeholder='Nome Sobrenome'
-              placeholderTextColor='grey'
-              required={true}
-              onChangeText={realName => setRealName(realName)}
-            />
-          </View>
-
-          <View className="mb-6">
-            <FormTextField className='mb-6'
-              label='Email'
-              name={'Email'}
-              value={email}
-              //Email
-              placeholder='user@email.com'
-              placeholderTextColor='grey'
-              required={true}
-              onChangeText={email => setEmail(email)}
-            />
-          </View>
-
-          <View className="mb-6">
-            <FormTextField
-              label='Senha'
-              name={'password'}
-              value={password}
-              //Password
-              placeholder='******'
-              placeholderTextColor='grey'
-              secureTextEntry={true}
-              required={true}
-              passwordGuidelines={true}
-              onChangeText={password => setPassword(password)}
-            />
-          </View>
-
-
-          {/* TODO: compare password with confirm password and give error if not same.*/}
-          <View className="mb-6">
-            <FormTextField
-              label='Confirmar Senha'
-              name={'Confirm password'}
-              value={password}
-              //Confirm password
-              placeholder='******'
-              placeholderTextColor='grey'
-              secureTextEntry={true}
-              required={true}
-            />
-            </View>
-
-        </View>
-        <Pressable style={({ pressed }) => [
-          { opacity: pressed ? 0.5 : 1.0 }
-        ]} onPress={() => {
-          register(email, password);
-        }}>
-          <View style={styles.formButton}>
-            {/* Register */}
-            <Text style={styles.buttonText}>Registro</Text>
-          </View>
-        </Pressable>
-        <Pressable style={({ pressed }) => [
-          { opacity: pressed ? 0.5 : 1.0 }
-        ]} onPress={() => {
-          navigation.navigate('Login');
-        }}>
-          <View style={styles.formButton}>
-            {/* Go to Login */}
-            <Text style={styles.buttonText}>Ir para Entrar</Text>
-          </View>
-        </Pressable>
-      </View >
-    </View >
+    <View>
+      <View className="mb-6">
+        <FormTextField
+          label='Nome'
+          name={'Name'}
+          value={realName}
+          //Real name
+          placeholder='Nome Sobrenome'
+          placeholderTextColor='grey'
+          required={true}
+          onChangeText={realName => setRealName(realName)}
+        />
+      </View>
+      <View className="mb-6">
+        <FormTextField className='mb-6'
+          label='Email'
+          name={'Email'}
+          value={email}
+          //Email
+          placeholder='user@email.com'
+          placeholderTextColor='grey'
+          required={true}
+          onChangeText={email => setEmail(email)}
+        />
+      </View>
+      <View className="mb-6">
+        <FormTextField
+          label='Senha'
+          name={'password'}
+          value={password}
+          //Password
+          placeholder='******'
+          placeholderTextColor='grey'
+          secureTextEntry={true}
+          required={true}
+          passwordGuidelines={true}
+          onChangeText={password => setPassword(password)}
+        />
+      </View>
+      {/* TODO: compare password with confirm password and give error if not same.*/}
+      <View className="mb-6">
+        <FormTextField
+          label='Confirmar Senha'
+          name={'Confirm password'}
+          value={password}
+          //Confirm password
+          placeholder='******'
+          placeholderTextColor='grey'
+          secureTextEntry={true}
+          required={true}
+        />
+      </View>
+      <View className='my-10'>
+        <FormButton
+          onPress={() => register(email, password)}
+          label='Cadastrar'
+        />
+      </View>
+    </View>
   );
 }
-
-const styles = StyleSheet.create({
-  button: {
-    backgroundColor: 'rgba(123,104,238,0.8)',
-    height: 55,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 35,
-    marginHorizontal: 20,
-    marginVertical: 10,
-    borderWidth: 1,
-    borderColor: 'white'
-  },
-  buttonText: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: 'black',
-    letterSpacing: 0.5
-
-  },
-  textInput: {
-    height: 50,
-    borderWidth: 1,
-    borderColor: 'rgba(0,0,0, 0.2)',
-    marginHorizontal: 20,
-    marginVertical: 10,
-    borderRadius: 25,
-    paddingLeft: 10
-  },
-  formButton: {
-    backgroundColor: 'white',
-    height: 55,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 35,
-    marginHorizontal: 20,
-    marginVertical: 10,
-    borderWidth: 1,
-    borderColor: 'white',
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-});
