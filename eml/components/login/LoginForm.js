@@ -5,6 +5,7 @@ import { loginUser } from "../../api/userApi";
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import FormTextField from "./FormTextField";
 import FormButton from './FormButton';
+import FormTextButton from './FormTextButton';
 
 const LOGIN_TOKEN = '@loginToken';
 const USER_INFO = '@userInfo';
@@ -95,9 +96,19 @@ export default function LoginForm(props) {
         required={true}
         secureTextEntry={true}
       />
+
+      <FormTextButton
+        label='Esqueceu a senha?'
+      />
       <FormButton 
         label='Entrar' 
+        paddingTop={20}
       />
+      <FormTextButton
+        label='Cadastre-se agora'
+        onPress={() => navigation.navigate('Register')}
+      />
+      
     </View>
   );
 }

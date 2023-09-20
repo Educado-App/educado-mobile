@@ -102,8 +102,6 @@ export default function Login(props) {
       <View className='my-8'>
         <LoginForm />
       </View>
-      {/* Register button */}
-      <FormButton label='Registrar uma nova conta' onPress={() => navigation.navigate('Register')} />
     </SafeAreaView>
   );
 }
