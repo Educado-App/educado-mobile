@@ -86,6 +86,7 @@ export default function LoginForm(props) {
         onChangeText={phoneNumber => setPhoneNumber(phoneNumber)}
         label='Email'
         required={true}
+        secureTextEntry={false}
       />
       <FormTextField
         placeholder='******'

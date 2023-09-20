@@ -129,7 +129,7 @@ export default function LoginForm(props) {
     );
 
   return (
-    <View className='bg-secondary flex-1 justify-start'>
+    <View className=' bg-disabled flex-1 justify-start'>
       <LogoBackButton />
       <View className='justify-center'>
         <View className='mb-16'>
@@ -184,6 +184,7 @@ export default function LoginForm(props) {
           />
 
         </View>
+
         <Pressable style={({ pressed }) => [
           { opacity: pressed ? 0.5 : 1.0 }
         ]} onPress={() => {
@@ -191,7 +192,7 @@ export default function LoginForm(props) {
         }}>
           <View style={styles.formButton}>
             {/* Register */}
-            <Text style={styles.buttonText}>Registro</Text>
+            <Text style={styles.buttonText}>Cadastrar</Text>
           </View>
         </Pressable>
         <Pressable style={({ pressed }) => [
