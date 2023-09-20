@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image, SafeAreaView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useNavigation } from "@react-navigation/native";
 import LoginForm from "../../components/login/LoginForm";
@@ -94,13 +94,11 @@ export default function Login(props) {
 
 
 	return (
-		<View className='mt-10'>
+		<SafeAreaView className='mt-10'>
 			<View className='flex-row justify-center w-full mt-4'>
         {/* TODO: Implement with general back button instead */}
 				<View className='absolute left-0'>
-					<LeaveButton
-						navigationPlace='Home'
-					/>
+					<LeaveButton navigationPlace='Home'/>
 				</View>
 				{/* Educado logo */}
 				<Image 
@@ -113,8 +111,15 @@ export default function Login(props) {
       <View className='my-8'>
 			  <LoginForm/>
       </View>
-			{/* Register button */}
-			<FormButton label='Registrar uma nova conta' onPress={() => navigation.navigate('Register')}/>
-		</View>
+			{/* Register link */}
+      <View className='flex-row justify-center'>
+        {/* > Don't have an account yet? */}
+        <Text className='text-gray'>Ainda não tem conta? </Text>
+        {/* > Register now */}
+        <Text className='underline' onPress={() => navigation.navigate('Register')}>
+            Cadastre-se agora
+        </Text>
+		  </View>
+		</SafeAreaView>
 	);
 }
