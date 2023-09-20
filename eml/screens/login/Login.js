@@ -6,12 +6,13 @@ import LoginForm from "../../components/login/LoginForm";
 import FormButton from '../../components/login/FormButton';
 import LeaveButton from '../../components/exercise/LeaveButton';
 
+
 const STORAGE_ID = '@local_id';
 const STORAGE_PROGRESS = '@storage_progress';
 const LOGIN_TOKEN = '@loginToken';
 
 export default function Login(props) {
-
+  
 	const navigation = useNavigation();
 
 	// Check if local user id is set
