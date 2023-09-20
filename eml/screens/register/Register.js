@@ -13,17 +13,9 @@ export default function Register(props) {
     const navigation = useNavigation();
 
     return (
-        <View style={styles.container}>
+        <View className='flex-1 justify-end bg-primary'>
             <RegisterForm/>
         </View>
     );
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'flex-end',
-        backgroundColor: 'Green'
-    },
-
-});

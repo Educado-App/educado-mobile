@@ -130,11 +130,11 @@ export default function LoginForm(props) {
         );
 
     return (
-        <View style ={styles.container}>
+        <View className='bg-secondary flex-1 justify-start'>
             <View style ={StyleSheet.absoluteFill}>
                 <View>
                     {/* Register user */}
-                    <Text style={styles.textLogoContainer}>Registrar usuário</Text>
+                    <Text className='mx-[20%] my-[25%] text-4xl font-normal text-black tracking-wider height-50 width-1000 justify-center'>Registrar usuário</Text>
                 </View>
             </View>
             <View style={styles.bottomContainer}>
@@ -199,12 +199,6 @@ export default function LoginForm(props) {
 }
 
 const styles = StyleSheet.create({
-
-    container: {
-        flex: 1,
-        justifyContent : 'flex-start',
-        backgroundColor: 'rgba(86, 255, 131, 0.6)'
-    },
     button: {
         backgroundColor : 'rgba(123,104,238,0.8)',
         height : 55,
@@ -259,14 +253,12 @@ const styles = StyleSheet.create({
         marginBottom: 70
     },
     textLogoContainer: {
-        marginHorizontal : '20%',
-        marginVertical: '25%',
-        fontSize: 35,
-        fontWeight: '400',
-        color: 'green',
-        letterSpacing: 0.5,
-        height: 50,
-        width: 1000,
-        justifyContent: 'center'
+        // fontSize: 35,
+        //fontWeight: '400'
+        //color: 'green',
+        //letterSpacing: 0.5,
+        //height: 50,
+        //width: 1000,
+        //justifyContent: 'center'
     }
 });
