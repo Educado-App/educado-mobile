@@ -102,7 +102,7 @@ export default function LoginForm(props) {
       />
       <FormButton 
         label='Entrar' 
-        paddingTop={20}
+        paddingTop={8}
       />
       <FormTextButton
         label='Cadastre-se agora'

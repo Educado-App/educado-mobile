@@ -102,6 +102,7 @@ export default function Login(props) {
       <View className='my-8'>
         <LoginForm />
       </View>
+      {/* Register button */}
     </SafeAreaView>
   );
 }
