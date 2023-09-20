@@ -88,13 +88,15 @@ export default function LoginForm(props) {
         required={true}
       />
       <FormTextField
-        placeholder='Senha'
+        placeholder='******'
         onChangeText={password => setPassword(password)}
         label='Senha'
         required={true}
         secureTextEntry={true}
       />
-      <FormButton label='Connect-se' />
+      <FormButton 
+        label='Entrar' 
+      />
     </View>
   );
 }

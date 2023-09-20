@@ -20,7 +20,7 @@ const LeaveButton = ({ navigationPlace, courseId }) => {
       }
       icon={
         <Icon
-          size={40}
+          size={25}
           name="chevron-left"
           type="material-community"
           color="rgb(75,85,99)"
