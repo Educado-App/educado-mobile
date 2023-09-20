@@ -94,8 +94,8 @@ export default function Login(props) {
 
 
 	return (
-		<SafeAreaView className='mt-10'>
-			<View className='flex-row justify-center w-full mt-4'>
+		<SafeAreaView className='bg-secondary flex-1'>
+			<View className='flex-row justify-center w-full mt-12'>
         {/* TODO: Implement with general back button instead */}
 				<View className='absolute left-0'>
 					<LeaveButton navigationPlace='Home'/>
@@ -107,19 +107,21 @@ export default function Login(props) {
           resizeMode='contain'
          />
 			</View>
-			{/* Login form */}
-      <View className='my-8'>
-			  <LoginForm/>
+        <View className='mx-10'>
+        {/* Login form */}
+        <View className='my-8'>
+          <LoginForm/>
+        </View>
+        {/* Register link */}
+        <View className='flex-row justify-center'>
+          {/* > Don't have an account yet? */}
+          <Text className='text-gray'>Ainda não tem conta? </Text>
+          {/* > Register now */}
+          <Text className='text-black underline' onPress={() => navigation.navigate('Register')}>
+              Cadastre-se agora
+          </Text>
+        </View>
       </View>
-			{/* Register link */}
-      <View className='flex-row justify-center'>
-        {/* > Don't have an account yet? */}
-        <Text className='text-gray'>Ainda não tem conta? </Text>
-        {/* > Register now */}
-        <Text className='underline' onPress={() => navigation.navigate('Register')}>
-            Cadastre-se agora
-        </Text>
-		  </View>
 		</SafeAreaView>
 	);
 }
