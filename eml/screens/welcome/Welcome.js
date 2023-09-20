@@ -95,7 +95,9 @@ const WelcomePage = () => {
                 loop={false}
                 index={0}
                 dotColor={projectColors.projectWhite}
+                dotStyle={{ width: 10, height: 10 }}
                 activeDotColor={projectColors.primary}
+                activeDotStyle={{ width: 10, height: 10 }}
                 height={250}
               >
                 {sections.map((sections, index) => (
