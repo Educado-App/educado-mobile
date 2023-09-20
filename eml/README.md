@@ -44,7 +44,7 @@ import { isFontsLoaded } from "../../constants/Fonts.js";
 ```
 Then use the function (nice to do this in an if-statement)
 ```javascript
-if (!isFontsLoaded) {
+if (!isFontsLoaded()) {
     return null;
 }
 ```
