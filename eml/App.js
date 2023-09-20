@@ -19,12 +19,25 @@ import { TailwindProvider } from "tailwindcss-react-native";
 import TestScreen from "./screens/test/TestScreen";
 import ErrorScreen from "./screens/errors/ErrorScreen";
 import SectionCompleteScreen from "./screens/excercise/SectionCompleteScreen";
+import LoadingScreen from "./screens/loading/Loading";
 import WelcomeScreen from "./screens/welcome/Welcome";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-//W.I.P welcome screen
+function LoadingStack() {
+  return (
+    <Stack.Navigator initialRouteName={"Loading"}>
+      <Stack.Screen
+        name="Loading"
+        component={LoadingScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
 function WelcomeStack() {
   return (
     <Stack.Navigator initialRouteName={"Welcome"}>
@@ -199,7 +212,12 @@ export default function App() {
         <IconRegistry icons={EvaIconsPack} />
         <ApplicationProvider {...eva} theme={eva.light}>
           <NavigationContainer>
-            <Stack.Navigator initialRouteName={"WelcomeStack"}>
+            <Stack.Navigator initialRouteName={"LoadingStack"}>
+              <Stack.Screen
+                name={"LoadingStack"}
+                component={LoadingStack}
+                options={{ headerShown: false }}
+              />
               <Stack.Screen
                 name={"WelcomeStack"}
                 component={WelcomeStack}

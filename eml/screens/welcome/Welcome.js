@@ -1,67 +1,144 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, Button, Image, StyleSheet } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { BgLinearGradient } from "../../constants/BgGradient";
+import React, { useState, useRef, useEffect } from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import Swiper from "react-native-swiper";
+import { useNavigation } from "@react-navigation/native";
+import { BgLinearGradient } from "../../constants/BgLinearGradient";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { globalStyles } from "../../constants/GlobalStyles";
-import { isMontserratFontLoaded } from "../../constants/Font";
+import { isFontsLoaded } from "../../constants/Fonts";
 
-function WelcomeScreen({ navigation }) {
-  const [hasShownWelcome, setHasShownWelcome] = useState(false);
-  const logo = require("../../assets/images/logo.png");
-  //Makes it so the user has not seen the welcome screen before
-  AsyncStorage.setItem("hasShownWelcome", "false");
+const phrases = [
+  "Aqui, tornamos o aprendizado acessível e divertido para todos. Explore nossos conteúdos e comece sua jornada de desenvolvimento.",
+  "Este é o seu espaço para aprender de forma interativa e envolvente. Faça o download dos conteúdos e acesse offline quando quiser!",
+  "Faça parte de nossa comunidade e descubra um mundo de aprendizado ao seu alcance, não importa sua formação acadêmica.",
+];
+
+const WelcomePage = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const swiperRef = useRef(null);
+  const navigation = useNavigation();
+  const AUTO_SWIPE_INTERVAL = 10000; // 10 seconds
+
+  const onIndexChanged = (index) => {
+    setCurrentIndex(index);
+  };
+
+  const swipeLeft = () => {
+    if (currentIndex > 0) {
+      swiperRef.current.scrollBy(-1);
+    }
+  };
+
+  const swipeRight = () => {
+    if (currentIndex < phrases.length - 1) {
+      swiperRef.current.scrollBy(1);
+    }
+  };
 
   useEffect(() => {
-    AsyncStorage.getItem("hasShownWelcome").then((value) => {
-      AsyncStorage.getItem("hasShownWelcome").then((value) => {
-        console.log("hasShownWelcome:", value);
-      });
+    let autoSwipeInterval;
 
-      if (value === "true") {
-        // If the flag is 'true', the user has seen the welcome screen before
-        // Navigate to the LoginStack directly
-        navigation.navigate("LoginStack");
-      } else {
-        // The user hasn't seen the welcome screen before
-        // Set the flag to 'true' to indicate that it has been shown
-        AsyncStorage.setItem("hasShownWelcome", "true");
-        // Update the state to render the welcome screen content
-        setHasShownWelcome(true);
-      }
-    });
-  }, []);
+    const startAutoSwipe = () => {
+      autoSwipeInterval = setInterval(() => {
+        if (currentIndex < phrases.length - 1) {
+          swiperRef.current.scrollBy(1);
+        } else {
+          clearInterval(autoSwipeInterval); // Stop auto-swiping at the end
+        }
+      }, AUTO_SWIPE_INTERVAL);
+    };
 
-  if (!isMontserratFontLoaded()) {
-    return null;
-  }
+    startAutoSwipe();
+
+    return () => {
+      clearInterval(autoSwipeInterval); // Clean up the interval on unmount
+    };
+  }, [currentIndex]);
+
+  const goToLoginStack = () => {
+    navigation.navigate("LoginStack");
+  };
 
   return (
     <BgLinearGradient>
       <SafeAreaView style={styles.container}>
-        <Image source={logo} style={styles.logo} />
-        <Text style={[globalStyles["body-regular"], styles.text]}>
-          Transformando conhecimento em liberdade
-        </Text>
+        <Swiper
+          loop={false}
+          onIndexChanged={onIndexChanged}
+          dotStyle={styles.dot}
+          activeDotStyle={styles.activeDot}
+          ref={swiperRef}
+        >
+          {phrases.map((phrase, index) => (
+            <SafeAreaView style={styles.slide} key={index}>
+              <Text style={styles.text}>{phrase}</Text>
+            </SafeAreaView>
+          ))}
+        </Swiper>
+        <SafeAreaView style={styles.buttonContainer}>
+          <TouchableOpacity onPress={swipeLeft} style={styles.button}>
+            <Text style={styles.buttonText}>Swipe Left</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={swipeRight} style={styles.button}>
+            <Text style={styles.buttonText}>Swipe Right</Text>
+          </TouchableOpacity>
+        </SafeAreaView>
+        <TouchableOpacity onPress={goToLoginStack} style={styles.loginButton}>
+          <Text style={styles.loginButtonText}>Go to Login</Text>
+        </TouchableOpacity>
       </SafeAreaView>
     </BgLinearGradient>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
     alignItems: "center",
-    paddingHorizontal: 20,
+    justifyContent: "center",
   },
-  logo: {
-    marginBottom: 16, // Add margin at the bottom of the image
+  slide: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
   },
   text: {
     textAlign: "center",
-    marginTop: 16, // Add margin at the top of the text
+  },
+  dot: {
+    backgroundColor: "#ccc",
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    margin: 3,
+  },
+  activeDot: {
+    backgroundColor: "#007AFF",
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 20,
+  },
+  button: {
+    backgroundColor: "#007AFF",
+    padding: 10,
+    borderRadius: 5,
+    marginHorizontal: 10,
+  },
+  buttonText: {
+    color: "white",
+    fontWeight: "bold",
+  },
+  loginButton: {
+    marginTop: 20,
+    backgroundColor: "#007AFF",
+    padding: 10,
+    borderRadius: 5,
+  },
+  loginButtonText: {
+    color: "white",
+    fontWeight: "bold",
   },
 });
 
-export default WelcomeScreen;
+export default WelcomePage;
