@@ -48,73 +48,34 @@ export const getCourseById = async (courseId) => {
   try {
     const course = JSON.parse(await AsyncStorage.getItem(courseId));
 
-    if (course == null) {
-      return await api.getCourse(courseId).then(async (requestedCourse) => {
-        let sections = [];
+    if (course != null) return course;
+    return await api.getCourse(courseId).then(async (requestedCourse) => {
+      let sections = [];
 
-        for (const section of requestedCourse.data.sections) {
-          let exerciseContent = [];
+      sections = await getSections(requestedCourse, sections);
 
-          for (const exercise of section.exercises) {
-            if (exercise.length === 0) {
-              exercise.push({
-                content:
-                  'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4',
-                onWrongFeedback:
-                  'https://drive.google.com/uc?export=download&id=10av_XwIKYjGCNBfb38wuVWBT3GQC2PGN',
-              });
-            }
-            if (exercise.onWrongFeedback === '') {
-              exercise.onWrongFeedback =
-                'https://drive.google.com/uc?export=download&id=10av_XwIKYjGCNBfb38wuVWBT3GQC2PGN';
-            }
-            if (exercise.content === '') {
-              exercise.content =
-                'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4';
-            }
+      const courseContent = {
+        title: requestedCourse.data.title,
+        id: requestedCourse.data.id,
+        icon:
+          requestedCourse.data.category === undefined ||
+          requestedCourse.data.category === null
+            ? 'https://sashabarab.org/wp-content/uploads/2015/02/course-icon.png'
+            : requestedCourse.data.category.icon,
+        categoryId:
+          requestedCourse.data.category === undefined ||
+          requestedCourse.data.category === null
+            ? ''
+            : requestedCourse.data.category.id,
+        sections: sections,
+        isActive: false,
+        isComplete: false,
+      };
 
-            exercise.isComplete = false;
-            exerciseContent.push(exercise);
-          }
-
-          let currentSection = {
-            id: section.id,
-            title: section.title,
-            number: section.sectionNumber,
-            isComplete: false,
-          };
-
-          currentSection.exercises = exerciseContent;
-          sections.push(currentSection);
-          await AsyncStorage.setItem(
-            section.id,
-            JSON.stringify(currentSection)
-          );
-        }
-
-        const courseContent = {
-          title: requestedCourse.data.title,
-          id: requestedCourse.data.id,
-          icon:
-            requestedCourse.data.category === undefined ||
-            requestedCourse.data.category === null
-              ? 'https://sashabarab.org/wp-content/uploads/2015/02/course-icon.png'
-              : requestedCourse.data.category.icon,
-          categoryId:
-            requestedCourse.data.category === undefined ||
-            requestedCourse.data.category === null
-              ? ''
-              : requestedCourse.data.category.id,
-          sections: sections,
-          isActive: false,
-          isComplete: false,
-        };
-
-        //console.log("STORAGE SERVICE \n " , courseContent.sections[0].exercises[0])
-        await AsyncStorage.setItem(courseId, JSON.stringify(courseContent));
-        return courseContent;
-      });
-    } else return course;
+      //console.log("STORAGE SERVICE \n " , courseContent.sections[0].exercises[0])
+      await AsyncStorage.setItem(courseId, JSON.stringify(courseContent));
+      return courseContent;
+    });
   } catch (e) {
     console.error(e);
   }
@@ -125,65 +86,45 @@ export const downloadCourse = async (courseId) => {
       const courseList = JSON.parse(await AsyncStorage.getItem(COURSE_LIST));
       const course = JSON.parse(await AsyncStorage.getItem(courseId));
 
-      if (course !== null && courseList !== null) {
-        //console.log("\n BEFORE \n ", course);
+      if (course == null && courseList == null) return console.log('error: course not found!');
+      //console.log("\n BEFORE \n ", course);
 
-        const courseDirectory = course.id;
-        const icon = course.icon;
-        const sections = course.sections;
+      const courseDirectory = course.id;
+      const icon = course.icon;
+      const sections = course.sections;
 
-        //making directory for the course
-        await DirectoryService.CreateDirectory(courseDirectory);
+      //making directory for the course
+      await DirectoryService.CreateDirectory(courseDirectory);
 
-        //downloading the icon for the course
-        course.icon = await DirectoryService.DownloadAndStoreContent(
-          icon,
-          courseDirectory,
-          'courseIcon'
-        );
+      //downloading the icon for the course
+      course.icon = await DirectoryService.DownloadAndStoreContent(
+        icon,
+        courseDirectory,
+        'courseIcon'
+      );
 
-        //downloading each video of the exercises and storing in their respective sections
-        for (const section of sections) {
-          const sectionDirectory = courseDirectory + '/' + section.id;
-          await DirectoryService.CreateDirectory(sectionDirectory);
+      //downloading each video of the exercises and storing in their respective sections
+      for (const section of sections) {
+        const sectionDirectory = courseDirectory + '/' + section.id;
+        await DirectoryService.CreateDirectory(sectionDirectory);
 
-          for (const exercise of section.exercises) {
-            //First download all the primary video content
-            const primaryUrl = exercise.content;
-            exercise.content = await DirectoryService.DownloadAndStoreContent(
-              primaryUrl,
-              sectionDirectory,
-              exercise.id
-            );
-
-            //Second download all the secondary (onWrongFeedback) video content
-            const secondaryUrl = exercise.onWrongFeedback;
-            exercise.onWrongFeedback =
-              await DirectoryService.DownloadAndStoreContent(
-                secondaryUrl,
-                sectionDirectory,
-                exercise.id + 'feedback'
-              );
-          }
-          await AsyncStorage.setItem(section.id, JSON.stringify(section));
-        }
-
-        //store the downloaded course back in the AsyncStorage
-        course.isActive = true;
-        //console.log("\n AFTER \n ", course);
-        await AsyncStorage.setItem(courseId, JSON.stringify(course));
-
-        //store the updated course list back in the AsyncStorage
-        for (const course of courseList) {
-          if (course.courseId === courseId) {
-            course.isActive = true;
-            break;
-          }
-        }
-        await AsyncStorage.setItem(COURSE_LIST, JSON.stringify(courseList));
-      } else {
-        return console.log('error: course not found!');
+        await downloadSection(section, sectionDirectory);
+        await AsyncStorage.setItem(section.id, JSON.stringify(section));
       }
+
+      //store the downloaded course back in the AsyncStorage
+      course.isActive = true;
+      //console.log("\n AFTER \n ", course);
+      await AsyncStorage.setItem(courseId, JSON.stringify(course));
+
+      //store the updated course list back in the AsyncStorage
+      for (const course of courseList) {
+        if (course.courseId === courseId) {
+          course.isActive = true;
+          break;
+        }
+      }
+      await AsyncStorage.setItem(COURSE_LIST, JSON.stringify(courseList));
     } catch (e) {
       console.error(e);
     }
@@ -279,8 +220,79 @@ export const deleteCourse = async (courseId) => {
     }
   }
 };
+
 export const clearAsyncStorage = async () => {
   console.log(await AsyncStorage.getAllKeys());
   await AsyncStorage.clear();
   console.log(await AsyncStorage.getAllKeys());
 };
+
+async function getSections(requestedCourse, sections) {
+  for (const section of requestedCourse.data.sections) {
+    let exerciseContent = [];
+
+    exerciseContent = getExercises(section, exerciseContent);
+
+    let currentSection = {
+      id: section.id,
+      title: section.title,
+      number: section.sectionNumber,
+      isComplete: false,
+    };
+
+    currentSection.exercises = exerciseContent;
+    sections.push(currentSection);
+    await AsyncStorage.setItem(
+      section.id,
+      JSON.stringify(currentSection)
+    );
+  }
+
+  return sections;
+}
+
+async function downloadSection(section, sectionDirectory) {
+  for (const exercise of section.exercises) {
+    //First download all the primary video content
+    const primaryUrl = exercise.content;
+    exercise.content = await DirectoryService.DownloadAndStoreContent(
+      primaryUrl,
+      sectionDirectory,
+      exercise.id
+    );
+
+    //Second download all the secondary (onWrongFeedback) video content
+    const secondaryUrl = exercise.onWrongFeedback;
+    exercise.onWrongFeedback =
+      await DirectoryService.DownloadAndStoreContent(
+        secondaryUrl,
+        sectionDirectory,
+        exercise.id + 'feedback'
+      );
+  }
+}
+
+function getExercises(section, exerciseContent) {
+  for (const exercise of section.exercises) {
+    if (exercise.length === 0) {
+      exercise.push({
+        content: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4',
+        onWrongFeedback: 'https://drive.google.com/uc?export=download&id=10av_XwIKYjGCNBfb38wuVWBT3GQC2PGN',
+      });
+    }
+    if (exercise.onWrongFeedback === '') {
+      exercise.onWrongFeedback =
+        'https://drive.google.com/uc?export=download&id=10av_XwIKYjGCNBfb38wuVWBT3GQC2PGN';
+    }
+    if (exercise.content === '') {
+      exercise.content =
+        'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4';
+    }
+
+    exercise.isComplete = false;
+    exerciseContent.push(exercise);
+  }
+
+  return exerciseContent;
+}
+
