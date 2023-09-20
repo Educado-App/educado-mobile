@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import Swiper from "react-native-swiper";
 import { useNavigation } from "@react-navigation/native";
 import { BgLinearGradient } from "../../constants/BgLinearGradient";
@@ -17,6 +17,7 @@ const WelcomePage = () => {
   const swiperRef = useRef(null);
   const navigation = useNavigation();
   const AUTO_SWIPE_INTERVAL = 10000; // 10 seconds
+  const logo = require("../../assets/images/logo.png");
 
   const onIndexChanged = (index) => {
     setCurrentIndex(index);
@@ -60,85 +61,44 @@ const WelcomePage = () => {
 
   return (
     <BgLinearGradient>
-      <SafeAreaView style={styles.container}>
-        <Swiper
-          loop={false}
-          onIndexChanged={onIndexChanged}
-          dotStyle={styles.dot}
-          activeDotStyle={styles.activeDot}
-          ref={swiperRef}
-        >
-          {phrases.map((phrase, index) => (
-            <SafeAreaView style={styles.slide} key={index}>
-              <Text style={styles.text}>{phrase}</Text>
-            </SafeAreaView>
-          ))}
-        </Swiper>
-        <SafeAreaView style={styles.buttonContainer}>
-          <TouchableOpacity onPress={swipeLeft} style={styles.button}>
-            <Text style={styles.buttonText}>Swipe Left</Text>
+      <SafeAreaView className="justify-center">
+        <View>
+          <Image source={logo} />
+        </View>
+
+        <View>
+          <TouchableOpacity onPress={swipeLeft}>
+            <Text>Swipe Left</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={swipeRight} style={styles.button}>
-            <Text style={styles.buttonText}>Swipe Right</Text>
+          <Swiper
+            loop={false}
+            onIndexChanged={onIndexChanged}
+            //dotStyle={styles.dot}
+            //activeDotStyle={styles.activeDot}
+            ref={swiperRef}
+          >
+            {phrases.map((phrase, index) => (
+              <SafeAreaView key={index}>
+                <Text>{phrase}</Text>
+              </SafeAreaView>
+            ))}
+          </Swiper>
+          <TouchableOpacity onPress={swipeRight}>
+            <Text>Swipe Right</Text>
           </TouchableOpacity>
-        </SafeAreaView>
-        <TouchableOpacity onPress={goToLoginStack} style={styles.loginButton}>
-          <Text style={styles.loginButtonText}>Go to Login</Text>
-        </TouchableOpacity>
+        </View>
+
+        <View>
+          <TouchableOpacity onPress={goToLoginStack}>
+            <Text>Entrar</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={goToLoginStack}>
+            <Text>Cadastrar</Text>
+          </TouchableOpacity>
+        </View>
       </SafeAreaView>
     </BgLinearGradient>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  slide: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  text: {
-    textAlign: "center",
-  },
-  dot: {
-    backgroundColor: "#ccc",
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    margin: 3,
-  },
-  activeDot: {
-    backgroundColor: "#007AFF",
-  },
-  buttonContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginTop: 20,
-  },
-  button: {
-    backgroundColor: "#007AFF",
-    padding: 10,
-    borderRadius: 5,
-    marginHorizontal: 10,
-  },
-  buttonText: {
-    color: "white",
-    fontWeight: "bold",
-  },
-  loginButton: {
-    marginTop: 20,
-    backgroundColor: "#007AFF",
-    padding: 10,
-    borderRadius: 5,
-  },
-  loginButtonText: {
-    color: "white",
-    fontWeight: "bold",
-  },
-});
 
 export default WelcomePage;
