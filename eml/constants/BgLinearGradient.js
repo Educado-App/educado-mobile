@@ -8,7 +8,7 @@ export function BgLinearGradient({ children }) {
 
   const gradientColors = [
     projectColors.secondary,
-    projectColors.white,
+    projectColors.projectWhite,
   ];
 
   return (

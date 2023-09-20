@@ -45,9 +45,9 @@ function WelcomeScreen({ navigation }) {
     return (
       // You can replace this with a loading indicator or any other desired loading UI
       <BgLinearGradient>
-        <SafeAreaView style={styles.container}>
-          <Image source={logo} style={styles.logo} />
-          <Text style={styles.text}>
+        <SafeAreaView className="py-10 px-6 justify-center items-center flex-1 gap-10">
+          <Image source={logo}/>
+          <Text className="text-center text-body text-projectBlack">
             Transformando conhecimento em liberdade
           </Text>
         </SafeAreaView>
@@ -55,26 +55,5 @@ function WelcomeScreen({ navigation }) {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    paddingHorizontal: 20,
-  },
-  logo: {
-    marginBottom: 16, // Add margin at the bottom of the image
-  },
-  text: {
-    textAlign: "center",
-    marginTop: 16, // Add margin at the top of the text
-  },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
 
 export default WelcomeScreen;
