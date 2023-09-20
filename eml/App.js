@@ -38,6 +38,7 @@ function LoadingStack() {
     </Stack.Navigator>
   );
 }
+
 function WelcomeStack() {
   return (
     <Stack.Navigator initialRouteName={"Welcome"}>
@@ -48,9 +49,24 @@ function WelcomeStack() {
           headerShown: false,
         }}
       />
+      <Stack.Screen
+        name="Login"
+        component={LoginScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Register"
+        component={RegisterScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack.Navigator>
   );
 }
+
 function LoginStack() {
   return (
     <Stack.Navigator initialRouteName={"Login"}>
@@ -71,6 +87,7 @@ function LoginStack() {
     </Stack.Navigator>
   );
 }
+
 function CourseStack() {
   return (
     <Stack.Navigator>
@@ -119,6 +136,7 @@ function CourseStack() {
     </Stack.Navigator>
   );
 }
+
 function HomeStack() {
   return (
     <Tab.Navigator

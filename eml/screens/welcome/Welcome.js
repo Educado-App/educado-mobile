@@ -1,23 +1,32 @@
 import React, { useState, useRef, useEffect } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
-import Swiper from "react-native-swiper";
+import { View, Text, TouchableOpacity, Image, SafeAreaView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { BgLinearGradient } from "../../constants/BgLinearGradient";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { isFontsLoaded } from "../../constants/Fonts";
+import Slick from 'react-native-slick';
 
-const phrases = [
-  "Aqui, tornamos o aprendizado acessível e divertido para todos. Explore nossos conteúdos e comece sua jornada de desenvolvimento.",
-  "Este é o seu espaço para aprender de forma interativa e envolvente. Faça o download dos conteúdos e acesse offline quando quiser!",
-  "Faça parte de nossa comunidade e descubra um mundo de aprendizado ao seu alcance, não importa sua formação acadêmica.",
+const sections = [
+  {
+    id: 1,
+    title: 'SEJA BEM-VINDO!',
+    description: 'Aqui, tornamos o aprendizado acessível e divertido para todos. Explore nossos conteúdos e comece sua jornada de desenvolvimento.',
+  },
+  {
+    id: 2,
+    title: 'FAÇA DOWNLOAD E ACESSE OFFLINE',
+    description: 'Este é o seu espaço para aprender de forma interativa e envolvente. Faça o download dos conteúdos e acesse offline quando quiser!',
+  },
+  {
+    id: 3,
+    title: 'CADASTRE-SE E EXPLORE',
+    description: 'Faça parte de nossa comunidade e descubra um mundo de aprendizado ao seu alcance, não importa sua formação acadêmica.',
+  },
 ];
 
 const WelcomePage = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const swiperRef = useRef(null);
+  // const [currentIndex, setCurrentIndex] = useState(0);
   const navigation = useNavigation();
-  const AUTO_SWIPE_INTERVAL = 10000; // 10 seconds
-  const logo = require("../../assets/images/logo.png");
+  const slick = useRef(null);
 
   const onIndexChanged = (index) => {
     setCurrentIndex(index);
@@ -35,66 +44,101 @@ const WelcomePage = () => {
     }
   };
 
-  useEffect(() => {
-    let autoSwipeInterval;
+  // useEffect(() => {
+  //   let autoSwipeInterval;
 
-    const startAutoSwipe = () => {
-      autoSwipeInterval = setInterval(() => {
-        if (currentIndex < phrases.length - 1) {
-          swiperRef.current.scrollBy(1);
-        } else {
-          clearInterval(autoSwipeInterval); // Stop auto-swiping at the end
-        }
-      }, AUTO_SWIPE_INTERVAL);
-    };
+  //   // const startAutoSwipe = () => {
+  //   //   autoSwipeInterval = setInterval(() => {
+  //   //     if (currentIndex < phrases.length - 1) {
+  //   //       swiperRef.current.scrollBy(1);
+  //   //     } else {
+  //   //       clearInterval(autoSwipeInterval); // Stop auto-swiping at the end
+  //   //     }
+  //   //   }, AUTO_SWIPE_INTERVAL);
+  //   // };
 
-    startAutoSwipe();
+  //   startAutoSwipe();
 
-    return () => {
-      clearInterval(autoSwipeInterval); // Clean up the interval on unmount
-    };
-  }, [currentIndex]);
+  //   return () => {
+  //     clearInterval(autoSwipeInterval); // Clean up the interval on unmount
+  //   };
+  // }, [currentIndex]);
 
-  const goToLoginStack = () => {
-    navigation.navigate("LoginStack");
-  };
+  const tailwindConfig = require('../../tailwind.config.js');
+  const projectColors = tailwindConfig.theme.colors;
+
+  if (!isFontsLoaded()) {
+    return null;
+  }
 
   return (
     <BgLinearGradient>
-      <SafeAreaView className="justify-center">
-        <View>
-          <Image source={logo} />
-        </View>
+      <SafeAreaView >
+        <View className="justify-center items-center flex flex-col">
+          
+          <View className="flex mb-20 pt-40">
+            <Image 
+              source={require("../../assets/images/logo.png")}
+            />
+          </View>
+            
+          <View className="flex mb-20">
+            <View className="flex flex-row w-screen justify-center items-center px-6">
+              <Image 
+                source={require('../../assets/images/left_arrow.png')}
+              />
+          
 
-        <View>
-          <TouchableOpacity onPress={swipeLeft}>
-            <Text>Swipe Left</Text>
-          </TouchableOpacity>
-          <Swiper
-            loop={false}
-            onIndexChanged={onIndexChanged}
-            //dotStyle={styles.dot}
-            //activeDotStyle={styles.activeDot}
-            ref={swiperRef}
-          >
-            {phrases.map((phrase, index) => (
-              <SafeAreaView key={index}>
-                <Text>{phrase}</Text>
-              </SafeAreaView>
-            ))}
-          </Swiper>
-          <TouchableOpacity onPress={swipeRight}>
-            <Text>Swipe Right</Text>
-          </TouchableOpacity>
-        </View>
+              <Slick
+                ref={slick}
+                scrollEnabled={true}
+                loop={false}
+                index={0}
+                dotColor={projectColors.projectWhite}
+                activeDotColor={projectColors.primary}
+                height={250}
+              >
+                {sections.map((sections, index) => (
+                  <View key={index} className="gap-6">
+                  
+                      <View className="px-6">
+                        <Text className="text-center font-montserrat-bold text-subheading">{sections.title}</Text>
+                      </View>
+                      <View className="px-4">
+                        <Text className="text-center font-montserrat text-body">{sections.description}</Text>
+                      </View>
 
-        <View>
-          <TouchableOpacity onPress={goToLoginStack}>
-            <Text>Entrar</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={goToLoginStack}>
-            <Text>Cadastrar</Text>
-          </TouchableOpacity>
+                    
+                  </View>
+                ))}
+              </Slick>
+
+              <Image 
+                source={require('../../assets/images/right_arrow.png')}
+              />
+            </View>
+          </View>
+
+          <View className="flex gap-6 items-center">
+
+            <View className="px-6 w-screen">
+              <TouchableOpacity className="bg-primary px-10 py-4 rounded-medium"
+                onPress={() => { navigation.navigate('Login'); }}
+              >
+                <Text className="text-center font-montserrat-bold text-body text-projectWhite">Entrar</Text>
+              </TouchableOpacity>
+            </View>
+
+            <View>
+              <TouchableOpacity 
+                onPress={() => { navigation.navigate('Register'); }}
+              >
+                <Text className="text-center font-montserrat-bold text-body underline">Cadastrer</Text>
+              </TouchableOpacity>
+            </View>
+
+          </View>
+
         </View>
       </SafeAreaView>
     </BgLinearGradient>
@@ -102,3 +146,4 @@ const WelcomePage = () => {
 };
 
 export default WelcomePage;
+

@@ -47,7 +47,7 @@ function WelcomeScreen({ navigation }) {
       <BgLinearGradient>
         <SafeAreaView className="py-10 px-6 justify-center items-center flex-1 gap-10">
           <Image source={logo}/>
-          <Text className="text-center text-body text-projectBlack">
+          <Text className="text-center text-body text-projectBlack font-montserrat">
             Transformando conhecimento em liberdade
           </Text>
         </SafeAreaView>

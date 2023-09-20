@@ -18,6 +18,8 @@ module.exports = {
       },
       fontFamily: {
         montserrat: 'Montserrat-Regular',
+        'montserrat-bold': 'Montserrat-Bold',
+        'montserrat-semi-bold': 'Montserrat-SemiBold',
       },
       extend: {
         fontSize: {
