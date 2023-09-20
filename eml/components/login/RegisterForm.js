@@ -138,7 +138,7 @@ export default function LoginForm(props) {
                 </View>
             </View>
             <View style={styles.bottomContainer}>
-                <View style={styles.formInputContainer}>
+                <View className='mb-16'>
 
                     <TextInput style={styles.textInput}
                                name={"userName"}
@@ -249,16 +249,4 @@ const styles = StyleSheet.create({
         shadowRadius: 3.84,
         elevation: 5,
     },
-    formInputContainer:{
-        marginBottom: 70
-    },
-    textLogoContainer: {
-        // fontSize: 35,
-        //fontWeight: '400'
-        //color: 'green',
-        //letterSpacing: 0.5,
-        //height: 50,
-        //width: 1000,
-        //justifyContent: 'center'
-    }
 });

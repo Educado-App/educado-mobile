@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useNavigation } from "@react-navigation/native";
 import LoginForm from "../../components/login/LoginForm";
-import { LinearGradient } from 'expo-linear-gradient';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 const STORAGE_ID = '@local_id';
@@ -93,8 +93,7 @@ export default function Login(props) {
 
 
   return (
-    <View className='bg-primary flex-1 justify-start'>
-      <LinearGradient colors={['#5ECCE9', '#FFFFFF']}>
+    <SafeAreaView className='bg-secondary flex-1 justify-start'>
         <LoginForm></LoginForm>
         <View style={styles.bottomContainer}>
           <TouchableOpacity onPress={() => navigation.navigate('Register')}>
@@ -104,8 +103,7 @@ export default function Login(props) {
             </View>
           </TouchableOpacity>
         </View>
-      </LinearGradient>
-    </View>
+    </SafeAreaView>
   );
 }
 
