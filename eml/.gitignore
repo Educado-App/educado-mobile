@@ -17,3 +17,6 @@ dist/
 
 #expo over vpn
 ngrok.exe
+
+.env
+/config/
