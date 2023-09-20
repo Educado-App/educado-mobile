@@ -7,9 +7,9 @@ export default function FormTextField(props) {
   const displayPasswordGuidelines = (props) => {
     if (props.passwordGuidelines) {
       return (
-        <View className='flex flex-column mb-1'>
-          <Text className='ml-3 text-xs text-gray'>• Mínimo 8 caracteres</Text>
-          <Text className='ml-3 text-xs text-gray'>• Conter pelo menos uma letra</Text>
+        <View className='flex flex-column'>
+          <Text className='ml-3 text-xs text-gray mb-1'>• Mínimo 8 caracteres</Text>
+          <Text className='ml-3 text-xs text-gray mb-1'>• Conter pelo menos uma letra</Text>
         </View>
       )
     }

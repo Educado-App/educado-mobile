@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useNavigation } from "@react-navigation/native";
 import RegisterForm from "../../components/login/RegisterForm";
 import { SafeAreaView } from 'react-native-safe-area-context';
+import LogoBackButton from '../../components/login/LogoBackButton';
 
 const {width, height} = Dimensions.get('window');
 
@@ -15,7 +16,10 @@ export default function Register(props) {
 
     return (
         <SafeAreaView className='flex-1 justify-end bg-secondary'>
-            <RegisterForm/>
+          <LogoBackButton 
+            navigationPlace={'Login'}
+          />
+          <RegisterForm/>
         </SafeAreaView>
     );
 }

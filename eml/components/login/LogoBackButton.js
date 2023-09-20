@@ -1,14 +1,14 @@
 import { View, Image } from "react-native";
 import LeaveButton from "../exercise/LeaveButton";
 
-export default function LogoBackButton() {
+export default function LogoBackButton(props) {
 
   return (
     <View className='flex-row justify-center w-full mt-4'>
       {/* TODO: Implement with general back button instead */}
       <View className='absolute left-0'>
         <LeaveButton
-          navigationPlace='Home'
+          navigationPlace={props.navigationPlace ? props.navigationPlace : 'Home'}
         />
       </View>
       {/* Educado logo */}

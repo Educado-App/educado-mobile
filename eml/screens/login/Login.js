@@ -97,7 +97,9 @@ export default function Login(props) {
 
   return (
     <SafeAreaView className='mt-10'>
-      <LogoBackButton />
+      <LogoBackButton 
+        navigationPlace='Login'
+      />
       {/* Login form */}
       <View className='my-8'>
         <LoginForm />

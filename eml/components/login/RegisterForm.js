@@ -130,58 +130,63 @@ export default function LoginForm(props) {
 
   return (
     <View className='bg-secondary flex-1 justify-start'>
-      <LogoBackButton />
       <View className='justify-center'>
         <View className='mb-16'>
+          <View className="mb-6">
+            <FormTextField
+              label='Nome'
+              name={'Name'}
+              value={realName}
+              //Real name
+              placeholder='Nome Sobrenome'
+              placeholderTextColor='grey'
+              required={true}
+              onChangeText={realName => setRealName(realName)}
+            />
+          </View>
 
-          <FormTextField
-            label='Nome'
-            name={'Name'}
-            value={realName}
-            //Real name
-            placeholder='Nome Sobrenome'
-            placeholderTextColor='grey'
-            required={true}
-            onChangeText={realName => setRealName(realName)}
-          />
+          <View className="mb-6">
+            <FormTextField className='mb-6'
+              label='Email'
+              name={'Email'}
+              value={email}
+              //Email
+              placeholder='user@email.com'
+              placeholderTextColor='grey'
+              required={true}
+              onChangeText={email => setEmail(email)}
+            />
+          </View>
 
-          <FormTextField className='mb-6'
-            label='Email'
-            name={'Email'}
-            value={email}
-            //Email
-            placeholder='user@email.com'
-            placeholderTextColor='grey'
-            required={true}
-            onChangeText={email => setEmail(email)}
-
-          />
-
-          <FormTextField
-            label='Senha'
-            name={'password'}
-            value={password}
-            //Password
-            placeholder='******'
-            placeholderTextColor='grey'
-            secureTextEntry={true}
-            required={true}
-            passwordGuidelines={true}
-            onChangeText={password => setPassword(password)}
-          />
+          <View className="mb-6">
+            <FormTextField
+              label='Senha'
+              name={'password'}
+              value={password}
+              //Password
+              placeholder='******'
+              placeholderTextColor='grey'
+              secureTextEntry={true}
+              required={true}
+              passwordGuidelines={true}
+              onChangeText={password => setPassword(password)}
+            />
+          </View>
 
 
           {/* TODO: compare password with confirm password and give error if not same.*/}
-          <FormTextField
-            label='Confirmar Senha'
-            name={'Confirm password'}
-            value={password}
-            //Confirm password
-            placeholder='******'
-            placeholderTextColor='grey'
-            secureTextEntry={true}
-            required={true}
-          />
+          <View className="mb-6">
+            <FormTextField
+              label='Confirmar Senha'
+              name={'Confirm password'}
+              value={password}
+              //Confirm password
+              placeholder='******'
+              placeholderTextColor='grey'
+              secureTextEntry={true}
+              required={true}
+            />
+            </View>
 
         </View>
         <Pressable style={({ pressed }) => [
