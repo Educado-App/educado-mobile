@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Alert, View } from "react-native";
+import { Alert, View, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { loginUser, registerUser } from "../../api/userApi";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import FormTextField from "./FormTextField";
 import FormButton from "./FormButton";
 import PasswordEye from "./PasswordEye";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const USER_INFO = "@userInfo";
 const LOGIN_TOKEN = "@loginToken";
@@ -21,6 +22,10 @@ export default function LoginForm(props) {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+  // Password Constraint variables
+  const [passwordContainsLetter, setPasswordContainsLetter] = useState(false);
+  const [passwordLengthValid, setPasswordLengthValid] = useState(false);
+
   // Function to toggle the password visibility state
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -28,6 +33,17 @@ export default function LoginForm(props) {
 
   const toggleShowConfirmPassword = () => {
     setShowConfirmPassword(!showConfirmPassword);
+  };
+
+  const checkPasswordContainsLetter = (password) => {
+    const regex = /^(?=.*[a-zA-Z]).*$/;
+    const containsLetter = regex.test(password);
+    setPasswordContainsLetter(containsLetter);
+  };
+
+  const checkPasswordLength = (password) => {
+    const lengthValid = password.length > 7;
+    setPasswordLengthValid(lengthValid);
   };
 
   async function register(email, password) {
@@ -160,17 +176,42 @@ export default function LoginForm(props) {
             name={"password"}
             value={password}
             //Password
-            placeholder="******"
+            placeholder="********"
             placeholderTextColor="grey"
             secureTextEntry={!showPassword}
             required={true}
-            passwordGuidelines={true}
-            onChangeText={(password) => setPassword(password)}
+            onChangeText={(password) => {
+              console.log("Test");
+              setPassword(password);
+              checkPasswordContainsLetter(password);
+              checkPasswordLength(password);
+            }}
           />
           <PasswordEye
             showPasswordIcon={showPassword}
             toggleShowPassword={toggleShowPassword}
           />
+        </View>
+
+        <View className="flex-row justify-start ml-10">
+          <Text className="ml-3 text-xs text-gray my-1 font-montserrat">
+            • Mínimo 8 caracteres
+          </Text>
+          <View className="flex-row items-center">
+            {passwordLengthValid ? (
+              <MaterialCommunityIcons name="check" size={20} color="#4AA04A" />
+            ) : null}
+          </View>
+        </View>
+        <View className="flex-row justify-start ml-10">
+          <Text className="ml-3 text-xs text-gray font-montserrat">
+            • Conter pelo menos uma letra
+          </Text>
+          <View className="flex-row items-center">
+            {passwordContainsLetter ? (
+              <MaterialCommunityIcons name="check" size={20} color="#4AA04A" />
+            ) : null}
+          </View>
         </View>
       </View>
       {/* TODO: compare password with confirm password and give error if not same.*/}
@@ -181,8 +222,7 @@ export default function LoginForm(props) {
             name={"Confirm password"}
             value={password}
             //Confirm password
-            placeholder="******"
-            placeholderTextColor="grey"
+            placeholder="********"
             secureTextEntry={!showConfirmPassword}
             required={true}
           />

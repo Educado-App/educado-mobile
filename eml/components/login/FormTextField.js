@@ -7,21 +7,6 @@ export default function FormTextField(props) {
     return null;
   }
 
-  const displayPasswordGuidelines = (props) => {
-    if (props.passwordGuidelines) {
-      return (
-        <View className="flex flex-column">
-          <Text className="ml-3 text-xs text-gray my-1 font-montserrat">
-            • Mínimo 8 caracteres
-          </Text>
-          <Text className="ml-3 text-xs text-gray font-montserrat">
-            • Conter pelo menos uma letra
-          </Text>
-        </View>
-      );
-    }
-  };
-
   return (
     <View className="mx-10">
       <View className="flex flex-row">
@@ -45,11 +30,10 @@ export default function FormTextField(props) {
           passwordGuidelines={
             props.passwordGuidelines ? props.passwordGuidelines : false
           }
-          //onChangeText={phoneNumber => setPhoneNumber(phoneNumber)}
-          //value={phoneNumber}
+          onChangeText={props.onChangeText ? props.onChangeText : null}
+          value={props.value}
         />
       </View>
-      {displayPasswordGuidelines(props)}
     </View>
   );
 }

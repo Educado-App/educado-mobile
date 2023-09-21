@@ -103,7 +103,7 @@ export default function LoginForm(props) {
 
       <View className="relative mb-6">
         <FormTextField
-          placeholder="Senha"
+          placeholder="********"
           onChangeText={(password) => setPassword(password)}
           label="Senha"
           required={true}
