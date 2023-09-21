@@ -15,28 +15,25 @@ export default function DeleteAccount() {
 
   async function Delete() {
     try {
-      const obj = JSON.parse(await AsyncStorage.getItem(USER_INFO))
-
+      const obj = JSON.parse(await AsyncStorage.getItem(USER_INFO));
+  
       if (obj !== null) {
         try {
-          await deleteUser(obj.id)
-            .then(function (response) {
-              console.log(response)
-              AsyncStorage.multiRemove([LOGIN_TOKEN, USER_INFO]).then((r) => {
-                console.log('User account deleted successfully!')
-                navigation.navigate('LoginStack')
-              })
-            })
-            .catch((error) => {
-              console.log(error)
-            })
-          await clearAsyncStorage();
-        } catch (e) {
-          console.log(e)
+          // Delete the user using async/await
+          const response = await deleteUser(obj.id); // The deleteUser() doesn't have an endpoint API yet
+          console.log(response);
+  
+          // Remove items from AsyncStorage using async/await
+          await AsyncStorage.multiRemove([LOGIN_TOKEN, USER_INFO]);
+  
+          console.log('User account deleted successfully!');
+          navigation.navigate('LoginStack');
+        } catch (error) {
+          console.error('Error deleting user:', error);
         }
       }
     } catch (e) {
-      console.log(e)
+      console.error('Error reading AsyncStorage:', e);
     }
   }
 
