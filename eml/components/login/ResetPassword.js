@@ -29,10 +29,11 @@ export default function ResetPassword(props) {
           <Text className='text-center text-[24px]'>Redefinção de senha</Text>
         </View>
       </View>
-			<View className='my-[80px]'>
+			<View className='my-[80px] px-10'>
 				{!codeEntered ?
 					<View>
 						<FormTextField
+              bordered={true}
 							placeholder='user@email.com'
 							label='Email'
 							required={true}
@@ -41,7 +42,7 @@ export default function ResetPassword(props) {
 						<View className='mt-[40px]'>
 							{emailSent ?
 								<View>
-									<Text className='text-left mx-10 mb-[10px]'>Enviamos um código par ao seu email de redefinição de senha, por favor, insira o mesmo abaixo</Text>
+									<Text className='text-left mb-[10px]'>Enviamos um código par ao seu email de redefinição de senha, por favor, insira o mesmo abaixo</Text>
 									<FormTextField
 										placeholder='X X X X'
 										onChangeText={''}

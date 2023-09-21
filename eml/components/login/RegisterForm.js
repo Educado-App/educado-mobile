@@ -52,38 +52,6 @@ export default function LoginForm(props) {
 
           console.log(response);
 
-          /*try {
-            await loginUser(obj)
-              .then(function (response) {
-
-                AsyncStorage.setItem(LOGIN_TOKEN, response.data.accessToken);
-                console.log(response);
-                navigation.navigate('HomeStack');
-
-              })
-              .catch(error => {
-
-                switch (error.message) {
-
-                  case "Request failed with status code 404":
-                    // Wrong Phone Number
-                    console.log("Número de telefone errado!");
-                    break;
-
-                  case "Request failed with status code 400":
-                    //Wrong Password
-                    console.log("Senha incorreta!");
-                    break;
-
-                  default:
-                    console.log(error);
-                }
-              });
-          }
-          catch (e) {
-            console.log(e);
-          }*/
-
           await createProfile(response._id, realName, email);
 
         })
@@ -91,12 +59,6 @@ export default function LoginForm(props) {
 
           //console.log(error);
           switch (error.message) {
-
-            case "Request failed with status code 500":
-              // Phone Number already exists
-              showAlert("Número de telefone já existe!");
-              break;
-
             case "Request failed with status code 400":
               //Invalid user data
               console.log(error)
