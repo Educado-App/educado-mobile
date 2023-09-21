@@ -1,8 +1,13 @@
-import React, { useState } from "react";
-
-import { Text, View, TextInput, Pressable } from "react-native";
+import React from "react";
+import { isFontsLoaded } from "../../constants/Fonts.js";
+import { Text, View, Pressable } from "react-native";
 
 export default function FormButton(props) {
+
+  if (!isFontsLoaded()) {
+    return null;
+  }
+
   return (
     <View className='mt-12'>
       <Pressable 
@@ -12,6 +17,5 @@ export default function FormButton(props) {
         <Text className='text-white text-[16px] font-bold'>{props.label}</Text>
       </Pressable>
     </View>
-
   )
 }

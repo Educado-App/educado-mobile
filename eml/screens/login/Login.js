@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image, SafeAreaView } from 'react-native';
+
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useNavigation } from "@react-navigation/native";
 import LoginForm from "../../components/login/LoginForm";
 import FormButton from '../../components/login/FormButton';
-import LeaveButton from '../../components/exercise/LeaveButton';
+import LogoBackButton from '../../components/login/LogoBackButton';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 const STORAGE_ID = '@local_id';
