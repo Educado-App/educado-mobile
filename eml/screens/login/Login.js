@@ -5,6 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import LoginForm from "../../components/login/LoginForm";
 import FormButton from '../../components/login/FormButton';
 import LeaveButton from '../../components/exercise/LeaveButton';
+import EducadoLogo from '../../components/images/EducadoLogo';
 
 
 const STORAGE_ID = '@local_id';
@@ -103,11 +104,7 @@ export default function Login(props) {
 					/>
 				</View>
 				{/* Educado logo */}
-				<Image 
-          source={require('../../assets/logo_educado.png')}
-          className='h-12'
-          resizeMode='contain'
-         />
+				<EducadoLogo/>
 			</View>
 			{/* Login form */}
       <View className='my-8'>
