@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import {
-  StyleSheet,
   View,
   SafeAreaView,
   Platform,
@@ -12,6 +11,8 @@ import {
 } from 'react-native';
 import ProfileImage from '../../components/profile/profileImage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { isFontsLoaded } from "../../constants/Fonts.js";
+import { BgLinearGradient } from "../../constants/BgLinearGradient";
 import { getCourses } from '../../api/api';
 
 const USER_INFO = '@userInfo';
@@ -67,7 +68,7 @@ export default function ProfileComponent() {
 
   const saveUserNameChanges = async () => {
     if (newUserName !== userName) {
-      // Update the state with new username
+      // Update the state with the new username
       setUserName(newUserName);
 
       // Save changes to AsyncStorage or your API
@@ -85,7 +86,7 @@ export default function ProfileComponent() {
 
   const savePhoneNumberChanges = async () => {
     if (newPhoneNumber !== phoneNumber) {
-      // Update the state with new phone number
+      // Update the state with the new phone number
       setPhoneNumber(newPhoneNumber);
 
       // Save changes to AsyncStorage or your API
@@ -101,165 +102,90 @@ export default function ProfileComponent() {
     setPhoneNumberModalVisible(false); // Close the phone number modal
   }
 
+  if (!isFontsLoaded()) {
+    return null;
+  }
+
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView>
-        <View style={styles.content}>
-          <ProfileImage />
-          <TouchableOpacity
-            style={styles.formButton}
-            onPress={() => setUserNameModalVisible(true)}
-          >
-            <Text style={styles.text}>Username: {userName}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.formButton}
-            onPress={() => setPhoneNumberModalVisible(true)}
-          >
-            <Text style={styles.text}>Phone Number: {phoneNumber}</Text>
-          </TouchableOpacity>
+    <BgLinearGradient>
+      <SafeAreaView>
+        <ScrollView>
+          <View className="flex gap-6 items-center">
+            <ProfileImage />
+            <TouchableOpacity
+              className = "bg-primary px-10 py-4 rounded-medium"
+              onPress={() => setUserNameModalVisible(true)}
+            >
+              <Text className = "text-center font-montserrat-bold text-body text-white">
+                Username: {userName}
+              </Text>
+            </TouchableOpacity>
 
-          {/* Editable Username Modal */}
-          <Modal
-            animationType="slide"
-            transparent={true}
-            visible={userNameModalVisible}
-            onRequestClose={() => setUserNameModalVisible(false)}
-          >
-            <View style={styles.modalContainer}>
-              <View style={styles.modalContent}>
-                <TextInput
-                  value={newUserName}
-                  onChangeText={setNewUserName}
-                  placeholder="Enter new username"
-                  style={styles.input}
-                />
-                <TouchableOpacity
-                  onPress={saveUserNameChanges}
-                  style={styles.saveButton}
-                >
-                  <Text style={styles.saveButtonText}>Save Changes</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => setUserNameModalVisible(false)}
-                  style={styles.cancelButton}
-                >
-                  <Text style={styles.cancelButtonText}>Cancel</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </Modal>
+            <TouchableOpacity
+              className = "bg-primary px-10 py-4 rounded-medium"
+              onPress={() => setPhoneNumberModalVisible(true)}
+            >
+              <Text className = "text-center font-montserrat-bold text-body text-white">Phone Number: {phoneNumber}</Text>
+            </TouchableOpacity>
 
-          {/* Editable Phone Number Modal */}
-          <Modal
-            animationType="slide"
-            transparent={true}
-            visible={phoneNumberModalVisible}
-            onRequestClose={() => setPhoneNumberModalVisible(false)}
-          >
-            <View style={styles.modalContainer}>
-              <View style={styles.modalContent}>
-                <TextInput
-                  value={newPhoneNumber}
-                  onChangeText={setNewPhoneNumber}
-                  placeholder="Enter new phone number"
-                  style={styles.input}
-                />
-                <TouchableOpacity
-                  onPress={savePhoneNumberChanges}
-                  style={styles.saveButton}
-                >
-                  <Text style={styles.saveButtonText}>Save Changes</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => setPhoneNumberModalVisible(false)}
-                  style={styles.cancelButton}
-                >
-                  <Text style={styles.cancelButtonText}>Cancel</Text>
-                </TouchableOpacity>
+            {/* Editable Username Modal */}
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={userNameModalVisible}
+              onRequestClose={() => setUserNameModalVisible(false)}
+            >
+              <View>
+                <View>
+                  <TextInput
+                    value={newUserName}
+                    onChangeText={setNewUserName}
+                    placeholder="Enter new username"
+                  />
+                  <TouchableOpacity
+                    onPress={saveUserNameChanges}
+                  >
+                    <Text>Save Changes</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => setUserNameModalVisible(false)}
+                  >
+                    <Text>Cancel</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
-            </View>
-          </Modal>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+            </Modal>
+
+            {/* Editable Phone Number Modal */}
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={phoneNumberModalVisible}
+              onRequestClose={() => setPhoneNumberModalVisible(false)}
+            >
+              <View>
+                <View>
+                  <TextInput
+                    value={newPhoneNumber}
+                    onChangeText={setNewPhoneNumber}
+                    placeholder="Enter new phone number"
+                  />
+                  <TouchableOpacity
+                    onPress={savePhoneNumberChanges}
+                  >
+                    <Text>Save Changes</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => setPhoneNumberModalVisible(false)}
+                  >
+                    <Text>Cancel</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </Modal>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    </BgLinearGradient>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    paddingTop: Platform.OS === 'android' ? 25 : 0,
-    alignItems: 'center', // Center the content horizontally
-    backgroundColor: '#E4F2F5',
-  },
-  content: {
-    alignItems: 'center',
-    padding: 20,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: 'gray',
-    borderRadius: 5,
-    padding: 10,
-    marginTop: 10,
-    width: '100%',
-    color: '#383838', // Set text color to #383838
-  },
-  formButton: {
-    backgroundColor: 'hsl(0, 0%, 92%)',
-    height: 55,
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 35,
-    borderWidth: 1,
-    borderColor: 'hsl(0, 0%, 92%)',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-    marginBottom: 20,
-  },
-  text: {
-    fontSize: 30,
-    color: '#383838', // Set text color to #383838
-    textAlign: 'center',
-  },
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  },
-  modalContent: {
-    backgroundColor: 'white',
-    padding: 20,
-    borderRadius: 10,
-    width: '80%',
-    alignItems: 'center',
-  },
-  saveButton: {
-    backgroundColor: '#00897B', // Updated color
-    padding: 10,
-    borderRadius: 5,
-    marginTop: 10,
-  },
-  saveButtonText: {
-    color: 'white',
-    textAlign: 'center',
-  },
-  cancelButton: {
-    backgroundColor: '#CF6679', // Updated color
-    padding: 10,
-    borderRadius: 5,
-    marginTop: 10,
-  },
-  cancelButtonText: {
-    color: 'white',
-    textAlign: 'center',
-  },
-});
