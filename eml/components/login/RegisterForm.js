@@ -5,6 +5,7 @@ import { loginUser, registerUser } from "../../api/userApi";
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import FormTextField from "./FormTextField";
 import FormButton from "./FormButton";
+import PasswordEye from "./PasswordEye";
 
 const USER_INFO = '@userInfo';
 const LOGIN_TOKEN = '@loginToken';
@@ -16,6 +17,19 @@ export default function LoginForm(props) {
   const [realName, setRealName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  // State variable to track password visibility
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  // Function to toggle the password visibility state
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  }
+
+  const toggleShowConfirmPassword = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  }
 
   async function register(email, password) {
 
@@ -155,31 +169,44 @@ export default function LoginForm(props) {
         />
       </View>
       <View className="mb-6">
-        <FormTextField
-          label='Senha'
-          name={'password'}
-          value={password}
-          //Password
-          placeholder='******'
-          placeholderTextColor='grey'
-          secureTextEntry={true}
-          required={true}
-          passwordGuidelines={true}
-          onChangeText={password => setPassword(password)}
-        />
+        <View className='relative'>
+          <FormTextField
+            label='Senha'
+            name={'password'}
+            value={password}
+            //Password
+            placeholder='******'
+            placeholderTextColor='grey'
+            secureTextEntry={!showPassword}
+            required={true}
+            passwordGuidelines={true}
+            onChangeText={password => setPassword(password)}
+          />
+          <PasswordEye
+            showPasswordIcon={showPassword}
+            toggleShowPassword={toggleShowPassword}
+          />
+        </View>
+
       </View>
       {/* TODO: compare password with confirm password and give error if not same.*/}
       <View className="mb-6">
-        <FormTextField
-          label='Confirmar Senha'
-          name={'Confirm password'}
-          value={password}
-          //Confirm password
-          placeholder='******'
-          placeholderTextColor='grey'
-          secureTextEntry={true}
-          required={true}
-        />
+        <View className='relative'>
+          <FormTextField
+            label='Confirmar Senha'
+            name={'Confirm password'}
+            value={password}
+            //Confirm password
+            placeholder='******'
+            placeholderTextColor='grey'
+            secureTextEntry={!showConfirmPassword}
+            required={true}
+          />
+          <PasswordEye
+            showPasswordIcon={showConfirmPassword}
+            toggleShowPassword={toggleShowConfirmPassword}
+          />
+        </View>
       </View>
       <View className='my-10'>
         <FormButton

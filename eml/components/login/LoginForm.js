@@ -3,8 +3,9 @@ import { View, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { loginUser } from "../../api/userApi";
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import FormTextField from "./FormTextField";
+import FormTextField from './FormTextField';
 import FormButton from './FormButton';
+import PasswordEye from './PasswordEye';
 
 const LOGIN_TOKEN = '@loginToken';
 const USER_INFO = '@userInfo';
@@ -79,6 +80,15 @@ export default function LoginForm(props) {
       }
     );
 
+    // State variable to track password visibility
+  const [showPassword, setShowPassword] = useState(false);
+
+  // Function to toggle the password visibility state
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  } 
+
+
   return (
     <View>
       <FormTextField
@@ -87,13 +97,20 @@ export default function LoginForm(props) {
         label='Email'
         required={true}
       />
-      <FormTextField
-        placeholder='Senha'
-        onChangeText={password => setPassword(password)}
-        label='Senha'
-        required={true}
-        secureTextEntry={true}
-      />
+      <View className='relative'>
+        <FormTextField
+          placeholder='Senha'
+          onChangeText={password => setPassword(password)}
+          label='Senha'
+          required={true}
+          secureTextEntry={!showPassword}
+        />
+        <PasswordEye
+          showPasswordIcon={showPassword}
+          toggleShowPassword={toggleShowPassword}
+        />
+      </View>
+
       <FormButton label='Connect-se' />
     </View>
   );
