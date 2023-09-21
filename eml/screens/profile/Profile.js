@@ -23,7 +23,6 @@ export default function ProfileComponent() {
   const [id, setId] = useState('')
   const [userName, setUserName] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('')
-  const navigation = useNavigation()
 
   const getProfile = async () => {
     try {

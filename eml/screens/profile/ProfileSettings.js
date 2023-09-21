@@ -8,12 +8,14 @@ import {
   TouchableOpacity,
   Text,
   Modal,
+  Image
 } from 'react-native';
 import ProfileImage from '../../components/profile/profileImage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { isFontsLoaded } from "../../constants/Fonts.js";
 import { BgLinearGradient } from "../../constants/BgLinearGradient";
 import { getCourses } from '../../api/api';
+import { useNavigation } from '@react-navigation/native'
 
 const USER_INFO = '@userInfo';
 
@@ -102,6 +104,14 @@ export default function ProfileComponent() {
     setPhoneNumberModalVisible(false); // Close the phone number modal
   }
 
+
+  const navigation = useNavigation()
+  
+  const handleBackButtonPress = () => {
+    console.log('Profile');
+    navigation.navigate('LoginScreen');
+  }
+
   if (!isFontsLoaded()) {
     return null;
   }
@@ -110,24 +120,44 @@ export default function ProfileComponent() {
     <BgLinearGradient>
       <SafeAreaView>
         <ScrollView>
-          <View className="flex items-center justify-center flex-col py-10 mt-1">
-            <ProfileImage/>
-            <TouchableOpacity
-              className = "bg-primary px-10 py-4 rounded-medium"
-              onPress={() => setUserNameModalVisible(true)}
-            >
-              <Text className = "text-center font-montserrat-bold text-body text-white">
-                Username: {userName}
-              </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              className = "bg-primary px-10 py-4 rounded-medium"
-              onPress={() => setPhoneNumberModalVisible(true)}
-            >
-              <Text className = "text-center font-montserrat-bold text-body text-white">Phone Number: {phoneNumber}</Text>
-            </TouchableOpacity>
-
+          <View className="justify-center items-center flex flex-col">
+  
+            <View className="flex p-10">
+              <View className="flex flex-row items-center">
+                <Image
+                  onPress={handleBackButtonPress}
+                  source={require("../../assets/images/left_arrow.png")}
+                />
+                <Image
+                  source={require("../../assets/images/logo.png")}
+                />
+              </View>
+            </View>
+  
+            <View>
+              <ProfileImage/>
+            </View>
+  
+            <View className="flex gap-6 items-center px-6 w-screen">
+  
+              <TouchableOpacity
+                className="bg-primary px-10 py-4 rounded-medium w-full"
+                onPress={() => setUserNameModalVisible(true)}
+              >
+                <Text className="text-center font-montserrat-bold text-body text-white">
+                  Username: {userName}
+                </Text>
+              </TouchableOpacity>
+  
+              <TouchableOpacity
+                className="bg-primary px-10 py-4 rounded-medium w-full"
+                onPress={() => setPhoneNumberModalVisible(true)}
+              >
+                <Text className="text-center font-montserrat-bold text-body text-white">Phone Number: {phoneNumber}</Text>
+              </TouchableOpacity>
+  
+            </View>
+  
             {/* Editable Username Modal */}
             <Modal
               animationType="slide"
@@ -135,16 +165,14 @@ export default function ProfileComponent() {
               visible={userNameModalVisible}
               onRequestClose={() => setUserNameModalVisible(false)}
             >
-              <View>
-                <View>
+              <View className="flex flex-1 justify-center items-center bg-opacity-80 bg-black">
+                <View className="bg-white p-4 rounded-lg">
                   <TextInput
                     value={newUserName}
                     onChangeText={setNewUserName}
                     placeholder="Enter new username"
                   />
-                  <TouchableOpacity
-                    onPress={saveUserNameChanges}
-                  >
+                  <TouchableOpacity onPress={saveUserNameChanges}>
                     <Text>Save Changes</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
@@ -163,16 +191,14 @@ export default function ProfileComponent() {
               visible={phoneNumberModalVisible}
               onRequestClose={() => setPhoneNumberModalVisible(false)}
             >
-              <View>
-                <View>
+              <View className="flex flex-1 justify-center items-center bg-opacity-80 bg-black">
+                <View className="bg-white p-4 rounded-lg">
                   <TextInput
                     value={newPhoneNumber}
                     onChangeText={setNewPhoneNumber}
                     placeholder="Enter new phone number"
                   />
-                  <TouchableOpacity
-                    onPress={savePhoneNumberChanges}
-                  >
+                  <TouchableOpacity onPress={savePhoneNumberChanges}>
                     <Text>Save Changes</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
@@ -188,4 +214,4 @@ export default function ProfileComponent() {
       </SafeAreaView>
     </BgLinearGradient>
   );
-}
+}  
