@@ -17,6 +17,7 @@ export default function LoginForm(props) {
   const [realName, setRealName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   // State variable to track password visibility
   const [showPassword, setShowPassword] = useState(false);
@@ -50,6 +51,7 @@ export default function LoginForm(props) {
     // clearing input
     setEmail("");
     setPassword("");
+    setConfirmPassword("");
 
     const obj = {
       phone: email,
@@ -181,7 +183,6 @@ export default function LoginForm(props) {
             secureTextEntry={!showPassword}
             required={true}
             onChangeText={(password) => {
-              console.log("Test");
               setPassword(password);
               checkPasswordContainsLetter(password);
               checkPasswordLength(password);
@@ -220,11 +221,14 @@ export default function LoginForm(props) {
           <FormTextField
             label="Confirmar Senha"
             name={"Confirm password"}
-            value={password}
+            value={confirmPassword}
             //Confirm password
             placeholder="********"
             secureTextEntry={!showConfirmPassword}
             required={true}
+            onChangeText={(confirmPassword) => {
+              setConfirmPassword(confirmPassword);
+            }}
           />
           <PasswordEye
             showPasswordIcon={showConfirmPassword}
