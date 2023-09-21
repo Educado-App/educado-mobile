@@ -110,10 +110,8 @@ export default function ProfileComponent() {
     <BgLinearGradient>
       <SafeAreaView>
         <ScrollView>
-          <View className="flex items-center justify-center flex-col py-10">
+          <View className="flex items-center justify-center flex-col py-10 mt-1">
             <ProfileImage/>
-          </View>
-          <View className = "flex gap-6 items-center">
             <TouchableOpacity
               className = "bg-primary px-10 py-4 rounded-medium"
               onPress={() => setUserNameModalVisible(true)}
