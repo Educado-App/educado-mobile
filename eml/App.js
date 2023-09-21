@@ -98,7 +98,9 @@ function HomeStack() {
       screenOptions={{
         tabBarActiveTintColor: 'white',
         tabBarActiveBackgroundColor: '#5ECCE9',
-        tabBarStyle: { backgroundColor: 'hsl(0, 0%, 92%)' }, //Oneplus menubar color
+        tabBarStyle: {
+          backgroundColor: 'hsl(0, 0%, 92%)',
+        },
       }}
     >
       <Tab.Screen
@@ -145,6 +147,23 @@ function HomeStack() {
         }}
       />
       <Tab.Screen
+        name="Edu"
+        component={TestScreen}
+        options={{
+          headerShown: false,
+          tabBarIcon: () => {
+            return (
+              <Icon
+                size={20}
+                name="robot-outline"
+                type="material-community"
+                color="gray"
+              />
+            );
+          },
+        }}
+      />
+      <Tab.Screen
         //Perfil
         name="Perfil"
         component={ProfileComponent}
@@ -165,7 +184,10 @@ function HomeStack() {
           },
         }}
       />
-       <Tab.Screen
+    </Tab.Navigator>
+  );
+}
+       {/* <Tab.Screen
         name="TestScreen"
         component={TestScreen}
         options={{
@@ -182,9 +204,8 @@ function HomeStack() {
           },
         }}
       />
-    </Tab.Navigator>
-  );
-}
+    </Tab.Navigator> */}
+    
 
 // Change InitialRouteName to HomeStack if you want to skip Login Screen
 export default function App() {
