@@ -4,9 +4,9 @@
     "slug": "educado",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/CarlSlet.png",
     "splash": {
-      "image": "./assets/icon.png",
+      "image": "./assets/CarlSlet.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
