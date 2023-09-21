@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import ProfileImage from '../../components/profile/profileImage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getCourses } from '../../api/api';
 
 const USER_INFO = '@userInfo';
 
@@ -25,6 +26,7 @@ export default function ProfileComponent() {
   const [newPhoneNumber, setNewPhoneNumber] = useState('');
   const [userNameModalVisible, setUserNameModalVisible] = useState(false);
   const [phoneNumberModalVisible, setPhoneNumberModalVisible] = useState(false);
+  const [courses, setCourses] = useState([]); // State to store course data
 
   const getProfile = async () => {
     try {
@@ -40,9 +42,28 @@ export default function ProfileComponent() {
     }
   }
 
+  const fetchCourses = async () => {
+    try {
+      const courseData = await getCourses();
+      setCourses(courseData);
+    } catch (error) {
+      console.error('Error fetching courses:', error);
+    }
+  }
+
   useEffect(() => {
     getProfile();
+    //fetchCourses();
   }, []);
+
+  // Print out all course titles
+  /*useEffect(() => {
+    // If statement to prevent it from printing an empty array
+    if (courses.length > 0) {
+      const courseTitles = courses.map((course) => course.title);
+      console.log('Course Titles:', courseTitles);
+    }
+  }, [courses]);*/
 
   const saveUserNameChanges = async () => {
     if (newUserName !== userName) {
