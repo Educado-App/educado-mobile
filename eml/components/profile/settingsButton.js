@@ -7,9 +7,7 @@ import {
   ScrollView,
   TouchableOpacity
 } from 'react-native'
-import { Icon } from '@rneui/themed'
 import { useNavigation } from '@react-navigation/native'
-import { styles } from './styles'; // Import the styles from styles.js
 import { Text } from 'react-native'; // Import the Text component
 
 const USER_INFO = '@userInfo'
@@ -24,24 +22,12 @@ export default function settingsButton() {
   };
   
   return (
-    <View className="pb-6">
-      <TouchableOpacity style={styles.formButton} onPress={handleGearIconPress}>
-              <View className="flex flex-row items-center justify-center">
-                <View>
-                  <Icon
-                    size={36}
-                    name="cog"
-                    type="material-community"
-                    color="#9DE89C"
-                    style={styles.tinyLogo}
-                  />
-                </View>
-                <View>
-                  {/* Settings */}
-                  <Text style={styles.text}>Configurações</Text>
-                </View>
-              </View>
-          </TouchableOpacity>
+    <View className="flex items-center px-6 w-screen my-3">
+      <TouchableOpacity className="bg-primary px-10 py-4 rounded-medium w-full" onPress={handleGearIconPress}>
+        <View className="flex flex-row items-center justify-center">
+          <Text className="text-center font-montserrat-bold text-body text-white">Configurações</Text>
+        </View>
+      </TouchableOpacity>
     </View>
   )
 }

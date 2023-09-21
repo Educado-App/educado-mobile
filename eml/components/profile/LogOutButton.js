@@ -1,9 +1,7 @@
 import { StyleSheet, View, TouchableOpacity, Alert } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import { Feather } from '@expo/vector-icons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Text } from '@rneui/base'
-import { styles } from './styles'; // Import the styles from styles.js
 
 const LOGIN_TOKEN = '@loginToken'
 const USER_INFO = '@userInfo'
@@ -33,21 +31,10 @@ export default function LogOutButton() {
     ])
 
   return (
-    <View className="pb-6">
-      <TouchableOpacity style={styles.formButton} onPress={logoutAlert}>
+    <View className="flex items-center px-6 w-screen my-3">
+      <TouchableOpacity className="bg-primary px-10 py-4 rounded-medium w-full" onPress={logoutAlert}>
         <View className="flex flex-row items-center justify-center">
-          <View>
-            <Feather
-              color="#9DE89C"
-              name="log-out"
-              size={36}
-              style={styles.tinyLogo}
-            />
-          </View>
-          <View>
-            {/* Log out */}
-            <Text style={styles.text}>Sair</Text>
-          </View>
+          <Text className="text-center font-montserrat-bold text-body text-white">Sair</Text>
         </View>
       </TouchableOpacity>
     </View>
