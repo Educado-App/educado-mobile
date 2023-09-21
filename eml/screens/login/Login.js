@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, TouchableOpacity, Image, SafeAreaView } from 'r
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useNavigation } from "@react-navigation/native";
 import LoginForm from "../../components/login/LoginForm";
-import FormButton from '../../components/login/FormButton';
 import LeaveButton from '../../components/exercise/LeaveButton';
 
 

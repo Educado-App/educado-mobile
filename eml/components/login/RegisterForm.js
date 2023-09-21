@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {Alert, Dimensions, Pressable, StyleSheet, Text, TextInput, View} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import {loginUser, registerUser} from "../../api/userApi";
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import PasswordStrengthMeter from "./PasswordStrengthMeter";
 
 const USER_INFO = '@userInfo';
