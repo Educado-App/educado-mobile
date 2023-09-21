@@ -5,6 +5,7 @@ import { loginUser } from "../../api/userApi";
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import FormTextField from "./FormTextField";
 import FormButton from './FormButton';
+import ResetPassword from './ResetPassword';
 
 const LOGIN_TOKEN = '@loginToken';
 const USER_INFO = '@userInfo';
@@ -18,7 +19,9 @@ export default function LoginForm(props) {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
 
-  async function login(phoneNumber, password) {
+  const [modalVisible, setModalVisible] = useState(false);
+
+  async function login(phoneNumber, password, modalVisible) {
 
     //clearing input
     setPhoneNumber('');
@@ -62,26 +65,13 @@ export default function LoginForm(props) {
 
   }
 
-  const showAlert = (error) =>
-    Alert.alert(
-      error,
-      //Try again
-      "Tente novamente",
-      [
-        {
-          //OK
-          text: "Certo",
-          style: "cancel",
-        },
-      ],
-      {
-        cancelable: true,
-      }
-    );
+  const closeModal = () => {
+    setModalVisible(false);
+  };
 
   return (
     <View>
-      <FormTextField
+      <FormTextField 
         placeholder='user@email.com'
         onChangeText={phoneNumber => setPhoneNumber(phoneNumber)}
         label='Email'
@@ -94,7 +84,10 @@ export default function LoginForm(props) {
         required={true}
         secureTextEntry={true}
       />
-      <FormButton label='Connect-se' />
+      <Text className="mx-10 text-right underline" onPress={() => setModalVisible(true)}>
+        Esqueceu a senha?
+      </Text>
+      {modalVisible ? <ResetPassword modalVisible={modalVisible} onModalClose={closeModal}/> : null}
     </View>
   );
 }

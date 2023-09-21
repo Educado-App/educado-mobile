@@ -15,6 +15,7 @@ module.exports = {
         disabled: '#E4F2F5',
         red: '#FFE4E4',
         green: '#E4F1E4',
+        modalBackground: '#F1F9FB',
       },
       fontFamily: {
         montserrat: 'Montserrat-Regular',
