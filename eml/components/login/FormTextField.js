@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { isFontsLoaded } from "../../constants/Fonts.js";
 import { Text, View, TextInput } from "react-native";
 
@@ -19,7 +19,6 @@ export default function FormTextField(props) {
     }
   }
 
-
   return (
     <View className='mx-10'>
       <View className='flex flex-row'>
@@ -34,8 +33,8 @@ export default function FormTextField(props) {
           autoComplete={props.autoComplete ? props.autoComplete : "off"}
           secureTextEntry={props.secureTextEntry ? props.secureTextEntry : false}
           passwordGuidelines={props.passwordGuidelines ? props.passwordGuidelines : false}
-        //onChangeText={phoneNumber => setPhoneNumber(phoneNumber)}
-        //value={phoneNumber}
+          onChangeText={props.onChangeText ? value => props.onChangeText(value) : value => setValue(value)}
+          value={props.value}
         />
       </View>
       {displayPasswordGuidelines(props)}

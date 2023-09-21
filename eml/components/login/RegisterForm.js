@@ -17,6 +17,7 @@ export default function LoginForm(props) {
   const [realName, setRealName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassowrd] = useState('');
 
   // State variable to track password visibility
   const [showPassword, setShowPassword] = useState(false);
@@ -34,12 +35,15 @@ export default function LoginForm(props) {
   async function register(email, password) {
 
     // clearing input
+    setRealName('');
     setEmail('');
     setPassword('');
+    setConfirmPassowrd('');
 
     const obj = {
-      phone: email,
-      password: password
+      name: realName,
+      email: email,
+      password: password,
     };
 
     try {
@@ -48,7 +52,7 @@ export default function LoginForm(props) {
 
           console.log(response);
 
-          try {
+          /*try {
             await loginUser(obj)
               .then(function (response) {
 
@@ -78,14 +82,14 @@ export default function LoginForm(props) {
           }
           catch (e) {
             console.log(e);
-          }
+          }*/
 
           await createProfile(response._id, realName, email);
 
         })
         .catch(error => {
 
-          console.log(error);
+          //console.log(error);
           switch (error.message) {
 
             case "Request failed with status code 500":
@@ -93,7 +97,14 @@ export default function LoginForm(props) {
               showAlert("Número de telefone já existe!");
               break;
 
-            default: console.log(error);
+            case "Request failed with status code 400":
+              //Invalid user data
+              console.log(error)
+              showAlert("Dados de usuário inválidos!");
+              break;
+
+            default: 
+              console.log(error);
           }
         });
     }
@@ -153,7 +164,7 @@ export default function LoginForm(props) {
           placeholder='Nome Sobrenome'
           placeholderTextColor='grey'
           required={true}
-          onChangeText={realName => setRealName(realName)}
+          onChangeText={realName => { console.log(realName); setRealName(realName); }}
         />
       </View>
       <View className="mb-6">
@@ -195,7 +206,8 @@ export default function LoginForm(props) {
           <FormTextField
             label='Confirmar Senha'
             name={'Confirm password'}
-            value={password}
+            value={confirmPassword}
+            onChangeText={confirmPassword => setConfirmPassowrd(confirmPassword)}
             //Confirm password
             placeholder='******'
             placeholderTextColor='grey'
