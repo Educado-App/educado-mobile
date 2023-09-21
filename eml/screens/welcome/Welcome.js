@@ -3,25 +3,8 @@ import { View, Text, TouchableOpacity, Image, SafeAreaView } from "react-native"
 import { useNavigation } from "@react-navigation/native";
 import { BgLinearGradient } from "../../constants/BgLinearGradient";
 import { isFontsLoaded } from "../../constants/Fonts";
+import Sections from '../../constants/PreviewSections';
 import Slick from 'react-native-slick';
-
-const sections = [
-  {
-    id: 1,
-    title: 'SEJA BEM-VINDO!',
-    description: 'Aqui, tornamos o aprendizado acessível e divertido para todos. Explore nossos conteúdos e comece sua jornada de desenvolvimento.',
-  },
-  {
-    id: 2,
-    title: 'FAÇA DOWNLOAD E ACESSE OFFLINE',
-    description: 'Este é o seu espaço para aprender de forma interativa e envolvente. Faça o download dos conteúdos e acesse offline quando quiser!',
-  },
-  {
-    id: 3,
-    title: 'CADASTRE-SE E EXPLORE',
-    description: 'Faça parte de nossa comunidade e descubra um mundo de aprendizado ao seu alcance, não importa sua formação acadêmica.',
-  },
-];
 
 const WelcomePage = () => {
   // const [currentIndex, setCurrentIndex] = useState(0);
@@ -42,6 +25,36 @@ const WelcomePage = () => {
     if (currentIndex < phrases.length - 1) {
       swiperRef.current.scrollBy(1);
     }
+  };
+
+  const slickSlider = () => {
+    return (
+      <Slick
+        ref={slick}
+        scrollEnabled={true}
+        loop={false}
+        index={0}
+        dotColor={projectColors.projectWhite}
+        dotStyle={{ width: 10, height: 10 }}
+        activeDotColor={projectColors.primary}
+        activeDotStyle={{ width: 10, height: 10 }}
+        height={250}
+      >
+        {Sections.map((sections, index) => (
+          <View key={index} className="gap-6">
+          
+              <View className="px-6">
+                <Text className="text-center font-montserrat-bold text-subheading">{sections.title}</Text>
+              </View>
+              
+              <View className="px-4">
+                <Text className="text-center font-montserrat text-body">{sections.description}</Text>
+              </View>
+            
+          </View>
+        ))}
+      </Slick>
+    );
   };
 
   // useEffect(() => {
@@ -88,32 +101,7 @@ const WelcomePage = () => {
                 source={require('../../assets/images/left_arrow.png')}
               />
           
-
-              <Slick
-                ref={slick}
-                scrollEnabled={true}
-                loop={false}
-                index={0}
-                dotColor={projectColors.projectWhite}
-                dotStyle={{ width: 10, height: 10 }}
-                activeDotColor={projectColors.primary}
-                activeDotStyle={{ width: 10, height: 10 }}
-                height={250}
-              >
-                {sections.map((sections, index) => (
-                  <View key={index} className="gap-6">
-                  
-                      <View className="px-6">
-                        <Text className="text-center font-montserrat-bold text-subheading">{sections.title}</Text>
-                      </View>
-                      <View className="px-4">
-                        <Text className="text-center font-montserrat text-body">{sections.description}</Text>
-                      </View>
-
-                    
-                  </View>
-                ))}
-              </Slick>
+              {slickSlider()}
 
               <Image 
                 source={require('../../assets/images/right_arrow.png')}

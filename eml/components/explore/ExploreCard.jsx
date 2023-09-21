@@ -26,7 +26,7 @@ export default function ExploreCard({ title, courseId }) {
         <View className="pt-2">
           <Image
             className="w-10 h-10"
-            source={require('../../assets/favicon.png')}
+            source={require('../../assets/images/favicon.png')}
           ></Image>
         </View>
       </Pressable>
