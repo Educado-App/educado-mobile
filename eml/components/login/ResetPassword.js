@@ -3,7 +3,7 @@ import { React, useEffect, useState } from "react";
 import FormTextField from "./FormTextField";
 import FormButton from "./FormButton";
 import { Entypo } from '@expo/vector-icons';
-import EducadoLogo from "../images/EducadoLogo";
+import EducadoLogo from '../images/EducadoLogo.js'
 
 export default function ResetPassword(props) {
 
