@@ -1,44 +1,59 @@
 import React, { useState } from "react";
-import { Alert, View } from "react-native";
+import { Alert, View, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { loginUser, registerUser } from "../../api/userApi";
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import FormTextField from "./FormTextField";
 import FormButton from "./FormButton";
 import PasswordEye from "./PasswordEye";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-const USER_INFO = '@userInfo';
-const LOGIN_TOKEN = '@loginToken';
+const USER_INFO = "@userInfo";
+const LOGIN_TOKEN = "@loginToken";
 
 export default function LoginForm(props) {
-
   const navigation = useNavigation();
 
-  const [realName, setRealName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassowrd] = useState('');
+  const [realName, setRealName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassowrd] = useState("");
 
   // State variable to track password visibility
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+  // Password Constraint variables
+  const [passwordContainsLetter, setPasswordContainsLetter] = useState(false);
+  const [passwordLengthValid, setPasswordLengthValid] = useState(false);
+
   // Function to toggle the password visibility state
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
-  }
+  };
 
   const toggleShowConfirmPassword = () => {
     setShowConfirmPassword(!showConfirmPassword);
-  }
+  };
+
+  const checkPasswordContainsLetter = (password) => {
+    const regex = /^(?=.*[a-zA-Z]).*$/;
+    const containsLetter = regex.test(password);
+    setPasswordContainsLetter(containsLetter);
+  };
+
+  const checkPasswordLength = (password) => {
+    const lengthValid = password.length > 7;
+    setPasswordLengthValid(lengthValid);
+  };
 
   async function register(email, password) {
-
     // clearing input
-    setRealName('');
-    setEmail('');
-    setPassword('');
-    setConfirmPassowrd('');
+
+    setRealName("");
+    setEmail("");
+    setPassword("");
+    setConfirmPassowrd("");
 
     const obj = {
       name: realName,
@@ -49,52 +64,43 @@ export default function LoginForm(props) {
     try {
       await registerUser(obj)
         .then(async function (response) {
-
           console.log(response);
-
           await createProfile(response._id, realName, email);
-
         })
-        .catch(error => {
-
+        .catch((error) => {
           //console.log(error);
           switch (error.message) {
             case "Request failed with status code 400":
               //Invalid user data
-              console.log(error)
+              console.log(error);
               showAlert("Dados de usuário inválidos!");
               break;
 
-            default: 
+            default:
               console.log(error);
           }
         });
-    }
-    catch (e) {
+    } catch (e) {
       console.log(e);
     }
   }
 
-
   async function createProfile(id, realName, email) {
-
     try {
       const obj = {
         id: id,
         realName: realName,
         email: email,
-      }
+      };
 
       await AsyncStorage.setItem(USER_INFO, JSON.stringify(obj));
-    }
-    catch (e) {
+    } catch (e) {
       console.log(e);
     }
-
   }
 
   const passwordObj = {
-    passwordStrength: password
+    passwordStrength: password,
   };
 
   const showAlert = (error) =>
@@ -119,41 +125,46 @@ export default function LoginForm(props) {
     <View>
       <View className="mb-6">
         <FormTextField
-          label='Nome'
-          name={'Name'}
+          label="Nome"
+          name={"Name"}
           value={realName}
           //Real name
-          placeholder='Nome Sobrenome'
-          placeholderTextColor='grey'
+          placeholder="Nome Sobrenome"
           required={true}
-          onChangeText={realName => { console.log(realName); setRealName(realName); }}
+          onChangeText={(realName) => {
+            setRealName(realName);
+          }}
         />
       </View>
       <View className="mb-6">
-        <FormTextField className='mb-6'
-          label='Email'
-          name={'Email'}
+        <FormTextField
+          className="mb-6"
+          label="Email"
+          name={"Email"}
           value={email}
           //Email
-          placeholder='user@email.com'
-          placeholderTextColor='grey'
+          placeholder="user@email.com"
+          keyboardType="email-address"
           required={true}
-          onChangeText={email => setEmail(email)}
+          onChangeText={(email) => setEmail(email)}
         />
       </View>
       <View className="mb-6">
-        <View className='relative'>
+        <View className="relative">
           <FormTextField
-            label='Senha'
-            name={'password'}
+            label="Senha"
+            name={"password"}
             value={password}
             //Password
-            placeholder='******'
-            placeholderTextColor='grey'
+            placeholder="********"
+            placeholderTextColor="grey"
             secureTextEntry={!showPassword}
             required={true}
-            passwordGuidelines={true}
-            onChangeText={password => setPassword(password)}
+            onChangeText={(password) => {
+              setPassword(password);
+              checkPasswordContainsLetter(password);
+              checkPasswordLength(password);
+            }}
           />
           <PasswordEye
             showPasswordIcon={showPassword}
@@ -161,18 +172,39 @@ export default function LoginForm(props) {
           />
         </View>
 
+        <View className="flex-row justify-start">
+          <Text className="text-xs text-gray my-1 font-montserrat">
+            • Mínimo 8 caracteres
+          </Text>
+          <View className="flex-row items-center">
+            {passwordLengthValid ? (
+              <MaterialCommunityIcons name="check" size={20} color="#4AA04A" />
+            ) : null}
+          </View>
+        </View>
+        <View className="flex-row justify-start">
+          <Text className="text-xs text-gray font-montserrat">
+            • Conter pelo menos uma letra
+          </Text>
+          <View className="flex-row items-center">
+            {passwordContainsLetter ? (
+              <MaterialCommunityIcons name="check" size={20} color="#4AA04A" />
+            ) : null}
+          </View>
+        </View>
       </View>
       {/* TODO: compare password with confirm password and give error if not same.*/}
       <View className="mb-6">
-        <View className='relative'>
+        <View className="relative">
           <FormTextField
-            label='Confirmar Senha'
-            name={'Confirm password'}
+            label="Confirmar Senha"
+            name={"Confirm password"}
             value={confirmPassword}
-            onChangeText={confirmPassword => setConfirmPassowrd(confirmPassword)}
+            onChangeText={(confirmPassword) =>
+              setConfirmPassowrd(confirmPassword)
+            }
             //Confirm password
-            placeholder='******'
-            placeholderTextColor='grey'
+            placeholder="********"
             secureTextEntry={!showConfirmPassword}
             required={true}
           />
@@ -182,10 +214,10 @@ export default function LoginForm(props) {
           />
         </View>
       </View>
-      <View className='my-10'>
+      <View className="my-10">
         <FormButton
           onPress={() => register(email, password)}
-          label='Cadastrar'
+          label="Cadastrar"
         />
       </View>
     </View>
