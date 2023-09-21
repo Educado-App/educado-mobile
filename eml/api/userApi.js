@@ -1,31 +1,16 @@
 import axios from 'axios'
 
 const prod = 'http://educado.somethingnew.dk'
-const test = `http://192.168.0.103:8888` // Change this to your LOCAL IP address when testing.
+const test = 'http://192.168.1.31:8888' // Change this to your LOCAL IP address when testing.
 const local = 'http://localhost:8888'
 const digitalOcean = 'http://207.154.213.68:8888'
 
-const url = test;
-
-export const client = axios.create({
-  baseURL: test,
-  withCredentials: true,
-  responseType: 'json',
-  timeout: 30000,
-});
+const url = digitalOcean;
 
 export const registerUser = async (obj) => {
-  console.log(obj)
-  console.log(client);
-  const res = await client.post('/api/signup/user', obj)
+  const res = await axios.post(url + '/api/eml/register', obj)
   return res.data
 }
-
-/*export const registerUser = async (obj) => {
-  const res = await client.get('/api/hello/helloworld')
-  console.log(res)
-  return res.data
-}*/
 
 export const loginUser = async (obj) => {
   const res = await axios.post(url + '/api/eml/login', obj)
