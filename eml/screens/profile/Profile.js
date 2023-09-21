@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import {
-  StyleSheet,
   View,
   SafeAreaView,
   Platform,
@@ -15,6 +14,8 @@ import DeleteAccount from '../../components/profile/deleteAccount'
 import SettingsButton from '../../components/profile/settingsButton'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useNavigation } from '@react-navigation/native'
+import { isFontsLoaded } from "../../constants/Fonts.js";
+import { BgLinearGradient } from "../../constants/BgLinearGradient";
 
 const USER_INFO = '@userInfo'
 
@@ -41,26 +42,23 @@ export default function ProfileComponent() {
   useEffect(() => {
     getProfile()
   }, [])
+
+  if (!isFontsLoaded()) {
+    return null;
+  }
   
   return (
-    <SafeAreaView className="bg-babyBlue">
-      <ScrollView>
-        <View className="flex-1 flex-col justify-center h-screen">
-          <ProfileName Name={userName} PhoneNumber={phoneNumber}></ProfileName>
-          <SettingsButton></SettingsButton>
-          <LogOutButton></LogOutButton>
-          <DeleteAccount></DeleteAccount>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <BgLinearGradient>
+      <SafeAreaView>
+        <ScrollView>
+          <View className="flex-1 flex-col justify-center h-screen">
+            <ProfileName Name={userName} PhoneNumber={phoneNumber}></ProfileName>
+            <SettingsButton></SettingsButton>
+            <LogOutButton></LogOutButton>
+            <DeleteAccount></DeleteAccount>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    </BgLinearGradient>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    paddingTop: Platform.OS === 'android' ? 25 : 0,
-    alignItems: 'center', // Center the content horizontally
-    backgroundColor: '#E4F2F5', // Add this line to set the background color
-  }
-})
-

@@ -1,4 +1,4 @@
-import 'dotenv/config'; // Load .env variables
+//import 'dotenv/config'; // Load .env variables (not working)
 
 export default {
   expo: {
