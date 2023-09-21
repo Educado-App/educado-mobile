@@ -16,12 +16,12 @@ const USER_INFO = "@userInfo";
 export default function LoginForm(props) {
   const navigation = useNavigation();
 
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  async function login(phoneNumber, password) {
+  async function login(email, password) {
     //clearing input
-    setPhoneNumber("");
+    setEmail("");
     setPassword("");
 
     // Checking if font is loaded
@@ -32,7 +32,7 @@ export default function LoginForm(props) {
     //The Object must be hashed before it is sent to backend (before loginUser() is called)
     //The Input must be conditioned (at least one capital letter, minimum 8 letters and a number etc.)
     const obj = {
-      phone: phoneNumber,
+      email: email,
       password: password,
     };
 
@@ -46,8 +46,8 @@ export default function LoginForm(props) {
         .catch((error) => {
           switch (error.message) {
             case "Request failed with status code 404":
-              //Wrong Phone Number
-              showAlert("Número de telefone errado!");
+              //Wrong email
+              showAlert("Insira um email válido.");
               break;
 
             case "Request failed with status code 400":
@@ -94,9 +94,10 @@ export default function LoginForm(props) {
       <View className="mb-6">
         <FormTextField
           placeholder="user@email.com"
-          onChangeText={(phoneNumber) => setPhoneNumber(phoneNumber)}
+          onChangeText={(email) => setEmail(email)}
           label="Email"
           required={true}
+          keyboardType="email-address"
         />
       </View>
 

@@ -2,21 +2,20 @@ import React, { useState } from "react";
 import { Alert, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { loginUser, registerUser } from "../../api/userApi";
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import FormTextField from "./FormTextField";
 import FormButton from "./FormButton";
 import PasswordEye from "./PasswordEye";
 
-const USER_INFO = '@userInfo';
-const LOGIN_TOKEN = '@loginToken';
+const USER_INFO = "@userInfo";
+const LOGIN_TOKEN = "@loginToken";
 
 export default function LoginForm(props) {
-
   const navigation = useNavigation();
 
-  const [realName, setRealName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [realName, setRealName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   // State variable to track password visibility
   const [showPassword, setShowPassword] = useState(false);
@@ -25,42 +24,36 @@ export default function LoginForm(props) {
   // Function to toggle the password visibility state
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
-  }
+  };
 
   const toggleShowConfirmPassword = () => {
     setShowConfirmPassword(!showConfirmPassword);
-  }
+  };
 
   async function register(email, password) {
-
     // clearing input
-    setEmail('');
-    setPassword('');
+    setEmail("");
+    setPassword("");
 
     const obj = {
       phone: email,
-      password: password
+      password: password,
     };
 
     try {
       await registerUser(obj)
         .then(async function (response) {
-
           console.log(response);
 
           try {
             await loginUser(obj)
               .then(function (response) {
-
                 AsyncStorage.setItem(LOGIN_TOKEN, response.data.accessToken);
                 console.log(response);
-                navigation.navigate('HomeStack');
-
+                navigation.navigate("HomeStack");
               })
-              .catch(error => {
-
+              .catch((error) => {
                 switch (error.message) {
-
                   case "Request failed with status code 404":
                     // Wrong Phone Number
                     console.log("Número de telefone errado!");
@@ -75,53 +68,45 @@ export default function LoginForm(props) {
                     console.log(error);
                 }
               });
-          }
-          catch (e) {
+          } catch (e) {
             console.log(e);
           }
 
           await createProfile(response._id, realName, email);
-
         })
-        .catch(error => {
-
+        .catch((error) => {
           console.log(error);
           switch (error.message) {
-
             case "Request failed with status code 500":
               // Phone Number already exists
               showAlert("Número de telefone já existe!");
               break;
 
-            default: console.log(error);
+            default:
+              console.log(error);
           }
         });
-    }
-    catch (e) {
+    } catch (e) {
       console.log(e);
     }
   }
 
-
   async function createProfile(id, realName, email) {
-
     try {
       const obj = {
         id: id,
         realName: realName,
         email: email,
-      }
+      };
 
       await AsyncStorage.setItem(USER_INFO, JSON.stringify(obj));
-    }
-    catch (e) {
+    } catch (e) {
       console.log(e);
     }
-
   }
 
   const passwordObj = {
-    passwordStrength: password
+    passwordStrength: password,
   };
 
   const showAlert = (error) =>
@@ -146,60 +131,58 @@ export default function LoginForm(props) {
     <View>
       <View className="mb-6">
         <FormTextField
-          label='Nome'
-          name={'Name'}
+          label="Nome"
+          name={"Name"}
           value={realName}
           //Real name
-          placeholder='Nome Sobrenome'
-          placeholderTextColor='grey'
+          placeholder="Nome Sobrenome"
           required={true}
-          onChangeText={realName => setRealName(realName)}
+          onChangeText={(realName) => setRealName(realName)}
         />
       </View>
       <View className="mb-6">
-        <FormTextField className='mb-6'
-          label='Email'
-          name={'Email'}
+        <FormTextField
+          className="mb-6"
+          label="Email"
+          name={"Email"}
           value={email}
           //Email
-          placeholder='user@email.com'
-          placeholderTextColor='grey'
-          keyboardType='email-address'
+          placeholder="user@email.com"
+          keyboardType="email-address"
           required={true}
-          onChangeText={email => setEmail(email)}
+          onChangeText={(email) => setEmail(email)}
         />
       </View>
       <View className="mb-6">
-        <View className='relative'>
+        <View className="relative">
           <FormTextField
-            label='Senha'
-            name={'password'}
+            label="Senha"
+            name={"password"}
             value={password}
             //Password
-            placeholder='******'
-            placeholderTextColor='grey'
+            placeholder="******"
+            placeholderTextColor="grey"
             secureTextEntry={!showPassword}
             required={true}
             passwordGuidelines={true}
-            onChangeText={password => setPassword(password)}
+            onChangeText={(password) => setPassword(password)}
           />
           <PasswordEye
             showPasswordIcon={showPassword}
             toggleShowPassword={toggleShowPassword}
           />
         </View>
-
       </View>
       {/* TODO: compare password with confirm password and give error if not same.*/}
       <View className="mb-6">
-        <View className='relative'>
+        <View className="relative">
           <FormTextField
-            label='Confirmar Senha'
-            name={'Confirm password'}
+            label="Confirmar Senha"
+            name={"Confirm password"}
             value={password}
             //Confirm password
-            placeholder='******'
-            placeholderTextColor='grey'
+            placeholder="******"
+            placeholderTextColor="grey"
             secureTextEntry={!showConfirmPassword}
             required={true}
           />
@@ -209,10 +192,10 @@ export default function LoginForm(props) {
           />
         </View>
       </View>
-      <View className='my-10'>
+      <View className="my-10">
         <FormButton
           onPress={() => register(email, password)}
-          label='Cadastrar'
+          label="Cadastrar"
         />
       </View>
     </View>

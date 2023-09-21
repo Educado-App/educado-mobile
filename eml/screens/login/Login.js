@@ -5,6 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import LoginForm from "../../components/login/LoginForm";
 import LogoBackButton from "../../components/login/LogoBackButton";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { isFontsLoaded } from "../../constants/Fonts.js";
 
 const STORAGE_ID = "@local_id";
 const STORAGE_PROGRESS = "@storage_progress";
@@ -82,6 +83,10 @@ export default function Login(props) {
     // readId();
     checkLoginToken();
   }, []);
+
+  if (!isFontsLoaded()) {
+    return null;
+  }
 
   return (
     <SafeAreaView className="justify-start bg-secondary flex-1">
