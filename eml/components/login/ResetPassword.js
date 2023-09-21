@@ -3,26 +3,32 @@ import { React, useEffect, useState } from "react";
 import FormTextField from "./FormTextField";
 import FormButton from "./FormButton";
 import { Entypo } from '@expo/vector-icons';
+import EducadoLogo from "../images/EducadoLogo";
 
 export default function ResetPassword(props) {
 
 	const [emailSent, setEmailSent] = useState(false);
 	const [codeEntered, setCodeEntered] = useState(false);
 
-	const closeModal = () => {
-		props.onModalClose();
-	}
-
-
+  const closeModal = () => {
+    props.onModalClose();
+  }
 
 	return (
 		<Modal visible={props.modalVisible} animationType='slide' className='border-8 border-black bg-modalBackground'>
-			<View className='flex-row py-[40px] justify-center'>
-				<Text className='text-center text-[24px] mx-10'>Redefinção de senha</Text>
+			<View className='flex justify-center pt-[40px]'>
+        <View className='flex flex-row justify-end px-10'>
 				<Pressable onPress={closeModal}>
 					<Entypo name='chevron-down' size={24} />
 				</Pressable>
-			</View>
+        </View>
+        <View className='flex flex-row justify-center my-10'>
+          <EducadoLogo className='' />
+        </View>
+        <View className='flex flex-row justify-start px-10'>
+          <Text className='text-center text-[24px]'>Redefinção de senha</Text>
+        </View>
+      </View>
 			<View className='my-[80px]'>
 				{!codeEntered ?
 					<View>

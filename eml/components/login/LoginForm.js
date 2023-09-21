@@ -87,7 +87,9 @@ export default function LoginForm(props) {
       <Text className="mx-10 text-right underline" onPress={() => setModalVisible(true)}>
         Esqueceu a senha?
       </Text>
-      {modalVisible ? <ResetPassword modalVisible={modalVisible} onModalClose={closeModal}/> : null}
+      <View className='pt-10'>
+        {modalVisible ? <ResetPassword modalVisible={modalVisible} onModalClose={closeModal}/> : null}
+      </View>
     </View>
   );
 }
