@@ -6,7 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 import LoginForm from "../../components/login/LoginForm";
 import FormButton from '../../components/login/FormButton';
 import LogoBackButton from '../../components/login/LogoBackButton';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import LeaveButton from '../../components/exercise/LeaveButton';
 
 
 const STORAGE_ID = '@local_id';
