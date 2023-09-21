@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { View, Alert } from "react-native";
+import { View, Text, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { loginUser } from "../../api/userApi";
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import FormTextField from './FormTextField';
 import FormButton from './FormButton';
 import PasswordEye from './PasswordEye';
+import ResetPassword from './ResetPassword';
 
 const LOGIN_TOKEN = '@loginToken';
 const USER_INFO = '@userInfo';
@@ -18,6 +19,8 @@ export default function LoginForm(props) {
 
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
+
+  const [modalVisible, setModalVisible] = useState(false);
 
   async function login(phoneNumber, password) {
 
@@ -63,22 +66,9 @@ export default function LoginForm(props) {
 
   }
 
-  const showAlert = (error) =>
-    Alert.alert(
-      error,
-      //Try again
-      "Tente novamente",
-      [
-        {
-          //OK
-          text: "Certo",
-          style: "cancel",
-        },
-      ],
-      {
-        cancelable: true,
-      }
-    );
+  const closeModal = () => {
+    setModalVisible(false);
+  };
 
     // State variable to track password visibility
   const [showPassword, setShowPassword] = useState(false);
@@ -91,27 +81,26 @@ export default function LoginForm(props) {
 
   return (
     <View>
-      <FormTextField
+      <FormTextField 
         placeholder='user@email.com'
         onChangeText={phoneNumber => setPhoneNumber(phoneNumber)}
         label='Email'
         required={true}
       />
-      <View className='relative'>
-        <FormTextField
-          placeholder='Senha'
-          onChangeText={password => setPassword(password)}
-          label='Senha'
-          required={true}
-          secureTextEntry={!showPassword}
-        />
-        <PasswordEye
-          showPasswordIcon={showPassword}
-          toggleShowPassword={toggleShowPassword}
-        />
-      </View>
-
+      <FormTextField
+        placeholder='Senha'
+        onChangeText={password => setPassword(password)}
+        label='Senha'
+        required={true}
+        secureTextEntry={true}
+      />
+      <Text className="mx-10 text-right underline" onPress={() => setModalVisible(true)}>
+        Esqueceu a senha?
+      </Text>
       <FormButton label='Connect-se' />
+      <View className='pt-10'>
+        {modalVisible ? <ResetPassword modalVisible={modalVisible} onModalClose={closeModal}/> : null}
+      </View>
     </View>
   );
 }

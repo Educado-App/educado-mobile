@@ -7,6 +7,7 @@ import LoginForm from "../../components/login/LoginForm";
 import FormButton from '../../components/login/FormButton';
 import LogoBackButton from '../../components/login/LogoBackButton';
 import LeaveButton from '../../components/exercise/LeaveButton';
+import EducadoLogo from '../../components/images/EducadoLogo';
 
 
 const STORAGE_ID = '@local_id';
@@ -103,11 +104,7 @@ export default function Login(props) {
 					<LeaveButton navigationPlace='Home'/>
 				</View>
 				{/* Educado logo */}
-				<Image 
-          source={require('../../assets/logo_educado.png')}
-          className='h-12'
-          resizeMode='contain'
-         />
+				<EducadoLogo/>
 			</View>
         <View className='mx-10'>
         {/* Login form */}
