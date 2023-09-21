@@ -15,10 +15,10 @@ export default function Register() {
 
   return (
     <SafeAreaView className="flex-1 justify-start bg-secondary">
-      <View>
-        <View className="mt-10">
-          <LogoBackButton navigationPlace={"Login"} />
-        </View>
+      <View className="mt-10">
+        <LogoBackButton navigationPlace={"Login"} />
+      </View>
+      <View className="mx-10">
         <View className="mt-8">
           <RegisterForm />
         </View>

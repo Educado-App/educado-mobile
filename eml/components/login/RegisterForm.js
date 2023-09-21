@@ -14,11 +14,10 @@ const LOGIN_TOKEN = "@loginToken";
 export default function LoginForm(props) {
   const navigation = useNavigation();
 
-  const [realName, setRealName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassowrd] = useState('');
-
+  const [realName, setRealName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassowrd] = useState("");
 
   // State variable to track password visibility
   const [showPassword, setShowPassword] = useState(false);
@@ -51,10 +50,10 @@ export default function LoginForm(props) {
   async function register(email, password) {
     // clearing input
 
-    setRealName('');
-    setEmail('');
-    setPassword('');
-    setConfirmPassowrd('');
+    setRealName("");
+    setEmail("");
+    setPassword("");
+    setConfirmPassowrd("");
 
     const obj = {
       name: realName,
@@ -68,17 +67,16 @@ export default function LoginForm(props) {
           console.log(response);
           await createProfile(response._id, realName, email);
         })
-        .catch(error => {
-
+        .catch((error) => {
           //console.log(error);
           switch (error.message) {
             case "Request failed with status code 400":
               //Invalid user data
-              console.log(error)
+              console.log(error);
               showAlert("Dados de usuário inválidos!");
               break;
 
-            default: 
+            default:
               console.log(error);
           }
         });
@@ -133,7 +131,9 @@ export default function LoginForm(props) {
           //Real name
           placeholder="Nome Sobrenome"
           required={true}
-          onChangeText={realName => { setRealName(realName); }}
+          onChangeText={(realName) => {
+            setRealName(realName);
+          }}
         />
       </View>
       <View className="mb-6">
@@ -172,8 +172,8 @@ export default function LoginForm(props) {
           />
         </View>
 
-        <View className="flex-row justify-start ml-10">
-          <Text className="ml-3 text-xs text-gray my-1 font-montserrat">
+        <View className="flex-row justify-start">
+          <Text className="text-xs text-gray my-1 font-montserrat">
             • Mínimo 8 caracteres
           </Text>
           <View className="flex-row items-center">
@@ -182,8 +182,8 @@ export default function LoginForm(props) {
             ) : null}
           </View>
         </View>
-        <View className="flex-row justify-start ml-10">
-          <Text className="ml-3 text-xs text-gray font-montserrat">
+        <View className="flex-row justify-start">
+          <Text className="text-xs text-gray font-montserrat">
             • Conter pelo menos uma letra
           </Text>
           <View className="flex-row items-center">
@@ -197,17 +197,16 @@ export default function LoginForm(props) {
       <View className="mb-6">
         <View className="relative">
           <FormTextField
-            label='Confirmar Senha'
-            name={'Confirm password'}
+            label="Confirmar Senha"
+            name={"Confirm password"}
             value={confirmPassword}
-            onChangeText={confirmPassword => setConfirmPassowrd(confirmPassword)}
+            onChangeText={(confirmPassword) =>
+              setConfirmPassowrd(confirmPassword)
+            }
             //Confirm password
             placeholder="********"
             secureTextEntry={!showConfirmPassword}
             required={true}
-            onChangeText={(confirmPassword) => {
-              setConfirmPassword(confirmPassword);
-            }}
           />
           <PasswordEye
             showPasswordIcon={showConfirmPassword}

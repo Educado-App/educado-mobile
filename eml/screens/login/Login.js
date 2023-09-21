@@ -7,7 +7,6 @@ import LogoBackButton from "../../components/login/LogoBackButton";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { isFontsLoaded } from "../../constants/Fonts.js";
 
-
 const STORAGE_ID = "@local_id";
 const STORAGE_PROGRESS = "@storage_progress";
 const LOGIN_TOKEN = "@loginToken";
@@ -94,21 +93,23 @@ export default function Login(props) {
       <View className="mt-10">
         <LogoBackButton navigationPlace="Login" />
       </View>
-      {/* Login form */}
-      <View className="my-8">
-        <LoginForm />
-      </View>
-      {/* Register button */}
-      <View className="flex-row justify-center">
-        <Text className="font-montserrat text-base text-gray mr-1">
-          Ainda não tem conta?
-        </Text>
-        <Text
-          className="font-montserrat text-base text-black underline"
-          onPress={() => navigation.navigate("Register")}
-        >
-          Cadastre-se agora
-        </Text>
+      <View className="mx-10">
+        {/* Login form */}
+        <View className="my-8">
+          <LoginForm />
+        </View>
+        {/* Register button */}
+        <View className="flex-row justify-center">
+          <Text className="font-montserrat text-base text-gray mr-1">
+            Ainda não tem conta?
+          </Text>
+          <Text
+            className="font-montserrat text-base text-black underline"
+            onPress={() => navigation.navigate("Register")}
+          >
+            Cadastre-se agora
+          </Text>
+        </View>
       </View>
     </SafeAreaView>
   );
