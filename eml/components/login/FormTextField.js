@@ -20,13 +20,13 @@ export default function FormTextField(props) {
   }
 
   return (
-    <View className='mx-10'>
+    <View className='my-2'>
       <View className='flex flex-row'>
         <Text className='ml-2 text-xs font-montserrat'>{props.label ? props.label : ''}</Text>
         <Text className='ml-1 text-xs color-red-600 font-montserrat'>{props.required ? '*' : ''}</Text>
       </View>
       <View className=''>
-        <TextInput className='bg-white h-50 br-25 py-1 pl-[10px] border-gray-200 rounded-xl font-montserrat'
+        <TextInput className='h-50 br-25 py-1 pl-[10px] bg-white rounded-lg'
           //Phone Number
           placeholder={props.placeholder ? props.placeholder : ""}
           keyboardType={props.keyboardType ? props.keyboardType : "default"}
