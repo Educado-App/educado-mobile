@@ -96,68 +96,24 @@ function HomeStack() {
     <Tab.Navigator
       initialRouteName={'Home'}
       screenOptions={{
-        tabBarActiveTintColor: 'white',
-        tabBarActiveBackgroundColor: '#5ECCE9',
-        tabBarStyle: {
-          backgroundColor: 'hsl(0, 0%, 92%)',
-        },
+        tabBarActiveTintColor: 'black',
+        tabBarActiveBackgroundColor: '#d9d9d9',
+        tabBarStyle: { backgroundColor: 'hsl(0, 0%, 92%)' }, //Oneplus menubar color
       }}
     >
       <Tab.Screen
         //Home
-        
         name="Casa"
         component={CourseStack}
-        options={{
-          headerShown: false,
-          tabBarIcon: ({ focused, color, size }) => {
-            // Define the active and inactive colors for the icon
-            const iconColor = focused ? 'white' : 'gray';
-
-            return (
-              <Icon
-                size={20}
-                name="home-outline"
-                type="material-community"
-                color={iconColor}
-              />
-            );
-          },
-        }}
-      />
-      <Tab.Screen
-      // Explore
-        name="Explorar"
-        component={Explore}
-        options={{
-          headerShown: false,
-          tabBarIcon: ({ focused, color, size }) => {
-            // Define the active and inactive colors for the icon
-            const iconColor = focused ? 'white' : 'gray';
-
-            return (
-              <Icon
-                size={20}
-                name="compass-outline"
-                type="material-community"
-                color={iconColor}
-              />
-            );
-          },
-        }}
-      />
-      <Tab.Screen
-        name="Edu"
-        component={TestScreen}
         options={{
           headerShown: false,
           tabBarIcon: () => {
             return (
               <Icon
-                size={20}
-                name="robot-outline"
+                size={30}
+                name="home"
                 type="material-community"
-                color="gray"
+                color="#8DD08C"
               />
             );
           },
@@ -169,25 +125,37 @@ function HomeStack() {
         component={ProfileComponent}
         options={{
           headerShown: false,
-            tabBarIcon: ({ focused, color, size }) => {
-              // Define the active and inactive colors for the icon
-              const iconColor = focused ? 'white' : 'gray';
-  
-              return (
-                <Icon
-                  size={20}
-                  name="account-circle"
-                  type="material-community"
-                  color={iconColor}
-                />
-              );
+          tabBarIcon: () => {
+            return (
+              <Icon
+                size={30}
+                name="account-circle"
+                type="material-community"
+                color="#8DD08C"
+              />
+            );
           },
         }}
       />
-    </Tab.Navigator>
-  );
-}
-       {/* <Tab.Screen
+      <Tab.Screen
+      // Explore
+        name="Explorar"
+        component={Explore}
+        options={{
+          headerShown: false,
+          tabBarIcon: () => {
+            return (
+              <Icon
+                size={30}
+                name="magnify"
+                type="material-community"
+                color="#8DD08C"
+              />
+            );
+          },
+        }}
+      />
+      {/*       <Tab.Screen
         name="TestScreen"
         component={TestScreen}
         options={{
@@ -203,9 +171,10 @@ function HomeStack() {
             );
           },
         }}
-      />
-    </Tab.Navigator> */}
-    
+      /> */}
+    </Tab.Navigator>
+  );
+}
 
 // Change InitialRouteName to HomeStack if you want to skip Login Screen
 export default function App() {
