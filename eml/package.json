@@ -70,6 +70,7 @@
     "react-navigation": "^4.4.4",
     "react-navigation-stack": "^2.10.4",
     "react-query": "^3.39.2",
+    "react-svg": "^16.1.25",
     "react-test-renderer": "^18.0.0",
     "react-use-window-size": "^1.0.1",
     "recoil": "^0.7.5",

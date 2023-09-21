@@ -5,7 +5,7 @@ module.exports = {
       colors: {
         // gradient background found in BgLinearGradient.js
         primary: '#5ECCE9',
-        secondary: '#F1F9FB',
+        secondary: '#C9E5EC',
         white: '#FFFFFF',
         black: '#383838',
         gray: '#A1ACB2',
