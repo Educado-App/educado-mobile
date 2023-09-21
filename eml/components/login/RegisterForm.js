@@ -164,6 +164,7 @@ export default function LoginForm(props) {
           //Email
           placeholder='user@email.com'
           placeholderTextColor='grey'
+          keyboardType='email-address'
           required={true}
           onChangeText={email => setEmail(email)}
         />
