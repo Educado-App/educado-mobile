@@ -1,12 +1,14 @@
-import React, { useState } from "react";
-import { View, Alert, Text } from "react-native";
+import React, { useState } from 'react';
+import { View, Text, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { loginUser } from "../../api/userApi";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import FormTextField from "./FormTextField";
-import FormButton from "./FormButton";
-import PasswordEye from "./PasswordEye";
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import FormTextField from './FormTextField';
+import FormButton from './FormButton';
+import PasswordEye from './PasswordEye';
+import ResetPassword from './ResetPassword';
 import { isFontsLoaded } from "../../constants/Fonts.js";
+
 
 const LOGIN_TOKEN = "@loginToken";
 const USER_INFO = "@userInfo";
@@ -15,9 +17,10 @@ const USER_INFO = "@userInfo";
 
 export default function LoginForm(props) {
   const navigation = useNavigation();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [modalVisible, setModalVisible] = useState(false);
+  
 
   async function login(email, password) {
     //clearing input
@@ -64,22 +67,9 @@ export default function LoginForm(props) {
     }
   }
 
-  const showAlert = (error) =>
-    Alert.alert(
-      error,
-      //Try again
-      "Tente novamente",
-      [
-        {
-          //OK
-          text: "Certo",
-          style: "cancel",
-        },
-      ],
-      {
-        cancelable: true,
-      }
-    );
+  const closeModal = () => {
+    setModalVisible(false);
+  };
 
   // State variable to track password visibility
   const [showPassword, setShowPassword] = useState(false);
@@ -91,6 +81,7 @@ export default function LoginForm(props) {
 
   return (
     <View>
+
       <View className="mb-6">
         <FormTextField
           placeholder="user@email.com"
@@ -116,12 +107,13 @@ export default function LoginForm(props) {
       </View>
       <View>
         {/* TODO: tilføj onPress til nedenstående; reset password */}
-        <Text className="mx-10 text-right underline font-montserrat text-base text-black mb-24">
+        <Text className="mx-10 text-right underline font-montserrat text-base text-black mb-24" onPress={() => setModalVisible(true)}>
           Esqueceu a senha?
         </Text>
       </View>
-
-      <FormButton label="Entrar" />
+      <View className='pt-10'>
+        {modalVisible ? <ResetPassword modalVisible={modalVisible} onModalClose={closeModal}/> : null}
+      </View>
     </View>
   );
 }

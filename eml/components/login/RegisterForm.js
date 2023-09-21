@@ -14,10 +14,11 @@ const LOGIN_TOKEN = "@loginToken";
 export default function LoginForm(props) {
   const navigation = useNavigation();
 
-  const [realName, setRealName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [realName, setRealName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassowrd] = useState('');
+
 
   // State variable to track password visibility
   const [showPassword, setShowPassword] = useState(false);
@@ -49,12 +50,15 @@ export default function LoginForm(props) {
 
   async function register(email, password) {
     // clearing input
-    setEmail("");
-    setPassword("");
-    setConfirmPassword("");
+
+    setRealName('');
+    setEmail('');
+    setPassword('');
+    setConfirmPassowrd('');
 
     const obj = {
-      phone: email,
+      name: realName,
+      email: email,
       password: password,
     };
 
@@ -62,45 +66,19 @@ export default function LoginForm(props) {
       await registerUser(obj)
         .then(async function (response) {
           console.log(response);
-
-          try {
-            await loginUser(obj)
-              .then(function (response) {
-                AsyncStorage.setItem(LOGIN_TOKEN, response.data.accessToken);
-                console.log(response);
-                navigation.navigate("HomeStack");
-              })
-              .catch((error) => {
-                switch (error.message) {
-                  case "Request failed with status code 404":
-                    // Wrong Phone Number
-                    console.log("Número de telefone errado!");
-                    break;
-
-                  case "Request failed with status code 400":
-                    //Wrong Password
-                    console.log("Senha incorreta!");
-                    break;
-
-                  default:
-                    console.log(error);
-                }
-              });
-          } catch (e) {
-            console.log(e);
-          }
-
           await createProfile(response._id, realName, email);
         })
-        .catch((error) => {
-          console.log(error);
+        .catch(error => {
+
+          //console.log(error);
           switch (error.message) {
-            case "Request failed with status code 500":
-              // Phone Number already exists
-              showAlert("Número de telefone já existe!");
+            case "Request failed with status code 400":
+              //Invalid user data
+              console.log(error)
+              showAlert("Dados de usuário inválidos!");
               break;
 
-            default:
+            default: 
               console.log(error);
           }
         });
@@ -155,7 +133,7 @@ export default function LoginForm(props) {
           //Real name
           placeholder="Nome Sobrenome"
           required={true}
-          onChangeText={(realName) => setRealName(realName)}
+          onChangeText={realName => { setRealName(realName); }}
         />
       </View>
       <View className="mb-6">
@@ -219,9 +197,10 @@ export default function LoginForm(props) {
       <View className="mb-6">
         <View className="relative">
           <FormTextField
-            label="Confirmar Senha"
-            name={"Confirm password"}
+            label='Confirmar Senha'
+            name={'Confirm password'}
             value={confirmPassword}
+            onChangeText={confirmPassword => setConfirmPassowrd(confirmPassword)}
             //Confirm password
             placeholder="********"
             secureTextEntry={!showConfirmPassword}

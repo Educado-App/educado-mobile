@@ -7,6 +7,7 @@ import LogoBackButton from "../../components/login/LogoBackButton";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { isFontsLoaded } from "../../constants/Fonts.js";
 
+
 const STORAGE_ID = "@local_id";
 const STORAGE_PROGRESS = "@storage_progress";
 const LOGIN_TOKEN = "@loginToken";
