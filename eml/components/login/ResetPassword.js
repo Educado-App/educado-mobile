@@ -41,7 +41,7 @@ export default function ResetPassword(props) {
 						<View className='mt-[40px]'>
 							{emailSent ?
 								<View>
-									<Text className='text-center mx-10 mb-[40px]'>Enviamos um código par ao seu email de redefinição de senha, por favor, insira o mesmo abaixo</Text>
+									<Text className='text-left mx-10 mb-[10px]'>Enviamos um código par ao seu email de redefinição de senha, por favor, insira o mesmo abaixo</Text>
 									<FormTextField
 										placeholder='X X X X'
 										onChangeText={''}
