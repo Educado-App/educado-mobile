@@ -18,7 +18,7 @@ export default function Register() {
       <View className="mt-10">
         <LogoBackButton navigationPlace={"Login"} />
       </View>
-      <View className="mx-10">
+      <View className="mx-6">
         <View className="mt-8">
           <RegisterForm />
         </View>

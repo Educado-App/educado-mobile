@@ -93,7 +93,7 @@ export default function Login(props) {
       <View className="mt-10">
         <LogoBackButton navigationPlace="Login" />
       </View>
-      <View className="mx-10">
+      <View className="mx-6">
         {/* Login form */}
         <View className="my-8">
           <LoginForm />
