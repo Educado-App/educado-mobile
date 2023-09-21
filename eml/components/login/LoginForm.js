@@ -21,7 +21,7 @@ export default function LoginForm(props) {
 
   const [modalVisible, setModalVisible] = useState(false);
 
-  async function login(phoneNumber, password, modalVisible) {
+  async function login(phoneNumber, password) {
 
     //clearing input
     setPhoneNumber('');
