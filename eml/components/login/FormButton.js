@@ -19,7 +19,8 @@ export default function FormButton(props) {
   return (
     <View className='mt-12'>
       <Pressable 
-        className='flex-auto items-center bg-primary px-[40px] py-4 rounded-[8px] opacity-100 active:opacity-70 active:shadow-inner'
+        className={'flex-auto items-center bg-primary px-[40px] py-4 rounded-[8px] opacity-100 active:opacity-70 active:shadow-inner' +
+          (props.disabled ? ' opacity-50 bg-gray' : '')}
         onPress={props.onPress}
         disabled={props.disabled}
       >
