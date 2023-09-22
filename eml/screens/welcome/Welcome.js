@@ -15,10 +15,6 @@ const WelcomePage = ({ navigation }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const slick = useRef(null);
 
-  const onIndexChanged = (index) => {
-    setCurrentIndex(index);
-  };
-
   const swipeLeft = () => {
     if (currentIndex > 0) {
       setCurrentIndex(currentIndex - 1);
