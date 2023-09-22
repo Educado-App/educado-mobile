@@ -10,10 +10,11 @@ export default function CourseListUI({ course, downloadState }) {
         <View>
             <CourseHeader
                 downloadState={downloadState}
-                courseTitle={course.title}
-                courseIcon={course.icon}
-                courseId={course.id}
-            ></CourseHeader>
+                courseTitle={course}
+                courseIcon={'../../../assets/icon.png'}
+                courseId={0}
+            >
+            </CourseHeader>
             <EasyDynamicList course={course} ></EasyDynamicList>
         </View>
     );

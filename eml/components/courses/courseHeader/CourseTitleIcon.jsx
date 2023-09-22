@@ -13,29 +13,25 @@ export default function CourseTitleIcon({ title, courseIcon }) {
   let [fontsLoaded] = useFonts({
     VarelaRound_400Regular
   })
-
+  let courseIconPath = courseIcon;
+  console.log(courseIconPath);
   return (
     <View style={styles.container}>
-      <View>
-        <Text
+      <View style={{ padding: '5%' }}>
+        {/*Right now image is hardcoded but could be made into a switch statement determining image based on category */}
+          <Image source={require('../../../assets/icon.png')}
+            style={{ width: 75, height: 75 }}
+            className="rounded-full"
+          /> 
+      </View>
+    <View>
+      <Text
           numberOfLines={1}
           ellipsizeMode={'tail'}
-          style={{ fontSize: 30, fontFamily: 'VarelaRound_400Regular', color: 'rgb(75,85,99)' }}
+          style={{ fontSize: 30, fontFamily: 'VarelaRound_400Regular', color: 'rgb(255,0,0)' }}
         >
           {title}
         </Text>
-      </View>
-      <View style={{ padding: '5%' }}>
-        {courseIcon !== undefined || courseIcon !== 'https://s3.eu-central-1.amazonaws.com/' || courseIcon !== null || courseIcon !== '' ?
-          <Image source={{ uri: courseIcon }}
-            style={{ width: 50, height: 50 }}
-            className="rounded-xl"
-          /> :
-          <Image source={require('../../../assets/loadingImage.png')}
-            style={{ width: 50, height: 50 }}
-            className="rounded-xl"
-          />
-        }
       </View>
     </View>
   )
@@ -43,9 +39,9 @@ export default function CourseTitleIcon({ title, courseIcon }) {
 
 const styles = StyleSheet.create({
   container: {
-    width: '75%',
-    flexDirection: 'column',
+    width: '100%',
+    flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
 })
