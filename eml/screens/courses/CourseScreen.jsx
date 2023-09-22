@@ -65,7 +65,7 @@ export default function CourseScreen() {
                             <View>
                                 <Pressable
                                     className = " rounded-r-8 rounded-md bg-primary justify-center items-center p-2 h-[52] w-[342] "
-                                    onPress = {() => navigation.navigate('Explore')}>
+                                    /* onPress = {() => navigation.navigate('Explore')}  DOES NOT WORK YET*/ > 
                                     {/* Click to explore courses */}
                                     <Text className = " text-projectWhite font-montserrat-bold text-center text-body " > Explore courses</Text>
                                 </Pressable>
