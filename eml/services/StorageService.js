@@ -279,8 +279,13 @@ export const deleteCourse = async (courseId) => {
     }
   }
 };
+
 export const clearAsyncStorage = async () => {
   console.log(await AsyncStorage.getAllKeys());
   await AsyncStorage.clear();
   console.log(await AsyncStorage.getAllKeys());
 };
+
+
+
+
