@@ -24,12 +24,16 @@ export default function ProfileComponent() {
   const [id, setId] = useState('');
   const [userName, setUserName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [email, setEmail] = useState('');
   const [editingUserName, setEditingUserName] = useState(false);
   const [editingPhoneNumber, setEditingPhoneNumber] = useState(false);
+  const [editingEmail, setEditingEmail] = useState(false);
   const [newUserName, setNewUserName] = useState('');
   const [newPhoneNumber, setNewPhoneNumber] = useState('');
+  const [newEmail, setNewEmail] = useState('');
   const [userNameModalVisible, setUserNameModalVisible] = useState(false);
   const [phoneNumberModalVisible, setPhoneNumberModalVisible] = useState(false);
+  const [emailModalVisible, setEmailModalVisible] = useState(false);
   const [courses, setCourses] = useState([]); // State to store course data
 
   const getProfile = async () => {
@@ -40,6 +44,7 @@ export default function ProfileComponent() {
         setId(fetchedProfile.id);
         setUserName(fetchedProfile.userName);
         setPhoneNumber(fetchedProfile.phoneNumber);
+        setEmail(fetchedProfile.email);
       }
     } catch (e) {
       console.log(e);
@@ -79,6 +84,7 @@ export default function ProfileComponent() {
         id,
         userName: newUserName,
         phoneNumber,
+        email,
       };
 
       await AsyncStorage.setItem(USER_INFO, JSON.stringify(updatedProfile));
@@ -97,12 +103,32 @@ export default function ProfileComponent() {
         id,
         userName,
         phoneNumber: newPhoneNumber,
+        email,
       };
 
       await AsyncStorage.setItem(USER_INFO, JSON.stringify(updatedProfile));
     }
     setEditingPhoneNumber(false);
     setPhoneNumberModalVisible(false); // Close the phone number modal
+  }
+
+  const saveEmailChanges = async () => {
+    if (newEmail !== email) {
+      // Update the state with the new phone number
+      setEmail(newEmail);
+
+      // Save changes to AsyncStorage or your API
+      const updatedProfile = {
+        id,
+        userName,
+        phoneNumber: newPhoneNumber,
+        email,
+      };
+
+      await AsyncStorage.setItem(USER_INFO, JSON.stringify(updatedProfile));
+    }
+    setEditingEmail(false);
+    setEmailModalVisible(false); // Close the phone number modal
   }
 
   if (!isFontsLoaded()) {
@@ -144,9 +170,17 @@ export default function ProfileComponent() {
                 className="bg-primary px-10 py-4 rounded-medium w-full"
                 onPress={() => setPhoneNumberModalVisible(true)}
               >
-                <Text className="text-center font-montserratbold text-body text-white">Phone Number: {phoneNumber}</Text>
+                <Text className="text-center font-montserratbold text-body text-white">
+                  Phone Number: {phoneNumber}</Text>
               </TouchableOpacity>
-  
+
+              <TouchableOpacity
+                className="bg-primary px-10 py-4 rounded-medium w-full"
+                onPress={() => setEmailModalVisible(true)}
+              >
+                <Text className="text-center font-montserratbold text-body text-white">
+                  Email: {email}</Text>
+              </TouchableOpacity>
             </View>
   
             {/* Editable Username Modal */}
@@ -156,22 +190,25 @@ export default function ProfileComponent() {
               visible={userNameModalVisible}
               onRequestClose={() => setUserNameModalVisible(false)}
             >
-              <View className="flex flex-1 justify-center items-center bg-opacity-80 bg-black">
-                <View className="bg-white p-4 rounded-lg">
-                  <TextInput
-                    value={newUserName}
-                    onChangeText={setNewUserName}
-                    placeholder="Enter new username"
-                  />
-                  <TouchableOpacity className="bg-green px-10 py-4 rounded-medium w-full" onPress={savePhoneNumberChanges}>
-                    <Text>Save Changes</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    className="bg-red px-10 py-4 rounded-medium w-full"
-                    onPress={() => setUserNameModalVisible(false)}
-                  >
-                    <Text>Cancel</Text>
-                  </TouchableOpacity>
+              <View className="flex justify-center items-center h-full bg-opacity-50 bg-black">
+                <View className="bg-white p-4 rounded-lg w-11/12 max-w-md">
+                  <View className="flex flex-col items-center">
+                    <TextInput
+                      value={newUserName}
+                      onChangeText={setNewUserName}
+                      placeholder="Enter new username"
+                      className="w-full p-4 mb-4 border rounded"
+                    />
+                    <TouchableOpacity className="bg-primary px-10 py-4 rounded-medium w-full" onPress={saveUserNameChanges}>
+                      <Text className="text-white text-center font-montserratbold">Save Changes</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      className="px-10 py-4 rounded-medium w-full mt-2 border-0 border-opacity-0"
+                      onPress={() => setUserNameModalVisible(false)}
+                    >
+                      <Text className="text-black text-center font-montserratbold">Cancel</Text>
+                    </TouchableOpacity>
+                  </View>
                 </View>
               </View>
             </Modal>
@@ -183,22 +220,55 @@ export default function ProfileComponent() {
               visible={phoneNumberModalVisible}
               onRequestClose={() => setPhoneNumberModalVisible(false)}
             >
-              <View className="flex flex-1 justify-center items-center bg-opacity-80 bg-black">
-                <View className="bg-white p-4 rounded-lg">
-                  <TextInput
-                    value={newPhoneNumber}
-                    onChangeText={setNewPhoneNumber}
-                    placeholder="Enter new phone number"
-                  />
-                  <TouchableOpacity className="bg-green px-10 py-4 rounded-medium w-full" onPress={savePhoneNumberChanges}>
-                    <Text>Save Changes</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    className="bg-red px-10 py-4 rounded-medium w-full"
-                    onPress={() => setPhoneNumberModalVisible(false)}
-                  >
-                    <Text>Cancel</Text>
-                  </TouchableOpacity>
+              <View className="flex justify-center items-center h-full bg-opacity-50 bg-black">
+                <View className="bg-white p-4 rounded-lg w-11/12 max-w-md">
+                  <View className="flex flex-col items-center">
+                    <TextInput
+                      value={newPhoneNumber}
+                      onChangeText={setNewPhoneNumber}
+                      placeholder="Enter new phone number"
+                      className="w-full p-4 mb-4 border rounded"
+                    />
+                    <TouchableOpacity className="bg-primary px-10 py-4 rounded-medium w-full" onPress={savePhoneNumberChanges}>
+                      <Text className="text-white text-center font-montserratbold">Save Changes</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      className="px-10 py-4 rounded-medium w-full mt-2 border-0 border-opacity-0"
+                      onPress={() => setPhoneNumberModalVisible(false)}
+                    >
+                      <Text className="text-black text-center font-montserratbold">Cancel</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </View>
+            </Modal>
+
+            {/* Editable Email Modal */}
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={emailModalVisible}
+              onRequestClose={() => setEmailModalVisible(false)}
+            >
+              <View className="flex justify-center items-center h-full bg-opacity-50 bg-black">
+                <View className="bg-white p-4 rounded-lg w-11/12 max-w-md">
+                  <View className="flex flex-col items-center">
+                    <TextInput
+                      value={newEmail}
+                      onChangeText={setNewEmail}
+                      placeholder="Enter new email address"
+                      className="w-full p-4 mb-4 border rounded"
+                    />
+                    <TouchableOpacity className="bg-primary px-10 py-4 rounded-medium w-full" onPress={saveEmailChanges}>
+                      <Text className="text-white text-center font-montserratbold">Save Changes</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      className="px-10 py-4 rounded-medium w-full mt-2 border-0 border-opacity-0"
+                      onPress={() => setEmailModalVisible(false)}
+                    >
+                      <Text className="text-black text-center font-montserratbold">Cancel</Text>
+                    </TouchableOpacity>
+                  </View>
                 </View>
               </View>
             </Modal>
