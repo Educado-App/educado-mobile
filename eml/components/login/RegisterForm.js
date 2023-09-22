@@ -230,7 +230,9 @@ export default function LoginForm(props) {
             setRealName(realName); validateRealName(realName);
           }}
         />
-        {!isRealNameValid && <Text className='text-xs text-error mx-2 my-1 font-montserrat'>Nome inválido {/* Name invalid */}</Text>}
+        <View className="flex-row items-start h-6">
+          {!isRealNameValid && <Text className='text-xs text-error mx-2 my-1 font-montserrat'>Nome inválido {/* Name invalid */}</Text>}
+        </View>
       </View>
       <View className="mb-6">
         <FormTextField
@@ -244,8 +246,13 @@ export default function LoginForm(props) {
           required={true}
           onChangeText={(email) => { setEmail(email); validateEmail(email); }}
         />
-        {!isEmailValid && <Text className='text-xs text-error mx-2 my-1 font-montserrat'>Email inválido {/* Email invalid */}</Text>}
 
+
+
+        
+        <View className="flex-row items-start h-6">
+          {!isEmailValid && <Text className='text-xs text-error mx-2 my-1 font-montserrat'>Email inválido {/* Email invalid */}</Text>}
+        </View>
       </View>
       <View className="mb-6">
         <View className="relative">
