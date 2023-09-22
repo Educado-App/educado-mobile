@@ -5,19 +5,21 @@ module.exports = {
       colors: {
         // gradient background found in BgLinearGradient.js
         primary: '#5ECCE9',
-        secondary: '#C9E5EC',
-        white: '#FFFFFF',
-        black: '#383838',
-        gray: '#A1ACB2',
+        secondary: '#F1F9FB',
+        projectWhite: '#FFFFFF',
+        projectBlack: '#383838',
+        projectGray: '#A1ACB2',
         error: '#CF6679',
         success: '#00897B',
         disable: '#4AA04A',
         disabled: '#E4F2F5',
-        red: '#FFE4E4',
-        green: '#E4F1E4',
+        projectRed: '#FFE4E4',
+        projectGreen: '#E4F1E4',
       },
       fontFamily: {
         montserrat: 'Montserrat-Regular',
+        'montserrat-bold': 'Montserrat-Bold',
+        'montserrat-semi-bold': 'Montserrat-SemiBold',
       },
       extend: {
         fontSize: {
