@@ -14,10 +14,10 @@ export default function DeleteAccount() {
   async function Delete() {
     try {
       const obj = JSON.parse(await AsyncStorage.getItem(USER_INFO))
-
+      
       if (obj !== null) {
         try {
-          await deleteUser(obj.id)
+          await deleteUser(obj.id) // skift obj.id til users actual id to test this function
             .then(function (response) {
               console.log(response)
               AsyncStorage.multiRemove([LOGIN_TOKEN, USER_INFO]).then((r) => {
@@ -32,6 +32,8 @@ export default function DeleteAccount() {
         } catch (e) {
           console.log(e)
         }
+      } else {
+        Alert.alert('Error', 'User not found')
       }
     } catch (e) {
       console.log(e)
