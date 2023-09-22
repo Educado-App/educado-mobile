@@ -18,6 +18,8 @@ export default function LoginForm(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassowrd] = useState("");
+  const [isEmailValid, setIsEmailValid] = useState(false);
+  const [isRealNameValid, setIsRealNameValid] = useState(false);
 
   // State variable to track password visibility
   const [showPassword, setShowPassword] = useState(false);
@@ -48,8 +50,10 @@ export default function LoginForm(props) {
   };
 
   async function register(email, password) {
-    // clearing input
 
+    // clearing input
+    setIsRealNameValid(false);
+    setIsEmailValid(false);
     setRealName("");
     setEmail("");
     setPassword("");
@@ -103,6 +107,26 @@ export default function LoginForm(props) {
     passwordStrength: password,
   };
 
+  const validateEmail = (email) => {
+    const emailPattern = /^[A-Za-zÀ-ÿ0-9._%+-]+@[A-Za-zÀ-ÿ0-9.-]+\.[A-Za-zÀ-ÿ]{2,4}$/;
+    
+    if (emailPattern.test(email)) {
+      setIsEmailValid(true);
+    } else {
+      setIsEmailValid(false);
+    }
+  }
+
+  const validateRealName = (realName) => {
+    const realNamePattern = /^[A-ZÀ-Ú][a-zà-ú]+([ '-][A-ZÀ-Ú][a-zà-ú]+)*$/;
+    
+    if (realNamePattern.test(realName)) {
+      setIsRealNameValid(true);
+    } else {
+      setIsRealNameValid(false);
+    }
+  }
+
   const showAlert = (error) =>
     Alert.alert(
       error,
@@ -132,9 +156,10 @@ export default function LoginForm(props) {
           placeholder="Nome Sobrenome"
           required={true}
           onChangeText={(realName) => {
-            setRealName(realName);
+            setRealName(realName); validateRealName(realName);
           }}
         />
+        {!isRealNameValid && <Text className='color-error'>Nome inválido</Text>}
       </View>
       <View className="mb-6">
         <FormTextField
@@ -146,8 +171,10 @@ export default function LoginForm(props) {
           placeholder="user@email.com"
           keyboardType="email-address"
           required={true}
-          onChangeText={(email) => setEmail(email)}
+          onChangeText={(email) => { setEmail(email); validateEmail(email);}}
         />
+        {!isEmailValid && <Text className='color-error'>Email inválido</Text>}
+
       </View>
       <View className="mb-6">
         <View className="relative">
