@@ -1,11 +1,8 @@
-import { Text, View, Animated, Modal, Pressable, TouchableWithoutFeedback, Keyboard } from "react-native";
-import { React, useEffect, useState } from "react";
+import { Text, View } from "react-native";
+import { React, useState } from "react";
 import FormTextField from "./FormTextField";
 import FormButton from "./FormButton";
-import { Entypo } from "@expo/vector-icons";
-import EducadoLogo from "../images/EducadoLogo";
 import EducadoModal from "../general/EducadoModal";
-import PasswordEye from "./PasswordEye";
 import EnterNewPasswordScreen from "./EnterNewPasswordScreen";
 
 /**
