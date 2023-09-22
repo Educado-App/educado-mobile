@@ -1,14 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
 import { View, Text, TouchableOpacity, Image, SafeAreaView } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import { BgLinearGradient } from "../../constants/BgLinearGradient";
 import { isFontsLoaded } from "../../constants/Fonts";
 import Sections from '../../constants/PreviewSections';
 import Slick from 'react-native-slick';
 
-const WelcomePage = () => {
+const WelcomePage = ({ navigation }) => {
   // const [currentIndex, setCurrentIndex] = useState(0);
-  const navigation = useNavigation();
   const slick = useRef(null);
 
   const onIndexChanged = (index) => {
@@ -46,7 +44,7 @@ const WelcomePage = () => {
               <View className="px-6">
                 <Text className="text-center font-montserrat-bold text-subheading">{sections.title}</Text>
               </View>
-              
+
               <View className="px-4">
                 <Text className="text-center font-montserrat text-body">{sections.description}</Text>
               </View>

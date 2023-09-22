@@ -1,5 +1,6 @@
-import React from "react";
-import { View } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { NavigationContainer } from "@react-navigation/native";
 import CourseScreen from "./screens/courses/CourseScreen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -19,25 +20,11 @@ import { TailwindProvider } from "tailwindcss-react-native";
 import TestScreen from "./screens/test/TestScreen";
 import ErrorScreen from "./screens/errors/ErrorScreen";
 import SectionCompleteScreen from "./screens/excercise/SectionCompleteScreen";
-import LoadingScreen from "./screens/loading/Loading";
+import Loading from "./components/loading/Loading";
 import WelcomeScreen from "./screens/welcome/Welcome";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
-
-function LoadingStack() {
-  return (
-    <Stack.Navigator initialRouteName={"Loading"}>
-      <Stack.Screen
-        name="Loading"
-        component={LoadingScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-    </Stack.Navigator>
-  );
-}
 
 function WelcomeStack() {
   return (
@@ -222,20 +209,58 @@ function HomeStack() {
   );
 }
 
+function useWelcomeScreenLogic() {
+  const [hasShownWelcome, setHasShownWelcome] = useState(false);
+  const [initialRoute, setInitialRoute] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+
+  // For dev purposes only - remove before production
+  AsyncStorage.setItem("hasShownWelcome", "false");
+  
+  useEffect(() => {
+    setTimeout(() => {
+      const fetchData = async () => {
+        try {
+          const value = await AsyncStorage.getItem("hasShownWelcome");
+          if (value === "true") {
+            setInitialRoute("LoginStack");
+          } else {
+            await AsyncStorage.setItem("hasShownWelcome", "true");
+            setHasShownWelcome(true); // Use the passed-in setHasShownWelcome
+            setInitialRoute("WelcomeStack");
+          }
+        } catch (error) {
+          console.error("Error retrieving or setting AsyncStorage data:", error);
+        } finally {
+          setIsLoading(false);
+        }
+      };
+
+      fetchData();
+    }, 3000);
+  }, []);
+  
+  return { initialRoute, isLoading };
+}
+
+
 // Change InitialRouteName to HomeStack if you want to skip Login Screen
 export default function App() {
+  const { initialRoute, isLoading } = useWelcomeScreenLogic();
+
+  if (isLoading) {
+    return (
+      <Loading />
+    )
+  }
+
   return (
     <TailwindProvider>
       <>
         <IconRegistry icons={EvaIconsPack} />
         <ApplicationProvider {...eva} theme={eva.light}>
           <NavigationContainer>
-            <Stack.Navigator initialRouteName={"LoadingStack"}>
-              <Stack.Screen
-                name={"LoadingStack"}
-                component={LoadingStack}
-                options={{ headerShown: false }}
-              />
+            <Stack.Navigator initialRouteName={initialRoute}>
               <Stack.Screen
                 name={"WelcomeStack"}
                 component={WelcomeStack}
