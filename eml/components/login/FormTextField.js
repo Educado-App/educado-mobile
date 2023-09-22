@@ -16,7 +16,8 @@ import { Text, View, TextInput } from "react-native";
  * - value: Value of the input
  * - bordered: Whether to display a border
  * - error: Whether to display an error border
- * @returns 
+ * @returns {React.Element} Text component for entering data
+
  */
 export default function FormTextField(props) {
 
@@ -30,7 +31,7 @@ export default function FormTextField(props) {
   /**
    * Function to display password guidelines
    * @param {Object} props Not used as of now
-   * @returns 
+   * @returns {React.Component} Password guidelines component
    */
   const displayPasswordGuidelines = (props) => {
     if (props.passwordGuidelines) {

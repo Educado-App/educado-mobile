@@ -1,10 +1,16 @@
 import { React } from 'react';
 import { View, Text, Modal, Pressable } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { Entypo } from '@expo/vector-icons';
 import EducadoLogo from '../images/EducadoLogo';
 
-
+/**
+ * 
+ * @param {Object} props Possible properties:
+ * - modalVisible: Boolean declaring if modal is visible
+ * - closeModal: Function for closing modal
+ * - title: String for modal title
+ * @returns 
+ */
 export default function EducadoModal(props) {
 
   return (

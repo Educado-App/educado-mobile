@@ -14,13 +14,25 @@ const USER_INFO = "@userInfo";
 
 //When Logout: back button should be disabled!!!!
 
+/**
+ * Login form component for login screen containing email and password input fields and a login button.
+ * @param {Object} props not used in this component as of now
+ * @returns {React.Element} Component for logging in (login screen)
+ */
 export default function LoginForm(props) {
+
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
 
+  /**
+   * Logs user in with the entered credentials 
+   * @param {String} email Email user tries to login with
+   * @param {String} password Password user tries to login with
+   */
   async function login(email, password) {
+    
     //clearing input
     setEmail("");
     setPassword("");
@@ -64,7 +76,7 @@ export default function LoginForm(props) {
       console.log(e);
     }
   }
-
+  // Function to close modal
   const closeModal = () => {
     setModalVisible(false);
   };
@@ -91,9 +103,9 @@ export default function LoginForm(props) {
 
       <View className="relative mb-6">
         <FormTextField
-          placeholder="********"
+          placeholder="Entre sua senha" // Enter your password
           onChangeText={(password) => setPassword(password)}
-          label="Senha"
+          label="Senha" // Password
           required={true}
           secureTextEntry={!showPassword}
         />
@@ -111,12 +123,14 @@ export default function LoginForm(props) {
           Esqueceu a senha?
         </Text>
       </View>
+      {/* Enter */}
       <FormButton label="Entrar" />
       <View className="pt-10">
         {modalVisible ? (
           <ResetPassword
             modalVisible={modalVisible}
             onModalClose={closeModal}
+            // Reset password
             title="Redefinção de senha"
           />
         ) : null}

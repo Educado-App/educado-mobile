@@ -32,12 +32,6 @@ export const registerUser = async (obj) => {
   return res.data
 }
 
-/*export const registerUser = async (obj) => {
-  const res = await client.get('/api/hello/helloworld')
-  console.log(res)
-  return res.data
-}*/
-
 export const loginUser = async (obj) => {
   const res = await axios.post(url + '/api/eml/login', obj)
   return res.data

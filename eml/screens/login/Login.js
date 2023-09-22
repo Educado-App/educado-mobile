@@ -11,27 +11,26 @@ const STORAGE_ID = "@local_id";
 const STORAGE_PROGRESS = "@storage_progress";
 const LOGIN_TOKEN = "@loginToken";
 
+/**
+ * Login screen component containing a login form and possibilities of resetting password or registering a new user.
+ * @param {Object} props not used in this component as of now
+ */
 export default function Login(props) {
   const navigation = useNavigation();
-
-  // Check if local user id is set
-  // If not, then generate and save
-  // If yes, then continue
-  // Check if language and country is set
-  // If not, then prompt user and save
-  // If yes, then continue
-
   const [localId, setLocalId] = useState(String(Date.now)); // Local state variable for storing local user id
   // eslint-disable-next-line no-unused-vars
   const [loginToken, setLoginToken] = useState("");
 
-  // Function for reading local user id from async local storage
+  /**
+   * Function for reading local user id from async local storage
+   */
   // eslint-disable-next-line no-unused-vars
   const readId = async () => {
     try {
       const fetchedLocalId = await AsyncStorage.getItem(STORAGE_ID);
-
+      // Check if local user id is set
       if (fetchedLocalId !== null) {
+        // If not, then generate and save
         setLocalId(fetchedLocalId);
         console.log("Already set, now logged in!");
         const obj = {
@@ -42,6 +41,7 @@ export default function Login(props) {
 
         await AsyncStorage.setItem(STORAGE_PROGRESS, JSON.stringify(obj));
       } else {
+        // If yes, then continue
         try {
           await AsyncStorage.setItem(STORAGE_ID, localId);
 
@@ -64,6 +64,9 @@ export default function Login(props) {
     }
   };
 
+  /**
+   * Function for checking if a login token is stored in async local storage (i.e. if the user is already logged in)
+   */
   const checkLoginToken = async () => {
     try {
       const fetchedToken = await AsyncStorage.getItem(LOGIN_TOKEN);
@@ -101,7 +104,7 @@ export default function Login(props) {
         {/* Register button */}
         <View className="flex-row justify-center">
           <Text className="font-montserrat text-base text-gray mr-1">
-            Ainda não tem conta?
+            Ainda não tem conta? {/*  */}
           </Text>
           <Text
             className="font-montserrat text-base text-black underline"

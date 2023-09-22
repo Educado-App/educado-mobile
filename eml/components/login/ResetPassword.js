@@ -6,21 +6,22 @@ import { Entypo } from "@expo/vector-icons";
 import EducadoLogo from "../images/EducadoLogo";
 import EducadoModal from "../general/EducadoModal";
 import PasswordEye from "./PasswordEye";
+import EnterNewPasswordScreen from "./EnterNewPasswordScreen";
 
+/**
+ * Component to create modal (popup) that prompts user for
+ * email and code from email to reset password
+ * @param {Object} props Should contain the following properties
+ * - modalVisible: Boolean to show if modal should be visible
+ * - onModalClose: Function to do when modal closes
+ */
 export default function ResetPassword(props) {
   const [emailSent, setEmailSent] = useState(false);
   const [codeEntered, setCodeEntered] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const closeModal = () => {
     props.onModalClose();
   };
-
-  const toggleShowPassword = (cb, password) => {
-    cb(!password);
-  }
-
 
   return (
     <EducadoModal modalVisible={props.modalVisible} closeModal={closeModal} title="Redefinção de senha">
@@ -38,56 +39,37 @@ export default function ResetPassword(props) {
               {emailSent ? (
                 <View>
                   <Text className="text-left mb-[10px]">
+                    {/* We have sent a code to your mail to reset password,
+                    please enter the same code below */}
                     Enviamos um código par ao seu email de redefinição de senha,
                     por favor, insira o mesmo abaixo
                   </Text>
                   <FormTextField placeholder="X X X X" onChangeText={""} />
                   <View className="mt-[40px] mb-[24px]">
                     <FormButton
+                      // Continue 
                       label="Continuar"
                       onPress={() => setCodeEntered(true)}
                     />
                   </View>
                   <View className="mx-10 flex-row justify-center">
+                    {/* Didn't the code arrive?*/}
                     <Text>O código não chegou?</Text>
+                    {/* Resend code*/}
                     <Text className="underline ml-1">Reenviar cógio</Text>
                   </View>
                 </View>
               ) : (
                 <FormButton
-                  label="Enviar código"
+                  // Send code
+                  label="Enviar código" 
                   onPress={() => setEmailSent(true)}
                 />
               )}
             </View>
           </View>
         ) : (
-          <View>
-            <View>
-              <FormTextField
-                placeholder="Senha"
-                onChangeText={""}
-                label="Nova senha"
-                required={true}
-                bordered={true}
-                secureTextEntry={!showPassword}
-                passwordGuidelines={true}
-              />
-              <PasswordEye showPasswordIcon={showPassword} toggleShowPassword={() => toggleShowPassword(setShowPassword, showPassword)} />
-            </View>
-            <View className="mt-[24px] mb-[40px]">
-              <FormTextField
-                placeholder="Senha"
-                bordered={true}
-                onChangeText={""}
-                label="Confirmar nova senha"
-                required={true}
-                secureTextEntry={!showConfirmPassword}
-              />
-              <PasswordEye showPasswordIcon={showConfirmPassword} toggleShowPassword={() => toggleShowPassword(setShowConfirmPassword, showConfirmPassword)} />
-            </View>
-            <FormButton label="Entrar" />
-          </View>
+          <EnterNewPasswordScreen />
         )}
       </View>
     </EducadoModal>

@@ -1,6 +1,15 @@
 import { View, Image } from "react-native";
 import LeaveButton from "../exercise/LeaveButton";
+import EducadoLogo from "../images/EducadoLogo";
 
+
+/**
+ * Component that includes, logo, title and backbutton, used in login and register screens
+ * @param {Object} props Should contain the following properties:
+ * - navigationPlace: String
+ * @returns {React.Element} Header/logo/back button component
+
+ */
 export default function LogoBackButton(props) {
 
   return (
@@ -12,11 +21,7 @@ export default function LogoBackButton(props) {
         />
       </View>
       {/* Educado logo */}
-      <Image
-        source={require('../../assets/logo_educado.png')}
-        className='h-12'
-        resizeMode='contain'
-      />
+      <EducadoLogo/>
     </View>
   )
 }
