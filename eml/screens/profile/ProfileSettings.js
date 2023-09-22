@@ -129,6 +129,7 @@ export default function ProfileComponent() {
                   source={require("../../assets/images/left_arrow.png")}
                 />
                 <Image
+                  className= "h-[25.54] w-[175.88]"
                   source={require("../../assets/images/logo.png")}
                 />
               </View>

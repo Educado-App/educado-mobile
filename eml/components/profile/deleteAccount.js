@@ -17,7 +17,7 @@ export default function DeleteAccount() {
 
       if (obj !== null) {
         try {
-          await deleteUser(obj.id)
+          await deleteUser(obj.id) // skift obj.id til users actual id to test this function
             .then(function (response) {
               console.log(response)
               AsyncStorage.multiRemove([LOGIN_TOKEN, USER_INFO]).then((r) => {
