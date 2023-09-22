@@ -16,6 +16,7 @@ import { isFontsLoaded } from "../../constants/Fonts.js";
 import { BgLinearGradient } from "../../constants/BgLinearGradient";
 import { getCourses } from '../../api/api';
 import { useNavigation } from '@react-navigation/native'
+import ReturnButton from '../../components/profile/returnButton'
 
 const USER_INFO = '@userInfo';
 
@@ -104,14 +105,6 @@ export default function ProfileComponent() {
     setPhoneNumberModalVisible(false); // Close the phone number modal
   }
 
-
-  const navigation = useNavigation()
-  
-  const handleBackButtonPress = () => {
-    console.log('Profile');
-    navigation.navigate('LoginScreen');
-  }
-
   if (!isFontsLoaded()) {
     return null;
   }
@@ -123,12 +116,10 @@ export default function ProfileComponent() {
           <View className="justify-center items-center flex flex-col">
   
             <View className="flex p-10">
-              <View className="flex flex-row items-center">
+              <View className="flex-row">
+                <ReturnButton className = "object-left"></ReturnButton>
                 <Image
-                  onPress={handleBackButtonPress}
-                  source={require("../../assets/images/left_arrow.png")}
-                />
-                <Image
+                  className = "h-[25.54] w-[175.88]"
                   source={require("../../assets/images/logo.png")}
                 />
               </View>
@@ -144,7 +135,7 @@ export default function ProfileComponent() {
                 className="bg-primary px-10 py-4 rounded-medium w-full"
                 onPress={() => setUserNameModalVisible(true)}
               >
-                <Text className="text-center font-montserrat-bold text-body text-white">
+                <Text className="text-center font-montserratbold text-body text-white">
                   Username: {userName}
                 </Text>
               </TouchableOpacity>
@@ -153,7 +144,7 @@ export default function ProfileComponent() {
                 className="bg-primary px-10 py-4 rounded-medium w-full"
                 onPress={() => setPhoneNumberModalVisible(true)}
               >
-                <Text className="text-center font-montserrat-bold text-body text-white">Phone Number: {phoneNumber}</Text>
+                <Text className="text-center font-montserratbold text-body text-white">Phone Number: {phoneNumber}</Text>
               </TouchableOpacity>
   
             </View>
@@ -172,10 +163,11 @@ export default function ProfileComponent() {
                     onChangeText={setNewUserName}
                     placeholder="Enter new username"
                   />
-                  <TouchableOpacity onPress={saveUserNameChanges}>
+                  <TouchableOpacity className="bg-green px-10 py-4 rounded-medium w-full" onPress={savePhoneNumberChanges}>
                     <Text>Save Changes</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
+                    className="bg-red px-10 py-4 rounded-medium w-full"
                     onPress={() => setUserNameModalVisible(false)}
                   >
                     <Text>Cancel</Text>
@@ -198,10 +190,11 @@ export default function ProfileComponent() {
                     onChangeText={setNewPhoneNumber}
                     placeholder="Enter new phone number"
                   />
-                  <TouchableOpacity onPress={savePhoneNumberChanges}>
+                  <TouchableOpacity className="bg-green px-10 py-4 rounded-medium w-full" onPress={savePhoneNumberChanges}>
                     <Text>Save Changes</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
+                    className="bg-red px-10 py-4 rounded-medium w-full"
                     onPress={() => setPhoneNumberModalVisible(false)}
                   >
                     <Text>Cancel</Text>
