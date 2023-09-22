@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import { View, Text, TouchableOpacity, Image, SafeAreaView } from "react-native";
 import { BgLinearGradient } from "../../constants/BgLinearGradient";
 import { isFontsLoaded } from "../../constants/Fonts";
