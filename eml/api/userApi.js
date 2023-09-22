@@ -7,6 +7,9 @@ const digitalOcean = 'http://207.154.213.68:8888'
 
 const url = test;
 
+/**
+ * This is the client that will be used to make requests to the backend.
+ */
 export const client = axios.create({
   baseURL: test,
   withCredentials: true,
@@ -14,6 +17,14 @@ export const client = axios.create({
   timeout: 30000,
 });
 
+/**
+ * Sends a request to the backend to register a new user.
+ * @param {Object} obj Should contain the following properties:
+ * - name
+ * - email
+ * - password
+ * @returns 
+ */
 export const registerUser = async (obj) => {
   console.log(obj)
   console.log(client);
