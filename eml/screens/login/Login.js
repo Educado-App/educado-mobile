@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { View, Text } from "react-native";
+import { View, Text, Keyboard } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import LoginForm from "../../components/login/LoginForm";
 import LogoBackButton from "../../components/login/LogoBackButton";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { isFontsLoaded } from "../../constants/Fonts.js";
+import { TouchableWithoutFeedback } from "react-native";
 
 const STORAGE_ID = "@local_id";
 const STORAGE_PROGRESS = "@storage_progress";
@@ -93,27 +94,31 @@ export default function Login(props) {
 
   return (
     <SafeAreaView className="justify-start bg-secondary flex-1">
-      <View className="mt-10">
-        <LogoBackButton navigationPlace="Login" />
-      </View>
-      <View className="mx-6">
-        {/* Login form */}
-        <View className="my-8">
-          <LoginForm />
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View>
+          <View className="mt-10">
+            <LogoBackButton navigationPlace="Login" />
+          </View>
+          <View className="mx-6">
+            {/* Login form */}
+            <View className="my-8">
+              <LoginForm />
+            </View>
+            {/* Register button */}
+            <View className="flex-row justify-center">
+              <Text className="font-montserrat text-base text-gray mr-1">
+                Ainda não tem conta? {/*  */}
+              </Text>
+              <Text
+                className="font-montserrat text-base text-black underline"
+                onPress={() => navigation.navigate("Register")}
+              >
+                Cadastre-se agora
+              </Text>
+            </View>
+          </View>
         </View>
-        {/* Register button */}
-        <View className="flex-row justify-center">
-          <Text className="font-montserrat text-base text-gray mr-1">
-            Ainda não tem conta? {/*  */}
-          </Text>
-          <Text
-            className="font-montserrat text-base text-black underline"
-            onPress={() => navigation.navigate("Register")}
-          >
-            Cadastre-se agora
-          </Text>
-        </View>
-      </View>
+      </TouchableWithoutFeedback>
     </SafeAreaView>
   );
 }
