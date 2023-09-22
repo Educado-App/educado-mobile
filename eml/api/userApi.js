@@ -18,7 +18,7 @@ export const loginUser = async (obj) => {
 }
 
 export const deleteUser = async(user_id) => {
-    const res = await axios.delete(url + "/api/eml/delete/" + user_id);
+    const res = await axios.delete(url + "/api/user/delete/" + user_id);
     return res.data;
 }
 
