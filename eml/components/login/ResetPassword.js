@@ -4,34 +4,26 @@ import FormTextField from "./FormTextField";
 import FormButton from "./FormButton";
 import { Entypo } from "@expo/vector-icons";
 import EducadoLogo from "../images/EducadoLogo";
+import EducadoModal from "../general/EducadoModal";
+import PasswordEye from "./PasswordEye";
 
 export default function ResetPassword(props) {
   const [emailSent, setEmailSent] = useState(false);
   const [codeEntered, setCodeEntered] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const closeModal = () => {
     props.onModalClose();
   };
 
+  const toggleShowPassword = (cb, password) => {
+    cb(!password);
+  }
+
+
   return (
-    <Modal
-      visible={props.modalVisible}
-      animationType="slide"
-      className="border-8 border-black bg-modalBackground"
-    >
-      <View className="flex justify-center pt-[40px]">
-        <View className="flex flex-row justify-end px-10">
-          <Pressable onPress={closeModal}>
-            <Entypo name="chevron-down" size={24} />
-          </Pressable>
-        </View>
-        <View className="flex flex-row justify-center my-10">
-          <EducadoLogo className="" />
-        </View>
-        <View className="flex flex-row justify-start px-10">
-          <Text className="text-center text-[24px]">Redefinção de senha</Text>
-        </View>
-      </View>
+    <EducadoModal modalVisible={props.modalVisible} closeModal={closeModal} title="Redefinção de senha">
       <View className="my-[80px] px-10">
         {!codeEntered ? (
           <View>
@@ -71,24 +63,33 @@ export default function ResetPassword(props) {
           </View>
         ) : (
           <View>
-            <FormTextField
-              placeholder="Senha"
-              onChangeText={""}
-              label="Nova senha"
-              required={true}
-            />
-            <View className="mt-[24px] mb-[40px]">
+            <View>
               <FormTextField
                 placeholder="Senha"
                 onChangeText={""}
+                label="Nova senha"
+                required={true}
+                bordered={true}
+                secureTextEntry={!showPassword}
+                passwordGuidelines={true}
+              />
+              <PasswordEye showPasswordIcon={showPassword} toggleShowPassword={() => toggleShowPassword(setShowPassword, showPassword)} />
+            </View>
+            <View className="mt-[24px] mb-[40px]">
+              <FormTextField
+                placeholder="Senha"
+                bordered={true}
+                onChangeText={""}
                 label="Confirmar nova senha"
                 required={true}
+                secureTextEntry={!showConfirmPassword}
               />
+              <PasswordEye showPasswordIcon={showConfirmPassword} toggleShowPassword={() => toggleShowPassword(setShowConfirmPassword, showConfirmPassword)} />
             </View>
             <FormButton label="Entrar" />
           </View>
         )}
       </View>
-    </Modal>
+    </EducadoModal>
   );
 }

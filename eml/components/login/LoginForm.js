@@ -117,6 +117,7 @@ export default function LoginForm(props) {
           <ResetPassword
             modalVisible={modalVisible}
             onModalClose={closeModal}
+            title="Redefinção de senha"
           />
         ) : null}
       </View>
