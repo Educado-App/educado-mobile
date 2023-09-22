@@ -117,9 +117,9 @@ export default function ProfileComponent() {
   
             <View className="flex p-10">
               <View className="flex-row">
-                <ReturnButton className = "object-left"></ReturnButton>
+                <ReturnButton></ReturnButton>
                 <Image
-                  className = "h-[25.54] w-[175.88]"
+                  className = "h-[25.54] w-[175.88] right-5"
                   source={require("../../assets/images/logo.png")}
                 />
               </View>

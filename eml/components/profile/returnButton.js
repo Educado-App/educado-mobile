@@ -20,7 +20,7 @@ export default function ReturnButton() {
     <View>
       <TouchableOpacity onPress={handleBackButtonPress}>
         <Image
-          className = "w-[30] h-[30]"
+          className = "w-[30] h-[30] right-20"
           source={require("../../assets/images/left_arrow.png")}
         />
       </TouchableOpacity>    
