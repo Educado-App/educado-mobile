@@ -76,8 +76,8 @@ export default function LoginForm(props) {
    * @param {String} password
    */
   async function register(realName, email, password) {
-
-    if(!validateInput(realName, email, password)) {
+    validateInput(realName, email, password)
+    if(!isAllInputValid) {
       return;
     }
 
@@ -111,11 +111,6 @@ export default function LoginForm(props) {
    * Function for validating all input fields' content
    */
   function validateInput() {
-    console.log("isRealNameValid: " + isRealNameValid +
-      "\nisEmailValid: " + isEmailValid +
-      "\npasswordLengthValid: " + passwordLengthValid +
-      "\npasswordContainsLetter: " + passwordContainsLetter +
-      "\npasswordMatches: " + passwordMatches);
     if (isRealNameValid && isEmailValid && passwordLengthValid
       && passwordContainsLetter && passwordMatches) {
       setIsAllInputValid(true);
