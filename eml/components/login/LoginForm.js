@@ -33,8 +33,7 @@ export default function LoginForm(props) {
    */
   async function login(email, password) {
     
-    //clearing input
-    setEmail("");
+    //clearing password field
     setPassword("");
 
     // Checking if font is loaded
