@@ -26,9 +26,9 @@ export const client = axios.create({
  * @returns 
  */
 export const registerUser = async (obj) => {
-  console.log(obj)
-  console.log(client);
+  console.log("User " +(obj.name ? obj.name : "undefined") + " with email " + (obj.email ? obj.email : "undefined") + " is trying to register.");
   const res = await client.post('/api/signup/user', obj)
+  console.log("User " + (obj.name ? obj.name : "undefined") + " with email " + (obj.email ? obj.email : "undefined") + " has been registered.");
   return res.data
 }
 
