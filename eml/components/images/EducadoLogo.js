@@ -6,7 +6,8 @@ export default function EducadoLogo(props) {
   return (
     <Image
       source={require('../../assets/logo_educado.png')}
-      className={props.className + 'h-12'}
+      style={props.style}
+      className={'h-12'}
       resizeMode='contain'
     />
   );
