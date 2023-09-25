@@ -19,6 +19,7 @@ import { TailwindProvider } from 'tailwindcss-react-native';
 import TestScreen from './screens/test/TestScreen';
 import ErrorScreen from './screens/errors/ErrorScreen';
 import SectionCompleteScreen from './screens/excercise/SectionCompleteScreen';
+import NavBar from './components/navBar/NavBar'; // Import the NavBar component
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -91,108 +92,6 @@ function LoginStack() {
     </Stack.Navigator>
   );
 }
-function HomeStack() {
-  return (
-    <Tab.Navigator
-      initialRouteName={'Home'}
-      screenOptions={{
-        tabBarActiveTintColor: 'black',
-        tabBarActiveBackgroundColor: '#d9d9d9',
-        tabBarStyle: { backgroundColor: 'hsl(0, 0%, 92%)' }, //Oneplus menubar color
-      }}
-    >
-      <Tab.Screen
-        //Home
-        name="Casa"
-        component={CourseStack}
-        options={{
-          headerShown: false,
-          tabBarIcon: () => {
-            return (
-              <Icon
-                size={20}
-                name="home-outline"
-                type="material-community"
-                color="#8DD08C"
-              />
-            );
-          },
-        }}
-      />
-      <Tab.Screen
-      // Explore
-        name="Explorar"
-        component={Explore}
-        options={{
-          headerShown: false,
-          tabBarIcon: () => {
-            return (
-              <Icon
-                size={20}
-                name="compass-outline"
-                type="material-community"
-                color="#8DD08C"
-              />
-            );
-          },
-        }}
-      />
-      <Tab.Screen
-        name="TestScreen"
-        component={TestScreen}
-        options={{
-          headerShown: false,
-          tabBarIcon: () => {
-            return (
-              <Icon
-                size={20}
-                name="spider"
-                type="material-community"
-                color="#8DD08C"
-              />
-            );
-          },
-        }}
-      />
-      
-      <Tab.Screen
-        //Perfil
-        name="Perfil"
-        component={ProfileComponent}
-        options={{
-          headerShown: false,
-          tabBarIcon: () => {
-            return (
-              <Icon
-                size={20}
-                name="account-outline"
-                type="material-community"
-                color="#8DD08C"
-              />
-            );
-          },
-        }}
-      />
-      {/*       <Tab.Screen
-        name="TestScreen"
-        component={TestScreen}
-        options={{
-          headerShown: false,
-          tabBarIcon: () => {
-            return (
-              <Icon
-                size={30}
-                name="home"
-                type="material-community"
-                color="black"
-              />
-            );
-          },
-        }}
-      /> */}
-    </Tab.Navigator>
-  );
-}
 
 // Change InitialRouteName to HomeStack if you want to skip Login Screen
 export default function App() {
@@ -210,7 +109,7 @@ export default function App() {
               />
               <Stack.Screen
                 name={'HomeStack'}
-                component={HomeStack}
+                component={NavBar} // Use the NavBar component here
                 options={{ headerShown: false }}
               />
             </Stack.Navigator>
