@@ -6,6 +6,7 @@ const digitalOcean = 'http://207.154.213.68:8888';
 
 const url = digitalOcean;
 
+
 // Find a solution to refresh auth-token
 const authToken = '';
 const authBody = {
@@ -92,12 +93,13 @@ export const subscribeToCourse = async (course_id) => {
   // Send request to S3 server
   const res = await axios.post(url + '/api/course/eml/' + course_id + '/subscribe');
 
+
+
   return res.data;
 };
 
 
 // get user subsribtions
-
 export const getSubsribtions = async (user_id) => {
 
   // Send request to S3 server
