@@ -96,6 +96,7 @@ function LoginStack() {
 // Change InitialRouteName to HomeStack if you want to skip Login Screen
 export default function App() {
   return (
+
     <TailwindProvider>
       <>
         <IconRegistry icons={EvaIconsPack} />
