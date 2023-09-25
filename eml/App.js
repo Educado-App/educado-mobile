@@ -111,7 +111,7 @@ function HomeStack() {
             return (
               <Icon
                 size={30}
-                name="home"
+                name="home-outline"
                 type="material-community"
                 color="#8DD08C"
               />
@@ -129,7 +129,7 @@ function HomeStack() {
             return (
               <Icon
                 size={30}
-                name="magnify"
+                name="compass-outline"
                 type="material-community"
                 color="#8DD08C"
               />
@@ -146,7 +146,7 @@ function HomeStack() {
             return (
               <Icon
                 size={30}
-                name="home"
+                name="spider"
                 type="material-community"
                 color="black"
               />
