@@ -120,24 +120,6 @@ function HomeStack() {
         }}
       />
       <Tab.Screen
-        //Perfil
-        name="Perfil"
-        component={ProfileComponent}
-        options={{
-          headerShown: false,
-          tabBarIcon: () => {
-            return (
-              <Icon
-                size={30}
-                name="account-circle"
-                type="material-community"
-                color="#8DD08C"
-              />
-            );
-          },
-        }}
-      />
-      <Tab.Screen
       // Explore
         name="Explorar"
         component={Explore}
@@ -148,6 +130,42 @@ function HomeStack() {
               <Icon
                 size={30}
                 name="magnify"
+                type="material-community"
+                color="#8DD08C"
+              />
+            );
+          },
+        }}
+      />
+      <Tab.Screen
+        name="TestScreen"
+        component={TestScreen}
+        options={{
+          headerShown: false,
+          tabBarIcon: () => {
+            return (
+              <Icon
+                size={30}
+                name="home"
+                type="material-community"
+                color="black"
+              />
+            );
+          },
+        }}
+      />
+      
+      <Tab.Screen
+        //Perfil
+        name="Perfil"
+        component={ProfileComponent}
+        options={{
+          headerShown: false,
+          tabBarIcon: () => {
+            return (
+              <Icon
+                size={30}
+                name="account-circle"
                 type="material-community"
                 color="#8DD08C"
               />
@@ -184,7 +202,7 @@ export default function App() {
         <IconRegistry icons={EvaIconsPack} />
         <ApplicationProvider {...eva} theme={eva.light}>
           <NavigationContainer>
-            <Stack.Navigator initialRouteName={'LoginStack'}>
+            <Stack.Navigator initialRouteName={'HomeStack'}>
               <Stack.Screen
                 name={'LoginStack'}
                 component={LoginStack}
