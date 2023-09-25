@@ -17,8 +17,8 @@ module.exports = {
         green: '#E4F1E4',
       },
       fontFamily: {
-        montserrat: 'Montserrat-Regular',
-        montserratbold: 'Montserrat-Bold',
+        "montserrat": 'Montserrat-Regular',
+        "montserrat-bold": 'Montserrat-Bold',
       },
       extend: {
         fontSize: {

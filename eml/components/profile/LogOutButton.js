@@ -1,7 +1,6 @@
-import { StyleSheet, View, TouchableOpacity, Alert } from 'react-native'
+import { StyleSheet, View, TouchableOpacity, Alert, Text } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { Text } from '@rneui/base'
 
 const LOGIN_TOKEN = '@loginToken'
 const USER_INFO = '@userInfo'

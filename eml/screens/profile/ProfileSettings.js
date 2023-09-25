@@ -161,7 +161,7 @@ export default function ProfileComponent() {
                 className="bg-primary px-10 py-4 rounded-medium w-full"
                 onPress={() => setUserNameModalVisible(true)}
               >
-                <Text className="text-center font-montserratbold text-body text-white">
+                <Text className="text-center font-montserrat-bold text-body text-white">
                   Username: {userName}
                 </Text>
               </TouchableOpacity>
@@ -170,7 +170,7 @@ export default function ProfileComponent() {
                 className="bg-primary px-10 py-4 rounded-medium w-full"
                 onPress={() => setPhoneNumberModalVisible(true)}
               >
-                <Text className="text-center font-montserratbold text-body text-white">
+                <Text className="text-center font-montserrat-bold text-body text-white">
                   Phone Number: {phoneNumber}</Text>
               </TouchableOpacity>
 
@@ -178,7 +178,7 @@ export default function ProfileComponent() {
                 className="bg-primary px-10 py-4 rounded-medium w-full"
                 onPress={() => setEmailModalVisible(true)}
               >
-                <Text className="text-center font-montserratbold text-body text-white">
+                <Text className="text-center font-montserrat-bold text-body text-white">
                   Email: {email}</Text>
               </TouchableOpacity>
             </View>
@@ -200,13 +200,13 @@ export default function ProfileComponent() {
                       className="w-full p-4 mb-4 border rounded"
                     />
                     <TouchableOpacity className="bg-primary px-10 py-4 rounded-medium w-full" onPress={saveUserNameChanges}>
-                      <Text className="text-white text-center font-montserratbold">Save Changes</Text>
+                      <Text className="text-white text-center font-montserrat-bold">Save Changes</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                       className="px-10 py-4 rounded-medium w-full mt-2 border-0 border-opacity-0"
                       onPress={() => setUserNameModalVisible(false)}
                     >
-                      <Text className="text-black text-center font-montserratbold">Cancel</Text>
+                      <Text className="text-black text-center font-montserrat-bold">Cancel</Text>
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -230,13 +230,13 @@ export default function ProfileComponent() {
                       className="w-full p-4 mb-4 border rounded"
                     />
                     <TouchableOpacity className="bg-primary px-10 py-4 rounded-medium w-full" onPress={savePhoneNumberChanges}>
-                      <Text className="text-white text-center font-montserratbold">Save Changes</Text>
+                      <Text className="text-white text-center font-montserrat-bold">Save Changes</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                       className="px-10 py-4 rounded-medium w-full mt-2 border-0 border-opacity-0"
                       onPress={() => setPhoneNumberModalVisible(false)}
                     >
-                      <Text className="text-black text-center font-montserratbold">Cancel</Text>
+                      <Text className="text-black text-center font-montserrat-bold">Cancel</Text>
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -260,13 +260,13 @@ export default function ProfileComponent() {
                       className="w-full p-4 mb-4 border rounded"
                     />
                     <TouchableOpacity className="bg-primary px-10 py-4 rounded-medium w-full" onPress={saveEmailChanges}>
-                      <Text className="text-white text-center font-montserratbold">Save Changes</Text>
+                      <Text className="text-white text-center font-montserrat-bold">Save Changes</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                       className="px-10 py-4 rounded-medium w-full mt-2 border-0 border-opacity-0"
                       onPress={() => setEmailModalVisible(false)}
                     >
-                      <Text className="text-black text-center font-montserratbold">Cancel</Text>
+                      <Text className="text-black text-center font-montserrat-bold">Cancel</Text>
                     </TouchableOpacity>
                   </View>
                 </View>

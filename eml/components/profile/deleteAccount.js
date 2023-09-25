@@ -1,7 +1,6 @@
-import { StyleSheet, View, TouchableOpacity, Alert } from 'react-native'
+import { StyleSheet, View, TouchableOpacity, Alert, Text } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { Text } from '@rneui/base'
 import { deleteUser, loginUser } from '../../api/userApi'
 import {clearAsyncStorage} from "../../services/StorageService";
 
@@ -52,7 +51,7 @@ export default function DeleteAccount() {
 
   return (
     <View className="flex items-center px-6 w-screen my-3">
-      <TouchableOpacity className="bg-red px-10 py-4 rounded-medium w-full" onPress={deleteAlert}>
+      <TouchableOpacity className="bg-error px-10 py-4 rounded-medium w-full" onPress={deleteAlert}>
         <View className="flex flex-row items-center justify-center">
           <Text className="text-center font-montserrat-bold text-body text-white">Deletar conta</Text>
         </View>
