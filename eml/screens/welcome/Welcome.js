@@ -8,6 +8,8 @@ import Slick from 'react-native-slick';
 
 const WelcomePage = ({ navigation }) => {
   const slick = useRef(null);
+  const tailwindConfig = require('../../tailwind.config.js');
+  const projectColors = tailwindConfig.theme.colors;
 
   const slickSlider = () => {
     return (
@@ -22,6 +24,8 @@ const WelcomePage = ({ navigation }) => {
         activeDotStyle={{ width: 10, height: 10 }}
         height={265}
         showsButtons={true}
+        autoplayTimeout={10}
+        autoplay={true}
         nextButton={
           <Svg className="h-[25px] w-[25px] mr-4">
             <Path
@@ -56,29 +60,6 @@ const WelcomePage = ({ navigation }) => {
     );
   };
 
-  // useEffect(() => {
-  //   let autoSwipeInterval;
-
-  //   // const startAutoSwipe = () => {
-  //   //   autoSwipeInterval = setInterval(() => {
-  //   //     if (currentIndex < phrases.length - 1) {
-  //   //       swiperRef.current.scrollBy(1);
-  //   //     } else {
-  //   //       clearInterval(autoSwipeInterval); // Stop auto-swiping at the end
-  //   //     }
-  //   //   }, AUTO_SWIPE_INTERVAL);
-  //   // };
-
-  //   startAutoSwipe();
-
-  //   return () => {
-  //     clearInterval(autoSwipeInterval); // Clean up the interval on unmount
-  //   };
-  // }, [currentIndex]);
-
-  const tailwindConfig = require('../../tailwind.config.js');
-  const projectColors = tailwindConfig.theme.colors;
-
   if (!isFontsLoaded()) {
     return null;
   }
@@ -107,7 +88,7 @@ const WelcomePage = ({ navigation }) => {
 
             <View className="px-6 w-screen">
               <TouchableOpacity className="bg-primary px-10 py-4 rounded-medium"
-                onPress={() => { navigation.navigate('Login'); }}
+                onPress={() => { navigation.navigate('LoginStack'); }}
               >
                 <Text className="text-center font-montserrat-bold text-body text-projectWhite">Entrar</Text>
               </TouchableOpacity>
@@ -115,7 +96,7 @@ const WelcomePage = ({ navigation }) => {
 
             <View>
               <TouchableOpacity 
-                onPress={() => { navigation.navigate('Register'); }}
+                onPress={() => { navigation.navigate('LoginStack', { initialRoute: 'Register' }); }}
               >
                 <Text className="text-center font-montserrat-bold text-body underline">Cadastrer</Text>
               </TouchableOpacity>
