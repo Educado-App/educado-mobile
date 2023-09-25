@@ -50,12 +50,11 @@ export default function DeleteAccount() {
     ])
 
   return (
-    <View className="flex items-center px-6 w-screen my-3">
-      <TouchableOpacity className="bg-error px-10 py-4 rounded-medium w-full" onPress={deleteAlert}>
-        <View className="flex flex-row items-center justify-center">
-          <Text className="text-center font-montserrat-bold text-body text-white">Deletar conta</Text>
-        </View>
-      </TouchableOpacity>
-    </View>
+    <TouchableOpacity 
+      className="bg-error px-10 py-4 rounded-medium w-full" 
+      onPress={deleteAlert}
+    >
+      <Text className="text-center font-montserrat-bold text-body text-white">Deletar conta</Text>
+    </TouchableOpacity>
   )
 }
