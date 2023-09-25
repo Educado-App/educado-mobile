@@ -17,7 +17,7 @@ export default function CourseHeader({ courseTitle, courseIcon, courseId, downlo
         title={courseTitle}
         courseIcon={courseIcon}
       ></CourseTitleIcon>
-      <DownloadCourseButton downloadStateSignal={downloadState} courseId={courseId} style={styles.downloadButton}></DownloadCourseButton>
+      {/*<DownloadCourseButton downloadStateSignal={downloadState} courseId={courseId} style={styles.downloadButton}></DownloadCourseButton>*/}
     </View>
   )
 }
@@ -25,6 +25,6 @@ export default function CourseHeader({ courseTitle, courseIcon, courseId, downlo
 
 const styles = StyleSheet.create({
   downloadButton: {
-    marginLeft: '75%'
+    marginLeft: '5%'
   }
 })

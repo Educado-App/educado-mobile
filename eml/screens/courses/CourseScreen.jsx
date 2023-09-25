@@ -5,6 +5,7 @@ import { View, Pressable, Text } from 'react-native'
 import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/dev'
 import { AppLoading } from 'expo-app-loading'
 import * as StorageService from "../../services/StorageService";
+import { getHome } from '../../api/api'
 
 export default function CourseScreen() {
 
@@ -30,17 +31,21 @@ export default function CourseScreen() {
     })
 
     async function loadCourse() {
-        const courseData = await StorageService.getCourseById(courseId);
+        //const courseData = await StorageService.getCourseById(courseId);
+        //setCourse(courseData);
+        const courseData = await getHome();
+        console.log(courseData);
+        console.log(route.params);
         setCourse(courseData);
     }
 
     useEffect(() => {
 
-        if (route.params !== undefined) {
+       // if (route.params !== undefined) {
             loadCourse().then(() => {
                 setCourseLoaded(true);
             });
-        }
+        //}
 
     }, [route.params, downloadState])
 
@@ -53,6 +58,7 @@ export default function CourseScreen() {
                 {courseLoaded ?
                     <View className="bg-babyBlue flex-1 justify-center items-center">
                         <CourseListUI course={course} downloadState={setDownloadState}></CourseListUI>
+                        {/*<Text>{course}</Text>*/}
                     </View>
                     :
                     <View className="justify-center items-center">
@@ -61,7 +67,7 @@ export default function CourseScreen() {
                         <Pressable
                             style={{ elevation: 10 }}
                             className="border border-cyanBlue rounded-md bg-cyanBlue p-2"
-                            onPress={() => navigation.navigate('Explorar')} >
+                            onPress={() => loadCourse()} >
                             {/* Click to explore courses */}
                             <Text className="text-white" style={{ fontSize: 30, fontFamily: 'VarelaRound_400Regular', textAlign: 'center' }}> Clique para explorar os cursos</Text>
                         </Pressable>
