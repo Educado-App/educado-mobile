@@ -18,7 +18,8 @@ export default function CourseTitleIcon({ title, courseIcon }) {
   return (
     <View style={styles.container}>
       <View style={{ padding: '5%' }}>
-        {/*Right now image is hardcoded but could be made into a switch statement determining image based on category */}
+        {/*Right now image is hardcoded but could be made into a switch statement determining image based on category. 
+        This is due to the require function not being able to use variables as input */}
           <Image source={require('../../../assets/icon.png')}
             style={{ width: 75, height: 75 }}
             className="rounded-full"
@@ -43,5 +44,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: '15%',
+    backgroundColor: 'rgb(255,255,255)'
   },
 })

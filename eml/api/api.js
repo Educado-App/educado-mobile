@@ -45,7 +45,6 @@ export const getCourses = async () => {
 };
 
 export const getHome = async () => {
-  // TODO: add bearer token to request header and omit /public
   const res = await axios.get(url + '/api/course/getHome');
   return res.data;
 };
