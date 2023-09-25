@@ -110,7 +110,7 @@ function HomeStack() {
           tabBarIcon: () => {
             return (
               <Icon
-                size={30}
+                size={20}
                 name="home-outline"
                 type="material-community"
                 color="#8DD08C"
@@ -128,7 +128,7 @@ function HomeStack() {
           tabBarIcon: () => {
             return (
               <Icon
-                size={30}
+                size={20}
                 name="compass-outline"
                 type="material-community"
                 color="#8DD08C"
@@ -145,10 +145,10 @@ function HomeStack() {
           tabBarIcon: () => {
             return (
               <Icon
-                size={30}
+                size={20}
                 name="spider"
                 type="material-community"
-                color="black"
+                color="#8DD08C"
               />
             );
           },
@@ -164,8 +164,8 @@ function HomeStack() {
           tabBarIcon: () => {
             return (
               <Icon
-                size={30}
-                name="account-circle"
+                size={20}
+                name="account-outline"
                 type="material-community"
                 color="#8DD08C"
               />
