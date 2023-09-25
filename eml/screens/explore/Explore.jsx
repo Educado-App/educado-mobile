@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import React, { useEffect, useState } from 'react'
-import { View, Text, Platform, ScrollView } from 'react-native'
+import { View, Text, Platform, ScrollView, Button} from 'react-native'
 import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/dev'
 import { AppLoading } from 'expo-app-loading'
 import { SelectList } from 'react-native-dropdown-select-list'
@@ -8,6 +8,7 @@ import ActiveExploreCard from '../../components/explore/ActiveExploreCard'
 import ExploreCard from '../../components/explore/ExploreCard'
 import * as StorageService from '../../services/StorageService'
 import { useIsFocused } from '@react-navigation/native'
+import { subscribeToCourse } from '../../api/api'
 
 
 export default function Explore() {
@@ -60,6 +61,7 @@ export default function Explore() {
 
     return (
         <View className="bg-babyBlue basis-full flex">
+            
             <View className="basis-1/6" style={{ justifyContent: 'center', alignItems: 'center', paddingTop: Platform.OS === 'android' ? 20 : 0 }}>
                 <Text style={{ fontSize: 40, fontFamily: 'VarelaRound_400Regular' }} className="text-gray-600"> Educado</Text>
             </View>
@@ -80,6 +82,13 @@ export default function Explore() {
                     {activeViews}
                     {nonActiveViews}
                 </View>
+                <View>
+                <Button
+                    title="se inscrever"
+                    color="#f194ff"
+                    //onPress={() => runFunction()}
+                />
+            </View>
             </ScrollView>
         </View>
     )

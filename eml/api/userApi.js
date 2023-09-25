@@ -1,8 +1,8 @@
 import axios from 'axios'
 
 const prod = 'http://educado.somethingnew.dk'
-const test = 'http://192.168.1.31:8888' // Change this to your LOCAL IP address when testing.
-const local = 'http://localhost:8888'
+const testUrl = 'http://localhost:8888';
+const testExpo = 'http://172.30.211.249:8888'; //Change to local expo ip
 const digitalOcean = 'http://207.154.213.68:8888'
 
 const url = digitalOcean;
