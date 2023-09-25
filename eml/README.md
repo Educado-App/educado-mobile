@@ -68,3 +68,9 @@ The background takes the parameter children, so it is possible to place JSX elem
 ```
 Also side note, please use SafeAreaView instead of View since it displays within safe areas of the device like rounded corners etc.
 
+## Merging
+If pull request is weird on github web, then use 
+```git
+git merge styling
+```
+while standing on the branch, you want to merge styling into.
