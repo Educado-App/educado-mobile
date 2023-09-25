@@ -201,7 +201,7 @@ function useWelcomeScreenLogic() {
   const [isLoading, setIsLoading] = useState(true);
 
   // For dev purposes only - remove before production
-  AsyncStorage.setItem("hasShownWelcome", "false");
+  //AsyncStorage.setItem("hasShownWelcome", "false");
   
   useEffect(() => {
     setTimeout(() => {
