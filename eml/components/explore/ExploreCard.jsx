@@ -95,7 +95,7 @@ export default function ExploreCard({course}) {
        
 
           </View>
-          <View style={{ height: 10 }} />
+          <View style={{ height: 5, opacity: 0.5 }} />
           <CustomRating rating={course.rating} />
           </View>
 

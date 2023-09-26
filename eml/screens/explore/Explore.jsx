@@ -27,19 +27,19 @@ function Explore() {
         title: 'World History: Ancient Civilizations',
         category: 'History',
         time: '8 weeks',
-        rating: 4.0
+        rating: 3.5
     },
     { 
         title: 'Modern Art Movements',
         category: 'Art',
-        time: '6 weeks',
+        time: '6 Hours',
         rating: 4.3
     },
     { 
         title: 'Introduction to Music Theory',
         category: 'Music',
         time: '9 weeks',
-        rating: 4.7
+        rating: 3.2
     }
     // Add more courses with realistic data here
 ];

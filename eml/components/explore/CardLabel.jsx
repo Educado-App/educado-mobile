@@ -12,8 +12,8 @@ const CardLabel = ({title, icon, color="f1CC4f"}) => {
                 justifyContent: 'start',
               }
         } >
-            <MaterialIcons name= {icon} size={20} color={color} />
-            <Text style={{paddingLeft: 3, color: color}} >{title}</Text>
+            <MaterialIcons name= {icon} size={15} color={color} />
+            <Text style={{paddingLeft: 3, fontSize: '13', color: color}} >{title}</Text>
         </View>
      );
 }
