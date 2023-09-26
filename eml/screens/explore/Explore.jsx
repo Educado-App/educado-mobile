@@ -1,8 +1,18 @@
 import React from 'react';
 import { View, Text, Image } from 'react-native';
 import FilterNavBar from '../../components/explore/FilterNavBar';
+import { ScrollView } from 'react-native-gesture-handler';
+import ExploreCard from '../../components/explore/ExploreCard';
 
 function Explore() {
+
+  const dummyCourses = [
+    { title: 'Course 1', courseId: 1 },
+    { title: 'Course 2', courseId: 2 },
+    { title: 'Course 3', courseId: 3 },
+    // Add more dummy courses here
+  ];
+
   return (
     <View style={{ flex: 1, backgroundColor: '#f1f9fb' }}>
       <View style={{ flexDirection: 'row', alignItems: 'center', padding: 10, marginTop: '20%', marginBottom: '10%' }}>
@@ -15,6 +25,11 @@ function Explore() {
         <Text style={{ fontSize: 25, marginLeft: 10, fontWeight: 'bold' }}>Explora cursos</Text>
       </View>
       <FilterNavBar />
+      <ScrollView>
+      {dummyCourses.map((course, index) => (
+          <ExploreCard key={index} title={course.title} courseId={course.courseId} />
+        ))}
+      </ScrollView>
     </View>
   );
 }
