@@ -26,6 +26,10 @@ export default function LoginForm(props) {
   const [password, setPassword] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
 
+  if(!isFontsLoaded){
+    return null;
+  }
+
   /**
    * Logs user in with the entered credentials 
    * @param {String} email Email user tries to login with
@@ -34,12 +38,9 @@ export default function LoginForm(props) {
   async function login(email, password) {
     
     //clearing password field
-    setPassword("");
+    //setPassword("");
 
-    // Checking if font is loaded
-    if (!isFontsLoaded()) {
-      return null;
-    }
+    
 
     //The Object must be hashed before it is sent to backend (before loginUser() is called)
     //The Input must be conditioned (at least one capital letter, minimum 8 letters and a number etc.)
@@ -51,12 +52,14 @@ export default function LoginForm(props) {
     try {
       await loginUser(obj)
         .then((response) => {
-          AsyncStorage.setItem(LOGIN_TOKEN, response.data.accessToken);
+          //console.log(response.data.accessToken);
+          //AsyncStorage.setItem(LOGIN_TOKEN, response.data.accessToken);
           console.log(response);
           navigation.navigate("HomeStack");
         })
         .catch((error) => {
-          switch (error.message) {
+          console.log(error)
+          /*switch (error.message) {
             case "Request failed with status code 404":
               //Wrong email
               showAlert("Insira um email válido.");
@@ -69,7 +72,7 @@ export default function LoginForm(props) {
 
             default:
               console.log(error);
-          }
+          }*/
         });
     } catch (e) {
       console.log(e);
@@ -123,7 +126,7 @@ export default function LoginForm(props) {
         </Text>
       </View>
       {/* Enter */}
-      <FormButton label="Entrar" />
+      <FormButton label="Entrar" onPress={() => login(email, password)}/>
       <View className="pt-10">
         {modalVisible ? (
           <ResetPassword
