@@ -7,7 +7,7 @@ function SearchBar({ searchText, onSearchChange }) {
     <View style={{ flexDirection: 'row', alignItems: 'center', position: 'relative' }}>
       <TextInput
         placeholder="Buscar cursos"
-        value={searchText}
+        //value={searchText}
         onChangeText={onSearchChange}
         style={{
           flex: 1, // This allows the TextInput to expand to fill available space

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, Platform } from 'react-native';
 import SearchBar from './SearchBar'; // Import the SearchBar component
 
@@ -12,7 +12,7 @@ const categories = [
   { key: 'category7', label: 'Category' },
 ];
 
-function FilterNavBar() {
+function FilterNavBar({ onChangeText}) {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [searchText, setSearchText] = useState('');
 
@@ -22,7 +22,8 @@ function FilterNavBar() {
   };
 
   const handleSearchInputChange = (text) => {
-    setSearchText(text);
+    
+    onChangeText(text);
     // Add your search logic here based on the input text
   };
 
