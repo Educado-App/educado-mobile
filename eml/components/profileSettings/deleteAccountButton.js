@@ -40,13 +40,13 @@ export default function DeleteAccount() {
   }
 
   const deleteAlert = () =>
-    Alert.alert('Delete Account', 'Are you sure?', [
+    Alert.alert('Deletar conta', 'Tem certeza?', [
       {
-        text: 'No',
+        text: 'Não',
         onPress: () => console.log('No Pressed'),
         style: 'cancel'
       },
-      { text: 'Yes', onPress: Delete }
+      { text: 'Sim', onPress: Delete }
     ])
 
   return (

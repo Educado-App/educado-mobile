@@ -84,7 +84,7 @@ export default function ProfileComponent() {
         >
         <Text 
           className="text-center font-montserrat-bold text-body text-white">
-            Name: {userName}
+            Nome: {userName}
         </Text>
       </TouchableOpacity>
 
@@ -101,17 +101,17 @@ export default function ProfileComponent() {
                 <TextInput
                   value={newUserName}
                   onChangeText={setNewUserName}
-                  placeholder="Enter new username"
+                  placeholder="Digite o novo nome"
                   className="w-full p-4 mb-4 border rounded"
                 />
                 <TouchableOpacity className="bg-primary px-10 py-4 rounded-medium w-full" onPress={saveUserNameChanges}>
-                  <Text className="text-white text-center font-montserrat-bold">Save Changes</Text>
+                  <Text className="text-white text-center font-montserrat-bold">Salvar alterações</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   className="px-10 py-4 rounded-medium w-full mt-2 border-0 border-opacity-0"
                   onPress={() => setUserNameModalVisible(false)}
                 >
-                  <Text className="text-black text-center font-montserrat-bold">Cancel</Text>
+                  <Text className="text-black text-center font-montserrat-bold">Cancelar</Text>
                 </TouchableOpacity>
               </View>
             </View>

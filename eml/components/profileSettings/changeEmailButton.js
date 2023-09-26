@@ -114,26 +114,26 @@ export default function ProfileComponent() {
               <TextInput
                 value={newEmail}
                 onChangeText={setNewEmail}
-                placeholder="Enter new email address"
+                placeholder="Digite o novo endereço de e-mail"
                 className="w-full p-4 mb-4 border rounded"
               />
 
               <TextInput
                 value={tempEmail}
                 onChangeText={setTempEmail}
-                placeholder="Confirm new email address"
+                placeholder="Confirmar novo endereço de e-mail"
                 className="w-full p-4 mb-4 border rounded"
               />
 
               <TouchableOpacity className="bg-primary px-10 py-4 rounded-medium w-full" onPress={saveEmailChanges}>
-                <Text className="text-white text-center font-montserrat-bold">Save Changes</Text>
+                <Text className="text-white text-center font-montserrat-bold">Salvar alterações</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
                 className="px-10 py-4 rounded-medium w-full mt-2 border-0 border-opacity-0"
                 onPress={() => setEmailModalVisible(false)}
               >
-                <Text className="text-black text-center font-montserrat-bold">Cancel</Text>
+                <Text className="text-black text-center font-montserrat-bold">Cancelar</Text>
               </TouchableOpacity>
             </View>
           </View>
