@@ -126,8 +126,11 @@ export default function ExploreCard({course}) {
 
       <Collapsible collapsed={isCollapsed}>
         {/* Your expanded content goes here */}
-        <View style={{ marginTop: 10, height: 40 }}>
-          <Text>Additional Content...</Text>
+        <View style={{   }}>
+        <Image
+        source={{ uri: "https://i.imgur.com/jwGZdBv.png" }}
+        style={{ width: 200, height: 200 }} // Set the width and height as per your requirements
+      />
         </View>
       </Collapsible>
     </Pressable>

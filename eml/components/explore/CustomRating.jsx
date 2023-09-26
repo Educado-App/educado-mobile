@@ -13,7 +13,7 @@ const CustomRating = ({ rating = 5 }) => {
       if (index < fullStars) {
         return { icon: 'favorite', color: '#ff6767' };
       } else if (index === fullStars && halfStar) {
-        return { icon: 'favorite-half', color: '#ff6767' };
+        return { icon: 'favorite', color: '#ff6767' };
       } else {
         return { icon: 'favorite-border', color: 'gray' };
       }
