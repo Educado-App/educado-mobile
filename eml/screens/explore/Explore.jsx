@@ -10,6 +10,10 @@ function Explore() {
     { title: 'Course 1', courseId: 1 },
     { title: 'Course 2', courseId: 2 },
     { title: 'Course 3', courseId: 3 },
+    { title: 'Course 4', courseId: 4 },
+    { title: 'Course 5', courseId: 5 },
+    { title: 'Course 6', courseId: 6 },
+    { title: 'Course 7', courseId: 7 },
     // Add more dummy courses here
   ];
 

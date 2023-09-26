@@ -1,35 +1,57 @@
-import { View, Text, Image, Pressable } from 'react-native'
-import React from 'react'
-import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/dev'
-import { useNavigation } from '@react-navigation/native'
-import { AppLoading } from 'expo-app-loading'
-
+import React from 'react';
+import { View, Text, Image, Pressable } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 export default function ExploreCard({ title, courseId }) {
-  const navigation = useNavigation()
-  let [fontsLoaded] = useFonts({
-    VarelaRound_400Regular
-  })
+  const navigation = useNavigation();
 
-  if (!fontsLoaded) {
-    return AppLoading
-  } else {
-    return (
-      <Pressable
-        style={{ shadowColor: 'black', elevation: 10 }}
-        className="w-2/5 h-24 rounded-md items-center flex-col bg-cyanBlue m-2"
-        onPress={() => navigation.navigate('Course', { courseId: courseId })}
-      >
-        <Text numberOfLines={1} style={{ fontFamily: 'VarelaRound_400Regular', fontSize: 14, }} className="pt-4 text-gray-600">
+  return (
+    <Pressable
+      style={{
+        backgroundColor: '#fff',
+        borderRadius: 10,
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.2,
+        shadowRadius: 2,
+        elevation: 5,
+        marginBottom: 15,
+        marginHorizontal: 18,
+        padding: 25,
+      }}
+      onPress={() => navigation.navigate('Course', { courseId: courseId })}
+    >
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <Text
+          numberOfLines={1}
+          style={{
+            flex: 1,
+            fontSize: 16,
+            color: 'black',
+          }}
+        >
           {title}
         </Text>
-        <View className="pt-2">
+        <View
+          style={{
+            backgroundColor: '#f1f1f1',
+            borderRadius: 50,
+            padding: 5,
+          }}
+        >
           <Image
-            className="w-10 h-10"
+            style={{
+              width: 40,
+              height: 40,
+              resizeMode: 'contain',
+            }}
             source={require('../../assets/favicon.png')}
-          ></Image>
+          />
         </View>
-      </Pressable>
-    )
-  }
+      </View>
+    </Pressable>
+  );
 }
