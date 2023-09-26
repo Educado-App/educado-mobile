@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { isFontsLoaded } from "../../constants/Fonts.js";
+import { updateUserEmail } from '../../api/userApi.js';
 
 const USER_INFO = '@userInfo';
 
@@ -36,7 +37,6 @@ export default function ProfileComponent() {
 
   useEffect(() => {
     getProfile();
-    //fetchCourses();
   }, []);
 
   const saveEmailChanges = async () => {
@@ -58,11 +58,20 @@ export default function ProfileComponent() {
         };
   
         await AsyncStorage.setItem(USER_INFO, JSON.stringify(updatedProfile));
-  
-        setEditingEmail(false);
-        setEmailModalVisible(false); // Close the email modal
+
+        // Call the updateUserEmail function to update the email on the server
+        try {
+          await updateUserEmail(id, newEmail);
+
+          // Update the fields and close the modal
+          setEditingEmail(false);
+          setEmailModalVisible(false);
+        } catch (error) {
+          console.error('Error updating email:', error);
+
+          // Handle errors here
+        }
       } else {
-        // Email is not in the correct format, show an error or handle it as needed
         alert('Invalid email format. Please enter a valid email address.');
       }
     } else {

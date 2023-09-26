@@ -27,6 +27,25 @@ export const deleteUser = async (user_id) => {
   }
 };
 
+export const updateName = async (user_id, new_name) => {
+  try {
+    const res = await axios.put(url + `/api/user/update-name/` + user_id, { newName: new_name });
+    return res.data;
+  } catch (error) {
+    // Handle errors here
+    throw error; // You may want to handle the error or log it
+  }
+};
+
+export const updateUserEmail = async (user_id, new_email) => {
+  try {
+    const res = await axios.put(url + `/api/user/update-email/` + user_id, { newEmail: new_email });
+    return res.data;
+  } catch (error) {
+    // Handle errors here
+    throw error; // You may want to handle the error or log it
+  }
+};
 
 export const enrollInCourse = async (user_Id, course_Id) => {
   try {

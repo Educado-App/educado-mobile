@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { isFontsLoaded } from "../../constants/Fonts.js";
+import { updateName } from '../../api/userApi.js';
 
 const USER_INFO = '@userInfo';
 
@@ -35,7 +36,6 @@ export default function ProfileComponent() {
 
   useEffect(() => {
     getProfile();
-    //fetchCourses();
   }, []);
 
   // Print out all course titles
@@ -49,20 +49,27 @@ export default function ProfileComponent() {
 
   const saveUserNameChanges = async () => {
     if (newUserName !== userName) {
-      // Update the state with the new username
       setUserName(newUserName);
-
+  
       // Save changes to AsyncStorage or your API
       const updatedProfile = {
         id,
         userName: newUserName,
         email,
       };
-
+  
       await AsyncStorage.setItem(USER_INFO, JSON.stringify(updatedProfile));
+  
+      // Call the updateUserName function to update the username on the server
+      try {
+        await updateName(id, newUserName);
+      } catch (error) {
+        console.error('Error updating username:', error);
+        // Handle errors here
+      }
     }
     setEditingUserName(false);
-    setUserNameModalVisible(false); // Close the username modal
+    setUserNameModalVisible(false);
   }
 
   if (!isFontsLoaded()) {
