@@ -37,7 +37,7 @@ const CustomRating = ({rating = 5}) => {
         let newRatingIcons = [...ratingIcons];
         for(let i = 0; i < rating; i++) {
             newRatingIcons[i].icon = "favorite";
-            newRatingIcons[i].color = "red";
+            newRatingIcons[i].color = "#ff6767";
         }
 
 

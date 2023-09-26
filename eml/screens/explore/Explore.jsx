@@ -11,14 +11,39 @@ function Explore() {
   const [selectedCategory, setSelectedCategory] = useState(null);
 
   const dummyCourses = [
-    { title: 'Course 1', courseId: 1 },
-    { title: 'Course 2', courseId: 2 },
-    { title: 'Course 3', courseId: 3 },
-    { title: 'Course 4', courseId: 3 },
-    { title: 'Course 5', courseId: 3 },
-    { title: 'Course 6', courseId: 3 },
-    // Add more dummy courses here
-  ];
+    { 
+        title: 'Introduction to Calculus',
+        category: 'Mathematics',
+        time: '12 weeks',
+        rating: 4.5
+    },
+    { 
+        title: 'Biology Fundamentals',
+        category: 'Science',
+        time: '10 weeks',
+        rating: 4.2
+    },
+    { 
+        title: 'World History: Ancient Civilizations',
+        category: 'History',
+        time: '8 weeks',
+        rating: 4.0
+    },
+    { 
+        title: 'Modern Art Movements',
+        category: 'Art',
+        time: '6 weeks',
+        rating: 4.3
+    },
+    { 
+        title: 'Introduction to Music Theory',
+        category: 'Music',
+        time: '9 weeks',
+        rating: 4.7
+    }
+    // Add more courses with realistic data here
+];
+
 
   // Function to filter courses based on searchText
   const filteredCourses = dummyCourses.filter((course) =>
@@ -44,7 +69,7 @@ function Explore() {
       <FilterNavBar onChangeText={(text) => handleFilter(text)} />
       <ScrollView>
       {filteredCourses.map((course, index) => (
-          <ExploreCard key={index} title={course.title} courseId={course.courseId} />
+          <ExploreCard key={index} course={course} />
         ))}
       </ScrollView>
     </View>

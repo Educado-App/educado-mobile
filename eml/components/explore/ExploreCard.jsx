@@ -5,10 +5,9 @@ import { useNavigation } from '@react-navigation/native';
 
 import { MaterialIcons } from '@expo/vector-icons';
 import CardLabel from './CardLabel';
-import { Rating } from 'react-native-ratings';
 import CustomRating from './CustomRating';
 
-export default function ExploreCard({ title, courseId,   }) {
+export default function ExploreCard({course}) {
   const [isCollapsed, setIsCollapsed] = React.useState(true);
   const [isSubscribed, setIsSubscribed] = React.useState(false);
   const navigation = useNavigation();
@@ -33,8 +32,6 @@ export default function ExploreCard({ title, courseId,   }) {
       onPress={() => setIsCollapsed(!isCollapsed)}
     >
       <View style={{  flexDirection: 'column', alignItems: 'center' }}> 
-
-        {/*  */}
         <View
           style={{
             width: "100%",
@@ -53,7 +50,7 @@ export default function ExploreCard({ title, courseId,   }) {
                 
               >
                 
-                {title}
+                {course.title}
             </Text>
             
             <Pressable 
@@ -77,20 +74,30 @@ export default function ExploreCard({ title, courseId,   }) {
             justifyContent: 'space-between',
           }}
         >
-          
-          <View 
-           style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'start',
-          }}
-          >
-          <CardLabel title={"Beginner"} icon={"school"} color={"gray"} />
-          <View style={{ width: 10 }} />
-          <CardLabel title={"Beginner"} icon={"access-time"} color={"gray"} />
+          <View style={{ 
+
+            flexDirection: 'column',
+            alignItems: 'start',
+            justifyContent: 'space-between',
+
+           }} > 
+            <View 
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'start',
+            }}
+            >
+            <CardLabel title={course.category} icon={"school"} color={"gray"} />
+            <View style={{ width: 10 }} />
+            <CardLabel title={course.time} icon={"access-time"} color={"gray"} />
+
+       
 
           </View>
-
+          <View style={{ height: 10 }} />
+          <CustomRating rating={course.rating} />
+          </View>
 
           <Image
             style={{
@@ -104,7 +111,7 @@ export default function ExploreCard({ title, courseId,   }) {
 
         </View>
         
-        <CustomRating rating={3} />
+     
         
         <View
           style={{
