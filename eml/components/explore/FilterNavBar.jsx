@@ -2,23 +2,28 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, Platform } from 'react-native';
 import SearchBar from './SearchBar'; // Import the SearchBar component
 
+///---------Dummy data should be replaced--------///
 const categories = [
   { key: 'category1', label: 'All' },
   { key: 'category2', label: 'Finance' },
-  { key: 'category3', label: 'Category' },
-  { key: 'category4', label: 'Category' },
-  { key: 'category5', label: 'Category' },
-  { key: 'category6', label: 'Category' },
-  { key: 'category7', label: 'Category' },
+  { key: 'category3', label: 'Art' },
+  { key: 'category4', label: 'History' },
+  { key: 'category5', label: 'Science' },
+  { key: 'category6', label: 'Mathematics' },
 ];
+///---------------------------------------------///
 
-function FilterNavBar({ onChangeText}) {
+function FilterNavBar({ onChangeText, onCategoryChange }) {
+  // Selected category state
   const [selectedCategory, setSelectedCategory] = useState(null);
+  // Search text state
   const [searchText, setSearchText] = useState('');
 
   const handleCategorySelect = (category) => {
+    // Set the selected category
     setSelectedCategory(category);
-    // Add your filtering logic here based on the selected category
+    // Call the onCategoryChange callback function
+    onCategoryChange(category);
   };
 
   const handleSearchInputChange = (text) => {
@@ -42,7 +47,7 @@ function FilterNavBar({ onChangeText}) {
               .map((category) => (
                 <TouchableOpacity
                   key={category.key}
-                  onPress={() => handleCategorySelect(category.key)}
+                  onPress={() => handleCategorySelect(category.label)}
                   style={{
                     backgroundColor: selectedCategory === category.key ? '#5fcce9' : 'transparent',
                     paddingHorizontal: 8,

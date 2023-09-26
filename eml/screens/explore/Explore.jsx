@@ -7,8 +7,12 @@ import ExploreCard from '../../components/explore/ExploreCard';
 
 function Explore() {
   
+  // Search text state
   const [searchText, setSearchText] = useState('');
+  // Selected category state
   const [selectedCategory, setSelectedCategory] = useState(null);
+
+  ///---------Dummy data should be replaced--------///
 
   const dummyCourses = [
     { 
@@ -36,24 +40,39 @@ function Explore() {
         rating: 1
     },
     { 
-        title: 'Introduction to Music Theory',
-        category: 'Music',
+        title: 'category1',
+        category: 'Finance',
         time: '9 weeks',
         rating: 3.2
     }
     // Add more courses with realistic data here
 ];
 
+///---------------------------------------------///
 
-  // Function to filter courses based on searchText
-  const filteredCourses = dummyCourses.filter((course) =>
-  course.title.toLowerCase().includes(searchText.toLowerCase())
-  );
+  // Function to filter courses based on searchText or selectedCategory
+  const filteredCourses = dummyCourses.filter((course) => {
+    // Check if the course title includes the search text
+    const titleMatchesSearch = course.title.toLowerCase().includes(searchText.toLowerCase());
+    // Check if the course category matches the selected category (or no category is selected)
+    const categoryMatchesFilter = !selectedCategory || course.category === selectedCategory;
+    // Return true if both title and category conditions are met
+    return titleMatchesSearch && categoryMatchesFilter;
+  });
 
   const handleFilter = (text) => {
     setSearchText(text);
-    // console.log("hanleFilter", searchText);
+    // console.log("handleFilter", searchText);
   }
+
+  const handleCategoryFilter = (category) => {
+    //if category label is "all" it will display all courses, otherwise it will display courses with the selected category
+    if (category === "All") {
+      setSelectedCategory(null); // Set selectedCategory to null to show all items
+    } else {
+      setSelectedCategory(category); // Set selectedCategory to the selected category label
+    }
+  };
 
   return (
     <View style={{ flex: 1, backgroundColor: '#f1f9fb' }}>
@@ -66,7 +85,10 @@ function Explore() {
         </View>
         <Text style={{ fontSize: 25, marginLeft: 10, fontWeight: 'bold' }}>Explora cursos</Text>
       </View>
-      <FilterNavBar onChangeText={(text) => handleFilter(text)} />
+      <FilterNavBar 
+      onChangeText={(text) => handleFilter(text)} 
+      onCategoryChange={handleCategoryFilter}
+      />
       <ScrollView>
       {filteredCourses.map((course, index) => (
           <ExploreCard key={index} course={course} />
