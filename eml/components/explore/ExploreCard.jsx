@@ -129,7 +129,7 @@ export default function ExploreCard({course}) {
         <View style={{   }}>
         <Image
         source={{ uri: "https://i.imgur.com/jwGZdBv.png" }}
-        style={{ width: 200, height: 200 }} // Set the width and height as per your requirements
+        style={{ width: '100%', height: 400 }} // Set the width and height as per your requirements
       />
         </View>
       </Collapsible>
