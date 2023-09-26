@@ -49,7 +49,7 @@ export default function ProfileComponent() {
 
   const saveUserNameChanges = async () => {
     if (newUserName !== userName) {
-      setUserName(newUserName);
+      setUserName(newUserName); // only run this if the username has changed
   
       // Save changes to AsyncStorage or your API
       const updatedProfile = {

@@ -48,7 +48,7 @@ export default function ProfileComponent() {
         // Email is in the correct format
   
         // Update the state with the new email
-        setEmail(newEmail);
+        setEmail(newEmail); // Only run this if the email has changed
   
         // Save changes to AsyncStorage or your API
         const updatedProfile = {
