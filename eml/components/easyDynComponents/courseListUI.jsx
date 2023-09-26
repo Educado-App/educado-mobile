@@ -15,7 +15,7 @@ export default function CourseListUI({ course, downloadState }) {
                 courseId={0}
             >
             </CourseHeader>
-            <EasyDynamicList course={course} ></EasyDynamicList>
+            {/*<EasyDynamicList course={course} ></EasyDynamicList>*/}
         </View>
     );
 };

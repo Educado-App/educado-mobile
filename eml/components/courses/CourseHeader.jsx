@@ -12,13 +12,13 @@ export default function CourseHeader({ courseTitle, courseIcon, courseId, downlo
   }
 
   return (
-    <View className="items-center pt-8" >
-      <CourseTitleIcon
-        title={courseTitle}
-        courseIcon={courseIcon}
-      ></CourseTitleIcon>
-      {/*<DownloadCourseButton downloadStateSignal={downloadState} courseId={courseId} style={styles.downloadButton}></DownloadCourseButton>*/}
-    </View>
+      <View className="items-center pt-4" >
+        <CourseTitleIcon
+          title={courseTitle}
+          courseIcon={courseIcon}
+        ></CourseTitleIcon>
+        {/*<DownloadCourseButton downloadStateSignal={downloadState} courseId={courseId} style={styles.downloadButton}></DownloadCourseButton>*/}
+      </View>
   )
 }
 

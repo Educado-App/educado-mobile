@@ -56,9 +56,12 @@ export default function CourseScreen() {
         return (
             <View className="flex-1 items-center justify-center bg-babyBlue">
                 {courseLoaded ?
-                    <View className="bg-babyBlue flex-1 justify-center items-center">
-                        <CourseListUI course={course} downloadState={setDownloadState}></CourseListUI>
-                        {/*<Text>{course}</Text>*/}
+                    <View className="bg-babyBlue flex-1 justify-top items-center">
+                        <Text style={{marginTop: "10%", fontSize: 30, fontFamily: 'VarelaRound_400Regular', textAlign: 'left'}}>Blah</Text>
+                        {course.map((course, i) => {
+                            return <CourseListUI course={course} key={i} downloadState={setDownloadState}></CourseListUI>
+                            }) 
+                        }
                     </View>
                     :
                     <View className="justify-center items-center">
