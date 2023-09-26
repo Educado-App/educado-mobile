@@ -1,8 +1,16 @@
 import React from 'react';
 import { View, Text, Image, Pressable } from 'react-native';
+import Collapsible from 'react-native-collapsible';
 import { useNavigation } from '@react-navigation/native';
 
-export default function ExploreCard({ title, courseId }) {
+import { MaterialIcons } from '@expo/vector-icons';
+import CardLabel from './CardLabel';
+import { Rating } from 'react-native-ratings';
+import CustomRating from './CustomRating';
+
+export default function ExploreCard({ title, courseId,   }) {
+  const [isCollapsed, setIsCollapsed] = React.useState(true);
+  const [isSubscribed, setIsSubscribed] = React.useState(false);
   const navigation = useNavigation();
 
   return (
@@ -22,19 +30,82 @@ export default function ExploreCard({ title, courseId }) {
         marginHorizontal: 18,
         padding: 25,
       }}
-      onPress={() => navigation.navigate('Course', { courseId: courseId })}
+      onPress={() => setIsCollapsed(!isCollapsed)}
     >
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Text
-          numberOfLines={1}
+      <View style={{  flexDirection: 'column', alignItems: 'center' }}> 
+
+        {/*  */}
+        <View
           style={{
-            flex: 1,
-            fontSize: 16,
-            color: 'black',
+            width: "100%",
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
           }}
         >
-          {title}
-        </Text>
+        
+              
+            <Text
+                style={{
+                  fontSize: 16,
+                  color: 'black',
+                }}
+                
+              >
+                
+                {title}
+            </Text>
+            
+            <Pressable 
+              onPress={() => setIsSubscribed(!isSubscribed)}
+              >
+                <MaterialIcons
+                  name= {isSubscribed ? "star" : "star-outline"}
+                  size={20}
+
+                  color="#f1CC4f" />
+              </Pressable>
+
+        </View>
+        <View style={{ width: "100%", height: .5, backgroundColor: "gray", opacity:50, marginBottom: 10, marginTop: 6 }} />
+            
+        <View
+          style={{
+            width: "100%",
+            flexDirection: 'row',
+            alignItems: 'start',
+            justifyContent: 'space-between',
+          }}
+        >
+          
+          <View 
+           style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'start',
+          }}
+          >
+          <CardLabel title={"Beginner"} icon={"school"} color={"gray"} />
+          <View style={{ width: 10 }} />
+          <CardLabel title={"Beginner"} icon={"access-time"} color={"gray"} />
+
+          </View>
+
+
+          <Image
+            style={{
+              
+              resizeMode: 'contain',
+            }}
+            source={require('../../assets/favicon.png')}
+          />
+
+        
+
+        </View>
+        
+        <CustomRating rating={3} />
+        
         <View
           style={{
             backgroundColor: '#f1f1f1',
@@ -42,16 +113,16 @@ export default function ExploreCard({ title, courseId }) {
             padding: 5,
           }}
         >
-          <Image
-            style={{
-              width: 40,
-              height: 40,
-              resizeMode: 'contain',
-            }}
-            source={require('../../assets/favicon.png')}
-          />
+        
         </View>
       </View>
+
+      <Collapsible collapsed={isCollapsed}>
+        {/* Your expanded content goes here */}
+        <View style={{ marginTop: 10, height: 40 }}>
+          <Text>Additional Content...</Text>
+        </View>
+      </Collapsible>
     </Pressable>
   );
 }
