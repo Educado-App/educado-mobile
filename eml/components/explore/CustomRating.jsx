@@ -32,7 +32,7 @@ const CustomRating = ({ rating = 5 }) => {
       }}
     >
       {ratingIcons.map((icon, index) => (
-        <MaterialIcons key={index} name={icon.icon} size={18} color={icon.color} />
+        <MaterialIcons key={index} name={icon.icon} size={14} color={icon.color} />
       ))}
     </View>
   );

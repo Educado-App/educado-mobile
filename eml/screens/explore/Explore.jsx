@@ -15,25 +15,25 @@ function Explore() {
         title: 'Introduction to Calculus',
         category: 'Mathematics',
         time: '12 weeks',
-        rating: 4.5
+        rating: 1
     },
     { 
         title: 'Biology Fundamentals',
         category: 'Science',
         time: '10 weeks',
-        rating: 4.2
+        rating: 2
     },
     { 
         title: 'World History: Ancient Civilizations',
         category: 'History',
         time: '8 weeks',
-        rating: 3.5
+        rating: 3
     },
     { 
         title: 'Modern Art Movements',
         category: 'Art',
         time: '6 Hours',
-        rating: 4.3
+        rating: 1
     },
     { 
         title: 'Introduction to Music Theory',
