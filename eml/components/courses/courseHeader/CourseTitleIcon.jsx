@@ -27,7 +27,7 @@ export default function CourseTitleIcon({ title, courseIcon, category, progress 
           style={{width: Dimensions.get('window').width*0.25, height: Dimensions.get('window').width*0.25 }}
           /> 
       </View>
-      <View className="pt-1 pl-3" style={{width: Dimensions.get('window').width*0.6}}>
+      <View className="pt-1 pl-3 pr-3" style={{width: Dimensions.get('window').width*0.6}}>
         <Text
           numberOfLines={1}
           ellipsizeMode={'tail'}
@@ -42,7 +42,7 @@ export default function CourseTitleIcon({ title, courseIcon, category, progress 
         >
           {category}
         </Text>
-        <CourseProgress fracBot={100} fracTop={10}>
+        <CourseProgress fracBot={100} fracTop={50}>
         </CourseProgress>
       </View>
     </View>
@@ -57,7 +57,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgb(255,255,255)',
-    borderRadius: 20,
+    borderBottomLeftRadius: 20,
+    borderTopLeftRadius: 20,
     overflow: 'hidden'
   },
 })

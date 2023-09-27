@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, Text, Animated } from 'react-native'
+import { StyleSheet, View, Text} from 'react-native'
 import Star from '../../gamification/Star'
 import PropTypes from 'prop-types'
 
@@ -9,20 +9,19 @@ export default function CourseProgress({ fracTop, fracBot }) {
     fracBot: PropTypes.number.isRequired
   }
   return (
-    <View style={[styles.container, {width: fracBot * 1.6}]}>
-      <Animated.View style={[styles.bar, {width: fracTop * 1.6}]}/>
+    <View style={[styles.container, {width: fracBot + '%'}]}>
+      <View style={[styles.bar2, {width: fracTop + '%'}]}/>
       <Text style={styles.fracStyle}>
         {fracTop}/{fracBot}
       </Text>
-      {/*<Star></Star>*/}
-    </View>
+    </View> 
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    height: 20,
+    flexDirection: 'column',
+    height: '20%',
     backgroundColor: '#ccc',
     borderRadius: 10,
     marginVertical: 10,
@@ -32,9 +31,20 @@ const styles = StyleSheet.create({
     backgroundColor: '#000',
     borderRadius: 10,
   },
+  bar2: {
+    borderTopLeftRadius: 10,
+    borderBottomLeftRadius: 10,
+    height: '100%',
+    backgroundColor: '#00ff18',
+    opacity: 0.5,
+    position: 'absolute'
+  },
   fracStyle: {
     fontSize: 20,
     fontWeight: 'bold',
     color: 'black',
+    position: 'absolute',
+    alignSelf: 'center',
+    bottom: -2,
   }
 })
