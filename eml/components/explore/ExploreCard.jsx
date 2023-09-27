@@ -8,6 +8,7 @@ import { AppLoading } from 'expo-app-loading';
 import { MaterialIcons } from "@expo/vector-icons";
 import CardLabel from "./CardLabel";
 import CustomRating from "./CustomRating";
+import { subscribe } from "../../api/api";
 
 export default function ExploreCard({ course }) {
   const [isCollapsed, setIsCollapsed] = React.useState(true);
@@ -57,7 +58,11 @@ export default function ExploreCard({ course }) {
             {course.title}
           </Text>
 
-          <Pressable onPress={() => setIsSubscribed(!isSubscribed)}>
+          <Pressable onPress={() => {
+            setIsSubscribed(!isSubscribed);
+            subscribe(isSubscribed);
+          }
+            }>
             <MaterialIcons
               name={isSubscribed ? "star" : "star-outline"}
               size={20}
