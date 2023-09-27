@@ -225,11 +225,10 @@ export default function ExploreCard({ course, isPublished }) {
                   />
                   <Text
                     style={{
-                      marginLeft: 2,
+                      marginLeft: 5,
                       color: isSubscribed ? "white" : "gray",
                     }}
                   >
-                    {" "}
                     {isSubscribed ? "Subscribed" : "Subscribe"}
                   </Text>
                 </View>

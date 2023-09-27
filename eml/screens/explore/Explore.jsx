@@ -27,16 +27,6 @@ function Explore() {
         description: 'This course is an introduction to differential calculus. It covers all topics in differential calculus including limits, continuity, the derivative and its applications.'
     },
     { 
-        title: 'Biology Fundamentals',
-        category: 'Science',
-        time: '10 weeks',
-        rating: 2,
-        coverImg: require('../../assets/singleIcon.png'),
-        published: true,
-        dateUpdated: '2020-10-10',
-        description: 'This course is an introduction to Biology. It covers all topics in Biology including cells, genetics, evolution, ecology, and human biology.'
-    },
-    { 
         title: 'World History',
         category: 'History',
         time: '8 weeks',
@@ -114,7 +104,7 @@ useEffect(() => {
           style={{ width: 25, height: 25 }}
         />
         </View>
-        <Text style={{ fontSize: 25, marginLeft: 10, fontWeight: 'bold' }}>Explora cursos</Text>
+        <Text style={{ fontSize: 25, marginLeft: 10, fontWeight: 'bold' }}>Explorar cursos</Text>
       </View>
       <FilterNavBar 
       onChangeText={(text) => handleFilter(text)} 
