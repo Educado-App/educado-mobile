@@ -195,14 +195,11 @@ function HomeStack() {
   );
 }
 
-function useWelcomeScreenLogic() {
+export function useWelcomeScreenLogic() {
   const [hasShownWelcome, setHasShownWelcome] = useState(false);
   const [initialRoute, setInitialRoute] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
-  // For dev purposes only - remove before production
-  //AsyncStorage.setItem("hasShownWelcome", "false");
-  
   useEffect(() => {
     setTimeout(() => {
       const fetchData = async () => {
@@ -212,11 +209,14 @@ function useWelcomeScreenLogic() {
             setInitialRoute("LoginStack");
           } else {
             await AsyncStorage.setItem("hasShownWelcome", "true");
-            setHasShownWelcome(true); // Use the passed-in setHasShownWelcome
+            setHasShownWelcome(true);
             setInitialRoute("WelcomeStack");
           }
         } catch (error) {
-          console.error("Error retrieving or setting AsyncStorage data:", error);
+          console.error(
+            "Error retrieving or setting AsyncStorage data:",
+            error
+          );
         } finally {
           setIsLoading(false);
         }
@@ -225,19 +225,16 @@ function useWelcomeScreenLogic() {
       fetchData();
     }, 3000);
   }, []);
-  
+
   return { initialRoute, isLoading };
 }
-
 
 // Change InitialRouteName to HomeStack if you want to skip Login Screen
 export default function App() {
   const { initialRoute, isLoading } = useWelcomeScreenLogic();
 
   if (isLoading) {
-    return (
-      <Loading />
-    )
+    return <Loading />;
   }
 
   return (
