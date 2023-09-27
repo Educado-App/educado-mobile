@@ -5,6 +5,7 @@ const testExpo = 'http://172.30.211.249:8888'; //Change to local expo ip
 const digitalOcean = 'http://207.154.213.68:8888';
 
 const url = testUrl;
+const url = testExpo;
 
 // Find a solution to refresh auth-token
 const authToken = '';
@@ -87,30 +88,29 @@ export const getAllComponents = async (components) => {
   return res.data;
 };
 
-// subscribe to course
-export const subscribeToCourse = async (course_id) => {
-  // Send request to S3 server
-  const res = await axios.post(url + '/api/course/eml/' + course_id + '/subscribe');
 
+// Get user subsribtions
+export const getSubsribtions = async () => {
 
-
-  return res.data;
-};
-
-
-// get user subsribtions
-export const getSubsribtions = async (user_id) => {
-
-  // Send request to S3 server
-  const res = await axios.get(url + '/api/' + user_id + '/subscription/getAll');
+  // Send request -- TODO: replace with real credentials, when login is working
+  const res = await axios.get(url + '/api/' + user_id + '/subscription/getAll', {
+      user_id: '65116200ce1f2c4eb06fba5b'
+    })
+    .then(response => {
+      console.log("Success", response)
+    })
+    .catch(error => {
+      console.log("Error" + error)
+    })
 
   return res.data;
 };
 
 
+// Subscribe to course
 export const subscribeToCourse = async() => {
 
-  // TODO: replace with real credentials, when login is working
+  // Send request -- TODO: replace with real credentials, when login is working
   const res = await axios.post(url + '/api/course/subscribe', {
     course_id: '650c01f06fe6094f6214a487', 
     user_id: '65116200ce1f2c4eb06fba5b'
@@ -124,6 +124,7 @@ export const subscribeToCourse = async() => {
 
 };
 
+// Unubscribe to course
 export const unSubscribeToCourse = async() => {
 
   const res = await axios.post(url + '/api/course/unsubscribe', {
@@ -139,6 +140,7 @@ export const unSubscribeToCourse = async() => {
 
 };
 
+// Boolean function for subscribed -- called in Explore page when subscribe button (star) is clicked
 export function subscribe(value) {
 
   if (value == true) {

@@ -1,11 +1,11 @@
-import { View, Text, Image, Pressable } from 'react-native'
-import React from 'react'
-import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/dev'
-import { useNavigation } from '@react-navigation/native'
-import { AppLoading } from 'expo-app-loading'
+import React from "react";
+import { View, Text, Image, Pressable } from "react-native";
+import Collapsible from "react-native-collapsible";
+import { useNavigation } from "@react-navigation/native";
 
-
-import { subscribe } from "../../api/api";
+import { MaterialIcons } from "@expo/vector-icons";
+import CardLabel from "./CardLabel";
+import CustomRating from "./CustomRating";
 
 export default function ExploreCard({ course }) {
   const [isCollapsed, setIsCollapsed] = React.useState(true);
@@ -15,7 +15,6 @@ export default function ExploreCard({ course }) {
   return (
     <Pressable
       style={{
-        backgroundColor: "#fff",
         borderRadius: 10,
         shadowColor: "#000",
         shadowOffset: {
@@ -49,14 +48,9 @@ export default function ExploreCard({ course }) {
             {course.title}
           </Text>
 
-          <Pressable onPress={() => {
-            setIsSubscribed(!isSubscribed);
-            subscribe(isSubscribed);
-          }
-              }>
-
+          <Pressable onPress={() => setIsSubscribed(!isSubscribed)}>
             <MaterialIcons
-              name={isSubscribed ? "star" : "star-outline" } 
+              name={isSubscribed ? "star" : "star-outline"}
               size={20}
               color="#f1CC4f"
             />
@@ -111,25 +105,54 @@ export default function ExploreCard({ course }) {
             <CustomRating rating={course.rating} />
           </View>
 
-  if (!fontsLoaded) {
-    return AppLoading
-  } else {
-    return (
-      <Pressable
-        style={{ shadowColor: 'black', elevation: 10 }}
-        className="w-2/5 h-24 rounded-md items-center flex-col bg-cyanBlue m-2"
-        onPress={() => navigation.navigate('Course', { courseId: courseId })}
-      >
-        <Text numberOfLines={1} style={{ fontFamily: 'VarelaRound_400Regular', fontSize: 14, }} className="pt-4 text-gray-600">
-          {title}
-        </Text>
-        <View className="pt-2">
           <Image
-            className="w-10 h-10"
-            source={require('../../assets/favicon.png')}
-          ></Image>
+            opacity={ isCollapsed ? 1 : 0 }
+            style={{
+              resizeMode: "contain",
+            }}
+            source={require("../../assets/favicon.png")}
+          />
         </View>
-      </Pressable>
-    )
-  }
+
+        <View
+          style={{
+            backgroundColor: "#f1f1f1",
+            borderRadius: 50,
+            padding: 5,
+          }}
+        ></View>
+      </View>
+
+      <Collapsible collapsed={isCollapsed}>
+        {/* Your expanded content goes here */}
+        <View style={{
+      flexDirection: 'row', // Arrange children in a row
+      alignItems: 'center', // Vertically center children
+      justifyContent: 'space-between', // Space between children
+      padding: 16,
+    }}>
+      <View style={{ flex: 1 }}>
+        <Text style={{
+          fontSize: 16,
+          color: 'black',
+        }}>
+          {course.description}
+        </Text>
+      </View>
+      <View style={{ marginLeft: 16 }}>
+        <Image
+          source={{
+            uri: "https://i0.wp.com/www.galvanizeaction.org/wp-content/uploads/2022/06/Wow-gif.gif?fit=450%2C250&ssl=1"
+          }}
+          style={{
+            width: 50,
+            height: 50,
+            // Add any additional styles you need for the image
+          }}
+        />
+      </View>
+    </View>
+      </Collapsible>
+    </Pressable>
+  );
 }

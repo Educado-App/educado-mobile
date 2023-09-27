@@ -7,8 +7,28 @@ const digitalOcean = 'http://207.154.213.68:8888'
 
 const url = testUrl;
 
+/**
+ * This is the client that will be used to make requests to the backend.
+ */
+export const client = axios.create({
+  baseURL: url,
+  withCredentials: true,
+  responseType: 'json',
+  timeout: 3000,
+});
+
+/**
+ * Sends a request to the backend to register a new user.
+ * @param {Object} obj Should contain the following properties:
+ * - name
+ * - email
+ * - password
+ * @returns 
+ */
 export const registerUser = async (obj) => {
-  const res = await axios.post(url + '/api/eml/register', obj)
+  console.log("User " +(obj.name ? obj.name : "undefined") + " with email " + (obj.email ? obj.email : "undefined") + " is trying to register.");
+  const res = await client.post('/api/signup/user', obj)
+  console.log("User " + (obj.name ? obj.name : "undefined") + " with email " + (obj.email ? obj.email : "undefined") + " has been registered.");
   return res.data
 }
 
