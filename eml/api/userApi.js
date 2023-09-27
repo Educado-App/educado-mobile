@@ -33,9 +33,7 @@ export const registerUser = async (obj) => {
 }
 
 export const loginUser = async (obj) => {
-  //console.log("userAPI - Email: " + obj.email + " Pass: " + (obj.password ? obj.password : "undefined"));
   const res = await client.post('/api/auth/login', obj)
-  //console.log(res)
   return res.data
 }
 

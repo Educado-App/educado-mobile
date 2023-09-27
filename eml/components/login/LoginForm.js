@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { loginUser } from "../../api/userApi";
@@ -8,6 +8,9 @@ import FormButton from "./FormButton";
 import PasswordEye from "./PasswordEye";
 import ResetPassword from "./ResetPassword";
 import { isFontsLoaded } from "../../constants/Fonts.js";
+import ShowAlert from "../general/ShowAlert";
+import FormFieldAlert from "./FormFieldAlert";
+import { RemoveEmojis } from "../general/Validation";
 
 const LOGIN_TOKEN = "@loginToken";
 const USER_INFO = "@userInfo";
@@ -25,6 +28,8 @@ export default function LoginForm(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
+  const [passwordAlert, setPasswordAlert] = useState("");
+  const [emailAlert, setEmailAlert] = useState("");
 
   if(!isFontsLoaded){
     return null;
@@ -40,6 +45,9 @@ export default function LoginForm(props) {
     //clearing password field
     //setPassword("");
 
+    setEmailAlert("");
+    setPasswordAlert("");
+
     //The Object must be hashed before it is sent to backend (before loginUser() is called)
     //The Input must be conditioned (at least one capital letter, minimum 8 letters and a number etc.)
     const obj = {
@@ -50,20 +58,20 @@ export default function LoginForm(props) {
     try {
       await loginUser(obj)
         .then((response) => {
-          //console.log(response.data.accessToken);
           AsyncStorage.setItem(LOGIN_TOKEN, response.accessToken);
           navigation.navigate("HomeStack");
         })
         .catch((error) => {
-          switch (error.code) {
+          switch (error.response.status) {
             case 404:
               //Wrong email
-              showAlert("No user exists with this email!");
+              //ShowAlert("No user exists with this email!");
+              setEmailAlert("Não existe nenhum usuário com este email!");
               break;
 
             case 401:
               //Wrong Password
-              showAlert("Senha incorreta!");
+              setPasswordAlert("Senha incorreta!");
               break;
 
             default:
@@ -97,12 +105,17 @@ export default function LoginForm(props) {
           required={true}
           keyboardType="email-address"
         />
+        <FormFieldAlert label={emailAlert} />
       </View>
+      
 
       <View className="relative mb-6">
         <FormTextField
           placeholder="Digite sua senha" // Type your password
-          onChangeText={(password) => setPassword(password)}
+          value={password}
+          onChangeText={(inputPassword) => {
+            setPassword(RemoveEmojis(inputPassword, password))
+          }}
           label="Senha" // Password
           required={true}
           secureTextEntry={!showPassword}
@@ -111,18 +124,24 @@ export default function LoginForm(props) {
           showPasswordIcon={showPassword}
           toggleShowPassword={toggleShowPassword}
         />
+        <FormFieldAlert label={passwordAlert} />
       </View>
+      
       <View>
         {/* TODO: tilføj onPress til nedenstående; reset password */}
         <Text
-          className="text-right underline font-montserrat text-base text-black mb-24"
+          className="text-right underline font-montserrat text-base text-black mb-15 ml-[205px]"
           onPress={() => setModalVisible(true)}
         >
           Esqueceu a senha?
         </Text>
       </View>
       {/* Enter */}
-      <FormButton label="Entrar" onPress={() => login(email, password)}/>
+      <FormButton 
+        label="Entrar" 
+        onPress={() => login(email, password)}
+        disabled={!(password.length > 0 && email.length > 0)}
+      />
       <View className="pt-10">
         {modalVisible ? (
           <ResetPassword

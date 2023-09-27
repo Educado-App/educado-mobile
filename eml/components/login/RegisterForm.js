@@ -6,6 +6,8 @@ import FormTextField from "./FormTextField";
 import FormButton from "./FormButton";
 import PasswordEye from "./PasswordEye";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import ShowAlert from "../general/ShowAlert";
+import FormFieldAlert from "./FormFieldAlert";
 
 const USER_INFO = "@userInfo";
 
@@ -19,10 +21,10 @@ export default function LoginForm(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [isEmailValid, setIsEmailValid] = useState(true);
-  const [isRealNameValid, setIsRealNameValid] = useState(true);
+  const [emailAlert, setEmailAlert] = useState("");
+  const [nameAlert, setNameAlert] = useState("");
   const [isAllInputValid, setIsAllInputValid] = useState(true);
-  const [passwordMatches, setPasswordMatches] = useState(true);
+  const [confirmPasswordAlert, setConfirmPasswordAlert] = useState("");
 
   // State variable to track password visibility
   const [showPassword, setShowPassword] = useState(false);
@@ -39,10 +41,10 @@ export default function LoginForm(props) {
 
   useEffect(() => {
     // clearing input
-    setIsRealNameValid(false);
-    setIsEmailValid(false);
+    setNameAlert("");
+    setEmailAlert("");
     setIsAllInputValid(false);
-    setPasswordMatches(true);
+    setConfirmPasswordAlert("");
     setRealName("");
     setEmail("");
     setPassword("");
@@ -51,7 +53,7 @@ export default function LoginForm(props) {
 
   useEffect(() => {
     validateInput();
-  }, [isRealNameValid, isEmailValid, passwordLengthValid, passwordContainsLetter, passwordMatches]);
+  }, [nameAlert, emailAlert, passwordLengthValid, passwordContainsLetter, confirmPasswordAlert]);
 
   const toggleShowConfirmPassword = () => {
     setShowConfirmPassword(!showConfirmPassword);
@@ -96,7 +98,7 @@ export default function LoginForm(props) {
           switch (error.message) {
             case "Request failed with status code 400":
               //Invalid user data
-              showAlert("Dados de usuário inválidos!");
+              ShowAlert("Dados de usuário inválidos!");
               break;
             default:
               console.log(error);
@@ -111,8 +113,8 @@ export default function LoginForm(props) {
    * Function for validating all input fields' content
    */
   function validateInput() {
-    if (isRealNameValid && isEmailValid && passwordLengthValid
-      && passwordContainsLetter && passwordMatches) {
+    if (nameAlert === "" && emailAlert === "" && passwordLengthValid
+      && passwordContainsLetter && confirmPasswordAlert === "") {
       setIsAllInputValid(true);
     } else {
       setIsAllInputValid(false);
@@ -148,9 +150,9 @@ export default function LoginForm(props) {
     const emailPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
     if (emailPattern.test(email)) {
-      setIsEmailValid(true);
+      setEmailAlert("");
     } else {
-      setIsEmailValid(false);
+      setEmailAlert("Email inválido"); // Email invalid
     }
   }
 
@@ -162,10 +164,10 @@ export default function LoginForm(props) {
   const validateRealName = (realName) => {
     const realNamePattern = /^(\p{L}+[- '])*\p{L}+$/u;
 
-    if (realNamePattern.test(realName)) {
-      setIsRealNameValid(true);
+    if (realNamePattern.test(realName) && realName.length > 1) {
+      setNameAlert("");
     } else {
-      setIsRealNameValid(false);
+      setNameAlert("Nome inválido"); // Invalid name
     }
   }
 
@@ -188,28 +190,11 @@ export default function LoginForm(props) {
 
   const checkIfPasswordsMatch = (password, confirmPassword) => {
     if (password === confirmPassword) {
-      setPasswordMatches(true);
+      setConfirmPasswordAlert("");
     } else {
-      setPasswordMatches(false);
+      setConfirmPasswordAlert("As senhas devem corresponder");
     }
   }
-
-  /**
-   * Function for showing an alert as a popup with a message
-   * @param {String} error the error message to be shown
-   */
-  const showAlert = (error) =>
-    Alert.alert(
-      error,
-      "Tente novamente", // Try again
-      [{
-        text: "Certo", // OK
-        style: "cancel",
-      }],
-      {
-        cancelable: true,
-      }
-    );
 
   return (
     <View>
@@ -225,9 +210,7 @@ export default function LoginForm(props) {
             setRealName(realName); validateRealName(realName);
           }}
         />
-        <View className="flex-row items-start h-6">
-          {!isRealNameValid && <Text className='text-xs text-error mx-2 my-1 font-montserrat'>Nome inválido {/* Name invalid */}</Text>}
-        </View>
+        <FormFieldAlert label={nameAlert} />
       </View>
       <View className="mb-6">
         <FormTextField
@@ -241,13 +224,7 @@ export default function LoginForm(props) {
           required={true}
           onChangeText={(email) => { setEmail(email); validateEmail(email); }}
         />
-
-
-
-        
-        <View className="flex-row items-start h-6">
-          {!isEmailValid && <Text className='text-xs text-error mx-2 my-1 font-montserrat'>Email inválido {/* Email invalid */}</Text>}
-        </View>
+        <FormFieldAlert label={emailAlert} />
       </View>
       <View className="mb-6">
         <View className="relative">
@@ -273,25 +250,25 @@ export default function LoginForm(props) {
           />
         </View>
 
-        <View className="flex-row justify-start">
-          <Text className="text-xs text-gray my-1 font-montserrat">
+        <View className="flex-row justify-start mt-1 h-6">
+          <Text className={"text-xs font-montserrat" + ((passwordLengthValid || !password) ? " text-gray" : " text-error")}>
             {/* Minimum 8 characters */}
             • Mínimo 8 caracteres
           </Text>
-          <View className="flex-row items-center">
+          <View className="flex-row items-center -translate-y-1">
             {passwordLengthValid ? (
               <MaterialCommunityIcons name="check" size={20} color="#4AA04A" />
             ) : null}
           </View>
         </View>
-        <View className="flex-row justify-start">
-          <Text className="text-xs text-gray font-montserrat">
+        <View className="flex-row justify-start h-6">
+          <Text className={"text-xs font-montserrat" + ((passwordContainsLetter || !password) ? " text-gray" : " text-error")}>
             {/* Must contain at least one letter */}
             • Conter pelo menos uma letra
           </Text>
-          <View className="flex-row items-center">
+          <View className="flex-row items-center -translate-y-1">
             {passwordContainsLetter ? (
-              <MaterialCommunityIcons name="check" size={20} color="#4AA04A" />
+              <MaterialCommunityIcons name="check" size={20} color="#4AA04A"/>
             ) : null}
           </View>
         </View>
@@ -316,16 +293,7 @@ export default function LoginForm(props) {
             toggleShowPassword={toggleShowConfirmPassword}
           />
         </View>
-        <View className="flex-row justify-start">
-          <View className="flex-row items-center">
-            {!passwordMatches ? (
-              <Text className="text-xs text-error mx-2 my-1 font-montserrat">
-                {/* Passwords must match */}
-                As senhas devem corresponder
-              </Text>
-            ) : null}
-          </View>
-        </View>
+        <FormFieldAlert label={confirmPasswordAlert} />
       </View>
       <View className="my-10">
         <FormButton
