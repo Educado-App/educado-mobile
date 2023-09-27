@@ -107,9 +107,9 @@ export default function ExploreCard({ course }) {
           </View>
 
           <Image
+            opacity={ isCollapsed ? 1 : 0 }
             style={{
               resizeMode: "contain",
-              display: "hidden",
             }}
             source={require("../../assets/favicon.png")}
           />
