@@ -40,8 +40,6 @@ export default function LoginForm(props) {
     //clearing password field
     //setPassword("");
 
-    
-
     //The Object must be hashed before it is sent to backend (before loginUser() is called)
     //The Input must be conditioned (at least one capital letter, minimum 8 letters and a number etc.)
     const obj = {
@@ -53,26 +51,24 @@ export default function LoginForm(props) {
       await loginUser(obj)
         .then((response) => {
           //console.log(response.data.accessToken);
-          //AsyncStorage.setItem(LOGIN_TOKEN, response.data.accessToken);
-          console.log(response);
+          AsyncStorage.setItem(LOGIN_TOKEN, response.accessToken);
           navigation.navigate("HomeStack");
         })
         .catch((error) => {
-          console.log(error)
-          /*switch (error.message) {
-            case "Request failed with status code 404":
+          switch (error.code) {
+            case 404:
               //Wrong email
-              showAlert("Insira um email válido.");
+              showAlert("No user exists with this email!");
               break;
 
-            case "Request failed with status code 400":
+            case 401:
               //Wrong Password
               showAlert("Senha incorreta!");
               break;
 
             default:
               console.log(error);
-          }*/
+          }
         });
     } catch (e) {
       console.log(e);
@@ -105,7 +101,7 @@ export default function LoginForm(props) {
 
       <View className="relative mb-6">
         <FormTextField
-          placeholder="Entre sua senha" // Enter your password
+          placeholder="Digite sua senha" // Type your password
           onChangeText={(password) => setPassword(password)}
           label="Senha" // Password
           required={true}
