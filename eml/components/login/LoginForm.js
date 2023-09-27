@@ -42,9 +42,7 @@ export default function LoginForm(props) {
    */
   async function login(email, password) {
     
-    //clearing password field
-    //setPassword("");
-
+    //Reset alerts
     setEmailAlert("");
     setPasswordAlert("");
 
