@@ -4,8 +4,7 @@ const testUrl = 'http://localhost:8888';
 const testExpo = 'http://172.30.211.249:8888'; //Change to local expo ip
 const digitalOcean = 'http://207.154.213.68:8888';
 
-const url = digitalOcean;
-
+const url = testUrl;
 
 // Find a solution to refresh auth-token
 const authToken = '';
@@ -108,3 +107,44 @@ export const getSubsribtions = async (user_id) => {
   return res.data;
 };
 
+
+export const subscribeToCourse = async() => {
+
+  // TODO: replace with real credentials, when login is working
+  const res = await axios.post(url + '/api/course/subscribe', {
+    course_id: '650c01f06fe6094f6214a487', 
+    user_id: '65116200ce1f2c4eb06fba5b'
+  })
+  .then(response => {
+    console.log("YAY! Du er subscribet" + response)
+  })
+  .catch(error => {
+    console.log("OMG nei, du er ikke subscribet" + error)
+  })
+
+};
+
+export const unSubscribeToCourse = async() => {
+
+  const res = await axios.post(url + '/api/course/unsubscribe', {
+    course_id: '650c01f06fe6094f6214a487', 
+    user_id: '65116200ce1f2c4eb06fba5b'
+  })
+  .then(response => {
+    console.log("YAY! Du er unsubscribet" + response)
+  })
+  .catch(error => {
+    console.log("OMG nei, du er ikke unsubscribet" + error)
+  })
+
+};
+
+export function subscribe(value) {
+
+  if (value == true) {
+    unSubscribeToCourse();
+  } else {
+    subscribeToCourse();
+  }
+
+};

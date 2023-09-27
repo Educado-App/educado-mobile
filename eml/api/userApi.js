@@ -5,7 +5,7 @@ const testUrl = 'http://localhost:8888';
 const testExpo = 'http://172.30.211.249:8888'; //Change to local expo ip
 const digitalOcean = 'http://207.154.213.68:8888'
 
-const url = digitalOcean;
+const url = testUrl;
 
 export const registerUser = async (obj) => {
   const res = await axios.post(url + '/api/eml/register', obj)
