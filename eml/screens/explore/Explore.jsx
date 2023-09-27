@@ -19,31 +19,36 @@ function Explore() {
         title: 'Introduction to Calculus',
         category: 'Mathematics',
         time: '12 weeks',
-        rating: 1
+        rating: 1,
+        description: 'This course is an introduction to differential calculus. It covers all topics in differential calculus including limits, continuity, the derivative and its applications.'
     },
     { 
         title: 'Biology Fundamentals',
         category: 'Science',
         time: '10 weeks',
-        rating: 2
+        rating: 2,
+        description: 'This course is an introduction to Biology. It covers all topics in Biology including cells, genetics, evolution, ecology, and human biology.'
     },
     { 
         title: 'World History: Ancient Civilizations',
         category: 'History',
         time: '8 weeks',
-        rating: 3
+        rating: 3,
+        description: 'This course is an introduction to World History. It covers all topics in World History including ancient civilizations, the middle ages, and the modern era.'
     },
     { 
         title: 'Modern Art Movements',
         category: 'Art',
         time: '6 Hours',
-        rating: 1
+        rating: 1,
+        description: 'This course is an introduction to Modern Art Movements. It covers all topics in Modern Art Movements including impressionism, cubism, surrealism, and pop art.'
     },
     { 
         title: 'category1',
         category: 'Finance',
         time: '9 weeks',
-        rating: 3.2
+        rating: 3.2, 
+        description: 'This course is an introduction to category1. It covers all topics in category1 including topic1, topic2, and topic3.'
     }
     // Add more courses with realistic data here
 ];

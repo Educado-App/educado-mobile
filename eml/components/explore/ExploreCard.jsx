@@ -126,9 +126,17 @@ export default function ExploreCard({ course }) {
       <Collapsible collapsed={isCollapsed}>
         {/* Your expanded content goes here */}
         <View style={{}}>
+          <Text
+              style={{
+                fontSize: 16,
+                color: "black",
+              }}
+            >
+            {course.description}
+          </Text>
           <Image
             source={{ uri: "https://i0.wp.com/www.galvanizeaction.org/wp-content/uploads/2022/06/Wow-gif.gif?fit=450%2C250&ssl=1" }}
-            style={{ width: "100%", height: 400 }} // Set the width and height as per your requirements
+            style={{ width: 50, height: 50 }} // Set the width and height as per your requirements
           />
         </View>
       </Collapsible>
