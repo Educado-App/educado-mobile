@@ -118,7 +118,7 @@ export default function ExploreCard({ course, isPublished }) {
             <Image
               opacity={isCollapsed ? 1 : 0}
               style={{
-                margin: 10,
+                margin: 5,
                 resizeMode: "contain",
               }}
               source={course.coverImg}
@@ -136,7 +136,7 @@ export default function ExploreCard({ course, isPublished }) {
                   alignSelf: "flex-start", // Use alignSelf to align text to the bottom
                 }}
               >
-                Subscribed
+                Inscrito
               </Text>
             ) : (
               <Text
@@ -193,7 +193,7 @@ export default function ExploreCard({ course, isPublished }) {
           </View>
 
           <View>
-            <View style={{ paddingTop: 20 }}>
+            <View style={{ paddingTop: 5 }}>
               <Pressable
                 onPress={() => setIsSubscribed(!isSubscribed)}
                 style={{
@@ -218,18 +218,48 @@ export default function ExploreCard({ course, isPublished }) {
                     overflow: "hidden",
                   }}
                 >
-                  <MaterialCommunityIcons
-                    name={isSubscribed ? "star" : "star-outline"}
-                    size={14}
-                    color={isSubscribed ? "#fff" : "gray"}
-                  />
                   <Text
                     style={{
-                      marginLeft: 5,
                       color: isSubscribed ? "white" : "gray",
                     }}
                   >
-                    {isSubscribed ? "Subscribed" : "Subscribe"}
+                    {isSubscribed ? "Inscrito" : "Se inscrever"}
+                  </Text>
+                </View>
+              </Pressable>
+            </View>
+          </View>
+
+           <View>
+            <View style={{ paddingTop: 5 }}>
+              <Pressable
+                style={{
+                  width: "40%",
+                  alignItems: "left",
+                  justifyContent: "center",
+                }}
+              >
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center", // Center align the icon and text vertically
+                    borderRadius: 5,
+                    fontSize: 14,
+                    color: "gray",
+                    backgroundColor: "#fff",
+                    paddingHorizontal: 8,
+                    paddingVertical: 6,
+                    borderColor: "gray",
+                    borderWidth: 1,
+                    textAlign: "left",
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "gray",
+                    }}
+                  >
+                    Acessar curso
                   </Text>
                 </View>
               </Pressable>
@@ -244,7 +274,7 @@ export default function ExploreCard({ course, isPublished }) {
                 color: "gray",
               }}
             >
-              Updated {course.dateUpdated}
+              ATUALIZODA: {course.dateUpdated}
             </Text>
           </View>
         </Collapsible>
