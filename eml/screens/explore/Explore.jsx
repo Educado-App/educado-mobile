@@ -13,9 +13,9 @@ function Explore() {
   // Selected category state
   const [selectedCategory, setSelectedCategory] = useState(null);
 
-  ///---------Dummy data should be replaced--------///
 
-  const [dummyCourses, setDummyCourses] = useState([
+  //Sets dummy data for courses (will be replaced with data from backend)
+  const [courses, setCourses] = useState([
     { 
         title: 'Introduction to Calculus',
         category: 'Mathematics',
@@ -51,14 +51,13 @@ function Explore() {
         rating: 3.2, 
         description: 'This course is an introduction to category1. It covers all topics in category1 including topic1, topic2, and topic3.'
     }
-    // Add more courses with realistic data here
 ]);
 
-//Fetch courses from backend. Client was made from axios.create() in api/userApi.js
+//Fetch courses from backend and replace dummy data!
 useEffect(() => {
   client.get('/api/course/eml/getall')
   .then(res => {
-    setDummyCourses(res.data);
+    //setCourses(res.data);
   })
   .catch(err => {
     console.log(err);
@@ -68,7 +67,7 @@ useEffect(() => {
 ///---------------------------------------------///
 
   // Function to filter courses based on searchText or selectedCategory
-  const filteredCourses = dummyCourses.filter((course) => {
+  const filteredCourses = courses.filter((course) => {
     // Check if the course title includes the search text
     const titleMatchesSearch = course.title.toLowerCase().includes(searchText.toLowerCase());
     // Check if the course category matches the selected category (or no category is selected)
