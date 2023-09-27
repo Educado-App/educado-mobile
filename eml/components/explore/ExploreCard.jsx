@@ -109,6 +109,7 @@ export default function ExploreCard({ course }) {
           <Image
             style={{
               resizeMode: "contain",
+              display: "hidden",
             }}
             source={require("../../assets/favicon.png")}
           />
@@ -125,20 +126,33 @@ export default function ExploreCard({ course }) {
 
       <Collapsible collapsed={isCollapsed}>
         {/* Your expanded content goes here */}
-        <View style={{}}>
-          <Text
-              style={{
-                fontSize: 16,
-                color: "black",
-              }}
-            >
-            {course.description}
-          </Text>
-          <Image
-            source={{ uri: "https://i0.wp.com/www.galvanizeaction.org/wp-content/uploads/2022/06/Wow-gif.gif?fit=450%2C250&ssl=1" }}
-            style={{ width: 50, height: 50 }} // Set the width and height as per your requirements
-          />
-        </View>
+        <View style={{
+      flexDirection: 'row', // Arrange children in a row
+      alignItems: 'center', // Vertically center children
+      justifyContent: 'space-between', // Space between children
+      padding: 16,
+    }}>
+      <View style={{ flex: 1 }}>
+        <Text style={{
+          fontSize: 16,
+          color: 'black',
+        }}>
+          {course.description}
+        </Text>
+      </View>
+      <View style={{ marginLeft: 16 }}>
+        <Image
+          source={{
+            uri: "https://i0.wp.com/www.galvanizeaction.org/wp-content/uploads/2022/06/Wow-gif.gif?fit=450%2C250&ssl=1"
+          }}
+          style={{
+            width: 50,
+            height: 50,
+            // Add any additional styles you need for the image
+          }}
+        />
+      </View>
+    </View>
       </Collapsible>
     </Pressable>
   );
