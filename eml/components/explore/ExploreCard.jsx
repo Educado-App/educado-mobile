@@ -60,7 +60,7 @@ export default function ExploreCard({ course, isPublished }) {
 
             <View>
               <MaterialCommunityIcons
-                name={isCollapsed ? "chevron-up" : "chevron-down"}
+                name={isCollapsed ? "chevron-down" : "chevron-up"}
                 size={25}
                 color="gray"
               />
