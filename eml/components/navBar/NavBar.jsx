@@ -62,7 +62,7 @@ export default function NavBar() {
       }}
     >
       <Tab.Screen
-        name="Home"
+        name="Casa"
         component={CourseScreen}
         options={{
           tabBarActiveBackgroundColor: '#5fcce9',
@@ -80,7 +80,7 @@ export default function NavBar() {
         }}
       />
       <Tab.Screen
-        name="Explore"
+        name="Explorar"
         component={Explore}
         options={{
           tabBarActiveBackgroundColor: '#5fcce9',
@@ -135,7 +135,7 @@ export default function NavBar() {
         }}
       /> */}
       <Tab.Screen
-        name="Profile"
+        name="Perfil"
         component={ProfileComponent}
         options={{
           tabBarActiveBackgroundColor: '#5fcce9',

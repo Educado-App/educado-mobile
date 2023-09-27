@@ -20,7 +20,7 @@ function Explore() {
         title: 'Introduction to Calculus',
         category: 'Mathematics',
         time: '12 weeks',
-        rating: 1,
+        rating: 1.4,
         coverImg: require('../../assets/singleIcon.png'),
         published: true,
         dateUpdated: '2020-10-10',
@@ -37,7 +37,7 @@ function Explore() {
         description: 'This course is an introduction to Biology. It covers all topics in Biology including cells, genetics, evolution, ecology, and human biology.'
     },
     { 
-        title: 'World History: Ancient Civilizations',
+        title: 'World History',
         category: 'History',
         time: '8 weeks',
         rating: 3,

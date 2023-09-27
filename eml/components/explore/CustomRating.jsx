@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const CustomRating = ({ rating = 5 }) => {
-  const [ratingIcons, setRatingIcons] = useState(Array(5).fill({ icon: 'star-border', color: 'gray' }));
+  const [ratingIcons, setRatingIcons] = useState(Array(5).fill({ icon: 'star-outline', color: 'gray' }));
 
   useEffect(() => {
     const fullStars = Math.floor(rating);
@@ -11,11 +11,11 @@ const CustomRating = ({ rating = 5 }) => {
 
     const newRatingIcons = ratingIcons.map((icon, index) => {
       if (index < fullStars) {
-        return { icon: 'favorite', color: '#ff6767' };
+        return { icon: 'star', color: '#f1CC4f' };
       } else if (index === fullStars && halfStar) {
-        return { icon: 'favorite', color: '#ff6767' };
+        return { icon: 'star-half-full', color: '#f1CC4f' };
       } else {
-        return { icon: 'favorite-border', color: 'gray' };
+        return { icon: 'star-outline', color: 'gray' };
       }
     });
 
@@ -32,7 +32,7 @@ const CustomRating = ({ rating = 5 }) => {
       }}
     >
       {ratingIcons.map((icon, index) => (
-        <MaterialIcons key={index} name={icon.icon} size={14} color={icon.color} />
+        <MaterialCommunityIcons key={index} name={icon.icon} size={14} color={icon.color} />
       ))}
     </View>
   );

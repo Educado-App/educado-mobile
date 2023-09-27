@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/dev'
 import { AppLoading } from 'expo-app-loading';
 
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import CardLabel from "./CardLabel";
 import CustomRating from "./CustomRating";
 
@@ -58,13 +58,13 @@ export default function ExploreCard({ course, isPublished }) {
             {course.title}
           </Text>
 
-          <Pressable onPress={() => setIsSubscribed(!isSubscribed)}>
-            <MaterialIcons
-              name={isSubscribed ? "star" : "star-outline"}
-              size={20}
-              color="#f1CC4f"
+          <View>
+            <MaterialCommunityIcons
+              name={isCollapsed ? "chevron-up" : "chevron-down"}
+              size={25}
+              color="gray"
             />
-          </Pressable>
+          </View>
         </View>
         <View
           style={{
@@ -124,13 +124,6 @@ export default function ExploreCard({ course, isPublished }) {
           />
         </View>
 
-        <View
-          style={{
-            backgroundColor: "#f1f1f1",
-            borderRadius: 50,
-            padding: 5,
-          }}
-        ></View>
       </View>
 
       <Collapsible collapsed={isCollapsed}>
@@ -161,6 +154,50 @@ export default function ExploreCard({ course, isPublished }) {
       </View>
       
     </View>
+
+
+    <View>
+  <View style={{ paddingTop: 20 }}>
+    <Pressable
+      onPress={() => setIsSubscribed(!isSubscribed)}
+      style={{
+        width: '40%',
+        alignItems: 'left',
+        justifyContent: 'center',
+      }}
+    >
+      <View style={{
+        flexDirection: 'row',
+        alignItems: 'center', // Center align the icon and text vertically
+        borderRadius: 5,
+        fontSize: 14,
+        color: isSubscribed ? "white" : "gray",
+        backgroundColor: isSubscribed ? "#5ECCE9" : "#fff",
+        paddingHorizontal: 8,
+        paddingVertical: 6,
+        borderColor: isSubscribed ? "#5ECCE9" : "gray",
+        borderWidth: 1,
+        textAlign: 'left',
+        overflow: 'hidden',
+      }}>
+        <MaterialCommunityIcons
+          name={isSubscribed ? "star" : "star-outline"}
+          size={14}
+          color={isSubscribed ? "#fff" : "gray"}
+        />
+        <Text style={{ marginLeft: 2, color: isSubscribed ? "white" : "gray", }}> {isSubscribed ? "Subscribed" : "Subscribe"}</Text>
+      </View>
+    </Pressable>
+  </View>
+</View>
+
+
+
+
+
+
+
+    
     <View style={{ }}>
           <Text style={{
             paddingTop: 13,
