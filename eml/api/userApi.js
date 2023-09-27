@@ -5,16 +5,16 @@ const test = `http://192.168.0.105:8888` // Change this to your LOCAL IP address
 const local = 'http://localhost:8888'
 const digitalOcean = 'http://207.154.213.68:8888'
 
-const url = test;
+const url = local;
 
 /**
  * This is the client that will be used to make requests to the backend.
  */
 export const client = axios.create({
-  baseURL: test,
-  withCredentials: true,
+  baseURL: url,
+  withCredentials: false,
   responseType: 'json',
-  timeout: 30000,
+  timeout: 3000,
 });
 
 /**

@@ -4,6 +4,7 @@ import { View, Text, Image } from 'react-native';
 import FilterNavBar from '../../components/explore/FilterNavBar';
 import { ScrollView } from 'react-native-gesture-handler';
 import ExploreCard from '../../components/explore/ExploreCard';
+import { client } from '../../api/userApi';
 
 function Explore() {
   
@@ -14,7 +15,7 @@ function Explore() {
 
   ///---------Dummy data should be replaced--------///
 
-  const dummyCourses = [
+  const [dummyCourses, setDummyCourses] = useState([
     { 
         title: 'Introduction to Calculus',
         category: 'Mathematics',
@@ -46,7 +47,18 @@ function Explore() {
         rating: 3.2
     }
     // Add more courses with realistic data here
-];
+]);
+
+//Fetch courses from backend. Client was made from axios.create() in api/userApi.js
+useEffect(() => {
+  client.get('/api/course/eml/getall')
+  .then(res => {
+    setDummyCourses(res.data);
+  })
+  .catch(err => {
+    console.log(err);
+  })
+}, []);
 
 ///---------------------------------------------///
 
