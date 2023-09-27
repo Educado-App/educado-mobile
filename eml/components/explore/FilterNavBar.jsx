@@ -46,22 +46,22 @@ function FilterNavBar({ onChangeText, onCategoryChange }) {
               .filter((category) => category.label.includes(searchText)) // Filter categories based on the search text
               .map((category) => (
                 <TouchableOpacity
-                  key={category.key}
+                  key={category.label}
                   onPress={() => handleCategorySelect(category.label)}
                   style={{
-                    backgroundColor: selectedCategory === category.key ? '#5fcce9' : 'transparent',
+                    backgroundColor: selectedCategory === category.label ? '#5fcce9' : 'transparent',
                     paddingHorizontal: 8,
                     paddingVertical: 7,
                     borderRadius: 8,
                     marginRight: 10,
                     borderColor: 'gray',
-                    borderWidth: selectedCategory === category.key ? 0 : 1,
-                    opacity: selectedCategory === category.key ? 1 : 0.5,
+                    borderWidth: selectedCategory === category.label ? 0 : 1,
+                    opacity: selectedCategory === category.label ? 1 : 0.5,
                   }}
                 >
                   <Text style={{ 
-                    color: selectedCategory === category.key ? 'white' : 'gray',
-                    fontWeight: selectedCategory === category.key ? 'bold' : 'normal',
+                    color: selectedCategory === category.label ? 'white' : 'gray',
+                    fontWeight: selectedCategory === category.label ? 'bold' : 'normal',
                     fontSize: 13,
                 
                 }}>{category.label}</Text>
