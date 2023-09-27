@@ -9,7 +9,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import CardLabel from "./CardLabel";
 import CustomRating from "./CustomRating";
 
-export default function ExploreCard({ course }) {
+export default function ExploreCard({ course, isPublished }) {
   const [isCollapsed, setIsCollapsed] = React.useState(true);
   const [isSubscribed, setIsSubscribed] = React.useState(false);
   const navigation = useNavigation();
@@ -21,7 +21,7 @@ export default function ExploreCard({ course }) {
   if (!fontsLoaded) {
     return AppLoading
   } else {
-  return (
+  return isPublished ? (
     <Pressable
       style={{
         backgroundColor: "#fff",
@@ -71,7 +71,7 @@ export default function ExploreCard({ course }) {
             width: "100%",
             height: 0.5,
             backgroundColor: "gray",
-            opacity: 50,
+            opacity: 0.5,
             marginBottom: 10,
             marginTop: 6,
           }}
@@ -120,7 +120,7 @@ export default function ExploreCard({ course }) {
             style={{
               resizeMode: "contain",
             }}
-            source={require("../../assets/favicon.png")}
+            source={course.coverImg}
           />
         </View>
 
@@ -151,9 +151,7 @@ export default function ExploreCard({ course }) {
       </View>
       <View style={{ marginLeft: 16 }}>
         <Image
-          source={{
-            uri: "https://i0.wp.com/www.galvanizeaction.org/wp-content/uploads/2022/06/Wow-gif.gif?fit=450%2C250&ssl=1"
-          }}
+          source={course.coverImg}
           style={{
             width: 50,
             height: 50,
@@ -161,9 +159,22 @@ export default function ExploreCard({ course }) {
           }}
         />
       </View>
+      
     </View>
+    <View style={{ }}>
+          <Text style={{
+            paddingTop: 13,
+            fontSize: 10,
+            color: 'gray',
+
+          }}>
+            Updated {course.dateUpdated}
+          </Text>
+      </View>
       </Collapsible>
     </Pressable>
-  );
+  ) : null;
+
+
 }
 }

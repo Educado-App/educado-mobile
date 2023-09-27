@@ -21,6 +21,9 @@ function Explore() {
         category: 'Mathematics',
         time: '12 weeks',
         rating: 1,
+        coverImg: require('../../assets/singleIcon.png'),
+        published: true,
+        dateUpdated: '2020-10-10',
         description: 'This course is an introduction to differential calculus. It covers all topics in differential calculus including limits, continuity, the derivative and its applications.'
     },
     { 
@@ -28,6 +31,9 @@ function Explore() {
         category: 'Science',
         time: '10 weeks',
         rating: 2,
+        coverImg: require('../../assets/singleIcon.png'),
+        published: true,
+        dateUpdated: '2020-10-10',
         description: 'This course is an introduction to Biology. It covers all topics in Biology including cells, genetics, evolution, ecology, and human biology.'
     },
     { 
@@ -35,6 +41,9 @@ function Explore() {
         category: 'History',
         time: '8 weeks',
         rating: 3,
+        coverImg: require('../../assets/singleIcon.png'),
+        published: true,
+        dateUpdated: '2020-10-10',
         description: 'This course is an introduction to World History. It covers all topics in World History including ancient civilizations, the middle ages, and the modern era.'
     },
     { 
@@ -42,6 +51,9 @@ function Explore() {
         category: 'Art',
         time: '6 Hours',
         rating: 1,
+        coverImg: require('../../assets/singleIcon.png'),
+        published: true,
+        dateUpdated: '2020-10-10',
         description: 'This course is an introduction to Modern Art Movements. It covers all topics in Modern Art Movements including impressionism, cubism, surrealism, and pop art.'
     },
     { 
@@ -49,6 +61,9 @@ function Explore() {
         category: 'Finance',
         time: '9 weeks',
         rating: 3.2, 
+        coverImg: require('../../assets/singleIcon.png'),
+        published: true,
+        dateUpdated: '2020-10-10',
         description: 'This course is an introduction to category1. It covers all topics in category1 including topic1, topic2, and topic3.'
     }
 ]);
@@ -95,8 +110,8 @@ useEffect(() => {
       <View style={{ flexDirection: 'row', alignItems: 'center', padding: 10, marginTop: '20%', marginBottom: '10%' }}>
         <View className="pl-2">
         <Image
-          source={require('../../assets/singleIcon.png')} // Use the path to your PNG file
-          style={{ width: 25, height: 25 }} // Define the width and height of the image
+          source={require('../../assets/singleIcon.png')}
+          style={{ width: 25, height: 25 }}
         />
         </View>
         <Text style={{ fontSize: 25, marginLeft: 10, fontWeight: 'bold' }}>Explora cursos</Text>
@@ -107,7 +122,7 @@ useEffect(() => {
       />
       <ScrollView>
       {filteredCourses.map((course, index) => (
-          <ExploreCard key={index} course={course} />
+          <ExploreCard key={index} isPublished={course.published} course={course} />
         ))}
       </ScrollView>
     </View>
