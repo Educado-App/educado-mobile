@@ -3,11 +3,14 @@ import { StyleSheet, View, Image, Dimensions } from 'react-native'
 import { Text } from '@ui-kitten/components'
 import PropTypes from 'prop-types'
 import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/dev'
+import CourseProgress from './CourseProgress'
 
-export default function CourseTitleIcon({ title, courseIcon }) {
+export default function CourseTitleIcon({ title, courseIcon, category, progress }) {
   CourseTitleIcon.propTypes = {
     title: PropTypes.string.isRequired,
-    courseIcon: PropTypes.string
+    courseIcon: PropTypes.string,
+    category: PropTypes.string.isRequired,
+    progress: PropTypes.string.isRequired
   }
 
   let [fontsLoaded] = useFonts({
@@ -21,7 +24,7 @@ export default function CourseTitleIcon({ title, courseIcon }) {
         {/*Right now image is hardcoded but could be made into a switch statement determining image based on category. 
         This is due to the require function not being able to use variables as input */}
           <Image source={require('../../../assets/icon.png')}
-          style={{width: Dimensions.get('window').width*0.2, height: Dimensions.get('window').width*0.2 }}
+          style={{width: Dimensions.get('window').width*0.25, height: Dimensions.get('window').width*0.25 }}
           /> 
       </View>
       <View className="pt-1 pl-3" style={{width: Dimensions.get('window').width*0.6}}>
@@ -32,6 +35,15 @@ export default function CourseTitleIcon({ title, courseIcon }) {
         >
           {title}
         </Text>
+        <Text
+          numberOfLines={1}
+          ellipsizeMode={'tail'}
+          style={{fontSize: 16, fontFamily: 'VarelaRound_400Regular', color: 'rgb(0,0,0)'}}
+        >
+          {category}
+        </Text>
+        <CourseProgress fracBot={100} fracTop={10}>
+        </CourseProgress>
       </View>
     </View>
   )
@@ -40,9 +52,10 @@ export default function CourseTitleIcon({ title, courseIcon }) {
 const styles = StyleSheet.create({
   container: {
     width: Dimensions.get('window').width*0.85,
+    height: Dimensions.get('window').width*0.32,
     flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: 'rgb(255,255,255)',
     borderRadius: 20,
     overflow: 'hidden'

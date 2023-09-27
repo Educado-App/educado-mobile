@@ -1,7 +1,7 @@
 import { useRoute, useNavigation } from '@react-navigation/native'
 import { React, useEffect, useState } from 'react'
 import CourseListUI from '../../components/easyDynComponents/courseListUI'
-import { View, Pressable, Text } from 'react-native'
+import { View, Pressable, Text, Dimensions, Image } from 'react-native'
 import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/dev'
 import { AppLoading } from 'expo-app-loading'
 import * as StorageService from "../../services/StorageService";
@@ -56,12 +56,20 @@ export default function CourseScreen() {
         return (
             <View className="flex-1 items-center justify-center bg-babyBlue">
                 {courseLoaded ?
-                    <View className="bg-babyBlue flex-1 justify-top items-center">
-                        <Text style={{marginTop: "10%", fontSize: 30, fontFamily: 'VarelaRound_400Regular', textAlign: 'left'}}>Blah</Text>
+                    <View>
+                        <View className="justify-center items-center pt-14">
+                            <Image source={require('../../assets/logo_educado.png')}></Image>
+                        </View>
+                        <View className="bg-babyBlue flex-1 justify-top items-center pt-6">
                         {course.map((course, i) => {
-                            return <CourseListUI course={course} key={i} downloadState={setDownloadState}></CourseListUI>
+                            return (
+                                <Pressable onPress={() => console.log(i)}>
+                                    <CourseListUI course={course} key={i} downloadState={setDownloadState}></CourseListUI>
+                                </Pressable>
+                            )
                             }) 
                         }
+                        </View>
                     </View>
                     :
                     <View className="justify-center items-center">
