@@ -12,7 +12,7 @@ const url = local;
  */
 export const client = axios.create({
   baseURL: url,
-  withCredentials: false,
+  withCredentials: true,
   responseType: 'json',
   timeout: 3000,
 });

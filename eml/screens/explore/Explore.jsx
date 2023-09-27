@@ -57,7 +57,7 @@ function Explore() {
 useEffect(() => {
   client.get('/api/course/eml/getall')
   .then(res => {
-    //setCourses(res.data);
+    setCourses(res.data);
   })
   .catch(err => {
     console.log(err);
