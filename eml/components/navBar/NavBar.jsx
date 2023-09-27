@@ -5,10 +5,21 @@ import Explore from '../../screens/explore/Explore';
 import TestScreen from '../../screens/test/TestScreen';
 import ProfileComponent from '../../screens/profile/Profile';
 import { Icon } from '@rneui/themed';
+import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/dev'
+import { AppLoading } from 'expo-app-loading';
 
 const Tab = createBottomTabNavigator();
 
 export default function NavBar() {
+
+  let [fontsLoaded] = useFonts({
+    VarelaRound_400Regular
+  })
+
+  if (!fontsLoaded) {
+    return AppLoading
+  } else {
+
   return (
     <Tab.Navigator
       initialRouteName={'Home'}
@@ -143,4 +154,5 @@ export default function NavBar() {
       />
     </Tab.Navigator>
   );
+}
 }

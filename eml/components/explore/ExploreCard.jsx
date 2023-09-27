@@ -2,6 +2,8 @@ import React from "react";
 import { View, Text, Image, Pressable } from "react-native";
 import Collapsible from "react-native-collapsible";
 import { useNavigation } from "@react-navigation/native";
+import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/dev'
+import { AppLoading } from 'expo-app-loading';
 
 import { MaterialIcons } from "@expo/vector-icons";
 import CardLabel from "./CardLabel";
@@ -12,6 +14,13 @@ export default function ExploreCard({ course }) {
   const [isSubscribed, setIsSubscribed] = React.useState(false);
   const navigation = useNavigation();
 
+  let [fontsLoaded] = useFonts({
+    VarelaRound_400Regular
+  })
+
+  if (!fontsLoaded) {
+    return AppLoading
+  } else {
   return (
     <Pressable
       style={{
@@ -155,4 +164,5 @@ export default function ExploreCard({ course }) {
       </Collapsible>
     </Pressable>
   );
+}
 }
