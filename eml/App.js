@@ -40,6 +40,20 @@ function WelcomeStack() {
   );
 }
 
+function ExerciseStack() {
+  return (
+    <Stack.Navigator initialRouteName={"Exercise"}>
+      <Stack.Screen
+        name="Exercise"
+        component={ExerciseScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
 function LoginStack() {
   return (
     <Stack.Navigator initialRouteName={"Login"}>
@@ -202,7 +216,7 @@ function useWelcomeScreenLogic() {
 
   // For dev purposes only - remove before production
   //AsyncStorage.setItem("hasShownWelcome", "false");
-  
+
   useEffect(() => {
     setTimeout(() => {
       const fetchData = async () => {
@@ -216,7 +230,10 @@ function useWelcomeScreenLogic() {
             setInitialRoute("WelcomeStack");
           }
         } catch (error) {
-          console.error("Error retrieving or setting AsyncStorage data:", error);
+          console.error(
+            "Error retrieving or setting AsyncStorage data:",
+            error
+          );
         } finally {
           setIsLoading(false);
         }
@@ -225,19 +242,16 @@ function useWelcomeScreenLogic() {
       fetchData();
     }, 3000);
   }, []);
-  
+
   return { initialRoute, isLoading };
 }
-
 
 // Change InitialRouteName to HomeStack if you want to skip Login Screen
 export default function App() {
   const { initialRoute, isLoading } = useWelcomeScreenLogic();
 
   if (isLoading) {
-    return (
-      <Loading />
-    )
+    return <Loading />;
   }
 
   return (
@@ -246,7 +260,7 @@ export default function App() {
         <IconRegistry icons={EvaIconsPack} />
         <ApplicationProvider {...eva} theme={eva.light}>
           <NavigationContainer>
-            <Stack.Navigator initialRouteName={initialRoute}>
+            <Stack.Navigator initialRouteName={"ExerciseStack"}>
               <Stack.Screen
                 name={"WelcomeStack"}
                 component={WelcomeStack}
@@ -260,6 +274,11 @@ export default function App() {
               <Stack.Screen
                 name={"HomeStack"}
                 component={HomeStack}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name={"ExerciseStack"}
+                component={ExerciseStack}
                 options={{ headerShown: false }}
               />
             </Stack.Navigator>
