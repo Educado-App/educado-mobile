@@ -18,14 +18,16 @@ import { getCourses } from '../../api/api';
 import { useNavigation } from '@react-navigation/native'
 import ReturnButton from '../../components/profileSettings/returnButton'
 import DeleteAccountButton from '../../components/profileSettings/deleteAccountButton'
-import ChangeNameButton from '../../components/profileSettings/changeNameButton'
+import ChangeFirstNameButton from '../../components/profileSettings/changeFirstNameButton'
+import ChangeLastNameButton from '../../components/profileSettings/changeLastNameButton'
 import ChangeEmailButton from '../../components/profileSettings/changeEmailButton'
 
 const USER_INFO = '@userInfo';
 
 export default function ProfileComponent() {
   const [id, setId] = useState('');
-  const [userName, setUserName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [courses, setCourses] = useState([]); // State to store course data
 
@@ -35,7 +37,8 @@ export default function ProfileComponent() {
 
       if (fetchedProfile !== null) {
         setId(fetchedProfile.id);
-        setUserName(fetchedProfile.userName);
+        setFirstName(fetchedProfile.firstName);
+        setLastName(fetchedProfile.lastName);
         setEmail(fetchedProfile.email);
       }
     } catch (e) {
@@ -93,7 +96,11 @@ export default function ProfileComponent() {
 
           <View className="flex flex-col gap-6 items-center px-6 w-screen">
             <View className="flex justify-center w-full">
-              <ChangeNameButton></ChangeNameButton>
+              <ChangeFirstNameButton></ChangeFirstNameButton>
+            </View>
+
+            <View className="flex justify-center w-full">
+              <ChangeLastNameButton></ChangeLastNameButton>
             </View>
 
             <View className="flex justify-center w-full">

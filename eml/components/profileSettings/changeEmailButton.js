@@ -16,9 +16,9 @@ const USER_INFO = '@userInfo';
 
 export default function ProfileComponent() {
   const [id, setId] = useState('');
-  const [userName, setUserName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
-  const [editingEmail, setEditingEmail] = useState(false);
   const [newEmail, setNewEmail] = useState('');
   const [emailModalVisible, setEmailModalVisible] = useState(false);
   const [tempEmail, setTempEmail] = useState(''); // Renamed setNewTempEmail to setTempEmail
@@ -30,7 +30,8 @@ export default function ProfileComponent() {
 
       if (fetchedProfile !== null) {
         setId(fetchedProfile.id);
-        setUserName(fetchedProfile.userName);
+        setFirstName(fetchedProfile.firstName);
+        setLastName(fetchedProfile.lastName);
         setEmail(fetchedProfile.email);
       }
     } catch (e) {
@@ -56,25 +57,25 @@ export default function ProfileComponent() {
 
         // Update the state with the new username and close modal
         setEmail(newEmail);
-        setEditingEmail(false);
 
         // Save changes to AsyncStorage or your API
         const updatedProfile = {
           id,
-          userName,
+          firstName: firstName,
+          lastName: lastName,
           email: newEmail,
         };
 
         await AsyncStorage.setItem(USER_INFO, JSON.stringify(updatedProfile));
         setEmailModalVisible(false);
         } catch (error) {
-          Alert.alert('Erro ao atualizar o e-mail, tente novamente. ', error.message);
+          Alert.alert('Alerta', 'Erro ao atualizar o e-mail, tente novamente: ', error.message);
         }
       } else {
-        alert('Formato de e-mail inválido. Digite um endereço de e-mail válido.');
+        Alert.alert('Alerta','Formato de e-mail inválido. Digite um endereço de e-mail válido.');
       }
     } else {
-      alert('Os e-mails não correspondem ou são iguais ao seu e-mail atual. Tente novamente.')
+      Alert.alert('Alerta','Os e-mails não correspondem ou são iguais ao seu e-mail atual. Tente novamente.')
     }
     setIsLoading(false);
   }
@@ -93,12 +94,14 @@ export default function ProfileComponent() {
 
   return (
     <View>
+      <Text className="text-left font-montserrat text-caption-medium text-black mb-2">Email</Text>
       <TouchableOpacity
-        className="bg-primary px-10 py-4 rounded-medium w-full"
+        className="bg-white px-5 py-4 rounded-medium w-full"
         onPress={openEmailModal} // Call the new function to open the modal
       >
-        <Text className="text-center font-montserrat-bold text-body text-white">
-          Email: {email}
+        <Text 
+          className="text-left font-montserrat text-body text-gray">
+          {email}
         </Text>
       </TouchableOpacity>
 
@@ -109,20 +112,20 @@ export default function ProfileComponent() {
         onRequestClose={() => setEmailModalVisible(false)}
       >
         <View className="flex justify-center items-center h-full bg-opacity-50 bg-black">
-          <View className="bg-white p-4 rounded-lg w-11/12 max-w-md">
+          <View className="bg-lightgray p-4 rounded-lg w-11/12 max-w-md">
             <View className="flex flex-col items-center">
               <TextInput
                 value={newEmail}
                 onChangeText={setNewEmail}
                 placeholder="Digite o novo endereço de e-mail"
-                className="w-full p-4 mb-4 border rounded"
+                className="w-full p-4 mb-4 rounded bg-white"
               />
 
               <TextInput
                 value={tempEmail}
                 onChangeText={setTempEmail}
                 placeholder="Confirmar novo endereço de e-mail"
-                className="w-full p-4 mb-4 border rounded"
+                className="w-full p-4 mb-4 rounded bg-white"
               />
 
               {isLoading ? ( // Conditional rendering based on loading state

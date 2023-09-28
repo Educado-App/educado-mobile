@@ -16,11 +16,11 @@ const USER_INFO = '@userInfo';
 
 export default function ProfileComponent() {
   const [id, setId] = useState('');
-  const [userName, setUserName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
-  const [editingUserName, setEditingUserName] = useState(false);
-  const [newUserName, setNewUserName] = useState('');
-  const [userNameModalVisible, setUserNameModalVisible] = useState(false);
+  const [newLastName, setNewLastName] = useState('');
+  const [lastNameModalVisible, setLastNameModalVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false); // Add a loading state
 
   const getProfile = async () => {
@@ -29,7 +29,8 @@ export default function ProfileComponent() {
 
       if (fetchedProfile !== null) {
         setId(fetchedProfile.id);
-        setUserName(fetchedProfile.userName);
+        setFirstName(fetchedProfile.firstName);
+        setLastName(fetchedProfile.lastName);
         setEmail(fetchedProfile.email);
       }
     } catch (e) {
@@ -50,34 +51,34 @@ export default function ProfileComponent() {
     }
   }, [courses]);*/
 
-  const saveUserNameChanges = async () => {
-    if (newUserName !== userName) {
+  const saveLastNameChanges = async () => {
+    if (newLastName !== lastName) {
       // Call the updateUserName function to update the username on the server
       try {
         setIsLoading(true); // Set loading state to true
 
-        await updateName(id, newUserName);
+        await updateName(id, newLastName);
 
         // Update the state with the new username and close modal
-        setUserName(newUserName);
-        setEditingUserName(false);
+        setLastName(newLastName);
 
         // Save changes to AsyncStorage or your API
         const updatedProfile = {
           id,
-          userName: newUserName,
+          firstName,
+          lastName: newLastName,
           email,
         };
 
         await AsyncStorage.setItem(USER_INFO, JSON.stringify(updatedProfile));
-        setUserNameModalVisible(false);
+        setLastNameModalVisible(false);
       } catch (error) {
-        Alert.alert('Erro ao atualizar o nome, tente novamente', error.message);
+        Alert.alert('Alerta', 'Erro ao atualizar o nome, tente novamente', error.message);
       } finally {
         setIsLoading(false); // Set loading state to false after the operation
       }
     } else {
-      alert('O nome não foi alterado');
+      Alert.alert('Alerta', 'Nome não foi alterado');
     }
     setIsLoading(false);
   }
@@ -88,13 +89,14 @@ export default function ProfileComponent() {
 
   return (
     <View>
+      <Text className="text-left font-montserrat text-caption-medium text-black mb-2">Sobrenome</Text>
       <TouchableOpacity
-        className="bg-primary px-10 py-4 rounded-medium w-full"
-        onPress={() => setUserNameModalVisible(true)}
+        className="bg-white px-5 py-4 rounded-medium w-full"
+        onPress={() => setLastNameModalVisible(true)}
         >
         <Text 
-          className="text-center font-montserrat-bold text-body text-white">
-            Nome: {userName}
+          className="text-left font-montserrat text-body text-gray">
+          {lastName}
         </Text>
       </TouchableOpacity>
 
@@ -102,24 +104,24 @@ export default function ProfileComponent() {
         <Modal
           animationType="slide"
           transparent={true}
-          visible={userNameModalVisible}
-          onRequestClose={() => setUserNameModalVisible(false)}
+          visible={lastNameModalVisible}
+          onRequestClose={() => setLastNameModalVisible(false)}
         >
         <View className="flex justify-center items-center h-full bg-opacity-50 bg-black">
-          <View className="bg-white p-4 rounded-lg w-11/12 max-w-md">
+          <View className="bg-lightgray p-4 rounded-lg w-11/12 max-w-md">
               <View className="flex flex-col items-center">
                 <TextInput
-                  value={newUserName}
-                  onChangeText={setNewUserName}
+                  value={newLastName}
+                  onChangeText={setNewLastName}
                   placeholder="Digite o novo nome"
-                  className="w-full p-4 mb-4 border rounded"
+                  className="w-full p-4 mb-4 bg-white rounded"
                 />
                 {isLoading ? ( // Conditional rendering based on loading state
                   <ActivityIndicator size="large" color="#0000ff" /> // Loading spinner
                 ) : (
                   <TouchableOpacity
                     className="bg-primary px-10 py-4 rounded-medium w-full"
-                    onPress={() => saveUserNameChanges()}
+                    onPress={() => saveLastNameChanges()}
                   >
                     <Text
                       className="text-center font-montserrat-bold text-body text-white">
@@ -129,7 +131,7 @@ export default function ProfileComponent() {
                 )}
                 <TouchableOpacity
                   className="px-10 py-4 rounded-medium w-full mt-2 border-0 border-opacity-0"
-                  onPress={() => setUserNameModalVisible(false)}
+                  onPress={() => setLastNameModalVisible(false)}
                 >
                   <Text className="text-black text-center font-montserrat-bold">Cancelar</Text>
                 </TouchableOpacity>
