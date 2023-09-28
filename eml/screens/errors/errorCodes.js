@@ -1,7 +1,11 @@
 
 export const errorCodes = {
 
-  // E00 - General authentication errors
+  // E00 - General authentication errors & unknown errors
+  E0000: {
+    code: 'E0000',
+    message: 'Unknown error occured.'
+  },
   E0001: {
     code: 'E0001',
     message: 'Authentication token is invalid or expired.'

@@ -1,14 +1,9 @@
 import errorCodes from './errorCodes'; // Import error codes
 
 
-export default function generateErrorResponse(res, errorCode = 'E0000') {
+export default function generateErrorResponse(res, errorCode = 'E0000', httpStatus = 401) {
   const errorCode = errorCodes[errorCode];
-  return res.status(401).json(errorCode);
-  if (errorCode) {
-    return res.status(401).json(errorCode);
-  } else {
-    return res.status(401).json({ code: 'E0000', message: 'Unknown error' });
-  }
+  return res.status(httpStatus).json(errorCode);
 }
 
 errors = []
