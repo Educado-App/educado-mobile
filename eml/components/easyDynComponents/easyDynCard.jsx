@@ -1,6 +1,6 @@
 import React from 'react'
 import { Layout, Card } from '@ui-kitten/components';
-import { View, Text } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 
 
 const Header = (props) => (
