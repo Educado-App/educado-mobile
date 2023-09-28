@@ -13,8 +13,8 @@ import { RemoveEmojis } from "../general/Validation";
 const USER_INFO = "@userInfo";
 
 /**
- * Component for logging into application, used on login screen and in registerform
- * @param {Object} props not used in this component as of now
+ * Component for registering a new account in the system, used in the register screen
+ * @returns {React.Element} Component containing the form for registering a new user
  */
 export default function LoginForm(props) {
 
