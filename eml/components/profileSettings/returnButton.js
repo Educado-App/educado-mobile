@@ -1,9 +1,5 @@
-import { StyleSheet, View, TouchableOpacity, Alert, Image} from 'react-native'
+import { View, TouchableOpacity, Image} from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import { Text } from '@rneui/base'
-import { deleteUser, loginUser } from '../../api/userApi'
-import {clearAsyncStorage} from "../../services/StorageService";
 
 const LOGIN_TOKEN = '@loginToken'
 const USER_INFO = '@userInfo'
