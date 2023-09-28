@@ -6,8 +6,11 @@ import { useFonts, VarelaRound_400Regular } from "@expo-google-fonts/dev";
 import { AppLoading } from "expo-app-loading";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+
 import CardLabel from "./CardLabel";
 import CustomRating from "./CustomRating";
+import SubscriptionButton from "./SubscriptionButton";
+import AccesCourseButton from "./AccesCourseButton";
 
 export default function ExploreCard({ course, isPublished }) {
   const [isCollapsed, setIsCollapsed] = React.useState(true);
@@ -192,78 +195,16 @@ export default function ExploreCard({ course, isPublished }) {
             </View>
           </View>
 
-          <View>
-            <View style={{ paddingTop: 5 }}>
-              <Pressable
-                onPress={() => setIsSubscribed(!isSubscribed)}
-                style={{
-                  width: "40%",
-                  alignItems: "left",
-                  justifyContent: "center",
-                }}
-              >
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center", // Center align the icon and text vertically
-                    borderRadius: 5,
-                    fontSize: 14,
-                    color: isSubscribed ? "white" : "gray",
-                    backgroundColor: isSubscribed ? "#5ECCE9" : "#fff",
-                    paddingHorizontal: 8,
-                    paddingVertical: 6,
-                    borderColor: isSubscribed ? "#5ECCE9" : "gray",
-                    borderWidth: 1,
-                    textAlign: "left",
-                    overflow: "hidden",
-                  }}
-                >
-                  <Text
-                    style={{
-                      color: isSubscribed ? "white" : "gray",
-                    }}
-                  >
-                    {isSubscribed ? "Inscrito" : "Se inscrever"}
-                  </Text>
-                </View>
-              </Pressable>
-            </View>
-          </View>
-
-           <View>
-            <View style={{ paddingTop: 5 }}>
-              <Pressable
-                style={{
-                  width: "40%",
-                  alignItems: "left",
-                  justifyContent: "center",
-                }}
-              >
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center", // Center align the icon and text vertically
-                    borderRadius: 5,
-                    fontSize: 14,
-                    color: "gray",
-                    backgroundColor: "#fff",
-                    paddingHorizontal: 8,
-                    paddingVertical: 6,
-                    borderColor: "gray",
-                    borderWidth: 1,
-                    textAlign: "left",
-                  }}
-                >
-                  <Text
-                    style={{
-                      color: "gray",
-                    }}
-                  >
-                    Acessar curso
-                  </Text>
-                </View>
-              </Pressable>
-            </View>
+          <View
+            style={{
+              paddingTop: 10,
+              flexDirection: "row",
+              alignItems: "center", // Center the content vertically
+              justifyContent: "space-between", // Distribute buttons evenly
+            }}
+          >
+            <SubscriptionButton onClick={(value) => setIsSubscribed(value)} />
+            <AccesCourseButton />
           </View>
 
           <View style={{}}>
