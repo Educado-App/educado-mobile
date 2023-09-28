@@ -73,40 +73,38 @@ export default function ProfileComponent() {
   return (
     <BgLinearGradient>
       <SafeAreaView>
-        <ScrollView>
-          <View className="justify-center items-center flex flex-col">
-  
-            <View className="flex p-10">
-              <View className="flex-row">
-                <ReturnButton></ReturnButton>
-                <Image
-                  className = "h-[25.54] w-[175.88] right-5"
-                  source={require("../../assets/images/logo.png")}
-                />
-              </View>
-            </View>
-  
-            <View>
-              <TouchableOpacity>
-                <ProfileImage/>
-              </TouchableOpacity>
-            </View>
-  
-            <View className="flex flex-col gap-6 items-center px-6 w-screen">
-              <View className="flex justify-center w-full">
-                <ChangeNameButton></ChangeNameButton>
-              </View>
+        <View className="justify-center items-center flex flex-col">
 
-              <View className="flex justify-center w-full">
-                <ChangeEmailButton></ChangeEmailButton>
-              </View>
-
-              <View className="flex justify-center w-full">
-                <DeleteAccountButton></DeleteAccountButton>
-              </View>
+          <View className="flex p-10">
+            <View className="flex-row">
+              <ReturnButton></ReturnButton>
+              <Image
+                className = "h-[25.54] w-[175.88] right-5"
+                source={require("../../assets/images/logo.png")}
+              />
             </View>
           </View>
-        </ScrollView>
+
+          <View>
+            <TouchableOpacity>
+              <ProfileImage/>
+            </TouchableOpacity>
+          </View>
+
+          <View className="flex flex-col gap-6 items-center px-6 w-screen">
+            <View className="flex justify-center w-full">
+              <ChangeNameButton></ChangeNameButton>
+            </View>
+
+            <View className="flex justify-center w-full">
+              <ChangeEmailButton></ChangeEmailButton>
+            </View>
+
+            <View className="flex justify-center w-full">
+              <DeleteAccountButton></DeleteAccountButton>
+            </View>
+          </View>
+        </View>
       </SafeAreaView>
     </BgLinearGradient>
   );
