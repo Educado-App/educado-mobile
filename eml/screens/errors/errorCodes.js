@@ -1,5 +1,5 @@
 
-module.exports = {
+export const errorCodes = {
 
   // E00 - General authentication errors
   E0001: {
@@ -92,6 +92,7 @@ module.exports = {
     code: 'E0503',
     message: 'Verification link is invalid or has already been used.'
   }
-}
+};
+
 
 
