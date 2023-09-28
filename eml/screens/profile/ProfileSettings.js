@@ -27,12 +27,6 @@ export default function ProfileComponent() {
   const [id, setId] = useState('');
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
-  const [editingUserName, setEditingUserName] = useState(false);
-  const [editingEmail, setEditingEmail] = useState(false);
-  const [newUserName, setNewUserName] = useState('');
-  const [newEmail, setNewEmail] = useState('');
-  const [userNameModalVisible, setUserNameModalVisible] = useState(false);
-  const [emailModalVisible, setEmailModalVisible] = useState(false);
   const [courses, setCourses] = useState([]); // State to store course data
 
   const getProfile = async () => {

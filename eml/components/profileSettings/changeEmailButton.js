@@ -5,6 +5,8 @@ import {
   TouchableOpacity,
   Text,
   Modal,
+  ActivityIndicator,
+  Alert,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { isFontsLoaded } from "../../constants/Fonts.js";
@@ -20,6 +22,7 @@ export default function ProfileComponent() {
   const [newEmail, setNewEmail] = useState('');
   const [emailModalVisible, setEmailModalVisible] = useState(false);
   const [tempEmail, setTempEmail] = useState(''); // Renamed setNewTempEmail to setTempEmail
+  const [isLoading, setIsLoading] = useState(false); // Add a loading state
 
   const getProfile = async () => {
     try {
@@ -45,38 +48,35 @@ export default function ProfileComponent() {
   
     if (newEmail !== email && newEmail === tempEmail) {
       if (emailRegex.test(newEmail)) {
-        // Email is in the correct format
-  
-        // Update the state with the new email
-        setEmail(newEmail); // Only run this if the email has changed
-  
+        // Call the updateUserEmail function to update the email on the server
+        try {
+        setIsLoading(true); // Set loading state to true
+
+        await updateUserEmail(id, newEmail);
+
+        // Update the state with the new username and close modal
+        setEmail(newEmail);
+        setEditingEmail(false);
+
         // Save changes to AsyncStorage or your API
         const updatedProfile = {
           id,
           userName,
           email: newEmail,
         };
-  
+
         await AsyncStorage.setItem(USER_INFO, JSON.stringify(updatedProfile));
-
-        // Call the updateUserEmail function to update the email on the server
-        try {
-          await updateUserEmail(id, newEmail);
-
-          // Update the fields and close the modal
-          setEditingEmail(false);
-          setEmailModalVisible(false);
+        setEmailModalVisible(false);
         } catch (error) {
-          console.error('Error updating email:', error);
-
-          // Handle errors here
+          Alert.alert('Error updating email, try again: ', error.message);
         }
       } else {
         alert('Invalid email format. Please enter a valid email address.');
       }
     } else {
-      // Handle other conditions or show an error if needed
+      alert('Emails do not match or it is equal to your current email. Please try again.')
     }
+    setIsLoading(false);
   }
   
 
@@ -125,9 +125,19 @@ export default function ProfileComponent() {
                 className="w-full p-4 mb-4 border rounded"
               />
 
-              <TouchableOpacity className="bg-primary px-10 py-4 rounded-medium w-full" onPress={saveEmailChanges}>
-                <Text className="text-white text-center font-montserrat-bold">Salvar alterações</Text>
-              </TouchableOpacity>
+              {isLoading ? ( // Conditional rendering based on loading state
+                <ActivityIndicator size="large" color="#0000ff" /> // Loading spinner
+              ) : (
+                <TouchableOpacity
+                  className="bg-primary px-10 py-4 rounded-medium w-full"
+                  onPress={() => saveEmailChanges()}
+                >
+                  <Text
+                    className="text-center font-montserrat-bold text-body text-white">
+                      Salvar alterações
+                  </Text>
+                </TouchableOpacity>
+              )}
 
               <TouchableOpacity
                 className="px-10 py-4 rounded-medium w-full mt-2 border-0 border-opacity-0"
