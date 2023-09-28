@@ -1,29 +1,43 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useEffect, useState, Suspense } from 'react';
-import { StyleSheet, Text, View, Image, Button, Dimensions} from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import React from "react";
+import { View, Text, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import RegisterForm from "../../components/login/RegisterForm";
+import { SafeAreaView } from "react-native-safe-area-context";
+import LogoBackButton from "../../components/login/LogoBackButton";
+import { isFontsLoaded } from "../../constants/Fonts.js";
 
-const {width, height} = Dimensions.get('window');
+export default function Register() {
+  if (!isFontsLoaded()) {
+    return null;
+  }
 
+  const navigation = useNavigation();
 
-export default function Register(props) {
-
-    const navigation = useNavigation();
-
-    return (
-        <View style={styles.container}>
-            <RegisterForm/>
+  return (
+    <SafeAreaView className="flex-1 justify-start bg-secondary">
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View>
+          <View className="mt-10">
+            <LogoBackButton navigationPlace={"Login"} />
+          </View>
+          <View className="mx-6">
+            <View className="mt-8">
+              <RegisterForm />
+            </View>
+            <View className="flex-row justify-center items-end">
+              <Text className="font-montserrat text-gray leading-5 text-base">
+                Já possui conta? {/* Already have an account? */}
+              </Text>
+              <Text
+                className="font-montserrat text-black leading-5 text-base underline"
+                onPress={() => navigation.navigate("Login")}
+              >
+                Entre agora {/* Log in now */}
+              </Text>
+            </View>
+          </View>
         </View>
-    );
+      </TouchableWithoutFeedback>
+    </SafeAreaView>
+  );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'flex-end',
-        backgroundColor: 'Green'
-    },
-
-});
