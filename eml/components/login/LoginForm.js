@@ -19,10 +19,9 @@ const USER_INFO = "@userInfo";
 
 /**
  * Login form component for login screen containing email and password input fields and a login button.
- * @param {Object} props not used in this component as of now
  * @returns {React.Element} Component for logging in (login screen)
  */
-export default function LoginForm(props) {
+export default function LoginForm() {
 
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
@@ -54,25 +53,24 @@ export default function LoginForm(props) {
     };
 
     try {
-      await loginUser(obj)
+      await loginUser(obj) // Await the response from the backend API for login
         .then((response) => {
+          // Set login token in AsyncStorage and navigate to home screen
           AsyncStorage.setItem(LOGIN_TOKEN, response.accessToken);
           navigation.navigate("HomeStack");
         })
         .catch((error) => {
           switch (error.response.status) {
             case 404:
-              //Wrong email
-              //ShowAlert("No user exists with this email!");
+              // No user exists with this email!
               setEmailAlert("Não existe nenhum usuário com este email!");
               break;
 
             case 401:
-              //Wrong Password
-              setPasswordAlert("Senha incorreta!");
+              setPasswordAlert("Senha incorreta!"); // Password is incorrect!
               break;
 
-            default:
+            default: // Errors not currently handled with specific alerts
               console.log(error);
           }
         });
@@ -80,7 +78,8 @@ export default function LoginForm(props) {
       console.log(e);
     }
   }
-  // Function to close modal
+
+  // Function to close the reset password modal
   const closeModal = () => {
     setModalVisible(false);
   };
