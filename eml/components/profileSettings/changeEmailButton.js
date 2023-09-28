@@ -68,13 +68,13 @@ export default function ProfileComponent() {
         await AsyncStorage.setItem(USER_INFO, JSON.stringify(updatedProfile));
         setEmailModalVisible(false);
         } catch (error) {
-          Alert.alert('Error updating email, try again: ', error.message);
+          Alert.alert('Erro ao atualizar o e-mail, tente novamente. ', error.message);
         }
       } else {
-        alert('Invalid email format. Please enter a valid email address.');
+        alert('Formato de e-mail inválido. Digite um endereço de e-mail válido.');
       }
     } else {
-      alert('Emails do not match or it is equal to your current email. Please try again.')
+      alert('Os e-mails não correspondem ou são iguais ao seu e-mail atual. Tente novamente.')
     }
     setIsLoading(false);
   }

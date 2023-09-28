@@ -72,12 +72,12 @@ export default function ProfileComponent() {
         await AsyncStorage.setItem(USER_INFO, JSON.stringify(updatedProfile));
         setUserNameModalVisible(false);
       } catch (error) {
-        Alert.alert('Error updating name, try again: ', error.message);
+        Alert.alert('Erro ao atualizar o nome, tente novamente', error.message);
       } finally {
         setIsLoading(false); // Set loading state to false after the operation
       }
     } else {
-      alert('You did not change your name');
+      alert('O nome não foi alterado');
     }
     setIsLoading(false);
   }
