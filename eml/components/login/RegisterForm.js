@@ -213,10 +213,9 @@ export default function LoginForm(props) {
       <View className="mb-6">
         <View className="relative">
           <FormTextField
-            label="Senha"
+            label="Senha" //Password
             name={"password"}
             value={password}
-            //Password
             placeholder="Entre sua senha" // Enter your password
             placeholderTextColor="grey"
             secureTextEntry={!showPassword}
@@ -229,6 +228,7 @@ export default function LoginForm(props) {
             }}
           />
           <PasswordEye
+            testId = "passwordEye"
             showPasswordIcon={showPassword}
             toggleShowPassword={toggleShowPassword}
           />

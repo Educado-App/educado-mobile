@@ -23,9 +23,7 @@ export default function Login(props) {
   const checkLoginToken = async () => {
     try {
       const fetchedToken = await AsyncStorage.getItem(LOGIN_TOKEN);
-
       if (fetchedToken !== null) {
-        setLoginToken(fetchedToken);
         console.log("Already logged in!");
         console.log("Token: " + fetchedToken);
         navigation.navigate("HomeStack");
@@ -39,10 +37,6 @@ export default function Login(props) {
     // readId();
     checkLoginToken();
   }, []);
-
-  if (!isFontsLoaded()) {
-    return null;
-  }
 
   return (
     <SafeAreaView className="justify-start bg-secondary flex-1">

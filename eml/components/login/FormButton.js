@@ -10,11 +10,6 @@ import { Text, View, Pressable } from "react-native";
  * @returns {React.Element} Button component
  */
 export default function FormButton(props) {
-  
-  // Checking if font is loaded
-  if (!isFontsLoaded()) {
-    return null;
-  }
 
   return (
     <View className='mt-12'>
