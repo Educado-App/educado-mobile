@@ -155,7 +155,7 @@ function HomeStack() {
           },
         }}
       />
-      {/*       <Tab.Screen
+      {    <Tab.Screen
         name="TestScreen"
         component={TestScreen}
         options={{
@@ -171,7 +171,7 @@ function HomeStack() {
             );
           },
         }}
-      /> */}
+      /> }
     </Tab.Navigator>
   );
 }
