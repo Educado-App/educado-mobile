@@ -6,7 +6,21 @@ import { ScrollView } from 'react-native-gesture-handler';
 import ExploreCard from '../../components/explore/ExploreCard';
 import { client } from '../../api/userApi';
 
+
+
+import { getBucketImage } from "../../api/api";
+
 function Explore() {
+
+  const [image, setImage] = React.useState(null);
+  useEffect(() => {
+    
+    getBucketImage("test").then((res) => {
+      setImage(res);
+      
+    });
+
+  },[])
   
   // Search text state
   const [searchText, setSearchText] = useState('');
@@ -93,6 +107,7 @@ useEffect(() => {
 
   return (
     <View style={{ flex: 1, backgroundColor: '#f1f9fb' }}>
+      
       <View style={{ flexDirection: 'row', alignItems: 'center', padding: 10, marginTop: '20%', marginBottom: '10%' }}>
         <View className="pl-2">
         <Image
@@ -107,6 +122,10 @@ useEffect(() => {
       onCategoryChange={handleCategoryFilter}
       />
       <ScrollView>
+      {image && <Image 
+          style={{ width: 200, height: 200 }}
+          source={{ uri: `data:image/png;base64,${image}` }}
+        />}
       {filteredCourses.map((course, index) => (
           <ExploreCard key={index} isPublished={course.published} course={course} />
         ))}

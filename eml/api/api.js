@@ -4,7 +4,7 @@ const testUrl = 'http://localhost:8888';
 const testExpo = 'http://192.168.1.31:8888'; //Change to local expo ip
 const digitalOcean = 'http://207.154.213.68:8888';
 
-const url = testExpo;
+const url = testUrl;
 
 // Find a solution to refresh auth-token
 const authToken = '';
@@ -60,6 +60,17 @@ export const getPresignedUrl = async (component_id) => {
   const res = await axios.post(url + '/api/get-presigned-url', obj);
   return res.data;
 };
+
+
+//CREATE FOR TESTING: BUT IT WORKS
+// * try to call the function with fileName = "test" or "gorilla".
+// * It is being called for testing purposes in the Explore screen
+export const getBucketImage = async (fileName) => {
+  const res = await axios.get(`${url}/download?fileName=${fileName}`);
+  console.log(res);
+  return res.data;
+}
+
 
 export const getCoverPhoto = async (course_id) => {
   const obj = {

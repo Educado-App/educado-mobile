@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, Image, Pressable } from "react-native";
 import Collapsible from "react-native-collapsible";
 import { useNavigation } from "@react-navigation/native";
@@ -12,14 +12,21 @@ import CustomRating from "./CustomRating";
 import SubscriptionButton from "./SubscriptionButton";
 import AccesCourseButton from "./AccesCourseButton";
 
+
+
 export default function ExploreCard({ course, isPublished }) {
   const [isCollapsed, setIsCollapsed] = React.useState(true);
   const [isSubscribed, setIsSubscribed] = React.useState(false);
   const navigation = useNavigation();
 
+  
+
   let [fontsLoaded] = useFonts({
     VarelaRound_400Regular,
   });
+
+  
+  
 
   if (!fontsLoaded) {
     return AppLoading;
@@ -117,6 +124,7 @@ export default function ExploreCard({ course, isPublished }) {
               <View style={{ height: 5, opacity: 0.5 }} />
               <CustomRating rating={course.rating} />
             </View>
+            
 
           </View>
         </View>
@@ -173,6 +181,7 @@ export default function ExploreCard({ course, isPublished }) {
               justifyContent: "space-between", // Distribute buttons evenly
             }}
           >
+
             <View>
               { isSubscribed ?
                 <AccesCourseButton onClick={(value) => setIsSubscribed(value)} />:
