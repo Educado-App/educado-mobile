@@ -57,7 +57,7 @@ export default function ProfileComponent() {
       try {
         setIsLoading(true); // Set loading state to true
 
-        await updateFirstName('651151fcbf6a6116cb13e254', newFirstName);
+        await updateFirstName(id, newFirstName);
 
         // Update the state with the new username and close modal
         setFirstName(newFirstName);
