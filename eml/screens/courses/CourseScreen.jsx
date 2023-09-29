@@ -50,7 +50,7 @@ export default function CourseScreen() {
 
     }, [route.params, downloadState])
 
-
+    
     if (!fontsLoaded) {
         return AppLoading
     } else {
@@ -62,11 +62,28 @@ export default function CourseScreen() {
                             <Image source={require('../../assets/logo_educado.png')}></Image>
                         </View>
                         <View className="bg-babyBlue flex-1 justify-top items-center pt-6">
-                        {course.map((course, i) => {
-                                <Pressable onPress={() => console.log(i)}>
+                        {course.map((course, i) => { return (
+                                <Pressable
+                                style={{
+                                    backgroundColor: "#fff",
+                                    borderRadius: 10,
+                                    shadowColor: "#000",
+                                    shadowOffset: {
+                                      width: 0,
+                                      height: 2,
+                                    },
+                                    shadowOpacity: 0.2,
+                                    shadowRadius: 2,
+                                    elevation: 5,
+                                    marginBottom: 15,
+                                    marginHorizontal: 18,
+                                    padding: 25,
+                                  }}
+                                onPress={() => console.log(i)}>
                                     {/*<CourseListUI course={course} key={i} downloadState={setDownloadState}></CourseListUI>*/}
                                     <CourseCard key={i} course={course} downloadState={setDownloadState}></CourseCard>
-                                </Pressable>
+                                </Pressable> 
+                                )
                             }) 
                         }
                         </View>
