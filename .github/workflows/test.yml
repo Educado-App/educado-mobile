@@ -20,8 +20,13 @@ jobs:
       - name: List directories and files
         run: ls -al
 
-      - name: Change to 'eml' directory and install
-        run: cd eml && npm i
+      - name: Change to 'eml' directory
+        run: cd eml
+
+      - name: Install dependencies
+        run: |
+          npm install
 
       - name: Run tests
-        run: npm run test
+        run: |
+          npm run test
