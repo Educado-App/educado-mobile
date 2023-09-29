@@ -1,11 +1,11 @@
-import React, {useState} from "react";
-import {Alert, Dimensions, Pressable, StyleSheet, Text, TextInput, View} from "react-native";
-import {loginUser, registerUser} from "../../api/userApi";
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useEffect, useState } from "react";
 import { Alert, View, Text } from "react-native";
 import { registerUser } from "../../api/userApi";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import FormTextField from "./FormTextField";
+import FormButton from "./FormButton";
+import PasswordEye from "./PasswordEye";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const USER_INFO = "@userInfo";
 
