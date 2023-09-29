@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const prod = 'http://educado.somethingnew.dk'
-const test = 'http://172.23.240.1:8888' // Change this to your LOCAL IP address when testing.
+const test = 'http://172.30.254.230:8888' // Change this to your LOCAL IP address when testing.
 const local = 'http://localhost:8888'
 const digitalOcean = 'http://207.154.213.68:8888' // Doesn't work anymore
 
@@ -27,9 +27,19 @@ export const deleteUser = async (user_id) => {
   }
 };
 
-export const updateName = async (user_id, new_name) => {
+export const updateFirstName = async (user_id, new_FirstName) => {
   try {
-    const res = await axios.put(url + `/api/user/update-name/` + user_id, { newName: new_name });
+    const res = await axios.put(url + `/api/user/update-first_name/` + user_id, { newFirstName: new_FirstName });
+    return res.data;
+  } catch (error) {
+    // Handle errors here
+    throw error; // You may want to handle the error or log it
+  }
+};
+
+export const updateLastName = async (user_id, new_LastName) => {
+  try {
+    const res = await axios.put(url + `/api/user/update-last_name/` + user_id, { newLastName: new_LastName });
     return res.data;
   } catch (error) {
     // Handle errors here

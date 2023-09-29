@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { isFontsLoaded } from "../../constants/Fonts.js";
-import { updateName } from '../../api/userApi.js';
+import { updateFirstName } from '../../api/userApi.js';
 
 const USER_INFO = '@userInfo';
 
@@ -57,7 +57,7 @@ export default function ProfileComponent() {
       try {
         setIsLoading(true); // Set loading state to true
 
-        await updateName(id, newFirstName);
+        await updateFirstName('651151fcbf6a6116cb13e254', newFirstName);
 
         // Update the state with the new username and close modal
         setFirstName(newFirstName);
@@ -66,7 +66,7 @@ export default function ProfileComponent() {
         const updatedProfile = {
           id,
           firstName: newFirstName,
-          lastName: newFirstName,
+          lastName,
           email,
         };
 
