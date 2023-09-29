@@ -104,3 +104,44 @@ export const getAllComponents = async (components) => {
   const res = await axios.post(url + '/api/component/getallcomponents', obj);
   return res.data;
 };
+// Subscribe to course
+export const subscribeToCourse = async() => {
+    console.log("hey");
+    // Send request -- TODO: replace with real credentials, when login is working
+    const res = await axios.post(url + '/api/course/subscribe', {
+      course_id: '650c01f06fe6094f6214a487', 
+      user_id: '65116200ce1f2c4eb06fba5b'
+    })
+    .then(response => {
+      console.log("YAY! Du er subscribet" + response)
+    })
+    .catch(error => {
+      console.log("OMG nei, du er ikke subscribet" + error)
+    })
+};
+
+// Unubscribe to course
+export const unSubscribeToCourse = async() => {
+
+  const res = await axios.post(url + '/api/course/unsubscribe', {
+    course_id: '650c01f06fe6094f6214a487', 
+    user_id: '65116200ce1f2c4eb06fba5b'
+  })
+  .then(response => {
+    console.log("YAY! Du er unsubscribet" + response)
+  })
+  .catch(error => {
+    console.log("OMG nei, du er ikke unsubscribet" + error)
+  })
+};
+
+// Boolean function for subscribed -- called in Explore page when subscribe button (star) is clicked
+export function subscribe(value) {
+
+  if (value == true) {
+    unSubscribeToCourse();
+  } else {
+    subscribeToCourse();
+  }
+
+};
