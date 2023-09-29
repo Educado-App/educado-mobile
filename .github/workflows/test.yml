@@ -17,6 +17,9 @@ jobs:
         with:
           node-version: "16" # Change to the Node.js version you need
 
+      - name: List directories and files
+        run: ls -al
+
       - name: Change to 'eml' directory
         run: cd eml
 
