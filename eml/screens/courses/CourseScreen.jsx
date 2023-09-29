@@ -6,6 +6,7 @@ import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/dev'
 import { AppLoading } from 'expo-app-loading'
 import * as StorageService from "../../services/StorageService";
 import { getHome } from '../../api/api'
+import CourseCard from '../../components/courses/courseCard/CourseCard'
 
 export default function CourseScreen() {
 
@@ -62,11 +63,10 @@ export default function CourseScreen() {
                         </View>
                         <View className="bg-babyBlue flex-1 justify-top items-center pt-6">
                         {course.map((course, i) => {
-                            return (
                                 <Pressable onPress={() => console.log(i)}>
-                                    <CourseListUI course={course} key={i} downloadState={setDownloadState}></CourseListUI>
+                                    {/*<CourseListUI course={course} key={i} downloadState={setDownloadState}></CourseListUI>*/}
+                                    <CourseCard key={i} course={course} downloadState={setDownloadState}></CourseCard>
                                 </Pressable>
-                            )
                             }) 
                         }
                         </View>
