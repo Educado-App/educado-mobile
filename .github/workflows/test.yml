@@ -1,8 +1,13 @@
-name: Run Tests on Pull Request
+name: Run Tests on Pull Request and Branches
 on:
   pull_request:
     types:
       - opened
+  push:
+    branches:
+      - dev
+      - staging
+      - main
 
 jobs:
   test:
