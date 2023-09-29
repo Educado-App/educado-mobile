@@ -16,6 +16,7 @@ export default function CourseCard({course, downloadState}) {
     });
 
     if (!fontsLoaded) {
+        console.log("Font not found at home page");
         return AppLoading;
     } else {
         return (
@@ -165,7 +166,7 @@ export default function CourseCard({course, downloadState}) {
                         />
                     </View>
                 </View>
-                
+
 
                 <View>
                     <View style={{paddingTop: 5}}>
