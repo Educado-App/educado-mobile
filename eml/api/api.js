@@ -67,8 +67,13 @@ export const getPresignedUrl = async (component_id) => {
 // * It is being called for testing purposes in the Explore screen
 export const getBucketImage = async (fileName) => {
   const res = await axios.get(`${url}/download?fileName=${fileName}`);
-  console.log(res);
-  return res.data;
+  
+  if (res.status === 200) {
+    return res.data;
+  }
+  else {
+    return null;
+  }
 }
 
 
