@@ -27,8 +27,8 @@ const CustomRating = ({ rating = 5 }) => {
       style={{
         width: '100%',
         flexDirection: 'row',
-        alignItems: 'start',
-        justifyContent: 'start',
+        alignItems: 'flex-start',
+        justifyContent: 'flex-start',
       }}
     >
       {ratingIcons.map((icon, index) => (

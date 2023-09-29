@@ -81,14 +81,14 @@ export default function ExploreCard({ course, isPublished }) {
             style={{
               width: "100%",
               flexDirection: "row",
-              alignItems: "start",
+              alignItems: "flex-start",
               justifyContent: "space-between",
             }}
           >
             <View
               style={{
                 flexDirection: "column",
-                alignItems: "start",
+                alignItems: "flex-start",
                 justifyContent: "space-between",
               }}
             >
@@ -96,7 +96,7 @@ export default function ExploreCard({ course, isPublished }) {
                 style={{
                   flexDirection: "row",
                   alignItems: "center",
-                  justifyContent: "start",
+                  justifyContent: "flex-start",
                 }}
               >
                 <CardLabel
@@ -198,7 +198,7 @@ export default function ExploreCard({ course, isPublished }) {
                 onPress={() => setIsSubscribed(!isSubscribed)}
                 style={{
                   width: "40%",
-                  alignItems: "left",
+                  alignItems: "flex-start",
                   justifyContent: "center",
                 }}
               >
@@ -214,7 +214,7 @@ export default function ExploreCard({ course, isPublished }) {
                     paddingVertical: 6,
                     borderColor: isSubscribed ? "#5ECCE9" : "gray",
                     borderWidth: 1,
-                    textAlign: "left",
+                    textAlign: "flex-start",
                     overflow: "hidden",
                   }}
                 >
@@ -235,7 +235,7 @@ export default function ExploreCard({ course, isPublished }) {
               <Pressable
                 style={{
                   width: "40%",
-                  alignItems: "left",
+                  alignItems: "flex-start",
                   justifyContent: "center",
                 }}
               >
@@ -251,7 +251,7 @@ export default function ExploreCard({ course, isPublished }) {
                     paddingVertical: 6,
                     borderColor: "gray",
                     borderWidth: 1,
-                    textAlign: "left",
+                    textAlign: "flex-start",
                   }}
                 >
                   <Text

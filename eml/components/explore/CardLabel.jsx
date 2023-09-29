@@ -9,11 +9,11 @@ const CardLabel = ({title, icon, color="f1CC4f"}) => {
             {
                 flexDirection: 'row',
                 alignItems: 'center',
-                justifyContent: 'start',
+                justifyContent: 'flex-start',
               }
         } >
             <MaterialIcons name= {icon} size={15} color={color} />
-            <Text style={{paddingLeft: 3, fontSize: '13', color: color}} >{title}</Text>
+            <Text style={{paddingLeft: 3, fontSize: 13, color: color}} >{title}</Text>
         </View>
      );
 }
