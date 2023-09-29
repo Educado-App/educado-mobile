@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const prod = 'http://educado.somethingnew.dk'
-const test = `http://192.168.0.105:8888` // Change this to your LOCAL IP address when testing.
+const test = 'http://172.30.242.170:8888' // Change this to your LOCAL IP address when testing.
 const local = 'http://localhost:8888'
 const digitalOcean = 'http://207.154.213.68:8888'
 
@@ -33,7 +33,7 @@ export const registerUser = async (obj) => {
 }
 
 export const loginUser = async (obj) => {
-  const res = await axios.post(url + '/api/eml/login', obj)
+  const res = await client.post('/api/auth/login', obj)
   return res.data
 }
 
