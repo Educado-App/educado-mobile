@@ -12,10 +12,11 @@ const SubscriptionButton = ({ onClick }) => {
           onClick(!isSubscribed);
         }}
         style={{
-          width: '100%',
+          minWidth: '100%',
+          alignItems: 'center',
           borderRadius: 10,
-          backgroundColor: '#fff',
-          borderColor: 'gray',
+          backgroundColor: '#5fcce9',
+          borderColor: '#5fcce9',
           borderWidth: 1,
           paddingVertical: 8,
           paddingHorizontal: 18,
@@ -23,12 +24,12 @@ const SubscriptionButton = ({ onClick }) => {
       >
         <Text
           style={{
-            color: 'gray',
+            color: 'white',
             fontSize: 16,
             fontWeight: 'bold',
           }}
         >
-          {isSubscribed ? 'Inscrito' : 'Se inscrever'}
+          Inscrever-se agora
         </Text>
       </Pressable>
     </View>

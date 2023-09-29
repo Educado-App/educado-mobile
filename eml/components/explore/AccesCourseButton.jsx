@@ -6,9 +6,11 @@ const AccessCourseButton = () => {
   return (
     <Pressable
       style={{
+        minWidth: '100%',
+        alignItems: 'center',
         borderRadius: 10,
-        backgroundColor: 'white',
-        borderColor: 'gray',
+        backgroundColor: '#5fcce9',
+        borderColor: '#5fcce9',
         borderWidth: 1,
         paddingVertical: 8,
         paddingHorizontal: 18,
@@ -16,19 +18,13 @@ const AccessCourseButton = () => {
     >
       <Text
         style={{
-          color: 'gray',
+          color: 'white',
           fontSize: 16,
           fontWeight: 'bold',
         }}
       >
         
         Acessar curso
-
-        <MaterialCommunityIcons
-            name="chevron-right"
-            size={16}
-            color="gray"
-        />
       </Text>
     </Pressable>
   );

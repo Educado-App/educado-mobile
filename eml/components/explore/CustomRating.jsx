@@ -15,7 +15,7 @@ const CustomRating = ({ rating = 5 }) => {
       } else if (index === fullStars && halfStar) {
         return { icon: 'star-half-full', color: '#f1CC4f' };
       } else {
-        return { icon: 'star-outline', color: 'gray' };
+        return { icon: 'star-outline', color: '#f1CC4f' };
       }
     });
 
