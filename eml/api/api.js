@@ -108,7 +108,7 @@ export const getAllComponents = async (components) => {
 export const getSubsribtions = async () => {
 
   // Send request -- TODO: replace with real credentials, when login is working
-  const res = await axios.get(url + '/api/' + user_id + '/subscription/getAll', {
+  const res = await axios.get(url + '/api/' + user_id + '/subscription/all', {
       user_id: '65116200ce1f2c4eb06fba5b'
     })
     .then(response => {
@@ -142,6 +142,7 @@ export const subscribeToCourse = async() => {
 // Unubscribe to course
 export const unSubscribeToCourse = async() => {
 
+  // Send request -- TODO: replace with real credentials, when login is working
   const res = await axios.post(url + '/api/course/unsubscribe', {
     course_id: '650c01f06fe6094f6214a487', 
     user_id: '65116200ce1f2c4eb06fba5b'
@@ -152,15 +153,4 @@ export const unSubscribeToCourse = async() => {
   .catch(error => {
     console.log("OMG nei, du er ikke unsubscribet" + error)
   })
-};
-
-// Boolean function for subscribed -- called in Explore page when subscribe button (star) is clicked
-export function subscribe(value) {
-
-  if (value == true) {
-    unSubscribeToCourse();
-  } else {
-    subscribeToCourse();
-  }
-
 };
