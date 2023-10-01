@@ -8,7 +8,7 @@ import PasswordEye from "./PasswordEye";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import ShowAlert from "../general/ShowAlert";
 import FormFieldAlert from "./FormFieldAlert";
-import { RemoveEmojis } from "../general/Validation";
+import { RemoveEmojis, validatePasswordContainsLetter, validatePasswordLength, validateEmail, validateName } from "../general/Validation";
 
 const USER_INFO = "@userInfo";
 
@@ -48,16 +48,15 @@ const USER_INFO = "@userInfo";
 export default function LoginForm(props) {
 
   const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  
   const [emailAlert, setEmailAlert] = useState("");
   const [nameAlert, setNameAlert] = useState("");
   const [isAllInputValid, setIsAllInputValid] = useState(true);
   const [confirmPasswordAlert, setConfirmPasswordAlert] = useState("");
-  const [lastName, setLastName] = useState("");
-
-
 
   // State variable to track password visibility
   const [showPassword, setShowPassword] = useState(false);
@@ -67,27 +66,25 @@ export default function LoginForm(props) {
   const [passwordContainsLetter, setPasswordContainsLetter] = useState(false);
   const [passwordLengthValid, setPasswordLengthValid] = useState(false);
 
-  // Function to toggle the password visibility state
-  const toggleShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
-
   useEffect(() => {
-    // clearing input
-    setNameAlert("");
-    setEmailAlert("");
-    setIsAllInputValid(false);
-    setConfirmPasswordAlert("");
+    // Clear input and alerts on first render
     setFirstName("");
     setLastName("");
     setEmail("");
     setPassword("");
     setConfirmPassword("");
+
+    setNameAlert("");
+    setEmailAlert("");
+    setIsAllInputValid(false);
+    setConfirmPasswordAlert("");
   }, []);
 
   useEffect(() => {
-    checkPasswordContainsLetter(password);
-    checkPasswordLength(password);
+    const containsLetter = validatePasswordContainsLetter(password);
+    setPasswordContainsLetter(containsLetter);
+    const lengthValid = validatePasswordLength(password);
+    setPasswordLengthValid(lengthValid);
     checkIfPasswordsMatch(password, confirmPassword);
   }, [password]);
 
@@ -96,24 +93,61 @@ export default function LoginForm(props) {
   }, [confirmPassword]);
 
   useEffect(() => {
+    let validationError = '';
+    if(firstName !== '') {
+      validationError = validateName(firstName, 'Primeiro nome'); // First name
+    }
+    if(validationError === '' && lastName !== '') {
+      validationError = validateName(lastName, 'Sobrenome'); // Last name
+    }
+
+    setNameAlert(validationError);
+  }, [firstName, lastName]);
+
+  useEffect(() => {
+    if(email === '') {
+      setEmailAlert('');
+      return;
+    }
+
+    const validationError = validateEmail(email);
+    setEmailAlert(validationError);
+  }, [email]);
+
+  useEffect(() => {
     validateInput();
   }, [nameAlert, emailAlert, passwordLengthValid, passwordContainsLetter, confirmPasswordAlert]);
 
+  // Functions to toggle password visibility states
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  }
+
   const toggleShowConfirmPassword = () => {
     setShowConfirmPassword(!showConfirmPassword);
-  };
+  }
 
-  const checkPasswordContainsLetter = (password) => {
-    // TODO: Brazilian letters needs to be included
-    const regex = /.*\p{L}.*$/u;
-    const containsLetter = regex.test(password);
-    setPasswordContainsLetter(containsLetter);
-  };
+  const checkIfPasswordsMatch = (password, confirmPassword) => {
+    if (password === confirmPassword) {
+      setConfirmPasswordAlert("");
+    } else {
+      setConfirmPasswordAlert("As senhas devem corresponder");
+    }
+  }
 
-  const checkPasswordLength = (password) => {
-    const lengthValid = password.length > 7;
-    setPasswordLengthValid(lengthValid);
-  };
+  // TODO: This function should take into consideration
+  // that alerts might be empty when input is yet to be given
+  /**
+   * Function for validating all input fields' content
+   */
+  function validateInput() {
+    if (nameAlert === "" && emailAlert === "" && passwordLengthValid
+      && passwordContainsLetter && confirmPasswordAlert === "") {
+      setIsAllInputValid(true);
+    } else {
+      setIsAllInputValid(false);
+    }
+  }
 
   /**
    * Function for registering a new user in the database
@@ -154,18 +188,6 @@ export default function LoginForm(props) {
   }
 
   /**
-   * Function for validating all input fields' content
-   */
-  function validateInput() {
-    if (nameAlert === "" && emailAlert === "" && passwordLengthValid
-      && passwordContainsLetter && confirmPasswordAlert === "") {
-      setIsAllInputValid(true);
-    } else {
-      setIsAllInputValid(false);
-    }
-  }
-
-  /**
    * Stores the user info in async storage
    * @param {*} id user id
    * @param {*} firstName 
@@ -185,59 +207,6 @@ export default function LoginForm(props) {
     }
   }
 
-  /**
-   * Validates the email according to the email pattern and 
-   * sets the state variable accordingly
-   * @param {String} email 
-   */
-  const validateEmail = (email) => {
-    const emailPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-
-    if (emailPattern.test(email)) {
-      setEmailAlert("");
-    } else {
-      setEmailAlert("Email inválido"); // Email invalid
-    } 
-  }
-
-  /**
-   * Validates the real name according to the real name pattern 
-   * @param {String} name 
-   * @param {String} nameType
-   * @returns {String} alert message
-   */
-  const validateName = (name, nameType='Nome') => {
-    const namePattern = /^(\p{L}+[- '])*\p{L}+$/u;
-
-    if (name.length > 50) { // Check this number
-      return `${nameType} muito longo`; // TODO: Translate "Name too long"
-    }
-    if(name.length < 1) {
-      return `${nameType} muito curto`; // TODO: Translate "Name too short"
-    }
-    if(!namePattern.test(name)) {
-      return `${nameType} inválido`; // Invalid name
-    }
-    
-    return '';
-  }
-
-  const validateFirstName = (firstName) => {
-    setNameAlert(validateName(firstName, 'Primeiro nome')); // First name
-  }
-
-  const validateLastName = (lastName) => {
-    setNameAlert(validateName(lastName, 'Sobrenome')); // First name
-  }
-
-  const checkIfPasswordsMatch = (password, confirmPassword) => {
-    if (password === confirmPassword) {
-      setConfirmPasswordAlert("");
-    } else {
-      setConfirmPasswordAlert("As senhas devem corresponder");
-    }
-  }
-
   return (
     <View>
       <View className="mb-6">
@@ -250,7 +219,6 @@ export default function LoginForm(props) {
           required={true}
           onChangeText={(firstName) => {
             setFirstName(firstName);
-            validateFirstName(firstName);
           }}
         />
       </View>
@@ -264,7 +232,6 @@ export default function LoginForm(props) {
           required={true}
           onChangeText={(lastName) => {
             setLastName(lastName);
-            validateLastName(lastName);
           }}
         />
         <FormFieldAlert label={nameAlert} />
@@ -279,7 +246,7 @@ export default function LoginForm(props) {
           placeholder="user@email.com"
           keyboardType="email-address"
           required={true}
-          onChangeText={(email) => { setEmail(email); validateEmail(email); }}
+          onChangeText={(email) => { setEmail(email); }}
         />
         <FormFieldAlert label={emailAlert} />
       </View>
@@ -335,9 +302,7 @@ export default function LoginForm(props) {
             value={confirmPassword}
             onChangeText={(inputConfirmPassword) => {
               setConfirmPassword(RemoveEmojis(inputConfirmPassword, confirmPassword));
-              checkIfPasswordsMatch(password, confirmPassword);
-            }
-            }
+            }}
             placeholder="Confirme sua senha" // Confirm your password
             secureTextEntry={!showConfirmPassword}
             required={true}
