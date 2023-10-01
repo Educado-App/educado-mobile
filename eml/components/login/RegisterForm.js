@@ -12,13 +12,42 @@ import { RemoveEmojis } from "../general/Validation";
 
 const USER_INFO = "@userInfo";
 
+/** errors/things we need to do  on this page: 
+ * 
+ * ! ! Make file for Regex to increase consistency !!!!!
+ * 
+ * REAL NAME
+ * Errors: 
+ * Name too long ✅
+ * Name too short ✅
+ * Atleast 1 name per field ✅
+ * Symbol not allowed (insert symbol) ✅
+ * Other tasks:
+ * Split name into 2 fields ✅
+ * Make file for regex
+ * 
+ * 
+ * PASSWORD
+ * Too short ✅
+ * Doesn't contain letter ✅
+ * Contains illegal character(s) ✅
+ * Passwords don't match ✅
+ * 
+ * EMAIL
+ * Doesn't match  ✅
+ * Contains illegal character(s)
+ * 
+ * 
+ * 
+*/ 
+
 /**
  * Component for registering a new account in the system, used in the register screen
  * @returns {React.Element} Component containing the form for registering a new user
  */
 export default function LoginForm(props) {
 
-  const [realName, setRealName] = useState("");
+  const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -26,6 +55,9 @@ export default function LoginForm(props) {
   const [nameAlert, setNameAlert] = useState("");
   const [isAllInputValid, setIsAllInputValid] = useState(true);
   const [confirmPasswordAlert, setConfirmPasswordAlert] = useState("");
+  const [lastName, setLastName] = useState("");
+
+
 
   // State variable to track password visibility
   const [showPassword, setShowPassword] = useState(false);
@@ -46,11 +78,22 @@ export default function LoginForm(props) {
     setEmailAlert("");
     setIsAllInputValid(false);
     setConfirmPasswordAlert("");
-    setRealName("");
+    setFirstName("");
+    setLastName("");
     setEmail("");
     setPassword("");
     setConfirmPassword("");
   }, []);
+
+  useEffect(() => {
+    checkPasswordContainsLetter(password);
+    checkPasswordLength(password);
+    checkIfPasswordsMatch(password, confirmPassword);
+  }, [password]);
+
+  useEffect(() => {
+    checkIfPasswordsMatch(password, confirmPassword);
+  }, [confirmPassword]);
 
   useEffect(() => {
     validateInput();
@@ -74,18 +117,18 @@ export default function LoginForm(props) {
 
   /**
    * Function for registering a new user in the database
-   * @param {String} realName 
+   * @param {String} firstName 
    * @param {String} email 
    * @param {String} password
    */
-  async function register(realName, email, password) {
-    validateInput(realName, email, password)
+  async function register(firstName, email, password) {
+    validateInput(firstName, email, password)
     if(!isAllInputValid) {
       return;
     }
 
     const obj = {
-      name: realName,
+      name: firstName,
       email: email,
       password: password,
     };
@@ -93,7 +136,7 @@ export default function LoginForm(props) {
     try {
       await registerUser(obj)
         .then(async function (response) {
-          await createProfile(response._id, realName, email);
+          await createProfile(response._id, firstName, email);
         })
         .catch((error) => {
           switch (error.message) {
@@ -125,14 +168,14 @@ export default function LoginForm(props) {
   /**
    * Stores the user info in async storage
    * @param {*} id user id
-   * @param {*} realName 
+   * @param {*} firstName 
    * @param {*} email 
    */
-  async function createProfile(id, realName, email) {
+  async function createProfile(id, firstName, email) {
     try {
       const obj = {
         id: id,
-        realName: realName,
+        firstName: firstName,
         email: email,
       };
 
@@ -154,22 +197,37 @@ export default function LoginForm(props) {
       setEmailAlert("");
     } else {
       setEmailAlert("Email inválido"); // Email invalid
-    }
+    } 
   }
 
   /**
-   * Validates the real name according to the real name pattern and 
-   * sets the state variable accordingly
-   * @param {String} realName 
+   * Validates the real name according to the real name pattern 
+   * @param {String} name 
+   * @param {String} nameType
+   * @returns {String} alert message
    */
-  const validateRealName = (realName) => {
-    const realNamePattern = /^(\p{L}+[- '])*\p{L}+$/u;
+  const validateName = (name, nameType='Nome') => {
+    const namePattern = /^(\p{L}+[- '])*\p{L}+$/u;
 
-    if (realNamePattern.test(realName) && realName.length > 1) {
-      setNameAlert("");
-    } else {
-      setNameAlert("Nome inválido"); // Invalid name
+    if (name.length > 50) { // Check this number
+      return `${nameType} muito longo`; // TODO: Translate "Name too long"
     }
+    if(name.length < 1) {
+      return `${nameType} muito curto`; // TODO: Translate "Name too short"
+    }
+    if(!namePattern.test(name)) {
+      return `${nameType} inválido`; // Invalid name
+    }
+    
+    return '';
+  }
+
+  const validateFirstName = (firstName) => {
+    setNameAlert(validateName(firstName, 'Primeiro nome')); // First name
+  }
+
+  const validateLastName = (lastName) => {
+    setNameAlert(validateName(lastName, 'Sobrenome')); // First name
   }
 
   const checkIfPasswordsMatch = (password, confirmPassword) => {
@@ -184,14 +242,29 @@ export default function LoginForm(props) {
     <View>
       <View className="mb-6">
         <FormTextField
-          label="Nome"
-          name={"Name"}
-          value={realName}
-          //Real name
-          placeholder="Nome Sobrenome"
+          label="Primeiro nome"
+          name={"Primeiro nome"}
+          value={firstName}
+          //First name
+          placeholder="Primeiro nome"
           required={true}
-          onChangeText={(realName) => {
-            setRealName(realName); validateRealName(realName);
+          onChangeText={(firstName) => {
+            setFirstName(firstName);
+            validateFirstName(firstName);
+          }}
+        />
+      </View>
+      <View className="mb-6">
+        <FormTextField
+          label="Sobrenome"
+          name={"Sobrenome"}
+          value={lastName}
+          // Last name
+          placeholder="Sobrenome"
+          required={true}
+          onChangeText={(lastName) => {
+            setLastName(lastName);
+            validateLastName(lastName);
           }}
         />
         <FormFieldAlert label={nameAlert} />
@@ -222,9 +295,6 @@ export default function LoginForm(props) {
             required={true}
             onChangeText={(inputPassword) => {
               setPassword(RemoveEmojis(inputPassword, password));
-              checkPasswordContainsLetter(password);
-              checkPasswordLength(password);
-              checkIfPasswordsMatch(password, confirmPassword);
             }}
           />
           <PasswordEye
@@ -281,7 +351,7 @@ export default function LoginForm(props) {
       </View>
       <View className="my-10">
         <FormButton
-          onPress={() => register(realName, email, password)}
+          onPress={() => register(firstName, email, password)}
           label="Cadastrar" // Register
           disabled={!isAllInputValid}
         />
