@@ -1,0 +1,87 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Ensure that the field is rendered correctly without props 1`] = `
+<View>
+  <View
+    style={
+      [
+        {
+          "display": "flex",
+        },
+        {
+          "flexDirection": "row",
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        [
+          {
+            "marginLeft": 8,
+          },
+          {
+            "fontSize": 12,
+            "lineHeight": 16,
+          },
+          {
+            "fontFamily": "Montserrat-Regular",
+          },
+        ]
+      }
+    />
+    <Text
+      style={
+        [
+          {
+            "marginLeft": 4,
+          },
+          {
+            "fontSize": 12,
+            "lineHeight": 16,
+          },
+          {
+            "color": "#CF6679",
+          },
+          {
+            "fontFamily": "Montserrat-Regular",
+          },
+        ]
+      }
+    />
+  </View>
+  <View>
+    <TextInput
+      autoComplete="off"
+      keyboardType="default"
+      onChangeText={null}
+      passwordGuidelines={false}
+      placeholder=""
+      secureTextEntry={false}
+      style={
+        [
+          {
+            "paddingBottom": 4,
+            "paddingTop": 4,
+          },
+          {
+            "paddingLeft": 10,
+          },
+          {
+            "backgroundColor": "#FFFFFF",
+          },
+          {
+            "borderBottomLeftRadius": 8,
+            "borderBottomRightRadius": 8,
+            "borderTopLeftRadius": 8,
+            "borderTopRightRadius": 8,
+          },
+          {
+            "fontFamily": "Montserrat-Regular",
+          },
+        ]
+      }
+    />
+  </View>
+</View>
+`;

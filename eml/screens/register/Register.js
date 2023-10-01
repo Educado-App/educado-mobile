@@ -7,9 +7,6 @@ import LogoBackButton from "../../components/login/LogoBackButton";
 import { isFontsLoaded } from "../../constants/Fonts.js";
 
 export default function Register() {
-  if (!isFontsLoaded()) {
-    return null;
-  }
 
   const navigation = useNavigation();
 

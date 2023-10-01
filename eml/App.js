@@ -1,6 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import CourseScreen from './screens/courses/CourseScreen';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Icon } from '@rneui/themed';
@@ -16,14 +15,21 @@ import ExerciseScreen from './screens/excercise/ExerciseScreen';
 import WrongAnswerComponent from './screens/excercise/WrongAnswerScreen';
 import Explore from './screens/explore/Explore';
 import { TailwindProvider } from 'tailwindcss-react-native';
-import TestScreen from './screens/test/TestScreen';
 import ErrorScreen from './screens/errors/ErrorScreen';
 import SectionCompleteScreen from './screens/excercise/SectionCompleteScreen';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
+const checkLogin = () => {
+  if (AsyncStorage.getItem("@login_token") === null) {
+    useNavigation().navigate('Login');
+  }
+}
+
 function CourseStack() {
+  checkLogin();
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -92,6 +98,8 @@ function LoginStack() {
   );
 }
 function HomeStack() {
+  checkLogin();
+
   return (
     <Tab.Navigator
       initialRouteName={'Home'}

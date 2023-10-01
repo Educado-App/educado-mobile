@@ -20,8 +20,8 @@ export default function EnterNewPasswordScreen(props) {
    * @param {Function} setPasswordFunction function for handling password visibility state
    * @param {boolean} password boolean state for visibility of password
    */
-  const toggleShowPassword = (setPasswordFunction, shouldShowPassword) => {
-    setPasswordFunction(!shouldShowPassword);
+  const toggleShowPassword = (setShowPasswordFunction, shouldShowPassword) => {
+    setShowPasswordFunction(!shouldShowPassword);
   }
 
   return (
@@ -30,13 +30,14 @@ export default function EnterNewPasswordScreen(props) {
         <FormTextField
           placeholder="Entre sua senha" // Enter your password
           onChangeText={""}
+          id = "password"
           label="Nova senha" // New password
           required={true}
           bordered={true}
           secureTextEntry={!showPassword}
           passwordGuidelines={true}
         />
-        <PasswordEye showPasswordIcon={showPassword} toggleShowPassword={() => toggleShowPassword(setShowPassword, showPassword)} />
+        <PasswordEye id="showPasswordEye" showPasswordIcon={showPassword} toggleShowPassword={() => toggleShowPassword(setShowPassword, showPassword)} />
       </View>
       <View className="mt-[24px] mb-[40px]">
         <FormTextField
