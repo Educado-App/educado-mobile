@@ -9,14 +9,15 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const USER_INFO = "@userInfo";
 
-const {height} = Dimensions.get('window');
-
+/**
+ * Component for logging into application, used on login screen and in registerform
+ * @param {Object} props not used in this component as of now
+ */
 export default function LoginForm(props) {
 
-    const navigation = useNavigation();
-
-    const [userName, setUserName] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
+  const [realName, setRealName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isEmailValid, setIsEmailValid] = useState(true);
   const [isRealNameValid, setIsRealNameValid] = useState(true);

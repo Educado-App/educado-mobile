@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, Image, Pressable } from "react-native";
 import Collapsible from "react-native-collapsible";
 import { useNavigation } from "@react-navigation/native";
@@ -6,17 +6,27 @@ import { useFonts, VarelaRound_400Regular } from "@expo-google-fonts/dev";
 import { AppLoading } from "expo-app-loading";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+
 import CardLabel from "./CardLabel";
 import CustomRating from "./CustomRating";
+import SubscriptionButton from "./SubscriptionButton";
+import AccesCourseButton from "./AccesCourseButton";
+
+
 
 export default function ExploreCard({ course, isPublished }) {
   const [isCollapsed, setIsCollapsed] = React.useState(true);
   const [isSubscribed, setIsSubscribed] = React.useState(false);
   const navigation = useNavigation();
 
+  
+
   let [fontsLoaded] = useFonts({
     VarelaRound_400Regular,
   });
+
+  
+  
 
   if (!fontsLoaded) {
     return AppLoading;
@@ -114,63 +124,44 @@ export default function ExploreCard({ course, isPublished }) {
               <View style={{ height: 5, opacity: 0.5 }} />
               <CustomRating rating={course.rating} />
             </View>
+            
 
-            <Image
-              opacity={isCollapsed ? 1 : 0}
-              style={{
-                margin: 5,
-                resizeMode: "contain",
-              }}
-              source={course.coverImg}
-            />
           </View>
         </View>
 
-        <View style={{}}>
+        {/* <View style={{}}>
           {isCollapsed ? (
-            isSubscribed ? (
+            
               <Text
                 style={{
                   fontSize: 10,
+                  paddingTop: 6,
                   color: "gray",
                   alignSelf: "flex-start", // Use alignSelf to align text to the bottom
                 }}
               >
-                Inscrito
+                {isSubscribed && "Inscrito"}
               </Text>
-            ) : (
-              <Text
-                style={{
-                  fontSize: 10,
-                  color: "gray",
-                  alignSelf: "flex-start", // Use alignSelf to align text to the bottom
-                }}
-              ></Text>
-            )
+            
           ) : (
-            isSubscribed && (
-              <Text
-                style={{
-                  fontSize: 10,
-                  color: "gray",
-                  alignSelf: "flex-start", // Use alignSelf to align text to the bottom
-                }}
-              ></Text>
-            )
+            null
           )}
-        </View>
+        </View> */}
 
-        <Collapsible collapsed={isCollapsed}>
-          {/* Your expanded content goes here */}
+        <Collapsible
+        style={{ width: "100%", }}
+        collapsed={isCollapsed}>
           <View
             style={{
+              paddingTop: 30,
+              paddingBottom: 30,
               flexDirection: "row", // Arrange children in a row
               alignItems: "center", // Vertically center children
               justifyContent: "space-between", // Space between children
-              padding: 16,
+              padding: 5,
             }}
           >
-            <View style={{ flex: 1 }}>
+            <View>
               <Text
                 style={{
                   fontSize: 16,
@@ -180,90 +171,24 @@ export default function ExploreCard({ course, isPublished }) {
                 {course.description}
               </Text>
             </View>
-            <View style={{ marginLeft: 16 }}>
-              <Image
-                source={course.coverImg}
-                style={{
-                  width: 50,
-                  height: 50,
-                  // Add any additional styles you need for the image
-                }}
-              />
-            </View>
           </View>
 
-          <View>
-            <View style={{ paddingTop: 5 }}>
-              <Pressable
-                onPress={() => setIsSubscribed(!isSubscribed)}
-                style={{
-                  width: "40%",
-                  alignItems: "flex-start",
-                  justifyContent: "center",
-                }}
-              >
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center", // Center align the icon and text vertically
-                    borderRadius: 5,
-                    fontSize: 14,
-                    color: isSubscribed ? "white" : "gray",
-                    backgroundColor: isSubscribed ? "#5ECCE9" : "#fff",
-                    paddingHorizontal: 8,
-                    paddingVertical: 6,
-                    borderColor: isSubscribed ? "#5ECCE9" : "gray",
-                    borderWidth: 1,
-                    textAlign: "flex-start",
-                    overflow: "hidden",
-                  }}
-                >
-                  <Text
-                    style={{
-                      color: isSubscribed ? "white" : "gray",
-                    }}
-                  >
-                    {isSubscribed ? "Inscrito" : "Se inscrever"}
-                  </Text>
-                </View>
-              </Pressable>
-            </View>
-          </View>
+          <View
+            style={{
+              width: "100%",
+              paddingTop: 10,
+              alignItems: "center", // Center the content vertically
+              justifyContent: "space-between", // Distribute buttons evenly
+            }}
+          >
 
-           <View>
-            <View style={{ paddingTop: 5 }}>
-              <Pressable
-                style={{
-                  width: "40%",
-                  alignItems: "flex-start",
-                  justifyContent: "center",
-                }}
-              >
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center", // Center align the icon and text vertically
-                    borderRadius: 5,
-                    fontSize: 14,
-                    color: "gray",
-                    backgroundColor: "#fff",
-                    paddingHorizontal: 8,
-                    paddingVertical: 6,
-                    borderColor: "gray",
-                    borderWidth: 1,
-                    textAlign: "flex-start",
-                  }}
-                >
-                  <Text
-                    style={{
-                      color: "gray",
-                    }}
-                  >
-                    Acessar curso
-                  </Text>
-                </View>
-              </Pressable>
+            <View>
+              { isSubscribed ?
+                <AccesCourseButton onClick={(value) => setIsSubscribed(value)} />:
+                <SubscriptionButton onClick={(value) => setIsSubscribed(value)} />
+                }
             </View>
+            
           </View>
 
           <View style={{}}>
@@ -274,7 +199,7 @@ export default function ExploreCard({ course, isPublished }) {
                 color: "gray",
               }}
             >
-              ATUALIZODA: {course.dateUpdated}
+              ATUALIZADO: {course.dateUpdated}
             </Text>
           </View>
         </Collapsible>

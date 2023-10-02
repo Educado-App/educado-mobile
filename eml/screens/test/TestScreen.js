@@ -1,11 +1,16 @@
 import { React, useState, useEffect } from 'react';
-import { Alert, StyleSheet, View, Text } from 'react-native';
+import {Alert, StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import TestComponent from '../../components/test/TestComponent';
 import * as StorageService from '../../services/StorageService';
 import * as DirectoryService from '../../services/DirectoryService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import SectionCard from '../../components/courses/section/SectionCard';
+import {ScrollView} from "react-native-gesture-handler";
+import {MaterialCommunityIcons} from "@expo/vector-icons";
+import { useNavigation } from '@react-navigation/native'
 
 export default function TestScreen() {
+  const navigation = useNavigation();
   async function clearStorage() {
     //Uncomment to clear async storage cache upon loading explore screen
     console.log(await AsyncStorage.getAllKeys(), 'BEFORE');
@@ -23,11 +28,68 @@ export default function TestScreen() {
   });
 
   return (
-    <View style={styles.container}>
-      <View style={{ flex: 2, width: '100%' }}>
-        <TestComponent></TestComponent>
+      <View style={{ flex: 1, backgroundColor: '#f1f9fb' }}>
+
+        <View style={{ flexDirection: 'row', alignItems: 'center', padding: 10, marginTop: '20%', marginBottom: '10%' }}>
+          <View className="pl-2">
+            <TouchableOpacity onPress={() => navigation.goBack()} style={{ marginRight: 10 }}>
+              <MaterialCommunityIcons name="chevron-left" size={25} color="black" />
+            </TouchableOpacity>
+          </View>
+          <Text style={{ fontSize: 25, marginLeft: 10, fontWeight: 'bold' }}>Matemática</Text>
+        </View>
+        <ScrollView>
+          <SectionCard
+              sectionNumber={1}
+              description="Fundamentos da Matemática: Revisão dos conceitos fundamentais da matemática, incluindo números inteiros, frações e operações básicas."
+              imageSrc={require('../../assets/sectionThumbnail.png')}
+              completed={3}
+              total={3}
+          />
+          <SectionCard
+              sectionNumber={2}
+              description="Álgebra Linear: Introdução aos vetores, matrizes, determinantes e sistemas de equações lineares."
+              imageSrc={require('../../assets/sectionThumbnail.png')}
+              completed={1}
+              total={2}
+          />
+          <SectionCard
+              sectionNumber={3}
+              description="Geometria Plana: Estudo das formas bidimensionais, incluindo triângulos, quadriláteros e círculos."
+              imageSrc={require('../../assets/sectionThumbnail.png')}
+              completed={0}
+              total={3}
+          />
+          <SectionCard
+              sectionNumber={4}
+              description="Cálculo Diferencial: Exploração dos limites, derivadas e aplicações relacionadas ao cálculo diferencial."
+              imageSrc={require('../../assets/sectionThumbnail.png')}
+              completed={0}
+              total={3}
+          />
+          <SectionCard
+              sectionNumber={5}
+              description="álculo Integral: Entendimento da integração, técnicas de integração e aplicações práticas."
+              imageSrc={require('../../assets/sectionThumbnail.png')}
+              completed={0}
+              total={3}
+          />
+          <SectionCard
+              sectionNumber={6}
+              description="Estatística e Probabilidade: Introdução aos conceitos de média, mediana, desvio padrão, distribuições de probabilidade e teoremas fundamentais."
+              imageSrc={require('../../assets/sectionThumbnail.png')}
+              completed={0}
+              total={3}
+          />
+          <SectionCard
+              sectionNumber={7}
+              description="Matemática Financeira: Estudo do valor do dinheiro no tempo, incluindo juros simples, juros compostos e séries de pagamentos."
+              imageSrc={require('../../assets/sectionThumbnail.png')}
+              completed={0}
+              total={5}
+          />
+        </ScrollView>
       </View>
-    </View>
   );
 }
 

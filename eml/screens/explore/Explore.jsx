@@ -6,7 +6,21 @@ import { ScrollView } from 'react-native-gesture-handler';
 import ExploreCard from '../../components/explore/ExploreCard';
 import { client } from '../../api/userApi';
 
+
+
+import { getBucketImage } from "../../api/api";
+
 function Explore() {
+
+  const [image, setImage] = React.useState(null);
+  useEffect(() => {
+    
+    getBucketImage("test").then((res) => {
+      setImage(res);
+      
+    });
+
+  },[])
   
   // Search text state
   const [searchText, setSearchText] = useState('');
@@ -21,7 +35,6 @@ function Explore() {
         category: 'Mathematics',
         time: '12 weeks',
         rating: 1.4,
-        coverImg: require('../../assets/singleIcon.png'),
         published: true,
         dateUpdated: '2020-10-10',
         description: 'This course is an introduction to differential calculus. It covers all topics in differential calculus including limits, continuity, the derivative and its applications.'
@@ -31,7 +44,6 @@ function Explore() {
         category: 'History',
         time: '8 weeks',
         rating: 3,
-        coverImg: require('../../assets/singleIcon.png'),
         published: true,
         dateUpdated: '2020-10-10',
         description: 'This course is an introduction to World History. It covers all topics in World History including ancient civilizations, the middle ages, and the modern era.'
@@ -41,7 +53,6 @@ function Explore() {
         category: 'Art',
         time: '6 Hours',
         rating: 1,
-        coverImg: require('../../assets/singleIcon.png'),
         published: true,
         dateUpdated: '2020-10-10',
         description: 'This course is an introduction to Modern Art Movements. It covers all topics in Modern Art Movements including impressionism, cubism, surrealism, and pop art.'
@@ -51,7 +62,6 @@ function Explore() {
         category: 'Finance',
         time: '9 weeks',
         rating: 3.2, 
-        coverImg: require('../../assets/singleIcon.png'),
         published: true,
         dateUpdated: '2020-10-10',
         description: 'This course is an introduction to category1. It covers all topics in category1 including topic1, topic2, and topic3.'
@@ -97,6 +107,7 @@ function Explore() {
 
   return (
     <View style={{ flex: 1, backgroundColor: '#f1f9fb' }}>
+      
       <View style={{ flexDirection: 'row', alignItems: 'center', padding: 10, marginTop: '20%', marginBottom: '10%' }}>
         <View className="pl-2">
         <Image
@@ -111,6 +122,10 @@ function Explore() {
       onCategoryChange={handleCategoryFilter}
       />
       <ScrollView>
+      {image && <Image 
+          style={{ width: 200, height: 200 }}
+          source={{ uri: `data:image/png;base64,${image}` }}
+        />}
       {filteredCourses.map((course, index) => (
           <ExploreCard key={index} isPublished={course.published} course={course} />
         ))}
