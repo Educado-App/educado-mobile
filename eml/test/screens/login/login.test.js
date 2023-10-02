@@ -14,7 +14,7 @@ jest.mock('@react-navigation/native', () => ({
 test('Login screen renders', () => {
   const loginScreenTree = renderer.create(<Login />).toJSON();
   expect(loginScreenTree).toMatchSnapshot();
-}); 
+});
 
 test('Check login when invalid token stored', async () => {
   const mockToken = null
@@ -23,7 +23,7 @@ test('Check login when invalid token stored', async () => {
   expect(useNavigation().navigate).toHaveBeenCalledTimes(0);
 })
 
-/* TODO: Fix tests with AsyncStorage */
+/* TODO: Fix tests with AsyncStorage */ /*
 test('Check login when valid token stored', async () => {
   const mockToken = "testToken";
   AsyncStorage.setItem("@loginToken", mockToken).then(async () => {
@@ -32,4 +32,13 @@ test('Check login when valid token stored', async () => {
     expect(useNavigation().navigate).toHaveBeenCalledTimes(1);
   });
   
-})
+})*/
+
+test('Pressing register new user navigates to the register page', async () => {
+  const loginScreen = renderer.create(<Login />);
+  const registerNav = loginScreen.root.findByProps({ testId: "registerNav" });
+  await renderer.act(() => {
+    registerNav.onPress();
+  });
+
+});

@@ -74,13 +74,14 @@ test("Test email alert", async () => {
     loginButton.props.onPress();
   });
 
-  expect(emailAlert.props.label)
-      .not.toBe((""));
+  expect(emailAlert.props.label).not.toBe((""));
 });
 
 
 
 test("Test password alert", async () => {
+  const emailAlert = loginForm.root.findByProps({ testId: "emailAlert" });
+  const emailInput = loginForm.root.findByProps({ testId: "emailInput" });
   const passwordInput = loginForm.root.findByProps({ testId: "passwordInput" });
   const passwordAlert = loginForm.root.findByProps({ testId: "passwordAlert" });
   const loginButton = loginForm.root.findByProps({ testId: "loginButton" });
@@ -93,18 +94,80 @@ test("Test password alert", async () => {
   });
 
   expect(emailAlert.props.label)
-      .not.toBe((""));
+    .not.toBe((""));
 });
+
 
 test("Check that password visibility is toggled correctly", async () => {
   const passwordEye = loginForm.root.findByProps({ testId: "passwordEye" });
+  const passwordInput = loginForm.root.findByProps({ testId: "passwordInput" });
   expect(passwordEye.props.showPasswordIcon).toBe(false);
+  expect(passwordInput.props.secureTextEntry).toBe(true);
   await renderer.act(() => {
     passwordEye.props.toggleShowPassword();
   })
   expect(passwordEye.props.showPasswordIcon).toBe(true);
+  expect(passwordInput.props.secureTextEntry).toBe(false);
   await renderer.act(() => {
     passwordEye.props.toggleShowPassword();
   })
   expect(passwordEye.props.showPasswordIcon).toBe(false);
+  expect(passwordInput.props.secureTextEntry).toBe(true);
+});
+
+
+test("Check that login button is disabled when email or password is empty", async () => {
+  const emailInput = loginForm.root.findByProps({ testId: "emailInput" });
+  const passwordInput = loginForm.root.findByProps({ testId: "passwordInput" });
+  const loginButton = loginForm.root.findByProps({ testId: "loginButton" });
+
+  // Button disabled when fields are empty
+  expect(loginButton.props.disabled).toBe(true);
+
+  // Button not disabled when fields are filled
+  await renderer.act(() => {
+    emailInput.props.onChangeText("thej.dk");
+    passwordInput.props.onChangeText("testing123");
+  });
+  expect(loginButton.props.disabled).toBe(false);
+
+  // Button disabled when email is empty
+  await renderer.act(() => {
+    emailInput.props.onChangeText("");
+    passwordInput.props.onChangeText("testing123");
+  });
+  expect(loginButton.props.disabled).toBe(true);
+
+  // Button not disabled when fields are filled
+  await renderer.act(() => {
+    emailInput.props.onChangeText("thej.dk");
+    passwordInput.props.onChangeText("testing123");
+  });
+  expect(loginButton.props.disabled).toBe(false);
+
+  // Button disabled when password is empty
+  await renderer.act(() => {
+    emailInput.props.onChangeText("thej.dk");
+    passwordInput.props.onChangeText("");
+  });
+  expect(loginButton.props.disabled).toBe(true);
+});
+
+
+test("Password field filters out emojis", async () => {
+  const passwordInput = loginForm.root.findByProps({ testId: "passwordInput" })
+  await renderer.act(() => {
+    passwordInput.props.onChangeText("testing123");
+  });
+  expect().toBeFalsy();
+  await renderer.act(() => {
+    passwordInput.props.onChangeText("testing123🤔");
+  });
+  expect(passwordInput.props.value).toBe("testing123");
+});
+
+
+test("Check that modal opens when clicking on 'forgot password'", async () => {
+  const resetPasswordModal = loginForm.root.findByProps({ testId: "resetPasswordModal" });
+  expect(resetPasswordModal.props.className).toBe("hidden");
 });

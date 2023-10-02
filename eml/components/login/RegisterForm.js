@@ -184,6 +184,7 @@ export default function RegisterForm(props) {
     <View>
       <View className="mb-6">
         <FormTextField
+          testId="nameInput"
           label="Nome"
           name={"Name"}
           value={realName}
@@ -264,6 +265,7 @@ export default function RegisterForm(props) {
           <FormTextField
             label="Confirmar Senha" // Confirm password
             value={confirmPassword}
+            testId="confirmPasswordInput"
             onChangeText={(inputConfirmPassword) => {
               setConfirmPassword(RemoveEmojis(inputConfirmPassword, confirmPassword));
               checkIfPasswordsMatch(password, confirmPassword);
@@ -285,6 +287,7 @@ export default function RegisterForm(props) {
         <FormButton
           onPress={() => register(realName, email, password)}
           label="Cadastrar" // Register
+          testId="registerButton"
           disabled={!isAllInputValid}
         />
       </View>

@@ -58,6 +58,7 @@ export default function Login(props) {
               <Text
                 className="font-montserrat text-base text-black underline"
                 onPress={() => navigation.navigate("Register")}
+                testID="registerNav"
               >
                 Cadastre-se agora
               </Text>

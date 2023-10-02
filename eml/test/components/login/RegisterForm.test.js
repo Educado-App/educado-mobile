@@ -5,6 +5,7 @@ let registerForm;
 
 beforeEach(() => {
   registerForm = renderer.create(<RegisterForm />);
+
 });
 
 test("Ensure that the RegisterForm component renders correctly", () => {
@@ -33,7 +34,6 @@ test("Test of email validation", async () => {
     testId: "emailAlert"
   });
 
-  console.log(emailInput.props.onChangeText(""))
   await renderer.act(() => {
     emailInput.props.onChangeText("letters@letters.end")
   });
@@ -78,6 +78,8 @@ test("Check that confirm password visibility is toggled correctly", async () => 
   expect(registerForm.root.findByProps({ testId: "confirmPasswordEye" })
     .props.showPasswordIcon).toBe(false);
 });
+
+
 
 function testPasswordValidation() {
   registerForm = renderer.create(<RegisterForm />);
@@ -150,6 +152,80 @@ test("Test that the password input works correctly", async () => {
         .toBe("12345678a");
     });
   })
+});
+
+test("Check that register button is disabled when fields are empty", async () => {
+  const nameInput = registerForm.root.findByProps({ testId: "nameInput" });
+  const emailInput = registerForm.root.findByProps({ testId: "emailInput" });
+  const passwordInput = registerForm.root.findByProps({ testId: "passwordInput" });
+  const confirmPasswordInput = registerForm.root.findByProps({ testId: "confirmPasswordInput" });
+  const registerButton = registerForm.root.findByProps({ testId: "registerButton" });
+
+  // Check that register button is disabled when all fields are empty
+  await renderer.act(() => {
+    nameInput.props.onChangeText("");
+    emailInput.props.onChangeText("");
+    passwordInput.props.onChangeText("");
+    confirmPasswordInput.props.onChangeText("");
+  });
+  expect(registerButton.props.disabled).toBe(true);
+});
+
+test("Check that register button is not disabled when fields are filled correctly", async () => {
+  const nameInput = registerForm.root.findByProps({ testId: "nameInput" });
+  const emailInput = registerForm.root.findByProps({ testId: "emailInput" });
+  const passwordInput = registerForm.root.findByProps({ testId: "passwordInput" });
+  const confirmPasswordInput = registerForm.root.findByProps({ testId: "confirmPasswordInput" });
+  const registerButton = registerForm.root.findByProps({ testId: "registerButton" });
+  // Check that the button is disabled when only the name field is filled
+  await renderer.act(() => {
+    nameInput.props.onChangeText("testName");
+    emailInput.props.onChangeText("test@test.dk");
+    passwordInput.props.onChangeText("passwordTest");
+    confirmPasswordInput.props.onChangeText("passwordTest");
+  });
+  expect(registerButton.props.disabled).toBe(true);
+});
+
+test("Check that register button is disabled when password and confirm password is not the same", async () => {
+  const nameInput = registerForm.root.findByProps({ testId: "nameInput" });
+  const emailInput = registerForm.root.findByProps({ testId: "emailInput" });
+  const passwordInput = registerForm.root.findByProps({ testId: "passwordInput" });
+  const confirmPasswordInput = registerForm.root.findByProps({ testId: "confirmPasswordInput" });
+  const registerButton = registerForm.root.findByProps({ testId: "registerButton" });
+  // Test that the register button is disabled when the password and confirm password fields are not equal
+  await renderer.act(() => {
+    nameInput.props.onChangeText("name");
+    emailInput.props.onChangeText("test@test.dk");
+    passwordInput.props.onChangeText("testing123");
+    confirmPasswordInput.props.onChangeText("not the same password");
+  });
+  expect(registerButton.props.disabled).toBe(true);
+});
+
+test("Password field filters out emojis", async () => {
+  const passwordInput = registerForm.root.findByProps({ testId: "passwordInput" });
+  const confirmPasswordInput = registerForm.root.findByProps({ testId: "confirmPasswordInput" });
+
+  // reset text value before test
+  await renderer.act(() => {
+    passwordInput.props.onChangeText("");
+    confirmPasswordInput.props.onChangeText("");
+  });
+
+  await renderer.act(() => {
+    passwordInput.props.onChangeText("testing123");
+    confirmPasswordInput.props.onChangeText("testing123");
+  });
+  expect(passwordInput.props.value).toBe("testing123");
+  expect(confirmPasswordInput.props.value).toBe("testing123");
+
+  await renderer.act(() => {
+    passwordInput.props.onChangeText("testing123🤔");
+    confirmPasswordInput.props.onChangeText("testing123🤔");
+  });
+  expect(passwordInput.props.value).toBe("testing123");
+  expect(confirmPasswordInput.props.value).toBe("testing123");
 });
 
 testPasswordValidation();

@@ -136,14 +136,14 @@ export default function LoginForm() {
         disabled={!(password.length > 0 && email.length > 0)}
       />
       <View className="pt-10">
-        {modalVisible ? (
-          <ResetPassword
-            modalVisible={modalVisible}
-            onModalClose={closeModal}
-            // Reset password
-            title="Redefinção de senha"
-          />
-        ) : null}
+        <ResetPassword
+          className={(!modalVisible ? "hidden" : "")}
+          modalVisible={modalVisible}
+          onModalClose={closeModal}
+          testId="resetPasswordModal"
+          // Reset password
+          title="Redefinção de senha"
+        />
       </View>
     </View>
   );
