@@ -57,14 +57,14 @@ export default function TestScreen() {
               sectionNumber={3}
               description="Geometria Plana: Estudo das formas bidimensionais, incluindo triângulos, quadriláteros e círculos."
               imageSrc={require('../../assets/sectionThumbnail.png')}
-              completed={0}
+              completed={2}
               total={3}
           />
           <SectionCard
               sectionNumber={4}
               description="Cálculo Diferencial: Exploração dos limites, derivadas e aplicações relacionadas ao cálculo diferencial."
               imageSrc={require('../../assets/sectionThumbnail.png')}
-              completed={0}
+              completed={3}
               total={3}
           />
           <SectionCard
@@ -78,7 +78,7 @@ export default function TestScreen() {
               sectionNumber={6}
               description="Estatística e Probabilidade: Introdução aos conceitos de média, mediana, desvio padrão, distribuições de probabilidade e teoremas fundamentais."
               imageSrc={require('../../assets/sectionThumbnail.png')}
-              completed={0}
+              completed={1}
               total={3}
           />
           <SectionCard
