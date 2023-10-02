@@ -9,10 +9,10 @@ export default function CourseProgress({ fracTop, fracBot }) {
     fracBot: PropTypes.number.isRequired
   }
   return (
-    <View style={[styles.container, {width: fracBot - 20 + '%'}]}>
+    <View style={[styles.container, {width: fracBot - 29 + '%'}]}>
       <View style={[styles.bar2, {width: fracTop + '%'}]}/>
       <Text style={styles.fracStyle}>
-        {fracTop}/{fracBot}
+        {fracTop} / {fracBot}
       </Text>
     </View> 
   )
@@ -21,7 +21,7 @@ export default function CourseProgress({ fracTop, fracBot }) {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
-    height: '7%',
+    height: '45%',
     backgroundColor: '#ccc',
     borderRadius: 10,
     marginVertical: 10,
@@ -34,18 +34,20 @@ const styles = StyleSheet.create({
   bar2: {
     borderTopLeftRadius: 10,
     borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 8,
+    borderTopRightRadius: 8,
     height: '100%',
-    backgroundColor: '#89CFF0',
+    backgroundColor: '#5ECCE9',
     opacity: 0.5,
     position: 'absolute'
   },
   fracStyle: {
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: 'bold',
     color: 'black',
     position: 'absolute',
     alignSelf: 'center',
-    bottom: -3.8,
-    right: -48,
+    bottom: '-15%',
+    right: '-28%',
   }
 })

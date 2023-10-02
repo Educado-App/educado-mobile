@@ -25,13 +25,18 @@ export default function CourseCard({ course, category, duration, progress, image
           </Text>
         </View>
         <View style={styles.lineBreak} />
-        <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
-          <Image style={styles.imageContainer} left={0} width={Dimensions.get('window').width * 0.1} height={Dimensions.get('window').width * 0.1} source={require('../../../assets/financeLogo.png')}></Image>
-          <Text style={styles.descriptionText}>{category='category'}</Text>
-          <MaterialCommunityIcons size={30} name="clock-outline"></MaterialCommunityIcons>
-          <Text style={styles.descriptionText}>{duration='duration'}</Text>
+        <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start'}}>
+            <MaterialCommunityIcons size={18} name="school-outline" color={'gray'}></MaterialCommunityIcons>
+            <Text style={styles.descriptionText}>{category='category'}</Text>
+            <MaterialCommunityIcons size={18} name="clock-outline" color={'gray'}></MaterialCommunityIcons>
+            <Text style={styles.descriptionText}>{duration='duration'}</Text>
         </View>
-        <CourseProgress fracTop={50} fracBot={100} />
+        <View className="flex-row">
+            <CourseProgress fracTop={50} fracBot={100} />
+            <Pressable style={styles.playIcon} onPress={() => console.log("waddu" + course)}>
+                <MaterialCommunityIcons size={28} name="play-circle" color={'#5ECCE9'}></MaterialCommunityIcons>
+            </Pressable>
+        </View>
       </View>
     )
     }
@@ -65,7 +70,7 @@ const styles = StyleSheet.create({
       paddingVertical: 5,
   },
   title: {
-      fontSize: 20,
+      fontSize: 18,
       color: 'black',
       flex: 1,
       alignSelf: 'center',
@@ -80,16 +85,16 @@ const styles = StyleSheet.create({
       margin: 5,
   },
   imageContainer: {
-      width: Dimensions.get('window').width * 0.12,
-      height: Dimensions.get('window').width * 0.12,
+      width: Dimensions.get('window').width * 0.1,
+      height: Dimensions.get('window').width * 0.1,
       alignItems: 'flex-start',
       justifyContent: 'flex-start',
       left: -20
   },
   playIcon: {
-      position: 'absolute',
       zIndex: 1,
-      right: 10,
+      left: '210%',
+      bottom: '-1%',
   },
   image: {
       width: '100%',
@@ -104,7 +109,7 @@ const styles = StyleSheet.create({
       color: 'black',
   },
   descriptionText: {
-      marginHorizontal: 20,
+      marginHorizontal: 5,
       marginVertical: 10
   },
 });

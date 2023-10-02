@@ -58,8 +58,9 @@ export default function CourseScreen() {
             <View style={{backgroundColor: '#f1f9fb'}} className="flex-1">
                 {courseLoaded ?
                     <View height='100%'>
-                        <View className="justify-center items-center pt-14 pb-4">
-                            <Image source={require('../../assets/logo_educado.png')}></Image>
+                        <View className="pl-2 items-center flex-row" style={{marginTop: '20%', marginBottom: '10%', padding: 10}}>
+                            <Image style={{width: 25, height: 25, marginLeft: 10}} source={require('../../assets/singleIcon.png')}></Image>
+                            <Text style={{fontSize: 25, marginLeft: 10, fontWeight: 'bold'}}>Bem Vindo!</Text>
                         </View>
                         <ScrollView showsVerticalScrollIndicator={false}>
                         {course.map((course, i) => { return (
@@ -80,7 +81,7 @@ export default function CourseScreen() {
                                     marginHorizontal: 18,
                                     padding: 15,
                                   }}
-                                onPress={() => navigation.navigate("Edu")}>
+                                >
                                     {/*<CourseListUI course={course} key={i} downloadState={setDownloadState}></CourseListUI>*/}
                                     <CourseCard key={i} course={course} downloadState={setDownloadState}></CourseCard>
                                 </Pressable> 
