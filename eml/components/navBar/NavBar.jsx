@@ -36,6 +36,7 @@ export default function NavBar() {
           paddingVertical: '2%',
           paddingHorizontal: '4%',
           height: '10%',
+          paddingBottom: '2%',
           
           // THIS IS SHADOW STUFF - HAVE TO BE PLATFORM SPECIFIC
           ...Platform.select({
