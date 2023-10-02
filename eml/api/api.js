@@ -54,6 +54,7 @@ export const getCourse = async (courseId) => {
   return res.data;
 };
 
+
 // TODO: Endpoint for getcoursebyid && change getCourses to getCourseList
 
 export const getPresignedUrl = async (component_id) => {
@@ -69,14 +70,16 @@ export const getPresignedUrl = async (component_id) => {
 // * try to call the function with fileName = "test" or "gorilla".
 // * It is being called for testing purposes in the Explore screen
 export const getBucketImage = async (fileName) => {
-  const res = await axios.get(`${url}/download?fileName=${fileName}`);
   
-  if (res.status === 200) {
-    return res.data;
-  }
-  else {
-    return null;
-  }
+  
+  try {
+    const res = await axios.get(`${url}/download?fileName=${fileName}`);
+    const workingUrl = { uri: `data:image/png;base64,${res.data}` }
+    return workingUrl
+}
+catch (err) {
+  console.log("Error getting bucket image",err);
+}
 }
 
 
