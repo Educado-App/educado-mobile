@@ -1,7 +1,7 @@
 import { useRoute, useNavigation } from '@react-navigation/native'
 import { React, useEffect, useState } from 'react'
 import CourseListUI from '../../components/easyDynComponents/courseListUI'
-import { View, Pressable, Text, Dimensions, Image } from 'react-native'
+import { View, Pressable, Text, Dimensions, Image, ScrollView, StyleSheet } from 'react-native'
 import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/dev'
 import { AppLoading } from 'expo-app-loading'
 import * as StorageService from "../../services/StorageService";
@@ -55,38 +55,39 @@ export default function CourseScreen() {
         return AppLoading
     } else {
         return (
-            <View className="flex-1 items-center justify-center bg-babyBlue">
+            <View style={{backgroundColor: '#f1f9fb'}} className="flex-1">
                 {courseLoaded ?
-                    <View>
-                        <View className="justify-center items-center pt-14">
+                    <View height='100%'>
+                        <View className="justify-center items-center pt-14 pb-4">
                             <Image source={require('../../assets/logo_educado.png')}></Image>
                         </View>
-                        <View className="bg-babyBlue flex-1 justify-top items-center pt-6">
+                        <ScrollView showsVerticalScrollIndicator={false}>
                         {course.map((course, i) => { return (
                                 <Pressable
                                 style={{
                                     backgroundColor: "#fff",
+                                    margin: 8,
                                     borderRadius: 10,
                                     shadowColor: "#000",
                                     shadowOffset: {
                                       width: 0,
                                       height: 2,
                                     },
-                                    shadowOpacity: 0.2,
-                                    shadowRadius: 2,
-                                    elevation: 5,
+                                    shadowOpacity: 0.3,
+                                    shadowRadius: 4.65,
+                                    elevation: 8,
                                     marginBottom: 15,
                                     marginHorizontal: 18,
-                                    padding: 25,
+                                    padding: 15,
                                   }}
-                                onPress={() => console.log(i)}>
+                                onPress={() => navigation.navigate("Edu")}>
                                     {/*<CourseListUI course={course} key={i} downloadState={setDownloadState}></CourseListUI>*/}
                                     <CourseCard key={i} course={course} downloadState={setDownloadState}></CourseCard>
                                 </Pressable> 
                                 )
                             }) 
                         }
-                        </View>
+                        </ScrollView>
                     </View>
                     :
                     <View className="justify-center items-center">
