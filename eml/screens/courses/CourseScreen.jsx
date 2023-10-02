@@ -13,7 +13,7 @@ export default function CourseScreen() {
 
     const route = useRoute();
 
-    const [course, setCourse] = useState({});
+    const [course, setCourse] = useState([]);
 
     const [courseLoaded, setCourseLoaded] = useState(false);
 
@@ -35,16 +35,24 @@ export default function CourseScreen() {
         //const courseData = await StorageService.getCourseById(courseId);
         //setCourse(courseData);
         const courseData = await getHome();
+        if (courseData) {
+            
+        
         console.log(courseData);
         console.log(route.params);
         setCourse(courseData);
+        }
     }
 
     useEffect(() => {
 
        // if (route.params !== undefined) {
-            loadCourse().then(() => {
-                setCourseLoaded(true);
+            loadCourse().then((res) => {
+                if (res)
+                {
+                    setCourseLoaded(true);
+                }
+                setCourseLoaded(false);
             });
         //}
 
@@ -62,7 +70,7 @@ export default function CourseScreen() {
                             <Image source={require('../../assets/logo_educado.png')}></Image>
                         </View>
                         <View className="bg-babyBlue flex-1 justify-top items-center pt-6">
-                        {course.map((course, i) => { return (
+                        {course && course.map((course, i) => { return (
                                 <Pressable
                                 style={{
                                     backgroundColor: "#fff",
