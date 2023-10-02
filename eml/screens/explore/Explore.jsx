@@ -6,21 +6,27 @@ import { ScrollView } from 'react-native-gesture-handler';
 import ExploreCard from '../../components/explore/ExploreCard';
 import { client } from '../../api/userApi';
 
-
-
 import { getBucketImage } from "../../api/api";
 
 function Explore() {
 
   const [image, setImage] = React.useState(null);
   useEffect(() => {
-    
-    getBucketImage("test").then((res) => {
-      setImage(res);
-      
-    });
+    console.log("useEffect");   
+    handleGettingImage(); 
+
 
   },[])
+
+  const handleGettingImage = async () => {
+
+    const res = await getBucketImage("gorilla")
+
+    console.log("res", res);
+    setImage(res);
+
+
+  }
   
   // Search text state
   const [searchText, setSearchText] = useState('');
@@ -110,10 +116,14 @@ function Explore() {
       
       <View style={{ flexDirection: 'row', alignItems: 'center', padding: 10, marginTop: '20%', marginBottom: '10%' }}>
         <View className="pl-2">
-        <Image
+        {/* <Image
           source={require('../../assets/singleIcon.png')}
           style={{ width: 25, height: 25 }}
-        />
+        /> */}
+        {image && <Image 
+          style={{ width: 200, height: 200 }}
+          source={image}
+        />}
         </View>
         <Text style={{ fontSize: 25, marginLeft: 10, fontWeight: 'bold' }}>Explorar cursos</Text>
       </View>
@@ -122,10 +132,7 @@ function Explore() {
       onCategoryChange={handleCategoryFilter}
       />
       <ScrollView>
-      {image && <Image 
-          style={{ width: 200, height: 200 }}
-          source={{ uri: `data:image/png;base64,${image}` }}
-        />}
+      
       {filteredCourses.map((course, index) => (
           <ExploreCard key={index} isPublished={course.published} course={course} />
         ))}

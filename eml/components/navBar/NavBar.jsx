@@ -35,6 +35,7 @@ export default function NavBar() {
           backgroundColor: 'white',
           paddingVertical: '2%',
           paddingHorizontal: '4%',
+          paddingBottom: '2%',
           height: '10%',
           paddingBottom: '2%',
           
