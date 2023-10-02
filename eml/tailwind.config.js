@@ -3,23 +3,24 @@ module.exports = {
   content: ["./App.{js,jsx,ts,tsx}", "./screens/**/*.{js,jsx,ts,tsx}", "./components/**/*.{js,jsx,ts,tsx}"],
   theme: {
       colors: {
-        // gradient background found in BgLinearGradient.js
+        bgPrimary: '#C9E5EC',
         primary: '#5ECCE9',
-        secondary: '#C9E5EC',
-        white: '#FFFFFF',
-        black: '#383838',
-        gray: '#A1ACB2',
-        error: '#CF6679',
-        success: '#00897B',
-        disable: '#4AA04A',
+        secondary: '#F1F9FB',
+        projectWhite: '#FFFFFF',
+        projectBlack: '#383838',
+        projectGray: '#A1ACB2',
+        error: '#FF4949',
+        success: '#4AA04A',
+        disable: '#DDD',
         disabled: '#E4F2F5',
-        red: '#FFE4E4',
-        green: '#E4F1E4',
+        projectRed: '#FFE4E4',
+        projectGreen: '#E4F1E4',
         lightgray: '#F1F9FB',
       },
       fontFamily: {
-        "montserrat": 'Montserrat-Regular',
-        "montserrat-bold": 'Montserrat-Bold',
+        'montserrat': 'Montserrat-Regular',
+        'montserrat-bold': 'Montserrat-Bold',
+        'montserrat-semi-bold': 'Montserrat-SemiBold',
       },
       extend: {
         fontSize: {

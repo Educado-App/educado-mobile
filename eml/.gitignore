@@ -9,6 +9,8 @@ npm-debug.*
 *.orig.*
 web-build/
 eslint-demo
+package-lock.json
+package.json
 
 # macOS
 .DS_Store
