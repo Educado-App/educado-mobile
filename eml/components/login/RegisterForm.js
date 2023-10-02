@@ -16,7 +16,7 @@ const USER_INFO = "@userInfo";
  * Component for registering a new account in the system, used in the register screen
  * @returns {React.Element} Component containing the form for registering a new user
  */
-export default function LoginForm(props) {
+export default function RegisterForm(props) {
 
   const [realName, setRealName] = useState("");
   const [email, setEmail] = useState("");
@@ -201,26 +201,27 @@ export default function LoginForm(props) {
           className="mb-6"
           label="Email"
           name={"Email"}
+          testId="emailInput"
           value={email}
-          //Email
           placeholder="user@email.com"
           keyboardType="email-address"
           required={true}
-          onChangeText={(email) => { setEmail(email); validateEmail(email); }}
+          onChangeText={async (email) => { setEmail(email); validateEmail(email); }}
         />
-        <FormFieldAlert label={emailAlert} />
+        <FormFieldAlert label={emailAlert} testId="emailAlert" />
       </View>
       <View className="mb-6">
         <View className="relative">
           <FormTextField
             label="Senha" //Password
             name={"password"}
+            testId="passwordInput"
             value={password}
             placeholder="Entre sua senha" // Enter your password
             placeholderTextColor="grey"
             secureTextEntry={!showPassword}
             required={true}
-            onChangeText={(inputPassword) => {
+            onChangeText={async (inputPassword) => {
               setPassword(RemoveEmojis(inputPassword, password));
               checkPasswordContainsLetter(password);
               checkPasswordLength(password);
@@ -235,7 +236,7 @@ export default function LoginForm(props) {
         </View>
 
         <View className="flex-row justify-start mt-1 h-6">
-          <Text className={"text-xs font-montserrat" + ((passwordLengthValid || !password) ? " text-gray" : " text-error")}>
+          <Text testId="passwordLengthAlert" className={"text-xs font-montserrat" + ((passwordLengthValid || !password) ? " text-gray" : " text-error")}>
             {/* Minimum 8 characters */}
             • Mínimo 8 caracteres
           </Text>
@@ -246,7 +247,7 @@ export default function LoginForm(props) {
           </View>
         </View>
         <View className="flex-row justify-start h-6">
-          <Text className={"text-xs font-montserrat" + ((passwordContainsLetter || !password) ? " text-gray" : " text-error")}>
+          <Text testId="passwordLetterAlert" className={"text-xs font-montserrat" + ((passwordContainsLetter || !password) ? " text-gray" : " text-error")}>
             {/* Must contain at least one letter */}
             • Conter pelo menos uma letra
           </Text>
@@ -273,6 +274,7 @@ export default function LoginForm(props) {
             required={true}
           />
           <PasswordEye
+            testId = "confirmPasswordEye"
             showPasswordIcon={showConfirmPassword}
             toggleShowPassword={toggleShowConfirmPassword}
           />
