@@ -24,54 +24,6 @@ import NavBar from './components/navBar/NavBar'; // Import the NavBar component
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-function CourseStack() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="Course"
-        component={CourseScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="Exercise"
-        component={ExerciseScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="WrongAnswer"
-        component={WrongAnswerComponent}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="RightAnswer"
-        component={RightAnswerScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="SectionComplete"
-        component={SectionCompleteScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="ErrorScreen"
-        component={ErrorScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-    </Stack.Navigator>
-  );
-}
 function LoginStack() {
   return (
     <Stack.Navigator initialRouteName={'Login'}>

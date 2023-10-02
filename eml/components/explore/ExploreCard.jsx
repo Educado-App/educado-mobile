@@ -111,12 +111,14 @@ export default function ExploreCard({ course, isPublished }) {
               >
                 <CardLabel
                   title={course.category}
+                  time={false}
                   icon={"school"}
                   color={"gray"}
                 />
                 <View style={{ width: 10 }} />
                 <CardLabel
                   title={course.time}
+                  time={true}
                   icon={"access-time"}
                   color={"gray"}
                 />

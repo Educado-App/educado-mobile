@@ -38,7 +38,7 @@ function Explore() {
     { 
         title: 'Introduction to Calculus',
         category: 'Mathematics',
-        time: '12 weeks',
+        time: 12,
         rating: 1.4,
         published: true,
         dateUpdated: '2020-10-10',
@@ -47,7 +47,7 @@ function Explore() {
     { 
         title: 'World History',
         category: 'History',
-        time: '8 weeks',
+        time: 8,
         rating: 3,
         published: true,
         dateUpdated: '2020-10-10',
@@ -56,7 +56,7 @@ function Explore() {
     { 
         title: 'Modern Art Movements',
         category: 'Art',
-        time: '6 Hours',
+        time: 6,
         rating: 1,
         published: true,
         dateUpdated: '2020-10-10',
@@ -65,7 +65,7 @@ function Explore() {
     { 
         title: 'category1',
         category: 'Finance',
-        time: '9 weeks',
+        time: 9,
         rating: 3.2, 
         published: true,
         dateUpdated: '2020-10-10',
