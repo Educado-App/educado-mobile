@@ -7,20 +7,19 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import { Video } from "expo-av";
 import * as StorageService from "../../services/StorageService";
 import CustomProgressBar from "../../components/exercise/Progressbar";
+import dummyExerciseData from './dummyExerciseData.json';
+
+
 
 export default function ExerciseScreen() {
   const navigation = useNavigation();
   const route = useRoute();
-
-  // Hardcoded dummy data for courseId and sectionId
-  const courseId = "dummyCourseId";
-  const sectionId = "dummySectionId";
-
+  
   const [hasData, setHasData] = useState(false);
   const [signal, setSignal] = useState([]);
   const [exerciseData, setExerciseData] = useState({});
 
-  async function getExercise() {
+  /*async function getExercise() {
     const exercise = await StorageService.getNextExercise(sectionId);
 
     if (exercise !== null) {
@@ -37,9 +36,34 @@ export default function ExerciseScreen() {
     } else {
       navigation.navigate("ErrorScreen");
     }
-  }
+  }*/
 
-  async function isSectionComplete(courseId, sectionId) {
+  async function getExercise() {
+    // Instead of calling StorageService.getNextExercise, use the dummy data
+    const exercise = dummyExerciseData;
+  
+    if (exercise !== null) {
+      console.log(exercise);
+  
+     /* const courseId = exercise.courseId || "defaultCourseId";
+      const sectionId = exercise.sectionId || "defaultSectionId";*/
+  
+      if (exercise === true) {
+       /* navigation.navigate("SectionComplete", {
+          courseId: courseId,
+          sectionId: sectionId,
+        });*/
+      } else {
+        setExerciseData(exercise);
+      }
+    } else {
+      navigation.navigate("ErrorScreen");
+    }
+  }
+  
+  
+
+  /*async function isSectionComplete(courseId, sectionId) {
     const course = await StorageService.getCourseById(courseId);
     const sections = course.sections;
 
@@ -49,7 +73,7 @@ export default function ExerciseScreen() {
         return sections[i].isComplete;
       }
     }
-  }
+  }*/
 
   useEffect(() => {
     getExercise().then(() => {
@@ -78,8 +102,8 @@ export default function ExerciseScreen() {
         <View className="pt-8 flex-row w-screen">
           <View className="">
             <LeaveButton
-              navigationPlace={"Course"}
-              courseId={courseId}
+              //navigationPlace={"Course"}
+              //courseId={courseId}
             ></LeaveButton>
           </View>
           <View
@@ -121,8 +145,8 @@ export default function ExerciseScreen() {
           <ExerciseButtons
             answers={exerciseData.answers}
             exerciseId={exerciseData.id}
-            courseId={courseId}
-            sectionId={sectionId}
+            courseId={exerciseData.courseId}
+            sectionId={exerciseData.sectionId}
             setSignal={setSignal}
             hasData={hasData}
           ></ExerciseButtons>
