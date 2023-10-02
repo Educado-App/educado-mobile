@@ -25,7 +25,6 @@ function Explore() {
     console.log("res", res);
     setImage(res);
 
-
   }
   
   // Search text state
@@ -75,7 +74,7 @@ function Explore() {
 ]);
 
 //Fetch courses from backend and replace dummy data!
-{/*useEffect(() => {
+useEffect(() => {
   client.get('/api/course/eml/getall')
   .then(res => {
     setCourses(res.data);
@@ -83,7 +82,7 @@ function Explore() {
   .catch(err => {
     console.log(err);
   })
-}, []);*/}
+}, []);
 
 ///---------------------------------------------///
 
