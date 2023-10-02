@@ -33,15 +33,15 @@ export default function NavBar() {
         
         tabBarStyle: {
           backgroundColor: 'white',
-          paddingVertical: '2%',
-          paddingHorizontal: '4%',
-          paddingBottom: '2%',
           height: '10%',
           paddingBottom: '2%',
           
           // THIS IS SHADOW STUFF - HAVE TO BE PLATFORM SPECIFIC
           ...Platform.select({
             ios: {
+              paddingVertical: '2%',
+              paddingHorizontal: '4%',
+              paddingBottom: '6%',
               shadowColor: 'rgba(0, 0, 0, 0.2)',
               shadowOffset: {
                 width: 0,
@@ -51,6 +51,9 @@ export default function NavBar() {
               shadowRadius: 8,
             },
             android: {
+              paddingVertical: '2%',
+              paddingHorizontal: '4%',
+              paddingBottom: '2%',
               elevation: 4, // Add elevation for the shadow (Android-specific)
             },
           }),
@@ -108,7 +111,7 @@ export default function NavBar() {
           tabBarIcon: ({ color }) => ( // Pass the color as a parameter to the icon component
             <Icon
               size={17}
-              name="robot-outline"
+              name="school-outline"
               type="material-community"
               color={color} // Use the color parameter here
             />
