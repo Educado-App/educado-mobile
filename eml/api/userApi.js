@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const prod = 'http://educado.somethingnew.dk'
-const test = 'http://172.30.242.170:8888' // Change this to your LOCAL IP address when testing.
+const test = 'http://172.30.210.205:8888' // Change this to your LOCAL IP address when testing.
 const local = 'http://localhost:8888'
 const digitalOcean = 'http://207.154.213.68:8888'
 
@@ -26,10 +26,14 @@ export const client = axios.create({
  * @returns 
  */
 export const registerUser = async (obj) => {
-  console.log("User " +(obj.name ? obj.name : "undefined") + " with email " + (obj.email ? obj.email : "undefined") + " is trying to register.");
-  const res = await client.post('/api/signup/user', obj)
-  console.log("User " + (obj.name ? obj.name : "undefined") + " with email " + (obj.email ? obj.email : "undefined") + " has been registered.");
-  return res.data
+  console.log("User with first name" + (obj.firstName ?? "undefined") + "and last name" +(obj.lastName ?? "undefined") + "with email " + (obj.email ?? "undefined") + " is trying to register.");
+  try {
+    const res = await client.post('/api/signup/user', obj);
+  } catch(e) {
+    throw e.response.data;
+  }
+  console.log("User with first name" + (obj.firstName ?? "undefined") + "and last name" +(obj.lastName ?? "undefined") + "with email " + (obj.email ?? "undefined") + " has been registered.");
+  return res.data;
 }
 
 export const loginUser = async (obj) => {

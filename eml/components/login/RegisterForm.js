@@ -24,7 +24,8 @@ const USER_INFO = "@userInfo";
  * Symbol not allowed (insert symbol) ✅
  * Other tasks:
  * Split name into 2 fields ✅
- * Make file for regex
+ * Make file for regex (Lavet i frontend)
+ * 
  * 
  * 
  * PASSWORD
@@ -55,7 +56,7 @@ export default function LoginForm(props) {
   
   const [emailAlert, setEmailAlert] = useState("");
   const [nameAlert, setNameAlert] = useState("");
-  const [isAllInputValid, setIsAllInputValid] = useState(true);
+  const [isAllInputValid, setIsAllInputValid] = useState(false);
   const [confirmPasswordAlert, setConfirmPasswordAlert] = useState("");
 
   // State variable to track password visibility
@@ -141,28 +142,37 @@ export default function LoginForm(props) {
    * Function for validating all input fields' content
    */
   function validateInput() {
-    if (nameAlert === "" && emailAlert === "" && passwordLengthValid
-      && passwordContainsLetter && confirmPasswordAlert === "") {
-      setIsAllInputValid(true);
-    } else {
-      setIsAllInputValid(false);
-    }
+    const validationPassed = (
+      nameAlert === "" &&
+      emailAlert === "" &&
+      firstName != "" &&
+      lastName != "" &&
+      email != "" &&
+      passwordLengthValid &&
+      passwordContainsLetter &&
+      confirmPasswordAlert === ""
+    );
+    
+    setIsAllInputValid(validationPassed);
   }
 
   /**
    * Function for registering a new user in the database
    * @param {String} firstName 
+   * @param {String} lastName
    * @param {String} email 
    * @param {String} password
    */
-  async function register(firstName, email, password) {
-    validateInput(firstName, email, password)
+  async function register(firstName, lastName, email, password) {
+    validateInput(firstName, email, password);
+    
     if(!isAllInputValid) {
       return;
     }
 
     const obj = {
-      name: firstName,
+      firstName: firstName,
+      lastName: lastName,
       email: email,
       password: password,
     };
@@ -170,16 +180,20 @@ export default function LoginForm(props) {
     try {
       await registerUser(obj)
         .then(async function (response) {
-          await createProfile(response._id, firstName, email);
+          await saveUserInfoLocally(response._id, firstName, lastName, email);
         })
         .catch((error) => {
-          switch (error.message) {
-            case "Request failed with status code 400":
-              //Invalid user data
-              ShowAlert("Dados de usuário inválidos!");
+          switch (error?.error?.code) {
+            case 'E0201':
+              // TODO: Confirm the following translation with Luiza
+              // User with this email already exists
+              ShowAlert('Usuário com este e-mail já existe');
               break;
             default:
               console.log(error);
+              // Invalid user data
+              ShowAlert("Dados de usuário inválidos!");
+              break;
           }
         });
     } catch (e) {
@@ -191,13 +205,15 @@ export default function LoginForm(props) {
    * Stores the user info in async storage
    * @param {*} id user id
    * @param {*} firstName 
+   * @param {*} lastName
    * @param {*} email 
    */
-  async function createProfile(id, firstName, email) {
+  async function saveUserInfoLocally(id, firstName, lastName, email) {
     try {
       const obj = {
         id: id,
         firstName: firstName,
+        lastName: lastName,
         email: email,
       };
 
@@ -316,7 +332,7 @@ export default function LoginForm(props) {
       </View>
       <View className="my-10">
         <FormButton
-          onPress={() => register(firstName, email, password)}
+          onPress={() => register(firstName, lastName, email, password)}
           label="Cadastrar" // Register
           disabled={!isAllInputValid}
         />
