@@ -91,7 +91,7 @@ export default function ExploreCard({ course, isPublished }) {
             style={{
               width: "100%",
               flexDirection: "row",
-              alignItems: "start",
+              alignItems: "flex-start",
               justifyContent: "space-between",
             }}
           >
