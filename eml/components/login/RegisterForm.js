@@ -159,6 +159,7 @@ export default function LoginForm(props) {
    * @param {String} password
    */
   async function register(firstName, lastName, email, password) {
+    
     validateInput(firstName, email, password);
     
     if(!isAllInputValid) {
