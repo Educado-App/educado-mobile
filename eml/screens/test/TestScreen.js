@@ -37,7 +37,7 @@ export default function TestScreen() {
   useEffect(() => {
     clearStorage();
   });
-  loadCourse();
+  
   return (
       <View style={{ flex: 1, backgroundColor: '#f1f9fb' }}>
 
