@@ -19,17 +19,35 @@ const config = {
 };
 
 export const getAuthToken = async () => {
-  const res = await axios.post(url + '/auth/jwt', authBody);
+  const res = await axios.post(url + '/auth/jwt', authBody)
+  .then(response => {
+    console.log("Success", response)
+  })
+  .catch(error => {
+    console.log("Error" + error)
+  })
   return res.data;
 };
 
 export const getTestCourse = async () => {
-  const res = await axios.get(url + '/api/course/650c01f06fe6094f6214a487');
+  const res = await axios.get(url + '/api/course/650c01f06fe6094f6214a487')
+  .then(response => {
+    console.log("Success", response)
+  })
+  .catch(error => {
+    console.log("Error" + error)
+  })
     return res.data;
 };
 
 export const getCoursesWithAuth = async () => {
-  const res = await axios.get(url + '/api/courses', config);
+  const res = await axios.get(url + '/api/courses', config)
+  .then(response => {
+    console.log("Success", response)
+  })
+  .catch(error => {
+    console.log("Error" + error)
+  })
   return res.data;
 };
 
@@ -40,12 +58,24 @@ export const getCourseWithAuth = async (courseId) => {
 
 export const getCourses = async () => {
   // TODO: add bearer token to request header and omit /public
-  const res = await axios.get(url + '/api/courses');
+  const res = await axios.get(url + '/api/courses/all')
+  .then(response => {
+    console.log("Success", response)
+  })
+  .catch(error => {
+    console.log("Error" + error)
+  })
   return res.data;
 };
 
 export const getCourse = async (courseId) => {
-  const res = await axios.get(url + '/api/courses/' + courseId);
+  const res = await axios.get(url + '/api/courses/' + courseId)
+  .then(response => {
+    console.log("Success", response)
+  })
+  .catch(error => {
+    console.log("Error" + error)
+  })
   return res.data;
 };
 
@@ -55,7 +85,13 @@ export const getPresignedUrl = async (component_id) => {
   const obj = {
     component_id,
   };
-  const res = await axios.post(url + '/api/get-presigned-url', obj);
+  const res = await axios.post(url + '/api/get-presigned-url', obj)
+  .then(response => {
+    console.log("Success", response)
+  })
+  .catch(error => {
+    console.log("Error" + error)
+  })
   return res.data;
 };
 
@@ -63,6 +99,7 @@ export const getPresignedUrl = async (component_id) => {
 //CREATE FOR TESTING: BUT IT WORKS
 // * try to call the function with fileName = "test" or "gorilla".
 // * It is being called for testing purposes in the Explore screen
+/*
 export const getBucketImage = async (fileName) => {
   const res = await axios.get(`${url}/download?fileName=${fileName}`);
   
@@ -73,6 +110,7 @@ export const getBucketImage = async (fileName) => {
     return null;
   }
 }
+*/
 
 
 export const getCoverPhoto = async (course_id) => {
@@ -80,7 +118,13 @@ export const getCoverPhoto = async (course_id) => {
     course_id,
   };
   // Send request to S3 server
-  const res = await axios.post(url + '/api/eml/get-presigned-url', obj);
+  const res = await axios.post(url + '/api/eml/get-presigned-url', obj)
+  .then(response => {
+    console.log("Success", response)
+  })
+  .catch(error => {
+    console.log("Error" + error)
+  })
   return res.data;
 };
 
@@ -89,7 +133,13 @@ export const getAllSections = async (sections) => {
     sections,
   };
   // Send request to S3 server
-  const res = await axios.post(url + '/api/eml/course/getallsections', obj);
+  const res = await axios.post(url + '/api/eml/course/getallsections', obj)
+  .then(response => {
+    console.log("Success", response)
+  })
+  .catch(error => {
+    console.log("Error" + error)
+  })
 
   return res.data;
 };
@@ -99,7 +149,13 @@ export const getAllComponents = async (components) => {
     components,
   };
   // Send request to S3 server
-  const res = await axios.post(url + '/api/component/getallcomponents', obj);
+  const res = await axios.post(url + '/api/component/getallcomponents', obj)
+  .then(response => {
+    console.log("Success", response)
+  })
+  .catch(error => {
+    console.log("Error" + error)
+  })
   return res.data;
 };
 
