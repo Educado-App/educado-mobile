@@ -60,15 +60,6 @@ export default function ProfileComponent() {
     //fetchCourses();
   }, []);
 
-  // Print out all course titles
-  /*useEffect(() => {
-    // If statement to prevent it from printing an empty array
-    if (courses.length > 0) {
-      const courseTitles = courses.map((course) => course.title);
-      console.log('Course Titles:', courseTitles);
-    }
-  }, [courses]);*/
-
   if (!isFontsLoaded()) {
     return null;
   }

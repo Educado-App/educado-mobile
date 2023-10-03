@@ -21,8 +21,8 @@ export default function ProfileComponent() {
   const [email, setEmail] = useState('');
   const [newEmail, setNewEmail] = useState('');
   const [emailModalVisible, setEmailModalVisible] = useState(false);
-  const [tempEmail, setTempEmail] = useState(''); // Renamed setNewTempEmail to setTempEmail
-  const [isLoading, setIsLoading] = useState(false); // Add a loading state
+  const [tempEmail, setTempEmail] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const getProfile = async () => {
     try {
@@ -128,8 +128,8 @@ export default function ProfileComponent() {
                 className="w-full p-4 mb-4 rounded bg-white"
               />
 
-              {isLoading ? ( // Conditional rendering based on loading state
-                <ActivityIndicator size="large" color="#0000ff" /> // Loading spinner
+              {isLoading ? (
+                <ActivityIndicator size="large" color="#0000ff" />
               ) : (
                 <TouchableOpacity
                   className="bg-primary px-10 py-4 rounded-medium w-full"

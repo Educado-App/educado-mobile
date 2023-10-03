@@ -12,7 +12,6 @@ export default function settingsButton() {
   const navigation = useNavigation()
 
   const handleGearIconPress = () => {
-    console.log('Settings');
     navigation.navigate('ProfileSettings');
   };
   

@@ -42,15 +42,6 @@ export default function ProfileComponent() {
     getProfile();
   }, []);
 
-  // Print out all course titles
-  /*useEffect(() => {
-    // If statement to prevent it from printing an empty array
-    if (courses.length > 0) {
-      const courseTitles = courses.map((course) => course.title);
-      console.log('Course Titles:', courseTitles);
-    }
-  }, [courses]);*/
-
   const saveLastNameChanges = async () => {
     if (newLastName !== lastName) {
       // Call the updateUserName function to update the username on the server

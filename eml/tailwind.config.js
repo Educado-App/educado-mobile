@@ -18,7 +18,7 @@ module.exports = {
         lightgray: '#F1F9FB',
       },
       fontFamily: {
-        'montserrat': 'Montserrat-Regular',
+        montserrat: 'Montserrat-Regular',
         'montserrat-bold': 'Montserrat-Bold',
         'montserrat-semi-bold': 'Montserrat-SemiBold',
       },
