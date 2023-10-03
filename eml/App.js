@@ -22,6 +22,7 @@ import ErrorScreen from "./screens/errors/ErrorScreen";
 import SectionCompleteScreen from "./screens/excercise/SectionCompleteScreen";
 import Loading from "./components/loading/Loading";
 import WelcomeScreen from "./screens/welcome/Welcome";
+import ProfileSettings from './screens/profile/ProfileSettings';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -257,6 +258,11 @@ export default function App() {
               <Stack.Screen
                 name={"HomeStack"}
                 component={HomeStack}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name={'ProfileSettings'}
+                component={ProfileSettings}
                 options={{ headerShown: false }}
               />
             </Stack.Navigator>

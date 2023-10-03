@@ -15,6 +15,7 @@ module.exports = {
         disabled: '#E4F2F5',
         projectRed: '#FFE4E4',
         projectGreen: '#E4F1E4',
+        lightgray: '#F1F9FB',
       },
       fontFamily: {
         montserrat: 'Montserrat-Regular',
