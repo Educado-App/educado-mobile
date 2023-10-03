@@ -16,12 +16,8 @@ export default function ResetPassword(props) {
   const [emailSent, setEmailSent] = useState(false);
   const [codeEntered, setCodeEntered] = useState(false);
 
-  const closeModal = () => {
-    props.onModalClose();
-  };
-
   return (
-    <EducadoModal modalVisible={props.modalVisible} closeModal={closeModal} title="Redefinção de senha">
+    <EducadoModal modalVisible={props.modalVisible} closeModal={props.onModalClose} id="EducadoModal" title="Redefinção de senha">
         <View className="my-[80px] px-10">
           {!codeEntered ? (
             <View>

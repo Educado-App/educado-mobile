@@ -1,6 +1,7 @@
 import React from "react";
-import { isFontsLoaded } from "../../constants/Fonts.js";
 import { Text, View, TextInput } from "react-native";
+import { useFonts } from "expo-font";
+import getFont from "../general/GetFont";
 
 /**
  * Text field component for forms (e.g. login, register, etc.). 
@@ -21,41 +22,38 @@ import { Text, View, TextInput } from "react-native";
  */
 export default function FormTextField(props) {
 
-  /**
-   * Function to check if fonts are loaded, if not, return null (blank page)
-   */
-  if (!isFontsLoaded()) {
-    return null;
-  }
-
+  const [loaded] = useFonts({
+    fontFileName: require("../../assets/fonts/Montserrat-Regular.ttf")
+  });
+  
   /**
    * Function to display password guidelines
    * @param {Object} props Not used as of now
    * @returns {React.Component} Password guidelines component
-   */
+   *
   const displayPasswordGuidelines = (props) => {
     if (props.passwordGuidelines) {
       return (
         <View className='flex flex-column'>
-          <Text className='ml-3 text-xs text-gray my-1 font-montserrat'>• Mínimo 8 caracteres {/* Minimum 8 characters*/}</Text> 
-          <Text className='ml-3 text-xs text-gray font-montserrat'>• Conter pelo menos uma letra {/* Contains at least one letter */}</Text>
+          <Text className='ml-3 text-xs text-gray my-1 font-montserrat'>• Mínimo 8 caracteres {/* Minimum 8 characters}</Text> 
+          <Text className='ml-3 text-xs text-gray font-montserrat'>• Conter pelo menos uma letra {/* Contains at least one letter }</Text>
         </View>
       )
     }
-  }
+  }*/
 
   return (
     <View>
       <View className="flex flex-row">
-        <Text className="ml-2 text-xs font-montserrat">
+        <Text className={"ml-2 text-xs" + getFont()}>
           {props.label ? props.label : ""}
         </Text>
-        <Text className="ml-1 text-xs text-error font-montserrat">
+        <Text className={"ml-1 text-xs text-error" + getFont()}>
           {props.required ? "*" : ""}
         </Text>
       </View>
       <View className=''>
-        <TextInput className={'h-50 br-25 py-1 pl-[10px] bg-white rounded-lg font-montserrat' + 
+        <TextInput className={'h-50 br-25 py-1 pl-[10px] bg-white rounded-lg' + getFont() +
                                   (props.bordered ? ' border-2 border-gray' : '') + (props.error ? ' border-2 border-error' : '')}
           placeholder={props.placeholder ? props.placeholder : ""} // Placeholder text to be displayed
           keyboardType={props.keyboardType ? props.keyboardType : "default"} // Keyboard type (e.g. numeric, email-address, etc.)
@@ -66,7 +64,6 @@ export default function FormTextField(props) {
           value={props.value} // Value of the input
         />
       </View>
-      {displayPasswordGuidelines(props)}
     </View>
   );
 }

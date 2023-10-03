@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const prod = 'http://educado.somethingnew.dk'
 const testUrl = 'http://localhost:8888';
-const testExpo = 'http://172.30.211.249:8888'; //Change to local expo ip
+const testExpo = 'http://192.168.1.133:8888'; //Change to local expo ip
 const digitalOcean = 'http://207.154.213.68:8888'
 
 const url = testUrl;
@@ -33,7 +33,7 @@ export const registerUser = async (obj) => {
 }
 
 export const loginUser = async (obj) => {
-  const res = await axios.post(url + '/api/eml/login', obj)
+  const res = await client.post('/api/auth/login', obj)
   return res.data
 }
 

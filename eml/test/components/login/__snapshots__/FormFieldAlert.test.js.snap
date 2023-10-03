@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Ensure that the alert is rendered correctly 1`] = `
+<View
+  style={
+    [
+      {
+        "flexDirection": "row",
+      },
+      {
+        "alignItems": "center",
+      },
+    ]
+  }
+>
+  <Text
+    style={
+      [
+        {
+          "fontSize": 12,
+          "lineHeight": 16,
+        },
+        {
+          "color": "#CF6679",
+        },
+        {
+          "marginLeft": 8,
+          "marginRight": 8,
+        },
+        {
+          "fontFamily": "Montserrat-Regular",
+        },
+      ]
+    }
+  />
+</View>
+`;

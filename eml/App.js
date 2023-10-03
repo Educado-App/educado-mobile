@@ -1,6 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import CourseScreen from './screens/courses/CourseScreen';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Icon } from '@rneui/themed';
@@ -16,62 +15,15 @@ import ExerciseScreen from './screens/excercise/ExerciseScreen';
 import WrongAnswerComponent from './screens/excercise/WrongAnswerScreen';
 import Explore from './screens/explore/Explore';
 import { TailwindProvider } from 'tailwindcss-react-native';
-import TestScreen from './screens/test/TestScreen';
 import ErrorScreen from './screens/errors/ErrorScreen';
 import SectionCompleteScreen from './screens/excercise/SectionCompleteScreen';
 import NavBar from './components/navBar/NavBar'; // Import the NavBar component
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-function CourseStack() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="Course"
-        component={CourseScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="Exercise"
-        component={ExerciseScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="WrongAnswer"
-        component={WrongAnswerComponent}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="RightAnswer"
-        component={RightAnswerScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="SectionComplete"
-        component={SectionCompleteScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="ErrorScreen"
-        component={ErrorScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-    </Stack.Navigator>
-  );
-}
+
 function LoginStack() {
   return (
     <Stack.Navigator initialRouteName={'Login'}>
@@ -102,7 +54,7 @@ export default function App() {
         <IconRegistry icons={EvaIconsPack} />
         <ApplicationProvider {...eva} theme={eva.light}>
           <NavigationContainer>
-            <Stack.Navigator initialRouteName={'HomeStack'}>
+            <Stack.Navigator initialRouteName={'LoginStack'}>
               <Stack.Screen
                 name={'LoginStack'}
                 component={LoginStack}
