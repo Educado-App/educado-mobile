@@ -250,7 +250,28 @@ exports[`Check LoginForm renders correctly 1`] = `
         ]
       }
     >
-      <Text />
+      <Text
+        allowFontScaling={false}
+        onPress={[Function]}
+        selectable={false}
+        style={
+          [
+            {
+              "color": "gray",
+              "fontSize": 24,
+            },
+            undefined,
+            {
+              "fontFamily": "material-community",
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+            },
+            {},
+          ]
+        }
+      >
+        󰈈
+      </Text>
     </View>
     <View
       style={
@@ -298,9 +319,6 @@ exports[`Check LoginForm renders correctly 1`] = `
             "textDecorationLine": "underline",
           },
           {
-            "fontFamily": "Montserrat-Regular",
-          },
-          {
             "fontSize": 16,
             "lineHeight": 24,
           },
@@ -309,6 +327,9 @@ exports[`Check LoginForm renders correctly 1`] = `
           },
           {
             "marginLeft": 205,
+          },
+          {
+            "fontFamily": "Montserrat-Regular",
           },
         ]
       }
@@ -409,6 +430,28 @@ exports[`Check LoginForm renders correctly 1`] = `
         },
       ]
     }
-  />
+  >
+    <Modal
+      animationType="slide"
+      hardwareAccelerated={false}
+      style={
+        [
+          {
+            "borderBottomWidth": 8,
+            "borderLeftWidth": 8,
+            "borderRightWidth": 8,
+            "borderTopWidth": 8,
+          },
+          {
+            "borderBottomColor": "#383838",
+            "borderLeftColor": "#383838",
+            "borderRightColor": "#383838",
+            "borderTopColor": "#383838",
+          },
+        ]
+      }
+      visible={false}
+    />
+  </View>
 </View>
 `;
