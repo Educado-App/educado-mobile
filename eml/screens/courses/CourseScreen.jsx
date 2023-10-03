@@ -35,13 +35,11 @@ export default function CourseScreen() {
         //const courseData = await StorageService.getCourseById(courseId);
         //setCourse(courseData);
         const courseData = await getHome();
-        console.log(courseData);
-        console.log(route.params);
         setCourse(courseData);
     }
 
     useEffect(() => {
-
+            
        // if (route.params !== undefined) {
             loadCourse().then(() => {
                 setCourseLoaded(true);
@@ -81,6 +79,7 @@ export default function CourseScreen() {
                                     marginHorizontal: 18,
                                     padding: 15,
                                   }}
+                                  onPress={()=> console.log('blah')}
                                 >
                                     {/*<CourseListUI course={course} key={i} downloadState={setDownloadState}></CourseListUI>*/}
                                     <CourseCard key={i} course={course} downloadState={setDownloadState}></CourseCard>
@@ -93,13 +92,14 @@ export default function CourseScreen() {
                     :
                     <View className="justify-center items-center">
                         {/* No active courses */}
-                        <Text className=" pb-10 text-2xl">Nenhum curso ativo</Text>
+                        <Image className="m-14" source={require('../../assets/logo_educado.png')}></Image>
+                        <Text className="p-10 text-2xl">Nenhum curso ativo</Text>
                         <Pressable
-                            style={{ elevation: 10 }}
-                            className="border border-cyanBlue rounded-md bg-cyanBlue p-2"
+                            style={{ backgroundColor: '#5ECCE9', borderRadius: 12 }}
+                            className="p-2 w-80"
                             onPress={() => loadCourse()} >
                             {/* Click to explore courses */}
-                            <Text className="text-white" style={{ fontSize: 30, fontFamily: 'VarelaRound_400Regular', textAlign: 'center' }}> Clique para explorar os cursos</Text>
+                            <Text className="text-white" style={{ fontSize: 22, fontFamily: 'VarelaRound_400Regular', textAlign: 'center' }}> Clique para explorar os cursos</Text>
                         </Pressable>
                     </View>}
             </View>

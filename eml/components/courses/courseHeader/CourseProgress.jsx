@@ -46,8 +46,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'black',
     position: 'absolute',
-    alignSelf: 'center',
-    bottom: '-15%',
+    bottom: '0%',
     right: '-28%',
   }
 })

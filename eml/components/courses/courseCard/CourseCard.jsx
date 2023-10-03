@@ -6,7 +6,7 @@ import { AppLoading } from 'expo-app-loading';
 import CourseProgress from '../courseHeader/CourseProgress';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-export default function CourseCard({ course, category, duration, progress, imageSrc, downloadState }) {
+export default function CourseCard({ course, downloadState }) {
     const navigation = useNavigation();
     
     let [fontsLoaded] = useFonts({
@@ -19,21 +19,21 @@ export default function CourseCard({ course, category, duration, progress, image
         return (  
       <View className='flex-1'>
         <View style={[styles.header]}>
-          <Image style={styles.imageContainer} source={require('../../../assets/icon.png')}></Image>
+          <MaterialCommunityIcons size={28} name={course.image}> </MaterialCommunityIcons>
           <Text style={styles.title}>
-             { course }
+             { course.title }
           </Text>
         </View>
         <View style={styles.lineBreak} />
         <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start'}}>
-            <MaterialCommunityIcons size={18} name="school-outline" color={'gray'}></MaterialCommunityIcons>
-            <Text style={styles.descriptionText}>{category='category'}</Text>
-            <MaterialCommunityIcons size={18} name="clock-outline" color={'gray'}></MaterialCommunityIcons>
-            <Text style={styles.descriptionText}>{duration='duration'}</Text>
+            <MaterialCommunityIcons size={18} name="school" color={'gray'}></MaterialCommunityIcons>
+            <Text style={styles.descriptionText}>{course.category}</Text>
+            <MaterialCommunityIcons size={18} name="clock" color={'gray'}></MaterialCommunityIcons>
+            <Text style={styles.descriptionText}>{course.duration}</Text>
         </View>
-        <View className="flex-row">
+        <View className="flex-row" style={{alignItems: 'baseline'}}>
             <CourseProgress fracTop={50} fracBot={100} />
-            <Pressable style={styles.playIcon} onPress={() => console.log("waddu" + course)}>
+            <Pressable style={styles.playIcon} onPress={()=>navigation.navigate('Edu')}>
                 <MaterialCommunityIcons size={28} name="play-circle" color={'#5ECCE9'}></MaterialCommunityIcons>
             </Pressable>
         </View>
@@ -93,8 +93,7 @@ const styles = StyleSheet.create({
   },
   playIcon: {
       zIndex: 1,
-      left: '210%',
-      bottom: '-1%',
+      left: '180%',
   },
   image: {
       width: '100%',

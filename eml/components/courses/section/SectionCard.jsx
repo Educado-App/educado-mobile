@@ -4,11 +4,10 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Collapsible from "react-native-collapsible";
 import { useNavigation } from '@react-navigation/native'
 
-export default function SectionCard({ sectionNumber, description, imageSrc, completed, total }) {
+export default function SectionCard({section, sectionNumber, description, imageSrc, completed, total }) {
     const navigation = useNavigation();
     const isComplete = completed === total;
     const [isOpen, setIsOpen] = useState(false);
-
 
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
