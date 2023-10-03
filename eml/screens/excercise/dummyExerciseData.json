@@ -1,29 +1,29 @@
 {
-    "id": "dummyExerciseId",
-    "courseId": "dummyCourseId",
-    "sectionId": "dummySectionId",
-    "content": "https://example.com/dummy-exercise-video.mp4",
-    "answers": [
-      {
-        "id": "answer1",
-        "text": "Option 1",
-        "isCorrect": true
-      },
-      {
-        "id": "answer2",
-        "text": "Option 2",
-        "isCorrect": false
-      },
-      {
-        "id": "answer3",
-        "text": "Option 3",
-        "isCorrect": false
-      },
-      {
-        "id": "answer4",
-        "text": "Option 4",
-        "isCorrect": false
-      }
-    ]
-  }
-  
+  "id": "dummyExerciseId",
+  "courseId": "dummyCourseId",
+  "sectionId": "dummySectionId",
+  "content": "https://example.com/dummy-exercise-video.mp4",
+  "question": "What is the answer to this question?",
+  "answers": [
+    {
+      "id": "answer1",
+      "text": "Option option option option option option placeholder  placeholder placeholder",
+      "isCorrect": true
+    },
+    {
+      "id": "answer2",
+      "text": "Option option option option option option placeholder  placeholder placeholder",
+      "isCorrect": false
+    },
+    {
+      "id": "answer3",
+      "text": "Option option option option option option placeholder  placeholder placeholder",
+      "isCorrect": false
+    },
+    {
+      "id": "answer4",
+      "text": "Option option option option option option placeholder  placeholder placeholder",
+      "isCorrect": false
+    }
+  ]
+}
