@@ -213,3 +213,12 @@ export const unSubscribeToCourse = async() => {
     console.log("OMG nei, du er ikke unsubscribet" + error)
   })
 };
+
+export async function checkIfSubscribed(courseId) { 
+
+  const userId = await AsyncStorage.getItem("@userId");
+
+  
+
+  
+}
