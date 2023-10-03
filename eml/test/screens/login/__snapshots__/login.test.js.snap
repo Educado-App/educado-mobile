@@ -236,9 +236,6 @@ exports[`Login screen renders 1`] = `
                         "fontSize": 12,
                         "lineHeight": 16,
                       },
-                      {
-                        "fontFamily": "Montserrat-Regular",
-                      },
                     ]
                   }
                 >
@@ -256,9 +253,6 @@ exports[`Login screen renders 1`] = `
                       },
                       {
                         "color": "#CF6679",
-                      },
-                      {
-                        "fontFamily": "Montserrat-Regular",
                       },
                     ]
                   }
@@ -292,9 +286,6 @@ exports[`Login screen renders 1`] = `
                         "borderTopLeftRadius": 8,
                         "borderTopRightRadius": 8,
                       },
-                      {
-                        "fontFamily": "Montserrat-Regular",
-                      },
                     ]
                   }
                 />
@@ -325,9 +316,6 @@ exports[`Login screen renders 1`] = `
                     {
                       "marginLeft": 8,
                       "marginRight": 8,
-                    },
-                    {
-                      "fontFamily": "Montserrat-Regular",
                     },
                   ]
                 }
@@ -369,9 +357,6 @@ exports[`Login screen renders 1`] = `
                         "fontSize": 12,
                         "lineHeight": 16,
                       },
-                      {
-                        "fontFamily": "Montserrat-Regular",
-                      },
                     ]
                   }
                 >
@@ -389,9 +374,6 @@ exports[`Login screen renders 1`] = `
                       },
                       {
                         "color": "#CF6679",
-                      },
-                      {
-                        "fontFamily": "Montserrat-Regular",
                       },
                     ]
                   }
@@ -424,9 +406,6 @@ exports[`Login screen renders 1`] = `
                         "borderBottomRightRadius": 8,
                         "borderTopLeftRadius": 8,
                         "borderTopRightRadius": 8,
-                      },
-                      {
-                        "fontFamily": "Montserrat-Regular",
                       },
                     ]
                   }
@@ -480,9 +459,6 @@ exports[`Login screen renders 1`] = `
                       "marginLeft": 8,
                       "marginRight": 8,
                     },
-                    {
-                      "fontFamily": "Montserrat-Regular",
-                    },
                   ]
                 }
               />
@@ -498,9 +474,6 @@ exports[`Login screen renders 1`] = `
                   },
                   {
                     "textDecorationLine": "underline",
-                  },
-                  {
-                    "fontFamily": "Montserrat-Regular",
                   },
                   {
                     "fontSize": 16,
@@ -611,7 +584,29 @@ exports[`Login screen renders 1`] = `
                 },
               ]
             }
-          />
+          >
+            <Modal
+              animationType="slide"
+              hardwareAccelerated={false}
+              style={
+                [
+                  {
+                    "borderBottomWidth": 8,
+                    "borderLeftWidth": 8,
+                    "borderRightWidth": 8,
+                    "borderTopWidth": 8,
+                  },
+                  {
+                    "borderBottomColor": "#383838",
+                    "borderLeftColor": "#383838",
+                    "borderRightColor": "#383838",
+                    "borderTopColor": "#383838",
+                  },
+                ]
+              }
+              visible={false}
+            />
+          </View>
         </View>
       </View>
       <View
@@ -629,9 +624,6 @@ exports[`Login screen renders 1`] = `
         <Text
           style={
             [
-              {
-                "fontFamily": "Montserrat-Regular",
-              },
               {
                 "fontSize": 16,
                 "lineHeight": 24,
@@ -652,9 +644,6 @@ exports[`Login screen renders 1`] = `
           style={
             [
               {
-                "fontFamily": "Montserrat-Regular",
-              },
-              {
                 "fontSize": 16,
                 "lineHeight": 24,
               },
@@ -666,6 +655,7 @@ exports[`Login screen renders 1`] = `
               },
             ]
           }
+          testId="registerNav"
         >
           Cadastre-se agora
         </Text>

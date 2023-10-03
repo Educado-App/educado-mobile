@@ -9,6 +9,8 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import ShowAlert from "../general/ShowAlert";
 import FormFieldAlert from "./FormFieldAlert";
 import { RemoveEmojis } from "../general/Validation";
+import { useFonts } from "expo-font";
+import getFont from "../general/GetFont";
 
 const USER_INFO = "@userInfo";
 
@@ -16,8 +18,7 @@ const USER_INFO = "@userInfo";
  * Component for registering a new account in the system, used in the register screen
  * @returns {React.Element} Component containing the form for registering a new user
  */
-export default function RegisterForm(props) {
-
+export default function RegisterForm() {
   const [realName, setRealName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -71,6 +72,10 @@ export default function RegisterForm(props) {
     const lengthValid = password.length > 7;
     setPasswordLengthValid(lengthValid);
   };
+
+  const [loaded] = useFonts({
+    fontFileName: require("../../assets/fonts/Montserrat-Regular.ttf")
+  });
 
   /**
    * Function for registering a new user in the database
@@ -223,10 +228,11 @@ export default function RegisterForm(props) {
             secureTextEntry={!showPassword}
             required={true}
             onChangeText={async (inputPassword) => {
-              setPassword(RemoveEmojis(inputPassword, password));
-              checkPasswordContainsLetter(password);
-              checkPasswordLength(password);
-              checkIfPasswordsMatch(password, confirmPassword);
+              inputPassword = RemoveEmojis(inputPassword, password);
+              setPassword(inputPassword);
+              checkPasswordContainsLetter(inputPassword);
+              checkPasswordLength(inputPassword);
+              checkIfPasswordsMatch(inputPassword, confirmPassword);
             }}
           />
           <PasswordEye
@@ -237,7 +243,7 @@ export default function RegisterForm(props) {
         </View>
 
         <View className="flex-row justify-start mt-1 h-6">
-          <Text testId="passwordLengthAlert" className={"text-xs font-montserrat" + ((passwordLengthValid || !password) ? " text-gray" : " text-error")}>
+          <Text testId="passwordLengthAlert" className={"text-xs" + getFont() + ((passwordLengthValid || !password) ? " text-gray" : " text-error")}>
             {/* Minimum 8 characters */}
             • Mínimo 8 caracteres
           </Text>
@@ -248,7 +254,7 @@ export default function RegisterForm(props) {
           </View>
         </View>
         <View className="flex-row justify-start h-6">
-          <Text testId="passwordLetterAlert" className={"text-xs font-montserrat" + ((passwordContainsLetter || !password) ? " text-gray" : " text-error")}>
+          <Text testId="passwordLetterAlert" className={"text-xs" + getFont() + ((passwordContainsLetter || !password) ? " text-gray" : " text-error")}>
             {/* Must contain at least one letter */}
             • Conter pelo menos uma letra
           </Text>
@@ -267,8 +273,9 @@ export default function RegisterForm(props) {
             value={confirmPassword}
             testId="confirmPasswordInput"
             onChangeText={(inputConfirmPassword) => {
-              setConfirmPassword(RemoveEmojis(inputConfirmPassword, confirmPassword));
-              checkIfPasswordsMatch(password, confirmPassword);
+              inputConfirmPassword = RemoveEmojis(inputConfirmPassword, confirmPassword);
+              setConfirmPassword(inputConfirmPassword);
+              checkIfPasswordsMatch(password, inputConfirmPassword);
             }
             }
             placeholder="Confirme sua senha" // Confirm your password

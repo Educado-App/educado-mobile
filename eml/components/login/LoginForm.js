@@ -10,6 +10,8 @@ import ResetPassword from "./ResetPassword";
 import { isFontsLoaded } from "../../constants/Fonts.js";
 import FormFieldAlert from "./FormFieldAlert";
 import { RemoveEmojis } from "../general/Validation";
+import { useFonts } from "expo-font";
+import getFont from "../general/GetFont";
 
 const LOGIN_TOKEN = "@loginToken";
 const USER_INFO = "@userInfo";
@@ -28,6 +30,11 @@ export default function LoginForm() {
   const [modalVisible, setModalVisible] = useState(false);
   const [passwordAlert, setPasswordAlert] = useState("");
   const [emailAlert, setEmailAlert] = useState("");
+  // State variable to track password visibility
+  const [showPassword, setShowPassword] = useState(false);
+  const [loaded] = useFonts({
+    fontFileName: require("../../assets/fonts/Montserrat-Regular.ttf")
+  });
 
   /**
    * Logs user in with the entered credentials 
@@ -76,8 +83,6 @@ export default function LoginForm() {
     setModalVisible(false);
   };
 
-  // State variable to track password visibility
-  const [showPassword, setShowPassword] = useState(false);
 
   // Function to toggle the password visibility state
   const toggleShowPassword = () => {
@@ -122,7 +127,7 @@ export default function LoginForm() {
       <View>
         {/* TODO: tilføj onPress til nedenstående; reset password */}
         <Text
-          className="text-right underline font-montserrat text-base text-black mb-15 ml-[205px]"
+          className={"text-right underline text-base text-black mb-15 ml-[205px]" + getFont()}
           onPress={() => setModalVisible(true)}
         >
           Esqueceu a senha?

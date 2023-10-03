@@ -388,7 +388,28 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
           ]
         }
       >
-        <Text />
+        <Text
+          allowFontScaling={false}
+          onPress={[Function]}
+          selectable={false}
+          style={
+            [
+              {
+                "color": "gray",
+                "fontSize": 24,
+              },
+              undefined,
+              {
+                "fontFamily": "material-community",
+                "fontStyle": "normal",
+                "fontWeight": "normal",
+              },
+              {},
+            ]
+          }
+        >
+          󰈈
+        </Text>
       </View>
     </View>
     <View
@@ -633,7 +654,28 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
           ]
         }
       >
-        <Text />
+        <Text
+          allowFontScaling={false}
+          onPress={[Function]}
+          selectable={false}
+          style={
+            [
+              {
+                "color": "gray",
+                "fontSize": 24,
+              },
+              undefined,
+              {
+                "fontFamily": "material-community",
+                "fontStyle": "normal",
+                "fontWeight": "normal",
+              },
+              {},
+            ]
+          }
+        >
+          󰈈
+        </Text>
       </View>
     </View>
     <View
