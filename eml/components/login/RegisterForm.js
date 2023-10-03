@@ -25,9 +25,7 @@ const USER_INFO = "@userInfo";
  * Other tasks:
  * Split name into 2 fields ✅
  * Make file for regex (Lavet i frontend)
- * 
- * 
- * 
+ *
  * PASSWORD
  * Too short ✅
  * Doesn't contain letter ✅
@@ -37,9 +35,6 @@ const USER_INFO = "@userInfo";
  * EMAIL
  * Doesn't match  ✅
  * Contains illegal character(s)
- * 
- * 
- * 
 */ 
 
 /**

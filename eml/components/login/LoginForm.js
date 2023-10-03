@@ -60,16 +60,16 @@ export default function LoginForm() {
           navigation.navigate("HomeStack");
         })
         .catch((error) => {
-          switch (error.response.status) {
-            case 404:
-              // No user exists with this email!
-              setEmailAlert("Não existe nenhum usuário com este email!");
+          switch (error?.error?.code) {
+            case 'E0101':
+              setEmailAlert("Não existe nenhum usuário com este email!"); // No user exists with this email!
               break;
 
-            case 401:
+            case 'E0105':
               setPasswordAlert("Senha incorreta!"); // Password is incorrect!
               break;
-
+              
+            // TODO: What error should we give here instead? Unknown error? 
             default: // Errors not currently handled with specific alerts
               console.log(error);
           }
