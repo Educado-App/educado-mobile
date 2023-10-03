@@ -1,10 +1,11 @@
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const testUrl = 'http://localhost:8888';
-const testExpo = 'http://192.168.1.133:8888'; //Change to local expo ip
+const testExpo = 'http://192.168.1.133:19000'; //Change to local expo ip
 const digitalOcean = 'http://207.154.213.68:8888';
 
-const url = testExpo;
+const url = testUrl;
 
 // Find a solution to refresh auth-token
 const authToken = '';
@@ -181,17 +182,19 @@ export const getSubsribtions = async () => {
 // Subscribe to course
 export const subscribeToCourse = async() => {
 
-  // Send request -- TODO: replace with real credentials, when login is working
-  const res = await axios.post(url + '/api/course/subscribe', {
-    course_id: '650c01f06fe6094f6214a487', 
-    user_id: '65116200ce1f2c4eb06fba5b'
-  })
-  .then(response => {
-    console.log("YAY! Du er subscribet" + response)
-  })
-  .catch(error => {
-    console.log("OMG nei, du er ikke subscribet" + error)
-  })
+  const userId = await AsyncStorage.getItem("@userId");
+
+// Send request -- TODO: replace with real credentials, when login is working
+const res = await axios.post(url + '/api/course/subscribe', {
+  course_id: '650c01f06fe6094f6214a487', 
+  user_id: userId
+})
+.then(response => {
+  console.log("YAY! Du er subscribet " + response)
+})
+.catch(error => {
+  console.log("OMG nei, du er ikke subscribet" + error)
+})
 
 };
 

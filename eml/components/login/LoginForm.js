@@ -14,7 +14,9 @@ import { useFonts } from "expo-font";
 import getFont from "../general/GetFont";
 
 const LOGIN_TOKEN = "@loginToken";
-const USER_INFO = "@userInfo";
+const USER_EMAIL = "@userEmail";
+const USER_NAME = "@userName";
+const USER_ID = "@userId";
 
 //When Logout: back button should be disabled!!!!
 
@@ -30,8 +32,6 @@ export default function LoginForm() {
   const [modalVisible, setModalVisible] = useState(false);
   const [passwordAlert, setPasswordAlert] = useState("");
   const [emailAlert, setEmailAlert] = useState("");
-  // State variable to track password visibility
-  const [showPassword, setShowPassword] = useState(false);
   const [loaded] = useFonts({
     fontFileName: require("../../assets/fonts/Montserrat-Regular.ttf")
   });
@@ -55,11 +55,14 @@ export default function LoginForm() {
     };
 
     loginUser(obj) // Await the response from the backend API for login
-      .then((response) => {
-        // Set login token in AsyncStorage and navigate to home screen
-        AsyncStorage.setItem(LOGIN_TOKEN, response.accessToken);
-        navigation.navigate("HomeStack");
-      })
+    .then((response) => {
+      // Set login token in AsyncStorage and navigate to home screen
+      AsyncStorage.setItem(LOGIN_TOKEN, response.accessToken);
+      AsyncStorage.setItem(USER_EMAIL, response.user.email);
+      AsyncStorage.setItem(USER_ID, response.user.id);
+
+      navigation.navigate("HomeStack");
+    })
       .catch((error) => {
         switch (error.response.status) {
           case 404:
@@ -83,6 +86,8 @@ export default function LoginForm() {
     setModalVisible(false);
   };
 
+  // State variable to track password visibility
+  const [showPassword, setShowPassword] = useState(false);
 
   // Function to toggle the password visibility state
   const toggleShowPassword = () => {
@@ -141,14 +146,14 @@ export default function LoginForm() {
         disabled={!(password.length > 0 && email.length > 0)}
       />
       <View className="pt-10">
-        <ResetPassword
-          className={(!modalVisible ? "hidden" : "")}
-          modalVisible={modalVisible}
-          onModalClose={closeModal}
-          testId="resetPasswordModal"
-          // Reset password
-          title="Redefinção de senha"
-        />
+        {modalVisible ? (
+          <ResetPassword
+            modalVisible={modalVisible}
+            onModalClose={closeModal}
+            // Reset password
+            title="Redefinção de senha"
+          />
+        ) : null}
       </View>
     </View>
   );
