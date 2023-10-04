@@ -19,7 +19,7 @@ export default function ExploreCard({ course, isPublished }) {
   const [isSubscribed, setIsSubscribed] = React.useState(false);
   const navigation = useNavigation();
 
-  const getLevelLabel = (lvl) => {
+  const getDifficultyLabel = (lvl) => {
     switch(lvl) {
         case 1:
             return "Iniciante";
@@ -136,7 +136,7 @@ export default function ExploreCard({ course, isPublished }) {
                 />
                 <View style={{ width: 10 }} />
                 <CardLabel
-                  title={getLevelLabel(course.level)}
+                  title={getDifficultyLabel(course.difficulty)}
                   time={false}
                   icon={"book-multiple-outline"}
                   color={"gray"}
