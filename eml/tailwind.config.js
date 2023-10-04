@@ -20,9 +20,6 @@ module.exports = {
       red: "#FFE4E4",
       green: "#E4F1E4",
     },
-    fontFamily: {
-      montserrat: "Montserrat-Regular",
-    },
     extend: {
       fontSize: {
         heading: 32,
@@ -35,6 +32,12 @@ module.exports = {
         small: 4,
         medium: 8,
         large: 16,
+      },
+      fontFamily: {
+        'sans': ['"Montserrat-Regular"'],
+        'sans-light': ['"Montserrat-Regular"'],
+        'sans-bold': ['"Montserrat-Regular"'],
+        'serif': ['"Montserrat-Regular"'],
       },
     },
   },
