@@ -18,6 +18,7 @@ import { TailwindProvider } from 'tailwindcss-react-native';
 import ErrorScreen from './screens/errors/ErrorScreen';
 import SectionCompleteScreen from './screens/excercise/SectionCompleteScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { isFontsLoaded } from './constants/Fonts';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -186,7 +187,7 @@ function HomeStack() {
 
 // Change InitialRouteName to HomeStack if you want to skip Login Screen
 export default function App() {
-  return (
+  return isFontsLoaded() ? (
     <TailwindProvider>
       <>
         <IconRegistry icons={EvaIconsPack} />
@@ -208,5 +209,5 @@ export default function App() {
         </ApplicationProvider>
       </>
     </TailwindProvider>
-  );
+  ) : null;
 }

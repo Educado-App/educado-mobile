@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Alert, View, Text } from "react-native";
+import { View } from "react-native";
 import { registerUser } from "../../api/userApi";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import FormTextField from "./FormTextField";
@@ -10,7 +10,7 @@ import ShowAlert from "../general/ShowAlert";
 import FormFieldAlert from "./FormFieldAlert";
 import { RemoveEmojis } from "../general/Validation";
 import { useFonts } from "expo-font";
-import getFont from "../general/GetFont";
+import Text from "../general/Text";
 
 const USER_INFO = "@userInfo";
 
@@ -246,7 +246,7 @@ export default function RegisterForm() {
         </View>
 
         <View className="flex-row justify-start mt-1 h-6">
-          <Text testId="passwordLengthAlert" className={"text-xs" + getFont() + ((passwordLengthValid || !password) ? " text-gray" : " text-error")}>
+          <Text testId="passwordLengthAlert" className={"text-xs" + ((passwordLengthValid || !password) ? " text-gray" : " text-error")}>
             {/* Minimum 8 characters */}
             • Mínimo 8 caracteres
           </Text>
@@ -257,7 +257,7 @@ export default function RegisterForm() {
           </View>
         </View>
         <View className="flex-row justify-start h-6">
-          <Text testId="passwordLetterAlert" className={"text-xs" + getFont() + ((passwordContainsLetter || !password) ? " text-gray" : " text-error")}>
+          <Text testId="passwordLetterAlert" className={"text-xs font-sans" + ((passwordContainsLetter || !password) ? " text-gray" : " text-error")}>
             {/* Must contain at least one letter */}
             • Conter pelo menos uma letra
           </Text>

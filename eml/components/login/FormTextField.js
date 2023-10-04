@@ -1,7 +1,7 @@
 import React from "react";
-import { Text, View, TextInput } from "react-native";
+import { View, TextInput } from "react-native";
 import { useFonts } from "expo-font";
-import getFont from "../general/GetFont";
+import Text from "../general/Text";
 
 /**
  * Text field component for forms (e.g. login, register, etc.). 
@@ -45,15 +45,15 @@ export default function FormTextField(props) {
   return (
     <View>
       <View className="flex flex-row">
-        <Text className={"ml-2 text-xs" + getFont()}>
+        <Text className={"ml-2 text-xs"}>
           {props.label ? props.label : ""}
         </Text>
-        <Text className={"ml-1 text-xs text-error" + getFont()}>
+        <Text className={"ml-1 text-xs text-error"}>
           {props.required ? "*" : ""}
         </Text>
       </View>
       <View className=''>
-        <TextInput className={'h-50 br-25 py-1 pl-[10px] bg-white rounded-lg' + getFont() +
+        <TextInput className={'h-50 br-25 py-1 pl-[10px] bg-white rounded-lg' +
                                   (props.bordered ? ' border-2 border-gray' : '') + (props.error ? ' border-2 border-error' : '')}
           placeholder={props.placeholder ? props.placeholder : ""} // Placeholder text to be displayed
           keyboardType={props.keyboardType ? props.keyboardType : "default"} // Keyboard type (e.g. numeric, email-address, etc.)
