@@ -20,22 +20,6 @@ import Text from "../general/Text";
 
  */
 export default function FormTextField(props) {
-  
-  /**
-   * Function to display password guidelines
-   * @param {Object} props Not used as of now
-   * @returns {React.Component} Password guidelines component
-   *
-  const displayPasswordGuidelines = (props) => {
-    if (props.passwordGuidelines) {
-      return (
-        <View className='flex flex-column'>
-          <Text className='ml-3 text-xs text-gray my-1 font-montserrat'>• Mínimo 8 caracteres {/* Minimum 8 characters}</Text> 
-          <Text className='ml-3 text-xs text-gray font-montserrat'>• Conter pelo menos uma letra {/* Contains at least one letter }</Text>
-        </View>
-      )
-    }
-  }*/
 
   return (
     <View>
@@ -50,11 +34,11 @@ export default function FormTextField(props) {
       <View className=''>
         <TextInput className={'h-50 br-25 py-1 pl-[10px] bg-white rounded-lg' +
                                   (props.bordered ? ' border-2 border-gray' : '') + (props.error ? ' border-2 border-error' : '')}
-          placeholder={props.placeholder ? props.placeholder : ""} // Placeholder text to be displayed
-          keyboardType={props.keyboardType ? props.keyboardType : "default"} // Keyboard type (e.g. numeric, email-address, etc.)
-          autoComplete={props.autoComplete ? props.autoComplete : "off"} // Whether to enable auto-completion
-          secureTextEntry={props.secureTextEntry ? props.secureTextEntry : false} // Whether to mask the input (for passwords, etc.)
-          passwordGuidelines={props.passwordGuidelines ? props.passwordGuidelines : false} // Whether to display password guidelines
+          placeholder={props.placeholder ?? ""} // Placeholder text to be displayed
+          keyboardType={props.keyboardType ?? "default"} // Keyboard type (e.g. numeric, email-address, etc.)
+          autoComplete={props.autoComplete ?? "off"} // Whether to enable auto-completion
+          secureTextEntry={props.secureTextEntry ?? false} // Whether to mask the input (for passwords, etc.)
+          passwordGuidelines={props.passwordGuidelines ?? false} // Whether to display password guidelines
           onChangeText={props.onChangeText ? value => props.onChangeText(value) : null} // Callback function to be called when the text changes
           value={props.value} // Value of the input
         />
