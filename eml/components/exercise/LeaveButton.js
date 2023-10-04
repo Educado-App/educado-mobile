@@ -23,7 +23,7 @@ const LeaveButton = ({ navigationPlace, courseId }) => {
           size={40}
           name="chevron-left"
           type="material-community"
-          color="rgb(75,85,99)"
+          color="#383838"
         />
       }
     ></Button>
