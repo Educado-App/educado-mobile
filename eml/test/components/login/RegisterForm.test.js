@@ -36,26 +36,58 @@ test("Test of email validation", async () => {
   });
 
   await renderer.act(() => {
-    emailInput.props.onChangeText("letters@letters.end")
+    emailInput.props.onChangeText("letters@letters.end").then(() => {
+      expect(emailAlert.props.label)
+        .toBe("");
+    });
+    emailInput.props.onChangeText("user.name@dev.letters.end").then(() => {
+      expect(emailAlert.props.label)
+        .toBe("");
+    });
+    emailInput.props.onChangeText("user-name@dev.letters.end").then(() => {
+      expect(emailAlert.props.label)
+        .toBe("");
+    });
+    emailInput.props.onChangeText("unusual----.++email+adress@dev.letters.end").then(() => {
+      expect(emailAlert.props.label)
+        .toBe("");
+    });
   });
 
-  expect(emailAlert.props.label)
-    .toBe("");
-
   await renderer.act(() => {
-    emailInput.props.onChangeText("invalid email").then(() => {
+    emailInput.props.onChangeText("invalid email").then(() => { // No @, ., and illegal spaces
       expect(emailAlert.props.label)
         .toBe(not(""));
     });
-    emailInput.props.onChangeText("slightly@invalid.d").then(() => {
+    emailInput.props.onChangeText("slightly@invalid.d").then(() => { // Domain too short
       expect(emailAlert.props.label)
         .toBe(not(""));
     });
-    emailInput.props.onChangeText("also.invalid.com").then(() => {
+    emailInput.props.onChangeText("also.invalid.com").then(() => { // No @
       expect(emailAlert.props.label)
         .toBe(not(""));
     });
-    emailInput.props.onChangeText("").then(() => {
+    emailInput.props.onChangeText("").then(() => { // Empty
+      expect(emailAlert.props.label)
+        .toBe(not(""));
+    });
+    emailInput.props.onChangeText("user.name.@domain.dom").then(() => { // Dot at end of local part
+      expect(emailAlert.props.label)
+        .toBe(not(""));
+    });
+    emailInput.props.onChangeText("username@domain-name.com").then(() => { // Dash in domain name
+      expect(emailAlert.props.label)
+        .toBe(not(""));
+    });
+    emailInput.props.onChangeText("username@domain?name.com").then(() => { // ? in domain name
+      expect(emailAlert.props.label)
+        .toBe(not(""));
+    });
+    emailInput.props.onChangeText("@domain.com").then(() => { // No local part
+      expect(emailAlert.props.label)
+        .toBe(not(""));
+    });
+    emailInput.props.onChangeText("name@email").then(() => { // No domain ending
       expect(emailAlert.props.label)
         .toBe(not(""));
     });

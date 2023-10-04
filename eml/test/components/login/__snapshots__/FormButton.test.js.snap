@@ -60,14 +60,19 @@ exports[`Ensure that the button is rendered correctly 1`] = `
       style={
         [
           {
-            "color": "#FFFFFF",
+            "fontFamily": "Montserrat-Regular",
           },
-          {
-            "fontSize": 16,
-          },
-          {
-            "fontWeight": "700",
-          },
+          [
+            {
+              "color": "#FFFFFF",
+            },
+            {
+              "fontSize": 16,
+            },
+            {
+              "fontWeight": "700",
+            },
+          ],
         ]
       }
     />

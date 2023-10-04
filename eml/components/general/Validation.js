@@ -7,11 +7,7 @@ import patterns from "../../assets/validation/patterns";
    * @returns either the password state variable or the confirm password state variable depending on the confirm parameter
    */
 const RemoveEmojis = (passwordInput, currentPasword) => {
-  if (!patterns.emoji.test(passwordInput)) {
-    return passwordInput;
-  }
-
-  return currentPasword;
+  return passwordInput.replace(patterns.emoji, "");
 }
 
 export { RemoveEmojis }
