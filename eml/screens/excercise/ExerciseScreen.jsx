@@ -10,6 +10,7 @@ import dummyExerciseData from "./dummyExerciseData.json";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { RadioButton } from "react-native-paper";
 
+
 export default function ExerciseScreen() {
   const navigation = useNavigation();
   const route = useRoute();
@@ -84,19 +85,20 @@ export default function ExerciseScreen() {
   }, [route.params]);
 
   return (
-    <View className="bg-secondary flex-1">
+    <View className="bg-secondary flex-1 ">
       <SafeAreaView>
-        <View>
+        <View className = " flex-row items-center justify-around">
           <View>
-            <View>
               <LeaveButton
               //navigationPlace={"Course"}
               //courseId={courseId}
               ></LeaveButton>
-            </View>
           </View>
-          <View className="items-center">
+          <View>
             <CustomProgressBar progress={0.5 / 1}></CustomProgressBar>
+          </View>
+          <View>
+            <Text> 25% </Text> 
           </View>
         </View>
 
@@ -114,18 +116,21 @@ export default function ExerciseScreen() {
               {dummyExerciseData.answers.map((answer) => (
                 <View
                   key={answer.id}
-                  style={{ flexDirection: "row", alignItems: "center" }}
+                  className="flex-row items-center pb-8"
                 >
-                  <RadioButton
+                  <RadioButton.Android
                     value={answer.id}
                     status={
                       selectedAnswer === answer.id ? "checked" : "unchecked"
                     }
                     onPress={() => handleAnswerSelect(answer.id)}
+                    color= "#5ECCE9"
+                    uncheckedColor="#5ECCE9"
                   />
                   <Text> {answer.text}</Text>
                 </View>
               ))}
+
             </ScrollView>
           </View>
         )}
