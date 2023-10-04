@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useRef, useState } from "react";
-import { ScrollView, StyleSheet, View, Text } from "react-native";
+import { ScrollView, StyleSheet, View, Text, Image } from "react-native";
 import LeaveButton from "../../components/exercise/LeaveButton";
 import ExerciseButtons from "../../components/exercise/ExerciseButtons";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -8,8 +8,7 @@ import * as StorageService from "../../services/StorageService";
 import CustomProgressBar from "../../components/exercise/Progressbar";
 import dummyExerciseData from "./dummyExerciseData.json";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { RadioButton } from "react-native-paper";
-
+import { Button, RadioButton } from "react-native-paper";
 
 export default function ExerciseScreen() {
   const navigation = useNavigation();
@@ -87,7 +86,7 @@ export default function ExerciseScreen() {
   return (
     <View className="bg-secondary flex-1 ">
       <SafeAreaView>
-        <View className = " flex-row items-center justify-around">
+        <View className = "flex-row items-center justify-around">
           <View>
               <LeaveButton
               //navigationPlace={"Course"}
@@ -130,8 +129,13 @@ export default function ExerciseScreen() {
                   <Text> {answer.text}</Text>
                 </View>
               ))}
-
+              <Text className="text-center font-montserrat text-body text-primary underline" onPress={console.log("REVIEW!")}>Review answer</Text>
             </ScrollView>
+            <View className="">
+              <Text className="font-montserrat text-caption-small">Course name: {dummyExerciseData.courseId}</Text>
+              <Text className="font-montserrat-bold">{dummyExerciseData.sectionId}</Text>
+              <Image source={require("../../assets/images/dots-horizontal.png")}/>
+            </View>
           </View>
         )}
 
