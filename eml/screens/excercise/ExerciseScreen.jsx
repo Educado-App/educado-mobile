@@ -86,7 +86,7 @@ export default function ExerciseScreen() {
 
   return (
     <View className="bg-secondary flex-1 ">
-      <SafeAreaView>
+      <SafeAreaView className= "justify-between" >
         <View className = " flex-row items-center justify-around">
           <View>
               <LeaveButton
@@ -95,10 +95,12 @@ export default function ExerciseScreen() {
               ></LeaveButton>
           </View>
           <View>
-            <CustomProgressBar progress={0.5 / 1}></CustomProgressBar>
+            <CustomProgressBar progress={0.25 / 1}></CustomProgressBar>
           </View>
           <View>
-            <Text> 25% </Text> 
+            <Text className="text-center font-montserrat-bold text-[caption-medium] text-[projectBlack]"> 
+              25% 
+            </Text> 
           </View>
         </View>
 
@@ -107,7 +109,7 @@ export default function ExerciseScreen() {
           <Text> Sem dados</Text>
         ) : (
           <View className="items-center">
-            <Text className="text-center font-montserrat-bold">
+            <Text className="text-center font-montserrat-bold text-[projectBlack]">
               {dummyExerciseData.question}
             </Text>
 
