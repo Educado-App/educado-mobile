@@ -1,0 +1,716 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Login screen renders 1`] = `
+<RNCSafeAreaView
+  edges={
+    [
+      "bottom",
+      "left",
+      "right",
+      "top",
+    ]
+  }
+  style={
+    [
+      {
+        "justifyContent": "flex-start",
+      },
+      {
+        "backgroundColor": "#F1F9FB",
+      },
+      {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+      },
+    ]
+  }
+>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+  >
+    <View
+      style={
+        [
+          {
+            "marginTop": 40,
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          [
+            {
+              "flexDirection": "row",
+            },
+            {
+              "justifyContent": "center",
+            },
+            {
+              "width": "100%",
+            },
+            {
+              "marginTop": 16,
+            },
+          ]
+        }
+      >
+        <View
+          style={
+            [
+              {
+                "position": "absolute",
+              },
+              {
+                "left": 0,
+              },
+            ]
+          }
+        >
+          <View
+            style={
+              [
+                {
+                  "overflow": "hidden",
+                },
+                {
+                  "borderRadius": 20,
+                },
+                undefined,
+                false,
+              ]
+            }
+            testID="RNE_BUTTON_WRAPPER"
+          >
+            <View
+              accessibilityRole="button"
+              accessibilityState={
+                {
+                  "busy": false,
+                  "disabled": false,
+                }
+              }
+              accessible={true}
+              collapsable={false}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                {
+                  "opacity": 1,
+                }
+              }
+            >
+              <View
+                style={
+                  {
+                    "alignItems": "center",
+                    "backgroundColor": "invisible",
+                    "borderColor": "#2089dc",
+                    "borderRadius": 20,
+                    "borderWidth": 0,
+                    "flexDirection": "row",
+                    "height": 50,
+                    "justifyContent": "center",
+                    "padding": 4,
+                    "paddingHorizontal": 6,
+                    "width": 50,
+                  }
+                }
+              >
+                <View
+                  style={
+                    {
+                      "overflow": "hidden",
+                    }
+                  }
+                  testID="RNE__ICON__CONTAINER"
+                >
+                  <View
+                    accessibilityRole="button"
+                    android_ripple={
+                      {
+                        "borderless": false,
+                        "color": "rgba(0, 0, 0, 0.3)",
+                        "radius": -5,
+                      }
+                    }
+                    disabled={false}
+                    testID="RNE__ICON__CONTAINER_ACTION"
+                  >
+                    <View
+                      style={
+                        {
+                          "alignItems": "center",
+                          "backgroundColor": "transparent",
+                          "justifyContent": "center",
+                        }
+                      }
+                      testID="RNE__ICON"
+                    >
+                      <Text />
+                    </View>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+        <Image
+          resizeMode="contain"
+          source={1}
+          style={
+            [
+              {
+                "height": 48,
+              },
+            ]
+          }
+        />
+      </View>
+    </View>
+    <View
+      style={
+        [
+          {
+            "marginLeft": 24,
+            "marginRight": 24,
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          [
+            {
+              "marginBottom": 32,
+              "marginTop": 32,
+            },
+          ]
+        }
+      >
+        <View>
+          <View
+            style={
+              [
+                {
+                  "marginBottom": 24,
+                },
+              ]
+            }
+          >
+            <View>
+              <View
+                style={
+                  [
+                    {
+                      "display": "flex",
+                    },
+                    {
+                      "flexDirection": "row",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    [
+                      {
+                        "fontFamily": "Montserrat-Regular",
+                      },
+                      [
+                        {
+                          "marginLeft": 8,
+                        },
+                        {
+                          "fontSize": 12,
+                          "lineHeight": 16,
+                        },
+                      ],
+                    ]
+                  }
+                >
+                  Email
+                </Text>
+                <Text
+                  style={
+                    [
+                      {
+                        "fontFamily": "Montserrat-Regular",
+                      },
+                      [
+                        {
+                          "marginLeft": 4,
+                        },
+                        {
+                          "fontSize": 12,
+                          "lineHeight": 16,
+                        },
+                        {
+                          "color": "#CF6679",
+                        },
+                      ],
+                    ]
+                  }
+                >
+                  *
+                </Text>
+              </View>
+              <View>
+                <TextInput
+                  autoComplete="off"
+                  keyboardType="email-address"
+                  onChangeText={[Function]}
+                  passwordGuidelines={false}
+                  placeholder="user@email.com"
+                  secureTextEntry={false}
+                  style={
+                    [
+                      {
+                        "paddingBottom": 4,
+                        "paddingTop": 4,
+                      },
+                      {
+                        "paddingLeft": 10,
+                      },
+                      {
+                        "backgroundColor": "#FFFFFF",
+                      },
+                      {
+                        "borderBottomLeftRadius": 8,
+                        "borderBottomRightRadius": 8,
+                        "borderTopLeftRadius": 8,
+                        "borderTopRightRadius": 8,
+                      },
+                    ]
+                  }
+                />
+              </View>
+            </View>
+            <View
+              style={
+                [
+                  {
+                    "flexDirection": "row",
+                  },
+                  {
+                    "alignItems": "center",
+                  },
+                ]
+              }
+            >
+              <Text
+                style={
+                  [
+                    {
+                      "fontFamily": "Montserrat-Regular",
+                    },
+                    [
+                      {
+                        "fontSize": 12,
+                        "lineHeight": 16,
+                      },
+                      {
+                        "color": "#CF6679",
+                      },
+                      {
+                        "marginLeft": 8,
+                        "marginRight": 8,
+                      },
+                    ],
+                  ]
+                }
+              />
+            </View>
+          </View>
+          <View
+            style={
+              [
+                {
+                  "position": "relative",
+                },
+                {
+                  "marginBottom": 24,
+                },
+              ]
+            }
+          >
+            <View>
+              <View
+                style={
+                  [
+                    {
+                      "display": "flex",
+                    },
+                    {
+                      "flexDirection": "row",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    [
+                      {
+                        "fontFamily": "Montserrat-Regular",
+                      },
+                      [
+                        {
+                          "marginLeft": 8,
+                        },
+                        {
+                          "fontSize": 12,
+                          "lineHeight": 16,
+                        },
+                      ],
+                    ]
+                  }
+                >
+                  Senha
+                </Text>
+                <Text
+                  style={
+                    [
+                      {
+                        "fontFamily": "Montserrat-Regular",
+                      },
+                      [
+                        {
+                          "marginLeft": 4,
+                        },
+                        {
+                          "fontSize": 12,
+                          "lineHeight": 16,
+                        },
+                        {
+                          "color": "#CF6679",
+                        },
+                      ],
+                    ]
+                  }
+                >
+                  *
+                </Text>
+              </View>
+              <View>
+                <TextInput
+                  autoComplete="off"
+                  keyboardType="default"
+                  onChangeText={[Function]}
+                  passwordGuidelines={false}
+                  placeholder="Digite sua senha"
+                  secureTextEntry={true}
+                  style={
+                    [
+                      {
+                        "paddingBottom": 4,
+                        "paddingTop": 4,
+                      },
+                      {
+                        "paddingLeft": 10,
+                      },
+                      {
+                        "backgroundColor": "#FFFFFF",
+                      },
+                      {
+                        "borderBottomLeftRadius": 8,
+                        "borderBottomRightRadius": 8,
+                        "borderTopLeftRadius": 8,
+                        "borderTopRightRadius": 8,
+                      },
+                    ]
+                  }
+                  value=""
+                />
+              </View>
+            </View>
+            <View
+              style={
+                [
+                  {
+                    "position": "absolute",
+                  },
+                  {
+                    "right": 8,
+                  },
+                  {
+                    "top": 8,
+                  },
+                  {
+                    "marginTop": 12,
+                  },
+                ]
+              }
+            >
+              <Text />
+            </View>
+            <View
+              style={
+                [
+                  {
+                    "flexDirection": "row",
+                  },
+                  {
+                    "alignItems": "center",
+                  },
+                ]
+              }
+            >
+              <Text
+                style={
+                  [
+                    {
+                      "fontFamily": "Montserrat-Regular",
+                    },
+                    [
+                      {
+                        "fontSize": 12,
+                        "lineHeight": 16,
+                      },
+                      {
+                        "color": "#CF6679",
+                      },
+                      {
+                        "marginLeft": 8,
+                        "marginRight": 8,
+                      },
+                    ],
+                  ]
+                }
+              />
+            </View>
+          </View>
+          <View>
+            <Text
+              onPress={[Function]}
+              style={
+                [
+                  {
+                    "fontFamily": "Montserrat-Regular",
+                  },
+                  [
+                    {
+                      "textAlign": "right",
+                    },
+                    {
+                      "textDecorationLine": "underline",
+                    },
+                    {
+                      "fontSize": 16,
+                      "lineHeight": 24,
+                    },
+                    {
+                      "color": "#383838",
+                    },
+                    {
+                      "marginLeft": 205,
+                    },
+                  ],
+                ]
+              }
+            >
+              Esqueceu a senha?
+            </Text>
+          </View>
+          <View
+            style={
+              [
+                {
+                  "marginTop": 48,
+                },
+              ]
+            }
+          >
+            <View
+              accessibilityState={
+                {
+                  "disabled": true,
+                }
+              }
+              accessible={true}
+              collapsable={false}
+              focusable={true}
+              onBlur={[Function]}
+              onClick={[Function]}
+              onFocus={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                [
+                  {
+                    "flexBasis": "auto",
+                    "flexGrow": 1,
+                    "flexShrink": 1,
+                  },
+                  {
+                    "alignItems": "center",
+                  },
+                  {
+                    "backgroundColor": "#5ECCE9",
+                  },
+                  {
+                    "paddingLeft": 40,
+                    "paddingRight": 40,
+                  },
+                  {
+                    "paddingBottom": 16,
+                    "paddingTop": 16,
+                  },
+                  {
+                    "borderBottomLeftRadius": 8,
+                    "borderBottomRightRadius": 8,
+                    "borderTopLeftRadius": 8,
+                    "borderTopRightRadius": 8,
+                  },
+                  {
+                    "opacity": 1,
+                  },
+                  {
+                    "opacity": 0.5,
+                  },
+                  {
+                    "backgroundColor": "#A1ACB2",
+                  },
+                ]
+              }
+            >
+              <Text
+                style={
+                  [
+                    {
+                      "fontFamily": "Montserrat-Regular",
+                    },
+                    [
+                      {
+                        "color": "#FFFFFF",
+                      },
+                      {
+                        "fontSize": 16,
+                      },
+                      {
+                        "fontWeight": "700",
+                      },
+                    ],
+                  ]
+                }
+              >
+                Entrar
+              </Text>
+            </View>
+          </View>
+          <View
+            style={
+              [
+                {
+                  "paddingTop": 40,
+                },
+              ]
+            }
+          >
+            <Modal
+              animationType="slide"
+              hardwareAccelerated={false}
+              style={
+                [
+                  {
+                    "borderBottomWidth": 8,
+                    "borderLeftWidth": 8,
+                    "borderRightWidth": 8,
+                    "borderTopWidth": 8,
+                  },
+                  {
+                    "borderBottomColor": "#383838",
+                    "borderLeftColor": "#383838",
+                    "borderRightColor": "#383838",
+                    "borderTopColor": "#383838",
+                  },
+                ]
+              }
+              visible={false}
+            />
+          </View>
+        </View>
+      </View>
+      <View
+        style={
+          [
+            {
+              "flexDirection": "row",
+            },
+            {
+              "justifyContent": "center",
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            [
+              {
+                "fontFamily": "Montserrat-Regular",
+              },
+              [
+                {
+                  "fontSize": 16,
+                  "lineHeight": 24,
+                },
+                {
+                  "color": "#A1ACB2",
+                },
+                {
+                  "marginRight": 4,
+                },
+              ],
+            ]
+          }
+        >
+          Ainda não tem conta? 
+        </Text>
+        <Text
+          onPress={[Function]}
+          style={
+            [
+              {
+                "fontFamily": "Montserrat-Regular",
+              },
+              [
+                {
+                  "fontSize": 16,
+                  "lineHeight": 24,
+                },
+                {
+                  "color": "#383838",
+                },
+                {
+                  "textDecorationLine": "underline",
+                },
+              ],
+            ]
+          }
+          testId="registerNav"
+        >
+          Cadastre-se agora
+        </Text>
+      </View>
+    </View>
+  </View>
+</RNCSafeAreaView>
+`;

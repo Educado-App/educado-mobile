@@ -1,9 +1,10 @@
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import { React, useState } from "react";
 import FormTextField from "./FormTextField";
 import FormButton from "./FormButton";
 import EducadoModal from "../general/EducadoModal";
 import EnterNewPasswordScreen from "./EnterNewPasswordScreen";
+import Text from '../general/Text';
 
 /**
  * Component to create modal (popup) that prompts user for
@@ -16,12 +17,8 @@ export default function ResetPassword(props) {
   const [emailSent, setEmailSent] = useState(false);
   const [codeEntered, setCodeEntered] = useState(false);
 
-  const closeModal = () => {
-    props.onModalClose();
-  };
-
   return (
-    <EducadoModal modalVisible={props.modalVisible} closeModal={closeModal} title="Redefinção de senha">
+    <EducadoModal modalVisible={props.modalVisible} closeModal={props.onModalClose} id="EducadoModal" title="Redefinção de senha">
         <View className="my-[80px] px-10">
           {!codeEntered ? (
             <View>

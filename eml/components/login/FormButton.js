@@ -1,6 +1,6 @@
 import React from "react";
-import { isFontsLoaded } from "../../constants/Fonts.js";
-import { Text, View, Pressable } from "react-native";
+import { View, Pressable } from "react-native";
+import Text from "../general/Text";
 
 /**
  * Button component for eg. login and register screens.
@@ -10,11 +10,6 @@ import { Text, View, Pressable } from "react-native";
  * @returns {React.Element} Button component
  */
 export default function FormButton(props) {
-  
-  // Checking if font is loaded
-  if (!isFontsLoaded()) {
-    return null;
-  }
 
   return (
     <View className='mt-12'>
