@@ -38,6 +38,7 @@ function Explore() {
     { 
         title: 'Introduction to Calculus',
         category: 'Mathematics',
+        level: 1,
         time: 12,
         rating: 1.4,
         published: true,
@@ -47,6 +48,7 @@ function Explore() {
     { 
         title: 'World History',
         category: 'History',
+        level: 2,
         time: 8,
         rating: 3,
         published: true,
@@ -56,6 +58,7 @@ function Explore() {
     { 
         title: 'Modern Art Movements',
         category: 'Art',
+        level: 3,
         time: 6,
         rating: 1,
         published: true,
@@ -65,6 +68,7 @@ function Explore() {
     { 
         title: 'category1',
         category: 'Finance',
+        level: 1,
         time: 9,
         rating: 3.2, 
         published: true,

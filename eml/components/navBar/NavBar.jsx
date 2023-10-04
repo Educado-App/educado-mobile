@@ -67,7 +67,7 @@ export default function NavBar() {
       }}
     >
       <Tab.Screen
-        name="Casa"
+        name="Central"
         component={CourseScreen}
         options={{
           tabBarActiveBackgroundColor: '#5fcce9',
@@ -111,7 +111,7 @@ export default function NavBar() {
           tabBarIcon: ({ color }) => ( // Pass the color as a parameter to the icon component
             <Icon
               size={17}
-              name="school-outline"
+              name="robot-outline"
               type="material-community"
               color={color} // Use the color parameter here
             />

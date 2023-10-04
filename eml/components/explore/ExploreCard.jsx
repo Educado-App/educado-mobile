@@ -19,7 +19,18 @@ export default function ExploreCard({ course, isPublished }) {
   const [isSubscribed, setIsSubscribed] = React.useState(false);
   const navigation = useNavigation();
 
-  
+  const getLevelLabel = (lvl) => {
+    switch(lvl) {
+        case 1:
+            return "Iniciante";
+        case 2:
+            return "Intermediário";
+        case 3:
+            return "Avançado";
+        default:
+            return lvl; // default to the provided level if not 1, 2, or 3
+    }
+  }
 
   let [fontsLoaded] = useFonts({
     VarelaRound_400Regular,
@@ -112,14 +123,22 @@ export default function ExploreCard({ course, isPublished }) {
                 <CardLabel
                   title={course.category}
                   time={false}
-                  icon={"school"}
+                  icon={"school-outline"}
                   color={"gray"}
                 />
+                
                 <View style={{ width: 10 }} />
                 <CardLabel
                   title={course.time}
                   time={true}
-                  icon={"access-time"}
+                  icon={"clock-outline"}
+                  color={"gray"}
+                />
+                <View style={{ width: 10 }} />
+                <CardLabel
+                  title={getLevelLabel(course.level)}
+                  time={false}
+                  icon={"book-multiple-outline"}
                   color={"gray"}
                 />
               </View>

@@ -1,9 +1,9 @@
 import React from 'react';
-import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { View, Text } from 'react-native';
 
 const CardLabel = ({title, icon, color = "f1CC4f", time = false}) => {
-    const displayTitle = time ? `${title} horas` : title;
+    const displayTitle = time ? `${title} Horas` : title;
 
     return ( 
         <View style={{
@@ -11,7 +11,7 @@ const CardLabel = ({title, icon, color = "f1CC4f", time = false}) => {
             alignItems: 'center',
             justifyContent: 'flex-start',
         }}>
-            <MaterialIcons name={icon} size={15} color={color} />
+            <MaterialCommunityIcons name={icon} size={13} color={color} />
             <Text style={{ paddingLeft: 3, fontSize: 13, color: color }} >{displayTitle}</Text>
         </View>
     );
