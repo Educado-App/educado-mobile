@@ -1,10 +1,12 @@
 import { useRoute, useNavigation } from '@react-navigation/native'
 import { React, useEffect, useState } from 'react'
 import CourseListUI from '../../components/easyDynComponents/courseListUI'
-import { View, Pressable, Text } from 'react-native'
+import { View, Pressable, Text, Dimensions, Image, ScrollView, StyleSheet } from 'react-native'
 import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/dev'
 import { AppLoading } from 'expo-app-loading'
 import * as StorageService from "../../services/StorageService";
+import { getHome } from '../../api/api'
+import CourseCard from '../../components/courses/courseCard/CourseCard'
 
 export default function CourseScreen() {
 
@@ -30,40 +32,74 @@ export default function CourseScreen() {
     })
 
     async function loadCourse() {
-        const courseData = await StorageService.getCourseById(courseId);
+        //const courseData = await StorageService.getCourseById(courseId);
+        //setCourse(courseData);
+        const courseData = await getHome();
         setCourse(courseData);
     }
 
     useEffect(() => {
-
-        if (route.params !== undefined) {
+            
+       // if (route.params !== undefined) {
             loadCourse().then(() => {
                 setCourseLoaded(true);
             });
-        }
+        //}
 
     }, [route.params, downloadState])
 
-
+    
     if (!fontsLoaded) {
         return AppLoading
     } else {
         return (
-            <View className="flex-1 items-center justify-center bg-babyBlue">
+            <View style={{backgroundColor: '#f1f9fb'}} className="flex-1">
                 {courseLoaded ?
-                    <View className="bg-babyBlue flex-1 justify-center items-center">
-                        <CourseListUI course={course} downloadState={setDownloadState}></CourseListUI>
+                    <View height='100%'>
+                        <View className="pl-2 items-center flex-row" style={{marginTop: '20%', marginBottom: '10%', padding: 10}}>
+                            <Image style={{width: 25, height: 25, marginLeft: 10}} source={require('../../assets/singleIcon.png')}></Image>
+                            <Text style={{fontSize: 25, marginLeft: 10, fontWeight: 'bold'}}>Bem Vindo!</Text>
+                        </View>
+                        <ScrollView showsVerticalScrollIndicator={false}>
+                        {course.map((course, i) => { return (
+                                <Pressable
+                                style={{
+                                    backgroundColor: "#fff",
+                                    margin: 8,
+                                    borderRadius: 10,
+                                    shadowColor: "#000",
+                                    shadowOffset: {
+                                      width: 0,
+                                      height: 2,
+                                    },
+                                    shadowOpacity: 0.3,
+                                    shadowRadius: 4.65,
+                                    elevation: 8,
+                                    marginBottom: 15,
+                                    marginHorizontal: 18,
+                                    padding: 15,
+                                  }}
+                                  onPress={()=> console.log('blah')}
+                                >
+                                    {/*<CourseListUI course={course} key={i} downloadState={setDownloadState}></CourseListUI>*/}
+                                    <CourseCard key={i} course={course} downloadState={setDownloadState}></CourseCard>
+                                </Pressable> 
+                                )
+                            }) 
+                        }
+                        </ScrollView>
                     </View>
                     :
                     <View className="justify-center items-center">
                         {/* No active courses */}
-                        <Text className=" pb-10 text-2xl">Nenhum curso ativo</Text>
+                        <Image className="m-14" source={require('../../assets/logo_educado.png')}></Image>
+                        <Text className="p-10 text-2xl">Nenhum curso ativo</Text>
                         <Pressable
-                            style={{ elevation: 10 }}
-                            className="border border-cyanBlue rounded-md bg-cyanBlue p-2"
-                            onPress={() => navigation.navigate('Explore')}>
+                            style={{ backgroundColor: '#5ECCE9', borderRadius: 12 }}
+                            className="p-2 w-80"
+                            onPress={() => loadCourse()} >
                             {/* Click to explore courses */}
-                            <Text className="text-white" style={{ fontSize: 30, fontFamily: 'VarelaRound_400Regular', textAlign: 'center' }}> Clique para explorar os cursos</Text>
+                            <Text className="text-white" style={{ fontSize: 22, fontFamily: 'VarelaRound_400Regular', textAlign: 'center' }}> Clique para explorar os cursos</Text>
                         </Pressable>
                     </View>}
             </View>

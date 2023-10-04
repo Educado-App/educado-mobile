@@ -94,14 +94,14 @@ export default function ExploreCard({ course, isPublished }) {
             style={{
               width: "100%",
               flexDirection: "row",
-              alignItems: "start",
+              alignItems: "flex-start",
               justifyContent: "space-between",
             }}
           >
             <View
               style={{
                 flexDirection: "column",
-                alignItems: "start",
+                alignItems: "flex-start",
                 justifyContent: "space-between",
               }}
             >
@@ -109,7 +109,7 @@ export default function ExploreCard({ course, isPublished }) {
                 style={{
                   flexDirection: "row",
                   alignItems: "center",
-                  justifyContent: "start",
+                  justifyContent: "flex-start",
                 }}
               >
                 <CardLabel
