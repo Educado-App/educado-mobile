@@ -1,6 +1,5 @@
 import React from "react";
 import { View, TextInput } from "react-native";
-import { useFonts } from "expo-font";
 import Text from "../general/Text";
 
 /**
@@ -21,10 +20,6 @@ import Text from "../general/Text";
 
  */
 export default function FormTextField(props) {
-
-  const [loaded] = useFonts({
-    fontFileName: require("../../assets/fonts/Montserrat-Regular.ttf")
-  });
   
   /**
    * Function to display password guidelines

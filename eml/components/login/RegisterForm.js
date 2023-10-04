@@ -9,7 +9,6 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import ShowAlert from "../general/ShowAlert";
 import FormFieldAlert from "./FormFieldAlert";
 import { RemoveEmojis } from "../general/Validation";
-import { useFonts } from "expo-font";
 import Text from "../general/Text";
 
 const USER_INFO = "@userInfo";
@@ -72,11 +71,7 @@ export default function RegisterForm() {
     const lengthValid = password.length > 7;
     setPasswordLengthValid(lengthValid);
   };
-
-  const [loaded] = useFonts({
-    fontFileName: require("../../assets/fonts/Montserrat-Regular.ttf")
-  });
-
+  
   /**
    * Function for registering a new user in the database
    * @param {String} realName 

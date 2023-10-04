@@ -1,4 +1,3 @@
-import { useFonts } from 'expo-font';
 import { React } from 'react';
 import { View } from 'react-native';
 import Text from '../general/Text';
@@ -10,9 +9,6 @@ import Text from '../general/Text';
  * @returns {React.Element} JSX element for showing alerts
  */
 export default function FormFieldAlert(props) {
-  const [loaded] = useFonts({
-    fontFileName: require("../../assets/fonts/Montserrat-Regular.ttf")
-  });
 
   return (
     <View className="flex-row items-center">

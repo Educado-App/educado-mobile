@@ -9,7 +9,6 @@ import PasswordEye from "./PasswordEye";
 import ResetPassword from "./ResetPassword";
 import FormFieldAlert from "./FormFieldAlert";
 import { RemoveEmojis } from "../general/Validation";
-import { useFonts } from "expo-font";
 import Text from "../general/Text";
 
 const LOGIN_TOKEN = "@loginToken";
@@ -31,10 +30,7 @@ export default function LoginForm() {
   const [emailAlert, setEmailAlert] = useState("");
   // State variable to track password visibility
   const [showPassword, setShowPassword] = useState(false);
-  const [loaded] = useFonts({
-    fontFileName: require("../../assets/fonts/Montserrat-Regular.ttf")
-  });
-
+  
   /**
    * Logs user in with the entered credentials 
    * @param {String} email Email user tries to login with
