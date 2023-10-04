@@ -34,7 +34,7 @@ export default function CourseScreen() {
     async function loadCourse() {
         //const courseData = await StorageService.getCourseById(courseId);
         //setCourse(courseData);
-        const courseData = await getHome();
+        const courseData = await StorageService.getSubCourseList();
         setCourse(courseData);
     }
 

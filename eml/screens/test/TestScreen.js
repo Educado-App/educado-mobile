@@ -27,15 +27,12 @@ export default function TestScreen() {
   const [course, setCourse] = useState({});
   const [section, setSection] = useState({});
 
-    async function loadCourse() {
-        const courseData = await getHome();
-        setCourse(courseData);
-        const sectionData = course[0].sections[0];
-        setSection(sectionData);
+    async function loadSection(courseId) {
+
     }
 
   useEffect(() => {
-    clearStorage();
+    // loadSection();
   });
   
   return (
