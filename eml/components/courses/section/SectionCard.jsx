@@ -4,9 +4,11 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Collapsible from "react-native-collapsible";
 import { useNavigation } from '@react-navigation/native'
 
-export default function SectionCard({section, sectionNumber, description, imageSrc, completed, total }) {
+export default function SectionCard({ sectionNumber, description, imageSrc, completed, total, }) {
     const navigation = useNavigation();
     const isComplete = completed === total;
+    const inProgress = 0 < completed && completed < total;
+    const notpossible = completed > total; 
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleDropdown = () => {
@@ -21,7 +23,7 @@ export default function SectionCard({section, sectionNumber, description, imageS
         <View style={styles.shadowWrapper}>
             <Pressable onPress={toggleDropdown} style={styles.wrapper}>
 
-                <View style={[styles.header, isComplete ? styles.headerComplete : {}]}>
+                <View style={[styles.header, isComplete ? styles.headerComplete : inProgress ? styles.headerinProgress: notpossible ? styles.headernotPossible: {}]}>
 
                     <Text style={styles.title}>
                         Section {sectionNumber}
@@ -34,16 +36,16 @@ export default function SectionCard({section, sectionNumber, description, imageS
                         size={25}
                         color="gray"
                     />
-                </View>
-
+                </View> 
+                
                 <Collapsible collapsed={!isOpen}>
 
                     <View style={styles.lineBreak} />
                     <Text style={styles.descriptionText}>{description}</Text>
                     <View style={styles.dropdownContent}>
                         <TouchableOpacity style={styles.imageContainer} onPress={handleImagePress}>
-                            <Image source={imageSrc ? imageSrc : require('../../../assets/sectionThumbnail.png')} style={styles.image} />
-                            <MaterialCommunityIcons name="play-circle-outline" size={50} color="white" style={styles.playIcon} />
+                            <Image source={imageSrc ? imageSrc : require('../../../assets/sectionThumbnail.png')} blurRadius={10} style={styles.image} />
+                            <MaterialCommunityIcons name="play-circle-outline" size={100} color="white" style={styles.playIcon} />
                         </TouchableOpacity>
                     </View>
                 </Collapsible>
@@ -65,7 +67,7 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.3,
         shadowRadius: 4.65,
-        elevation: 8,
+        
     },
     wrapper: {
         backgroundColor: "#fff",
@@ -73,6 +75,7 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         marginHorizontal: 18,
         overflow: 'hidden',
+        elevation: 8,
     },
     header: {
         flexDirection: 'row',
@@ -104,7 +107,7 @@ const styles = StyleSheet.create({
     playIcon: {
         position: 'absolute',
         zIndex: 1,
-        right: 10,
+        allignement: 'center',
     },
     image: {
         width: '100%',
@@ -112,7 +115,13 @@ const styles = StyleSheet.create({
         resizeMode: 'cover',
     },
     headerComplete: {
-        backgroundColor: '#87CEEB', // Completion color - change to a green color if needed
+        backgroundColor:'#87eb8e'  // Completion color - is green as needed for completion
+    },
+    headerinProgress: {
+        backgroundColor: '#87CEEB' //'#87CEEB' This is blue is needed for in progress courses 
+    },
+    headernotPossible: {
+        backgroundColor: '#f20000' //Red for not possible progress. 
     },
     completionText: {
         marginRight: 10,
