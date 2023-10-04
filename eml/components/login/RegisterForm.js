@@ -101,13 +101,16 @@ export default function RegisterForm() {
           await createProfile(response._id, realName, email);
         })
         .catch((error) => {
-          switch (error.message) {
+          switch (error.response.data.message) {
+            case "users validation failed: email: User email already exists!":
+              ShowAlert("User email already exists!"); // TODO: Translate
+              break;
             case "Request failed with status code 400":
               //Invalid user data
               ShowAlert("Dados de usuário inválidos!");
               break;
             default:
-              console.log(error);
+              console.log(error.response.data.message);
           }
         });
     } catch (e) {
