@@ -5,6 +5,8 @@ import FilterNavBar from '../../components/explore/FilterNavBar';
 import { ScrollView } from 'react-native-gesture-handler';
 import ExploreCard from '../../components/explore/ExploreCard';
 import { client } from '../../api/userApi';
+import {getCourseList} from '../../services/StorageService';
+import { getSubCourseList } from '../../services/StorageService';
 
 
 
@@ -32,55 +34,18 @@ function Explore() {
 
   //Sets dummy data for courses (will be replaced with data from backend)
   const [courses, setCourses] = useState([
-    { 
-        title: 'Introduction to Calculus',
-        category: 'Mathematics',
-        time: '12 weeks',
-        rating: 1.4,
-        published: true,
-        dateUpdated: '2020-10-10',
-        description: 'This course is an introduction to differential calculus. It covers all topics in differential calculus including limits, continuity, the derivative and its applications.'
-    },
-    { 
-        title: 'World History',
-        category: 'History',
-        time: '8 weeks',
-        rating: 3,
-        published: true,
-        dateUpdated: '2020-10-10',
-        description: 'This course is an introduction to World History. It covers all topics in World History including ancient civilizations, the middle ages, and the modern era.'
-    },
-    { 
-        title: 'Modern Art Movements',
-        category: 'Art',
-        time: '6 Hours',
-        rating: 1,
-        published: true,
-        dateUpdated: '2020-10-10',
-        description: 'This course is an introduction to Modern Art Movements. It covers all topics in Modern Art Movements including impressionism, cubism, surrealism, and pop art.'
-    },
-    { 
-        title: 'category1',
-        category: 'Finance',
-        time: '9 weeks',
-        rating: 3.2, 
-        published: true,
-        dateUpdated: '2020-10-10',
-        description: 'This course is an introduction to category1. It covers all topics in category1 including topic1, topic2, and topic3.'
-    }
+
 ]);
+
+
 
 //Fetch courses from backend and replace dummy data!
 useEffect(() => {
-  {client.get('/api/courses/all')
-  .then(res => {
-    setCourses(res.data);
-  })
-  .catch(err => {
-    console.log(err);
-  });
-
-}
+  async function loadCourses() {
+    const courseData = await getCourseList();
+    setCourses(courseData);
+  }
+  loadCourses();
 }, []);
 
 ///---------------------------------------------///

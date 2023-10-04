@@ -2,6 +2,7 @@ import * as api from '../api/api.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as DirectoryService from '../services/DirectoryService';
 const COURSE_LIST = '@courseList';
+const SUB_COURSE_LIST = '@subCourseList';
 export const getCourseList = async () => {
   try {
     return await refreshCourseList();
@@ -9,6 +10,7 @@ export const getCourseList = async () => {
     // Check if the course list already exists in AsyncStorage
     let courseList = JSON.parse(await AsyncStorage.getItem(COURSE_LIST));
     if (courseList !== null) {
+      console.log(courseList);
       return courseList;
     }
     console.error(e);
@@ -19,15 +21,17 @@ export const refreshCourseList = async () => {
     .getCourses()
     .then(async (list) => {
       let newCourseList = [];
-      for (const course of list.data) {
-        const courseId = course.id;
+      for (const course of list) {
+        const courseId = course._id;
         const localCourse = JSON.parse(await AsyncStorage.getItem(courseId));
         // Make new list with required members
         newCourseList.push({
           title: course.title,
-          courseId: course.id,
+          courseId: course._id,
+          published: course.published,
+          description: course.description,
           iconPath: course.category == null ? '' : course.category.icon,
-          categoryId: course.category == null ? '' : course.category.id,
+          category: course.category == null ? '' : course.category.id,
           isActive: localCourse == null ? false : localCourse.isActive,
         });
       }
@@ -263,6 +267,48 @@ export const deleteCourse = async (courseId) => {
     }
   }
 };
+
+export const getSubCourseList = async () => {
+  try {
+    return await refreshSubCourseList();
+  } catch (e) {
+    // Check if the course list already exists in AsyncStorage
+    let courseList = JSON.parse(await AsyncStorage.getItem(SUB_COURSE_LIST));
+    if (courseList !== null) {
+      return courseList;
+    }
+    console.error(e);
+  }
+};
+export const refreshSubCourseList = async () => {
+  return await api
+    .getSubsribtions()
+    .then(async (list) => {
+      let newCourseList = [];
+      for (const course of list) {
+        const courseId = course._id;
+        const localCourse = JSON.parse(await AsyncStorage.getItem(courseId));
+        // Make new list with required members
+        newCourseList.push({
+          title: course.title,
+          courseId: course._id,
+          published: course.published,
+          description: course.description,
+          iconPath: course.category == null ? '' : course.category.icon,
+          category: course.category == null ? '' : course.category.id,
+          isActive: localCourse == null ? false : localCourse.isActive,
+        });
+      }
+      // Save new courseList for this key and return it.
+      await AsyncStorage.setItem(SUB_COURSE_LIST, JSON.stringify(newCourseList));
+      return newCourseList;
+    })
+    .catch((e) => {
+      console.log(e);
+    });
+};
+
+
 export const clearAsyncStorage = async () => {
   console.log(await AsyncStorage.getAllKeys());
   await AsyncStorage.clear();

@@ -2,7 +2,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const testUrl = 'http://localhost:8888';
-const testExpo = 'http://192.168.0.224:8888'; //Change to local expo ip
+const testExpo = 'http://172.30.210.217:8888'; //Change to local expo ip
 const digitalOcean = 'http://207.154.213.68:8888';
 
 const url = testUrl
@@ -59,14 +59,9 @@ export const getCourseWithAuth = async (courseId) => {
 
 export const getCourses = async () => {
   // TODO: add bearer token to request header and omit /public
-  const res = await axios.get(url + '/api/courses/all')
-  .then(response => {
-    console.log("Success", response)
-  })
-  .catch(error => {
-    console.log("Error" + error)
-  })
+  const res = await axios.get(url + '/api/courses')
   return res.data;
+
 };
 
 export const getCourse = async (courseId) => {
@@ -164,16 +159,9 @@ export const getAllComponents = async (components) => {
 // Get user subsribtions
 export const getSubsribtions = async () => {
 
-  // Send request -- TODO: replace with real credentials, when login is working
-  const res = await axios.get(url + '/api/' + user_id + '/subscription/all', {
-      user_id: '65116200ce1f2c4eb06fba5b'
-    })
-    .then(response => {
-      console.log("Success", response)
-    })
-    .catch(error => {
-      console.log("Error" + error)
-    })
+  const userId = await AsyncStorage.getItem("@userId");
+  
+  const res = await axios.get(url + '/api/user/subscriptions/all?user_id=' + userId)
 
   return res.data;
 };
@@ -186,8 +174,8 @@ export async function subscribeToCourse(courseId) {
 
 // Send request -- TODO: replace with real credentials, when login is working
 const res = await axios.post(url + '/api/course/subscribe', {
-  course_id: courseId, 
-  user_id: userId
+  user_id: userId,
+  course_id: courseId
 })
 .then(response => {
   console.log("YAY! Du er subscribet " + response)

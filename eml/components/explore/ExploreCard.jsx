@@ -188,7 +188,7 @@ export default function ExploreCard({ course, isPublished }) {
               { 
               isSubscribed ?
                 <AccesCourseButton onClick={(value) => {setIsSubscribed(value); }} />:
-                <SubscriptionButton onClick={(value) => {setIsSubscribed(value); subscribeToCourse(); }} />
+                <SubscriptionButton onClick={(value) => {setIsSubscribed(value); subscribeToCourse(course.courseId); }} />
               }
             </View>
             
