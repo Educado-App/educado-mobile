@@ -6,7 +6,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 const LOGIN_TOKEN = '@loginToken'
 const USER_INFO = '@userInfo'
 
-export default function LogOutButton() {
+export default function LogOutButton(props) {
   const navigation = useNavigation()
 
   async function logOut() {
@@ -34,7 +34,12 @@ export default function LogOutButton() {
     <View className="flex-row items-center justify-end px-6 mt-[-40%] mb-[20%]">
       <TouchableOpacity className="bg-[#dc2626] items-center py-2 pl-1 rounded-medium w-[15%]" onPress={logoutAlert}>
         <View>
-          <MaterialCommunityIcons name="logout" size={40} color="white" />
+          <MaterialCommunityIcons
+            name="logout"
+            size={40}
+            color="white"
+            testID={props.testID}
+          />
         </View>
       </TouchableOpacity>
     </View>

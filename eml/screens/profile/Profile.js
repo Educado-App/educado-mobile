@@ -43,7 +43,7 @@ export default function ProfileComponent() {
     <SafeAreaView className="bg-babyBlue">
       <ScrollView>
         <View className="flex-1 flex-col justify-center h-screen">
-          <LogOutButton></LogOutButton>
+          <LogOutButton testID='logoutBtn'></LogOutButton>
           <ProfileName Name={userName} PhoneNumber={phoneNumber}></ProfileName>
           <DeleteAccount></DeleteAccount>
         </View>
