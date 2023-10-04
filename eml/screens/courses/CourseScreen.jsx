@@ -35,7 +35,6 @@ export default function CourseScreen() {
         //const courseData = await StorageService.getCourseById(courseId);
         //setCourse(courseData);
         const courseData = await StorageService.getSubCourseList();
-        console.log(courseData);
         setCourse(courseData);
     }
 
@@ -95,7 +94,7 @@ export default function CourseScreen() {
                         {/* No active courses */}
                         <Image className="m-14" source={require('../../assets/logo_educado.png')}></Image>
                         <Text className="p-10 text-2xl">Nenhum curso ativo</Text>
-                        <Pressable
+                        <Pressable key="{course}"
                             style={{ backgroundColor: '#5ECCE9', borderRadius: 12 }}
                             className="p-2 w-80"
                             onPress={() => loadCourse()} >
