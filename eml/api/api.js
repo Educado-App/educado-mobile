@@ -2,7 +2,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const testUrl = 'http://localhost:8888';
-const testExpo = 'http://172.30.210.217:8888'; //Change to local expo ip
+const testExpo = 'http://192.168.0.224:8888'; //Change to local expo ip
 const digitalOcean = 'http://207.154.213.68:8888';
 
 const url = testUrl

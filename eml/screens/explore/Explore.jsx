@@ -42,7 +42,7 @@ function Explore() {
 //Fetch courses from backend and replace dummy data!
 useEffect(() => {
   async function loadCourses() {
-    const courseData = await getCourseList();
+    const courseData = await getCourseList()
     setCourses(courseData);
   }
   loadCourses();
@@ -86,7 +86,7 @@ useEffect(() => {
       />
       <ScrollView>
       {filteredCourses.map((course, index) => (
-          <ExploreCard key={index} isPublished={course.published} course={course} />
+          <ExploreCard key={index} course={course} />
         ))}
       </ScrollView>
     </View>

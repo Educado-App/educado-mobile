@@ -32,7 +32,7 @@ export default function TestScreen() {
     }
 
   useEffect(() => {
-    // loadSection();
+    //loadSection();
   });
   
   return (

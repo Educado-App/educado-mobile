@@ -17,7 +17,7 @@ import { checkIfSubscribed, subscribeToCourse } from "../../api/api";
 
 
 
-export default function ExploreCard({ course, isPublished }) {
+export default function ExploreCard({ course }) {
   const [isCollapsed, setIsCollapsed] = React.useState(true);
   const [isSubscribed, setIsSubscribed] = React.useState(false);
   const navigation = useNavigation();
@@ -34,7 +34,7 @@ export default function ExploreCard({ course, isPublished }) {
   if (!fontsLoaded) {
     return AppLoading;
   } else {
-    return isPublished ? (
+    return (
       <Pressable
         style={{
           backgroundColor: "#fff",
@@ -207,6 +207,6 @@ export default function ExploreCard({ course, isPublished }) {
           </View>
         </Collapsible>
       </Pressable>
-    ) : null;
+    )
   }
 }

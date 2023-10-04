@@ -28,10 +28,8 @@ export const refreshCourseList = async () => {
         newCourseList.push({
           title: course.title,
           courseId: course._id,
-          published: course.published,
           description: course.description,
-          iconPath: course.category == null ? '' : course.category.icon,
-          category: course.category == null ? '' : course.category.id,
+          category: course.category,
           isActive: localCourse == null ? false : localCourse.isActive,
         });
       }
@@ -271,6 +269,7 @@ export const deleteCourse = async (courseId) => {
 export const getSubCourseList = async () => {
   try {
     return await refreshSubCourseList();
+
   } catch (e) {
     // Check if the course list already exists in AsyncStorage
     let courseList = JSON.parse(await AsyncStorage.getItem(SUB_COURSE_LIST));
