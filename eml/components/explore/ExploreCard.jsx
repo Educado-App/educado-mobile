@@ -12,7 +12,8 @@ import CustomRating from "./CustomRating";
 import SubscriptionButton from "./SubscriptionButton";
 import AccesCourseButton from "./AccesCourseButton";
 
-import { subscribeToCourse } from "../../api/api";
+import { checkIfSubscribed, subscribeToCourse } from "../../api/api";
+
 
 
 
@@ -168,9 +169,8 @@ export default function ExploreCard({ course, isPublished }) {
                 style={{
                   fontSize: 16,
                   color: "black",
-                }}
-              >
-                {course.description}
+                }}>
+                {course.description} 
               </Text>
             </View>
           </View>
@@ -185,8 +185,9 @@ export default function ExploreCard({ course, isPublished }) {
           >
 
             <View>
-              { isSubscribed ?
-                <AccesCourseButton onClick={(value) => setIsSubscribed(value)} />:
+              { 
+              isSubscribed ?
+                <AccesCourseButton onClick={(value) => {setIsSubscribed(value); }} />:
                 <SubscriptionButton onClick={(value) => {setIsSubscribed(value); subscribeToCourse(); }} />
               }
             </View>

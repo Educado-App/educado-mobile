@@ -2,10 +2,10 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const testUrl = 'http://localhost:8888';
-const testExpo = 'http://192.168.1.133:19000'; //Change to local expo ip
+const testExpo = 'http://192.168.0.224:8888'; //Change to local expo ip
 const digitalOcean = 'http://207.154.213.68:8888';
 
-const url = testUrl;
+const url = testUrl
 
 // Find a solution to refresh auth-token
 const authToken = '';
@@ -180,13 +180,13 @@ export const getSubsribtions = async () => {
 
 
 // Subscribe to course
-export const subscribeToCourse = async() => {
+export async function subscribeToCourse(courseId) { 
 
   const userId = await AsyncStorage.getItem("@userId");
 
 // Send request -- TODO: replace with real credentials, when login is working
 const res = await axios.post(url + '/api/course/subscribe', {
-  course_id: '650c01f06fe6094f6214a487', 
+  course_id: courseId, 
   user_id: userId
 })
 .then(response => {
@@ -216,9 +216,23 @@ export const unSubscribeToCourse = async() => {
 
 export async function checkIfSubscribed(courseId) { 
 
+  console.log("id: " + courseId);
+
   const userId = await AsyncStorage.getItem("@userId");
 
-  
-
-  
+  const res = await axios.get(url + '/api/course/user/subscribed', {
+    course_id: courseId, 
+    user_id: userId
+  })
+  .then(response => {
+    console.log("Success" + response)
+    if (res == true) {
+      return true;
+    } else {
+      return false;
+    }
+  })
+  .catch(error => {
+    console.log("Error" + error)
+  })
 }

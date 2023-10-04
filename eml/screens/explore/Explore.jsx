@@ -72,13 +72,15 @@ function Explore() {
 
 //Fetch courses from backend and replace dummy data!
 useEffect(() => {
-  client.get('/api/courses/all')
+  {client.get('/api/courses/all')
   .then(res => {
     setCourses(res.data);
   })
   .catch(err => {
     console.log(err);
-  })
+  });
+
+}
 }, []);
 
 ///---------------------------------------------///
