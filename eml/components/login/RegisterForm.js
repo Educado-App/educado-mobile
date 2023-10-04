@@ -10,6 +10,7 @@ import ShowAlert from "../general/ShowAlert";
 import FormFieldAlert from "./FormFieldAlert";
 import { RemoveEmojis } from "../general/Validation";
 import Text from "../general/Text";
+import patterns from "../../assets/validation/patterns";
 
 const USER_INFO = "@userInfo";
 
@@ -71,7 +72,7 @@ export default function RegisterForm() {
     const lengthValid = password.length > 7;
     setPasswordLengthValid(lengthValid);
   };
-  
+
   /**
    * Function for registering a new user in the database
    * @param {String} realName 
@@ -151,7 +152,7 @@ export default function RegisterForm() {
    * @param {String} email 
    */
   const validateEmail = (email) => {
-    const emailPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    const emailPattern = patterns.email;
 
     if (emailPattern.test(email)) {
       setEmailAlert("");
@@ -166,7 +167,7 @@ export default function RegisterForm() {
    * @param {String} realName 
    */
   const validateRealName = (realName) => {
-    const realNamePattern = /^(\p{L}+[- '])*\p{L}+$/u;
+    const realNamePattern = patterns.name;
 
     if (realNamePattern.test(realName) && realName.length > 1) {
       setNameAlert("");
