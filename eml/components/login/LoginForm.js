@@ -63,11 +63,18 @@ export default function LoginForm() {
           console.log(error);
           switch (error?.error?.code) {
             case 'E0101':
-              setEmailAlert("Não existe nenhum usuário com este email!"); // No user exists with this email!
+              // No user exists with this email!
+              setEmailAlert("Não existe nenhum usuário com este email!"); 
               break;
 
             case 'E0105':
-              setPasswordAlert("Senha incorreta!"); // Password is incorrect!
+              // Password is incorrect!
+              setPasswordAlert("Senha incorreta!"); 
+              break;
+
+            case 'E0003':
+              // Error connecting to server!
+              ShowAlert("Erro de conexão com o servidor!"); 
               break;
 
             // TODO: What error should we give here instead? Unknown error? 
@@ -131,6 +138,7 @@ export default function LoginForm() {
           className="text-right underline font-montserrat text-base text-black mb-15 ml-[205px]"
           onPress={() => setModalVisible(true)}
         >
+          {/* reset your password? */}
           Esqueceu a senha?
         </Text>
       </View>

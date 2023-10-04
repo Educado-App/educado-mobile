@@ -53,12 +53,14 @@ export default function Login(props) {
             {/* Register button */}
             <View className="flex-row justify-center">
               <Text className="font-montserrat text-base text-gray mr-1">
-                Ainda não tem conta? {/*  */}
+                {/* Dont have an account yet? */}
+                Ainda não tem conta? 
               </Text>
               <Text
                 className="font-montserrat text-base text-black underline"
                 onPress={() => navigation.navigate("Register")}
               >
+                {/* Sign up now */}
                 Cadastre-se agora
               </Text>
             </View>
