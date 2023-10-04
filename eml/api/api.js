@@ -19,6 +19,7 @@ const config = {
   },
 };
 
+
 export const getAuthToken = async () => {
   const res = await axios.post(url + '/auth/jwt', authBody)
   .then(response => {
@@ -57,39 +58,12 @@ export const getCourseWithAuth = async (courseId) => {
   return res.data;
 };
 
-export const getCourses = async () => {
-  // TODO: add bearer token to request header and omit /public
-  const res = await axios.get(url + '/api/courses')
-  return res.data;
-
-};
 
 export const getCourse = async (courseId) => {
-  const res = await axios.get(url + '/api/courses/' + courseId)
-  .then(response => {
-    console.log("Success", response)
-  })
-  .catch(error => {
-    console.log("Error" + error)
-  })
+  const res = await axios.get(url + '/api/course/' + courseId)
   return res.data;
 };
 
-// TODO: Endpoint for getcoursebyid && change getCourses to getCourseList
-
-export const getPresignedUrl = async (component_id) => {
-  const obj = {
-    component_id,
-  };
-  const res = await axios.post(url + '/api/get-presigned-url', obj)
-  .then(response => {
-    console.log("Success", response)
-  })
-  .catch(error => {
-    console.log("Error" + error)
-  })
-  return res.data;
-};
 
 
 //CREATE FOR TESTING: BUT IT WORKS
@@ -109,34 +83,36 @@ export const getBucketImage = async (fileName) => {
 */
 
 
+
+export const getPresignedUrl = async (component_id) => {
+  const obj = {
+    component_id,
+  };
+  const res = await axios.post(url + '/api/get-presigned-url', obj);
+  return res.data;
+};
+
 export const getCoverPhoto = async (course_id) => {
   const obj = {
     course_id,
   };
   // Send request to S3 server
-  const res = await axios.post(url + '/api/eml/get-presigned-url', obj)
-  .then(response => {
-    console.log("Success", response)
-  })
-  .catch(error => {
-    console.log("Error" + error)
-  })
+  const res = await axios.post(url + '/api/eml/get-presigned-url', obj);
   return res.data;
 };
 
-export const getAllSections = async (sections) => {
-  const obj = {
-    sections,
-  };
-  // Send request to S3 server
-  const res = await axios.post(url + '/api/eml/course/getallsections', obj)
-  .then(response => {
-    console.log("Success", response)
-  })
-  .catch(error => {
-    console.log("Error" + error)
-  })
+export const getSection = async (courseId, sectionId) => {
+  const res = await axios.get(url + '/api/course/' + courseId + '/section/' + sectionId);
+  return res.data;
+};
 
+export const getAllSections = async (courseId) => {
+  const res = await axios.get(url + '/api/course/' + courseId + '/sections/all');
+  return res.data;
+};
+
+export const getExercisesInSection = async (courseId, sectionId) => {
+  const res = await axios.get(url + '/api/course/' + courseId + '/section/' + sectionId + '/exercises/all');
   return res.data;
 };
 
@@ -145,16 +121,19 @@ export const getAllComponents = async (components) => {
     components,
   };
   // Send request to S3 server
-  const res = await axios.post(url + '/api/component/getallcomponents', obj)
-  .then(response => {
-    console.log("Success", response)
-  })
-  .catch(error => {
-    console.log("Error" + error)
-  })
+  const res = await axios.post(url + '/api/components/all', obj);
   return res.data;
 };
 
+/*** COURSE ***/
+
+export const getCourses = async () => {
+  const res = await axios.get(url + '/api/courses')
+  return res.data;
+
+};
+
+/****** SUBSCRIPTION *******/
 
 // Get user subsribtions
 export const getSubsribtions = async () => {
@@ -202,25 +181,14 @@ export const unSubscribeToCourse = async() => {
   })
 };
 
-export async function checkIfSubscribed(courseId) { 
-
-  console.log("id: " + courseId);
+export async function ifSubscribed(courseId) { 
 
   const userId = await AsyncStorage.getItem("@userId");
-
-  const res = await axios.get(url + '/api/course/user/subscribed', {
-    course_id: courseId, 
-    user_id: userId
-  })
-  .then(response => {
-    console.log("Success" + response)
-    if (res == true) {
-      return true;
-    } else {
-      return false;
-    }
+  const res = await axios.get(url + '/api/user?user_id='+ userId + '&' + 'course_id=' + courseId)
+  .then(() => {
+    return res;
   })
   .catch(error => {
-    console.log("Error" + error)
+    console.log("ERROR" + error)
   })
 }

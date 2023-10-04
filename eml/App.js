@@ -21,10 +21,59 @@ import ErrorScreen from './screens/errors/ErrorScreen';
 import SectionCompleteScreen from './screens/excercise/SectionCompleteScreen';
 import NavBar from './components/navBar/NavBar'; // Import the NavBar component
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import SectionScreen from './screens/section/sectionScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
+function CourseStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Course"
+        component={CourseScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Exercise"
+        component={ExerciseScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="WrongAnswer"
+        component={WrongAnswerComponent}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="RightAnswer"
+        component={RightAnswerScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="SectionComplete"
+        component={SectionCompleteScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="ErrorScreen"
+        component={ErrorScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
 
 function LoginStack() {
   return (
@@ -57,6 +106,7 @@ export default function App() {
         <ApplicationProvider {...eva} theme={eva.light}>
           <NavigationContainer>
             <Stack.Navigator initialRouteName={'LoginStack'}>
+              
               <Stack.Screen
                 name={'LoginStack'}
                 component={LoginStack}
@@ -67,6 +117,13 @@ export default function App() {
                 component={NavBar} // Use the NavBar component here
                 options={{ headerShown: false }}
               />
+              <Stack.Screen
+                name="Section"
+                component={SectionScreen}
+                initialParams={{ course_id: '' }}
+                options={{ headerShown: false }}
+              />
+
             </Stack.Navigator>
           </NavigationContainer>
         </ApplicationProvider>

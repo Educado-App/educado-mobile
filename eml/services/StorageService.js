@@ -1,8 +1,69 @@
 import * as api from '../api/api.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as DirectoryService from '../services/DirectoryService';
+
+
 const COURSE_LIST = '@courseList';
 const SUB_COURSE_LIST = '@subCourseList';
+const SECTION_LIST = '@sectionList';
+const COURSE = '@course';
+
+
+export const getExercises = async (courseId, sectionId) => {
+  const exercises = await api.getExercisesInSection(courseId, sectionId);
+  console.log('exercises: ', exercises);
+  
+  return exercises;
+};
+
+export const getSections = async (courseId) => {
+  const sections = await api.getAllSections(courseId);
+
+  return sections;
+};
+
+export const getSection = async (courseId, sectionId) => {
+  const res = await api.getSection(courseId, sectionId);
+  return res.data;
+};
+
+const processSection = async (section) => {
+  const exerciseContent = [];
+
+  for (const exercise of section.exercises) {
+    processExercise(exercise);
+    exerciseContent.push(exercise);
+  }
+
+  const currentSection = {
+    id: section.id,
+    title: section.title,
+    number: section.sectionNumber,
+    isComplete: false,
+    exercises: exerciseContent,
+  };
+
+  await AsyncStorage.setItem(section.id, JSON.stringify(currentSection));
+  return currentSection;
+};
+
+const createCourseContent = (requestedCourse, sections) => {
+  return {
+    title: requestedCourse.data.title,
+    id: requestedCourse.data.id,
+    icon: requestedCourse.data.category
+      ? requestedCourse.data.category.icon || getDefaultIcon()
+      : getDefaultIcon(),
+    categoryId: requestedCourse.data.category
+      ? requestedCourse.data.category.id || ''
+      : '',
+    sections,
+    isActive: false,
+    isComplete: false,
+  };
+};
+
+
 export const getCourseList = async () => {
   try {
     return await refreshCourseList();
@@ -301,6 +362,69 @@ export const refreshSubCourseList = async () => {
       // Save new courseList for this key and return it.
       await AsyncStorage.setItem(SUB_COURSE_LIST, JSON.stringify(newCourseList));
       return newCourseList;
+    })
+    .catch((e) => {
+      console.log(e);
+    });
+};
+
+export const getSectionList = async (course_id) => {
+  try {
+    return await refreshSectionList(course_id);
+  } catch (e) {
+    // Check if the course list already exists in AsyncStorage
+    let sectionList = JSON.parse(await AsyncStorage.getItem(SECTION_LIST));
+    if (sectionList !== null) {
+      console.log(sectionList);
+      return sectionList;
+    }
+    console.error(e);
+  }
+};
+export const refreshSectionList = async (course_id) => {
+  return await api
+    .getAllSections(course_id)
+    .then(async (list) => {
+      let newSectionList = [];
+      for (const section of list) {
+        //const sectionId = section._id;
+        //const localSection = JSON.parse(await AsyncStorage.getItem(sectionId));
+        newSectionList.push({
+          title: section.title,
+          total: section.totalPoints,
+          sectionId: section._id,
+          description: section.description,
+          components: section.components,
+          parentCourseId: section.parentCourse,
+        });
+      }
+      // Save new courseList for this key and return it.
+      await AsyncStorage.setItem(SECTION_LIST, JSON.stringify(newSectionList));
+      
+      return newSectionList;
+    })
+    .catch((e) => {
+      console.log(e);
+    });
+};
+
+export const getCourseId = async (id) => {
+  try {
+    return await refreshCourse(id);
+  } catch (e) {
+    // Check if the course already exists in AsyncStorage
+    let course = JSON.parse(await AsyncStorage.getItem(COURSE));
+    if (course !== null) {
+      return course;
+    }
+    console.error(e);
+  }
+};
+export const refreshCourse = async (id) => {
+  return await api
+    .getCourse(id)
+    .then(async (course) => { 
+      return course;
     })
     .catch((e) => {
       console.log(e);

@@ -12,7 +12,7 @@ import CustomRating from "./CustomRating";
 import SubscriptionButton from "./SubscriptionButton";
 import AccesCourseButton from "./AccesCourseButton";
 
-import { checkIfSubscribed, subscribeToCourse } from "../../api/api";
+import { checkIfSubscribed, subscribeToCourse, ifSubscribed } from "../../api/api";
 
 
 
@@ -27,9 +27,6 @@ export default function ExploreCard({ course }) {
   let [fontsLoaded] = useFonts({
     VarelaRound_400Regular,
   });
-
-  
-  
 
   if (!fontsLoaded) {
     return AppLoading;
@@ -187,8 +184,8 @@ export default function ExploreCard({ course }) {
             <View>
               { 
               isSubscribed ?
-                <AccesCourseButton onClick={(value) => {setIsSubscribed(value); }} />:
-                <SubscriptionButton onClick={(value) => {setIsSubscribed(value); subscribeToCourse(course.courseId); }} />
+              <AccesCourseButton onClick={(value) => setIsSubscribed(value)} />:
+              <SubscriptionButton onClick={(value) => {setIsSubscribed(value); subscribeToCourse(course.courseId)}} />
               }
             </View>
             

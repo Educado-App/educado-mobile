@@ -4,11 +4,15 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Collapsible from "react-native-collapsible";
 import { useNavigation } from '@react-navigation/native'
 
-export default function SectionCard({ sectionNumber, description, imageSrc, completed, total, }) {
+export default function SectionCard({ section }) {
+
+    // hardcoded for now
+    const completed = 0;
+
     const navigation = useNavigation();
-    const isComplete = completed === total;
-    const inProgress = 0 < completed && completed < total;
-    const notpossible = completed > total; 
+    const isComplete = completed === section.total;
+    const inProgress = 0 < completed && completed < section.total;
+    const notpossible = completed > section.total; 
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleDropdown = () => {
@@ -18,6 +22,7 @@ export default function SectionCard({ sectionNumber, description, imageSrc, comp
     const handleImagePress = () => {
         navigation.navigate('HomeStack'); // Replace with the name of the target screen
     }
+    
 
     return (
         <View style={styles.shadowWrapper}>
@@ -26,10 +31,10 @@ export default function SectionCard({ sectionNumber, description, imageSrc, comp
                 <View style={[styles.header, isComplete ? styles.headerComplete : inProgress ? styles.headerinProgress: notpossible ? styles.headernotPossible: {}]}>
 
                     <Text style={styles.title}>
-                        Section {sectionNumber}
+                        {section.title}
                     </Text>
                     <Text style={styles.completionText}>
-                        {completed}/{total} completed
+                        {completed}/{section.total} completed
                     </Text>
                     <MaterialCommunityIcons
                         name={isOpen ? "chevron-up" : "chevron-down"}
@@ -41,10 +46,10 @@ export default function SectionCard({ sectionNumber, description, imageSrc, comp
                 <Collapsible collapsed={!isOpen}>
 
                     <View style={styles.lineBreak} />
-                    <Text style={styles.descriptionText}>{description}</Text>
+                    <Text style={styles.descriptionText}>{section.description}</Text>
                     <View style={styles.dropdownContent}>
                         <TouchableOpacity style={styles.imageContainer} onPress={handleImagePress}>
-                            <Image source={imageSrc ? imageSrc : require('../../../assets/sectionThumbnail.png')} blurRadius={10} style={styles.image} />
+                            <Image source={require('../../../assets/sectionThumbnail.png')} blurRadius={10} style={styles.image} />
                             <MaterialCommunityIcons name="play-circle-outline" size={100} color="white" style={styles.playIcon} />
                         </TouchableOpacity>
                     </View>

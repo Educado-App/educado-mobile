@@ -6,11 +6,11 @@ const SubscriptionButton = ({ onClick }) => {
 
   return (
     <View>
-      <Pressable
-        onPress={() => {
-          setIsSubscribed(!isSubscribed);
-          onClick(!isSubscribed);
-        }}
+      <Pressable 
+              onPress={() => {
+                setIsSubscribed(!isSubscribed);
+                onClick(!isSubscribed);
+              }}
         style={{
           minWidth: '100%',
           alignItems: 'center',

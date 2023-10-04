@@ -37,8 +37,6 @@ function Explore() {
 
 ]);
 
-
-
 //Fetch courses from backend and replace dummy data!
 useEffect(() => {
   async function loadCourses() {

@@ -7,6 +7,7 @@ import { AppLoading } from 'expo-app-loading'
 import * as StorageService from "../../services/StorageService";
 import { getHome } from '../../api/api'
 import CourseCard from '../../components/courses/courseCard/CourseCard'
+import SectionScreen from '../section/sectionScreen'
 
 export default function CourseScreen() {
 
@@ -62,7 +63,7 @@ export default function CourseScreen() {
                         </View>
                         <ScrollView showsVerticalScrollIndicator={false}>
                         {course.map((course, i) => { return (
-                                <Pressable
+                                <Pressable key={i} 
                                 style={{
                                     backgroundColor: "#fff",
                                     margin: 8,
@@ -79,10 +80,14 @@ export default function CourseScreen() {
                                     marginHorizontal: 18,
                                     padding: 15,
                                   }}
-                                  onPress={()=> console.log('blah')}
+                                  onPress={()=> {
+                                    navigation.navigate('Section', {
+                                    courseId: course.courseId,
+                                  });
+                                }}
                                 >
                                     {/*<CourseListUI course={course} key={i} downloadState={setDownloadState}></CourseListUI>*/}
-                                    <CourseCard key={i} course={course} downloadState={setDownloadState}></CourseCard>
+                                    <CourseCard course={course} downloadState={setDownloadState}></CourseCard>
                                 </Pressable> 
                                 )
                             }) 
@@ -94,7 +99,7 @@ export default function CourseScreen() {
                         {/* No active courses */}
                         <Image className="m-14" source={require('../../assets/logo_educado.png')}></Image>
                         <Text className="p-10 text-2xl">Nenhum curso ativo</Text>
-                        <Pressable key="{course}"
+                        <Pressable key="{no_course}"
                             style={{ backgroundColor: '#5ECCE9', borderRadius: 12 }}
                             className="p-2 w-80"
                             onPress={() => loadCourse()} >
