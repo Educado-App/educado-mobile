@@ -126,16 +126,6 @@
         }
       ]
     ],
-    "plugins": [
-      "nativewind/babel",
-      [
-        "@babel/plugin-proposal-private-methods",
-        {
-          "loose": true
-        }
-      ],
-      "react-native-reanimated/plugin"
-    ],
     "env": {
       "test": {
         "plugins": [
