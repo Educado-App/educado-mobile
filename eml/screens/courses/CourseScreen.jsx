@@ -34,19 +34,16 @@ export default function CourseScreen() {
         //const courseData = await StorageService.getCourseById(courseId);
         //setCourse(courseData);
         const courseData = await StorageService.getSubCourseList();
-        await setCourse(courseData);
+        setCourse(courseData);
     }
     
     useEffect(() => {
         loadCourse()
         .then(()=>{
-            console.log(course);
             if (!course.isEmpty && Array.isArray(course) ) {
                 setCourseLoaded(true);
             }
-        });
-        
-
+    });
     }, [route.params, downloadState, course])
 
     
