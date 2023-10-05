@@ -3,49 +3,67 @@ import { useNavigation } from '@react-navigation/native'
 import { Feather } from '@expo/vector-icons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Text } from '@rneui/base'
+import { deleteUser, loginUser } from '../../api/userApi'
+import {clearAsyncStorage} from "../../services/StorageService";
 
 const LOGIN_TOKEN = '@loginToken'
 const USER_INFO = '@userInfo'
 
-export default function LogOutButton() {
+export default function DeleteAccount() {
   const navigation = useNavigation()
 
-  async function logOut() {
+  async function Delete() {
     try {
-      await AsyncStorage.removeItem(LOGIN_TOKEN).then((r) => {
-        console.log('User logged out successfully!')
-        navigation.navigate('LoginStack')
-      })
+      const obj = JSON.parse(await AsyncStorage.getItem(USER_INFO))
+
+      if (obj !== null) {
+        try {
+          await deleteUser(obj.id)
+            .then(function (response) {
+              console.log(response)
+              AsyncStorage.multiRemove([LOGIN_TOKEN, USER_INFO]).then((r) => {
+                console.log('User account deleted successfully!')
+                navigation.navigate('LoginStack')
+              })
+            })
+            .catch((error) => {
+              console.log(error)
+            })
+          await clearAsyncStorage();
+        } catch (e) {
+          console.log(e)
+        }
+      }
     } catch (e) {
       console.log(e)
     }
   }
 
-  const logoutAlert = () =>
-    Alert.alert('Logout', 'Are you sure?', [
+  const deleteAlert = () =>
+    Alert.alert('Delete Account', 'Are you sure?', [
       {
         text: 'No',
         onPress: () => console.log('No Pressed'),
         style: 'cancel'
       },
-      { text: 'Yes', onPress: logOut }
+      { text: 'Yes', onPress: Delete }
     ])
 
   return (
-    <View className="pb-6">
-      <TouchableOpacity style={styles.formButton} onPress={logoutAlert}>
+    <View style={styles.container}>
+      <TouchableOpacity style={styles.formButton} onPress={deleteAlert}>
         <View className="flex flex-row items-center justify-center">
           <View>
             <Feather
               color="#9DE89C"
-              name="log-out"
+              name="delete"
               size={36}
               style={styles.tinyLogo}
             />
           </View>
           <View>
-            {/* Log out */}
-            <Text style={styles.text}>Sair</Text>
+            {/* Delete Account */}
+            <Text style={styles.text}>Deletar conta</Text>
           </View>
         </View>
       </TouchableOpacity>
