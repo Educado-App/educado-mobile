@@ -1,16 +1,18 @@
-import { useRoute, useNavigation } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
 import { React, useEffect, useState } from 'react'
 import { View, Pressable, Text, Dimensions, Image, ScrollView, StyleSheet } from 'react-native'
 import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/dev'
 import { AppLoading } from 'expo-app-loading'
+import { ErrorBoundary } from 'react-error-boundary'
 import * as StorageService from "../../services/StorageService";
 import CourseCard from '../../components/courses/courseCard/CourseCard'
 import SectionScreen from '../section/sectionScreen'
+import { render } from '@testing-library/react-native'
 
 export default function CourseScreen() {
 
 
-    const route = useRoute();
+    //const route = useRoute();
 
     const [course, setCourse] = useState({});
 
@@ -19,9 +21,9 @@ export default function CourseScreen() {
     const [downloadState, setDownloadState] = useState(null);
 
     let courseId = null
-    if (route.params !== undefined) {
+    /*if (route.params !== undefined) {
         courseId = route.params.courseId;
-    }
+    }*/
 
     const navigation = useNavigation()
     let currentCourse = null;
@@ -36,21 +38,21 @@ export default function CourseScreen() {
         const courseData = await StorageService.getSubCourseList();
         setCourse(courseData);
     }
-    
     useEffect(() => {
         loadCourse()
         .then(()=>{
-            if (!course.isEmpty && Array.isArray(course) ) {
+            if (Array.isArray(course) && course.length !==0) {
                 setCourseLoaded(true);
             }
     });
-    }, [route.params, downloadState, course])
+    }, [/*route.params*/ downloadState, course])
 
     
     if (!fontsLoaded) {
         return AppLoading
     } else {
         return (
+            //<ErrorBoundary fallback={<p>something went wrong</p>}>
             <View style={{backgroundColor: '#f1f9fb'}} className="flex-1">
                 {courseLoaded ?
                     <View height='100%'>
@@ -106,6 +108,7 @@ export default function CourseScreen() {
                         </Pressable>
                     </View>}
             </View>
+            //</ErrorBoundary>
         )
     }
 }

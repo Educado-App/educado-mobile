@@ -19,17 +19,17 @@ export default function CourseCard({ course, downloadState }) {
         return (  
       <View className='flex-1'>
         <View style={[styles.header]}>
-          <MaterialCommunityIcons size={28} name={course.image}> </MaterialCommunityIcons>
+          <MaterialCommunityIcons size={28} name={course.image ? course.image : 'hat-fedora'}> </MaterialCommunityIcons>
           <Text style={styles.title}>
-             { course.title }
+             { course.title ? course.title : 'Course Title' }
           </Text>
         </View>
         <View style={styles.lineBreak} />
         <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start'}}>
             <MaterialCommunityIcons size={18} name="school" color={'gray'}></MaterialCommunityIcons>
-            <Text style={styles.descriptionText}>{course.category}</Text>
+            <Text style={styles.descriptionText}>{course.category ? course.category : 'category'}</Text>
             <MaterialCommunityIcons size={18} name="clock" color={'gray'}></MaterialCommunityIcons>
-            <Text style={styles.descriptionText}>{course.duration}</Text>
+            <Text style={styles.descriptionText}>{course.duration ? course.duration : 'duration'}</Text>
         </View>
         <View className="flex-row" style={{alignItems: 'baseline'}}>
             <CourseProgress fracTop={50} fracBot={100} />
