@@ -8,34 +8,9 @@ import PasswordEye from "./PasswordEye";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import ShowAlert from "../general/ShowAlert";
 import FormFieldAlert from "./FormFieldAlert";
-import { RemoveEmojis, validatePasswordContainsLetter, validatePasswordLength, validateEmail, validateName } from "../general/Validation";
+import { removeEmojis, validatePasswordContainsLetter, validatePasswordLength, validateEmail, validateName } from "../general/Validation";
 
 const USER_INFO = "@userInfo";
-
-/** errors/things we need to do  on this page: 
- * 
- * ! ! Make file for Regex to increase consistency !!!!!
- * 
- * REAL NAME
- * Errors: 
- * Name too long ✅
- * Name too short ✅
- * Atleast 1 name per field ✅
- * Symbol not allowed (insert symbol) ✅
- * Other tasks:
- * Split name into 2 fields ✅
- * Make file for regex (Lavet i frontend)
- *
- * PASSWORD
- * Too short ✅
- * Doesn't contain letter ✅
- * Contains illegal character(s) ✅
- * Passwords don't match ✅
- * 
- * EMAIL
- * Doesn't match  ✅
- * Contains illegal character(s)
-*/ 
 
 /**
  * Component for registering a new account in the system, used in the register screen
@@ -314,7 +289,7 @@ export default function LoginForm(props) {
             secureTextEntry={!showPassword}
             required={true}
             onChangeText={(inputPassword) => {
-              setPassword(RemoveEmojis(inputPassword, password));
+              setPassword(removeEmojis(inputPassword, password));
             }}
           />
           <PasswordEye
@@ -347,14 +322,13 @@ export default function LoginForm(props) {
           </View>
         </View>
       </View>
-      {/* TODO: compare password with confirm password and give error if not same.*/}
       <View className="mb-6">
         <View className="relative">
           <FormTextField
             label="Confirmar Senha" // Confirm password
             value={confirmPassword}
             onChangeText={(inputConfirmPassword) => {
-              setConfirmPassword(RemoveEmojis(inputConfirmPassword, confirmPassword));
+              setConfirmPassword(removeEmojis(inputConfirmPassword, confirmPassword));
             }}
             placeholder="Confirme sua senha" // Confirm your password
             secureTextEntry={!showConfirmPassword}

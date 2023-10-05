@@ -10,7 +10,7 @@ import ResetPassword from "./ResetPassword";
 import { isFontsLoaded } from "../../constants/Fonts.js";
 import ShowAlert from "../general/ShowAlert";
 import FormFieldAlert from "./FormFieldAlert";
-import { RemoveEmojis } from "../general/Validation";
+import { removeEmojis } from "../general/Validation";
 
 const LOGIN_TOKEN = "@loginToken";
 const USER_INFO = "@userInfo";
@@ -29,10 +29,6 @@ export default function LoginForm() {
   const [modalVisible, setModalVisible] = useState(false);
   const [passwordAlert, setPasswordAlert] = useState("");
   const [emailAlert, setEmailAlert] = useState("");
-
-  if(!isFontsLoaded){
-    return null;
-  }
 
   /**
    * Logs user in with the entered credentials 
@@ -119,7 +115,7 @@ export default function LoginForm() {
           placeholder="Digite sua senha" // Type your password
           value={password}
           onChangeText={(inputPassword) => {
-            setPassword(RemoveEmojis(inputPassword, password))
+            setPassword(removeEmojis(inputPassword, password))
           }}
           label="Senha" // Password
           required={true}

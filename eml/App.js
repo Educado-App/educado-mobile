@@ -21,13 +21,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
-
+/**
+ * Check if user is logged in, if not redirect to login screen
+ */
 const checkLogin = () => {
   if (AsyncStorage.getItem("@login_token") === null) {
     useNavigation().navigate('Login');
   }
 }
-
 function CourseStack() {
   checkLogin();
   return (
@@ -163,23 +164,6 @@ function HomeStack() {
           },
         }}
       />
-      {/*       <Tab.Screen
-        name="TestScreen"
-        component={TestScreen}
-        options={{
-          headerShown: false,
-          tabBarIcon: () => {
-            return (
-              <Icon
-                size={30}
-                name="home"
-                type="material-community"
-                color="black"
-              />
-            );
-          },
-        }}
-      /> */}
     </Tab.Navigator>
   );
 }

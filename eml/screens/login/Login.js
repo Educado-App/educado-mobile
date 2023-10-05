@@ -5,7 +5,6 @@ import { useNavigation } from "@react-navigation/native";
 import LoginForm from "../../components/login/LoginForm";
 import LogoBackButton from "../../components/login/LogoBackButton";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { isFontsLoaded } from "../../constants/Fonts.js";
 import { TouchableWithoutFeedback } from "react-native";
 
 const LOGIN_TOKEN = "@loginToken";
@@ -18,7 +17,10 @@ export default function Login(props) {
   const navigation = useNavigation();
 
   /**
+   * TODO: Refactor error to use new error handling system
    * Function for checking if a login token is stored in async local storage (i.e. if the user is already logged in)
+   * If a token is found, the user is redirected to the home screen.
+   * 
    */
   const checkLoginToken = async () => {
     try {
@@ -34,7 +36,6 @@ export default function Login(props) {
   };
 
   useEffect(() => {
-    // readId();
     checkLoginToken();
   }, []);
 

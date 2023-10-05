@@ -4,7 +4,6 @@ import { useNavigation } from "@react-navigation/native";
 import RegisterForm from "../../components/login/RegisterForm";
 import { SafeAreaView } from "react-native-safe-area-context";
 import LogoBackButton from "../../components/login/LogoBackButton";
-import { isFontsLoaded } from "../../constants/Fonts.js";
 
 export default function Register() {
 
