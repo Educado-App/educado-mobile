@@ -3,7 +3,7 @@ import { React, useEffect, useState } from 'react'
 import { View, Pressable, Text, Dimensions, Image, ScrollView, StyleSheet } from 'react-native'
 import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/dev'
 import { AppLoading } from 'expo-app-loading'
-import { ErrorBoundary } from 'react-error-boundary'
+//import { ErrorBoundary } from 'react-error-boundary'
 import * as StorageService from "../../services/StorageService";
 import CourseCard from '../../components/courses/courseCard/CourseCard'
 import SectionScreen from '../section/sectionScreen'
