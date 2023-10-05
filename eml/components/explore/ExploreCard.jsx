@@ -1,35 +1,230 @@
-import { View, Text, Image, Pressable } from 'react-native'
-import React from 'react'
-import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/dev'
-import { useNavigation } from '@react-navigation/native'
-import { AppLoading } from 'expo-app-loading'
+import React, { useEffect } from "react";
+import { View, Text, Image, Pressable } from "react-native";
+import Collapsible from "react-native-collapsible";
+import { useNavigation } from "@react-navigation/native";
+import { useFonts, VarelaRound_400Regular } from "@expo-google-fonts/dev";
+import { AppLoading } from "expo-app-loading";
+
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+
+import CardLabel from "./CardLabel";
+import CustomRating from "./CustomRating";
+import SubscriptionButton from "./SubscriptionButton";
+import AccesCourseButton from "./AccesCourseButton";
 
 
-export default function ExploreCard({ title, courseId }) {
-  const navigation = useNavigation()
+
+export default function ExploreCard({ course, isPublished }) {
+  const [isCollapsed, setIsCollapsed] = React.useState(true);
+  const [isSubscribed, setIsSubscribed] = React.useState(false);
+  const navigation = useNavigation();
+
+  const getDifficultyLabel = (lvl) => {
+    switch(lvl) {
+        case 1:
+            return "Iniciante";
+        case 2:
+            return "Intermediário";
+        case 3:
+            return "Avançado";
+        default:
+            return lvl; // default to the provided level if not 1, 2, or 3
+    }
+  }
+
   let [fontsLoaded] = useFonts({
-    VarelaRound_400Regular
-  })
+    VarelaRound_400Regular,
+  });
+
+  
+  
 
   if (!fontsLoaded) {
-    return AppLoading
+    return AppLoading;
   } else {
-    return (
+    return isPublished ? (
       <Pressable
-        style={{ shadowColor: 'black', elevation: 10 }}
-        className="w-2/5 h-24 rounded-md items-center flex-col bg-cyanBlue m-2"
-        onPress={() => navigation.navigate('Course', { courseId: courseId })}
+        style={{
+          backgroundColor: "#fff",
+          borderRadius: 10,
+          shadowColor: "#000",
+          shadowOffset: {
+            width: 0,
+            height: 2,
+          },
+          shadowOpacity: 0.2,
+          shadowRadius: 2,
+          elevation: 5,
+          marginBottom: 15,
+          marginHorizontal: 18,
+          padding: 25,
+        }}
+        onPress={() => setIsCollapsed(!isCollapsed)}
       >
-        <Text numberOfLines={1} style={{ fontFamily: 'VarelaRound_400Regular', fontSize: 14, }} className="pt-4 text-gray-600">
-          {title}
-        </Text>
-        <View className="pt-2">
-          <Image
-            className="w-10 h-10"
-            source={require('../../assets/favicon.png')}
-          ></Image>
+        <View style={{ flexDirection: "column", alignItems: "center" }}>
+          <View
+            style={{
+              width: "100%",
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 16,
+                color: "black",
+              }}
+            >
+              {course.title}
+            </Text>
+
+            <View>
+              <MaterialCommunityIcons
+                name={isCollapsed ? "chevron-down" : "chevron-up"}
+                size={25}
+                color="gray"
+              />
+            </View>
+          </View>
+          <View
+            style={{
+              width: "100%",
+              height: 0.5,
+              backgroundColor: "gray",
+              opacity: 0.5,
+              marginBottom: 10,
+              marginTop: 6,
+            }}
+          />
+
+          <View
+            style={{
+              width: "100%",
+              flexDirection: "row",
+              alignItems: "flex-start",
+              justifyContent: "space-between",
+            }}
+          >
+            <View
+              style={{
+                flexDirection: "column",
+                alignItems: "flex-start",
+                justifyContent: "space-between",
+              }}
+            >
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "flex-start",
+                }}
+              >
+                <CardLabel
+                  title={course.category}
+                  time={false}
+                  icon={"school-outline"}
+                  color={"gray"}
+                />
+                
+                <View style={{ width: 10 }} />
+                <CardLabel
+                  title={course.time}
+                  time={true}
+                  icon={"clock-outline"}
+                  color={"gray"}
+                />
+                <View style={{ width: 10 }} />
+                <CardLabel
+                  title={getDifficultyLabel(course.difficulty)}
+                  time={false}
+                  icon={"book-multiple-outline"}
+                  color={"gray"}
+                />
+              </View>
+              <View style={{ height: 5, opacity: 0.5 }} />
+              <CustomRating rating={course.rating} />
+            </View>
+            
+
+          </View>
         </View>
+
+        {/* <View style={{}}>
+          {isCollapsed ? (
+            
+              <Text
+                style={{
+                  fontSize: 10,
+                  paddingTop: 6,
+                  color: "gray",
+                  alignSelf: "flex-start", // Use alignSelf to align text to the bottom
+                }}
+              >
+                {isSubscribed && "Inscrito"}
+              </Text>
+            
+          ) : (
+            null
+          )}
+        </View> */}
+
+        <Collapsible
+        style={{ width: "100%", }}
+        collapsed={isCollapsed}>
+          <View
+            style={{
+              paddingTop: 30,
+              paddingBottom: 30,
+              flexDirection: "row", // Arrange children in a row
+              alignItems: "center", // Vertically center children
+              justifyContent: "space-between", // Space between children
+              padding: 5,
+            }}
+          >
+            <View>
+              <Text
+                style={{
+                  fontSize: 16,
+                  color: "black",
+                }}
+              >
+                {course.description}
+              </Text>
+            </View>
+          </View>
+
+          <View
+            style={{
+              width: "100%",
+              paddingTop: 10,
+              alignItems: "center", // Center the content vertically
+              justifyContent: "space-between", // Distribute buttons evenly
+            }}
+          >
+
+            <View>
+              { isSubscribed ?
+                <AccesCourseButton onClick={(value) => setIsSubscribed(value)} />:
+                <SubscriptionButton onClick={(value) => setIsSubscribed(value)} />
+                }
+            </View>
+            
+          </View>
+
+          <View style={{}}>
+            <Text
+              style={{
+                paddingTop: 13,
+                fontSize: 10,
+                color: "gray",
+              }}
+            >
+              ATUALIZADO: {course.dateUpdated}
+            </Text>
+          </View>
+        </Collapsible>
       </Pressable>
-    )
+    ) : null;
   }
 }

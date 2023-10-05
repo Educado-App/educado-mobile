@@ -98,102 +98,17 @@ function LoginStack() {
     </Stack.Navigator>
   );
 }
-function HomeStack() {
-  checkLogin();
-
-  return (
-    <Tab.Navigator
-      initialRouteName={'Home'}
-      screenOptions={{
-        tabBarActiveTintColor: 'black',
-        tabBarActiveBackgroundColor: '#d9d9d9',
-        tabBarStyle: { backgroundColor: 'hsl(0, 0%, 92%)' }, //Oneplus menubar color
-      }}
-    >
-      <Tab.Screen
-        //Home
-        name="Casa"
-        component={CourseStack}
-        options={{
-          headerShown: false,
-          tabBarIcon: () => {
-            return (
-              <Icon
-                size={30}
-                name="home"
-                type="material-community"
-                color="#8DD08C"
-              />
-            );
-          },
-        }}
-      />
-      <Tab.Screen
-        //Perfil
-        name="Perfil"
-        component={ProfileComponent}
-        options={{
-          headerShown: false,
-          tabBarIcon: () => {
-            return (
-              <Icon
-                size={30}
-                name="account-circle"
-                type="material-community"
-                color="#8DD08C"
-              />
-            );
-          },
-        }}
-      />
-      <Tab.Screen
-      // Explore
-        name="Explorar"
-        component={Explore}
-        options={{
-          headerShown: false,
-          tabBarIcon: () => {
-            return (
-              <Icon
-                size={30}
-                name="magnify"
-                type="material-community"
-                color="#8DD08C"
-              />
-            );
-          },
-        }}
-      />
-      {/*       <Tab.Screen
-        name="TestScreen"
-        component={TestScreen}
-        options={{
-          headerShown: false,
-          tabBarIcon: () => {
-            return (
-              <Icon
-                size={30}
-                name="home"
-                type="material-community"
-                color="black"
-              />
-            );
-          },
-        }}
-      /> */}
-    </Tab.Navigator>
-  );
-}
 
 // Change InitialRouteName to HomeStack if you want to skip Login Screen
 export default function App() {
-  return isFontsLoaded() ? (
+  return (
+
     <TailwindProvider>
       <>
         <IconRegistry icons={EvaIconsPack} />
         <ApplicationProvider {...eva} theme={eva.light}>
           <NavigationContainer>
-            <Stack.Navigator initialRouteName={'LoginStack'}>
+            <Stack.Navigator initialRouteName={'HomeStack'}>
               <Stack.Screen
                 name={'LoginStack'}
                 component={LoginStack}
@@ -201,7 +116,7 @@ export default function App() {
               />
               <Stack.Screen
                 name={'HomeStack'}
-                component={HomeStack}
+                component={NavBar} // Use the NavBar component here
                 options={{ headerShown: false }}
               />
             </Stack.Navigator>
@@ -209,5 +124,5 @@ export default function App() {
         </ApplicationProvider>
       </>
     </TailwindProvider>
-  ) : null;
+  ) ; null;
 }
