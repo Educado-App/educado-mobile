@@ -11,6 +11,7 @@ import FormFieldAlert from "./FormFieldAlert";
 import { removeEmojis, validatePasswordContainsLetter, validatePasswordLength, validateEmail, validateName } from "../general/Validation";
 import Text from "../general/Text";
 import patterns from "../../assets/validation/patterns";
+import errorSwitch from "../general/errorSwitch";
 
 const USER_INFO = "@userInfo";
 
@@ -158,61 +159,7 @@ export default function LoginForm(props) {
           await saveUserInfoLocally(response._id, firstName, lastName, email);
         })
         .catch((error) => {
-        
-          switch (error?.error?.code) {
-            case 'E0201':
-              // User with this email already exists
-              ShowAlert('Usuário com este e-mail já existe');
-              break;
-            
-            case 'E0212':
-              // Password is required
-              ShowAlert('Senha é obrigatória');
-              break;
-            
-            case 'E0208':
-              // Email is required
-              ShowAlert('E-mail é obrigatório');
-              break;
-
-            case 'E0207': 
-              // Email must be atleast 6 characters
-              ShowAlert('E-mail deve ter pelo menos 6 caracteres');
-              break;
-            
-            case 'E0206':
-              // Email must contain "@" and "." 
-              ShowAlert('E-mail deve conter "@" e "."');
-              break;
-            
-            case 'E0203':
-              // Invalid email format
-              ShowAlert('Formato de e-mail inválido');
-              break;
-
-            case 'E0209':
-              // First and last name is required
-              ShowAlert('Primeiro e último nome são obrigatórios');
-              break;
-            
-            case 'E0210':
-              // Names must be between 1 and 50 characters
-              ShowAlert('Nomes devem ter entre 1 e 50 caracteres');
-
-              break;
-
-            case 'E0211':
-              // Names must only contain letters, spaces, hyphens and apostrophes
-              ShowAlert('Nomes devem conter apenas letras, espaços, hífens e apóstrofos');
-              break;
-
-            default:
-              console.log(error);
-              // Something unknown went wrong
-              ShowAlert("Erro desconhecido! (unknown error)");
-              break;
-              
-          }
+          ShowAlert(errorSwitch(error));
         });
     } catch (e) {
       console.log(e);
