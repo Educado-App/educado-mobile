@@ -5,7 +5,7 @@ const testUrl = 'http://localhost:8888';
 const testExpo = 'http://192.168.170.60:8888'; //Change to local expo ip
 const digitalOcean = 'http://207.154.213.68:8888';
 
-const url = testExpo
+const url = testUrl;
 
 // Find a solution to refresh auth-token
 const authToken = '';
@@ -183,12 +183,16 @@ export const unSubscribeToCourse = async() => {
 
 export async function ifSubscribed(courseId) { 
 
+
   const userId = await AsyncStorage.getItem("@userId");
-  try  {
-    const res = await axios.get(url + '/api/user?user_id='+ userId + '&' + 'course_id=' + courseId)
-    return res.data;
+  try {
+    const res = await axios.get(url + '/api/user?user_id=' + userId + '&' + 'course_id=' + courseId);
+
+    return(res.data);
+
+  } catch (error) {
+    console.log("ERROR", error);
   }
-  catch (error) {
-    console.log("ERROR" + error)
-  }
+
 }
+

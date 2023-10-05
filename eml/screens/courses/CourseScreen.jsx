@@ -3,7 +3,7 @@ import { React, useEffect, useState } from 'react'
 import { View, Pressable, Text, Dimensions, Image, ScrollView, StyleSheet } from 'react-native'
 import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/dev'
 import { AppLoading } from 'expo-app-loading'
-import { ErrorBoundary } from 'react-error-boundary'
+//import { ErrorBoundary } from 'react-error-boundary'
 import * as StorageService from "../../services/StorageService";
 import CourseCard from '../../components/courses/courseCard/CourseCard'
 import SectionScreen from '../section/sectionScreen'
@@ -11,41 +11,37 @@ import { render } from '@testing-library/react-native'
 
 export default function CourseScreen() {
 
-
-    //const route = useRoute();
-
-    const [course, setCourse] = useState({});
+    const [course, setCourse] = useState([]);
 
     const [courseLoaded, setCourseLoaded] = useState(false);
 
-    const [downloadState, setDownloadState] = useState(null);
-
-    let courseId = null
-    /*if (route.params !== undefined) {
-        courseId = route.params.courseId;
-    }*/
-
     const navigation = useNavigation()
-    let currentCourse = null;
 
     let [fontsLoaded] = useFonts({
         VarelaRound_400Regular
     })
 
-    async function loadCourse() {
-        //const courseData = await StorageService.getCourseById(courseId);
-        //setCourse(courseData);
-        const courseData = await StorageService.getSubCourseList();
-        setCourse(courseData);
-    }
+    
+    
     useEffect(() => {
-        loadCourse()
-        .then(()=>{
-            if (Array.isArray(course) && course.length !==0) {
-                setCourseLoaded(true);
+
+    async function loadCourse() {
+        try {
+                const courseData = await StorageService.getSubCourseList();
+    
+                if (courseData.length !== 0 && Array.isArray(courseData) ) {
+                    setCourse(courseData);
+                    setCourseLoaded(true);
+                } else {
+                    setCourseLoaded(false);
+                }
+    
+            } catch (error) {
+              console.error("Error checking subscription:", error);
             }
-    });
-    }, [/*route.params*/ downloadState, course])
+    } loadCourse();
+
+    }, [course])
 
     
     if (!fontsLoaded) {
@@ -61,8 +57,8 @@ export default function CourseScreen() {
                             <Text style={{fontSize: 25, marginLeft: 10, fontWeight: 'bold'}}>Bem Vindo!</Text>
                         </View>
                         <ScrollView showsVerticalScrollIndicator={false}>
-                        {course.map((course, i) => { return (
-                                <Pressable key={i} 
+                        {course.map((course, i) => (
+                                <Pressable  key={i} 
                                 style={{
                                     backgroundColor: "#fff",
                                     margin: 8,
@@ -85,10 +81,10 @@ export default function CourseScreen() {
                                   });
                                 }}
                                 >
-                                    <CourseCard course={course} downloadState={setDownloadState}></CourseCard>
+                                    <CourseCard course={course}></CourseCard>
                                 </Pressable> 
-                                )
-                            }) 
+                        )  
+                            ) 
                         }
                         </ScrollView>
                     </View>

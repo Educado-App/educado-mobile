@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Alert, View, Text, Dimensions } from "react-native";
+import { Alert, View, Dimensions } from "react-native";
 import { registerUser } from "../../api/userApi";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import FormTextField from "./FormTextField";
@@ -9,8 +9,8 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import ShowAlert from "../general/ShowAlert";
 import FormFieldAlert from "./FormFieldAlert";
 import { RemoveEmojis } from "../general/Validation";
-import { useFonts } from "expo-font";
-import getFont from "../general/GetFont";
+import Text from "../general/Text";
+import patterns from "../../assets/validation/patterns";
 
 const USER_INFO = "@userInfo";
 
@@ -73,10 +73,6 @@ export default function RegisterForm() {
     setPasswordLengthValid(lengthValid);
   };
 
-  const [loaded] = useFonts({
-    fontFileName: require("../../assets/fonts/Montserrat-Regular.ttf")
-  });
-
   /**
    * Function for registering a new user in the database
    * @param {String} realName 
@@ -101,13 +97,16 @@ export default function RegisterForm() {
           await createProfile(response._id, realName, email);
         })
         .catch((error) => {
-          switch (error.message) {
+          switch (error.response.data.message) {
+            case "users validation failed: email: User email already exists!":
+              ShowAlert("User email already exists!"); // TODO: Translate
+              break;
             case "Request failed with status code 400":
               //Invalid user data
               ShowAlert("Dados de usuário inválidos!");
               break;
             default:
-              console.log(error);
+              console.log(error.response.data.message);
           }
         });
     } catch (e) {
@@ -153,7 +152,7 @@ export default function RegisterForm() {
    * @param {String} email 
    */
   const validateEmail = (email) => {
-    const emailPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    const emailPattern = patterns.email;
 
     if (emailPattern.test(email)) {
       setEmailAlert("");
@@ -168,7 +167,7 @@ export default function RegisterForm() {
    * @param {String} realName 
    */
   const validateRealName = (realName) => {
-    const realNamePattern = /^(\p{L}+[- '])*\p{L}+$/u;
+    const realNamePattern = patterns.name;
 
     if (realNamePattern.test(realName) && realName.length > 1) {
       setNameAlert("");
@@ -243,7 +242,7 @@ export default function RegisterForm() {
         </View>
 
         <View className="flex-row justify-start mt-1 h-6">
-          <Text testId="passwordLengthAlert" className={"text-xs" + getFont() + ((passwordLengthValid || !password) ? " text-gray" : " text-error")}>
+          <Text testId="passwordLengthAlert" className={"text-xs" + ((passwordLengthValid || !password) ? " text-gray" : " text-error")}>
             {/* Minimum 8 characters */}
             • Mínimo 8 caracteres
           </Text>
@@ -254,7 +253,7 @@ export default function RegisterForm() {
           </View>
         </View>
         <View className="flex-row justify-start h-6">
-          <Text testId="passwordLetterAlert" className={"text-xs" + getFont() + ((passwordContainsLetter || !password) ? " text-gray" : " text-error")}>
+          <Text testId="passwordLetterAlert" className={"text-xs font-sans" + ((passwordContainsLetter || !password) ? " text-gray" : " text-error")}>
             {/* Must contain at least one letter */}
             • Conter pelo menos uma letra
           </Text>

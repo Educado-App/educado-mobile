@@ -28,15 +28,17 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
           style={
             [
               {
-                "marginLeft": 8,
-              },
-              {
-                "fontSize": 12,
-                "lineHeight": 16,
-              },
-              {
                 "fontFamily": "Montserrat-Regular",
               },
+              [
+                {
+                  "marginLeft": 8,
+                },
+                {
+                  "fontSize": 12,
+                  "lineHeight": 16,
+                },
+              ],
             ]
           }
         >
@@ -46,18 +48,20 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
           style={
             [
               {
-                "marginLeft": 4,
-              },
-              {
-                "fontSize": 12,
-                "lineHeight": 16,
-              },
-              {
-                "color": "#CF6679",
-              },
-              {
                 "fontFamily": "Montserrat-Regular",
               },
+              [
+                {
+                  "marginLeft": 4,
+                },
+                {
+                  "fontSize": 12,
+                  "lineHeight": 16,
+                },
+                {
+                  "color": "#CF6679",
+                },
+              ],
             ]
           }
         >
@@ -90,9 +94,6 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
                 "borderTopLeftRadius": 8,
                 "borderTopRightRadius": 8,
               },
-              {
-                "fontFamily": "Montserrat-Regular",
-              },
             ]
           }
           value=""
@@ -115,19 +116,21 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
         style={
           [
             {
-              "fontSize": 12,
-              "lineHeight": 16,
-            },
-            {
-              "color": "#CF6679",
-            },
-            {
-              "marginLeft": 8,
-              "marginRight": 8,
-            },
-            {
               "fontFamily": "Montserrat-Regular",
             },
+            [
+              {
+                "fontSize": 12,
+                "lineHeight": 16,
+              },
+              {
+                "color": "#CF6679",
+              },
+              {
+                "marginLeft": 8,
+                "marginRight": 8,
+              },
+            ],
           ]
         }
       />
@@ -159,15 +162,17 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
           style={
             [
               {
-                "marginLeft": 8,
-              },
-              {
-                "fontSize": 12,
-                "lineHeight": 16,
-              },
-              {
                 "fontFamily": "Montserrat-Regular",
               },
+              [
+                {
+                  "marginLeft": 8,
+                },
+                {
+                  "fontSize": 12,
+                  "lineHeight": 16,
+                },
+              ],
             ]
           }
         >
@@ -177,18 +182,20 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
           style={
             [
               {
-                "marginLeft": 4,
-              },
-              {
-                "fontSize": 12,
-                "lineHeight": 16,
-              },
-              {
-                "color": "#CF6679",
-              },
-              {
                 "fontFamily": "Montserrat-Regular",
               },
+              [
+                {
+                  "marginLeft": 4,
+                },
+                {
+                  "fontSize": 12,
+                  "lineHeight": 16,
+                },
+                {
+                  "color": "#CF6679",
+                },
+              ],
             ]
           }
         >
@@ -221,9 +228,6 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
                 "borderTopLeftRadius": 8,
                 "borderTopRightRadius": 8,
               },
-              {
-                "fontFamily": "Montserrat-Regular",
-              },
             ]
           }
           value=""
@@ -246,19 +250,21 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
         style={
           [
             {
-              "fontSize": 12,
-              "lineHeight": 16,
-            },
-            {
-              "color": "#CF6679",
-            },
-            {
-              "marginLeft": 8,
-              "marginRight": 8,
-            },
-            {
               "fontFamily": "Montserrat-Regular",
             },
+            [
+              {
+                "fontSize": 12,
+                "lineHeight": 16,
+              },
+              {
+                "color": "#CF6679",
+              },
+              {
+                "marginLeft": 8,
+                "marginRight": 8,
+              },
+            ],
           ]
         }
       />
@@ -299,15 +305,17 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
             style={
               [
                 {
-                  "marginLeft": 8,
-                },
-                {
-                  "fontSize": 12,
-                  "lineHeight": 16,
-                },
-                {
                   "fontFamily": "Montserrat-Regular",
                 },
+                [
+                  {
+                    "marginLeft": 8,
+                  },
+                  {
+                    "fontSize": 12,
+                    "lineHeight": 16,
+                  },
+                ],
               ]
             }
           >
@@ -317,18 +325,20 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
             style={
               [
                 {
-                  "marginLeft": 4,
-                },
-                {
-                  "fontSize": 12,
-                  "lineHeight": 16,
-                },
-                {
-                  "color": "#CF6679",
-                },
-                {
                   "fontFamily": "Montserrat-Regular",
                 },
+                [
+                  {
+                    "marginLeft": 4,
+                  },
+                  {
+                    "fontSize": 12,
+                    "lineHeight": 16,
+                  },
+                  {
+                    "color": "#CF6679",
+                  },
+                ],
               ]
             }
           >
@@ -360,9 +370,6 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
                   "borderBottomRightRadius": 8,
                   "borderTopLeftRadius": 8,
                   "borderTopRightRadius": 8,
-                },
-                {
-                  "fontFamily": "Montserrat-Regular",
                 },
               ]
             }
@@ -434,15 +441,17 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
         style={
           [
             {
-              "fontSize": 12,
-              "lineHeight": 16,
-            },
-            {
               "fontFamily": "Montserrat-Regular",
             },
-            {
-              "color": "#A1ACB2",
-            },
+            [
+              {
+                "fontSize": 12,
+                "lineHeight": 16,
+              },
+              {
+                "color": "#A1ACB2",
+              },
+            ],
           ]
         }
         testId="passwordLengthAlert"
@@ -491,15 +500,20 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
         style={
           [
             {
-              "fontSize": 12,
-              "lineHeight": 16,
-            },
-            {
               "fontFamily": "Montserrat-Regular",
             },
-            {
-              "color": "#A1ACB2",
-            },
+            [
+              {
+                "fontSize": 12,
+                "lineHeight": 16,
+              },
+              {
+                "fontFamily": "Montserrat-Regular",
+              },
+              {
+                "color": "#A1ACB2",
+              },
+            ],
           ]
         }
         testId="passwordLetterAlert"
@@ -565,15 +579,17 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
             style={
               [
                 {
-                  "marginLeft": 8,
-                },
-                {
-                  "fontSize": 12,
-                  "lineHeight": 16,
-                },
-                {
                   "fontFamily": "Montserrat-Regular",
                 },
+                [
+                  {
+                    "marginLeft": 8,
+                  },
+                  {
+                    "fontSize": 12,
+                    "lineHeight": 16,
+                  },
+                ],
               ]
             }
           >
@@ -583,18 +599,20 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
             style={
               [
                 {
-                  "marginLeft": 4,
-                },
-                {
-                  "fontSize": 12,
-                  "lineHeight": 16,
-                },
-                {
-                  "color": "#CF6679",
-                },
-                {
                   "fontFamily": "Montserrat-Regular",
                 },
+                [
+                  {
+                    "marginLeft": 4,
+                  },
+                  {
+                    "fontSize": 12,
+                    "lineHeight": 16,
+                  },
+                  {
+                    "color": "#CF6679",
+                  },
+                ],
               ]
             }
           >
@@ -626,9 +644,6 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
                   "borderBottomRightRadius": 8,
                   "borderTopLeftRadius": 8,
                   "borderTopRightRadius": 8,
-                },
-                {
-                  "fontFamily": "Montserrat-Regular",
                 },
               ]
             }
@@ -694,19 +709,21 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
         style={
           [
             {
-              "fontSize": 12,
-              "lineHeight": 16,
-            },
-            {
-              "color": "#CF6679",
-            },
-            {
-              "marginLeft": 8,
-              "marginRight": 8,
-            },
-            {
               "fontFamily": "Montserrat-Regular",
             },
+            [
+              {
+                "fontSize": 12,
+                "lineHeight": 16,
+              },
+              {
+                "color": "#CF6679",
+              },
+              {
+                "marginLeft": 8,
+                "marginRight": 8,
+              },
+            ],
           ]
         }
       />
@@ -792,14 +809,19 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
           style={
             [
               {
-                "color": "#FFFFFF",
+                "fontFamily": "Montserrat-Regular",
               },
-              {
-                "fontSize": 16,
-              },
-              {
-                "fontWeight": "700",
-              },
+              [
+                {
+                  "color": "#FFFFFF",
+                },
+                {
+                  "fontSize": 16,
+                },
+                {
+                  "fontWeight": "700",
+                },
+              ],
             ]
           }
         >

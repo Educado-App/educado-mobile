@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { loginUser } from "../../api/userApi";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -7,11 +7,9 @@ import FormTextField from "./FormTextField";
 import FormButton from "./FormButton";
 import PasswordEye from "./PasswordEye";
 import ResetPassword from "./ResetPassword";
-import { isFontsLoaded } from "../../constants/Fonts.js";
 import FormFieldAlert from "./FormFieldAlert";
 import { RemoveEmojis } from "../general/Validation";
-import { useFonts } from "expo-font";
-import getFont from "../general/GetFont";
+import Text from "../general/Text";
 
 const LOGIN_TOKEN = "@loginToken";
 const USER_EMAIL = "@userEmail";
@@ -32,10 +30,6 @@ export default function LoginForm() {
   const [modalVisible, setModalVisible] = useState(false);
   const [passwordAlert, setPasswordAlert] = useState("");
   const [emailAlert, setEmailAlert] = useState("");
-  const [loaded] = useFonts({
-    fontFileName: require("../../assets/fonts/Montserrat-Regular.ttf")
-  });
-
   /**
    * Logs user in with the entered credentials 
    * @param {String} email Email user tries to login with
@@ -132,7 +126,7 @@ export default function LoginForm() {
       <View>
         {/* TODO: tilføj onPress til nedenstående; reset password */}
         <Text
-          className={"text-right underline text-base text-black mb-15 ml-[205px]" + getFont()}
+          className={"text-right underline text-base text-black mb-15 ml-[205px]"}
           onPress={() => setModalVisible(true)}
         >
           Esqueceu a senha?

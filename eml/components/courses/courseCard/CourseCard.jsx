@@ -6,7 +6,7 @@ import { AppLoading } from 'expo-app-loading';
 import CourseProgress from '../courseHeader/CourseProgress';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-export default function CourseCard({ course, downloadState }) {
+export default function CourseCard({ course }) {
     const navigation = useNavigation();
     
     let [fontsLoaded] = useFonts({
@@ -46,26 +46,6 @@ export default function CourseCard({ course, downloadState }) {
     }
 }
 const styles = StyleSheet.create({
-  shadowWrapper: {
-      backgroundColor: 'transparent',
-      margin: 8,
-      borderRadius: 10,
-      shadowColor: "#000",
-      shadowOffset: {
-          width: 0,
-          height: 2,
-      },
-      shadowOpacity: 0.3,
-      shadowRadius: 4.65,
-      elevation: 8,
-  },
-  wrapper: {
-      backgroundColor: "#fff",
-      borderRadius: 10,
-      marginBottom: 15,
-      marginHorizontal: 18,
-      overflow: 'hidden',
-  },
   header: {
       flexDirection: 'row',
       alignItems: 'flex-start',
@@ -78,10 +58,6 @@ const styles = StyleSheet.create({
       color: 'black',
       flex: 1,
       alignSelf: 'center',
-  },
-  dropdownContent: {
-      flex: 1,
-      width: '100%',
   },
   lineBreak: {
       height: 1,

@@ -1,10 +1,10 @@
 import React from "react";
-import { View, Text, TouchableWithoutFeedback, Keyboard } from "react-native";
+import { View, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import RegisterForm from "../../components/login/RegisterForm";
 import { SafeAreaView } from "react-native-safe-area-context";
 import LogoBackButton from "../../components/login/LogoBackButton";
-import getFont from "../../components/general/GetFont";
+import Text from "../../components/general/Text";
 
 export default function Register() {
 
@@ -22,11 +22,11 @@ export default function Register() {
               <RegisterForm />
             </View>
             <View className="flex-row justify-center items-end">
-              <Text className={"text-gray leading-5 text-base" + getFont()}>
+              <Text className={"text-gray leading-5 text-base"}>
                 Já possui conta? {/* Already have an account? */}
               </Text>
               <Text
-                className={"text-black leading-5 text-base underline" + getFont()}
+                className={"text-black leading-5 text-base underline"}
                 onPress={() => navigation.navigate("Login")}
               >
                 Entre agora {/* Log in now */}
