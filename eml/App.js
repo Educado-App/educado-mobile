@@ -19,6 +19,7 @@ import ErrorScreen from './screens/errors/ErrorScreen';
 import SectionCompleteScreen from './screens/excercise/SectionCompleteScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { isFontsLoaded } from './constants/Fonts';
+import NavBar from './components/navBar/NavBar'; // Import the NavBar component
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
