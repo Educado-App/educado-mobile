@@ -183,12 +183,15 @@ export const unSubscribeToCourse = async() => {
 
 export async function ifSubscribed(courseId) { 
 
+
   const userId = await AsyncStorage.getItem("@userId");
-  const res = await axios.get(url + '/api/user?user_id='+ userId + '&' + 'course_id=' + courseId)
-  .then(() => {
-    return res;
-  })
-  .catch(error => {
-    console.log("ERROR" + error)
-  })
+  try {
+    const res = await axios.get(url + '/api/user?user_id=' + userId + '&' + 'course_id=' + courseId);
+
+    return(res.data);
+
+  } catch (error) {
+    console.log("ERROR", error);
+  }
+
 }
