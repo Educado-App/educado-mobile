@@ -29,7 +29,6 @@ export default function ExploreCard({ course }) {
   });
 
   useEffect(() => {
-    // Use the async function within an async context
     async function checkSubscription() {
       try {
         const result = await ifSubscribed(course.courseId);

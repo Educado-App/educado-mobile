@@ -195,3 +195,4 @@ export async function ifSubscribed(courseId) {
   }
 
 }
+

@@ -1,10 +1,21 @@
 import React from 'react';
 import { View, Pressable, Text } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
-const AccessCourseButton = () => {
+
+
+const AccessCourseButton = ({ course }) => {
+
+  const navigation = useNavigation();
+
   return (
     <Pressable
+    onPress={() => {
+      navigation.navigate('Section', {
+        courseId: course.courseId,
+      });
+    }}
       style={{
         minWidth: '100%',
         alignItems: 'center',
