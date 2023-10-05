@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Keyboard, StyleSheet } from "react-native";
+import { View, Keyboard, StyleSheet } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import LoginForm from "../../components/login/LoginForm";
