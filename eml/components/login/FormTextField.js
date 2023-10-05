@@ -20,7 +20,6 @@ import Text from "../general/Text";
 
  */
 export default function FormTextField(props) {
-
   return (
     <View>
       <View className="flex flex-row">

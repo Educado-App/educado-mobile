@@ -1,12 +1,12 @@
 import axios from 'axios';
 
 const testUrl = 'http://localhost:8888';
-const testExpo = 'http://172.30.242.170:8888'; //Change to local expo ip
+const testExpo = 'http://172.30.210.205:8888'; //Change to local expo ip
 const digitalOcean = 'http://207.154.213.68:8888';
 
 const url = testExpo;
 
-// Find a solution to refresh auth-token
+// TODO: Find a solution to refresh auth-token
 const authToken = '';
 const authBody = {
   email: 'demo@gmail.com',
