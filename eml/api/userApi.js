@@ -20,23 +20,44 @@ export const client = axios.create({
 /**
  * Sends a request to the backend to register a new user.
  * @param {Object} obj Should contain the following properties:
- * - name
+ * - firstName
+ * - lastName
  * - email
  * - password
- * @returns 
  */
 export const registerUser = async (obj) => {
-  console.log("User " +(obj.name ? obj.name : "undefined") + " with email " + (obj.email ? obj.email : "undefined") + " is trying to register.");
-  const res = await client.post('/api/signup/user', obj)
-  console.log("User " + (obj.name ? obj.name : "undefined") + " with email " + (obj.email ? obj.email : "undefined") + " has been registered.");
-  return res.data
+  console.log(`User trying to register:
+    firstName: ${obj.firstName ?? 'undefined'}
+    lastName: ${obj.lastName ?? 'undefined'}
+    email: ${obj.email ?? 'undefined'}`);
+  
+  try {
+    const res = await client.post('/api/signup/user', obj);
+    console.log('User successfully registered');
+    return res.data;
+  } catch(e) {
+    if (e.response.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
 }
 
+/**
+ * Sends a request to the backend to login an existing user.
+ * @param {Object} obj should contain the following properties:
+ * - email
+ * - password
+*/
 export const loginUser = async (obj) => {
   const res = await client.post('/api/auth/login', obj)
   return res.data
 }
-
+/**
+ * Sends a request to the backend to delete a user.
+ * @param {user_id} user_id
+ */
 export const deleteUser = async(user_id) => {
     const res = await axios.delete(url + "/api/eml/delete/" + user_id);
     return res.data;

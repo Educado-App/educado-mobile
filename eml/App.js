@@ -26,7 +26,16 @@ import { isFontsLoaded } from './constants/Fonts';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
+/**
+ * Check if user is logged in, if not redirect to login screen
+ */
+const checkLogin = () => {
+  if (AsyncStorage.getItem("@login_token") === null) {
+    useNavigation().navigate('Login');
+  }
+}
 function CourseStack() {
+  checkLogin();
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -95,6 +104,79 @@ function LoginStack() {
     </Stack.Navigator>
   );
 }
+/** This can be removed since we use NavBar
+ *
+function HomeStack() {
+  checkLogin();
+
+  return (
+    <Tab.Navigator
+      initialRouteName={'Home'}
+      screenOptions={{
+        tabBarActiveTintColor: 'black',
+        tabBarActiveBackgroundColor: '#d9d9d9',
+        tabBarStyle: { backgroundColor: 'hsl(0, 0%, 92%)' }, //Oneplus menubar color
+      }}
+    >
+      <Tab.Screen
+        //Home
+        name="Casa"
+        component={CourseStack}
+        options={{
+          headerShown: false,
+          tabBarIcon: () => {
+            return (
+              <Icon
+                size={30}
+                name="home"
+                type="material-community"
+                color="#8DD08C"
+              />
+            );
+          },
+        }}
+      />
+      <Tab.Screen
+        //Perfil
+        name="Perfil"
+        component={ProfileComponent}
+        options={{
+          headerShown: false,
+          tabBarIcon: () => {
+            return (
+              <Icon
+                size={30}
+                name="account-circle"
+                type="material-community"
+                color="#8DD08C"
+              />
+            );
+          },
+        }}
+      />
+      <Tab.Screen
+      // Explore
+        name="Explorar"
+        component={Explore}
+        options={{
+          headerShown: false,
+          tabBarIcon: () => {
+            return (
+              <Icon
+                size={30}
+                name="magnify"
+                type="material-community"
+                color="#8DD08C"
+              />
+            );
+          },
+        }}
+      />
+    </Tab.Navigator>
+  );
+}
+
+*/
 
 // Change InitialRouteName to HomeStack if you want to skip Login Screen
 export default function App() {

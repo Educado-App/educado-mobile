@@ -8,9 +8,10 @@ import PasswordEye from "./PasswordEye";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import ShowAlert from "../general/ShowAlert";
 import FormFieldAlert from "./FormFieldAlert";
-import { RemoveEmojis } from "../general/Validation";
+import { removeEmojis, validatePasswordContainsLetter, validatePasswordLength, validateEmail, validateName } from "../general/Validation";
 import Text from "../general/Text";
 import patterns from "../../assets/validation/patterns";
+import errorSwitch from "../general/errorSwitch";
 
 const USER_INFO = "@userInfo";
 
@@ -18,14 +19,18 @@ const USER_INFO = "@userInfo";
  * Component for registering a new account in the system, used in the register screen
  * @returns {React.Element} Component containing the form for registering a new user
  */
-export default function RegisterForm() {
-  const [realName, setRealName] = useState("");
+
+export default function LoginForm(props) {
+
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+ 
   const [emailAlert, setEmailAlert] = useState("");
   const [nameAlert, setNameAlert] = useState("");
-  const [isAllInputValid, setIsAllInputValid] = useState(true);
+  const [isAllInputValid, setIsAllInputValid] = useState(false);
   const [confirmPasswordAlert, setConfirmPasswordAlert] = useState("");
 
   // State variable to track password visibility
@@ -36,57 +41,114 @@ export default function RegisterForm() {
   const [passwordContainsLetter, setPasswordContainsLetter] = useState(false);
   const [passwordLengthValid, setPasswordLengthValid] = useState(false);
 
-  // Function to toggle the password visibility state
-  const toggleShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
-
   useEffect(() => {
-    // clearing input
+    // Clear input and alerts on first render
+    setFirstName("");
+    setLastName("");
+    setEmail("");
+    setPassword("");
+    setConfirmPassword("");
+
     setNameAlert("");
     setEmailAlert("");
     setIsAllInputValid(false);
     setConfirmPasswordAlert("");
-    setRealName("");
-    setEmail("");
-    setPassword("");
-    setConfirmPassword("");
   }, []);
+
+  useEffect(() => {
+    const containsLetter = validatePasswordContainsLetter(password);
+    setPasswordContainsLetter(containsLetter);
+    const lengthValid = validatePasswordLength(password);
+    setPasswordLengthValid(lengthValid);
+    checkIfPasswordsMatch(password, confirmPassword);
+  }, [password]);
+
+  useEffect(() => {
+    checkIfPasswordsMatch(password, confirmPassword);
+  }, [confirmPassword]);
+
+  useEffect(() => {
+    let validationError = '';
+    if(firstName !== '') {
+      validationError = validateName(firstName, 'Primeiro nome'); // First name
+    }
+    if(validationError === '' && lastName !== '') {
+      validationError = validateName(lastName, 'Sobrenome'); // Last name
+    }
+
+    setNameAlert(validationError);
+  }, [firstName, lastName]);
+
+  useEffect(() => {
+    if(email === '') {
+      setEmailAlert('');
+      return;
+    }
+
+    const validationError = validateEmail(email);
+    setEmailAlert(validationError);
+  }, [email]);
 
   useEffect(() => {
     validateInput();
   }, [nameAlert, emailAlert, passwordLengthValid, passwordContainsLetter, confirmPasswordAlert]);
 
+  // Functions to toggle password visibility states
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  }
+
   const toggleShowConfirmPassword = () => {
     setShowConfirmPassword(!showConfirmPassword);
-  };
+  }
 
-  const checkPasswordContainsLetter = (password) => {
-    // TODO: Brazilian letters needs to be included
-    const regex = /.*\p{L}.*$/u;
-    const containsLetter = regex.test(password);
-    setPasswordContainsLetter(containsLetter);
-  };
+  const checkIfPasswordsMatch = (password, confirmPassword) => {
+    if (password === confirmPassword) {
+      setConfirmPasswordAlert("");
+    } else {
+      // The passwords do not match
+      setConfirmPasswordAlert("As senhas devem corresponder");
+    }
+  }
 
-  const checkPasswordLength = (password) => {
-    const lengthValid = password.length > 7;
-    setPasswordLengthValid(lengthValid);
-  };
+  // TODO: This function should take into consideration
+  // that alerts might be empty when input is yet to be given
+  /**
+   * Function for validating all input fields' content
+   */
+  function validateInput() {
+    const validationPassed = (
+      nameAlert === "" &&
+      emailAlert === "" &&
+      firstName != "" &&
+      lastName != "" &&
+      email != "" &&
+      passwordLengthValid &&
+      passwordContainsLetter &&
+      confirmPasswordAlert === ""
+    );
+    
+    setIsAllInputValid(validationPassed);
+  }
 
   /**
    * Function for registering a new user in the database
-   * @param {String} realName 
+   * @param {String} firstName 
+   * @param {String} lastName
    * @param {String} email 
    * @param {String} password
    */
-  async function register(realName, email, password) {
-    validateInput(realName, email, password)
+  async function register(firstName, lastName, email, password) {
+    
+    validateInput(firstName, email, password);
+    
     if(!isAllInputValid) {
       return;
     }
 
     const obj = {
-      name: realName,
+      firstName: firstName,
+      lastName: lastName,
       email: email,
       password: password,
     };
@@ -94,20 +156,10 @@ export default function RegisterForm() {
     try {
       await registerUser(obj)
         .then(async function (response) {
-          await createProfile(response._id, realName, email);
+          await saveUserInfoLocally(response._id, firstName, lastName, email);
         })
         .catch((error) => {
-          switch (error.response.data.message) {
-            case "users validation failed: email: User email already exists!":
-              ShowAlert("User email already exists!"); // TODO: Translate
-              break;
-            case "Request failed with status code 400":
-              //Invalid user data
-              ShowAlert("Dados de usuário inválidos!");
-              break;
-            default:
-              console.log(error.response.data.message);
-          }
+          ShowAlert(errorSwitch(error));
         });
     } catch (e) {
       console.log(e);
@@ -115,28 +167,18 @@ export default function RegisterForm() {
   }
 
   /**
-   * Function for validating all input fields' content
-   */
-  function validateInput() {
-    if (nameAlert === "" && emailAlert === "" && passwordLengthValid
-      && passwordContainsLetter && confirmPasswordAlert === "") {
-      setIsAllInputValid(true);
-    } else {
-      setIsAllInputValid(false);
-    }
-  }
-
-  /**
    * Stores the user info in async storage
    * @param {*} id user id
-   * @param {*} realName 
+   * @param {*} firstName 
+   * @param {*} lastName
    * @param {*} email 
    */
-  async function createProfile(id, realName, email) {
+  async function saveUserInfoLocally(id, firstName, lastName, email) {
     try {
       const obj = {
         id: id,
-        realName: realName,
+        firstName: firstName,
+        lastName: lastName,
         email: email,
       };
 
@@ -145,58 +187,33 @@ export default function RegisterForm() {
       console.log(e);
     }
   }
-
-  /**
-   * Validates the email according to the email pattern and 
-   * sets the state variable accordingly
-   * @param {String} email 
-   */
-  const validateEmail = (email) => {
-    const emailPattern = patterns.email;
-
-    if (emailPattern.test(email)) {
-      setEmailAlert("");
-    } else {
-      setEmailAlert("Email inválido"); // Email invalid
-    }
-  }
-
-  /**
-   * Validates the real name according to the real name pattern and 
-   * sets the state variable accordingly
-   * @param {String} realName 
-   */
-  const validateRealName = (realName) => {
-    const realNamePattern = patterns.name;
-
-    if (realNamePattern.test(realName) && realName.length > 1) {
-      setNameAlert("");
-    } else {
-      setNameAlert("Nome inválido"); // Invalid name
-    }
-  }
-
-  const checkIfPasswordsMatch = (password, confirmPassword) => {
-    if (password === confirmPassword) {
-      setConfirmPasswordAlert("");
-    } else {
-      setConfirmPasswordAlert("As senhas devem corresponder");
-    }
-  }
-
   return (
     <View>
       <View className="mb-6">
         <FormTextField
-          testId="nameInput"
-          label="Nome"
-          name={"Name"}
-          value={realName}
-          //Real name
-          placeholder="Nome Sobrenome"
+
+          label="Primeiro nome"
+          name={"Primeiro nome"}
+          value={firstName}
+          //First name
+          placeholder="Primeiro nome"
           required={true}
-          onChangeText={(realName) => {
-            setRealName(realName); validateRealName(realName);
+          onChangeText={(firstName) => {
+            setFirstName(firstName);
+          }}
+        />
+      </View>
+      <View className="mb-6">
+        <FormTextField
+          label="Sobrenome"
+          name={"Sobrenome"}
+          value={lastName}
+          // Last name
+          placeholder="Sobrenome"
+
+          required={true}
+          onChangeText={(lastName) => {
+            setLastName(lastName);
           }}
         />
         <FormFieldAlert label={nameAlert} />
@@ -226,12 +243,9 @@ export default function RegisterForm() {
             placeholderTextColor="grey"
             secureTextEntry={!showPassword}
             required={true}
-            onChangeText={async (inputPassword) => {
-              inputPassword = RemoveEmojis(inputPassword, password);
-              setPassword(inputPassword);
-              checkPasswordContainsLetter(inputPassword);
-              checkPasswordLength(inputPassword);
-              checkIfPasswordsMatch(inputPassword, confirmPassword);
+            onChangeText={(inputPassword) => {
+              setPassword(removeEmojis(inputPassword, password));
+
             }}
           />
           <PasswordEye
@@ -264,7 +278,6 @@ export default function RegisterForm() {
           </View>
         </View>
       </View>
-      {/* TODO: compare password with confirm password and give error if not same.*/}
       <View className="mb-6">
         <View className="relative">
           <FormTextField
@@ -272,11 +285,9 @@ export default function RegisterForm() {
             value={confirmPassword}
             testId="confirmPasswordInput"
             onChangeText={(inputConfirmPassword) => {
-              inputConfirmPassword = RemoveEmojis(inputConfirmPassword, confirmPassword);
-              setConfirmPassword(inputConfirmPassword);
-              checkIfPasswordsMatch(password, inputConfirmPassword);
-            }
-            }
+              setConfirmPassword(removeEmojis(inputConfirmPassword, confirmPassword));
+            }}
+
             placeholder="Confirme sua senha" // Confirm your password
             secureTextEntry={!showConfirmPassword}
             required={true}
@@ -291,7 +302,7 @@ export default function RegisterForm() {
       </View>
       <View className="my-10">
         <FormButton
-          onPress={() => register(realName, email, password)}
+          onPress={() => register(firstName, lastName, email, password)}
           label="Cadastrar" // Register
           testId="registerButton"
           disabled={!isAllInputValid}

@@ -19,7 +19,10 @@ export default function Login(props) {
   const navigation = useNavigation();
 
   /**
+   * TODO: Refactor error to use new error handling system
    * Function for checking if a login token is stored in async local storage (i.e. if the user is already logged in)
+   * If a token is found, the user is redirected to the home screen.
+   * 
    */
   const checkLoginToken = async () => {
     try {
@@ -33,7 +36,6 @@ export default function Login(props) {
   };
 
   useEffect(() => {
-    // readId();
     checkLoginToken();
   }, []);
   
@@ -51,14 +53,16 @@ export default function Login(props) {
             </View>
             {/* Register button */}
             <View className="flex-row justify-center">
-              <Text className={"text-base text-gray mr-1"}>
-                Ainda não tem conta? {/*  */}
+              <Text className="text-base text-gray mr-1">
+                {/* Dont have an account yet? */}
+                Ainda não tem conta? 
               </Text>
               <Text
                 testId="registerNav"
                 className={"text-base text-black underline"}
                 onPress={() => navigation.navigate("Register")}
               >
+                {/* Sign up now */}
                 Cadastre-se agora
               </Text>
             </View>

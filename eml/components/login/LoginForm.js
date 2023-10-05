@@ -8,7 +8,7 @@ import FormButton from "./FormButton";
 import PasswordEye from "./PasswordEye";
 import ResetPassword from "./ResetPassword";
 import FormFieldAlert from "./FormFieldAlert";
-import { RemoveEmojis } from "../general/Validation";
+import { removeEmojis } from "../general/Validation";
 import Text from "../general/Text";
 
 const LOGIN_TOKEN = "@loginToken";
@@ -30,6 +30,7 @@ export default function LoginForm() {
   const [modalVisible, setModalVisible] = useState(false);
   const [passwordAlert, setPasswordAlert] = useState("");
   const [emailAlert, setEmailAlert] = useState("");
+
   /**
    * Logs user in with the entered credentials 
    * @param {String} email Email user tries to login with
@@ -48,30 +49,42 @@ export default function LoginForm() {
       password: password,
     };
 
-    loginUser(obj) // Await the response from the backend API for login
-    .then((response) => {
-      // Set login token in AsyncStorage and navigate to home screen
-      AsyncStorage.setItem(LOGIN_TOKEN, response.accessToken);
-      AsyncStorage.setItem(USER_EMAIL, response.user.email);
-      AsyncStorage.setItem(USER_ID, response.user.id);
+    try {
+      await loginUser(obj) // Await the response from the backend API for login
+        .then((response) => {
+          // Set login token in AsyncStorage and navigate to home screen
+          AsyncStorage.setItem(LOGIN_TOKEN, response.accessToken);
+          AsyncStorage.setItem(USER_EMAIL, response.user.email);
+          AsyncStorage.setItem(USER_ID, response.user.id);
 
-      navigation.navigate("HomeStack");
-    })
-      .catch((error) => {
-        switch (error.response.status) {
-          case 404:
-            // No user exists with this email!
-            setEmailAlert("Não existe nenhum usuário com este email!");
-            break;
+          navigation.navigate("HomeStack");
+        })
+        .catch((error) => {
+          console.log(error);
+          switch (error?.error?.code) {
+            case 'E0101':
+              // No user exists with this email!
+              setEmailAlert("Não existe nenhum usuário com este email!"); 
+              break;
 
-          case 401:
-            setPasswordAlert("Senha incorreta!"); // Password is incorrect!
-            break;
+            case 'E0105':
+              // Password is incorrect!
+              setPasswordAlert("Senha incorreta!"); 
+              break;
 
-          default: // Errors not currently handled with specific alerts
-            console.log(error);
-        }
-      });
+            case 'E0003':
+              // Error connecting to server!
+              ShowAlert("Erro de conexão com o servidor!"); 
+              break;
+
+            // TODO: What error should we give here instead? Unknown error? 
+            default: // Errors not currently handled with specific alerts
+              console.log(error);
+          }
+        });
+    } catch (e) {
+      console.log(e);
+    }
 
   }
 
@@ -109,7 +122,7 @@ export default function LoginForm() {
           placeholder="Digite sua senha" // Type your password
           value={password}
           onChangeText={(inputPassword) => {
-            setPassword(RemoveEmojis(inputPassword, password))
+            setPassword(removeEmojis(inputPassword, password))
           }}
           label="Senha" // Password
           required={true}
@@ -129,6 +142,7 @@ export default function LoginForm() {
           className={"text-right underline text-base text-black mb-15 ml-[205px]"}
           onPress={() => setModalVisible(true)}
         >
+          {/* reset your password? */}
           Esqueceu a senha?
         </Text>
       </View>

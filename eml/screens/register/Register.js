@@ -22,14 +22,16 @@ export default function Register() {
               <RegisterForm />
             </View>
             <View className="flex-row justify-center items-end">
-              <Text className={"text-gray leading-5 text-base"}>
-                Já possui conta? {/* Already have an account? */}
+              <Text className="text-gray leading-5 text-base">
+                {/* Already have an account? */}
+                Já possui conta? 
               </Text>
               <Text
                 className={"text-black leading-5 text-base underline"}
                 onPress={() => navigation.navigate("Login")}
               >
-                Entre agora {/* Log in now */}
+                {/* Log in now */}
+                Entre agora 
               </Text>
             </View>
           </View>
