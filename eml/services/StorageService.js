@@ -355,7 +355,7 @@ export const refreshSubCourseList = async () => {
           published: course.published,
           description: course.description,
           iconPath: course.category == null ? '' : course.category.icon,
-          category: course.category == null ? '' : course.category.id,
+          category: course.category,
           isActive: localCourse == null ? false : localCourse.isActive,
         });
       }

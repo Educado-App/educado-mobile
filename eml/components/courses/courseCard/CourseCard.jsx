@@ -33,7 +33,11 @@ export default function CourseCard({ course, downloadState }) {
         </View>
         <View className="flex-row" style={{alignItems: 'baseline'}}>
             <CourseProgress fracTop={50} fracBot={100} />
-            <Pressable style={styles.playIcon} onPress={()=>navigation.navigate('Edu')}>
+            <Pressable style={styles.playIcon} onPress={()=> {
+                                    navigation.navigate('Section', {
+                                    courseId: course.courseId,
+                                  });
+                                }}>
                 <MaterialCommunityIcons size={28} name="play-circle" color={'#5ECCE9'}></MaterialCommunityIcons>
             </Pressable>
         </View>
