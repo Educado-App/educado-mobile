@@ -9,11 +9,9 @@ import Text from '../general/Text';
  * @returns {React.Element} JSX element for showing alerts
  */
 export default function FormFieldAlert(props) {
-
   return (
     <View className="flex-row items-center">
-      <Text className={"text-xs text-error mx-2"}>
-        {/* Passwords must match */}
+      <Text className="text-xs text-error mx-2">
         {props.label}
       </Text>
     </View>
