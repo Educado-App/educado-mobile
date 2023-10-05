@@ -1,10 +1,10 @@
 import axios from 'axios';
 
 const testUrl = 'http://localhost:8888';
-const testExpo = 'http://172.30.254.230:8888'; //Change to local expo ip
-const digitalOcean = 'http://207.154.213.68:8888'; // Doesn't work anymore
+const testExpo = 'http://192.168.1.31:8888'; //Change to local expo ip
+const digitalOcean = 'http://207.154.213.68:8888';
 
-const url = testExpo;
+const url = digitalOcean;
 
 // Find a solution to refresh auth-token
 const authToken = '';
@@ -24,28 +24,30 @@ export const getAuthToken = async () => {
 };
 
 export const getTestCourse = async () => {
-  const res = await axios.get(url + '/api/course/650c01f06fe6094f6214a487');
-    return res.data;
+  const res = await axios.get(
+    url + '/api/public/courses/635fb5b9b2fb6c4f49084682'
+  );
+  return res.data;
 };
 
 export const getCoursesWithAuth = async () => {
-  const res = await axios.get(url + '/api/course', config);
+  const res = await axios.get(url + '/api/courses', config);
   return res.data;
 };
 
 export const getCourseWithAuth = async (courseId) => {
-  const res = await axios.get(url + '/api/course/' + courseId, config);
+  const res = await axios.get(url + '/api/courses/' + courseId, config);
   return res.data;
 };
 
 export const getCourses = async () => {
   // TODO: add bearer token to request header and omit /public
-  const res = await axios.get(url + '/api/course/eml/getall');
+  const res = await axios.get(url + '/api/public/courses');
   return res.data;
 };
 
 export const getCourse = async (courseId) => {
-  const res = await axios.get(url + '/api/course/' + courseId);
+  const res = await axios.get(url + '/api/public/courses/' + courseId);
   return res.data;
 };
 

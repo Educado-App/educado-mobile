@@ -1,11 +1,11 @@
 import axios from 'axios'
 
 const prod = 'http://educado.somethingnew.dk'
-const test = 'http://172.30.254.230:8888' // Change this to your LOCAL IP address when testing.
+const test = 'http://192.168.1.31:8888' // Change this to your LOCAL IP address when testing.
 const local = 'http://localhost:8888'
-const digitalOcean = 'http://207.154.213.68:8888' // Doesn't work anymore
+const digitalOcean = 'http://207.154.213.68:8888'
 
-const url = test;
+const url = digitalOcean;
 
 export const registerUser = async (obj) => {
   const res = await axios.post(url + '/api/eml/register', obj)
@@ -17,45 +17,10 @@ export const loginUser = async (obj) => {
   return res.data
 }
 
-export const deleteUser = async (user_id) => {
-  try {
-    const res = await axios.delete(url + `/api/user/delete/` + user_id);
+export const deleteUser = async(user_id) => {
+    const res = await axios.delete(url + "/api/eml/delete/" + user_id);
     return res.data;
-  } catch (error) {
-    // Handle errors here
-    throw error; // You may want to handle the error or log it
-  }
-};
-
-export const updateFirstName = async (user_id, new_FirstName) => {
-  try {
-    const res = await axios.put(url + `/api/user/update-first_name/` + user_id, { newFirstName: new_FirstName });
-    return res.data;
-  } catch (error) {
-    // Handle errors here
-    throw error; // You may want to handle the error or log it
-  }
-};
-
-export const updateLastName = async (user_id, new_LastName) => {
-  try {
-    const res = await axios.put(url + `/api/user/update-last_name/` + user_id, { newLastName: new_LastName });
-    return res.data;
-  } catch (error) {
-    // Handle errors here
-    throw error; // You may want to handle the error or log it
-  }
-};
-
-export const updateUserEmail = async (user_id, new_email) => {
-  try {
-    const res = await axios.put(url + `/api/user/update-email/` + user_id, { newEmail: new_email });
-    return res.data;
-  } catch (error) {
-    // Handle errors here
-    throw error; // You may want to handle the error or log it
-  }
-};
+}
 
 export const enrollInCourse = async (user_Id, course_Id) => {
   try {
