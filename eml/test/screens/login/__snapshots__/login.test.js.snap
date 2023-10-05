@@ -230,12 +230,17 @@ exports[`Login screen renders 1`] = `
                   style={
                     [
                       {
-                        "marginLeft": 8,
+                        "fontFamily": "Montserrat-Regular",
                       },
-                      {
-                        "fontSize": 12,
-                        "lineHeight": 16,
-                      },
+                      [
+                        {
+                          "marginLeft": 8,
+                        },
+                        {
+                          "fontSize": 12,
+                          "lineHeight": 16,
+                        },
+                      ],
                     ]
                   }
                 >
@@ -245,15 +250,20 @@ exports[`Login screen renders 1`] = `
                   style={
                     [
                       {
-                        "marginLeft": 4,
+                        "fontFamily": "Montserrat-Regular",
                       },
-                      {
-                        "fontSize": 12,
-                        "lineHeight": 16,
-                      },
-                      {
-                        "color": "#CF6679",
-                      },
+                      [
+                        {
+                          "marginLeft": 4,
+                        },
+                        {
+                          "fontSize": 12,
+                          "lineHeight": 16,
+                        },
+                        {
+                          "color": "#CF6679",
+                        },
+                      ],
                     ]
                   }
                 >
@@ -307,16 +317,21 @@ exports[`Login screen renders 1`] = `
                 style={
                   [
                     {
-                      "fontSize": 12,
-                      "lineHeight": 16,
+                      "fontFamily": "Montserrat-Regular",
                     },
-                    {
-                      "color": "#CF6679",
-                    },
-                    {
-                      "marginLeft": 8,
-                      "marginRight": 8,
-                    },
+                    [
+                      {
+                        "fontSize": 12,
+                        "lineHeight": 16,
+                      },
+                      {
+                        "color": "#CF6679",
+                      },
+                      {
+                        "marginLeft": 8,
+                        "marginRight": 8,
+                      },
+                    ],
                   ]
                 }
               />
@@ -351,12 +366,17 @@ exports[`Login screen renders 1`] = `
                   style={
                     [
                       {
-                        "marginLeft": 8,
+                        "fontFamily": "Montserrat-Regular",
                       },
-                      {
-                        "fontSize": 12,
-                        "lineHeight": 16,
-                      },
+                      [
+                        {
+                          "marginLeft": 8,
+                        },
+                        {
+                          "fontSize": 12,
+                          "lineHeight": 16,
+                        },
+                      ],
                     ]
                   }
                 >
@@ -366,15 +386,20 @@ exports[`Login screen renders 1`] = `
                   style={
                     [
                       {
-                        "marginLeft": 4,
+                        "fontFamily": "Montserrat-Regular",
                       },
-                      {
-                        "fontSize": 12,
-                        "lineHeight": 16,
-                      },
-                      {
-                        "color": "#CF6679",
-                      },
+                      [
+                        {
+                          "marginLeft": 4,
+                        },
+                        {
+                          "fontSize": 12,
+                          "lineHeight": 16,
+                        },
+                        {
+                          "color": "#CF6679",
+                        },
+                      ],
                     ]
                   }
                 >
@@ -449,16 +474,21 @@ exports[`Login screen renders 1`] = `
                 style={
                   [
                     {
-                      "fontSize": 12,
-                      "lineHeight": 16,
+                      "fontFamily": "Montserrat-Regular",
                     },
-                    {
-                      "color": "#CF6679",
-                    },
-                    {
-                      "marginLeft": 8,
-                      "marginRight": 8,
-                    },
+                    [
+                      {
+                        "fontSize": 12,
+                        "lineHeight": 16,
+                      },
+                      {
+                        "color": "#CF6679",
+                      },
+                      {
+                        "marginLeft": 8,
+                        "marginRight": 8,
+                      },
+                    ],
                   ]
                 }
               />
@@ -470,21 +500,26 @@ exports[`Login screen renders 1`] = `
               style={
                 [
                   {
-                    "textAlign": "right",
+                    "fontFamily": "Montserrat-Regular",
                   },
-                  {
-                    "textDecorationLine": "underline",
-                  },
-                  {
-                    "fontSize": 16,
-                    "lineHeight": 24,
-                  },
-                  {
-                    "color": "#383838",
-                  },
-                  {
-                    "marginLeft": 205,
-                  },
+                  [
+                    {
+                      "textAlign": "right",
+                    },
+                    {
+                      "textDecorationLine": "underline",
+                    },
+                    {
+                      "fontSize": 16,
+                      "lineHeight": 24,
+                    },
+                    {
+                      "color": "#383838",
+                    },
+                    {
+                      "marginLeft": 205,
+                    },
+                  ],
                 ]
               }
             >
@@ -561,14 +596,19 @@ exports[`Login screen renders 1`] = `
                 style={
                   [
                     {
-                      "color": "#FFFFFF",
+                      "fontFamily": "Montserrat-Regular",
                     },
-                    {
-                      "fontSize": 16,
-                    },
-                    {
-                      "fontWeight": "700",
-                    },
+                    [
+                      {
+                        "color": "#FFFFFF",
+                      },
+                      {
+                        "fontSize": 16,
+                      },
+                      {
+                        "fontWeight": "700",
+                      },
+                    ],
                   ]
                 }
               >
@@ -625,15 +665,20 @@ exports[`Login screen renders 1`] = `
           style={
             [
               {
-                "fontSize": 16,
-                "lineHeight": 24,
+                "fontFamily": "Montserrat-Regular",
               },
-              {
-                "color": "#A1ACB2",
-              },
-              {
-                "marginRight": 4,
-              },
+              [
+                {
+                  "fontSize": 16,
+                  "lineHeight": 24,
+                },
+                {
+                  "color": "#A1ACB2",
+                },
+                {
+                  "marginRight": 4,
+                },
+              ],
             ]
           }
         >
@@ -644,15 +689,20 @@ exports[`Login screen renders 1`] = `
           style={
             [
               {
-                "fontSize": 16,
-                "lineHeight": 24,
+                "fontFamily": "Montserrat-Regular",
               },
-              {
-                "color": "#383838",
-              },
-              {
-                "textDecorationLine": "underline",
-              },
+              [
+                {
+                  "fontSize": 16,
+                  "lineHeight": 24,
+                },
+                {
+                  "color": "#383838",
+                },
+                {
+                  "textDecorationLine": "underline",
+                },
+              ],
             ]
           }
           testId="registerNav"

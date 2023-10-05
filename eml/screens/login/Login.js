@@ -6,8 +6,7 @@ import LoginForm from "../../components/login/LoginForm";
 import LogoBackButton from "../../components/login/LogoBackButton";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TouchableWithoutFeedback } from "react-native";
-import getFont from "../../components/general/GetFont";
-import { useFonts } from "expo-font";
+import Text from "../../components/general/Text";
 
 const LOGIN_TOKEN = "@loginToken";
 
@@ -18,9 +17,6 @@ const LOGIN_TOKEN = "@loginToken";
 export default function Login(props) {
 
   const navigation = useNavigation();
-  const [loaded] = useFonts({
-    fontFileName: require("../../assets/fonts/Montserrat-Regular.ttf")
-  });
 
   /**
    * Function for checking if a login token is stored in async local storage (i.e. if the user is already logged in)
@@ -55,12 +51,12 @@ export default function Login(props) {
             </View>
             {/* Register button */}
             <View className="flex-row justify-center">
-              <Text className={"text-base text-gray mr-1" + getFont()}>
+              <Text className={"text-base text-gray mr-1"}>
                 Ainda não tem conta? {/*  */}
               </Text>
               <Text
                 testId="registerNav"
-                className={"text-base text-black underline" + getFont()}
+                className={"text-base text-black underline"}
                 onPress={() => navigation.navigate("Register")}
               >
                 Cadastre-se agora

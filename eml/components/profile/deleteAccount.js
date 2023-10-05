@@ -2,7 +2,7 @@ import { StyleSheet, View, TouchableOpacity, Alert } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { Feather } from '@expo/vector-icons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { Text } from '@rneui/base'
+import Text from '../general/Text';
 import { deleteUser, loginUser } from '../../api/userApi'
 import {clearAsyncStorage} from "../../services/StorageService";
 
