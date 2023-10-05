@@ -16,7 +16,6 @@ import WrongAnswerComponent from './screens/excercise/WrongAnswerScreen';
 import Explore from './screens/explore/Explore';
 import { TailwindProvider } from 'tailwindcss-react-native';
 import TestScreen from './screens/test/TestScreen';
-import Sections from './screens/Sections/Sections'; 
 import ErrorScreen from './screens/errors/ErrorScreen';
 import SectionCompleteScreen from './screens/excercise/SectionCompleteScreen';
 import NavBar from './components/navBar/NavBar'; // Import the NavBar component
