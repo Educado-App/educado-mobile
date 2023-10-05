@@ -136,7 +136,7 @@ export const getCourses = async () => {
 /****** SUBSCRIPTION *******/
 
 // Get user subsribtions
-export const getSubsribtions = async () => {
+export const getSubscriptions = async () => {
 
   const userId = await AsyncStorage.getItem("@userId");
   

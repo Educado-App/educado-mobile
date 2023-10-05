@@ -342,7 +342,7 @@ export const getSubCourseList = async () => {
 };
 export const refreshSubCourseList = async () => {
   return await api
-    .getSubsribtions()
+    .getSubscriptions()
     .then(async (list) => {
       let newCourseList = [];
       for (const course of list) {
