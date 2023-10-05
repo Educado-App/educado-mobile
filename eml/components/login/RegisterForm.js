@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Alert, View, Text } from "react-native";
+import { View } from "react-native";
 import { registerUser } from "../../api/userApi";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import FormTextField from "./FormTextField";
@@ -9,6 +9,8 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import ShowAlert from "../general/ShowAlert";
 import FormFieldAlert from "./FormFieldAlert";
 import { removeEmojis, validatePasswordContainsLetter, validatePasswordLength, validateEmail, validateName } from "../general/Validation";
+import Text from "../general/Text";
+import patterns from "../../assets/validation/patterns";
 
 const USER_INFO = "@userInfo";
 
@@ -16,6 +18,7 @@ const USER_INFO = "@userInfo";
  * Component for registering a new account in the system, used in the register screen
  * @returns {React.Element} Component containing the form for registering a new user
  */
+
 export default function LoginForm(props) {
 
   const [firstName, setFirstName] = useState("");
@@ -23,7 +26,7 @@ export default function LoginForm(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  
+ 
   const [emailAlert, setEmailAlert] = useState("");
   const [nameAlert, setNameAlert] = useState("");
   const [isAllInputValid, setIsAllInputValid] = useState(false);
@@ -155,6 +158,7 @@ export default function LoginForm(props) {
           await saveUserInfoLocally(response._id, firstName, lastName, email);
         })
         .catch((error) => {
+        
           switch (error?.error?.code) {
             case 'E0201':
               // User with this email already exists
@@ -194,6 +198,7 @@ export default function LoginForm(props) {
             case 'E0210':
               // Names must be between 1 and 50 characters
               ShowAlert('Nomes devem ter entre 1 e 50 caracteres');
+
               break;
 
             case 'E0211':
@@ -206,6 +211,7 @@ export default function LoginForm(props) {
               // Something unknown went wrong
               ShowAlert("Erro desconhecido! (unknown error)");
               break;
+              
           }
         });
     } catch (e) {
@@ -234,11 +240,11 @@ export default function LoginForm(props) {
       console.log(e);
     }
   }
-
   return (
     <View>
       <View className="mb-6">
         <FormTextField
+
           label="Primeiro nome"
           name={"Primeiro nome"}
           value={firstName}
@@ -257,6 +263,7 @@ export default function LoginForm(props) {
           value={lastName}
           // Last name
           placeholder="Sobrenome"
+
           required={true}
           onChangeText={(lastName) => {
             setLastName(lastName);
@@ -269,20 +276,21 @@ export default function LoginForm(props) {
           className="mb-6"
           label="Email"
           name={"Email"}
+          testId="emailInput"
           value={email}
-          //Email
           placeholder="user@email.com"
           keyboardType="email-address"
           required={true}
-          onChangeText={(email) => { setEmail(email); }}
+          onChangeText={async (email) => { setEmail(email); validateEmail(email); }}
         />
-        <FormFieldAlert label={emailAlert} />
+        <FormFieldAlert label={emailAlert} testId="emailAlert" />
       </View>
       <View className="mb-6">
         <View className="relative">
           <FormTextField
             label="Senha" //Password
             name={"password"}
+            testId="passwordInput"
             value={password}
             placeholder="Entre sua senha" // Enter your password
             placeholderTextColor="grey"
@@ -290,6 +298,7 @@ export default function LoginForm(props) {
             required={true}
             onChangeText={(inputPassword) => {
               setPassword(removeEmojis(inputPassword, password));
+
             }}
           />
           <PasswordEye
@@ -300,7 +309,7 @@ export default function LoginForm(props) {
         </View>
 
         <View className="flex-row justify-start mt-1 h-6">
-          <Text className={"text-xs font-montserrat" + ((passwordLengthValid || !password) ? " text-gray" : " text-error")}>
+          <Text testId="passwordLengthAlert" className={"text-xs" + ((passwordLengthValid || !password) ? " text-gray" : " text-error")}>
             {/* Minimum 8 characters */}
             • Mínimo 8 caracteres
           </Text>
@@ -311,7 +320,7 @@ export default function LoginForm(props) {
           </View>
         </View>
         <View className="flex-row justify-start h-6">
-          <Text className={"text-xs font-montserrat" + ((passwordContainsLetter || !password) ? " text-gray" : " text-error")}>
+          <Text testId="passwordLetterAlert" className={"text-xs font-sans" + ((passwordContainsLetter || !password) ? " text-gray" : " text-error")}>
             {/* Must contain at least one letter */}
             • Conter pelo menos uma letra
           </Text>
@@ -327,14 +336,17 @@ export default function LoginForm(props) {
           <FormTextField
             label="Confirmar Senha" // Confirm password
             value={confirmPassword}
+            testId="confirmPasswordInput"
             onChangeText={(inputConfirmPassword) => {
               setConfirmPassword(removeEmojis(inputConfirmPassword, confirmPassword));
             }}
+
             placeholder="Confirme sua senha" // Confirm your password
             secureTextEntry={!showConfirmPassword}
             required={true}
           />
           <PasswordEye
+            testId = "confirmPasswordEye"
             showPasswordIcon={showConfirmPassword}
             toggleShowPassword={toggleShowConfirmPassword}
           />
@@ -345,6 +357,7 @@ export default function LoginForm(props) {
         <FormButton
           onPress={() => register(firstName, lastName, email, password)}
           label="Cadastrar" // Register
+          testId="registerButton"
           disabled={!isAllInputValid}
         />
       </View>

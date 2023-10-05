@@ -1,9 +1,10 @@
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import { React, useState } from "react";
 import FormTextField from "./FormTextField";
 import FormButton from "./FormButton";
 import EducadoModal from "../general/EducadoModal";
 import EnterNewPasswordScreen from "./EnterNewPasswordScreen";
+import Text from '../general/Text';
 
 /**
  * Component to create modal (popup) that prompts user for

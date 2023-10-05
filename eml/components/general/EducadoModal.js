@@ -1,7 +1,8 @@
 import { React } from 'react';
-import { View, Text, Modal, Pressable, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { View, Modal, Pressable, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 import EducadoLogo from '../images/EducadoLogo';
+import Text from './Text';
 
 /**
  * 

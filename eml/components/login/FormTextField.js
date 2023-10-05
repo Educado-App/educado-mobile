@@ -1,6 +1,6 @@
 import React from "react";
-import { isFontsLoaded } from "../../constants/Fonts.js";
-import { Text, View, TextInput } from "react-native";
+import { View, TextInput } from "react-native";
+import Text from "../general/Text";
 
 /**
  * Text field component for forms (e.g. login, register, etc.). 
@@ -23,21 +23,21 @@ export default function FormTextField(props) {
   return (
     <View>
       <View className="flex flex-row">
-        <Text className="ml-2 text-xs font-montserrat">
+        <Text className={"ml-2 text-xs"}>
           {props.label ? props.label : ""}
         </Text>
-        <Text className="ml-1 text-xs text-error font-montserrat">
+        <Text className={"ml-1 text-xs text-error"}>
           {props.required ? "*" : ""}
         </Text>
       </View>
       <View className=''>
-        <TextInput className={'h-50 br-25 py-1 pl-[10px] bg-white rounded-lg font-montserrat' + 
+        <TextInput className={'h-50 br-25 py-1 pl-[10px] bg-white rounded-lg' +
                                   (props.bordered ? ' border-2 border-gray' : '') + (props.error ? ' border-2 border-error' : '')}
-          placeholder={props.placeholder ? props.placeholder : ""} // Placeholder text to be displayed
-          keyboardType={props.keyboardType ? props.keyboardType : "default"} // Keyboard type (e.g. numeric, email-address, etc.)
-          autoComplete={props.autoComplete ? props.autoComplete : "off"} // Whether to enable auto-completion
-          secureTextEntry={props.secureTextEntry ? props.secureTextEntry : false} // Whether to mask the input (for passwords, etc.)
-          passwordGuidelines={props.passwordGuidelines ? props.passwordGuidelines : false} // Whether to display password guidelines
+          placeholder={props.placeholder ?? ""} // Placeholder text to be displayed
+          keyboardType={props.keyboardType ?? "default"} // Keyboard type (e.g. numeric, email-address, etc.)
+          autoComplete={props.autoComplete ?? "off"} // Whether to enable auto-completion
+          secureTextEntry={props.secureTextEntry ?? false} // Whether to mask the input (for passwords, etc.)
+          passwordGuidelines={props.passwordGuidelines ?? false} // Whether to display password guidelines
           onChangeText={props.onChangeText ? value => props.onChangeText(value) : null} // Callback function to be called when the text changes
           value={props.value} // Value of the input
         />

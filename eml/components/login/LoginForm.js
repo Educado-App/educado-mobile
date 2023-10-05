@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { View, Text } from "react-native";
+import React, { useState } from "react";
+import { View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { loginUser } from "../../api/userApi";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -7,10 +7,9 @@ import FormTextField from "./FormTextField";
 import FormButton from "./FormButton";
 import PasswordEye from "./PasswordEye";
 import ResetPassword from "./ResetPassword";
-import { isFontsLoaded } from "../../constants/Fonts.js";
-import ShowAlert from "../general/ShowAlert";
 import FormFieldAlert from "./FormFieldAlert";
 import { removeEmojis } from "../general/Validation";
+import Text from "../general/Text";
 
 const LOGIN_TOKEN = "@loginToken";
 const USER_INFO = "@userInfo";
@@ -29,6 +28,8 @@ export default function LoginForm() {
   const [modalVisible, setModalVisible] = useState(false);
   const [passwordAlert, setPasswordAlert] = useState("");
   const [emailAlert, setEmailAlert] = useState("");
+  // State variable to track password visibility
+  const [showPassword, setShowPassword] = useState(false);
 
   /**
    * Logs user in with the entered credentials 
@@ -36,7 +37,7 @@ export default function LoginForm() {
    * @param {String} password Password user tries to login with
    */
   async function login(email, password) {
-    
+
     //Reset alerts
     setEmailAlert("");
     setPasswordAlert("");
@@ -81,6 +82,7 @@ export default function LoginForm() {
     } catch (e) {
       console.log(e);
     }
+
   }
 
   // Function to close the reset password modal
@@ -88,8 +90,6 @@ export default function LoginForm() {
     setModalVisible(false);
   };
 
-  // State variable to track password visibility
-  const [showPassword, setShowPassword] = useState(false);
 
   // Function to toggle the password visibility state
   const toggleShowPassword = () => {
@@ -100,18 +100,20 @@ export default function LoginForm() {
     <View>
       <View className="mb-6">
         <FormTextField
+          testId="emailInput"
           placeholder="user@email.com"
           onChangeText={(email) => setEmail(email)}
           label="Email"
           required={true}
           keyboardType="email-address"
         />
-        <FormFieldAlert label={emailAlert} />
+        <FormFieldAlert testId="emailAlert" label={emailAlert} />
       </View>
-      
+
 
       <View className="relative mb-6">
         <FormTextField
+          testId="passwordInput"
           placeholder="Digite sua senha" // Type your password
           value={password}
           onChangeText={(inputPassword) => {
@@ -122,16 +124,17 @@ export default function LoginForm() {
           secureTextEntry={!showPassword}
         />
         <PasswordEye
+          testId="passwordEye"
           showPasswordIcon={showPassword}
           toggleShowPassword={toggleShowPassword}
         />
-        <FormFieldAlert label={passwordAlert} />
+        <FormFieldAlert testId="passwordAlert" label={passwordAlert} />
       </View>
-      
+
       <View>
         {/* TODO: tilføj onPress til nedenstående; reset password */}
         <Text
-          className="text-right underline font-montserrat text-base text-black mb-15 ml-[205px]"
+          className={"text-right underline text-base text-black mb-15 ml-[205px]"}
           onPress={() => setModalVisible(true)}
         >
           {/* reset your password? */}
@@ -139,20 +142,21 @@ export default function LoginForm() {
         </Text>
       </View>
       {/* Enter */}
-      <FormButton 
-        label="Entrar" 
+      <FormButton
+        testId="loginButton"
+        label="Entrar"
         onPress={() => login(email, password)}
         disabled={!(password.length > 0 && email.length > 0)}
       />
       <View className="pt-10">
-        {modalVisible ? (
-          <ResetPassword
-            modalVisible={modalVisible}
-            onModalClose={closeModal}
-            // Reset password
-            title="Redefinção de senha"
-          />
-        ) : null}
+        <ResetPassword
+          className={(!modalVisible ? "hidden" : "")}
+          modalVisible={modalVisible}
+          onModalClose={closeModal}
+          testId="resetPasswordModal"
+          // Reset password
+          title="Redefinção de senha"
+        />
       </View>
     </View>
   );
