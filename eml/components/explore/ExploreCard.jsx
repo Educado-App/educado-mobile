@@ -28,6 +28,24 @@ export default function ExploreCard({ course }) {
     VarelaRound_400Regular,
   });
 
+<<<<<<< Updated upstream
+=======
+  useEffect(() => {
+    // Use the async function within an async context
+    async function checkSubscription() {
+      try {
+        const result = await ifSubscribed(course.courseId);
+        setIsSubscribed(result); // Assuming your ifSubscribed function returns a boolean
+      } catch (error) {
+        console.error("Error checking subscription:", error);
+      }
+    }
+
+    checkSubscription();
+  }, [course.courseId, ifSubscribed(course.courseId), course]);
+
+
+>>>>>>> Stashed changes
   if (!fontsLoaded) {
     return AppLoading;
   } else {
@@ -182,11 +200,21 @@ export default function ExploreCard({ course }) {
           >
 
             <View>
+<<<<<<< Updated upstream
               { 
               isSubscribed ?
               <AccesCourseButton onClick={(value) => setIsSubscribed(value)} />:
               <SubscriptionButton onClick={(value) => {setIsSubscribed(value); subscribeToCourse(course.courseId)}} />
               }
+=======
+              {
+                isSubscribed ? (
+                  <AccesCourseButton course={course} />
+                ) : (
+                  <SubscriptionButton course={course}  />
+                  )
+                }
+>>>>>>> Stashed changes
             </View>
             
           </View>

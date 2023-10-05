@@ -43,11 +43,17 @@ export default function CourseScreen() {
             console.log(course);
             if (!course.isEmpty && Array.isArray(course) ) {
                 setCourseLoaded(true);
+<<<<<<< Updated upstream
             } else {
                 
             }
     });
     }, [route.params, downloadState])
+=======
+            });
+
+    }, [route.params, downloadState, course])
+>>>>>>> Stashed changes
 
     
     if (!fontsLoaded) {
