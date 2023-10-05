@@ -3,11 +3,11 @@
   "courseId": "dummyCourseId",
   "sectionId": "dummySectionId",
   "content": "https://example.com/dummy-exercise-video.mp4",
-  "question": "What is the answer to this question?",
+  "question": "Qual é a pergunta que o content creator irá fazer nessa etapa?",
   "answers": [
     {
       "id": "answer1",
-      "text": "Option option option option option option placeholder  placeholder placeholder",
+      "text": "Option option option option option option placeholder  placeholder placeholderOption option option option option option placeholder  placeholder placeholderOption option option option option option placeholder  placeholder placeholderOption option option option option option placeholder  placeholder placeholderOption option option option option option placeholder  placeholder placeholderOption option option option option option placeholder  placeholder placeholderOption option option option option option placeholder  placeholder placeholderOption option option option option option placeholder  placeholder placeholderOption option option option option option placeholder  placeholder placeholderOption option option option option option placeholder  placeholder placeholderOption option option option option option placeholder  placeholder placeholderOption option option option option option placeholder  placeholder placeholderOption option option option option option placeholder  placeholder placeholderOption option option option option option placeholder  placeholder placeholderOption option option option option option placeholder  placeholder placeholderOption option option option option option placeholder  placeholder placeholderOption option option option option option placeholder  placeholder placeholderOption option option option option option placeholder  placeholder placeholderOption option option option option option placeholder  placeholder placeholderOption option option option option option placeholder  placeholder placeholder",
       "isCorrect": true
     },
     {

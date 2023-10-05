@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useRef, useState } from "react";
-import { ScrollView, StyleSheet, View, Text, Image } from "react-native";
+import { ScrollView, StyleSheet, View, Text, Image, TouchableHighlight } from "react-native";
 import LeaveButton from "../../components/exercise/LeaveButton";
 import ExerciseButtons from "../../components/exercise/ExerciseButtons";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -9,10 +9,13 @@ import CustomProgressBar from "../../components/exercise/Progressbar";
 import dummyExerciseData from "./dummyExerciseData.json";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Button, RadioButton } from "react-native-paper";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { Dimensions } from 'react-native';
 
 export default function ExerciseScreen() {
   const navigation = useNavigation();
   const route = useRoute();
+  const screenHeight = Dimensions.get('window').height;
 
   const [hasData, setHasData] = useState(false);
   const [signal, setSignal] = useState([]);
@@ -47,8 +50,6 @@ export default function ExerciseScreen() {
     const exercise = dummyExerciseData;
 
     if (exercise !== null) {
-      console.log(exercise);
-
       /* const courseId = exercise.courseId || "defaultCourseId";
       const sectionId = exercise.sectionId || "defaultSectionId";*/
 
@@ -97,7 +98,7 @@ export default function ExerciseScreen() {
             <CustomProgressBar progress={0.25 / 1}></CustomProgressBar>
           </View>
           <View>
-            <Text className="text-center font-montserrat-bold text-[caption-medium] text-[projectBlack]"> 
+            <Text className="px-3 text-center font-montserrat-bold text-[caption-medium] text-[projectBlack]"> 
               25% 
             </Text> 
           </View>
@@ -108,30 +109,39 @@ export default function ExerciseScreen() {
           <Text> Sem dados</Text>
         ) : (
           <View className="items-center">
-            <Text className="text-center font-montserrat-bold text-[projectBlack]">
+            <Text className="py-7 text-center font-montserrat-bold text-[projectBlack] w-5/6">
               {dummyExerciseData.question}
             </Text>
 
-            <ScrollView>
+            <ScrollView height={screenHeight * 0.569} className="">
               {/* Map through the answers and render each one */}
               {dummyExerciseData.answers.map((answer) => (
                 <View
                   key={answer.id}
-                  className="flex-row items-center pb-8"
+                  className="flex-row pb-8 w-5/6"
                 >
-                  <RadioButton.Android
-                    value={answer.id}
-                    status={
-                      selectedAnswer === answer.id ? "checked" : "unchecked"
-                    }
-                    onPress={() => handleAnswerSelect(answer.id)}
-                    color= "#5ECCE9"
-                    uncheckedColor="#5ECCE9"
-                  />
-                  <Text> {answer.text}</Text>
+                  <View>
+                    <RadioButton.Android
+                      value={answer.id}
+                      status={
+                        selectedAnswer === answer.id ? "checked" : "unchecked"
+                      }
+                      onPress={() => handleAnswerSelect(answer.id)}
+                      color= "#5ECCE9"
+                      uncheckedColor="#5ECCE9"
+                    />
+                  </View>
+                  <Text className="font-montserrat"> {answer.text}</Text>
                 </View>
               ))}
-              <Text className="text-center font-montserrat text-body text-primary underline" onPress={console.log("REVIEW!")}>Review answer</Text>
+              {selectedAnswer !== null && (
+                <View>
+                  <Text
+                    onPress={() => console.log("REVIEW2")}
+                    className="text-center font-montserrat text-body text-primary underline">
+                    Review answer
+                  </Text>
+                </View>)}
             </ScrollView>
             <View className="">
               <Text className="font-montserrat text-caption-small">Course name: {dummyExerciseData.courseId}</Text>
