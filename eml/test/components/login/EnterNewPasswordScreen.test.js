@@ -1,8 +1,11 @@
 import renderer from 'react-test-renderer';
 import EnterNewPasswordLayout from "../../../components/login/EnterNewPasswordScreen";
 
-test("Enter new password screen renders correctly", () => {
-  const newPasswordLayout = renderer.create(<EnterNewPasswordLayout />);
+test("Enter new password screen renders correctly", async () => {
+  let newPasswordLayout;
+  await renderer.act(() => {
+    newPasswordLayout = renderer.create(<EnterNewPasswordLayout />);
+  });
   
   const tree = newPasswordLayout.toJSON();
   expect(tree).toMatchSnapshot();
@@ -14,7 +17,7 @@ test("toggleShowPassword toggles password visibility correctly", async () => {
   const button = newPasswordLayout.root.findByProps({ id: "showPasswordEye" });
 
   expect(textField.props.secureTextEntry).toBeTruthy();
-  renderer.act(() => {
+  await renderer.act(() => {
     button.props.toggleShowPassword();
   });
   expect(textField.props.secureTextEntry).toBeFalsy();

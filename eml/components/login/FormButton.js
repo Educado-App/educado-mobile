@@ -1,6 +1,6 @@
 import React from "react";
-import { isFontsLoaded } from "../../constants/Fonts.js";
-import { Text, View, Pressable } from "react-native";
+import { View, Pressable } from "react-native";
+import Text from "../general/Text";
 
 /**
  * Button component for eg. login and register screens.

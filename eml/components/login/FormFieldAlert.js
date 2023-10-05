@@ -1,5 +1,6 @@
 import { React } from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
+import Text from '../general/Text';
 
 /**
  * Component for showing an alert below a form field
@@ -8,9 +9,10 @@ import { Text, View } from 'react-native';
  * @returns {React.Element} JSX element for showing alerts
  */
 export default function FormFieldAlert(props) {
+
   return (
     <View className="flex-row items-center">
-      <Text className="text-xs text-error mx-2 font-montserrat">
+      <Text className={"text-xs text-error mx-2"}>
         {/* Passwords must match */}
         {props.label}
       </Text>

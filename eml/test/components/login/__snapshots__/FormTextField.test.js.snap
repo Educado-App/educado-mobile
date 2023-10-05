@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Ensure that the field is rendered correctly without props 1`] = `
+exports[`Ensure that the text field is rendered correctly 1`] = `
 <View>
   <View
     style={
@@ -18,15 +18,17 @@ exports[`Ensure that the field is rendered correctly without props 1`] = `
       style={
         [
           {
-            "marginLeft": 8,
-          },
-          {
-            "fontSize": 12,
-            "lineHeight": 16,
-          },
-          {
             "fontFamily": "Montserrat-Regular",
           },
+          [
+            {
+              "marginLeft": 8,
+            },
+            {
+              "fontSize": 12,
+              "lineHeight": 16,
+            },
+          ],
         ]
       }
     />
@@ -34,18 +36,20 @@ exports[`Ensure that the field is rendered correctly without props 1`] = `
       style={
         [
           {
-            "marginLeft": 4,
-          },
-          {
-            "fontSize": 12,
-            "lineHeight": 16,
-          },
-          {
-            "color": "#CF6679",
-          },
-          {
             "fontFamily": "Montserrat-Regular",
           },
+          [
+            {
+              "marginLeft": 4,
+            },
+            {
+              "fontSize": 12,
+              "lineHeight": 16,
+            },
+            {
+              "color": "#CF6679",
+            },
+          ],
         ]
       }
     />
@@ -75,9 +79,6 @@ exports[`Ensure that the field is rendered correctly without props 1`] = `
             "borderBottomRightRadius": 8,
             "borderTopLeftRadius": 8,
             "borderTopRightRadius": 8,
-          },
-          {
-            "fontFamily": "Montserrat-Regular",
           },
         ]
       }

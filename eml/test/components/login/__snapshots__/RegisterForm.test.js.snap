@@ -1,1539 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Check that password visibility is toggled correctly 1`] = `
-<View>
-  <View
-    style={
-      [
-        {
-          "marginBottom": 24,
-        },
-      ]
-    }
-  >
-    <View>
-      <View
-        style={
-          [
-            {
-              "display": "flex",
-            },
-            {
-              "flexDirection": "row",
-            },
-          ]
-        }
-      >
-        <Text
-          style={
-            [
-              {
-                "marginLeft": 8,
-              },
-              {
-                "fontSize": 12,
-                "lineHeight": 16,
-              },
-              {
-                "fontFamily": "Montserrat-Regular",
-              },
-            ]
-          }
-        >
-          Nome
-        </Text>
-        <Text
-          style={
-            [
-              {
-                "marginLeft": 4,
-              },
-              {
-                "fontSize": 12,
-                "lineHeight": 16,
-              },
-              {
-                "color": "#CF6679",
-              },
-              {
-                "fontFamily": "Montserrat-Regular",
-              },
-            ]
-          }
-        >
-          *
-        </Text>
-      </View>
-      <View>
-        <TextInput
-          autoComplete="off"
-          keyboardType="default"
-          onChangeText={[Function]}
-          passwordGuidelines={false}
-          placeholder="Nome Sobrenome"
-          secureTextEntry={false}
-          style={
-            [
-              {
-                "paddingBottom": 4,
-                "paddingTop": 4,
-              },
-              {
-                "paddingLeft": 10,
-              },
-              {
-                "backgroundColor": "#FFFFFF",
-              },
-              {
-                "borderBottomLeftRadius": 8,
-                "borderBottomRightRadius": 8,
-                "borderTopLeftRadius": 8,
-                "borderTopRightRadius": 8,
-              },
-              {
-                "fontFamily": "Montserrat-Regular",
-              },
-            ]
-          }
-          value=""
-        />
-      </View>
-    </View>
-    <View
-      style={
-        [
-          {
-            "flexDirection": "row",
-          },
-          {
-            "alignItems": "center",
-          },
-        ]
-      }
-    >
-      <Text
-        style={
-          [
-            {
-              "fontSize": 12,
-              "lineHeight": 16,
-            },
-            {
-              "color": "#CF6679",
-            },
-            {
-              "marginLeft": 8,
-              "marginRight": 8,
-            },
-            {
-              "fontFamily": "Montserrat-Regular",
-            },
-          ]
-        }
-      />
-    </View>
-  </View>
-  <View
-    style={
-      [
-        {
-          "marginBottom": 24,
-        },
-      ]
-    }
-  >
-    <View>
-      <View
-        style={
-          [
-            {
-              "display": "flex",
-            },
-            {
-              "flexDirection": "row",
-            },
-          ]
-        }
-      >
-        <Text
-          style={
-            [
-              {
-                "marginLeft": 8,
-              },
-              {
-                "fontSize": 12,
-                "lineHeight": 16,
-              },
-              {
-                "fontFamily": "Montserrat-Regular",
-              },
-            ]
-          }
-        >
-          Email
-        </Text>
-        <Text
-          style={
-            [
-              {
-                "marginLeft": 4,
-              },
-              {
-                "fontSize": 12,
-                "lineHeight": 16,
-              },
-              {
-                "color": "#CF6679",
-              },
-              {
-                "fontFamily": "Montserrat-Regular",
-              },
-            ]
-          }
-        >
-          *
-        </Text>
-      </View>
-      <View>
-        <TextInput
-          autoComplete="off"
-          keyboardType="email-address"
-          onChangeText={[Function]}
-          passwordGuidelines={false}
-          placeholder="user@email.com"
-          secureTextEntry={false}
-          style={
-            [
-              {
-                "paddingBottom": 4,
-                "paddingTop": 4,
-              },
-              {
-                "paddingLeft": 10,
-              },
-              {
-                "backgroundColor": "#FFFFFF",
-              },
-              {
-                "borderBottomLeftRadius": 8,
-                "borderBottomRightRadius": 8,
-                "borderTopLeftRadius": 8,
-                "borderTopRightRadius": 8,
-              },
-              {
-                "fontFamily": "Montserrat-Regular",
-              },
-            ]
-          }
-          value=""
-        />
-      </View>
-    </View>
-    <View
-      style={
-        [
-          {
-            "flexDirection": "row",
-          },
-          {
-            "alignItems": "center",
-          },
-        ]
-      }
-    >
-      <Text
-        style={
-          [
-            {
-              "fontSize": 12,
-              "lineHeight": 16,
-            },
-            {
-              "color": "#CF6679",
-            },
-            {
-              "marginLeft": 8,
-              "marginRight": 8,
-            },
-            {
-              "fontFamily": "Montserrat-Regular",
-            },
-          ]
-        }
-      />
-    </View>
-  </View>
-  <View
-    style={
-      [
-        {
-          "marginBottom": 24,
-        },
-      ]
-    }
-  >
-    <View
-      style={
-        [
-          {
-            "position": "relative",
-          },
-        ]
-      }
-    >
-      <View>
-        <View
-          style={
-            [
-              {
-                "display": "flex",
-              },
-              {
-                "flexDirection": "row",
-              },
-            ]
-          }
-        >
-          <Text
-            style={
-              [
-                {
-                  "marginLeft": 8,
-                },
-                {
-                  "fontSize": 12,
-                  "lineHeight": 16,
-                },
-                {
-                  "fontFamily": "Montserrat-Regular",
-                },
-              ]
-            }
-          >
-            Senha
-          </Text>
-          <Text
-            style={
-              [
-                {
-                  "marginLeft": 4,
-                },
-                {
-                  "fontSize": 12,
-                  "lineHeight": 16,
-                },
-                {
-                  "color": "#CF6679",
-                },
-                {
-                  "fontFamily": "Montserrat-Regular",
-                },
-              ]
-            }
-          >
-            *
-          </Text>
-        </View>
-        <View>
-          <TextInput
-            autoComplete="off"
-            keyboardType="default"
-            onChangeText={[Function]}
-            passwordGuidelines={false}
-            placeholder="Entre sua senha"
-            secureTextEntry={true}
-            style={
-              [
-                {
-                  "paddingBottom": 4,
-                  "paddingTop": 4,
-                },
-                {
-                  "paddingLeft": 10,
-                },
-                {
-                  "backgroundColor": "#FFFFFF",
-                },
-                {
-                  "borderBottomLeftRadius": 8,
-                  "borderBottomRightRadius": 8,
-                  "borderTopLeftRadius": 8,
-                  "borderTopRightRadius": 8,
-                },
-                {
-                  "fontFamily": "Montserrat-Regular",
-                },
-              ]
-            }
-            value=""
-          />
-        </View>
-      </View>
-      <View
-        style={
-          [
-            {
-              "position": "absolute",
-            },
-            {
-              "right": 8,
-            },
-            {
-              "top": 8,
-            },
-            {
-              "marginTop": 12,
-            },
-          ]
-        }
-      >
-        <Text />
-      </View>
-    </View>
-    <View
-      style={
-        [
-          {
-            "flexDirection": "row",
-          },
-          {
-            "justifyContent": "flex-start",
-          },
-          {
-            "marginTop": 4,
-          },
-          {
-            "height": 24,
-          },
-        ]
-      }
-    >
-      <Text
-        style={
-          [
-            {
-              "fontSize": 12,
-              "lineHeight": 16,
-            },
-            {
-              "fontFamily": "Montserrat-Regular",
-            },
-            {
-              "color": "#A1ACB2",
-            },
-          ]
-        }
-      >
-        • Mínimo 8 caracteres
-      </Text>
-      <View
-        style={
-          [
-            {
-              "flexDirection": "row",
-            },
-            {
-              "alignItems": "center",
-            },
-            {
-              "transform": [
-                {
-                  "translateY": -4,
-                },
-                {
-                  "translateX": 0,
-                },
-              ],
-            },
-          ]
-        }
-      />
-    </View>
-    <View
-      style={
-        [
-          {
-            "flexDirection": "row",
-          },
-          {
-            "justifyContent": "flex-start",
-          },
-          {
-            "height": 24,
-          },
-        ]
-      }
-    >
-      <Text
-        style={
-          [
-            {
-              "fontSize": 12,
-              "lineHeight": 16,
-            },
-            {
-              "fontFamily": "Montserrat-Regular",
-            },
-            {
-              "color": "#A1ACB2",
-            },
-          ]
-        }
-      >
-        • Conter pelo menos uma letra
-      </Text>
-      <View
-        style={
-          [
-            {
-              "flexDirection": "row",
-            },
-            {
-              "alignItems": "center",
-            },
-            {
-              "transform": [
-                {
-                  "translateY": -4,
-                },
-                {
-                  "translateX": 0,
-                },
-              ],
-            },
-          ]
-        }
-      />
-    </View>
-  </View>
-  <View
-    style={
-      [
-        {
-          "marginBottom": 24,
-        },
-      ]
-    }
-  >
-    <View
-      style={
-        [
-          {
-            "position": "relative",
-          },
-        ]
-      }
-    >
-      <View>
-        <View
-          style={
-            [
-              {
-                "display": "flex",
-              },
-              {
-                "flexDirection": "row",
-              },
-            ]
-          }
-        >
-          <Text
-            style={
-              [
-                {
-                  "marginLeft": 8,
-                },
-                {
-                  "fontSize": 12,
-                  "lineHeight": 16,
-                },
-                {
-                  "fontFamily": "Montserrat-Regular",
-                },
-              ]
-            }
-          >
-            Confirmar Senha
-          </Text>
-          <Text
-            style={
-              [
-                {
-                  "marginLeft": 4,
-                },
-                {
-                  "fontSize": 12,
-                  "lineHeight": 16,
-                },
-                {
-                  "color": "#CF6679",
-                },
-                {
-                  "fontFamily": "Montserrat-Regular",
-                },
-              ]
-            }
-          >
-            *
-          </Text>
-        </View>
-        <View>
-          <TextInput
-            autoComplete="off"
-            keyboardType="default"
-            onChangeText={[Function]}
-            passwordGuidelines={false}
-            placeholder="Confirme sua senha"
-            secureTextEntry={true}
-            style={
-              [
-                {
-                  "paddingBottom": 4,
-                  "paddingTop": 4,
-                },
-                {
-                  "paddingLeft": 10,
-                },
-                {
-                  "backgroundColor": "#FFFFFF",
-                },
-                {
-                  "borderBottomLeftRadius": 8,
-                  "borderBottomRightRadius": 8,
-                  "borderTopLeftRadius": 8,
-                  "borderTopRightRadius": 8,
-                },
-                {
-                  "fontFamily": "Montserrat-Regular",
-                },
-              ]
-            }
-            value=""
-          />
-        </View>
-      </View>
-      <View
-        style={
-          [
-            {
-              "position": "absolute",
-            },
-            {
-              "right": 8,
-            },
-            {
-              "top": 8,
-            },
-            {
-              "marginTop": 12,
-            },
-          ]
-        }
-      >
-        <Text />
-      </View>
-    </View>
-    <View
-      style={
-        [
-          {
-            "flexDirection": "row",
-          },
-          {
-            "alignItems": "center",
-          },
-        ]
-      }
-    >
-      <Text
-        style={
-          [
-            {
-              "fontSize": 12,
-              "lineHeight": 16,
-            },
-            {
-              "color": "#CF6679",
-            },
-            {
-              "marginLeft": 8,
-              "marginRight": 8,
-            },
-            {
-              "fontFamily": "Montserrat-Regular",
-            },
-          ]
-        }
-      />
-    </View>
-  </View>
-  <View
-    style={
-      [
-        {
-          "marginBottom": 40,
-          "marginTop": 40,
-        },
-      ]
-    }
-  >
-    <View
-      style={
-        [
-          {
-            "marginTop": 48,
-          },
-        ]
-      }
-    >
-      <View
-        accessibilityState={
-          {
-            "disabled": true,
-          }
-        }
-        accessible={true}
-        collapsable={false}
-        focusable={true}
-        onBlur={[Function]}
-        onClick={[Function]}
-        onFocus={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
-        style={
-          [
-            {
-              "flexBasis": "auto",
-              "flexGrow": 1,
-              "flexShrink": 1,
-            },
-            {
-              "alignItems": "center",
-            },
-            {
-              "backgroundColor": "#5ECCE9",
-            },
-            {
-              "paddingLeft": 40,
-              "paddingRight": 40,
-            },
-            {
-              "paddingBottom": 16,
-              "paddingTop": 16,
-            },
-            {
-              "borderBottomLeftRadius": 8,
-              "borderBottomRightRadius": 8,
-              "borderTopLeftRadius": 8,
-              "borderTopRightRadius": 8,
-            },
-            {
-              "opacity": 1,
-            },
-            {
-              "opacity": 0.5,
-            },
-            {
-              "backgroundColor": "#A1ACB2",
-            },
-          ]
-        }
-      >
-        <Text
-          style={
-            [
-              {
-                "color": "#FFFFFF",
-              },
-              {
-                "fontSize": 16,
-              },
-              {
-                "fontWeight": "700",
-              },
-            ]
-          }
-        >
-          Cadastrar
-        </Text>
-      </View>
-    </View>
-  </View>
-</View>
-`;
-
-exports[`Check that password visibility is toggled correctly 2`] = `
-<View>
-  <View
-    style={
-      [
-        {
-          "marginBottom": 24,
-        },
-      ]
-    }
-  >
-    <View>
-      <View
-        style={
-          [
-            {
-              "display": "flex",
-            },
-            {
-              "flexDirection": "row",
-            },
-          ]
-        }
-      >
-        <Text
-          style={
-            [
-              {
-                "marginLeft": 8,
-              },
-              {
-                "fontSize": 12,
-                "lineHeight": 16,
-              },
-              {
-                "fontFamily": "Montserrat-Regular",
-              },
-            ]
-          }
-        >
-          Nome
-        </Text>
-        <Text
-          style={
-            [
-              {
-                "marginLeft": 4,
-              },
-              {
-                "fontSize": 12,
-                "lineHeight": 16,
-              },
-              {
-                "color": "#CF6679",
-              },
-              {
-                "fontFamily": "Montserrat-Regular",
-              },
-            ]
-          }
-        >
-          *
-        </Text>
-      </View>
-      <View>
-        <TextInput
-          autoComplete="off"
-          keyboardType="default"
-          onChangeText={[Function]}
-          passwordGuidelines={false}
-          placeholder="Nome Sobrenome"
-          secureTextEntry={false}
-          style={
-            [
-              {
-                "paddingBottom": 4,
-                "paddingTop": 4,
-              },
-              {
-                "paddingLeft": 10,
-              },
-              {
-                "backgroundColor": "#FFFFFF",
-              },
-              {
-                "borderBottomLeftRadius": 8,
-                "borderBottomRightRadius": 8,
-                "borderTopLeftRadius": 8,
-                "borderTopRightRadius": 8,
-              },
-              {
-                "fontFamily": "Montserrat-Regular",
-              },
-            ]
-          }
-          value=""
-        />
-      </View>
-    </View>
-    <View
-      style={
-        [
-          {
-            "flexDirection": "row",
-          },
-          {
-            "alignItems": "center",
-          },
-        ]
-      }
-    >
-      <Text
-        style={
-          [
-            {
-              "fontSize": 12,
-              "lineHeight": 16,
-            },
-            {
-              "color": "#CF6679",
-            },
-            {
-              "marginLeft": 8,
-              "marginRight": 8,
-            },
-            {
-              "fontFamily": "Montserrat-Regular",
-            },
-          ]
-        }
-      />
-    </View>
-  </View>
-  <View
-    style={
-      [
-        {
-          "marginBottom": 24,
-        },
-      ]
-    }
-  >
-    <View>
-      <View
-        style={
-          [
-            {
-              "display": "flex",
-            },
-            {
-              "flexDirection": "row",
-            },
-          ]
-        }
-      >
-        <Text
-          style={
-            [
-              {
-                "marginLeft": 8,
-              },
-              {
-                "fontSize": 12,
-                "lineHeight": 16,
-              },
-              {
-                "fontFamily": "Montserrat-Regular",
-              },
-            ]
-          }
-        >
-          Email
-        </Text>
-        <Text
-          style={
-            [
-              {
-                "marginLeft": 4,
-              },
-              {
-                "fontSize": 12,
-                "lineHeight": 16,
-              },
-              {
-                "color": "#CF6679",
-              },
-              {
-                "fontFamily": "Montserrat-Regular",
-              },
-            ]
-          }
-        >
-          *
-        </Text>
-      </View>
-      <View>
-        <TextInput
-          autoComplete="off"
-          keyboardType="email-address"
-          onChangeText={[Function]}
-          passwordGuidelines={false}
-          placeholder="user@email.com"
-          secureTextEntry={false}
-          style={
-            [
-              {
-                "paddingBottom": 4,
-                "paddingTop": 4,
-              },
-              {
-                "paddingLeft": 10,
-              },
-              {
-                "backgroundColor": "#FFFFFF",
-              },
-              {
-                "borderBottomLeftRadius": 8,
-                "borderBottomRightRadius": 8,
-                "borderTopLeftRadius": 8,
-                "borderTopRightRadius": 8,
-              },
-              {
-                "fontFamily": "Montserrat-Regular",
-              },
-            ]
-          }
-          value=""
-        />
-      </View>
-    </View>
-    <View
-      style={
-        [
-          {
-            "flexDirection": "row",
-          },
-          {
-            "alignItems": "center",
-          },
-        ]
-      }
-    >
-      <Text
-        style={
-          [
-            {
-              "fontSize": 12,
-              "lineHeight": 16,
-            },
-            {
-              "color": "#CF6679",
-            },
-            {
-              "marginLeft": 8,
-              "marginRight": 8,
-            },
-            {
-              "fontFamily": "Montserrat-Regular",
-            },
-          ]
-        }
-      />
-    </View>
-  </View>
-  <View
-    style={
-      [
-        {
-          "marginBottom": 24,
-        },
-      ]
-    }
-  >
-    <View
-      style={
-        [
-          {
-            "position": "relative",
-          },
-        ]
-      }
-    >
-      <View>
-        <View
-          style={
-            [
-              {
-                "display": "flex",
-              },
-              {
-                "flexDirection": "row",
-              },
-            ]
-          }
-        >
-          <Text
-            style={
-              [
-                {
-                  "marginLeft": 8,
-                },
-                {
-                  "fontSize": 12,
-                  "lineHeight": 16,
-                },
-                {
-                  "fontFamily": "Montserrat-Regular",
-                },
-              ]
-            }
-          >
-            Senha
-          </Text>
-          <Text
-            style={
-              [
-                {
-                  "marginLeft": 4,
-                },
-                {
-                  "fontSize": 12,
-                  "lineHeight": 16,
-                },
-                {
-                  "color": "#CF6679",
-                },
-                {
-                  "fontFamily": "Montserrat-Regular",
-                },
-              ]
-            }
-          >
-            *
-          </Text>
-        </View>
-        <View>
-          <TextInput
-            autoComplete="off"
-            keyboardType="default"
-            onChangeText={[Function]}
-            passwordGuidelines={false}
-            placeholder="Entre sua senha"
-            secureTextEntry={false}
-            style={
-              [
-                {
-                  "paddingBottom": 4,
-                  "paddingTop": 4,
-                },
-                {
-                  "paddingLeft": 10,
-                },
-                {
-                  "backgroundColor": "#FFFFFF",
-                },
-                {
-                  "borderBottomLeftRadius": 8,
-                  "borderBottomRightRadius": 8,
-                  "borderTopLeftRadius": 8,
-                  "borderTopRightRadius": 8,
-                },
-                {
-                  "fontFamily": "Montserrat-Regular",
-                },
-              ]
-            }
-            value=""
-          />
-        </View>
-      </View>
-      <View
-        style={
-          [
-            {
-              "position": "absolute",
-            },
-            {
-              "right": 8,
-            },
-            {
-              "top": 8,
-            },
-            {
-              "marginTop": 12,
-            },
-          ]
-        }
-      >
-        <Text />
-      </View>
-    </View>
-    <View
-      style={
-        [
-          {
-            "flexDirection": "row",
-          },
-          {
-            "justifyContent": "flex-start",
-          },
-          {
-            "marginTop": 4,
-          },
-          {
-            "height": 24,
-          },
-        ]
-      }
-    >
-      <Text
-        style={
-          [
-            {
-              "fontSize": 12,
-              "lineHeight": 16,
-            },
-            {
-              "fontFamily": "Montserrat-Regular",
-            },
-            {
-              "color": "#A1ACB2",
-            },
-          ]
-        }
-      >
-        • Mínimo 8 caracteres
-      </Text>
-      <View
-        style={
-          [
-            {
-              "flexDirection": "row",
-            },
-            {
-              "alignItems": "center",
-            },
-            {
-              "transform": [
-                {
-                  "translateY": -4,
-                },
-                {
-                  "translateX": 0,
-                },
-              ],
-            },
-          ]
-        }
-      />
-    </View>
-    <View
-      style={
-        [
-          {
-            "flexDirection": "row",
-          },
-          {
-            "justifyContent": "flex-start",
-          },
-          {
-            "height": 24,
-          },
-        ]
-      }
-    >
-      <Text
-        style={
-          [
-            {
-              "fontSize": 12,
-              "lineHeight": 16,
-            },
-            {
-              "fontFamily": "Montserrat-Regular",
-            },
-            {
-              "color": "#A1ACB2",
-            },
-          ]
-        }
-      >
-        • Conter pelo menos uma letra
-      </Text>
-      <View
-        style={
-          [
-            {
-              "flexDirection": "row",
-            },
-            {
-              "alignItems": "center",
-            },
-            {
-              "transform": [
-                {
-                  "translateY": -4,
-                },
-                {
-                  "translateX": 0,
-                },
-              ],
-            },
-          ]
-        }
-      />
-    </View>
-  </View>
-  <View
-    style={
-      [
-        {
-          "marginBottom": 24,
-        },
-      ]
-    }
-  >
-    <View
-      style={
-        [
-          {
-            "position": "relative",
-          },
-        ]
-      }
-    >
-      <View>
-        <View
-          style={
-            [
-              {
-                "display": "flex",
-              },
-              {
-                "flexDirection": "row",
-              },
-            ]
-          }
-        >
-          <Text
-            style={
-              [
-                {
-                  "marginLeft": 8,
-                },
-                {
-                  "fontSize": 12,
-                  "lineHeight": 16,
-                },
-                {
-                  "fontFamily": "Montserrat-Regular",
-                },
-              ]
-            }
-          >
-            Confirmar Senha
-          </Text>
-          <Text
-            style={
-              [
-                {
-                  "marginLeft": 4,
-                },
-                {
-                  "fontSize": 12,
-                  "lineHeight": 16,
-                },
-                {
-                  "color": "#CF6679",
-                },
-                {
-                  "fontFamily": "Montserrat-Regular",
-                },
-              ]
-            }
-          >
-            *
-          </Text>
-        </View>
-        <View>
-          <TextInput
-            autoComplete="off"
-            keyboardType="default"
-            onChangeText={[Function]}
-            passwordGuidelines={false}
-            placeholder="Confirme sua senha"
-            secureTextEntry={true}
-            style={
-              [
-                {
-                  "paddingBottom": 4,
-                  "paddingTop": 4,
-                },
-                {
-                  "paddingLeft": 10,
-                },
-                {
-                  "backgroundColor": "#FFFFFF",
-                },
-                {
-                  "borderBottomLeftRadius": 8,
-                  "borderBottomRightRadius": 8,
-                  "borderTopLeftRadius": 8,
-                  "borderTopRightRadius": 8,
-                },
-                {
-                  "fontFamily": "Montserrat-Regular",
-                },
-              ]
-            }
-            value=""
-          />
-        </View>
-      </View>
-      <View
-        style={
-          [
-            {
-              "position": "absolute",
-            },
-            {
-              "right": 8,
-            },
-            {
-              "top": 8,
-            },
-            {
-              "marginTop": 12,
-            },
-          ]
-        }
-      >
-        <Text />
-      </View>
-    </View>
-    <View
-      style={
-        [
-          {
-            "flexDirection": "row",
-          },
-          {
-            "alignItems": "center",
-          },
-        ]
-      }
-    >
-      <Text
-        style={
-          [
-            {
-              "fontSize": 12,
-              "lineHeight": 16,
-            },
-            {
-              "color": "#CF6679",
-            },
-            {
-              "marginLeft": 8,
-              "marginRight": 8,
-            },
-            {
-              "fontFamily": "Montserrat-Regular",
-            },
-          ]
-        }
-      />
-    </View>
-  </View>
-  <View
-    style={
-      [
-        {
-          "marginBottom": 40,
-          "marginTop": 40,
-        },
-      ]
-    }
-  >
-    <View
-      style={
-        [
-          {
-            "marginTop": 48,
-          },
-        ]
-      }
-    >
-      <View
-        accessibilityState={
-          {
-            "disabled": true,
-          }
-        }
-        accessible={true}
-        collapsable={false}
-        focusable={true}
-        onBlur={[Function]}
-        onClick={[Function]}
-        onFocus={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
-        style={
-          [
-            {
-              "flexBasis": "auto",
-              "flexGrow": 1,
-              "flexShrink": 1,
-            },
-            {
-              "alignItems": "center",
-            },
-            {
-              "backgroundColor": "#5ECCE9",
-            },
-            {
-              "paddingLeft": 40,
-              "paddingRight": 40,
-            },
-            {
-              "paddingBottom": 16,
-              "paddingTop": 16,
-            },
-            {
-              "borderBottomLeftRadius": 8,
-              "borderBottomRightRadius": 8,
-              "borderTopLeftRadius": 8,
-              "borderTopRightRadius": 8,
-            },
-            {
-              "opacity": 1,
-            },
-            {
-              "opacity": 0.5,
-            },
-            {
-              "backgroundColor": "#A1ACB2",
-            },
-          ]
-        }
-      >
-        <Text
-          style={
-            [
-              {
-                "color": "#FFFFFF",
-              },
-              {
-                "fontSize": 16,
-              },
-              {
-                "fontWeight": "700",
-              },
-            ]
-          }
-        >
-          Cadastrar
-        </Text>
-      </View>
-    </View>
-  </View>
-</View>
-`;
-
 exports[`Ensure that the RegisterForm component renders correctly 1`] = `
 <View>
   <View
@@ -1562,15 +28,17 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
           style={
             [
               {
-                "marginLeft": 8,
-              },
-              {
-                "fontSize": 12,
-                "lineHeight": 16,
-              },
-              {
                 "fontFamily": "Montserrat-Regular",
               },
+              [
+                {
+                  "marginLeft": 8,
+                },
+                {
+                  "fontSize": 12,
+                  "lineHeight": 16,
+                },
+              ],
             ]
           }
         >
@@ -1580,18 +48,20 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
           style={
             [
               {
-                "marginLeft": 4,
-              },
-              {
-                "fontSize": 12,
-                "lineHeight": 16,
-              },
-              {
-                "color": "#CF6679",
-              },
-              {
                 "fontFamily": "Montserrat-Regular",
               },
+              [
+                {
+                  "marginLeft": 4,
+                },
+                {
+                  "fontSize": 12,
+                  "lineHeight": 16,
+                },
+                {
+                  "color": "#CF6679",
+                },
+              ],
             ]
           }
         >
@@ -1624,9 +94,6 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
                 "borderTopLeftRadius": 8,
                 "borderTopRightRadius": 8,
               },
-              {
-                "fontFamily": "Montserrat-Regular",
-              },
             ]
           }
           value=""
@@ -1649,19 +116,21 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
         style={
           [
             {
-              "fontSize": 12,
-              "lineHeight": 16,
-            },
-            {
-              "color": "#CF6679",
-            },
-            {
-              "marginLeft": 8,
-              "marginRight": 8,
-            },
-            {
               "fontFamily": "Montserrat-Regular",
             },
+            [
+              {
+                "fontSize": 12,
+                "lineHeight": 16,
+              },
+              {
+                "color": "#CF6679",
+              },
+              {
+                "marginLeft": 8,
+                "marginRight": 8,
+              },
+            ],
           ]
         }
       />
@@ -1693,15 +162,17 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
           style={
             [
               {
-                "marginLeft": 8,
-              },
-              {
-                "fontSize": 12,
-                "lineHeight": 16,
-              },
-              {
                 "fontFamily": "Montserrat-Regular",
               },
+              [
+                {
+                  "marginLeft": 8,
+                },
+                {
+                  "fontSize": 12,
+                  "lineHeight": 16,
+                },
+              ],
             ]
           }
         >
@@ -1711,18 +182,20 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
           style={
             [
               {
-                "marginLeft": 4,
-              },
-              {
-                "fontSize": 12,
-                "lineHeight": 16,
-              },
-              {
-                "color": "#CF6679",
-              },
-              {
                 "fontFamily": "Montserrat-Regular",
               },
+              [
+                {
+                  "marginLeft": 4,
+                },
+                {
+                  "fontSize": 12,
+                  "lineHeight": 16,
+                },
+                {
+                  "color": "#CF6679",
+                },
+              ],
             ]
           }
         >
@@ -1755,9 +228,6 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
                 "borderTopLeftRadius": 8,
                 "borderTopRightRadius": 8,
               },
-              {
-                "fontFamily": "Montserrat-Regular",
-              },
             ]
           }
           value=""
@@ -1780,19 +250,21 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
         style={
           [
             {
-              "fontSize": 12,
-              "lineHeight": 16,
-            },
-            {
-              "color": "#CF6679",
-            },
-            {
-              "marginLeft": 8,
-              "marginRight": 8,
-            },
-            {
               "fontFamily": "Montserrat-Regular",
             },
+            [
+              {
+                "fontSize": 12,
+                "lineHeight": 16,
+              },
+              {
+                "color": "#CF6679",
+              },
+              {
+                "marginLeft": 8,
+                "marginRight": 8,
+              },
+            ],
           ]
         }
       />
@@ -1833,15 +305,17 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
             style={
               [
                 {
-                  "marginLeft": 8,
-                },
-                {
-                  "fontSize": 12,
-                  "lineHeight": 16,
-                },
-                {
                   "fontFamily": "Montserrat-Regular",
                 },
+                [
+                  {
+                    "marginLeft": 8,
+                  },
+                  {
+                    "fontSize": 12,
+                    "lineHeight": 16,
+                  },
+                ],
               ]
             }
           >
@@ -1851,18 +325,20 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
             style={
               [
                 {
-                  "marginLeft": 4,
-                },
-                {
-                  "fontSize": 12,
-                  "lineHeight": 16,
-                },
-                {
-                  "color": "#CF6679",
-                },
-                {
                   "fontFamily": "Montserrat-Regular",
                 },
+                [
+                  {
+                    "marginLeft": 4,
+                  },
+                  {
+                    "fontSize": 12,
+                    "lineHeight": 16,
+                  },
+                  {
+                    "color": "#CF6679",
+                  },
+                ],
               ]
             }
           >
@@ -1895,9 +371,6 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
                   "borderTopLeftRadius": 8,
                   "borderTopRightRadius": 8,
                 },
-                {
-                  "fontFamily": "Montserrat-Regular",
-                },
               ]
             }
             value=""
@@ -1922,7 +395,28 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
           ]
         }
       >
-        <Text />
+        <Text
+          allowFontScaling={false}
+          onPress={[Function]}
+          selectable={false}
+          style={
+            [
+              {
+                "color": "gray",
+                "fontSize": 24,
+              },
+              undefined,
+              {
+                "fontFamily": "material-community",
+                "fontStyle": "normal",
+                "fontWeight": "normal",
+              },
+              {},
+            ]
+          }
+        >
+          󰈈
+        </Text>
       </View>
     </View>
     <View
@@ -1947,17 +441,20 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
         style={
           [
             {
-              "fontSize": 12,
-              "lineHeight": 16,
-            },
-            {
               "fontFamily": "Montserrat-Regular",
             },
-            {
-              "color": "#A1ACB2",
-            },
+            [
+              {
+                "fontSize": 12,
+                "lineHeight": 16,
+              },
+              {
+                "color": "#A1ACB2",
+              },
+            ],
           ]
         }
+        testId="passwordLengthAlert"
       >
         • Mínimo 8 caracteres
       </Text>
@@ -2003,17 +500,23 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
         style={
           [
             {
-              "fontSize": 12,
-              "lineHeight": 16,
-            },
-            {
               "fontFamily": "Montserrat-Regular",
             },
-            {
-              "color": "#A1ACB2",
-            },
+            [
+              {
+                "fontSize": 12,
+                "lineHeight": 16,
+              },
+              {
+                "fontFamily": "Montserrat-Regular",
+              },
+              {
+                "color": "#A1ACB2",
+              },
+            ],
           ]
         }
+        testId="passwordLetterAlert"
       >
         • Conter pelo menos uma letra
       </Text>
@@ -2076,15 +579,17 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
             style={
               [
                 {
-                  "marginLeft": 8,
-                },
-                {
-                  "fontSize": 12,
-                  "lineHeight": 16,
-                },
-                {
                   "fontFamily": "Montserrat-Regular",
                 },
+                [
+                  {
+                    "marginLeft": 8,
+                  },
+                  {
+                    "fontSize": 12,
+                    "lineHeight": 16,
+                  },
+                ],
               ]
             }
           >
@@ -2094,18 +599,20 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
             style={
               [
                 {
-                  "marginLeft": 4,
-                },
-                {
-                  "fontSize": 12,
-                  "lineHeight": 16,
-                },
-                {
-                  "color": "#CF6679",
-                },
-                {
                   "fontFamily": "Montserrat-Regular",
                 },
+                [
+                  {
+                    "marginLeft": 4,
+                  },
+                  {
+                    "fontSize": 12,
+                    "lineHeight": 16,
+                  },
+                  {
+                    "color": "#CF6679",
+                  },
+                ],
               ]
             }
           >
@@ -2138,9 +645,6 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
                   "borderTopLeftRadius": 8,
                   "borderTopRightRadius": 8,
                 },
-                {
-                  "fontFamily": "Montserrat-Regular",
-                },
               ]
             }
             value=""
@@ -2165,7 +669,28 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
           ]
         }
       >
-        <Text />
+        <Text
+          allowFontScaling={false}
+          onPress={[Function]}
+          selectable={false}
+          style={
+            [
+              {
+                "color": "gray",
+                "fontSize": 24,
+              },
+              undefined,
+              {
+                "fontFamily": "material-community",
+                "fontStyle": "normal",
+                "fontWeight": "normal",
+              },
+              {},
+            ]
+          }
+        >
+          󰈈
+        </Text>
       </View>
     </View>
     <View
@@ -2184,19 +709,21 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
         style={
           [
             {
-              "fontSize": 12,
-              "lineHeight": 16,
-            },
-            {
-              "color": "#CF6679",
-            },
-            {
-              "marginLeft": 8,
-              "marginRight": 8,
-            },
-            {
               "fontFamily": "Montserrat-Regular",
             },
+            [
+              {
+                "fontSize": 12,
+                "lineHeight": 16,
+              },
+              {
+                "color": "#CF6679",
+              },
+              {
+                "marginLeft": 8,
+                "marginRight": 8,
+              },
+            ],
           ]
         }
       />
@@ -2224,7 +751,7 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
       <View
         accessibilityState={
           {
-            "disabled": false,
+            "disabled": true,
           }
         }
         accessible={true}
@@ -2269,6 +796,12 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
             {
               "opacity": 1,
             },
+            {
+              "opacity": 0.5,
+            },
+            {
+              "backgroundColor": "#A1ACB2",
+            },
           ]
         }
       >
@@ -2276,14 +809,19 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
           style={
             [
               {
-                "color": "#FFFFFF",
+                "fontFamily": "Montserrat-Regular",
               },
-              {
-                "fontSize": 16,
-              },
-              {
-                "fontWeight": "700",
-              },
+              [
+                {
+                  "color": "#FFFFFF",
+                },
+                {
+                  "fontSize": 16,
+                },
+                {
+                  "fontWeight": "700",
+                },
+              ],
             ]
           }
         >
