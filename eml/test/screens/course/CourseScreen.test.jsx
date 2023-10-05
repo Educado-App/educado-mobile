@@ -2,6 +2,12 @@ import React from 'react';
 import { render, waitFor, fireEvent } from '@testing-library/react-native';
 import CourseScreen from '../../../screens/courses/CourseScreen'; // Adjust the import path
 
+jest.mock('@react-navigation/native', () => ({
+  useNavigation: () => ({
+    navigate: jest.fn(),
+  }),
+}));
+
 describe('CourseScreen', () => {
   it('should render the loading screen when fonts are not loaded', () => {
     const { getByText } = render(<CourseScreen />);
