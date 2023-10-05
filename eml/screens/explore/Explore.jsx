@@ -13,24 +13,11 @@ import { getSubCourseList } from '../../services/StorageService';
 import { getBucketImage } from "../../api/api";
 
 function Explore() {
-
-  /*
-  const [image, setImage] = React.useState(null);
-  useEffect(() => {
-    
-    getBucketImage("test").then((res) => {
-      setImage(res);
-      
-    });
-
-  },[])
-  */
   
   // Search text state
   const [searchText, setSearchText] = useState('');
   // Selected category state
   const [selectedCategory, setSelectedCategory] = useState(null);
-
 
   //Sets dummy data for courses (will be replaced with data from backend)
   const [courses, setCourses] = useState([
@@ -40,7 +27,7 @@ function Explore() {
 //Fetch courses from backend and replace dummy data!
 useEffect(() => {
   async function loadCourses() {
-    const courseData = await getCourseList()
+    const courseData = await getCourseList();
     setCourses(courseData);
   }
   loadCourses();

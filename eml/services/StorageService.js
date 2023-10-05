@@ -328,22 +328,6 @@ export const deleteCourse = async (courseId) => {
 };
 
 export const getSubCourseList = async () => {
- /* try{
-    let courseList = JSON.parse(await AsyncStorage.getItem(SUB_COURSE_LIST));
-    if (courseList !== null && !courseList.isEmpty) {
-      console.log("Getting courses from storage ")
-      console.log(courseList);
-      return courseList;
-    } else {
-      console.log("Getting courses from DB");
-      return await api.getSubscription();
-    }
-
-  } catch (e) {
-    console.error(e);
-  }*/
-
-
   try {
     return await refreshSubCourseList();
 
@@ -431,6 +415,7 @@ export const getCourseId = async (id) => {
     // Check if the course already exists in AsyncStorage
     let course = JSON.parse(await AsyncStorage.getItem(COURSE));
     if (course !== null) {
+      console.log(course);
       return course;
     }
     console.error(e);

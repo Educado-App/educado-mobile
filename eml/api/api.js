@@ -65,25 +65,6 @@ export const getCourse = async (courseId) => {
 };
 
 
-
-//CREATE FOR TESTING: BUT IT WORKS
-// * try to call the function with fileName = "test" or "gorilla".
-// * It is being called for testing purposes in the Explore screen
-/*
-export const getBucketImage = async (fileName) => {
-  const res = await axios.get(`${url}/download?fileName=${fileName}`);
-  
-  if (res.status === 200) {
-    return res.data;
-  }
-  else {
-    return null;
-  }
-}
-*/
-
-
-
 export const getPresignedUrl = async (component_id) => {
   const obj = {
     component_id,
@@ -128,7 +109,7 @@ export const getAllComponents = async (components) => {
 /*** COURSE ***/
 
 export const getCourses = async () => {
-  const res = await axios.get(url + '/api/courses')
+  const res = await axios.get(url + '/api/courses/all')
   return res.data;
 
 };
@@ -140,7 +121,7 @@ export const getSubscriptions = async () => {
 
   const userId = await AsyncStorage.getItem("@userId");
   
-  const res = await axios.get(url + '/api/user/subscriptions/all?user_id=' + userId)
+  const res = await axios.get(url + '/api/user/subscription/all?user_id=' + userId)
 
   return res.data;
 };
