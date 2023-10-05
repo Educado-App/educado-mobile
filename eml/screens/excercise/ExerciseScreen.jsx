@@ -85,7 +85,7 @@ export default function ExerciseScreen() {
   }, [route.params]);
 
   return (
-    <View className="bg-secondary flex-1 ">
+    <View className="bg-secondary flex-1 justify-between">
       <SafeAreaView className= "justify-between" >
         <View className = " flex-row items-center justify-around">
           <View>
@@ -143,11 +143,7 @@ export default function ExerciseScreen() {
                   </Text>
                 </View>)}
             </ScrollView>
-            <View className="">
-              <Text className="font-montserrat text-caption-small">Course name: {dummyExerciseData.courseId}</Text>
-              <Text className="font-montserrat-bold">{dummyExerciseData.sectionId}</Text>
-              <Image source={require("../../assets/images/dots-horizontal.png")}/>
-            </View>
+            
           </View>
         )}
 
@@ -168,7 +164,15 @@ export default function ExerciseScreen() {
           )}
         </View>
         */}
-
+            <View className = "flex-row justify-between items-end px-[12%] py-[12%]">
+              <View className="">
+                <Text className="font-montserrat text-caption-small]">Course name: {dummyExerciseData.courseId}</Text>
+                <Text className="font-montserrat-bold">{dummyExerciseData.sectionId}</Text>
+              </View>
+              <View className = "" >
+                <Image source={require("../../assets/images/dots-horizontal.png")}/>
+              </View>
+            </View>
         <StatusBar style="auto" />
       </SafeAreaView>
     </View>
