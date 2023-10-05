@@ -7,13 +7,13 @@ import { AppLoading } from 'expo-app-loading'
 import * as StorageService from "../../services/StorageService";
 import CourseCard from '../../components/courses/courseCard/CourseCard'
 import SectionScreen from '../section/sectionScreen'
-import { render } from '@testing-library/react-native'
 
 export default function CourseScreen() {
 
-    const [course, setCourse] = useState([]);
 
-    const [courseLoaded, setCourseLoaded] = useState(false);
+    const [courses, setCourses] = useState([]);
+
+    const [courseLoaded, setCourseLoaded] = useState();
 
     const navigation = useNavigation()
 
@@ -24,24 +24,23 @@ export default function CourseScreen() {
     
     
     useEffect(() => {
-
-    async function loadCourse() {
+        async function loadCourses() {
         try {
                 const courseData = await StorageService.getSubCourseList();
     
                 if (courseData.length !== 0 && Array.isArray(courseData) ) {
-                    setCourse(courseData);
+                    setCourses(courseData);
                     setCourseLoaded(true);
                 } else {
+                    setCourses([])
                     setCourseLoaded(false);
                 }
     
             } catch (error) {
               console.error("Error checking subscription:", error);
             }
-    } loadCourse();
-
-    }, [course])
+    } loadCourses();
+    }, [courses]);
 
     
     if (!fontsLoaded) {
@@ -56,37 +55,13 @@ export default function CourseScreen() {
                             <Image style={{width: 25, height: 25, marginLeft: 10}} source={require('../../assets/singleIcon.png')}></Image>
                             <Text style={{fontSize: 25, marginLeft: 10, fontWeight: 'bold'}}>Bem Vindo!</Text>
                         </View>
-                        <ScrollView showsVerticalScrollIndicator={false}>
-                        {course.map((course, i) => (
-                                <Pressable  key={i} 
-                                style={{
-                                    backgroundColor: "#fff",
-                                    margin: 8,
-                                    borderRadius: 10,
-                                    shadowColor: "#000",
-                                    shadowOffset: {
-                                      width: 0,
-                                      height: 2,
-                                    },
-                                    shadowOpacity: 0.3,
-                                    shadowRadius: 4.65,
-                                    elevation: 8,
-                                    marginBottom: 15,
-                                    marginHorizontal: 18,
-                                    padding: 15,
-                                  }}
-                                  onPress={()=> {
-                                    navigation.navigate('Section', {
-                                    courseId: course.courseId,
-                                  });
-                                }}
-                                >
-                                    <CourseCard course={course}></CourseCard>
-                                </Pressable> 
+                    <ScrollView showsVerticalScrollIndicator={false}>
+                        {courses.map((course) => (
+                            <CourseCard key={course.courseId} course={course}></CourseCard>
                         )  
-                            ) 
-                        }
-                        </ScrollView>
+                    ) 
+                    }
+                    </ScrollView>
                     </View>
                     :
                     <View className="flex-column justify-center items-center">

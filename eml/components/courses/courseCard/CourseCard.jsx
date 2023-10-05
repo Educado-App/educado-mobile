@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { View, Text, Image, Pressable, Dimensions, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/dev';
@@ -17,7 +16,30 @@ export default function CourseCard({ course }) {
         return AppLoading;
       } else {
         return (  
-      <View className='flex-1'>
+          <Pressable   
+          style={{
+              backgroundColor: "#fff",
+              margin: 8,
+              borderRadius: 10,
+              shadowColor: "#000",
+              shadowOffset: {
+                width: 0,
+                height: 2,
+              },
+              shadowOpacity: 0.3,
+              shadowRadius: 4.65,
+              elevation: 8,
+              marginBottom: 15,
+              marginHorizontal: 18,
+              padding: 15,
+            }}
+            onPress={()=> {
+              navigation.navigate('Section', {
+              courseId: course.courseId,
+            });
+          }}
+          > 
+      <View>
         <View style={[styles.header]}>
           <MaterialCommunityIcons size={28} name={course.image ? course.image : 'hat-fedora'}> </MaterialCommunityIcons>
           <Text style={styles.title}>
@@ -42,6 +64,7 @@ export default function CourseCard({ course }) {
             </Pressable>
         </View>
       </View>
+      </Pressable>
     )
     }
 }
