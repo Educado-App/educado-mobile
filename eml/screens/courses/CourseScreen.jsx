@@ -4,7 +4,6 @@ import { View, Pressable, Text, Dimensions, Image, ScrollView, StyleSheet } from
 import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/dev'
 import { AppLoading } from 'expo-app-loading'
 import * as StorageService from "../../services/StorageService";
-import { getHome } from '../../api/api'
 import CourseCard from '../../components/courses/courseCard/CourseCard'
 import SectionScreen from '../section/sectionScreen'
 
@@ -35,17 +34,19 @@ export default function CourseScreen() {
         //const courseData = await StorageService.getCourseById(courseId);
         //setCourse(courseData);
         const courseData = await StorageService.getSubCourseList();
-        setCourse(courseData);
+        await setCourse(courseData);
     }
-
+    
     useEffect(() => {
-            
-       // if (route.params !== undefined) {
-            loadCourse().then(() => {
+        loadCourse()
+        .then(()=>{
+            console.log(course);
+            if (!course.isEmpty && Array.isArray(course) ) {
                 setCourseLoaded(true);
-            });
-        //}
-
+            } else {
+                
+            }
+    });
     }, [route.params, downloadState])
 
     
@@ -85,7 +86,6 @@ export default function CourseScreen() {
                                   });
                                 }}
                                 >
-                                    {/*<CourseListUI course={course} key={i} downloadState={setDownloadState}></CourseListUI>*/}
                                     <CourseCard course={course} downloadState={setDownloadState}></CourseCard>
                                 </Pressable> 
                                 )
@@ -94,14 +94,16 @@ export default function CourseScreen() {
                         </ScrollView>
                     </View>
                     :
-                    <View className="justify-center items-center">
+                    <View className="flex-column justify-center items-center">
                         {/* No active courses */}
                         <Image className="m-14" source={require('../../assets/logo_educado.png')}></Image>
-                        <Text className="p-10 text-2xl">Nenhum curso ativo</Text>
+                        <Image className="mt-12" source={require('../../assets/homePageEmpty.png')}></Image>
+                        <Text className="p-4" style={{fontSize: 24, fontWeight: 'bold', color: '#424242'}}>Comece Agora</Text>
+                        <Text className="m-2" style={{fontSize: 15, color: '#424242', textAlign: 'center'}}>Você ainda não se increveu em nenhum curso. Acesse a página Explore e use a busca para encontrar cursos do seu interesse.</Text>
                         <Pressable key="{no_course}"
                             style={{ backgroundColor: '#5ECCE9', borderRadius: 12 }}
-                            className="p-2 w-80"
-                            onPress={() => loadCourse()} >
+                            className="mt-8 p-2 w-80"
+                            onPress={() => navigation.navigate('Explorar')} >
                             {/* Click to explore courses */}
                             <Text className="text-white" style={{ fontSize: 22, fontFamily: 'VarelaRound_400Regular', textAlign: 'center' }}> Clique para explorar os cursos</Text>
                         </Pressable>
