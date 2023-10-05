@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Pressable, Text } from 'react-native';
+import { subscribeToCourse } from '../../api/api';
 
 
 

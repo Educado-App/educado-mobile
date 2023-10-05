@@ -33,7 +33,7 @@ export default function ExploreCard({ course }) {
     async function checkSubscription() {
       try {
         const result = await ifSubscribed(course.courseId);
-        setIsSubscribed(result); // Assuming your ifSubscribed function returns a boolean
+        setIsSubscribed(result); 
       } catch (error) {
         console.error("Error checking subscription:", error);
       }
