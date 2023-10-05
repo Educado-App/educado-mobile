@@ -44,7 +44,7 @@ useEffect(() => {
     setCourses(courseData);
   }
   loadCourses();
-}, []);
+}, [courses]);
 
 ///---------------------------------------------///
 

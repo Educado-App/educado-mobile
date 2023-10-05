@@ -42,8 +42,6 @@ export default function CourseScreen() {
         .then(()=>{
             if (!course.isEmpty && Array.isArray(course) ) {
                 setCourseLoaded(true);
-            } else {
-                
             }
     });
     }, [route.params, downloadState, course])

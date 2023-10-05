@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import { View, Pressable, Text } from 'react-native';
 
-const SubscriptionButton = ({ onClick }) => {
-  const [isSubscribed, setIsSubscribed] = useState(false);
+
+
+const SubscriptionButton = ({ course })  => {
+  const courseId = course.courseId;
 
   return (
     <View>
       <Pressable 
-              onPress={() => {
-                setIsSubscribed(!isSubscribed);
-                onClick(!isSubscribed);
-              }}
+        onPress={() => {
+          subscribeToCourse(courseId);
+        }}
         style={{
           minWidth: '100%',
           alignItems: 'center',
