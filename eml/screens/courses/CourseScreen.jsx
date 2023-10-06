@@ -52,7 +52,7 @@ export default function CourseScreen() {
                     </View>
                     :
                     <View className = " justify-center items-center bg-secondary ">
-                        <View className = " pb-16">
+                        <View className = "pt-24 pb-16">
                             <Image source = {require('../../assets/logo.png')} className = " justify-center items-center w-[175.88] h-[25.54] "/>
                         </View>
                         <View className = " justify-center items-center pb-24 pt-24 gap-10 ">
