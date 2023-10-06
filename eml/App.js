@@ -263,7 +263,7 @@ export default function App() {
               <Stack.Screen
                 name={"ProfileSettings"} // Name of your screen
                 component={ProfileSettingsScreen} // Component to be rendered for ProfileSettings screen
-                options={{ title: 'Profile Settings' }} // You can customize the header title here
+                options={{ headerShown: false }} // You can customize the header title here
               />
             </Stack.Navigator>
           </NavigationContainer>
