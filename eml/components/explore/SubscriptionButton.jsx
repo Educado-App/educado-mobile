@@ -5,30 +5,15 @@ const SubscriptionButton = ({ onClick }) => {
   const [isSubscribed, setIsSubscribed] = useState(false);
 
   return (
-    <View>
+    <View className="">
       <Pressable
         onPress={() => {
-          setIsSubscribed(!isSubscribed);
-          onClick(!isSubscribed);
+          setIsSubscribed(true);
+          onClick(true);
         }}
-        style={{
-          minWidth: '100%',
-          alignItems: 'center',
-          borderRadius: 10,
-          backgroundColor: '#5fcce9',
-          borderColor: '#5fcce9',
-          borderWidth: 1,
-          paddingVertical: 8,
-          paddingHorizontal: 18,
-        }}
+        className="w-full flex items-center justify-center rounded-lg bg-primary p-2"
       >
-        <Text
-          style={{
-            color: 'white',
-            fontSize: 16,
-            fontWeight: 'bold',
-          }}
-        >
+        <Text className="text-white p-1 font-bold">
           Inscrever-se agora
         </Text>
       </Pressable>

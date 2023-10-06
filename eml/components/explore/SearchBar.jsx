@@ -1,26 +1,19 @@
 import React from 'react';
 import { TextInput, View } from 'react-native';
-import { MaterialIcons } from 'react-native-vector-icons'; // Import MaterialIcons from react-native-vector-icons
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 function SearchBar({ searchText, onSearchChange }) {
   return (
-    <View style={{ flexDirection: 'row', alignItems: 'center', position: 'relative' }}>
+    <View className="flex-row items-center relative bg-white rounded-md pr-2.5 mb-2.5 mx-2.5">
       <TextInput
         placeholder="Buscar cursos"
-        //value={searchText}
         onChangeText={onSearchChange}
-        style={{
-          flex: 1, // This allows the TextInput to expand to fill available space
-          backgroundColor: '#ffffff',
-          paddingHorizontal: 10,
-          paddingVertical: 8,
-          borderRadius: 5,
-          marginBottom: 10,
-          marginLeft: 10,
-          marginRight: 10,
-        }}
+        className="flex-1 px-2.5 py-3"
+        style={{ paddingRight: 35 }} // Add right padding to ensure text doesn't overlap with icon
       />
-      <MaterialIcons style={{ position: 'absolute', right: 18, top: 5, opacity: 0.5, }} name="search" size={24} color="gray" />
+
+      <MaterialCommunityIcons name="magnify" size={20} color="gray" />
+
     </View>
   );
 }

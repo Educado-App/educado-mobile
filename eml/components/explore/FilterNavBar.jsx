@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, ScrollView, Platform } from 'react-native';
-import SearchBar from './SearchBar'; // Import the SearchBar component
+import React, { useState } from 'react';
+import SearchBar from './SearchBar'; 
+import { View, Text, Pressable } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 
-///---------Dummy data should be replaced--------///
 const categories = [
   { key: 'category1', label: 'All' },
   { key: 'category2', label: 'Finance' },
@@ -11,65 +11,57 @@ const categories = [
   { key: 'category5', label: 'Science' },
   { key: 'category6', label: 'Mathematics' },
 ];
-///---------------------------------------------///
 
 function FilterNavBar({ onChangeText, onCategoryChange }) {
-  // Selected category state
   const [selectedCategory, setSelectedCategory] = useState(null);
-  // Search text state
   const [searchText, setSearchText] = useState('');
 
   const handleCategorySelect = (category) => {
-    // Set the selected category
     setSelectedCategory(category);
-    // Call the onCategoryChange callback function
     onCategoryChange(category);
   };
 
   const handleSearchInputChange = (text) => {
-    
+    setSearchText(text);
     onChangeText(text);
-    // Add your search logic here based on the input text
   };
 
   return (
     <View>
-      {/* Search Bar */}
-      <View style={{ elevation: 15, zIndex: 15 }} className="pl-2 pr-2">
-      <SearchBar  searchText={searchText} onSearchChange={handleSearchInputChange} />
+      <View className="elevation-15 z-15 p-2">
+        <SearchBar searchText={searchText} onSearchChange={handleSearchInputChange} />
       </View>
-      {/* Categories */}
-      <View style={{ elevation: 15, zIndex: 15 }} className="pl-2 pr-2 pb-4">
-        <View style={{ flexDirection: 'row', alignItems: 'center', padding: 10 }}>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+
+      <View className="elevation-15 z-15 pl-2 pr-2 pb-4">
+      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        <View className="flex items-center p-2 ">
+          <View className="flex-row overflow-x-auto">
             {categories
-              .filter((category) => category.label.includes(searchText)) // Filter categories based on the search text
+              .filter((category) => category.label.toLowerCase().includes(searchText.toLowerCase()))
               .map((category) => (
-                <TouchableOpacity
+                <Pressable
                   key={category.label}
                   onPress={() => handleCategorySelect(category.label)}
-                  style={{
-                    backgroundColor: selectedCategory === category.label ? '#5fcce9' : 'transparent',
-                    paddingHorizontal: 8,
-                    paddingVertical: 7,
-                    borderRadius: 8,
-                    marginRight: 10,
-                    borderColor: 'gray',
-                    borderWidth: selectedCategory === category.label ? 0 : 1,
-                    opacity: selectedCategory === category.label ? 1 : 0.5,
-                  }}
+                  className={`${
+                    selectedCategory === category.label
+                      ? 'bg-primary border-primary text-white'
+                      : 'border-2 border-gray text-gray'
+                    } px-2 py-2 rounded-lg border-[1px] mr-2 items-center justify-center`}
                 >
-                  <Text style={{ 
-                    color: selectedCategory === category.label ? 'white' : 'gray',
-                    fontWeight: selectedCategory === category.label ? 'bold' : 'normal',
-                    fontSize: 13,
-                
-                }}>{category.label}</Text>
-                </TouchableOpacity>
+                  <Text
+                    className={`${
+                      selectedCategory === category.label
+                        ? 'text-white font-bold'
+                        : 'text-gray'
+                      }`}
+                  >{category.label}</Text>
+                </Pressable>
               ))}
-          </ScrollView>
+          </View>
         </View>
+        </ScrollView>
       </View>
+      
     </View>
   );
 }

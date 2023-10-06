@@ -5,6 +5,7 @@ import FilterNavBar from '../../components/explore/FilterNavBar';
 import { ScrollView } from 'react-native-gesture-handler';
 import ExploreCard from '../../components/explore/ExploreCard';
 import { client } from '../../api/userApi';
+import singleIcon from '../../assets/singleIcon.png';
 
 import { getBucketImage } from "../../api/api";
 
@@ -115,32 +116,34 @@ useEffect(() => {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#f1f9fb' }}>
+    <View className="flex-1  bg-f1f9fb">
+
+  <View className="flex flex-row items-center pl-6 pt-[30%] pb-[10%]">
+    <Image 
+      source={require('../../assets/singleIcon.png')} 
+      alt="Icon" 
+      className="w-8 h-8 mr-2"
+    />
+    <Text className="text-xl font-bold">Explorar cursos</Text>
+  </View>
+
+
+  <FilterNavBar 
+    onChangeText={(text) => handleFilter(text)} 
+    onCategoryChange={handleCategoryFilter}
+  />
+<ScrollView vertical>
+  <View className="overflow-y-auto">
+    {filteredCourses.map((course, index) => (
       
-      <View style={{ flexDirection: 'row', alignItems: 'center', padding: 10, marginTop: '20%', marginBottom: '10%' }}>
-        <View className="pl-2">
-        {/* <Image
-          source={require('../../assets/singleIcon.png')}
-          style={{ width: 25, height: 25 }}
-        /> */}
-        {image && <Image 
-          style={{ width: 200, height: 200 }}
-          source={image}
-        />}
-        </View>
-        <Text style={{ fontSize: 25, marginLeft: 10, fontWeight: 'bold' }}>Explorar cursos</Text>
-      </View>
-      <FilterNavBar 
-      onChangeText={(text) => handleFilter(text)} 
-      onCategoryChange={handleCategoryFilter}
-      />
-      <ScrollView>
+      <ExploreCard key={index} isPublished={course.published} course={course} />
       
-      {filteredCourses.map((course, index) => (
-          <ExploreCard key={index} isPublished={course.published} course={course} />
-        ))}
-      </ScrollView>
-    </View>
+    ))}
+  </View>
+  </ScrollView>
+
+</View>
+
   );
 }
 
