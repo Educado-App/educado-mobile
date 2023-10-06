@@ -1,6 +1,6 @@
 import { Video } from 'expo-av'
 import { StyleSheet } from 'react-native'
-import { React, useEffect, useRef} from 'react'
+import React, { useEffect, useRef} from 'react'
 import PropTypes from 'prop-types'
 
 function LaerningInputVideoExample1(uri, signal) {

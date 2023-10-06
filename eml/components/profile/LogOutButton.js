@@ -3,6 +3,7 @@ import { useNavigation } from '@react-navigation/native'
 import { Feather } from '@expo/vector-icons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Text } from '@rneui/base'
+import React from 'react';
 
 const LOGIN_TOKEN = '@loginToken'
 const USER_INFO = '@userInfo'
@@ -20,6 +21,8 @@ export default function LogOutButton() {
       console.log(e)
     }
   }
+
+  console.log("artadf")
 
   const logoutAlert = () =>
     Alert.alert('Logout', 'Are you sure?', [

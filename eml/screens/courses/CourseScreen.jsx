@@ -1,5 +1,5 @@
 import { useRoute, useNavigation } from '@react-navigation/native'
-import { React, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CourseListUI from '../../components/easyDynComponents/courseListUI'
 import { View, Pressable, Text, Image } from 'react-native'
 import { isFontsLoaded } from '../../constants/Fonts.js'

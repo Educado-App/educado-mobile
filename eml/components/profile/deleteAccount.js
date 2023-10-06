@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Text } from '@rneui/base'
 import { deleteUser, loginUser } from '../../api/userApi'
 import {clearAsyncStorage} from "../../services/StorageService";
+import React from 'react';
 
 const LOGIN_TOKEN = '@loginToken'
 const USER_INFO = '@userInfo'

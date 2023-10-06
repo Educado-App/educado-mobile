@@ -1,4 +1,4 @@
-import { React } from 'react'
+import React from 'react'
 import * as FileSystem from 'expo-file-system';
 
 export async function CreateDirectory(name) {
