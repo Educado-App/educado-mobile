@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useRef, useState } from "react";
-import { ScrollView, StyleSheet, View, Text, Image, TouchableHighlight } from "react-native";
+import { ScrollView, StyleSheet, View, Text, Image, TouchableHighlight, Pressable } from "react-native";
 import LeaveButton from "../../components/exercise/LeaveButton";
 import ExerciseButtons from "../../components/exercise/ExerciseButtons";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -112,37 +112,40 @@ export default function ExerciseScreen() {
             <Text className="py-7 text-center font-montserrat-bold text-[projectBlack] w-5/6">
               {dummyExerciseData.question}
             </Text>
-
-            <ScrollView height={screenHeight * 0.569} className="">
-              {/* Map through the answers and render each one */}
-              {dummyExerciseData.answers.map((answer) => (
-                <View
-                  key={answer.id}
-                  className="flex-row pb-8 w-5/6"
-                >
-                  <View>
-                    <RadioButton.Android
-                      value={answer.id}
-                      status={
-                        selectedAnswer === answer.id ? "checked" : "unchecked"
-                      }
-                      onPress={() => handleAnswerSelect(answer.id)}
-                      color= "#5ECCE9"
-                      uncheckedColor="#5ECCE9"
-                    />
+            <View style={{height: screenHeight * 0.569}}>
+              <ScrollView>
+                {/* Map through the answers and render each one */}
+                {dummyExerciseData.answers.map((answer) => (
+                  <View
+                    key={answer.id}
+                    className="flex-row pb-8 w-5/6"
+                  >
+                    <View>
+                      <RadioButton.Android
+                        value={answer.id}
+                        status={
+                          selectedAnswer === answer.id ? "checked" : "unchecked"
+                        }
+                        onPress={() => handleAnswerSelect(answer.id)}
+                        color= "#5ECCE9"
+                        uncheckedColor="#5ECCE9"
+                      />
+                    </View>
+                    <Text className="font-montserrat"> {answer.text}</Text>
                   </View>
-                  <Text className="font-montserrat"> {answer.text}</Text>
-                </View>
-              ))}
-              {selectedAnswer !== null && (
-                <View>
-                  <Text
-                    onPress={() => console.log("REVIEW2")}
-                    className="text-center font-montserrat text-body text-primary underline">
-                    Review answer
-                  </Text>
-                </View>)}
-            </ScrollView>
+                ))}
+                {selectedAnswer !== null && (
+                  <View className="items-center">
+                    <Pressable>
+                      <Text
+                        onPress={() => console.log("REVIEW2")}
+                        className="text-center font-montserrat text-body text-primary underline pb-20">
+                        Review answer
+                      </Text>
+                    </Pressable>
+                  </View>)}
+              </ScrollView>
+            </View>
             
           </View>
         )}
