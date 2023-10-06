@@ -82,7 +82,7 @@ export default function ProfileComponent() {
     <View>
       <Text className="text-left font-montserrat text-caption-medium text-black mb-2">Sobrenome</Text>
       <TouchableOpacity
-        className="bg-white px-5 py-4 rounded-medium w-full"
+        className="bg-projectWhite px-5 py-4 rounded-medium w-full"
         onPress={() => setLastNameModalVisible(true)}
         >
         <Text 
@@ -105,7 +105,7 @@ export default function ProfileComponent() {
                   value={newLastName}
                   onChangeText={setNewLastName}
                   placeholder="Digite o novo nome"
-                  className="w-full p-4 mb-4 bg-white rounded"
+                  className="w-full p-4 mb-4 bg-projectWhite rounded"
                 />
                 {isLoading ? ( // Conditional rendering based on loading state
                   <ActivityIndicator size="large" color="#0000ff" /> // Loading spinner
@@ -115,7 +115,7 @@ export default function ProfileComponent() {
                     onPress={() => saveLastNameChanges()}
                   >
                     <Text
-                      className="text-center font-montserrat-bold text-body text-white">
+                      className="text-center font-montserrat-bold text-body text-projectWhite">
                         Salvar alterações
                     </Text>
                   </TouchableOpacity>

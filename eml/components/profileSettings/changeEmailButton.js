@@ -96,7 +96,7 @@ export default function ProfileComponent() {
     <View>
       <Text className="text-left font-montserrat text-caption-medium text-black mb-2">Email</Text>
       <TouchableOpacity
-        className="bg-white px-5 py-4 rounded-medium w-full"
+        className="bg-projectWhite px-5 py-4 rounded-medium w-full"
         onPress={openEmailModal} // Call the new function to open the modal
       >
         <Text 
@@ -118,14 +118,14 @@ export default function ProfileComponent() {
                 value={newEmail}
                 onChangeText={setNewEmail}
                 placeholder="Digite o novo endereço de e-mail"
-                className="w-full p-4 mb-4 rounded bg-white"
+                className="w-full p-4 mb-4 rounded bg-projectWhite"
               />
 
               <TextInput
                 value={tempEmail}
                 onChangeText={setTempEmail}
                 placeholder="Confirmar novo endereço de e-mail"
-                className="w-full p-4 mb-4 rounded bg-white"
+                className="w-full p-4 mb-4 rounded bg-projectWhite"
               />
 
               {isLoading ? (
@@ -136,7 +136,7 @@ export default function ProfileComponent() {
                   onPress={() => saveEmailChanges()}
                 >
                   <Text
-                    className="text-center font-montserrat-bold text-body text-white">
+                    className="text-center font-montserrat-bold text-body text-projectWhite">
                       Salvar alterações
                   </Text>
                 </TouchableOpacity>

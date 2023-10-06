@@ -73,7 +73,7 @@ export default function ProfileComponent() {
             </TouchableOpacity>
           </View>
 
-          <View className="flex flex-col gap-6 items-center px-6 w-screen">
+          <View className="flex flex-col gap-6 items-center px-6 w-screen mr-3">
             <View className="flex justify-center w-full">
               <ChangeFirstNameButton></ChangeFirstNameButton>
             </View>
