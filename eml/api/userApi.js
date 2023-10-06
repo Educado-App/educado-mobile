@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const prod = 'http://educado.somethingnew.dk'
-const test = 'http://172.30.210.205:8888' // Change this to your LOCAL IP address when testing.
+const test = 'http://172.30.245.130:8888' // Change this to your LOCAL IP address when testing.
 const local = 'http://localhost:8888'
 const digitalOcean = 'http://207.154.213.68:8888'
 
@@ -30,12 +30,12 @@ export const registerUser = async (obj) => {
     firstName: ${obj.firstName ?? 'undefined'}
     lastName: ${obj.lastName ?? 'undefined'}
     email: ${obj.email ?? 'undefined'}`);
-  
+
   try {
     const res = await client.post('/api/signup/user', obj);
     console.log('User successfully registered');
     return res.data;
-  } catch(e) {
+  } catch (e) {
     if (e.response.data != null) {
       throw e.response.data;
     } else {
@@ -51,16 +51,25 @@ export const registerUser = async (obj) => {
  * - password
 */
 export const loginUser = async (obj) => {
-  const res = await client.post('/api/auth/login', obj)
-  return res.data
+  try {
+    const res = await client.post('/api/auth/login', obj);
+    console.log('User successfully registered');
+    return res.data;
+  } catch (e) {
+    if (e.response.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
 }
 /**
  * Sends a request to the backend to delete a user.
  * @param {user_id} user_id
  */
-export const deleteUser = async(user_id) => {
-    const res = await axios.delete(url + "/api/eml/delete/" + user_id);
-    return res.data;
+export const deleteUser = async (user_id) => {
+  const res = await axios.delete(url + "/api/eml/delete/" + user_id);
+  return res.data;
 }
 
 export const enrollInCourse = async (user_Id, course_Id) => {
@@ -86,23 +95,23 @@ export const enrollInCourse = async (user_Id, course_Id) => {
 };
 
 export const updateCourseStatus = async (user_id, course_id) => {
-    // When user completes course it should update the user document from
-    // isComplete: false, to isComplete: true for that course
-    const res = await axios.put(url + '/api/eml/' + user_id + '/updateCourse/' + course_id);
-    return res.data;
+  // When user completes course it should update the user document from
+  // isComplete: false, to isComplete: true for that course
+  const res = await axios.put(url + '/api/eml/' + user_id + '/updateCourse/' + course_id);
+  return res.data;
 }
 
 export const updateSectionStatus = async (user_id, course_id, section_id) => {
-    // When user completes section it should update the user document from
-    // isComplete: false, to isComplete: true for that section
-    const res = await axios.put(url + '/api/eml/' + user_id + '/updateSection/' + course_id + '/' + section_id);
-    return res.data;
+  // When user completes section it should update the user document from
+  // isComplete: false, to isComplete: true for that section
+  const res = await axios.put(url + '/api/eml/' + user_id + '/updateSection/' + course_id + '/' + section_id);
+  return res.data;
 }
 
 export const updateExerciseStatus = async (user_id, course_id, section_id, exercise_id) => {
-    // When user completes an exercise it should update the user document from
-    // isComplete: false, to isComplete: true for that exercise
-    const res = await axios.put(url + '/api/eml/' + user_id + '/updateExercise/' + course_id + '/' + section_id + '/' + exercise_id);
-    return res.data;
+  // When user completes an exercise it should update the user document from
+  // isComplete: false, to isComplete: true for that exercise
+  const res = await axios.put(url + '/api/eml/' + user_id + '/updateExercise/' + course_id + '/' + section_id + '/' + exercise_id);
+  return res.data;
 }
 

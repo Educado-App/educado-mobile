@@ -195,6 +195,7 @@ export default function LoginForm(props) {
           label="Primeiro nome"
           name={"Primeiro nome"}
           value={firstName}
+          testId="firstNameInput"
           //First name
           placeholder="Primeiro nome"
           required={true}
@@ -208,6 +209,7 @@ export default function LoginForm(props) {
           label="Sobrenome"
           name={"Sobrenome"}
           value={lastName}
+          testId="lastNameInput"
           // Last name
           placeholder="Sobrenome"
 

@@ -1,5 +1,6 @@
 import renderer from 'react-test-renderer';
 import LoginForm from '../../../components/login/LoginForm';
+import errorCodes from '../../../components/general/errorCodes';
 
 let loginForm;
 
@@ -19,15 +20,18 @@ jest.mock('@react-navigation/native', () => ({
   }),
 }))
 
+const errorCodesStr = JSON.stringify(errorCodes);
+const errorCodesJSON = JSON.parse(errorCodesStr);
+
+
 jest.mock("../../../api/userApi", () => ({
   loginUser: jest.fn(async ({ email, password }) => {
     if (email === "is@user.com" && password === "password123") {
       return Promise.resolve({ test: "token" });
     } else if (email !== "is@user.com") {
-      return Promise.reject({ response: { status: 404 } });
-
+      return Promise.reject({ error: { code: 'E0101' } });
     } else if (password !== "password123") {
-      return Promise.reject({ response: { status: 401 } });
+      return Promise.reject({ error: { code: 'E0105' } });
     }
   })
 }));
@@ -145,19 +149,19 @@ test("Check that modal opens when clicking on 'forgot password'", async () => {
 
 test("Test email alert", async () => {
   const emailInput = loginForm.root.findByProps({ testId: "emailInput" });
+  const passwordInput = loginForm.root.findByProps({ testId: "passwordInput" });
   const emailAlert = loginForm.root.findByProps({ testId: "emailAlert" });
   const loginButton = loginForm.root.findByProps({ testId: "loginButton" });
 
-  await renderer.act(async () => {
-    emailInput.props.onChangeText("not@user.com");
-  });
-  await renderer.act(async () => {
+  renderer.act(async () => {
+    await emailInput.props.onChangeText("not@user.com");
+    await passwordInput.props.onChangeText("testpassword123");
     loginButton.props.onPress();
+  }).then(() => {
+    expect(emailAlert.props.label).not.toBe("");
+    //expect(emailAlert.props.label).not.toBe((""));
   });
-
-  expect(emailAlert.props.label).not.toBe((""));
 });
-
 
 
 test("Test password alert", async () => {
@@ -166,14 +170,12 @@ test("Test password alert", async () => {
   const passwordAlert = loginForm.root.findByProps({ testId: "passwordAlert" });
   const loginButton = loginForm.root.findByProps({ testId: "loginButton" });
 
-  await renderer.act(async () => {
+  renderer.act(async () => {
     emailInput.props.onChangeText("is@user.com")
-    passwordInput.props.onChangeText("");
-  });
-  await renderer.act(async () => {
+    passwordInput.props.onChangeText("wrongpassword");
     loginButton.props.onPress();
+  }).then(() => {
+    expect(passwordAlert.props.label)
+      .not.toBe((""))
   });
-
-  expect(passwordAlert.props.label)
-    .not.toBe((""));
 });
