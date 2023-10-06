@@ -12,7 +12,6 @@ export default function ReturnButton() {
   const projectColors = tailwindConfig.theme.colors;
 
   const handleBackButtonPress = () => {
-    console.log('Profile');
     navigation.navigate('Perfil');
   }
 

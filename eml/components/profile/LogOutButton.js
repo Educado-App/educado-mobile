@@ -34,7 +34,7 @@ export default function LogOutButton() {
     <View className="flex items-center px-6 w-screen my-3">
       <TouchableOpacity className="bg-primary px-10 py-4 rounded-medium w-full" onPress={logoutAlert}>
         <View className="flex flex-row items-center justify-center">
-          <Text className="text-center font-montserrat-bold text-body text-white">Sair</Text>
+          <Text className="text-center font-montserrat-bold text-body text-projectWhite">Sair</Text>
         </View>
       </TouchableOpacity>
     </View>

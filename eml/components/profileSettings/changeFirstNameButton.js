@@ -99,7 +99,7 @@ export default function ProfileComponent() {
           onRequestClose={() => setFirstNameModalVisible(false)}
         >
         <View className="flex justify-center items-center h-full bg-opacity-50 bg-black">
-          <View className="bg-lightgray p-4 rounded-lg w-11/12 max-w-md">
+          <View className="bg-projectLightGray p-4 rounded-lg w-11/12 max-w-md">
               <View className="flex flex-col items-center">
                 <TextInput
                   value={newFirstName}
