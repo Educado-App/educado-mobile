@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, View, Image } from 'react-native'
-import { Text } from '@ui-kitten/components'
+import Text from '../../general/Text';
 import PropTypes from 'prop-types'
 import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/dev'
 

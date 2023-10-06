@@ -6,7 +6,7 @@ import React from 'react'
 const LOGIN_TOKEN = '@loginToken'
 const USER_INFO = '@userInfo'
 
-export default function LogOutButton() {
+export default function LogOutButton(props) {
   const navigation = useNavigation()
 
   async function logOut() {
@@ -21,13 +21,13 @@ export default function LogOutButton() {
   }
 
   const logoutAlert = () =>
-    Alert.alert('Logout', 'Are you sure?', [
+    Alert.alert('Sair', 'Tem certeza que deseja sair?', [
       {
-        text: 'No',
+        text: 'Não',
         onPress: () => console.log('No Pressed'),
         style: 'cancel'
       },
-      { text: 'Yes', onPress: logOut }
+      { text: 'Sim', onPress: logOut }
     ])
 
   return (

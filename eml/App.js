@@ -63,6 +63,7 @@ function LoginStack() {
 }
 
 function CourseStack() {
+  checkLogin();
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -112,6 +113,8 @@ function CourseStack() {
 }
 
 function HomeStack() {
+  checkLogin();
+
   return (
     <Tab.Navigator
       initialRouteName={"Home"}
@@ -175,23 +178,6 @@ function HomeStack() {
           },
         }}
       />
-      {/*       <Tab.Screen
-        name="TestScreen"
-        component={TestScreen}
-        options={{
-          headerShown: false,
-          tabBarIcon: () => {
-            return (
-              <Icon
-                size={30}
-                name="home"
-                type="material-community"
-                color="black"
-              />
-            );
-          },
-        }}
-      /> */}
     </Tab.Navigator>
   );
 }
