@@ -22,8 +22,6 @@ export default function LogOutButton() {
     }
   }
 
-  console.log("artadf")
-
   const logoutAlert = () =>
     Alert.alert('Logout', 'Are you sure?', [
       {
