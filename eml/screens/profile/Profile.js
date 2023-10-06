@@ -2,15 +2,12 @@ import React, { useEffect, useState } from 'react'
 import {
   View,
   SafeAreaView,
-  Platform,
   ScrollView,
-  TouchableOpacity
 } from 'react-native'
 import ProfileName from '../../components/profile/profileName'
 import LogOutButton from '../../components/profile/LogOutButton'
 import SettingsButton from '../../components/profile/settingsButton.js'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { useNavigation } from '@react-navigation/native'
 import { isFontsLoaded } from "../../constants/Fonts.js";
 import { BgLinearGradient } from "../../constants/BgLinearGradient";
 

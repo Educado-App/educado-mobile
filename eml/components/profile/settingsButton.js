@@ -6,8 +6,6 @@ import {
   import { Text } from 'react-native'; // Import the Text component
   import React from 'react'
   
-  const USER_INFO = '@userInfo'
-  
   export default function settingsButton() {
   
     const navigation = useNavigation()

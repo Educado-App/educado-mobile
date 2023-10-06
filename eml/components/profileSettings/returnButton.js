@@ -1,10 +1,7 @@
-import { View, TouchableOpacity, Image} from 'react-native'
+import { View, TouchableOpacity} from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import Svg, { Path } from 'react-native-svg';
-
-const LOGIN_TOKEN = '@loginToken'
-const USER_INFO = '@userInfo'
 
 export default function ReturnButton() {
   const navigation = useNavigation()
