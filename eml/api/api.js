@@ -5,7 +5,7 @@ const testUrl = 'http://localhost:8888';
 const testExpo = 'http://192.168.170.60:8888'; //Change to local expo ip
 const digitalOcean = 'http://207.154.213.68:8888';
 
-const url = testUrl;
+const url = testExpo;
 
 // TODO: Find a solution to refresh auth-token
 const authToken = '';

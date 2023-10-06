@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { View, Text, Image, Pressable } from "react-native";
 import Collapsible from "react-native-collapsible";
 import { useNavigation } from "@react-navigation/native";
-import { useFonts, VarelaRound_400Regular } from "@expo-google-fonts/dev";
 import { AppLoading } from "expo-app-loading";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -22,12 +21,6 @@ export default function ExploreCard({ course }) {
   const [isSubscribed, setIsSubscribed] = React.useState(false);
   const navigation = useNavigation();
 
-  
-
-  let [fontsLoaded] = useFonts({
-    VarelaRound_400Regular,
-  });
-
   useEffect(() => {
     async function checkSubscription() {
       try {
@@ -41,10 +34,6 @@ export default function ExploreCard({ course }) {
     checkSubscription();
   }, [course.courseId, ifSubscribed(course.courseId), course]);
 
-
-  if (!fontsLoaded) {
-    return AppLoading;
-  } else {
     return (
       <Pressable
         style={{
@@ -222,4 +211,3 @@ export default function ExploreCard({ course }) {
       </Pressable>
     )
   }
-}

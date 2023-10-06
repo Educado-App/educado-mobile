@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, Image, Pressable, Dimensions, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/dev';
 import { AppLoading } from 'expo-app-loading';
 import CourseProgress from '../../../components/courses/courseHeader/CourseProgress';
 import { MaterialCommunityIcons } from '@expo/vector-icons';

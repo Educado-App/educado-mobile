@@ -2,7 +2,6 @@ import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Icon } from '@rneui/themed';
-import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/dev';
 import { AppLoading } from 'expo-app-loading';
 
 export default function RightAnswerScreen() {
@@ -10,12 +9,6 @@ export default function RightAnswerScreen() {
 
   const route = useRoute();
   const { courseId, sectionId } = route.params;
-  const [fontsLoaded] = useFonts({
-    VarelaRound_400Regular,
-  });
-  if (!fontsLoaded) {
-    return AppLoading;
-  }
   return (
     <View
       style={{
@@ -29,8 +22,7 @@ export default function RightAnswerScreen() {
         <View style={{ paddingTop: '40%', paddingBottom: '10%' }}>
           <Text
             style={{
-              fontSize: 45,
-              fontFamily: 'VarelaRound_400Regular',
+              fontSize: 45
             }}
             className="text-gray-600"
           >

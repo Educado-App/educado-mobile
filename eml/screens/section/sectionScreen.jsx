@@ -1,5 +1,6 @@
 import { React, useState, useEffect } from 'react';
-import {Alert, StyleSheet, View, Text, TouchableOpacity} from 'react-native';
+import {Alert, View, TouchableOpacity} from 'react-native';
+import Text  from '../../components/general/Text';
 import TestComponent from '../../components/test/TestComponent';
 import * as StorageService from '../../services/StorageService';
 import * as DirectoryService from '../../services/DirectoryService';
@@ -36,15 +37,14 @@ export default function SectionScreen({ route }) {
 
   
   return (
-      <View style={{ flex: 1, backgroundColor: '#f1f9fb' }}>
-
-        <View style={{ flexDirection: 'row', alignItems: 'center', padding: 10, marginTop: '20%', marginBottom: '10%' }}>
+      <View className="flex-1 bg-[#f1f9fb]">
+        <View className="flex-row items-center p-[10] mt-[20%] mb-[10%]">
           <View className="pl-2">
             <TouchableOpacity onPress={() => navigation.goBack()} style={{ marginRight: 10 }}>
               <MaterialCommunityIcons name="chevron-left" size={25} color="black" />
             </TouchableOpacity>
           </View>
-          <Text style={{ fontSize: 25, marginLeft: 10, fontWeight: 'bold' }}>{course.title}</Text>
+          <Text className="text-[25px] font-bold ml-[10]">{course.title}</Text>
         </View>
         <ScrollView showsVerticalScrollIndicator={false}>
         {section.map((section, i) => { return (

@@ -1,6 +1,6 @@
 import React from 'react'
-import { StyleSheet, View, Text} from 'react-native'
-import Star from '../../gamification/Star'
+import { View} from 'react-native'
+import Text from '../../../components/general/Text';
 import PropTypes from 'prop-types'
 
 export default function CourseProgress({ fracTop, fracBot }) {
@@ -8,45 +8,15 @@ export default function CourseProgress({ fracTop, fracBot }) {
     fracTop: PropTypes.number.isRequired,
     fracBot: PropTypes.number.isRequired
   }
+
+  const className = ((fracTop/fracBot)*100)
+
   return (
-    <View style={[styles.container, {width: fracBot - 29 + '%'}]}>
-      <View style={[styles.bar2, {width: fracTop + '%'}]}/>
-      <Text style={styles.fracStyle}>
+    <View className="flex-col h-[45%] bg-[#ccc] rounded-[10px] my-[10px] w-[100%] max-w-[71%] min-w-[71%]">
+      <View className={"rounded-tl-[10px] rounded-bl-[10px] rounded-br-[8px] rounded-tr-[8px] h-[100%] bg-[#5ECCE9] opacity-[0.5] absolute min-w-[0%] w-[" + className + "%]"}/>
+      <Text className="text-[13px] font-bold text-black absolute bottom-[0%] right-[-28%]">
         {fracTop} / {fracBot}
       </Text>
     </View> 
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'column',
-    height: '45%',
-    backgroundColor: '#ccc',
-    borderRadius: 10,
-    marginVertical: 10,
-  },
-  bar: {
-    height: 20,
-    backgroundColor: '#000',
-    borderRadius: 10,
-  },
-  bar2: {
-    borderTopLeftRadius: 10,
-    borderBottomLeftRadius: 10,
-    borderBottomRightRadius: 8,
-    borderTopRightRadius: 8,
-    height: '100%',
-    backgroundColor: '#5ECCE9',
-    opacity: 0.5,
-    position: 'absolute'
-  },
-  fracStyle: {
-    fontSize: 13,
-    fontWeight: 'bold',
-    color: 'black',
-    position: 'absolute',
-    bottom: '0%',
-    right: '-28%',
-  }
-})
