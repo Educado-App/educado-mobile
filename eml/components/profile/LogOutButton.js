@@ -1,9 +1,7 @@
-import { StyleSheet, View, TouchableOpacity, Alert } from 'react-native'
+import { StyleSheet, View, TouchableOpacity, Alert, Text } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import { Feather } from '@expo/vector-icons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { Text } from '@rneui/base'
-import React from 'react';
+import React from 'react'
 
 const LOGIN_TOKEN = '@loginToken'
 const USER_INFO = '@userInfo'
@@ -33,53 +31,12 @@ export default function LogOutButton() {
     ])
 
   return (
-    <View className="pb-6">
-      <TouchableOpacity style={styles.formButton} onPress={logoutAlert}>
+    <View className="flex items-center px-6 w-screen my-3">
+      <TouchableOpacity className="bg-primary px-10 py-4 rounded-medium w-full" onPress={logoutAlert}>
         <View className="flex flex-row items-center justify-center">
-          <View>
-            <Feather
-              color="#9DE89C"
-              name="log-out"
-              size={36}
-              style={styles.tinyLogo}
-            />
-          </View>
-          <View>
-            {/* Log out */}
-            <Text style={styles.text}>Sair</Text>
-          </View>
+          <Text className="text-center font-montserrat-bold text-body text-projectWhite">Sair</Text>
         </View>
       </TouchableOpacity>
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  formButton: {
-    backgroundColor: 'hsl(0, 0%, 92%)',
-    height: 55,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 35,
-    borderWidth: 1,
-    borderColor: 'hsl(0, 0%, 92%)',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 4
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5
-  },
-  text: {
-    fontSize: 30,
-    color: '#9DE89C'
-  },
-  tinyLogo: {
-    flex: 1,
-    alignItems: 'center',
-    width: 50,
-    height: 50
-  }
-})

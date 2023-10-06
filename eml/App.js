@@ -22,6 +22,7 @@ import ErrorScreen from "./screens/errors/ErrorScreen";
 import SectionCompleteScreen from "./screens/excercise/SectionCompleteScreen";
 import Loading from "./components/loading/Loading";
 import WelcomeScreen from "./screens/welcome/Welcome";
+import ProfileSettingsScreen from "./screens/profile/ProfileSettings";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -258,6 +259,11 @@ export default function App() {
                 name={"HomeStack"}
                 component={HomeStack}
                 options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name={"ProfileSettings"} // Name of your screen
+                component={ProfileSettingsScreen} // Component to be rendered for ProfileSettings screen
+                options={{ headerShown: false }} // You can customize the header title here
               />
             </Stack.Navigator>
           </NavigationContainer>
