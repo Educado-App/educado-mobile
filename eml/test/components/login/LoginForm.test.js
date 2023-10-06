@@ -171,8 +171,8 @@ test("Test password alert", async () => {
   const loginButton = loginForm.root.findByProps({ testId: "loginButton" });
 
   renderer.act(async () => {
-    emailInput.props.onChangeText("is@user.com")
-    passwordInput.props.onChangeText("wrongpassword");
+    await emailInput.props.onChangeText("is@user.com")
+    await passwordInput.props.onChangeText("wrongpassword");
     loginButton.props.onPress();
   }).then(() => {
     expect(passwordAlert.props.label)
