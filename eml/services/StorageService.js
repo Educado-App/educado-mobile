@@ -1,9 +1,7 @@
 import * as api from '../api/api.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as DirectoryService from '../services/DirectoryService';
-
 const COURSE_LIST = '@courseList';
-
 export const getCourseList = async () => {
   try {
     return await refreshCourseList();
@@ -21,11 +19,9 @@ export const refreshCourseList = async () => {
     .getCourses()
     .then(async (list) => {
       let newCourseList = [];
-
       for (const course of list.data) {
         const courseId = course.id;
         const localCourse = JSON.parse(await AsyncStorage.getItem(courseId));
-
         // Make new list with required members
         newCourseList.push({
           title: course.title,
@@ -35,7 +31,6 @@ export const refreshCourseList = async () => {
           isActive: localCourse == null ? false : localCourse.isActive,
         });
       }
-
       // Save new courseList for this key and return it.
       await AsyncStorage.setItem(COURSE_LIST, JSON.stringify(newCourseList));
       return newCourseList;
@@ -192,23 +187,19 @@ export const downloadCourse = async (courseId) => {
 export const getNextExercise = async (sectionId) => {
   try {
     const currentSection = JSON.parse(await AsyncStorage.getItem(sectionId));
-
     for (const exercise of currentSection.exercises) {
       if (!exercise.isComplete) {
         return exercise;
       }
     }
-
     return true;
   } catch (e) {
     console.error(e);
   }
 };
-
 export const getFeedBackByExerciseId = async (sectionId, exerciseId) => {
   try {
     const currentSection = JSON.parse(await AsyncStorage.getItem(sectionId));
-
     for (const exercise of currentSection.exercises) {
       if (exercise.id === exerciseId) {
         return exercise.onWrongFeedback;
@@ -226,10 +217,8 @@ export const updateCompletionStatus = async (
   try {
     const course = JSON.parse(await AsyncStorage.getItem(courseId));
     const updatedSection = JSON.parse(await AsyncStorage.getItem(sectionId));
-
     //console.log("FIRST EX BEFORE: ", updatedSection.exercises[0].isComplete);
     //console.log("SECOND EX BEFORE: ", updatedSection.exercises[1].isComplete);
-
     if (course !== null && updatedSection !== null && exerciseId !== null) {
       for (const exercise of updatedSection.exercises) {
         if (exercise.id === exerciseId && exercise.isComplete === false) {
@@ -237,7 +226,6 @@ export const updateCompletionStatus = async (
           break;
         }
       }
-
       for (let section of course.sections) {
         if (section.id === sectionId) {
           section = updatedSection;
@@ -246,7 +234,6 @@ export const updateCompletionStatus = async (
       //console.log("FIRST EX AFTER: ", updatedSection.exercises[0].isComplete);
       // console.log("SECOND EX AFTER: ", updatedSection.exercises[1].isComplete);
     }
-
     await AsyncStorage.setItem(courseId, JSON.stringify(course));
     await AsyncStorage.setItem(sectionId, JSON.stringify(updatedSection));
   } catch (e) {
@@ -256,7 +243,6 @@ export const updateCompletionStatus = async (
 export const deleteCourse = async (courseId) => {
   if (courseId !== undefined) {
     const courseList = JSON.parse(await AsyncStorage.getItem(COURSE_LIST));
-
     try {
       for (const course of courseList) {
         if (course.courseId === courseId) {
@@ -264,14 +250,12 @@ export const deleteCourse = async (courseId) => {
           course.isActive = false;
         }
       }
-
       await AsyncStorage.setItem(COURSE_LIST, JSON.stringify(courseList));
       // delete sections of course
       const course = JSON.parse(await AsyncStorage.getItem(courseId));
       course.sections.forEach(async (element) => {
         await AsyncStorage.removeItem(element.id);
       });
-
       await DirectoryService.DeleteDirectory(courseId);
       await AsyncStorage.removeItem(courseId);
     } catch (e) {

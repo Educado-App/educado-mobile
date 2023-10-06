@@ -1,272 +1,315 @@
-import React, {useState} from "react";
-import {Alert, Dimensions, Pressable, StyleSheet, Text, TextInput, View} from "react-native";
-import {useNavigation} from "@react-navigation/native";
-import {loginUser, registerUser} from "../../api/userApi";
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import PasswordStrengthMeter from "./PasswordStrengthMeter";
+import React, { useEffect, useState } from "react";
+import { View } from "react-native";
+import { registerUser } from "../../api/userApi";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import FormTextField from "./FormTextField";
+import FormButton from "./FormButton";
+import PasswordEye from "./PasswordEye";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import ShowAlert from "../general/ShowAlert";
+import FormFieldAlert from "./FormFieldAlert";
+import { removeEmojis, validatePasswordContainsLetter, validatePasswordLength, validateEmail, validateName } from "../general/Validation";
+import Text from "../general/Text";
+import patterns from "../../assets/validation/patterns";
+import errorSwitch from "../general/errorSwitch";
 
-const USER_INFO = '@userInfo';
-const LOGIN_TOKEN = '@loginToken';
+const USER_INFO = "@userInfo";
 
-const {height} = Dimensions.get('window');
+/**
+ * Component for registering a new account in the system, used in the register screen
+ * @returns {React.Element} Component containing the form for registering a new user
+ */
 
 export default function LoginForm(props) {
 
-    const navigation = useNavigation();
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+ 
+  const [emailAlert, setEmailAlert] = useState("");
+  const [nameAlert, setNameAlert] = useState("");
+  const [isAllInputValid, setIsAllInputValid] = useState(false);
+  const [confirmPasswordAlert, setConfirmPasswordAlert] = useState("");
 
-    const [userName, setUserName] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
-    const [password, setPassword] = useState('');
+  // State variable to track password visibility
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-    async function register (phoneNumber, password) {
+  // Password Constraint variables
+  const [passwordContainsLetter, setPasswordContainsLetter] = useState(false);
+  const [passwordLengthValid, setPasswordLengthValid] = useState(false);
 
-        // clearing input
-        setPhoneNumber('');
-        setPassword('');
+  useEffect(() => {
+    // Clear input and alerts on first render
+    setFirstName("");
+    setLastName("");
+    setEmail("");
+    setPassword("");
+    setConfirmPassword("");
 
-        const obj = {
-            phone: phoneNumber,
-            password: password
-        };
+    setNameAlert("");
+    setEmailAlert("");
+    setIsAllInputValid(false);
+    setConfirmPasswordAlert("");
+  }, []);
 
-        try {
-            await registerUser(obj)
-                .then(async function (response) {
+  useEffect(() => {
+    const containsLetter = validatePasswordContainsLetter(password);
+    setPasswordContainsLetter(containsLetter);
+    const lengthValid = validatePasswordLength(password);
+    setPasswordLengthValid(lengthValid);
+    checkIfPasswordsMatch(password, confirmPassword);
+  }, [password]);
 
-                    console.log(response);
+  useEffect(() => {
+    checkIfPasswordsMatch(password, confirmPassword);
+  }, [confirmPassword]);
 
-                    try{
-                        await loginUser(obj)
-                            .then(function (response) {
-
-                                AsyncStorage.setItem(LOGIN_TOKEN, response.data.accessToken);
-                                console.log(response);
-                                navigation.navigate('HomeStack');
-
-                            })
-                            .catch(error => {
-
-                                switch (error.message) {
-
-                                    case "Request failed with status code 404":
-                                        // Wrong Phone Number
-                                        console.log("Número de telefone errado!");
-                                        break;
-
-                                    case "Request failed with status code 400":
-                                        //Wrong Password
-                                        console.log("Senha incorreta!");
-                                        break;
-
-                                    default:
-                                        console.log(error);
-                                }
-                            });
-                    }
-                    catch (e) {
-                        console.log(e);
-                    }
-
-                    await createProfile(response._id, userName, phoneNumber);
-
-                })
-                .catch(error => {
-
-                    console.log(error);
-                    switch (error.message){
-
-                        case "Request failed with status code 500":
-                            // Phone Number already exists
-                            showAlert("Número de telefone já existe!");
-                            break;
-
-                        default: console.log(error);
-                    }
-                });
-        }
-        catch (e){
-            console.log(e);
-        }
+  useEffect(() => {
+    let validationError = '';
+    if(firstName !== '') {
+      validationError = validateName(firstName, 'Primeiro nome'); // First name
+    }
+    if(validationError === '' && lastName !== '') {
+      validationError = validateName(lastName, 'Sobrenome'); // Last name
     }
 
+    setNameAlert(validationError);
+  }, [firstName, lastName]);
 
-    async function createProfile (id, userName, phoneNumber){
-
-        try {
-            const obj = {
-                id: id,
-                userName: userName,
-                phoneNumber: phoneNumber,
-            }
-
-            await AsyncStorage.setItem(USER_INFO, JSON.stringify(obj));
-        }
-        catch (e){
-            console.log(e);
-        }
-
+  useEffect(() => {
+    if(email === '') {
+      setEmailAlert('');
+      return;
     }
 
-    const passwordObj = {
-        passwordStrength : password
+    const validationError = validateEmail(email);
+    setEmailAlert(validationError);
+  }, [email]);
+
+  useEffect(() => {
+    validateInput();
+  }, [nameAlert, emailAlert, passwordLengthValid, passwordContainsLetter, confirmPasswordAlert]);
+
+  // Functions to toggle password visibility states
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  }
+
+  const toggleShowConfirmPassword = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  }
+
+  const checkIfPasswordsMatch = (password, confirmPassword) => {
+    if (password === confirmPassword) {
+      setConfirmPasswordAlert("");
+    } else {
+      // The passwords do not match
+      setConfirmPasswordAlert("As senhas devem corresponder");
+    }
+  }
+
+  // TODO: This function should take into consideration
+  // that alerts might be empty when input is yet to be given
+  /**
+   * Function for validating all input fields' content
+   */
+  function validateInput() {
+    const validationPassed = (
+      nameAlert === "" &&
+      emailAlert === "" &&
+      firstName != "" &&
+      lastName != "" &&
+      email != "" &&
+      passwordLengthValid &&
+      passwordContainsLetter &&
+      confirmPasswordAlert === ""
+    );
+    
+    setIsAllInputValid(validationPassed);
+  }
+
+  /**
+   * Function for registering a new user in the database
+   * @param {String} firstName 
+   * @param {String} lastName
+   * @param {String} email 
+   * @param {String} password
+   */
+  async function register(firstName, lastName, email, password) {
+    
+    validateInput(firstName, email, password);
+    
+    if(!isAllInputValid) {
+      return;
+    }
+
+    const obj = {
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      password: password,
     };
 
-    const showAlert = (error) =>
-        Alert.alert(
-            error,
-            //Try again
-            "Tente novamente",
-
-            [
-                {
-                    //OK
-                    text: "Certo",
-                    style: "cancel",
-                },
-            ],
-            {
-                cancelable: true,
-            }
-        );
-
-    return (
-        <View style ={styles.container}>
-            <View style ={StyleSheet.absoluteFill}>
-                <View>
-                    {/* Register user */}
-                    <Text style={styles.textLogoContainer}>Registrar usuário</Text>
-                </View>
-            </View>
-            <View style={styles.bottomContainer}>
-                <View style={styles.formInputContainer}>
-
-                    <TextInput style={styles.textInput}
-                               name={"userName"}
-                               value={userName}
-                               //Username
-                               placeholder="Nome do usuário"
-                               placeholderTextColor="green"
-                               onChangeText={userName => setUserName(userName)}
-                    />
-
-                    <TextInput style={styles.textInput}
-                               name={"phone"}
-                               value={phoneNumber}
-                               //Phone Number
-                               placeholder="Número de telefone"
-                               placeholderTextColor="green"
-                               keyboardType={"phone-pad"}
-                               onChangeText={phoneNumber => setPhoneNumber(phoneNumber)}
-
-                    />
-                    <TextInput
-                        style={styles.textInput}
-                        name={"password"}
-                        value={password}
-                        //Password
-                        placeholder="Senha"
-                        placeholderTextColor="green"
-                        secureTextEntry={true}
-                        onChangeText={password => setPassword(password)}
-                    />
-                    <View>
-                        <PasswordStrengthMeter passwordObj={passwordObj}/>
-                    </View>
-                    <Pressable style={({ pressed }) => [
-                        { opacity: pressed ? 0.5 : 1.0 }
-                    ]} onPress={()=>{
-                        register(phoneNumber, password);
-                    }}>
-                        <View style={styles.formButton}>
-                            {/* Register */}
-                            <Text style={styles.buttonText}>Registro</Text>
-                        </View>
-                    </Pressable>
-                    <Pressable style={({ pressed }) => [
-                        { opacity: pressed ? 0.5 : 1.0 }
-                    ]} onPress={()=>{
-                        navigation.navigate("Login");
-                    }}>
-                        <View style={styles.formButton}>
-                            {/* Go to Login */}
-                            <Text style={styles.buttonText}>Ir para Entrar</Text>
-                        </View>
-                    </Pressable>
-                </View>
-            </View>
-        </View>
-    );
-}
-
-const styles = StyleSheet.create({
-
-    container: {
-        flex: 1,
-        justifyContent : 'flex-start',
-        backgroundColor: 'rgba(86, 255, 131, 0.6)'
-    },
-    button: {
-        backgroundColor : 'rgba(123,104,238,0.8)',
-        height : 55,
-        alignItems : 'center',
-        justifyContent : 'center',
-        borderRadius: 35,
-        marginHorizontal : 20,
-        marginVertical: 10,
-        borderWidth: 1,
-        borderColor: 'white'
-    },
-    buttonText:{
-        fontSize: 20,
-        fontWeight: '600',
-        color: 'black',
-        letterSpacing: 0.5
-
-    },
-    bottomContainer:{
-        justifyContent: 'center',
-        height: height,
-    },
-    textInput: {
-        height: 50,
-        borderWidth: 1,
-        borderColor: 'rgba(0,0,0, 0.2)',
-        marginHorizontal: 20,
-        marginVertical: 10,
-        borderRadius: 25,
-        paddingLeft: 10
-    },
-    formButton: {
-        backgroundColor : 'white',
-        height : 55,
-        alignItems : 'center',
-        justifyContent : 'center',
-        borderRadius: 35,
-        marginHorizontal : 20,
-        marginVertical: 10,
-        borderWidth: 1,
-        borderColor: 'white',
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 4,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
-    },
-    formInputContainer:{
-        marginBottom: 70
-    },
-    textLogoContainer: {
-        marginHorizontal : '20%',
-        marginVertical: '25%',
-        fontSize: 35,
-        fontWeight: '400',
-        color: 'green',
-        letterSpacing: 0.5,
-        height: 50,
-        width: 1000,
-        justifyContent: 'center'
+    try {
+      await registerUser(obj)
+        .then(async function (response) {
+          await saveUserInfoLocally(response._id, firstName, lastName, email);
+        })
+        .catch((error) => {
+          ShowAlert(errorSwitch(error));
+        });
+    } catch (e) {
+      console.log(e);
     }
-});
+  }
+
+  /**
+   * Stores the user info in async storage
+   * @param {*} id user id
+   * @param {*} firstName 
+   * @param {*} lastName
+   * @param {*} email 
+   */
+  async function saveUserInfoLocally(id, firstName, lastName, email) {
+    try {
+      const obj = {
+        id: id,
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+      };
+
+      await AsyncStorage.setItem(USER_INFO, JSON.stringify(obj));
+    } catch (e) {
+      console.log(e);
+    }
+  }
+  return (
+    <View>
+      <View className="mb-6">
+        <FormTextField
+
+          label="Primeiro nome"
+          name={"Primeiro nome"}
+          value={firstName}
+          testId="firstNameInput"
+          //First name
+          placeholder="Primeiro nome"
+          required={true}
+          onChangeText={(firstName) => {
+            setFirstName(firstName);
+          }}
+        />
+      </View>
+      <View className="mb-6">
+        <FormTextField
+          label="Sobrenome"
+          name={"Sobrenome"}
+          value={lastName}
+          testId="lastNameInput"
+          // Last name
+          placeholder="Sobrenome"
+
+          required={true}
+          onChangeText={(lastName) => {
+            setLastName(lastName);
+          }}
+        />
+        <FormFieldAlert label={nameAlert} />
+      </View>
+      <View className="mb-6">
+        <FormTextField
+          className="mb-6"
+          label="Email"
+          name={"Email"}
+          testId="emailInput"
+          value={email}
+          placeholder="user@email.com"
+          keyboardType="email-address"
+          required={true}
+          onChangeText={async (email) => { setEmail(email); validateEmail(email); }}
+        />
+        <FormFieldAlert label={emailAlert} testId="emailAlert" />
+      </View>
+      <View className="mb-6">
+        <View className="relative">
+          <FormTextField
+            label="Senha" //Password
+            name={"password"}
+            testId="passwordInput"
+            value={password}
+            placeholder="Entre sua senha" // Enter your password
+            placeholderTextColor="grey"
+            secureTextEntry={!showPassword}
+            required={true}
+            onChangeText={(inputPassword) => {
+              setPassword(removeEmojis(inputPassword, password));
+
+            }}
+          />
+          <PasswordEye
+            testId = "passwordEye"
+            showPasswordIcon={showPassword}
+            toggleShowPassword={toggleShowPassword}
+          />
+        </View>
+
+        <View className="flex-row justify-start mt-1 h-6">
+          <Text testId="passwordLengthAlert" className={"text-xs" + ((passwordLengthValid || !password) ? " text-gray" : " text-error")}>
+            {/* Minimum 8 characters */}
+            • Mínimo 8 caracteres
+          </Text>
+          <View className="flex-row items-center -translate-y-1">
+            {passwordLengthValid ? (
+              <MaterialCommunityIcons name="check" size={20} color="#4AA04A" />
+            ) : null}
+          </View>
+        </View>
+        <View className="flex-row justify-start h-6">
+          <Text testId="passwordLetterAlert" className={"text-xs font-sans" + ((passwordContainsLetter || !password) ? " text-gray" : " text-error")}>
+            {/* Must contain at least one letter */}
+            • Conter pelo menos uma letra
+          </Text>
+          <View className="flex-row items-center -translate-y-1">
+            {passwordContainsLetter ? (
+              <MaterialCommunityIcons name="check" size={20} color="#4AA04A"/>
+            ) : null}
+          </View>
+        </View>
+      </View>
+      <View className="mb-6">
+        <View className="relative">
+          <FormTextField
+            label="Confirmar Senha" // Confirm password
+            value={confirmPassword}
+            testId="confirmPasswordInput"
+            onChangeText={(inputConfirmPassword) => {
+              setConfirmPassword(removeEmojis(inputConfirmPassword, confirmPassword));
+            }}
+
+            placeholder="Confirme sua senha" // Confirm your password
+            secureTextEntry={!showConfirmPassword}
+            required={true}
+          />
+          <PasswordEye
+            testId = "confirmPasswordEye"
+            showPasswordIcon={showConfirmPassword}
+            toggleShowPassword={toggleShowConfirmPassword}
+          />
+        </View>
+        <FormFieldAlert label={confirmPasswordAlert} />
+      </View>
+      <View className="my-10">
+        <FormButton
+          onPress={() => register(firstName, lastName, email, password)}
+          label="Cadastrar" // Register
+          testId="registerButton"
+          disabled={!isAllInputValid}
+        />
+      </View>
+    </View>
+  );
+}
