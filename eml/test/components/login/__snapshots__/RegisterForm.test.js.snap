@@ -42,7 +42,7 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
             ]
           }
         >
-          Nome
+          Primeiro nome
         </Text>
         <Text
           style={
@@ -74,7 +74,106 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
           keyboardType="default"
           onChangeText={[Function]}
           passwordGuidelines={false}
-          placeholder="Nome Sobrenome"
+          placeholder="Primeiro nome"
+          secureTextEntry={false}
+          style={
+            [
+              {
+                "paddingBottom": 4,
+                "paddingTop": 4,
+              },
+              {
+                "paddingLeft": 10,
+              },
+              {
+                "backgroundColor": "#FFFFFF",
+              },
+              {
+                "borderBottomLeftRadius": 8,
+                "borderBottomRightRadius": 8,
+                "borderTopLeftRadius": 8,
+                "borderTopRightRadius": 8,
+              },
+            ]
+          }
+          value=""
+        />
+      </View>
+    </View>
+  </View>
+  <View
+    style={
+      [
+        {
+          "marginBottom": 24,
+        },
+      ]
+    }
+  >
+    <View>
+      <View
+        style={
+          [
+            {
+              "display": "flex",
+            },
+            {
+              "flexDirection": "row",
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            [
+              {
+                "fontFamily": "Montserrat-Regular",
+              },
+              [
+                {
+                  "marginLeft": 8,
+                },
+                {
+                  "fontSize": 12,
+                  "lineHeight": 16,
+                },
+              ],
+            ]
+          }
+        >
+          Sobrenome
+        </Text>
+        <Text
+          style={
+            [
+              {
+                "fontFamily": "Montserrat-Regular",
+              },
+              [
+                {
+                  "marginLeft": 4,
+                },
+                {
+                  "fontSize": 12,
+                  "lineHeight": 16,
+                },
+                {
+                  "color": "#CF6679",
+                },
+              ],
+            ]
+          }
+        >
+          *
+        </Text>
+      </View>
+      <View>
+        <TextInput
+          autoComplete="off"
+          keyboardType="default"
+          onChangeText={[Function]}
+          passwordGuidelines={false}
+          placeholder="Sobrenome"
           secureTextEntry={false}
           style={
             [
