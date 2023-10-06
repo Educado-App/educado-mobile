@@ -153,7 +153,7 @@ test("Test email alert", async () => {
   const emailAlert = loginForm.root.findByProps({ testId: "emailAlert" });
   const loginButton = loginForm.root.findByProps({ testId: "loginButton" });
 
-  renderer.act(async () => {
+  await renderer.act(async () => {
     await emailInput.props.onChangeText("not@user.com");
     await passwordInput.props.onChangeText("testpassword123");
     loginButton.props.onPress();
@@ -170,7 +170,7 @@ test("Test password alert", async () => {
   const passwordAlert = loginForm.root.findByProps({ testId: "passwordAlert" });
   const loginButton = loginForm.root.findByProps({ testId: "loginButton" });
 
-  renderer.act(async () => {
+  await renderer.act(async () => {
     await emailInput.props.onChangeText("is@user.com")
     await passwordInput.props.onChangeText("wrongpassword");
     loginButton.props.onPress();
