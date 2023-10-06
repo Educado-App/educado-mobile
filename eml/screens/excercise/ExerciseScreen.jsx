@@ -11,6 +11,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Button, RadioButton } from "react-native-paper";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Dimensions } from 'react-native';
+import ExerciseInfo from "../../components/exercise/ExerciseInfo";
 
 export default function ExerciseScreen() {
   const navigation = useNavigation();
@@ -131,14 +132,14 @@ export default function ExerciseScreen() {
                         uncheckedColor="#5ECCE9"
                       />
                     </View>
-                    <Text className="font-montserrat"> {answer.text}</Text>
+                      <Text className="font-montserrat"> {answer.text}</Text>
                   </View>
                 ))}
                 {selectedAnswer !== null && (
                   <View className="items-center">
                     <Pressable>
                       <Text
-                        onPress={() => console.log("REVIEW2")}
+                        onPress={() => console.log("REVIEW", selectedAnswer)}
                         className="text-center font-montserrat text-body text-primary underline pb-20">
                         Review answer
                       </Text>
@@ -167,15 +168,7 @@ export default function ExerciseScreen() {
           )}
         </View>
         */}
-            <View className = "flex-row justify-between items-end px-[12%] py-[12%]">
-              <View className="">
-                <Text className="font-montserrat text-caption-small]">Course name: {dummyExerciseData.courseId}</Text>
-                <Text className="font-montserrat-bold">{dummyExerciseData.sectionId}</Text>
-              </View>
-              <View className = "" >
-                <Image source={require("../../assets/images/dots-horizontal.png")}/>
-              </View>
-            </View>
+      <ExerciseInfo courseId={dummyExerciseData.courseId} sectionId={dummyExerciseData.sectionId} />
         <StatusBar style="auto" />
       </SafeAreaView>
     </View>
