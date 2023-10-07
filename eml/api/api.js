@@ -109,7 +109,7 @@ export const getAllComponents = async (components) => {
 /*** COURSE ***/
 
 export const getCourses = async () => {
-  const res = await axios.get(url + '/api/courses/all')
+  const res = await axios.get(url + '/api/course/all')
   return res.data;
 
 };
