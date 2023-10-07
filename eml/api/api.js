@@ -102,7 +102,7 @@ export const getAllComponents = async (components) => {
     components,
   };
   // Send request to S3 server
-  const res = await axios.post(url + '/api/components/all', obj);
+  const res = await axios.post(url + '/api/component/all', obj);
   return res.data;
 };
 
