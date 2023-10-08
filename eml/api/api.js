@@ -42,6 +42,7 @@ export const getTestCourse = async () => {
     return res.data;
 };
 
+//This function is never called. Is it needed? -Stefan 8/10/23
 export const getCoursesWithAuth = async () => {
   const res = await axios.get(url + '/api/courses', config)
   .then(response => {
