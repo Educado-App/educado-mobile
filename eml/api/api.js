@@ -2,10 +2,10 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const testUrl = 'http://localhost:8888';
-const testExpo = 'http://192.168.170.60:8888'; //Change to local expo ip
+const testExpo = 'http://172.30.211.198:8888'; //Change to local expo ip
 const digitalOcean = 'http://207.154.213.68:8888';
 
-const url = testExpo;
+const url = testUrl;
 
 // TODO: Find a solution to refresh auth-token
 const authToken = '';
@@ -110,7 +110,7 @@ export const getAllComponents = async (components) => {
 /*** COURSE ***/
 
 export const getCourses = async () => {
-  const res = await axios.get(url + '/api/course/all')
+  const res = await axios.get(url + '/api/courses/all')
   return res.data;
 
 };
