@@ -102,10 +102,10 @@ export default function CourseScreen() {
                         <Text className=" pb-10 text-2xl">Nenhum curso ativo</Text>
                         <Pressable
                             style={{ elevation: 10 }}
-                            className="border border-cyanBlue rounded-md bg-cyanBlue p-2"
+                            className="border border-primary rounded-md bg-primary p-2"
                             onPress={() => loadCourse()} >
                             {/* Click to explore courses */}
-                            <Text className="text-white" style={{ fontSize: 30, fontFamily: 'VarelaRound_400Regular', textAlign: 'center' }}> Clique para explorar os cursos</Text>
+                            <Text className="text-white bg-primary" style={{ fontSize: 30, fontFamily: 'VarelaRound_400Regular', textAlign: 'center' }}> Clique para explorar os cursos</Text>
                         </Pressable>
                     </View>}
             </View>

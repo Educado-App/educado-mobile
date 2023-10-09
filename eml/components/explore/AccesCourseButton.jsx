@@ -3,30 +3,20 @@ import { View, Pressable, Text } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const AccessCourseButton = () => {
+  // Empty function that does nothing
+  const handlePress = () => {};
+
   return (
-    <Pressable
-      style={{
-        minWidth: '100%',
-        alignItems: 'center',
-        borderRadius: 10,
-        backgroundColor: '#5fcce9',
-        borderColor: '#5fcce9',
-        borderWidth: 1,
-        paddingVertical: 8,
-        paddingHorizontal: 18,
-      }}
-    >
-      <Text
-        style={{
-          color: 'white',
-          fontSize: 16,
-          fontWeight: 'bold',
-        }}
+    <View className="">
+      <Pressable
+        onPress={handlePress} // Assigning the empty function to the onPress prop
+        className="w-full flex items-center justify-center rounded-lg bg-[#f1CC4f] p-2"
       >
-        
-        Acessar curso
-      </Text>
-    </Pressable>
+        <Text className="text-white p-1 font-bold">
+          Acessar curso
+        </Text>
+      </Pressable>
+    </View>
   );
 };
 
