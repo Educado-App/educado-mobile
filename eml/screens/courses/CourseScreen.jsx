@@ -8,7 +8,7 @@ import CourseCard from '../../components/courses/courseCard/CourseCard'
 import SectionScreen from '../section/sectionScreen'
 
 export default function CourseScreen() {
-
+//Se for new branch
 
     const [courses, setCourses] = useState([]);
 
