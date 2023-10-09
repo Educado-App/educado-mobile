@@ -51,12 +51,12 @@ export default function SectionCard({ section }) {
                         <TouchableOpacity className="w-[100%] h-[300] items-center justify-center relative"
                         onPress={handleImagePress}>
                             <Image source={require('../../../assets/sectionThumbnail.png')} blurRadius={10} className="w-[100%] h-[300] object-cover"/>
-                            {/* Nativewind does not work with MaterialCommunityIcons*/}
-                            <MaterialCommunityIcons name="play-circle-outline" size={100} color="white" style={{position: 'absolute', zIndex: 1, allignement: 'center',}} />
+                            <View className="absolute z-[1]">
+                                <MaterialCommunityIcons name="play-circle-outline" size={100} color="white" />
+                            </View>
                         </TouchableOpacity>
                     </View>
                 </Collapsible>
-
             </Pressable>
         </View>
     );

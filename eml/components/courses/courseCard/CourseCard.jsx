@@ -55,7 +55,7 @@ export default function CourseCard({ course }) {
         </View>
         <View className="flex-row items-baseline">
             <CourseProgress fracTop={50} fracBot={100} />
-            <Pressable className="z-1 left-[180%] ml-[2px]"
+            <Pressable className="z-[1] left-[180%] ml-[2px]"
                                  onPress={()=> {
                                     navigation.navigate('Section', {
                                     courseId: course.courseId,

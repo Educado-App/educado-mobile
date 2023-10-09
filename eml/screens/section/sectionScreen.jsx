@@ -10,6 +10,11 @@ import {ScrollView} from "react-native-gesture-handler";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import { useNavigation } from '@react-navigation/native';
 
+/**
+ * Section screen component.
+ * @param {object} route - The route object containing the courseId parameter.
+ * @returns {JSX.Element} - The section screen JSX elements.
+ */
 export default function SectionScreen({ route }) {
 
   const { courseId } = route.params;
@@ -17,16 +22,24 @@ export default function SectionScreen({ route }) {
   const [section, setSection] = useState([]);
   const [course, setCourse] = useState([]);
 
-
+  /**
+   * Loads the sections for the given course ID.
+   * @param {string} id - The course ID.
+   * @returns {Promise<void>} - A promise that resolves when the sections are loaded.
+   */
   async function loadSections(id) {
     const sectionData = await StorageService.getSections(id);
     setSection(sectionData);
-
   }
+
+  /**
+   * Gets the course data for the given course ID.
+   * @param {string} id - The course ID.
+   * @returns {Promise<void>} - A promise that resolves when the course data is retrieved.
+   */
   async function getCourse(id) {
     const courseData = await StorageService.getCourseId(id);
     setCourse(courseData);
-
   }
   
   //Fetch courses from backend and replace dummy data!
@@ -35,7 +48,6 @@ export default function SectionScreen({ route }) {
     getCourse(courseId);
   }, []);
 
-  
   return (
       <View className="flex-[1] bg-[#f1f9fb]">
         <View className="flex-row items-center p-[10] mt-[20%] mb-[10%]">

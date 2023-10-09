@@ -3,6 +3,13 @@ import { View} from 'react-native'
 import Text from '../../../components/general/Text';
 import PropTypes from 'prop-types'
 
+/**
+ * Renders a course progress bar with the given fraction values.
+ * @param {Object} props - The component props.
+ * @param {number} props.fracTop - The numerator of the fraction.
+ * @param {number} props.fracBot - The denominator of the fraction.
+ * @returns {JSX.Element} - The rendered component.
+ */
 export default function CourseProgress({ fracTop, fracBot }) {
   CourseProgress.propTypes = {
     fracTop: PropTypes.number.isRequired,
