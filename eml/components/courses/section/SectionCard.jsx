@@ -30,7 +30,7 @@ export default function SectionCard({ section }) {
         <View className="bg-transparent m-[8] rounded-[10px] shadow-[0px 2px 4.65px #000] shadow-opacity-[0.3]">
             <Pressable onPress={toggleDropdown} className="bg-[#fff] rounded-[10px] mb-[15] mx-[18] overflow-hidden elevation-[8]">
                 <View className={"flex-row items-center justify-between px-[25] py-[15] " + className}>
-                    <Text className="text-[16px] font-bold text-black flex-1">
+                    <Text className="text-[16px] font-bold text-black flex-[1]">
                         {section.title}
                     </Text>
                     <Text className="mr-[10] text-black">
@@ -48,12 +48,12 @@ export default function SectionCard({ section }) {
                     <View className="h-[1px] bg-[#e0e0e0]"/>
                     <Text className="mx-[20] my-[10]">{section.description}</Text>
                     {/* The view under here acts weird when you write flex-1 in class name but seems to function fine without */}
-                    <View className="w-[100%]">
+                    <View className="flex-[1] w-[100%]">
                         <TouchableOpacity className="w-[100%] h-[300] items-center justify-center relative"
                         onPress={handleImagePress}>
                             <Image source={require('../../../assets/sectionThumbnail.png')} blurRadius={10} className="w-[100%] h-[300] object-cover"/>
                             {/* Cannot find a nativewind alignment that has the same outcome as the one in style so it stays for now */}
-                            <MaterialCommunityIcons name="play-circle-outline" size={100} color="white" className="absolute z-1" style={{allignement: 'center'}} />
+                            <MaterialCommunityIcons name="play-circle-outline" size={100} color="black" className="absolute z-1" style={{allignement: 'center'}} />
                         </TouchableOpacity>
                     </View>
                 </Collapsible>
