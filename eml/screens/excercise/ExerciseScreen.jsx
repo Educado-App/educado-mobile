@@ -131,7 +131,7 @@ export default function ExerciseScreen() {
                         uncheckedColor="#5ECCE9"
                       />
                     </View>
-                    <Text className="font-montserrat"> {answer.text}</Text>
+                    <Text className="font-montserrat">{answer.text}</Text>
                   </View>
                 ))}
                 {selectedAnswer !== null && (
