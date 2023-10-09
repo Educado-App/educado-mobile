@@ -37,10 +37,10 @@ export default function SectionScreen({ route }) {
 
   
   return (
-      <View className="flex-1 bg-[#f1f9fb]">
+      <View className="flex-[1] bg-[#f1f9fb]">
         <View className="flex-row items-center p-[10] mt-[20%] mb-[10%]">
           <View className="pl-2">
-            <TouchableOpacity onPress={() => navigation.goBack()} style={{ marginRight: 10 }}>
+            <TouchableOpacity onPress={() => navigation.goBack()} className="mr-[10]">
               <MaterialCommunityIcons name="chevron-left" size={25} color="black" />
             </TouchableOpacity>
           </View>
