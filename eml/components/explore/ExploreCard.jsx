@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { View, Text, Image, Pressable } from "react-native";
 import Collapsible from "react-native-collapsible";
 import { useNavigation } from "@react-navigation/native";
+import UpdateDate from "./ExploreUpdate";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -94,10 +95,8 @@ export default function ExploreCard({ course, isPublished }) {
           </View>
         </View>
 
-        <View className="">
-          <Text className="text-black pt-3 opacity-40 text-xs font-bold text-[10rem]">
-            ATUALIZADO: {course.dateUpdated}
-          </Text>
+        <View>
+          <UpdateDate dateUpdated={course.dateUpdated} />
         </View>
       </Collapsible>
     </Pressable>
