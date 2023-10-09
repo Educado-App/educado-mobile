@@ -47,13 +47,12 @@ export default function SectionCard({ section }) {
 
                     <View className="h-[1px] bg-[#e0e0e0]"/>
                     <Text className="mx-[20] my-[10]">{section.description}</Text>
-                    {/* The view under here acts weird when you write flex-1 in class name but seems to function fine without */}
-                    <View className="flex-[1] w-[100%]">
+                    <View className="w-[100%]">
                         <TouchableOpacity className="w-[100%] h-[300] items-center justify-center relative"
                         onPress={handleImagePress}>
                             <Image source={require('../../../assets/sectionThumbnail.png')} blurRadius={10} className="w-[100%] h-[300] object-cover"/>
-                            {/* Cannot find a nativewind alignment that has the same outcome as the one in style so it stays for now */}
-                            <MaterialCommunityIcons name="play-circle-outline" size={100} color="black" className="absolute z-1" style={{allignement: 'center'}} />
+                            {/* Nativewind does not work with MaterialCommunityIcons*/}
+                            <MaterialCommunityIcons name="play-circle-outline" size={100} color="white" style={{position: 'absolute', zIndex: 1, allignement: 'center',}} />
                         </TouchableOpacity>
                     </View>
                 </Collapsible>
