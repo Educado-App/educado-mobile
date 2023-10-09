@@ -31,7 +31,7 @@ export default function ExploreCard({ course, isPublished }) {
 
   return isPublished ? (
     <Pressable
-      className="bg-white rounded-lg shadow-sm mb-4 mx-4 p-6"
+      className="bg-white rounded-lg shadow-sm mb-4 mx-4 p-6 overflow-hidden"
       onPress={() => setIsCollapsed(!isCollapsed)}
     >
       <View className="flex-col items-center">
@@ -45,7 +45,8 @@ export default function ExploreCard({ course, isPublished }) {
             />
           </View>
         </View>
-        <View className="h-1 border-b-[1px] w-full border-gray opacity-50 pt-2" ></View>
+        
+        <View className="h-1 border-b-[1px] w-full border-gray opacity-50 pt-2"></View>
 
         <View className="w-full h-[0.5] bg-gray-500 opacity-50 pt-2" />
         <View className="flex-row justify-between w-full items-start">
@@ -74,9 +75,13 @@ export default function ExploreCard({ course, isPublished }) {
             </View>
             <View className="h-1.25 opacity-50" />
             <CustomRating rating={course.rating} />
+            
           </View>
+            
         </View>
+        
       </View>
+      
 
       <Collapsible className="w-full" collapsed={isCollapsed}>
         <View className="py-7 flex-row items-center justify-between px-1">
@@ -99,6 +104,15 @@ export default function ExploreCard({ course, isPublished }) {
           <UpdateDate dateUpdated={course.dateUpdated} />
         </View>
       </Collapsible>
+      <View className=" items-start absolute">
+      <View className=" rotate-[315deg] items-center">
+              {isSubscribed ? (
+                <Text className=" bg-primary text-xs text-white font-bold px-8 -left-8 -top-4 drop-shadow-sm">
+                  Inscrito
+                </Text>
+              ) : null}
+            </View>
+            </View>
     </Pressable>
   ) : null;
 }
