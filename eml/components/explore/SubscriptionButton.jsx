@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useState } from 'react';
 import { View, Pressable, Text } from 'react-native';
 
 const SubscriptionButton = ({ onClick }) => {

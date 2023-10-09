@@ -8,8 +8,7 @@ function SearchBar({ searchText, onSearchChange }) {
       <TextInput
         placeholder="Buscar cursos"
         onChangeText={onSearchChange}
-        className="flex-1 px-2.5 py-3"
-        style={{ paddingRight: 35 }} // Add right padding to ensure text doesn't overlap with icon
+        className="flex-1 px-2.5 py-3 pr-35"
       />
 
       <MaterialCommunityIcons name="magnify" size={20} color="gray" />

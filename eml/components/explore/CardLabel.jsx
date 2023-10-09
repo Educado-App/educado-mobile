@@ -2,7 +2,7 @@ import React from 'react';
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { View, Text } from 'react-native';
 
-const CardLabel = ({title, icon, color = "f1CC4f", time = false}) => {
+const CardLabel = ({title, icon, color = "#f1CC4f", time = false}) => {
     const displayTitle = time ? `${title} Horas` : title;
 
     return ( 

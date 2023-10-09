@@ -28,11 +28,11 @@ function FilterNavBar({ onChangeText, onCategoryChange }) {
 
   return (
     <View>
-      <View className="elevation-15 z-15 p-2">
+      <View className="z-10 p-2">
         <SearchBar searchText={searchText} onSearchChange={handleSearchInputChange} />
       </View>
 
-      <View className="elevation-15 z-15 pl-2 pr-2 pb-4">
+      <View className=" z-10 pl-2 pr-2 pb-4">
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <View className="flex items-center p-2 ">
           <View className="flex-row overflow-x-auto">

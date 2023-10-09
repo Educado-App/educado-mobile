@@ -13,17 +13,12 @@ function Explore() {
 
   const [image, setImage] = React.useState(null);
   useEffect(() => {
-    console.log("useEffect");   
     handleGettingImage(); 
-
-
   },[])
 
   const handleGettingImage = async () => {
 
     const res = await getBucketImage("gorilla")
-
-    console.log("res", res);
     setImage(res);
 
   }
@@ -116,7 +111,7 @@ useEffect(() => {
   };
 
   return (
-    <View className="flex-1  bg-f1f9fb">
+    <View className="flex-1 bg-[#f1f9fb]">
 
   <View className="flex flex-row items-center pl-6 pt-[30%] pb-[10%]">
     <Image 
@@ -132,7 +127,7 @@ useEffect(() => {
     onChangeText={(text) => handleFilter(text)} 
     onCategoryChange={handleCategoryFilter}
   />
-<ScrollView vertical>
+<ScrollView vertical >
   <View className="overflow-y-auto">
     {filteredCourses.map((course, index) => (
       
