@@ -5,6 +5,12 @@ import { AppLoading } from 'expo-app-loading';
 import CourseProgress from '../courseHeader/CourseProgress';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
+/**
+ * CourseCard component displays a card for a course with its details and progress.
+ * @param {Object} props - Component props.
+ * @param {Object} props.course - Course object containing course details.
+ * @returns {JSX.Element} - Rendered component.
+ */
 export default function CourseCard({ course }) {
     const navigation = useNavigation();
 

@@ -5,6 +5,13 @@ import Text from '../../../components/general/Text';
 import Collapsible from "react-native-collapsible";
 import { useNavigation } from '@react-navigation/native'
 
+/**
+ * Renders a card component for a section of a course.
+ * @param {Object} props - The component props.
+ * @param {Object} props.section - The section object containing information about the section.
+ * @returns {JSX.Element} - The JSX element representing the section card component.
+ */
+
 export default function SectionCard({ section }) {
 
     // hardcoded for now

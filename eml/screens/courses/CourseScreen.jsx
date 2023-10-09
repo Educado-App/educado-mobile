@@ -52,6 +52,10 @@ export default function CourseScreen() {
     return (
         //<ErrorBoundary fallback={<p>something went wrong</p>}>
         <View className="flex-1 bg-[#f1f9fb]">
+            {/** Checks if the course(s) has been loaded
+             * If it has, it will render and map the courses
+             * If not, it will render a message saying that there are no active courses (in portugese)
+             */}
             {courseLoaded ?
                 <View height='100%'>
                     <View className="pl-2 items-center flex-row mt-[20%] mb-[10%] p-2.5">
