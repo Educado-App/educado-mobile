@@ -1,11 +1,11 @@
 import axios from 'axios'
 
 const prod = 'http://educado.somethingnew.dk'
-const testUrl = 'http://172.30.211.198:8888';
-const testExpo = 'http://192.168.0.224:19000'; //Change to local expo ip
+const testUrl = 'http://192.168.0.224:8888';
+const testExpo = 'http://192.168.0.224:8888'; //Change to local expo ip
 const digitalOcean = 'http://207.154.213.68:8888'
 
-const url = testUrl;
+const url = testExpo;
 
 /**
  * This is the client that will be used to make requests to the backend.

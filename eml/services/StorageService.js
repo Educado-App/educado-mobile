@@ -63,45 +63,6 @@ const createCourseContent = (requestedCourse, sections) => {
   };
 };
 
-
-export const getCourseList = async () => {
-  try {
-    return await refreshCourseList();
-  } catch (e) {
-    // Check if the course list already exists in AsyncStorage
-    let courseList = JSON.parse(await AsyncStorage.getItem(COURSE_LIST));
-    if (courseList !== null) {
-      console.log(courseList);
-      return courseList;
-    }
-    console.error(e);
-  }
-};
-export const refreshCourseList = async () => {
-  return await api
-    .getCourses()
-    .then(async (list) => {
-      let newCourseList = [];
-      for (const course of list) {
-        const courseId = course._id;
-        const localCourse = JSON.parse(await AsyncStorage.getItem(courseId));
-        // Make new list with required members
-        newCourseList.push({
-          title: course.title,
-          courseId: course._id,
-          description: course.description,
-          category: course.category,
-          isActive: localCourse == null ? false : localCourse.isActive,
-        });
-      }
-      // Save new courseList for this key and return it.
-      await AsyncStorage.setItem(COURSE_LIST, JSON.stringify(newCourseList));
-      return newCourseList;
-    })
-    .catch((e) => {
-      console.log(e);
-    });
-};
 export const getCourseById = async (courseId) => {
   try {
     const course = JSON.parse(await AsyncStorage.getItem(courseId));
@@ -327,6 +288,43 @@ export const deleteCourse = async (courseId) => {
   }
 };
 
+
+export const getCourseList = async () => {
+  try {
+    return await refreshCourseList();
+  } catch (e) {
+    // Check if the course list already exists in AsyncStorage
+    let courseList = JSON.parse(await AsyncStorage.getItem(COURSE_LIST));
+    if (courseList !== null) {
+      console.log(courseList);
+      return courseList;
+    }
+    console.error(e);
+  }
+};
+export const refreshCourseList = async () => {
+  return await api
+  .getCourses()
+    .then(async (list) => {
+      let newCourseList = [];
+      for (const course of list) {
+        // Make new list with required members
+        newCourseList.push({
+          title: course.title,
+          courseId: course._id,
+          description: course.description,
+          category: course.category,
+        });
+      }
+      // Save new courseList for this key and return it.
+      await AsyncStorage.setItem(COURSE_LIST, JSON.stringify(newCourseList));
+      return newCourseList;
+    })
+    .catch((e) => {
+      console.log(e);
+    });
+};
+
 export const getSubCourseList = async () => {
   try {
     return await refreshSubCourseList();
@@ -346,17 +344,13 @@ export const refreshSubCourseList = async () => {
     .then(async (list) => {
       let newCourseList = [];
       for (const course of list) {
-        const courseId = course._id;
-        const localCourse = JSON.parse(await AsyncStorage.getItem(courseId));
+
         // Make new list with required members
         newCourseList.push({
           title: course.title,
           courseId: course._id,
-          published: course.published,
           description: course.description,
-          iconPath: course.category == null ? '' : course.category.icon,
           category: course.category,
-          isActive: localCourse == null ? false : localCourse.isActive,
         });
       }
       // Save new courseList for this key and return it.
@@ -364,6 +358,7 @@ export const refreshSubCourseList = async () => {
       return newCourseList;
     })
     .catch((e) => {
+
       console.log(e);
     });
 };

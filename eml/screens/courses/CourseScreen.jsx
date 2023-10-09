@@ -17,10 +17,13 @@ export default function CourseScreen() {
     const navigation = useNavigation()  
     
     useEffect(() => {
+        /**
+         * Asynchronous function that loads the courses from storage and updates the state.
+         * @returns {void}
+         */
         async function loadCourses() {
-        try {
+            try {
                 const courseData = await StorageService.getSubCourseList();
-    
                 if (courseData.length !== 0 && Array.isArray(courseData) ) {
                     setCourses(courseData);
                     setCourseLoaded(true);
@@ -32,7 +35,8 @@ export default function CourseScreen() {
             } catch (error) {
               console.error("Error checking subscription:", error);
             }
-    } loadCourses();
+        } 
+        loadCourses();
     }, [courses]);
 
         return (
