@@ -107,7 +107,7 @@ export default function ExploreCard({ course, isPublished }) {
       <View className=" items-start absolute">
       <View className=" rotate-[315deg] items-center">
               {isSubscribed ? (
-                <Text className=" bg-primary text-xs text-white font-bold px-8 -left-8 -top-4 drop-shadow-sm">
+                <Text className=" bg-[#f1CC4f] text-xs text-white font-bold px-8 -left-8 -top-4 drop-shadow-sm">
                   Inscrito
                 </Text>
               ) : null}
