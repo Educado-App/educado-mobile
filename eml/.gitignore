@@ -21,4 +21,4 @@ dist/
 ngrok.exe
 
 .env
-/config
+/config/gcp_service.json

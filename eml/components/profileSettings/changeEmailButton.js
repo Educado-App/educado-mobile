@@ -11,6 +11,7 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { isFontsLoaded } from "../../constants/Fonts.js";
 import { updateUserEmail } from '../../api/userApi.js';
+import patterns from '../../assets/validation/patterns.js';
 
 const USER_INFO = '@userInfo';
 
@@ -45,7 +46,7 @@ export default function ProfileComponent() {
 
   const saveEmailChanges = async () => {
     // Regular expression for email validation
-    const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+    const emailRegex = patterns.email;
   
     if (newEmail !== email && newEmail === tempEmail) {
       if (emailRegex.test(newEmail)) {
@@ -69,12 +70,15 @@ export default function ProfileComponent() {
         await AsyncStorage.setItem(USER_INFO, JSON.stringify(updatedProfile));
         setEmailModalVisible(false);
         } catch (error) {
+          // Error updating email, try again:
           Alert.alert('Alerta', 'Erro ao atualizar o e-mail, tente novamente: ', error.message);
         }
       } else {
+        // Invalid email format. Please enter a valid email address.
         Alert.alert('Alerta','Formato de e-mail inválido. Digite um endereço de e-mail válido.');
       }
     } else {
+      // The emails do not match or are the same as your current email. Try again.
       Alert.alert('Alerta','Os e-mails não correspondem ou são iguais ao seu e-mail atual. Tente novamente.')
     }
     setIsLoading(false);

@@ -28,7 +28,7 @@ export const deleteUser = async (user_id) => {
 
 export const updateFirstName = async (user_id, new_FirstName) => {
   try {
-    const res = await axios.put(url + `/api/user/update-first_name/` + user_id, { newFirstName: new_FirstName });
+    const res = await axios.put(url + `/api/user/update-first-name/` + user_id, { newFirstName: new_FirstName });
     return res.data;
   } catch (error) {
     // Handle errors here
@@ -38,7 +38,7 @@ export const updateFirstName = async (user_id, new_FirstName) => {
 
 export const updateLastName = async (user_id, new_LastName) => {
   try {
-    const res = await axios.put(url + `/api/user/update-last_name/` + user_id, { newLastName: new_LastName });
+    const res = await axios.put(url + `/api/user/update-last-name/` + user_id, { newLastName: new_LastName });
     return res.data;
   } catch (error) {
     // Handle errors here
