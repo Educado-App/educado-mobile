@@ -314,6 +314,10 @@ export const refreshCourseList = async () => {
           courseId: course._id,
           description: course.description,
           category: course.category,
+          time: 10,
+          dateUpdated: course.dateUpdated,
+          difficulty: 1, // default always true
+          published: true, // default always true for now
         });
       }
       // Save new courseList for this key and return it.

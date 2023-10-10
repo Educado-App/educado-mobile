@@ -16,6 +16,8 @@ export default function SectionCard({ section }) {
 
     // hardcoded for now
 
+    const completed = 0;
+
     const navigation = useNavigation();
     const isComplete = completed === section.total;
     const inProgress = 0 < completed && completed < section.total;

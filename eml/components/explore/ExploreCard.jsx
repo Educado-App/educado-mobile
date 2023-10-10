@@ -16,7 +16,7 @@ import {ifSubscribed } from "../../api/api";
 
 
 
-export default function ExploreCard({ course }) {
+export default function ExploreCard({ course, isPublished }) {
   const [isCollapsed, setIsCollapsed] = React.useState(true);
   const [isSubscribed, setIsSubscribed] = React.useState(false);
   const navigation = useNavigation();
