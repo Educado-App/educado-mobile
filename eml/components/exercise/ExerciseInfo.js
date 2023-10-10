@@ -5,8 +5,8 @@ const ExerciseInfo = ({ courseId, sectionId }) => {
   return (
     <View className="flex-row justify-between items-end px-[12%] py-[12%]">
       <View className="">
-        <Text className="font-montserrat text-caption-small]">Course name: {courseId}</Text>
-        <Text className="font-montserrat-bold">{sectionId}</Text>
+        <Text className="font-montserrat text-caption-small text-projectGray">Course name: {courseId}</Text>
+        <Text className="font-montserrat-bold text-body">{sectionId}</Text>
       </View>
       <View className="">
         <Image source={require("../../assets/images/dots-horizontal.png")} />
