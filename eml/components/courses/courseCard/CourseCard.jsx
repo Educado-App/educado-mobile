@@ -15,7 +15,7 @@ export default function CourseCard({ course }) {
     const navigation = useNavigation();
 
         return (  
-          <Pressable className="
+          <View className="
           bg-[#fff]
           m-[8px]
           rounded-[10px]
@@ -71,6 +71,6 @@ export default function CourseCard({ course }) {
             </Pressable>
         </View>
       </View>
-      </Pressable>
+      </View>
     )
     }
