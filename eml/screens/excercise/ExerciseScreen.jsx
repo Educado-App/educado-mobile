@@ -13,8 +13,6 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { Dimensions } from 'react-native';
 import ExerciseInfo from "../../components/exercise/ExerciseInfo";
 import { ScreenWidth } from "@rneui/base";
-import Icon from '@mdi/react';
-import { mdiCheck } from '@mdi/js';
 
 export default function ExerciseScreen() {
   const navigation = useNavigation();
@@ -25,25 +23,27 @@ export default function ExerciseScreen() {
   const [signal, setSignal] = useState([]);
   const [exerciseData, setExerciseData] = useState({});
   const [selectedAnswer, setSelectedAnswer] = useState(null); // State to store the selected answer
+  const [buttonClassName, setButtonClassName] = useState(""); // Used to change color of a view
+  const [showFeedback, setShowFeedback] = useState(false); // Used to render feedback
+
 
   const handleAnswerSelect = (answerId) => {
     setSelectedAnswer(answerId); // Update the selected answer when a radio button is pressed
   };
 
-  let reviewAnswer = 0;
+  var reviewAnswer;
 
+  // Update this function to look like handleAnswerSelect, looks better
   function handleReviewAnswer() {
     if (dummyExerciseData.answers[selectedAnswer - 1].isCorrect) {
-      // Handle the case when the selected answer is correct
-      reviewAnswer = 1;
-      console.log("Correct answer");
-      // Do something for a correct answer, e.g., show a success message or navigate to the next question.
+      setButtonClassName("bg-projectGreen");
+      reviewAnswer = true;
     } else {
-      // Handle the case when the selected answer is incorrect
-      reviewAnswer = 2;
-      console.log("Incorrect answer");
-      // Do something for an incorrect answer, e.g., show a failure message or allow the user to try again.
+      setButtonClassName("bg-projectRed");
+      reviewAnswer = false;
     }
+    setShowFeedback(true);
+    console.log(reviewAnswer);
   }
 
   /*async function getExercise() {
@@ -133,7 +133,7 @@ export default function ExerciseScreen() {
             <Text className="pt-6 pb-10 text-center text-body font-montserrat-bold text-projectBlack w-5/6">
               {dummyExerciseData.question}
             </Text>
-            <View className={`bg-projectRed items-center justify-center ${reviewAnswer === 2 ? 'bg-projectRed' : ''}`} style={{height: screenHeight * 0.569, width: ScreenWidth * 1}}>
+            <View className={`${buttonClassName} items-center justify-center`} style={{height: screenHeight * 0.569, width: ScreenWidth * 1}}>
               <ScrollView>
                 {/* Map through the answers and render each one */}
                 {dummyExerciseData.answers.map((answer) => (
@@ -157,6 +157,7 @@ export default function ExerciseScreen() {
                         {/*{reviewAnswer === 2 || 1 ? ( 
                           ''
                         ) : (*/}
+                      {showFeedback ? (
                       <View className={`flex-row pb-2 w-[310] rounded ${answer.isCorrect ? 'bg-projectGreen' : 'bg-projectRed'}`}>
                         <View className="pl-2 pt-1">
                           {answer.isCorrect === true ? (
@@ -169,7 +170,8 @@ export default function ExerciseScreen() {
                            )}                          
                         </View>
                         <Text className={`w-[272] pl-1 pt-2 font-montserrat text-caption-medium ${answer.isCorrect ? 'text-success' : 'text-error'}`}>{answer.feedback}</Text>
-                      </View>   
+                      </View>
+                      ) : null}
                     </View>
                   </View>
                 ))}
