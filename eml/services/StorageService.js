@@ -374,7 +374,6 @@ export const getSectionList = async (course_id) => {
     // Check if the course list already exists in AsyncStorage
     let sectionList = JSON.parse(await AsyncStorage.getItem(SECTION_LIST));
     if (sectionList !== null) {
-      console.log(sectionList);
       return sectionList;
     }
     console.error(e);
@@ -399,7 +398,6 @@ export const refreshSectionList = async (course_id) => {
       }
       // Save new courseList for this key and return it.
       await AsyncStorage.setItem(SECTION_LIST, JSON.stringify(newSectionList));
-      
       return newSectionList;
     })
     .catch((e) => {
