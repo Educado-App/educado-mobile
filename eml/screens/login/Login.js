@@ -42,41 +42,39 @@ export default function Login(props) {
 
   return (
     <SafeAreaView className="justify-start bg-secondary flex-1">
-      <ScrollView className="flex-1">
-        <KeyboardAwareScrollView
-          className="flex-1"
-          resetScrollToCoords={{ x: 0, y: 0 }}
-          scrollEnabled={false}>
-          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <View>
-              <View className="mt-10">
-                <LogoBackButton navigationPlace="Login" />
+      <KeyboardAwareScrollView
+        className="flex-1"
+        resetScrollToCoords={{ x: 0, y: 0 }}
+        scrollEnabled={true}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View>
+            <View className="mt-10">
+              <LogoBackButton navigationPlace="Login" />
+            </View>
+            <View className="mx-6">
+              {/* Login form */}
+              <View className="my-8">
+                <LoginForm />
               </View>
-              <View className="mx-6">
-                {/* Login form */}
-                <View className="my-8">
-                  <LoginForm />
-                </View>
-                {/* Register button */}
-                <View className="flex-row justify-center">
-                  <Text className="text-base text-gray mr-1">
-                    {/* Dont have an account yet? */}
-                    Ainda não tem conta?
-                  </Text>
-                  <Text
-                    testId="registerNav"
-                    className={"text-base text-black underline"}
-                    onPress={() => navigation.navigate("Register")}
-                  >
-                    {/* Sign up now */}
-                    Cadastre-se agora
-                  </Text>
-                </View>
+              {/* Register button */}
+              <View className="flex-row justify-center">
+                <Text className="text-base text-gray mr-1">
+                  {/* Dont have an account yet? */}
+                  Ainda não tem conta?
+                </Text>
+                <Text
+                  testId="registerNav"
+                  className={"text-base text-black underline"}
+                  onPress={() => navigation.navigate("Register")}
+                >
+                  {/* Sign up now */}
+                  Cadastre-se agora
+                </Text>
               </View>
             </View>
-          </TouchableWithoutFeedback>
-        </KeyboardAwareScrollView>
-      </ScrollView>
+          </View>
+        </TouchableWithoutFeedback>
+      </KeyboardAwareScrollView>
     </SafeAreaView >
   );
 }

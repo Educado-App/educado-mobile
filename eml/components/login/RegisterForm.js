@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { View } from "react-native";
-import { registerUser } from "../../api/userApi";
+import { loginUser, registerUser } from "../../api/userApi";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import FormTextField from "./FormTextField";
 import FormButton from "./FormButton";
@@ -12,7 +12,9 @@ import { removeEmojis, validatePasswordContainsLetter, validatePasswordLength, v
 import Text from "../general/Text";
 import patterns from "../../assets/validation/patterns";
 import errorSwitch from "../general/errorSwitch";
+import { useNavigation } from "@react-navigation/native";
 
+const LOGIN_TOKEN = "@loginToken";
 const USER_INFO = "@userInfo";
 
 /**
@@ -22,12 +24,13 @@ const USER_INFO = "@userInfo";
 
 export default function LoginForm(props) {
 
+  const navigation = useNavigation();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
- 
+
   const [emailAlert, setEmailAlert] = useState("");
   const [nameAlert, setNameAlert] = useState("");
   const [isAllInputValid, setIsAllInputValid] = useState(false);
@@ -69,10 +72,10 @@ export default function LoginForm(props) {
 
   useEffect(() => {
     let validationError = '';
-    if(firstName !== '') {
+    if (firstName !== '') {
       validationError = validateName(firstName, 'Primeiro nome'); // First name
     }
-    if(validationError === '' && lastName !== '') {
+    if (validationError === '' && lastName !== '') {
       validationError = validateName(lastName, 'Sobrenome'); // Last name
     }
 
@@ -80,7 +83,7 @@ export default function LoginForm(props) {
   }, [firstName, lastName]);
 
   useEffect(() => {
-    if(email === '') {
+    if (email === '') {
       setEmailAlert('');
       return;
     }
@@ -127,7 +130,7 @@ export default function LoginForm(props) {
       passwordContainsLetter &&
       confirmPasswordAlert === ""
     );
-    
+
     setIsAllInputValid(validationPassed);
   }
 
@@ -139,10 +142,10 @@ export default function LoginForm(props) {
    * @param {String} password
    */
   async function register(firstName, lastName, email, password) {
-    
+
     validateInput(firstName, email, password);
-    
-    if(!isAllInputValid) {
+
+    if (!isAllInputValid) {
       return;
     }
 
@@ -156,7 +159,11 @@ export default function LoginForm(props) {
     try {
       await registerUser(obj)
         .then(async function (response) {
+          // saves input information locally
           await saveUserInfoLocally(response._id, firstName, lastName, email);
+        }).then(async function () {
+          // logs in the user, if no errors occur, navigates to home screen and sets token
+          await loginFromRegister(obj);
         })
         .catch((error) => {
           ShowAlert(errorSwitch(error));
@@ -187,6 +194,22 @@ export default function LoginForm(props) {
       console.log(e);
     }
   }
+
+  
+  async function loginFromRegister(obj) {
+    try {
+      await loginUser(obj).then((response) => {
+        AsyncStorage.setItem(LOGIN_TOKEN, response.accessToken);
+        navigation.navigate("HomeStack");
+      }).catch((error) => {
+        console.log(error);
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+
   return (
     <View>
       <View className="mb-6">
@@ -251,7 +274,7 @@ export default function LoginForm(props) {
             }}
           />
           <PasswordEye
-            testId = "passwordEye"
+            testId="passwordEye"
             showPasswordIcon={showPassword}
             toggleShowPassword={toggleShowPassword}
           />
@@ -275,7 +298,7 @@ export default function LoginForm(props) {
           </Text>
           <View className="flex-row items-center -translate-y-1">
             {passwordContainsLetter ? (
-              <MaterialCommunityIcons name="check" size={20} color="#4AA04A"/>
+              <MaterialCommunityIcons name="check" size={20} color="#4AA04A" />
             ) : null}
           </View>
         </View>
@@ -295,7 +318,7 @@ export default function LoginForm(props) {
             required={true}
           />
           <PasswordEye
-            testId = "confirmPasswordEye"
+            testId="confirmPasswordEye"
             showPasswordIcon={showConfirmPassword}
             toggleShowPassword={toggleShowConfirmPassword}
           />
