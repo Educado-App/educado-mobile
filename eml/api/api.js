@@ -138,7 +138,9 @@ export const getSection = async (courseId, sectionId) => {
 };
 
 export const getAllSections = async (courseId) => {
+
   const res = await axios.get(url + '/api/courses/' + courseId + '/sections');
+
   return res.data;
 };
 
