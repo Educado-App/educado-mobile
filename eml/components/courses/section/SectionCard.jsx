@@ -5,6 +5,13 @@ import Text from '../../../components/general/Text';
 import Collapsible from "react-native-collapsible";
 import { useNavigation } from '@react-navigation/native'
 
+/**
+ * Renders a card component for a section of a course.
+ * @param {Object} props - The component props.
+ * @param {Object} props.section - The section object containing information about the section.
+ * @returns {JSX.Element} - The JSX element representing the section card component.
+ */
+
 export default function SectionCard({ section }) {
 
     // hardcoded for now
@@ -30,7 +37,7 @@ export default function SectionCard({ section }) {
         <View className="bg-transparent m-[8] rounded-[10px] shadow-[0px 2px 4.65px #000] shadow-opacity-[0.3]">
             <Pressable onPress={toggleDropdown} className="bg-[#fff] rounded-[10px] mb-[15] mx-[18] overflow-hidden elevation-[8]">
                 <View className={"flex-row items-center justify-between px-[25] py-[15] " + className}>
-                    <Text className="text-[16px] font-bold text-black flex-1">
+                    <Text className="text-[16px] font-bold text-black flex-[1]">
                         {section.title}
                     </Text>
                     <Text className="mr-[10] text-black">
@@ -47,17 +54,16 @@ export default function SectionCard({ section }) {
 
                     <View className="h-[1px] bg-[#e0e0e0]"/>
                     <Text className="mx-[20] my-[10]">{section.description}</Text>
-                    {/* The view under here acts weird when you write flex-1 in class name but seems to function fine without */}
                     <View className="w-[100%]">
                         <TouchableOpacity className="w-[100%] h-[300] items-center justify-center relative"
                         onPress={handleImagePress}>
                             <Image source={require('../../../assets/sectionThumbnail.png')} blurRadius={10} className="w-[100%] h-[300] object-cover"/>
-                            {/* Cannot find a nativewind alignment that has the same outcome as the one in style so it stays for now */}
-                            <MaterialCommunityIcons name="play-circle-outline" size={100} color="white" className="absolute z-1" style={{allignement: 'center'}} />
+                            <View className="absolute z-[1]">
+                                <MaterialCommunityIcons name="play-circle-outline" size={100} color="white" />
+                            </View>
                         </TouchableOpacity>
                     </View>
                 </Collapsible>
-
             </Pressable>
         </View>
     );
