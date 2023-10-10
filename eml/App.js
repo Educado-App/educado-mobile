@@ -1,81 +1,37 @@
-import React, { useState, useEffect } from "react";
-import { View, Text } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { NavigationContainer } from "@react-navigation/native";
-import CourseScreen from "./screens/courses/CourseScreen";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Icon } from "@rneui/themed";
-import ProfileComponent from "./screens/profile/Profile";
-import LoginScreen from "./screens/login/Login";
-import RegisterScreen from "./screens/register/Register";
-import * as eva from "@eva-design/eva";
-import { ApplicationProvider, IconRegistry } from "@ui-kitten/components";
-import { EvaIconsPack } from "@ui-kitten/eva-icons";
-import RightAnswerScreen from "./screens/excercise/RightAnswerScreen";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import ExerciseScreen from "./screens/excercise/ExerciseScreen";
-import WrongAnswerComponent from "./screens/excercise/WrongAnswerScreen";
-import Explore from "./screens/explore/Explore";
-import { TailwindProvider } from "tailwindcss-react-native";
-import TestScreen from "./screens/test/TestScreen";
-import ErrorScreen from "./screens/errors/ErrorScreen";
-import SectionCompleteScreen from "./screens/excercise/SectionCompleteScreen";
-import Loading from "./components/loading/Loading";
-import WelcomeScreen from "./screens/welcome/Welcome";
+import React from 'react';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import CourseScreen from './screens/courses/CourseScreen';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Icon } from '@rneui/themed';
+import ProfileComponent from './screens/profile/Profile';
+import LoginScreen from './screens/login/Login';
+import RegisterScreen from './screens/register/Register';
+import * as eva from '@eva-design/eva';
+import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
+import { EvaIconsPack } from '@ui-kitten/eva-icons';
+import RightAnswerScreen from './screens/excercise/RightAnswerScreen';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import ExerciseScreen from './screens/excercise/ExerciseScreen';
+import WrongAnswerComponent from './screens/excercise/WrongAnswerScreen';
+import Explore from './screens/explore/Explore';
+import { TailwindProvider } from 'tailwindcss-react-native';
+import ErrorScreen from './screens/errors/ErrorScreen';
+import SectionCompleteScreen from './screens/excercise/SectionCompleteScreen';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { isFontsLoaded } from './constants/Fonts';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
-
-function WelcomeStack() {
-  return (
-    <Stack.Navigator initialRouteName={"Welcome"}>
-      <Stack.Screen
-        name="Welcome"
-        component={WelcomeScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-    </Stack.Navigator>
-  );
+/**
+ * Check if user is logged in, if not redirect to login screen
+ */
+const checkLogin = () => {
+  if (AsyncStorage.getItem("@login_token") === null) {
+    useNavigation().navigate('Login');
+  }
 }
-
-function ExerciseStack() {
-  return (
-    <Stack.Navigator initialRouteName={"Exercise"}>
-      <Stack.Screen
-        name="Exercise"
-        component={ExerciseScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-    </Stack.Navigator>
-  );
-}
-
-function LoginStack() {
-  return (
-    <Stack.Navigator initialRouteName={"Login"}>
-      <Stack.Screen
-        name="Login"
-        component={LoginScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="Register"
-        component={RegisterScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-    </Stack.Navigator>
-  );
-}
-
 function CourseStack() {
+  checkLogin();
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -125,6 +81,8 @@ function CourseStack() {
 }
 
 function HomeStack() {
+  checkLogin();
+
   return (
     <Tab.Navigator
       initialRouteName={"Home"}
@@ -188,23 +146,6 @@ function HomeStack() {
           },
         }}
       />
-      {/*       <Tab.Screen
-        name="TestScreen"
-        component={TestScreen}
-        options={{
-          headerShown: false,
-          tabBarIcon: () => {
-            return (
-              <Icon
-                size={30}
-                name="home"
-                type="material-community"
-                color="black"
-              />
-            );
-          },
-        }}
-      /> */}
     </Tab.Navigator>
   );
 }
@@ -248,13 +189,7 @@ function useWelcomeScreenLogic() {
 
 // Change InitialRouteName to HomeStack if you want to skip Login Screen
 export default function App() {
-  const { initialRoute, isLoading } = useWelcomeScreenLogic();
-
-  if (isLoading) {
-    return <Loading />;
-  }
-
-  return (
+  return isFontsLoaded() ? (
     <TailwindProvider>
       <>
         <IconRegistry icons={EvaIconsPack} />
@@ -286,5 +221,5 @@ export default function App() {
         </ApplicationProvider>
       </>
     </TailwindProvider>
-  );
+  ) : null;
 }
