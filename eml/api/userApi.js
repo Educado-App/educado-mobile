@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const prod = 'http://educado.somethingnew.dk'
 const testUrl = 'http://192.168.0.224:8888';
-const testExpo = 'http://172.30.211.168:8888'; //Change to local expo ip
+const testExpo = 'http://172.30.213.76:8888'; //Change to local expo ip
 const digitalOcean = 'http://207.154.213.68:8888'
 
 const url = testExpo;
