@@ -2,7 +2,7 @@ import { View, Image, Pressable, Dimensions} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Text from '../../../components/general/Text';
 import { AppLoading } from 'expo-app-loading';
-import CourseProgress from '../courseHeader/CourseProgress';
+import CourseProgress from '../../progress/CourseProgress';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 /**

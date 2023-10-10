@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Pressable, Image, TouchableOpacity } from 'react-native';
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import Text from '../../../components/general/Text';
+import Text from '../general/Text';
 import Collapsible from "react-native-collapsible";
 import { useNavigation } from '@react-navigation/native';
 
@@ -27,6 +27,7 @@ export default function SectionCard({ section }) {
 
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
+    }
     const handleImagePress = () => {
         navigation.navigate('HomeStack'); // Replace with the name of the target screen
     }
@@ -56,7 +57,7 @@ export default function SectionCard({ section }) {
                     <View className="w-[100%]">
                         <TouchableOpacity className="w-[100%] h-[300] items-center justify-center relative"
                         onPress={handleImagePress}>
-                            <Image source={require('../../../assets/sectionThumbnail.png')} className="w-[100%] h-[300] object-cover"/>
+                            <Image source={require('../../assets/sectionThumbnail.png')} className="w-[100%] h-[300] object-cover"/>
                             <View className="absolute z-[1]">
                                 <MaterialCommunityIcons name="play-circle-outline" size={100} color="lightblue" />
                             </View>
@@ -67,4 +68,4 @@ export default function SectionCard({ section }) {
         </View>
     );
     }
-}
+

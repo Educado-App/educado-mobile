@@ -5,11 +5,11 @@ import TestComponent from '../../components/test/TestComponent';
 import * as StorageService from '../../services/StorageService';
 import * as DirectoryService from '../../services/DirectoryService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import SectionCard from '../../components/courses/section/SectionCard';
+import SectionCard from '../../components/section/SectionCard';
 import {ScrollView} from "react-native-gesture-handler";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import { useNavigation } from '@react-navigation/native';
-import SectionProgress from '../../components/courses/section/SectionProgress';
+import SectionProgress from '../../components/progress/SectionProgress';
 
 /**
  * Section screen component.

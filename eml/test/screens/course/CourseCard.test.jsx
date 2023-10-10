@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, Image, Pressable, Dimensions, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { AppLoading } from 'expo-app-loading';
-import CourseProgress from '../../../components/courses/courseHeader/CourseProgress';
+import CourseProgress from '../../../components/progress/CourseProgress';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import CourseCard from '../../../components/courses/courseCard/CourseCard'; // Import your component
 import { render, fireEvent } from '@testing-library/react-native';
