@@ -56,9 +56,9 @@ export default function SectionCard({ section }) {
                     <View className="w-[100%]">
                         <TouchableOpacity className="w-[100%] h-[300] items-center justify-center relative"
                         onPress={handleImagePress}>
-                            <Image source={require('../../../assets/sectionThumbnail.png')} blurRadius={10} className="w-[100%] h-[300] object-cover"/>
+                            <Image source={require('../../../assets/sectionThumbnail.png')} className="w-[100%] h-[300] object-cover"/>
                             <View className="absolute z-[1]">
-                                <MaterialCommunityIcons name="play-circle-outline" size={100} color="white" />
+                                <MaterialCommunityIcons name="play-circle-outline" size={100} color="lightblue" />
                             </View>
                         </TouchableOpacity>
                     </View>
