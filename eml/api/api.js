@@ -137,7 +137,7 @@ export const getSubscriptions = async () => {
   // maybe not best practise to pass user ID as request query
   // but this is the only format where it works
   // passing user ID as request body for get request gives error
-  const res = await axios.get(url + '/api/user/subscriptions/all?user_id=' + userId)
+  const res = await axios.get(url + '/api/users/subscriptions/all?user_id=' + userId)
 
   return res.data;
 };
@@ -188,7 +188,7 @@ export async function ifSubscribed(courseId) {
     // maybe not best practise to pass user ID as request query
     // but this is the only format where it works
     // passing user ID as request body for get request gives error
-    const res = await axios.get(url + '/api/user?user_id=' + userId + '&' + 'course_id=' + courseId);
+    const res = await axios.get(url + '/api/users?user_id=' + userId + '&' + 'course_id=' + courseId);
 
     return(res.data);
 
