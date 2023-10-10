@@ -37,7 +37,7 @@ export default function CourseCard({ course }) {
         flex-row
         items-start
         justify-between
-        px-[20px]
+        px-[5px]
         py-[5px]
         "
         >
@@ -59,9 +59,9 @@ export default function CourseCard({ course }) {
             <MaterialCommunityIcons size={18} name="clock" color={'gray'}></MaterialCommunityIcons>
             <Text className="mx-[5px] my-[10px]">{course.duration ? course.duration : 'duration'}</Text>
         </View>
-        <View className="flex-row items-baseline">
+        <View className="flex-row items-center">
             <CourseProgress fracTop={50} fracBot={100} />
-            <Pressable className="z-[1] left-[180%] ml-[2px]"
+            <Pressable className="z-[1] ml-[20%]"
                                  onPress={()=> {
                                     navigation.navigate('Section', {
                                     courseId: course.courseId,

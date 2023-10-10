@@ -9,6 +9,7 @@ import SectionCard from '../../components/courses/section/SectionCard';
 import {ScrollView} from "react-native-gesture-handler";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import { useNavigation } from '@react-navigation/native';
+import SectionProgress from '../../components/courses/section/SectionProgress';
 
 /**
  * Section screen component.
@@ -50,7 +51,7 @@ export default function SectionScreen({ route }) {
 
   return (
       <View className="flex-[1] bg-[#f1f9fb]">
-        <View className="flex-row items-center p-[10] mt-[20%] mb-[10%]">
+        <View className="flex-row items-center p-[10] mt-[20%] mb-[2%]">
           <View className="pl-2">
             <TouchableOpacity onPress={() => navigation.goBack()} className="mr-[10]">
               <MaterialCommunityIcons name="chevron-left" size={25} color="black" />
@@ -58,6 +59,9 @@ export default function SectionScreen({ route }) {
           </View>
           <Text className="text-[25px] font-bold ml-[10]">{course.title}</Text>
         </View>
+        <View className="flex-[1] flex-col">
+          <SectionProgress fracBot={100} fracTop={50}/>
+        
         <ScrollView showsVerticalScrollIndicator={false}>
         {section.map((section, i) => { return (
           <SectionCard key={i} section={section}></SectionCard>
@@ -65,6 +69,7 @@ export default function SectionScreen({ route }) {
         }) 
     }
       </ScrollView>
+      </View>
       </View>
   );
 }
