@@ -280,7 +280,7 @@ export default function LoginForm(props) {
           </View>
         </View>
       </View>
-      <View className="mb-6">
+      <View className="mb-2">
         <View className="relative">
           <FormTextField
             label="Confirmar Senha" // Confirm password
@@ -302,7 +302,7 @@ export default function LoginForm(props) {
         </View>
         <FormFieldAlert label={confirmPasswordAlert} />
       </View>
-      <View className="my-10">
+      <View className="my-2">
         <FormButton
           onPress={() => register(firstName, lastName, email, password)}
           label="Cadastrar" // Register
