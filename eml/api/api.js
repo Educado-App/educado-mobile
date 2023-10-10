@@ -127,7 +127,7 @@ export const getCourse = async (courseId) => {
 
 // Get all courses
 export const getCourses = async () => {
-  const res = await axios.get(url + '/api/courses/all')
+  const res = await axios.get(url + '/api/courses')
   return res.data;
 
 };
@@ -138,12 +138,12 @@ export const getSection = async (courseId, sectionId) => {
 };
 
 export const getAllSections = async (courseId) => {
-  const res = await axios.get(url + '/api/courses/' + courseId + '/sections/all');
+  const res = await axios.get(url + '/api/courses/' + courseId + '/sections');
   return res.data;
 };
 
 export const getExercisesInSection = async (courseId, sectionId) => {
-  const res = await axios.get(url + '/api/courses/' + courseId + '/sections/' + sectionId + '/exercises/all');
+  const res = await axios.get(url + '/api/courses/' + courseId + '/sections/' + sectionId + '/exercises');
   return res.data;
 };
 
@@ -158,7 +158,7 @@ export const getSubscriptions = async () => {
   // maybe not best practise to pass user ID as request query
   // but this is the only format where it works
   // passing user ID as request body for get request gives error
-  const res = await axios.get(url + '/api/users/subscriptions/all?user_id=' + userId)
+  const res = await axios.get(url + '/api/users/subscriptions/?user_id=' + userId)
 
   return res.data;
 };
