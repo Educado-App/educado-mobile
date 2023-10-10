@@ -5,7 +5,7 @@ import Text from '../../components/general/Text'
 //import { ErrorBoundary } from 'react-error-boundary'
 import * as StorageService from "../../services/StorageService";
 import CourseCard from '../../components/courses/courseCard/CourseCard'
-import SectionScreen from '../section/sectionScreen'
+import SectionScreen from '../section/SectionScreen'
 
 /**
  * Course screen component that displays a list of courses.

@@ -2,7 +2,7 @@ import { View, Image, Pressable, Dimensions} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Text from '../../../components/general/Text';
 import { AppLoading } from 'expo-app-loading';
-import CourseProgress from '../../progress/CourseProgress';
+import ProgressBar from '../../progress/ProgressBar';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 /**
@@ -60,7 +60,7 @@ export default function CourseCard({ course }) {
             <Text className="mx-[5px] my-[10px]">{course.duration ? course.duration : 'duration'}</Text>
         </View>
         <View className="flex-row items-center">
-            <CourseProgress fracTop={50} fracBot={100} />
+            <ProgressBar fracTop={50} fracBot={100} type={"course"} />
             <Pressable className="z-[1] ml-[20%]"
                                  onPress={()=> {
                                     navigation.navigate('Section', {

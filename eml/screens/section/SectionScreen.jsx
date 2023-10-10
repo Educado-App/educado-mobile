@@ -9,7 +9,7 @@ import SectionCard from '../../components/section/SectionCard';
 import {ScrollView} from "react-native-gesture-handler";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import { useNavigation } from '@react-navigation/native';
-import SectionProgress from '../../components/progress/SectionProgress';
+import ProgressBar from '../../components/progress/ProgressBar';
 
 /**
  * Section screen component.
@@ -42,7 +42,7 @@ export default function SectionScreen({ route }) {
     const courseData = await StorageService.getCourseId(id);
     setCourse(courseData);
   }
-  
+
   //Fetch courses from backend and replace dummy data!
   useEffect(() => {
     loadSections(courseId);
@@ -60,13 +60,13 @@ export default function SectionScreen({ route }) {
           <Text className="text-[25px] font-bold ml-[10]">{course.title}</Text>
         </View>
         <View className="flex-[1] flex-col">
-          <SectionProgress fracBot={100} fracTop={50}/>
-        
+          <ProgressBar fracBot={100} fracTop={50} type={"section"}/>
+
         <ScrollView showsVerticalScrollIndicator={false}>
         {section.map((section, i) => { return (
           <SectionCard key={i} section={section}></SectionCard>
           )
-        }) 
+        })
     }
       </ScrollView>
       </View>
