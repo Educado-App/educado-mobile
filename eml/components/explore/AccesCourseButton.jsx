@@ -7,38 +7,29 @@ import { useNavigation } from '@react-navigation/native';
 
 const AccessCourseButton = ({ course }) => {
 
-  const navigation = useNavigation();
+const navigation = useNavigation();
+
+const AccessCourseButton = () => {
+  // Empty function that does nothing
+  const handlePress = () => {
+    navigation.navigate('Section', {
+    courseId: course.courseId,
+    })
+  };
 
   return (
-    <Pressable
-    onPress={() => {
-      navigation.navigate('Section', {
-        courseId: course.courseId,
-      });
-    }}
-      style={{
-        minWidth: '100%',
-        alignItems: 'center',
-        borderRadius: 10,
-        backgroundColor: '#5fcce9',
-        borderColor: '#5fcce9',
-        borderWidth: 1,
-        paddingVertical: 8,
-        paddingHorizontal: 18,
-      }}
-    >
-      <Text
-        style={{
-          color: 'white',
-          fontSize: 16,
-          fontWeight: 'bold',
-        }}
+    <View className="">
+      <Pressable
+        onPress={handlePress} // Assigning the empty function to the onPress prop
+        className="w-full flex items-center justify-center rounded-lg bg-[#f1CC4f] p-2"
       >
-        
-        Acessar curso
-      </Text>
-    </Pressable>
+        <Text className="text-white p-1 font-bold">
+          Acessar curso
+        </Text>
+      </Pressable>
+    </View>
   );
 };
+}
 
 export default AccessCourseButton;

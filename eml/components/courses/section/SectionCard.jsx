@@ -3,7 +3,7 @@ import { View, Pressable, Image, TouchableOpacity } from 'react-native';
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Text from '../../../components/general/Text';
 import Collapsible from "react-native-collapsible";
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native';
 
 /**
  * Renders a card component for a section of a course.
@@ -15,7 +15,6 @@ import { useNavigation } from '@react-navigation/native'
 export default function SectionCard({ section }) {
 
     // hardcoded for now
-    const completed = 0;
 
     const navigation = useNavigation();
     const isComplete = completed === section.total;
@@ -26,8 +25,6 @@ export default function SectionCard({ section }) {
 
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
-    }
-
     const handleImagePress = () => {
         navigation.navigate('HomeStack'); // Replace with the name of the target screen
     }
@@ -67,4 +64,5 @@ export default function SectionCard({ section }) {
             </Pressable>
         </View>
     );
+    }
 }

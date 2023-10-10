@@ -5,7 +5,6 @@ import Explore from '../../screens/explore/Explore';
 import TestScreen from '../../screens/test/TestScreen';
 import ProfileComponent from '../../screens/profile/Profile';
 import { Icon } from '@rneui/themed';
-import { AppLoading } from 'expo-app-loading';
 
 const Tab = createBottomTabNavigator();
 
@@ -18,18 +17,20 @@ export default function NavBar() {
         tabBarActiveTintColor: 'black',
         tabBarActiveBackgroundColor: '#d9d9d9',
         tabBarLabelStyle: {
-          fontSize: 11.5,
+          fontSize: 12,
         },
         
         tabBarStyle: {
           backgroundColor: 'white',
-          paddingVertical: '2%',
-          paddingHorizontal: '4%',
           height: '10%',
+          paddingBottom: '2%',
           
           // THIS IS SHADOW STUFF - HAVE TO BE PLATFORM SPECIFIC
           ...Platform.select({
             ios: {
+              paddingVertical: '2%',
+              paddingHorizontal: '4%',
+              paddingBottom: '6%',
               shadowColor: 'rgba(0, 0, 0, 0.2)',
               shadowOffset: {
                 width: 0,
@@ -39,6 +40,9 @@ export default function NavBar() {
               shadowRadius: 8,
             },
             android: {
+              paddingVertical: '2%',
+              paddingHorizontal: '4%',
+              paddingBottom: '2%',
               elevation: 4, // Add elevation for the shadow (Android-specific)
             },
           }),
@@ -52,7 +56,7 @@ export default function NavBar() {
       }}
     >
       <Tab.Screen
-        name="Casa"
+        name="Central"
         component={CourseScreen}
         options={{
           tabBarActiveBackgroundColor: '#5fcce9',

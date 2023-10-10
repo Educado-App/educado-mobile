@@ -1,21 +1,16 @@
-
 import React from 'react';
-import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { View, Text } from 'react-native';
 
-const CardLabel = ({title, icon, color="f1CC4f"}) => {
+const CardLabel = ({title, icon, color = "#f1CC4f", time = false}) => {
+    const displayTitle = time ? `${title} Horas` : title;
+
     return ( 
-        <View style={
-            {
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'flex-start',
-              }
-        } >
-            <MaterialIcons name= {icon} size={15} color={color} />
-            <Text style={{paddingLeft: 3, fontSize: 13, color: color}} >{title}</Text>
+        <View className="flex-row items-center justify-start">
+            <MaterialCommunityIcons name={icon} size={13} color={color} />
+            <Text className="pl-1 text-xs" style={{color: color}}>{displayTitle}</Text>
         </View>
-     );
+    );
 }
  
 export default CardLabel;

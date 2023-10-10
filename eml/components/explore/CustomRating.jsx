@@ -15,7 +15,7 @@ const CustomRating = ({ rating = 5 }) => {
       } else if (index === fullStars && halfStar) {
         return { icon: 'star-half-full', color: '#f1CC4f' };
       } else {
-        return { icon: 'star-outline', color: '#f1CC4f' };
+        return { icon: 'star-outline', color: 'gray' };
       }
     });
 
@@ -23,14 +23,7 @@ const CustomRating = ({ rating = 5 }) => {
   }, [rating]);
 
   return (
-    <View
-      style={{
-        width: '100%',
-        flexDirection: 'row',
-        alignItems: 'flex-start',
-        justifyContent: 'flex-start',
-      }}
-    >
+    <View className="w-full flex-row items-start justify-start">
       {ratingIcons.map((icon, index) => (
         <MaterialCommunityIcons key={index} name={icon.icon} size={14} color={icon.color} />
       ))}

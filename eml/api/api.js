@@ -66,6 +66,9 @@ export const getCourse = async (courseId) => {
   return res.data;
 };
 
+
+// TODO: Endpoint for getcoursebyid && change getCourses to getCourseList
+
 export const getPresignedUrl = async (component_id) => {
   const obj = {
     component_id,
@@ -73,6 +76,24 @@ export const getPresignedUrl = async (component_id) => {
   const res = await axios.post(url + '/api/get-presigned-url', obj);
   return res.data;
 };
+
+
+//CREATE FOR TESTING: BUT IT WORKS
+// * try to call the function with fileName = "test" or "gorilla".
+// * It is being called for testing purposes in the Explore screen
+export const getBucketImage = async (fileName) => {
+  
+  
+  try {
+    const res = await axios.get(`${url}/download?fileName=${fileName}`);
+    const workingUrl = { uri: `data:image/png;base64,${res.data}` }
+    return workingUrl
+}
+catch (err) {
+  console.log("Error getting bucket image",err);
+}
+}
+
 
 export const getCoverPhoto = async (course_id) => {
   const obj = {
