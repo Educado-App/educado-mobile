@@ -9,38 +9,24 @@ import SectionCard from '../../components/courses/section/SectionCard';
 import {ScrollView} from "react-native-gesture-handler";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import { useNavigation } from '@react-navigation/native';
-import SectionProgress from '../../components/courses/section/SectionProgress';
 
-/**
- * Section screen component.
- * @param {object} route - The route object containing the courseId parameter.
- * @returns {JSX.Element} - The section screen JSX elements.
- */
 export default function SectionScreen({ route }) {
 
   const { courseId } = route.params;
   const navigation = useNavigation();
-  const [section, setSection] = useState([]);
+  const [sections, setSections] = useState([]);
   const [course, setCourse] = useState([]);
 
-  /**
-   * Loads the sections for the given course ID.
-   * @param {string} id - The course ID.
-   * @returns {Promise<void>} - A promise that resolves when the sections are loaded.
-   */
-  async function loadSections(id) {
-    const sectionData = await StorageService.getSections(id);
-    setSection(sectionData);
-  }
 
-  /**
-   * Gets the course data for the given course ID.
-   * @param {string} id - The course ID.
-   * @returns {Promise<void>} - A promise that resolves when the course data is retrieved.
-   */
+  async function loadSections(id) {
+    const sectionData = await StorageService.getSectionList(id);
+    setSections(sectionData);
+
+  }
   async function getCourse(id) {
     const courseData = await StorageService.getCourseId(id);
     setCourse(courseData);
+
   }
   
   //Fetch courses from backend and replace dummy data!
@@ -49,27 +35,24 @@ export default function SectionScreen({ route }) {
     getCourse(courseId);
   }, []);
 
+  
   return (
-      <View className="flex-[1] bg-[#f1f9fb]">
-        <View className="flex-row items-center p-[10] mt-[20%] mb-[2%]">
+      <View className="flex-1 bg-[#f1f9fb]">
+        <View className="flex-row items-center p-[10] mt-[20%] mb-[10%]">
           <View className="pl-2">
-            <TouchableOpacity onPress={() => navigation.goBack()} className="mr-[10]">
+            <TouchableOpacity onPress={() => navigation.goBack()} style={{ marginRight: 10 }}>
               <MaterialCommunityIcons name="chevron-left" size={25} color="black" />
             </TouchableOpacity>
           </View>
           <Text className="text-[25px] font-bold ml-[10]">{course.title}</Text>
         </View>
-        <View className="flex-[1] flex-col">
-          <SectionProgress fracBot={100} fracTop={50}/>
-        
         <ScrollView showsVerticalScrollIndicator={false}>
-        {section.map((section, i) => { return (
-          <SectionCard key={i} section={section}></SectionCard>
+        {sections.map((section) => { return (
+          <SectionCard key={section.sectionId} section={section}></SectionCard>
           )
         }) 
     }
       </ScrollView>
-      </View>
       </View>
   );
 }

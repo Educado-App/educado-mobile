@@ -27,6 +27,7 @@ export default function SectionCard({ section }) {
 
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
+    }
     const handleImagePress = () => {
         navigation.navigate('HomeStack'); // Replace with the name of the target screen
     }
@@ -67,4 +68,4 @@ export default function SectionCard({ section }) {
         </View>
     );
     }
-}
+
