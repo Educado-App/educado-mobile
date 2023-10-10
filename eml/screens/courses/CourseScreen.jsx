@@ -5,7 +5,7 @@ import Text from '../../components/general/Text'
 //import { ErrorBoundary } from 'react-error-boundary'
 import * as StorageService from "../../services/StorageService";
 import CourseCard from '../../components/courses/courseCard/CourseCard'
-import SectionScreen from '../section/sectionScreen'
+import SectionScreen from '../section/SectionScreen'
 
 /**
  * Course screen component that displays a list of courses.
@@ -24,28 +24,29 @@ export default function CourseScreen() {
     const [courseLoaded, setCourseLoaded] = useState(false);
 
     const navigation = useNavigation()  
-    
-    useEffect(() => {
-        /**
+
+    /**
          * Asynchronous function that loads the courses from storage and updates the state.
          * @returns {void}
          */
-        async function loadCourses() {
-            try {
-                const courseData = await StorageService.getSubCourseList();
-                if (courseData.length !== 0 && Array.isArray(courseData) ) {
-                    setCourses(courseData);
-                    setCourseLoaded(true);
-                } else {
-                    setCourses([]);
-                    setCourseLoaded(false);
-                }
-    
-            } catch (error) {
-              console.error("Error checking subscription:", error);
+    async function loadCourses() {
+        try {
+            const courseData = await StorageService.getSubCourseList();
+            if (courseData.length !== 0 && Array.isArray(courseData) ) {
+                setCourses(courseData);
+                setCourseLoaded(true);
+            } else {
+                setCourses([]);
+                setCourseLoaded(false);
             }
-        } 
-        loadCourses();
+
+        } catch (error) {
+          console.error("Error checking subscription:", error);
+        }
+    } 
+    
+    useEffect(() => {
+            loadCourses();
     }, [courses]);
 
     return (

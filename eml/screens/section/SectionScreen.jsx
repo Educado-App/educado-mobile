@@ -5,10 +5,11 @@ import TestComponent from '../../components/test/TestComponent';
 import * as StorageService from '../../services/StorageService';
 import * as DirectoryService from '../../services/DirectoryService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import SectionCard from '../../components/courses/section/SectionCard';
+import SectionCard from '../../components/section/SectionCard';
 import {ScrollView} from "react-native-gesture-handler";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import { useNavigation } from '@react-navigation/native';
+import ProgressBar from '../../components/progress/ProgressBar';
 
 export default function SectionScreen({ route }) {
 
@@ -28,7 +29,7 @@ export default function SectionScreen({ route }) {
     setCourse(courseData);
 
   }
-  
+
   //Fetch courses from backend and replace dummy data!
   useEffect(() => {
     loadSections(courseId);
@@ -46,13 +47,17 @@ export default function SectionScreen({ route }) {
           </View>
           <Text className="text-[25px] font-bold ml-[10]">{course.title}</Text>
         </View>
+        <View className="flex-[1] flex-col">
+          <ProgressBar fracBot={100} fracTop={50} type={"section"}/>
+
         <ScrollView showsVerticalScrollIndicator={false}>
         {sections.map((section) => { return (
           <SectionCard key={section.sectionId} section={section}></SectionCard>
           )
-        }) 
+        })
     }
       </ScrollView>
+      </View>
       </View>
   );
 }
