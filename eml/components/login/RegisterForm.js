@@ -195,7 +195,7 @@ export default function LoginForm(props) {
     }
   }
 
-  
+  // function to log in the user and set the login token, meant to be called after registering
   async function loginFromRegister(obj) {
     try {
       await loginUser(obj).then((response) => {
