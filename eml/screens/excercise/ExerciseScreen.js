@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar'
-import { React, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Alert, StyleSheet, View, Text } from 'react-native'
 import LeaveButton from '../../components/exercise/LeaveButton'
 import ExerciseButtons from '../../components/exercise/ExerciseButtons'

@@ -9,6 +9,8 @@ npm-debug.*
 *.orig.*
 web-build/
 eslint-demo
+package-lock.json
+package.json
 
 # macOS
 .DS_Store
@@ -17,3 +19,6 @@ dist/
 
 #expo over vpn
 ngrok.exe
+
+.env
+/config/gcp_service.json
