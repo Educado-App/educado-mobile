@@ -91,15 +91,15 @@ export default function ExerciseScreen() {
         <View className = " flex-row items-center justify-around">
           <View>
               <LeaveButton
-              //navigationPlace={"Course"}
-              //courseId={courseId}
+                navigationPlace={"Course"}
+                courseId={dummyExerciseData.courseId}
               ></LeaveButton>
           </View>
           <View>
             <CustomProgressBar progress={0.25 / 1}></CustomProgressBar>
           </View>
           <View>
-            <Text className="px-3 text-center font-montserrat-bold text-[caption-medium] text-[projectBlack]"> 
+            <Text className="px-3 text-center font-montserrat-bold text-caption-medium text-projectBlack"> 
               25% 
             </Text> 
           </View>
@@ -110,7 +110,7 @@ export default function ExerciseScreen() {
           <Text> Sem dados</Text>
         ) : (
           <View className="items-center">
-            <Text className="py-7 text-center font-montserrat-bold text-[projectBlack] w-5/6">
+            <Text className="py-7 text-center font-montserrat-bold text-projectBlack w-5/6">
               {dummyExerciseData.question}
             </Text>
             <View style={{height: screenHeight * 0.569}}>
@@ -132,7 +132,7 @@ export default function ExerciseScreen() {
                         uncheckedColor="#5ECCE9"
                       />
                     </View>
-                    <Text className="font-montserrat">{answer.text}</Text>
+                    <Text className="font-montserrat text-body text-projectBlack">{answer.text}</Text>
                   </View>
                 ))}
                 {selectedAnswer !== null && (
