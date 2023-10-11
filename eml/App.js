@@ -23,6 +23,7 @@ import SectionCompleteScreen from "./screens/excercise/SectionCompleteScreen";
 import Loading from "./components/loading/Loading";
 import WelcomeScreen from "./screens/welcome/Welcome";
 import ProfileSettingsScreen from "./screens/profile/ProfileSettings";
+import { isFontsLoaded } from "./constants/Fonts.js";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -234,6 +235,10 @@ export function useWelcomeScreenLogic() {
 export default function App() {
   const { initialRoute, isLoading } = useWelcomeScreenLogic();
 
+  if (!isFontsLoaded()) {
+    return null;
+  }
+
   if (isLoading) {
     return <Loading />;
   }
@@ -244,7 +249,7 @@ export default function App() {
         <IconRegistry icons={EvaIconsPack} />
         <ApplicationProvider {...eva} theme={eva.light}>
           <NavigationContainer>
-            <Stack.Navigator initialRouteName={initialRoute}>
+            <Stack.Navigator initialRouteName={"HomeStack"}>
               <Stack.Screen
                 name={"WelcomeStack"}
                 component={WelcomeStack}

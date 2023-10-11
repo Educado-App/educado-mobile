@@ -1,14 +1,10 @@
 import React from "react";
-import { View, Text, TouchableOpacity, Image, SafeAreaView } from "react-native";
+import { View, TouchableOpacity, Image, SafeAreaView } from "react-native";
 import { BgLinearGradient } from "../../constants/BgLinearGradient";
-import { isFontsLoaded } from "../../constants/Fonts";
-import WelcomeSlider from "../../components/welcome/WelcomeSlider"; 
+import WelcomeSlider from "../../components/welcome/WelcomeSlider";
+import Text from '../../components/general/Text.js';
 
 const WelcomePage = ({ navigation }) => {
-
-  if (!isFontsLoaded()) {
-    return null;
-  }
 
   return (
     <BgLinearGradient>
@@ -32,7 +28,7 @@ const WelcomePage = ({ navigation }) => {
               <TouchableOpacity className="bg-primary px-10 py-4 rounded-medium"
                 onPress={() => { navigation.navigate('LoginStack'); }}
               >
-                <Text className="text-center font-montserrat-bold text-body text-projectWhite">Entrar</Text>
+                <Text className="text-center font-sans-bold text-body text-projectWhite">Entrar</Text>
               </TouchableOpacity>
             </View>
 
@@ -40,7 +36,7 @@ const WelcomePage = ({ navigation }) => {
               <TouchableOpacity 
                 onPress={() => { navigation.navigate('LoginStack', { initialRoute: 'Register' }); }}
               >
-                <Text className="text-center font-montserrat-bold text-body underline">Cadastrer</Text>
+                <Text className="text-center font-sans-bold text-body underline">Cadastrer</Text>
               </TouchableOpacity>
             </View>
 

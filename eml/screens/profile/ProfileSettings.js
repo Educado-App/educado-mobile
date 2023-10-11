@@ -7,7 +7,6 @@ import {
 } from 'react-native';
 import ProfileImage from '../../components/profile/profileImage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { isFontsLoaded } from "../../constants/Fonts.js";
 import { BgLinearGradient } from "../../constants/BgLinearGradient";
 import { getCourses } from '../../api/api';
 import ReturnButton from '../../components/profileSettings/returnButton'
@@ -52,10 +51,6 @@ export default function ProfileComponent() {
     getProfile();
     //fetchCourses();
   }, []);
-
-  if (!isFontsLoaded()) {
-    return null;
-  }
 
   return (
     <BgLinearGradient>

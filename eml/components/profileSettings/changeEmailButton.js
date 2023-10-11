@@ -3,15 +3,14 @@ import {
   View,
   TextInput,
   TouchableOpacity,
-  Text,
   Modal,
   ActivityIndicator,
   Alert,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { isFontsLoaded } from "../../constants/Fonts.js";
 import { updateUserEmail } from '../../api/userApi.js';
 import patterns from '../../assets/validation/patterns.js';
+import Text from '../general/Text';
 
 const USER_INFO = '@userInfo';
 
@@ -92,19 +91,15 @@ export default function ProfileComponent() {
     setEmailModalVisible(true);
   }
 
-  if (!isFontsLoaded()) {
-    return null;
-  }
-
   return (
     <View>
-      <Text className="text-left font-montserrat text-caption-medium text-black mb-2">Email</Text>
+      <Text className="text-left text-caption-medium text-black mb-2">Email</Text>
       <TouchableOpacity
         className="bg-projectWhite px-5 py-4 rounded-medium w-full"
         onPress={openEmailModal} // Call the new function to open the modal
       >
         <Text 
-          className="text-left font-montserrat text-body text-gray">
+          className="text-left text-body text-gray">
           {email}
         </Text>
       </TouchableOpacity>
@@ -140,7 +135,7 @@ export default function ProfileComponent() {
                   onPress={() => saveEmailChanges()}
                 >
                   <Text
-                    className="text-center font-montserrat-bold text-body text-projectWhite">
+                    className="text-center font-sans-bold text-body text-projectWhite">
                       Salvar alterações
                   </Text>
                 </TouchableOpacity>
@@ -150,7 +145,7 @@ export default function ProfileComponent() {
                 className="px-10 py-4 rounded-medium w-full mt-2 border-0 border-opacity-0"
                 onPress={() => setEmailModalVisible(false)}
               >
-                <Text className="text-black text-center font-montserrat-bold">Cancelar</Text>
+                <Text className="text-black text-center font-sans-bold">Cancelar</Text>
               </TouchableOpacity>
             </View>
           </View>

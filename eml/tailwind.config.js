@@ -18,9 +18,11 @@ module.exports = {
         projectLightGray: '#F1F9FB',
       },
       fontFamily: {
-        montserrat: 'Montserrat-Regular',
-        'montserrat-bold': 'Montserrat-Bold',
-        'montserrat-semi-bold': 'Montserrat-SemiBold',
+        montserrat: ['Montserrat-Regular'],
+        'montserrat-bold': ['Montserrat-Bold'],
+        'montserrat-semi-bold': ['Montserrat-SemiBold'],
+        sans: ['"Montserrat-Regular"'],
+        "sans-bold": ["'Montserrat-Bold'"],
       },
       extend: {
         fontSize: {

@@ -1,9 +1,10 @@
-import { TouchableOpacity, Alert, Text, View } from 'react-native'
+import { TouchableOpacity, Alert, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { deleteUser } from '../../api/userApi'
 import {clearAsyncStorage} from "../../services/StorageService";
 import React from 'react';
+import Text from '../general/Text';
 
 const LOGIN_TOKEN = '@loginToken'
 const USER_INFO = '@userInfo'
@@ -52,12 +53,12 @@ export default function DeleteAccount() {
 
   return (
     <View>
-      <Text className="text-left font-montserrat text-caption-medium text-black mb-2">Deletar conta</Text>
+      <Text className="text-left text-caption-medium text-black mb-2">Deletar conta</Text>
       <TouchableOpacity 
         className="bg-error px-10 py-4 rounded-medium w-full" 
         onPress={deleteAlert}
       >
-        <Text className="text-center font-montserrat-bold text-body text-projectWhite">Deletar conta</Text>
+        <Text className="text-center font-sans-bold text-body text-projectWhite">Deletar conta</Text>
       </TouchableOpacity>
     </View>
   )
