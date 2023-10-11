@@ -15,9 +15,9 @@ export const errorCodes = {
     message: 'Users role does not have the necessary permissions for this action'
   },
   E0004: {
-		code: 'E0004',
-		message: 'User not found'
-	},
+    code: 'E0004',
+    message: 'User not found'
+  },
 
   // E01 - Login errors
   E0101: {
