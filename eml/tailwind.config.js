@@ -16,6 +16,11 @@ module.exports = {
         projectRed: '#FFE4E4',
         projectGreen: '#E4F1E4',
         projectLightGray: '#F1F9FB',
+        cyanBlue: '#65D4EE',
+        limeGreen: '#9DE89C',
+        yellow: '#FAC12F',
+        babyBlue: '#CFE9EF',
+        limeGreenDarker: '#8DD08C',
       },
       fontFamily: {
         montserrat: ['Montserrat-Regular'],
