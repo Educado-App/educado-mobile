@@ -23,7 +23,6 @@ import { isFontsLoaded } from './constants/Fonts';
 import Loading from "./components/loading/Loading";
 import WelcomeScreen from "./screens/welcome/Welcome";
 import ProfileSettingsScreen from "./screens/profile/ProfileSettings";
-import { isFontsLoaded } from "./constants/Fonts.js";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
