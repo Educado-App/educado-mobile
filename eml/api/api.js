@@ -138,6 +138,27 @@ export const getSection = async (courseId, sectionId) => {
   return res.data;
 };
 
+//CREATED BY VIDEO STREAMING TEAM
+export const getSectionAndLecturesBySectionId = async (sectionId) => {
+  try {
+    const res = await axios.get(url + "/api/section/" + sectionId);
+    return res.data;
+  } catch (err) {
+    console.log("Error getting section and lectures by section id", err);
+    return null;
+  }
+};
+
+export const getLectureById = async (lectureId) => {
+  try {
+    const res = await axios.get(url + "/api/lecture/" + lectureId);
+    return res.data;
+  } catch (err) {
+    console.log("Error getting lecture by id", err);
+    return null;
+  }
+};
+
 export const getAllSections = async (courseId) => {
   const res = await axios.get(url + "/api/courses/" + courseId + "/sections");
 

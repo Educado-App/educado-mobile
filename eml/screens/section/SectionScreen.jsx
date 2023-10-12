@@ -52,7 +52,7 @@ export default function SectionScreen({ route }) {
         <ProgressBar fracBot={100} fracTop={50} type={"section"} />
 
         <ScrollView showsVerticalScrollIndicator={false}>
-          {sections.map((section) => {
+          {sections && sections.map((section) => {
             return (
               <SectionCard key={section.sectionId} section={section}></SectionCard>
             )

@@ -22,6 +22,7 @@ import NavBar from "./components/navBar/NavBar"; // Import the NavBar component
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import SectionScreen from "./screens/section/SectionScreen";
 import { isFontsLoaded } from "./constants/Fonts";
+import LectureScreen from "./screens/lectures/LectureScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -201,6 +202,12 @@ export default function App() {
                 name="Section"
                 component={SectionScreen}
                 initialParams={{ course_id: "" }}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="Lecture"
+                component={LectureScreen}
+                initialParams={{ lecture_id: "" }}
                 options={{ headerShown: false }}
               />
             </Stack.Navigator>
