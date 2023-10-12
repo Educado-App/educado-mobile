@@ -6,7 +6,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "test": "jest --watch",
+    "test": "jest",
+    "test-watch": "jest --watch",
     "test:components": "jest -i .*/components/explore.test.js -t \"Component Tests\"",
     "build": "babel components/ -d lib/",
     "flow": "flow"
