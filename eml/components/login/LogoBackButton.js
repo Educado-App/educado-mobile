@@ -13,7 +13,7 @@ import EducadoLogo from "../images/EducadoLogo";
 export default function LogoBackButton(props) {
 
   return (
-    <View className='flex-row justify-center w-full mt-4'>
+    <View className='flex-row justify-center items-center w-full mt-4'>
       {/* TODO: Implement with general back button instead */}
       <View className='absolute left-0'>
         <LeaveButton
@@ -21,7 +21,9 @@ export default function LogoBackButton(props) {
         />
       </View>
       {/* Educado logo */}
-      <EducadoLogo/>
+      <EducadoLogo
+        fill='fill-black'
+      />
     </View>
   )
 }
