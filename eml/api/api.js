@@ -25,29 +25,29 @@ export const getAuthToken = async () => {
 
 export const getTestCourse = async () => {
   const res = await axios.get(
-    url + '/api/public/course/635fb5b9b2fb6c4f49084682'
+    url + '/api/public/courses/635fb5b9b2fb6c4f49084682'
   );
   return res.data;
 };
 
 export const getCoursesWithAuth = async () => {
-  const res = await axios.get(url + '/api/course', config);
+  const res = await axios.get(url + '/api/courses', config);
   return res.data;
 };
 
 export const getCourseWithAuth = async (courseId) => {
-  const res = await axios.get(url + '/api/course/' + courseId, config);
+  const res = await axios.get(url + '/api/courses/' + courseId, config);
   return res.data;
 };
 
 export const getCourses = async () => {
   // TODO: add bearer token to request header and omit /public
-  const res = await axios.get(url + '/api/public/course');
+  const res = await axios.get(url + '/api/public/courses');
   return res.data;
 };
 
 export const getCourse = async (courseId) => {
-  const res = await axios.get(url + '/api/public/course/' + courseId);
+  const res = await axios.get(url + '/api/public/courses/' + courseId);
   return res.data;
 };
 
@@ -75,7 +75,7 @@ export const getAllSections = async (sections) => {
     sections,
   };
   // Send request to S3 server
-  const res = await axios.post(url + '/api/eml/course/getallsections', obj);
+  const res = await axios.post(url + '/api/eml/courses/getallsections', obj);
 
   return res.data;
 };
