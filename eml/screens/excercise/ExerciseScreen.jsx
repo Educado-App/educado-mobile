@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useRef, useState } from "react";
-import { ScrollView, StyleSheet, View, Text, Image, TouchableHighlight, Pressable } from "react-native";
+import { ScrollView, StyleSheet, View, Text, Image, TouchableHighlight, Pressable, TouchableOpacity, Dimensions } from "react-native";
 import LeaveButton from "../../components/exercise/LeaveButton";
 import ExerciseButtons from "../../components/exercise/ExerciseButtons";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -9,15 +9,16 @@ import CustomProgressBar from "../../components/exercise/Progressbar";
 import dummyExerciseData from "./dummyExerciseData.json";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Button, RadioButton } from "react-native-paper";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { Dimensions } from 'react-native';
 import ExerciseInfo from "../../components/exercise/ExerciseInfo";
 import { ScreenWidth } from "@rneui/base";
+import { Icon } from '@rneui/themed';
 
 export default function ExerciseScreen() {
   const navigation = useNavigation();
   const route = useRoute();
   const screenHeight = Dimensions.get('window').height;
+  const tailwindConfig = require('../../tailwind.config.js');
+  const projectColors = tailwindConfig.theme.colors;
 
   const [hasData, setHasData] = useState(false);
   const [signal, setSignal] = useState([]);
@@ -28,7 +29,7 @@ export default function ExerciseScreen() {
 
 
   const handleAnswerSelect = (answerId) => {
-    setSelectedAnswer(answerId); // Update the selected answer when a radio button is pressed
+    setSelectedAnswer(answerId);
   };
 
   var reviewAnswer;
@@ -133,7 +134,7 @@ export default function ExerciseScreen() {
             <Text className="pt-6 pb-10 text-center text-body font-montserrat-bold text-projectBlack w-5/6">
               {dummyExerciseData.question}
             </Text>
-            <View className={`${buttonClassName} items-center justify-center`} style={{height: screenHeight * 0.569, width: ScreenWidth * 1}}>
+            <View className={`${buttonClassName} items-center justify-center`} style={{height: screenHeight * 0.51, width: ScreenWidth * 1}}>
               <ScrollView>
                 {/* Map through the answers and render each one */}
                 {dummyExerciseData.answers.map((answer) => (
@@ -153,38 +154,45 @@ export default function ExerciseScreen() {
                       />
                     </View>
                     <View>
-                      <Text className="pt-2 pb-1 w-[304] font-montserrat text-body text-projectBlack">{answer.text}</Text>
-                        {/*{reviewAnswer === 2 || 1 ? ( 
-                          ''
-                        ) : (*/}
+                      <Pressable onPress={() => handleAnswerSelect(answer.id)}>
+                        <Text className="pt-2 pb-1 w-[304] font-montserrat text-body text-projectBlack">{answer.text}</Text>
+                      </Pressable>
                       {showFeedback ? (
                       <View className={`flex-row pb-2 w-[310] rounded ${answer.isCorrect ? 'bg-projectGreen' : 'bg-projectRed'}`}>
                         <View className="pl-2 pt-1">
-                          {answer.isCorrect === true ? (
-                            <Text className="text-success">
-                              w
-                              {/*//<Icon path={mdiCheck} size={1} />*/}
-                            </Text>
-                           ) : (
-                            <Text className="text-error">w</Text>
-                           )}                          
+                          <View className="pt-1.5">
+                            {answer.isCorrect === true ? ( 
+                              <Icon
+                              size={10}
+                              name="check"
+                              type="material"
+                              color={projectColors.success}
+                              />
+                            ) : (
+                              <Icon
+                              size={10}
+                              name="close"
+                              type="material"
+                              color={projectColors.error}
+                              />
+                            )}  
+                           </View>                        
                         </View>
-                        <Text className={`w-[272] pl-1 pt-2 font-montserrat text-caption-medium ${answer.isCorrect ? 'text-success' : 'text-error'}`}>{answer.feedback}</Text>
+                        <Text className={`w-[272] pl-1 pt-2 font-montserrat text-caption-medium rounded-medium ${answer.isCorrect ? 'text-success' : 'text-error'}`}>{answer.feedback}</Text>
                       </View>
                       ) : null}
                     </View>
                   </View>
                 ))}
-                {selectedAnswer !== null && (
-                  <View className="items-center">
-                    <Pressable onPress={() => handleReviewAnswer()}>
-                      <Text className="text-center font-montserrat text-body text-primary underline pb-20">
-                        Review answer
-                      </Text>
-                    </Pressable>
-                  </View>
-                )}
               </ScrollView>
+            </View>
+            <View className="px-6 pt-8 w-screen">
+              <TouchableOpacity 
+                className={`${selectedAnswer !== null ? 'opacity-100' : 'opacity-30'} bg-primary px-10 py-4 rounded-medium`}
+                onPress={() => handleReviewAnswer()}
+              >
+                <Text className="text-center font-montserrat-bold text-body text-projectWhite">Confirmar resposta</Text>
+              </TouchableOpacity>
             </View>
           </View>
         )}
@@ -206,7 +214,8 @@ export default function ExerciseScreen() {
           )}
         </View>
         */}
-      <ExerciseInfo courseId={dummyExerciseData.courseId} sectionId={dummyExerciseData.sectionId} />
+        
+      <ExerciseInfo courseId={dummyExerciseData.courseId} sectionId={dummyExerciseData.sectionId}/>
         <StatusBar style="auto" />
       </SafeAreaView>
     </View>
