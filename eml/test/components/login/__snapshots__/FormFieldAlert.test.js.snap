@@ -25,7 +25,7 @@ exports[`Ensure that the alert is rendered correctly 1`] = `
             "lineHeight": 16,
           },
           {
-            "color": "#CF6679",
+            "color": "#FF4949",
           },
           {
             "marginLeft": 8,

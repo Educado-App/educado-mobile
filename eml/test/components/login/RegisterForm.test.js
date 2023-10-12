@@ -1,4 +1,5 @@
 import renderer from "react-test-renderer";
+import React from "react";
 import RegisterForm from "../../../components/login/RegisterForm";
 
 let registerForm;

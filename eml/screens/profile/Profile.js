@@ -8,7 +8,6 @@ import ProfileName from '../../components/profile/profileName'
 import LogOutButton from '../../components/profile/LogOutButton'
 import SettingsButton from '../../components/profile/settingsButton.js'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { isFontsLoaded } from "../../constants/Fonts.js";
 import { BgLinearGradient } from "../../constants/BgLinearGradient";
 
 const USER_INFO = '@userInfo'
@@ -37,10 +36,6 @@ export default function ProfileComponent() {
   useEffect(() => {
     getProfile()
   }, [])
-
-  if (!isFontsLoaded()) {
-    return null;
-  }
   
   return (
     <BgLinearGradient>

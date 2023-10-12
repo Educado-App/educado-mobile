@@ -1,6 +1,8 @@
-import { Alert, View, Text, Pressable } from 'react-native'
+import { Alert, View, Pressable } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native'
+import Text from '../../components/general/Text';
+
 export default function ErrorScreen() {
   const navigation = useNavigation()
   return (

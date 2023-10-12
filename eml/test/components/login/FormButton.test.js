@@ -1,4 +1,5 @@
 import renderer from "react-test-renderer";
+import React from "react";
 import FormButton from "../../../components/login/FormButton";
 
 test("Ensure that the button is rendered correctly", async () => {

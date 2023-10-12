@@ -1,7 +1,8 @@
-import React from 'react'
-import { StyleSheet, View, Text } from 'react-native'
-import Star from '../../gamification/Star'
-import PropTypes from 'prop-types'
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+import Star from '../../gamification/Star';
+import PropTypes from 'prop-types';
+import Text from '../../general/Text';
 
 export default function CourseProgress({ fracTop, fracBot }) {
   CourseProgress.propTypes = {

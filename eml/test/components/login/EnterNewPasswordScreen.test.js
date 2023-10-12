@@ -1,4 +1,5 @@
 import renderer from 'react-test-renderer';
+import React from "react";
 import EnterNewPasswordLayout from "../../../components/login/EnterNewPasswordScreen";
 
 test("Enter new password screen renders correctly", async () => {

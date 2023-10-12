@@ -64,9 +64,6 @@ exports[`Ensure that the button is rendered correctly 1`] = `
           },
           [
             {
-              "color": "#FFFFFF",
-            },
-            {
               "fontSize": 16,
             },
             {

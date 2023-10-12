@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { View, Text } from "react-native";
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import CourseScreen from './screens/courses/CourseScreen';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -216,7 +215,7 @@ export function useWelcomeScreenLogic() {
         }
       };
 
-      fetchData();
+      fetchData();   
     }, 3000);
   }, []);
 
@@ -225,17 +224,21 @@ export function useWelcomeScreenLogic() {
 
 // Change InitialRouteName to HomeStack if you want to skip Login Screen
 export default function App() {
+  const fontsLoaded = isFontsLoaded();
   const { initialRoute, isLoading } = useWelcomeScreenLogic();
 
-  if (!isFontsLoaded()) {
+  // ************** Don't touch this code **************
+  if (!fontsLoaded) {
     return null;
   }
 
-  if (isLoading) {
+  // Makes sure fonts are loaded before rendering the app
+  if (isLoading && fontsLoaded) {
     return <Loading />;
   }
+  // ***************************************************
 
-  return isFontsLoaded() ? (
+  return (
     <TailwindProvider>
       <>
         <IconRegistry icons={EvaIconsPack} />
@@ -267,5 +270,5 @@ export default function App() {
         </ApplicationProvider>
       </>
     </TailwindProvider>
-  ) : null;
+  );
 }

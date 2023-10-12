@@ -59,7 +59,7 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
                   "lineHeight": 16,
                 },
                 {
-                  "color": "#CF6679",
+                  "color": "#FF4949",
                 },
               ],
             ]
@@ -84,9 +84,6 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
               },
               {
                 "paddingLeft": 10,
-              },
-              {
-                "backgroundColor": "#FFFFFF",
               },
               {
                 "borderBottomLeftRadius": 8,
@@ -158,7 +155,7 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
                   "lineHeight": 16,
                 },
                 {
-                  "color": "#CF6679",
+                  "color": "#FF4949",
                 },
               ],
             ]
@@ -183,9 +180,6 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
               },
               {
                 "paddingLeft": 10,
-              },
-              {
-                "backgroundColor": "#FFFFFF",
               },
               {
                 "borderBottomLeftRadius": 8,
@@ -223,7 +217,7 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
                 "lineHeight": 16,
               },
               {
-                "color": "#CF6679",
+                "color": "#FF4949",
               },
               {
                 "marginLeft": 8,
@@ -292,7 +286,7 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
                   "lineHeight": 16,
                 },
                 {
-                  "color": "#CF6679",
+                  "color": "#FF4949",
                 },
               ],
             ]
@@ -317,9 +311,6 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
               },
               {
                 "paddingLeft": 10,
-              },
-              {
-                "backgroundColor": "#FFFFFF",
               },
               {
                 "borderBottomLeftRadius": 8,
@@ -357,7 +348,7 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
                 "lineHeight": 16,
               },
               {
-                "color": "#CF6679",
+                "color": "#FF4949",
               },
               {
                 "marginLeft": 8,
@@ -435,7 +426,7 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
                     "lineHeight": 16,
                   },
                   {
-                    "color": "#CF6679",
+                    "color": "#FF4949",
                   },
                 ],
               ]
@@ -460,9 +451,6 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
                 },
                 {
                   "paddingLeft": 10,
-                },
-                {
-                  "backgroundColor": "#FFFFFF",
                 },
                 {
                   "borderBottomLeftRadius": 8,
@@ -547,9 +535,6 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
                 "fontSize": 12,
                 "lineHeight": 16,
               },
-              {
-                "color": "#A1ACB2",
-              },
             ],
           ]
         }
@@ -608,9 +593,6 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
               },
               {
                 "fontFamily": "Montserrat-Regular",
-              },
-              {
-                "color": "#A1ACB2",
               },
             ],
           ]
@@ -709,7 +691,7 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
                     "lineHeight": 16,
                   },
                   {
-                    "color": "#CF6679",
+                    "color": "#FF4949",
                   },
                 ],
               ]
@@ -734,9 +716,6 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
                 },
                 {
                   "paddingLeft": 10,
-                },
-                {
-                  "backgroundColor": "#FFFFFF",
                 },
                 {
                   "borderBottomLeftRadius": 8,
@@ -816,7 +795,7 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
                 "lineHeight": 16,
               },
               {
-                "color": "#CF6679",
+                "color": "#FF4949",
               },
               {
                 "marginLeft": 8,
@@ -898,9 +877,6 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
             {
               "opacity": 0.5,
             },
-            {
-              "backgroundColor": "#A1ACB2",
-            },
           ]
         }
       >
@@ -911,9 +887,6 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
                 "fontFamily": "Montserrat-Regular",
               },
               [
-                {
-                  "color": "#FFFFFF",
-                },
                 {
                   "fontSize": 16,
                 },

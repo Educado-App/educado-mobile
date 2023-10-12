@@ -32,6 +32,7 @@ module.exports = {
         'montserrat-semi-bold': ['Montserrat-SemiBold'],
         sans: ['"Montserrat-Regular"'],
         "sans-bold": ["'Montserrat-Bold'"],
+        "sans-semi-bold": ["'Montserrat-SemiBold'"],
       },
       extend: {
         fontSize: {

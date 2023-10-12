@@ -1,9 +1,10 @@
 // @flow
 import React, { useState, useEffect } from 'react'
-import { Pressable, Text, View, Alert } from 'react-native'
+import { Pressable, View, Alert } from 'react-native'
 import PropTypes from 'prop-types'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { getNextExercise } from "../../../services/StorageService";
+import Text from '../../general/Text';
 
 export default function SectionItem({ active, title, index, sectionId, courseId }) {
 
