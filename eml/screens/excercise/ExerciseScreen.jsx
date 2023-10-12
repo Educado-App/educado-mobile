@@ -1,16 +1,12 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useEffect, useRef, useState } from "react";
-import { ScrollView, StyleSheet, View, Text, Image, TouchableHighlight, Pressable } from "react-native";
+import React, { useEffect, useState } from "react";
+import { SafeAreaView, ScrollView, StyleSheet, View, Text, Image, TouchableOpacity, TouchableHighlight, Pressable, Dimensions } from "react-native";
 import LeaveButton from "../../components/exercise/LeaveButton";
-import ExerciseButtons from "../../components/exercise/ExerciseButtons";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import * as StorageService from "../../services/StorageService";
 import CustomProgressBar from "../../components/exercise/Progressbar";
 import dummyExerciseData from "./dummyExerciseData.json";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { Button, RadioButton } from "react-native-paper";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { Dimensions } from 'react-native';
 import ExerciseInfo from "../../components/exercise/ExerciseInfo";
 
 export default function ExerciseScreen() {
