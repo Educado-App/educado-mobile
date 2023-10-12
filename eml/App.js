@@ -33,12 +33,27 @@ const checkLogin = () => {
     useNavigation().navigate('Login');
   }
 }
+
 function WelcomeStack() {
   return (
     <Stack.Navigator initialRouteName={"Welcome"}>
       <Stack.Screen
         name="Welcome"
         component={WelcomeScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function ExerciseStack() {
+  return (
+    <Stack.Navigator initialRouteName={"Exercise"}>
+      <Stack.Screen
+        name="Exercise"
+        component={ExerciseScreen}
         options={{
           headerShown: false,
         }}
@@ -244,7 +259,7 @@ export default function App() {
         <IconRegistry icons={EvaIconsPack} />
         <ApplicationProvider {...eva} theme={eva.light}>
           <NavigationContainer>
-            <Stack.Navigator initialRouteName={initialRoute}>
+            <Stack.Navigator initialRouteName={"ExerciseStack"}>
               <Stack.Screen
                 name={"WelcomeStack"}
                 component={WelcomeStack}
@@ -261,9 +276,14 @@ export default function App() {
                 options={{ headerShown: false }}
               />
               <Stack.Screen
-                name={"ProfileSettings"} // Name of your screen
-                component={ProfileSettingsScreen} // Component to be rendered for ProfileSettings screen
-                options={{ headerShown: false }} // You can customize the header title here
+                name={"ProfileSettings"} 
+                component={ProfileSettingsScreen} 
+                options={{ headerShown: false }} 
+              />
+              <Stack.Screen
+                name={"ExerciseStack"}
+                component={ExerciseStack}
+                options={{ headerShown: false }}
               />
             </Stack.Navigator>
           </NavigationContainer>

@@ -7,14 +7,6 @@ import PropTypes from 'prop-types'
 import * as StorageService from '../../services/StorageService';
 import * as Speech from 'expo-speech'
 
-
-const voiceOvers = [
-  require('../../assets/voice1.mp3'),
-  require('../../assets/voice2.mp3'),
-  require('../../assets/voice3.mp3'),
-  require('../../assets/voice4.mp3')
-]
-
 export default function ExerciseButtons({ exerciseId, answers, sectionId, courseId, setSignal, hasData }) {
   const navigation = useNavigation()
 
@@ -48,14 +40,6 @@ export default function ExerciseButtons({ exerciseId, answers, sectionId, course
 
   const [button, setButton] = useState(true)
 
-  function handlePlaySound(tts) {
-    Speech.stop()
-    Speech.speak(tts, {
-      language: "portuguese",
-      voice: "com.apple.ttsbundle.Luciana-compact"
-    }
-    )
-  }
   function handleChange(evt) {
     if (evt === 1) {
       setSelected({

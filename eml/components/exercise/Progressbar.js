@@ -8,10 +8,12 @@ const CustomProgressBar = ({ progress }) => {
   return (
     <Progress.Bar
       progress={progress}
-      width={275}
+      width={253}
       height={10}
-      color="rgba(123,254,77, 100)"
-      borderColor="rgba(0,0,0, 0.17)"
+      color="rgba(94, 204, 233, 1)"
+      unfilledColor="rgba(228, 242, 245, 1)"
+      borderWidth={0}
+      borderRadius={8}
     ></Progress.Bar>
   )
 }
