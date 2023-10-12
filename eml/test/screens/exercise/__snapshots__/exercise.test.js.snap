@@ -228,11 +228,16 @@ exports[`ExerciseScreen renders ExerciseScreen correctly 1`] = `
         style={
           [
             {
-              "paddingBottom": 28,
-              "paddingTop": 28,
+              "paddingTop": 24,
+            },
+            {
+              "paddingBottom": 40,
             },
             {
               "textAlign": "center",
+            },
+            {
+              "fontSize": 16,
             },
             {
               "fontFamily": "Montserrat-Bold",
@@ -250,9 +255,18 @@ exports[`ExerciseScreen renders ExerciseScreen correctly 1`] = `
       </Text>
       <View
         style={
-          {
-            "height": 759.0459999999999,
-          }
+          [
+            {
+              "alignItems": "center",
+            },
+            {
+              "justifyContent": "center",
+            },
+            {
+              "height": 680.34,
+              "width": 750,
+            },
+          ]
         }
       >
         <RCTScrollView>
@@ -264,10 +278,13 @@ exports[`ExerciseScreen renders ExerciseScreen correctly 1`] = `
                     "flexDirection": "row",
                   },
                   {
-                    "paddingBottom": 32,
+                    "width": 390,
                   },
                   {
-                    "width": "83.333333%",
+                    "paddingBottom": 24,
+                  },
+                  {
+                    "paddingLeft": 8,
                   },
                 ]
               }
@@ -317,23 +334,49 @@ exports[`ExerciseScreen renders ExerciseScreen correctly 1`] = `
                   />
                 </View>
               </View>
-              <Text
-                style={
-                  [
-                    {
-                      "fontFamily": "Montserrat-Regular",
-                    },
-                    {
-                      "fontSize": 16,
-                    },
-                    {
-                      "color": "#383838",
-                    },
-                  ]
-                }
-              >
-                Option option option option option option placeholder  placeholder placeholderOption option option option option option placeholder  placeholder placeholderOption option option option option option placeholder  placeholder placeholderOption option option option option option placeholder  placeholder placeholderOption option option option option option placeholder  placeholder placeholderOption option option option option option placeholder  placeholder placeholderOption option option option option option placeholder  placeholder placeholderOption option option option option option placeholder  placeholder placeholderOption option option option option option placeholder  placeholder placeholderOption option option option option option placeholder  placeholder placeholderOption option option option option option placeholder  placeholder placeholderOption option option option option option placeholder  placeholder placeholderOption option option option option option placeholder  placeholder placeholderOption option option option option option placeholder  placeholder placeholderOption option option option option option placeholder  placeholder placeholderOption option option option option option placeholder  placeholder placeholderOption option option option option option placeholder  placeholder placeholderOption option option option option option placeholder  placeholder placeholderOption option option option option option placeholder  placeholder placeholderOption option option option option option placeholder  placeholder placeholder
-              </Text>
+              <View>
+                <View
+                  accessible={true}
+                  collapsable={false}
+                  focusable={true}
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                >
+                  <Text
+                    style={
+                      [
+                        {
+                          "paddingTop": 8,
+                        },
+                        {
+                          "paddingBottom": 4,
+                        },
+                        {
+                          "width": 304,
+                        },
+                        {
+                          "fontFamily": "Montserrat-Regular",
+                        },
+                        {
+                          "fontSize": 16,
+                        },
+                        {
+                          "color": "#383838",
+                        },
+                      ]
+                    }
+                  >
+                    Option option option option option option placeholder  placeholder placeholder
+                  </Text>
+                </View>
+              </View>
             </View>
             <View
               style={
@@ -342,10 +385,13 @@ exports[`ExerciseScreen renders ExerciseScreen correctly 1`] = `
                     "flexDirection": "row",
                   },
                   {
-                    "paddingBottom": 32,
+                    "width": 390,
                   },
                   {
-                    "width": "83.333333%",
+                    "paddingBottom": 24,
+                  },
+                  {
+                    "paddingLeft": 8,
                   },
                 ]
               }
@@ -395,23 +441,49 @@ exports[`ExerciseScreen renders ExerciseScreen correctly 1`] = `
                   />
                 </View>
               </View>
-              <Text
-                style={
-                  [
-                    {
-                      "fontFamily": "Montserrat-Regular",
-                    },
-                    {
-                      "fontSize": 16,
-                    },
-                    {
-                      "color": "#383838",
-                    },
-                  ]
-                }
-              >
-                Option option option option option option placeholder  placeholder placeholder
-              </Text>
+              <View>
+                <View
+                  accessible={true}
+                  collapsable={false}
+                  focusable={true}
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                >
+                  <Text
+                    style={
+                      [
+                        {
+                          "paddingTop": 8,
+                        },
+                        {
+                          "paddingBottom": 4,
+                        },
+                        {
+                          "width": 304,
+                        },
+                        {
+                          "fontFamily": "Montserrat-Regular",
+                        },
+                        {
+                          "fontSize": 16,
+                        },
+                        {
+                          "color": "#383838",
+                        },
+                      ]
+                    }
+                  >
+                    Option option option option option option placeholder  placeholder placeholder
+                  </Text>
+                </View>
+              </View>
             </View>
             <View
               style={
@@ -420,10 +492,13 @@ exports[`ExerciseScreen renders ExerciseScreen correctly 1`] = `
                     "flexDirection": "row",
                   },
                   {
-                    "paddingBottom": 32,
+                    "width": 390,
                   },
                   {
-                    "width": "83.333333%",
+                    "paddingBottom": 24,
+                  },
+                  {
+                    "paddingLeft": 8,
                   },
                 ]
               }
@@ -473,23 +548,49 @@ exports[`ExerciseScreen renders ExerciseScreen correctly 1`] = `
                   />
                 </View>
               </View>
-              <Text
-                style={
-                  [
-                    {
-                      "fontFamily": "Montserrat-Regular",
-                    },
-                    {
-                      "fontSize": 16,
-                    },
-                    {
-                      "color": "#383838",
-                    },
-                  ]
-                }
-              >
-                Option option option option option option placeholder  placeholder placeholder
-              </Text>
+              <View>
+                <View
+                  accessible={true}
+                  collapsable={false}
+                  focusable={true}
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                >
+                  <Text
+                    style={
+                      [
+                        {
+                          "paddingTop": 8,
+                        },
+                        {
+                          "paddingBottom": 4,
+                        },
+                        {
+                          "width": 304,
+                        },
+                        {
+                          "fontFamily": "Montserrat-Regular",
+                        },
+                        {
+                          "fontSize": 16,
+                        },
+                        {
+                          "color": "#383838",
+                        },
+                      ]
+                    }
+                  >
+                    Option option option option option option placeholder  placeholder placeholder
+                  </Text>
+                </View>
+              </View>
             </View>
             <View
               style={
@@ -498,10 +599,13 @@ exports[`ExerciseScreen renders ExerciseScreen correctly 1`] = `
                     "flexDirection": "row",
                   },
                   {
-                    "paddingBottom": 32,
+                    "width": 390,
                   },
                   {
-                    "width": "83.333333%",
+                    "paddingBottom": 24,
+                  },
+                  {
+                    "paddingLeft": 8,
                   },
                 ]
               }
@@ -551,26 +655,116 @@ exports[`ExerciseScreen renders ExerciseScreen correctly 1`] = `
                   />
                 </View>
               </View>
-              <Text
-                style={
-                  [
-                    {
-                      "fontFamily": "Montserrat-Regular",
-                    },
-                    {
-                      "fontSize": 16,
-                    },
-                    {
-                      "color": "#383838",
-                    },
-                  ]
-                }
-              >
-                Option option option option option option placeholder  placeholder placeholder
-              </Text>
+              <View>
+                <View
+                  accessible={true}
+                  collapsable={false}
+                  focusable={true}
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                >
+                  <Text
+                    style={
+                      [
+                        {
+                          "paddingTop": 8,
+                        },
+                        {
+                          "paddingBottom": 4,
+                        },
+                        {
+                          "width": 304,
+                        },
+                        {
+                          "fontFamily": "Montserrat-Regular",
+                        },
+                        {
+                          "fontSize": 16,
+                        },
+                        {
+                          "color": "#383838",
+                        },
+                      ]
+                    }
+                  >
+                    Option option option option option option placeholder  placeholder placeholder
+                  </Text>
+                </View>
+              </View>
             </View>
           </View>
         </RCTScrollView>
+      </View>
+      <View
+        style={
+          [
+            {
+              "paddingLeft": 24,
+              "paddingRight": 24,
+            },
+            {
+              "paddingTop": 32,
+            },
+            {
+              "width": 750,
+            },
+          ]
+        }
+      >
+        <View
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "backgroundColor": "#5ECCE9",
+              "borderBottomLeftRadius": 8,
+              "borderBottomRightRadius": 8,
+              "borderTopLeftRadius": 8,
+              "borderTopRightRadius": 8,
+              "opacity": 0.3,
+              "paddingBottom": 16,
+              "paddingLeft": 40,
+              "paddingRight": 40,
+              "paddingTop": 16,
+            }
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "textAlign": "center",
+                },
+                {
+                  "fontFamily": "Montserrat-Bold",
+                },
+                {
+                  "fontSize": 16,
+                },
+                {
+                  "color": "#FFFFFF",
+                },
+              ]
+            }
+          >
+            Confirmar resposta
+          </Text>
+        </View>
       </View>
     </View>
     <View
@@ -586,8 +780,8 @@ exports[`ExerciseScreen renders ExerciseScreen correctly 1`] = `
             "alignItems": "flex-end",
           },
           {
-            "paddingLeft": "12%",
-            "paddingRight": "12%",
+            "paddingLeft": "6%",
+            "paddingRight": "6%",
           },
           {
             "paddingBottom": "12%",
@@ -613,7 +807,7 @@ exports[`ExerciseScreen renders ExerciseScreen correctly 1`] = `
           }
         >
           Course name: 
-          dummyCourseId
+          lecture 1
         </Text>
         <Text
           style={
@@ -630,7 +824,7 @@ exports[`ExerciseScreen renders ExerciseScreen correctly 1`] = `
             ]
           }
         >
-          dummySectionId
+          Question title
         </Text>
       </View>
       <View>

@@ -30,6 +30,55 @@ const checkLogin = () => {
     useNavigation().navigate('Login');
   }
 }
+
+function WelcomeStack() {
+  return (
+    <Stack.Navigator initialRouteName={"Welcome"}>
+      <Stack.Screen
+        name="Welcome"
+        component={WelcomeScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function ExerciseStack() {
+  return (
+    <Stack.Navigator initialRouteName={"Exercise"}>
+      <Stack.Screen
+        name="Exercise"
+        component={ExerciseScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function LoginStack() {
+  return (
+    <Stack.Navigator initialRouteName={"Login"}>
+      <Stack.Screen
+        name="Login"
+        component={LoginScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Register"
+        component={RegisterScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </Stack.Navigator>
+  )};
+
 function CourseStack() {
   checkLogin();
   return (
@@ -222,4 +271,4 @@ export default function App() {
       </>
     </TailwindProvider>
   ) : null;
-}
+};

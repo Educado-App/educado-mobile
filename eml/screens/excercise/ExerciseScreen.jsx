@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useEffect, useState } from "react";
-import { SafeAreaView, ScrollView, StyleSheet, View, Text, Image, TouchableOpacity, TouchableHighlight, Pressable, Dimensions } from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import { ScrollView, StyleSheet, View, Text, Image, TouchableHighlight, Pressable, TouchableOpacity, Dimensions, SafeAreaView } from "react-native";
 import LeaveButton from "../../components/exercise/LeaveButton";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import * as StorageService from "../../services/StorageService";
@@ -8,20 +8,42 @@ import CustomProgressBar from "../../components/exercise/Progressbar";
 import dummyExerciseData from "./dummyExerciseData.json";
 import { Button, RadioButton } from "react-native-paper";
 import ExerciseInfo from "../../components/exercise/ExerciseInfo";
+import { ScreenWidth } from "@rneui/base";
+import { Icon } from '@rneui/themed';
 
 export default function ExerciseScreen() {
   const navigation = useNavigation();
   const route = useRoute();
   const screenHeight = Dimensions.get('window').height;
+  const tailwindConfig = require('../../tailwind.config.js');
+  const projectColors = tailwindConfig.theme.colors;
 
   const [hasData, setHasData] = useState(false);
   const [signal, setSignal] = useState([]);
   const [exerciseData, setExerciseData] = useState({});
   const [selectedAnswer, setSelectedAnswer] = useState(null); // State to store the selected answer
+  const [buttonClassName, setButtonClassName] = useState(""); // Used to change color of a view
+  const [showFeedback, setShowFeedback] = useState(false); // Used to render feedback
+
 
   const handleAnswerSelect = (answerId) => {
-    setSelectedAnswer(answerId); // Update the selected answer when a radio button is pressed
+    setSelectedAnswer(answerId);
   };
+
+  var reviewAnswer;
+
+  // Update this function to look like handleAnswerSelect, looks better
+  function handleReviewAnswer() {
+    if (dummyExerciseData.answers[selectedAnswer - 1].isCorrect) {
+      setButtonClassName("bg-projectGreen");
+      reviewAnswer = true;
+    } else {
+      setButtonClassName("bg-projectRed");
+      reviewAnswer = false;
+    }
+    setShowFeedback(true);
+    console.log(reviewAnswer);
+  }
 
   /*async function getExercise() {
     const exercise = await StorageService.getNextExercise(sectionId);
@@ -61,6 +83,7 @@ export default function ExerciseScreen() {
     } else {
       navigation.navigate("ErrorScreen");
     }
+  
   }
 
   /*async function isSectionComplete(courseId, sectionId) {
@@ -84,7 +107,7 @@ export default function ExerciseScreen() {
   return (
     <View className="bg-secondary flex-1 justify-between">
       <SafeAreaView className= "justify-between" >
-        <View className = " flex-row items-center justify-around">
+        <View className = "flex-row items-center justify-around">
           <View>
               <LeaveButton
                 navigationPlace={"Course"}
@@ -106,16 +129,16 @@ export default function ExerciseScreen() {
           <Text> Sem dados</Text>
         ) : (
           <View className="items-center">
-            <Text className="py-7 text-center font-montserrat-bold text-projectBlack w-5/6">
+            <Text className="pt-6 pb-10 text-center text-body font-montserrat-bold text-projectBlack w-5/6">
               {dummyExerciseData.question}
             </Text>
-            <View style={{height: screenHeight * 0.569}}>
+            <View className={`${buttonClassName} items-center justify-center`} style={{height: screenHeight * 0.51, width: ScreenWidth * 1}}>
               <ScrollView>
                 {/* Map through the answers and render each one */}
                 {dummyExerciseData.answers.map((answer) => (
                   <View
                     key={answer.id}
-                    className="flex-row pb-8 w-5/6"
+                    className="flex-row w-[390] pb-6 pl-2"
                   >
                     <View>
                       <RadioButton.Android
@@ -128,22 +151,47 @@ export default function ExerciseScreen() {
                         uncheckedColor="#5ECCE9"
                       />
                     </View>
-                    <Text className="font-montserrat text-body text-projectBlack">{answer.text}</Text>
+                    <View>
+                      <Pressable onPress={() => handleAnswerSelect(answer.id)}>
+                        <Text className="pt-2 pb-1 w-[304] font-montserrat text-body text-projectBlack">{answer.text}</Text>
+                      </Pressable>
+                      {showFeedback ? (
+                      <View className={`flex-row pb-2 w-[310] rounded ${answer.isCorrect ? 'bg-projectGreen' : 'bg-projectRed'}`}>
+                        <View className="pl-2 pt-1">
+                          <View className="pt-1.5">
+                            {answer.isCorrect === true ? ( 
+                              <Icon
+                              size={10}
+                              name="check"
+                              type="material"
+                              color={projectColors.success}
+                              />
+                            ) : (
+                              <Icon
+                              size={10}
+                              name="close"
+                              type="material"
+                              color={projectColors.error}
+                              />
+                            )}  
+                           </View>                        
+                        </View>
+                        <Text className={`w-[272] pl-1 pt-2 font-montserrat text-caption-medium rounded-medium ${answer.isCorrect ? 'text-success' : 'text-error'}`}>{answer.feedback}</Text>
+                      </View>
+                      ) : null}
+                    </View>
                   </View>
                 ))}
-                {selectedAnswer !== null && (
-                  <View className="items-center">
-                    <Pressable>
-                      <Text
-                        onPress={() => console.log("REVIEW", selectedAnswer)}
-                        className="text-center font-montserrat text-body text-primary underline pb-20">
-                        Review answer
-                      </Text>
-                    </Pressable>
-                  </View>)}
               </ScrollView>
             </View>
-            
+            <View className="px-6 pt-8 w-screen">
+              <TouchableOpacity 
+                className={`${selectedAnswer !== null ? 'opacity-100' : 'opacity-30'} bg-primary px-10 py-4 rounded-medium`}
+                onPress={() => handleReviewAnswer()}
+              >
+                <Text className="text-center font-montserrat-bold text-body text-projectWhite">Confirmar resposta</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         )}
 
@@ -164,7 +212,8 @@ export default function ExerciseScreen() {
           )}
         </View>
         */}
-      <ExerciseInfo courseId={dummyExerciseData.courseId} sectionId={dummyExerciseData.sectionId} />
+        
+      <ExerciseInfo courseId={dummyExerciseData.courseId} sectionId={dummyExerciseData.sectionId}/>
         <StatusBar style="auto" />
       </SafeAreaView>
     </View>
