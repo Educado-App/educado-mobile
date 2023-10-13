@@ -15,13 +15,15 @@ const StyledPath = styled(Path, { classProps: ["fill", "stroke"] });
  * @returns {React.Element} Header logo/title component
 
  */
-export default function EducadoLogo({ fill, ...props }) {
+export default function EducadoLogo({fill, width, height, ...props }) {
+
   return (
     <Svg
       xmlns="http://www.w3.org/2000/svg"
-      width={176}
-      height={26}
-      fill="none"
+      width={width ? width : 176} 
+      height={height ? height : 26} 
+      preserveAspectRatio="xMidYMid meet"
+      viewBox="0 0 176 26"
       {...props}
     >
       <StyledEllipse cx={13.595} cy={0.931} rx={0.938} ry={0.931} fill={fill} />

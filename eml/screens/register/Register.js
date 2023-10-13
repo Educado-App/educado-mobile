@@ -1,12 +1,11 @@
-import React from "react";
-import { View, TouchableWithoutFeedback, Keyboard, ScrollView } from "react-native";
+import React, { useEffect } from "react";
+import { View, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import RegisterForm from "../../components/login/RegisterForm";
 import { SafeAreaView } from "react-native-safe-area-context";
 import LogoBackButton from "../../components/login/LogoBackButton";
 import Text from "../../components/general/Text";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { useEffect } from "react";
 
 const LOGIN_TOKEN = "@loginToken";
 
