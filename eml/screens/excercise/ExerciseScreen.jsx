@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useRef, useState } from "react";
-import { ScrollView, StyleSheet, View, Text, Image, TouchableHighlight, Pressable, TouchableOpacity, Dimensions, SafeAreaView } from "react-native";
+import { ScrollView, StyleSheet, View, Text, Image, TouchableHighlight, Pressable, TouchableOpacity, Dimensions } from "react-native";
 import LeaveButton from "../../components/exercise/LeaveButton";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import * as StorageService from "../../services/StorageService";
@@ -8,13 +8,13 @@ import CustomProgressBar from "../../components/exercise/Progressbar";
 import dummyExerciseData from "./dummyExerciseData.json";
 import { Button, RadioButton } from "react-native-paper";
 import ExerciseInfo from "../../components/exercise/ExerciseInfo";
-import { ScreenWidth } from "@rneui/base";
 import { Icon } from '@rneui/themed';
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function ExerciseScreen() {
   const navigation = useNavigation();
   const route = useRoute();
-  const screenHeight = Dimensions.get('window').height;
+  const ScreenWidth = Dimensions.get('window').width;
   const tailwindConfig = require('../../tailwind.config.js');
   const projectColors = tailwindConfig.theme.colors;
 
@@ -115,7 +115,7 @@ export default function ExerciseScreen() {
               ></LeaveButton>
           </View>
           <View>
-            <CustomProgressBar progress={0.25 / 1}></CustomProgressBar>
+            <CustomProgressBar progress={0.25 / 1} width={65} height={1.2}></CustomProgressBar>
           </View>
           <View>
             <Text className="px-3 text-center font-montserrat-bold text-caption-medium text-projectBlack"> 
@@ -129,16 +129,16 @@ export default function ExerciseScreen() {
           <Text> Sem dados</Text>
         ) : (
           <View className="items-center">
-            <Text className="pt-6 pb-10 text-center text-body font-montserrat-bold text-projectBlack w-5/6">
+            <Text className="pt-6 pb-10 text-center text-body font-montserrat-bold text-projectBlack w-11/12">
               {dummyExerciseData.question}
             </Text>
-            <View className={`${buttonClassName} items-center justify-center`} style={{height: screenHeight * 0.51, width: ScreenWidth * 1}}>
+            <View className={`${buttonClassName} items-center justify-center h-96`}>
               <ScrollView>
                 {/* Map through the answers and render each one */}
                 {dummyExerciseData.answers.map((answer) => (
                   <View
                     key={answer.id}
-                    className="flex-row w-[390] pb-6 pl-2"
+                    className="flex-row w-96 pb-6 pl-2"
                   >
                     <View>
                       <RadioButton.Android
@@ -153,10 +153,10 @@ export default function ExerciseScreen() {
                     </View>
                     <View>
                       <Pressable onPress={() => handleAnswerSelect(answer.id)}>
-                        <Text className="pt-2 pb-1 w-[304] font-montserrat text-body text-projectBlack">{answer.text}</Text>
+                        <Text className="pt-2 pb-1 w-72 font-montserrat text-body text-projectBlack">{answer.text}</Text>
                       </Pressable>
                       {showFeedback ? (
-                      <View className={`flex-row pb-2 w-[310] rounded ${answer.isCorrect ? 'bg-projectGreen' : 'bg-projectRed'}`}>
+                      <View className={`flex-row pb-2 w-fit rounded-medium ${answer.isCorrect ? 'bg-projectGreen' : 'bg-projectRed'}`}>
                         <View className="pl-2 pt-1">
                           <View className="pt-1.5">
                             {answer.isCorrect === true ? ( 
@@ -176,7 +176,7 @@ export default function ExerciseScreen() {
                             )}  
                            </View>                        
                         </View>
-                        <Text className={`w-[272] pl-1 pt-2 font-montserrat text-caption-medium rounded-medium ${answer.isCorrect ? 'text-success' : 'text-error'}`}>{answer.feedback}</Text>
+                        <Text className={`w-72 pl-1 pt-2 pr-2 font-montserrat text-caption-medium ${answer.isCorrect ? 'text-success' : 'text-error'}`}>{answer.feedback}</Text>
                       </View>
                       ) : null}
                     </View>
