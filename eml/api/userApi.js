@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const prod = 'http://educado.somethingnew.dk'
-const test = 'http://172.30.245.130:8888' // Change this to your LOCAL IP address when testing.
+const test = 'http://172.30.245.19:8888' // Change this to your LOCAL IP address when testing.
 const local = 'http://localhost:8888'
 const digitalOcean = 'http://207.154.213.68:8888'
 
@@ -115,3 +115,17 @@ export const updateExerciseStatus = async (user_id, course_id, section_id, exerc
   return res.data;
 }
 
+export const sendResetPasswordEmail = async (email) => {
+  const res = await axios.post(url + '/api/auth/reset-password-request', email);
+  return res.data;
+};
+
+export const validateResetPasswordCode = async (obj) => {
+  const res = await axios.post(url + '/api/auth/reset-password-code', obj);
+  return res.data;
+};
+
+export const enterNewPassword = async (obj) => {
+  const res = await axios.put(url + '/api/auth/reset-password', obj);
+  return res.data;
+};

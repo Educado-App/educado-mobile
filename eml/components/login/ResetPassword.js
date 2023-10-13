@@ -5,7 +5,7 @@ import FormButton from "./FormButton";
 import EducadoModal from "../general/EducadoModal";
 import EnterNewPasswordScreen from "./EnterNewPasswordScreen";
 import Text from '../general/Text';
-import { sendResetPasswordEmail } from "../../api/userApi";
+import { sendResetPasswordEmail, validateResetPasswordCode } from "../../api/userApi";
 
 /**
  * Component to create modal (popup) that prompts user for
@@ -16,6 +16,7 @@ import { sendResetPasswordEmail } from "../../api/userApi";
  */
 export default function ResetPassword(props) {
   const [email, setEmail] = useState("");
+  const [token, setToken] = useState("");
   const [emailSent, setEmailSent] = useState(false);
   const [codeEntered, setCodeEntered] = useState(false);
 
@@ -24,16 +25,30 @@ export default function ResetPassword(props) {
       email,
     };
 
-    console.log("Sending email: " + email);
-
     try {
       await sendResetPasswordEmail(obj)
-        .then( async () => {
-          console.log("Email sent");
-          console.log(email);
+        .then(async () => {
           setEmailSent(true);
         }).catch((error) => {
-          console.log(error + "YUH"); //HERE
+          console.log(error + " - YUH");
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function validateCode(email, token) {
+    const obj = {
+      email,
+      token,
+    };
+
+    try {
+      await validateResetPasswordCode(obj)
+        .then(async () => {
+          setCodeEntered(true);
+        }).catch((error) => {
+          console.log(error + " - YUH");
         });
     } catch (error) {
       console.log(error);
@@ -62,12 +77,12 @@ export default function ResetPassword(props) {
                     Enviamos um código par ao seu email de redefinição de senha,
                     por favor, insira o mesmo abaixo
                   </Text>
-                  <FormTextField placeholder="X X X X" onChangeText={""} />
+                  <FormTextField placeholder="X X X X" onChangeText={(token) => setToken(token)} />
                   <View className="mt-[40px] mb-[24px]">
                     <FormButton
                       // Continue 
                       label="Continuar"
-                      onPress={() => setCodeEntered(true)}
+                      onPress={() => validateCode(email, token)}
                     />
                   </View>
                   <View className="mx-10 flex-row justify-center">
@@ -87,7 +102,10 @@ export default function ResetPassword(props) {
             </View>
           </View>
         ) : (
-          <EnterNewPasswordScreen />
+          <EnterNewPasswordScreen
+            email={email}
+            token={token}
+          />
         )}
       </View>
 

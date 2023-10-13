@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import FormTextField from '../../components/login/FormTextField';
 import FormButton from '../../components/login/FormButton';
 import PasswordEye from '../../components/login/PasswordEye';
+import { enterNewPassword } from "../../api/userApi";
 
 
 /**
@@ -14,6 +15,7 @@ export default function EnterNewPasswordScreen(props) {
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [newPassword, setNewPassword] = useState("");
 
   /**
    * Function to toggle the password visibility state
@@ -24,12 +26,26 @@ export default function EnterNewPasswordScreen(props) {
     setShowPasswordFunction(!shouldShowPassword);
   }
 
+  async function changePassword(email, token, newPassword) {
+    const obj = {
+      email,
+      token,
+      newPassword,
+    };
+    
+    try {
+      await enterNewPassword(obj);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <View>
       <View>
         <FormTextField
           placeholder="Entre sua senha" // Enter your password
-          onChangeText={""}
+          onChangeText={(password) => setNewPassword(password)}
           id = "password"
           label="Nova senha" // New password
           required={true}
@@ -52,7 +68,8 @@ export default function EnterNewPasswordScreen(props) {
       </View>
       <FormButton 
         label="Entrar" // Enter
-        />
+        onPress={() => changePassword(props.email, props.token, newPassword)}
+      />
     </View>
   );
 }
