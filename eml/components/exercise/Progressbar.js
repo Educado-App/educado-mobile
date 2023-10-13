@@ -1,6 +1,5 @@
 import * as React from "react";
-import { View } from "react-native";
-
+import { View, Text } from "react-native";
 import * as Progress from "react-native-progress";
 import PropTypes from "prop-types";
 import { ScreenWidth, ScreenHeight } from "@rneui/base";
@@ -12,9 +11,9 @@ const CustomProgressBar = ({ progress, width, height }) => {
     height: PropTypes.number.isRequired,
   };
   return (
-    <View>
+    <View className="flex-row items-center justify-around">
       <Progress.Bar
-        progress={progress}
+        progress={progress / 100}
         width={ScreenWidth * (width / 100)}
         height={ScreenHeight * (height / 100)}
         color="rgba(94, 204, 233, 1)"
@@ -22,6 +21,9 @@ const CustomProgressBar = ({ progress, width, height }) => {
         borderWidth={0}
         borderRadius={8}
       ></Progress.Bar>
+      <Text className="px-3 text-center font-montserrat-bold text-caption-medium text-projectBlack">
+        {progress}%
+      </Text>
     </View>
   );
 };

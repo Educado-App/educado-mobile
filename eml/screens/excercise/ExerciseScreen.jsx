@@ -115,12 +115,7 @@ export default function ExerciseScreen() {
               ></LeaveButton>
           </View>
           <View>
-            <CustomProgressBar progress={0.25 / 1} width={65} height={1.2}></CustomProgressBar>
-          </View>
-          <View>
-            <Text className="px-3 text-center font-montserrat-bold text-caption-medium text-projectBlack"> 
-              25% 
-            </Text> 
+            <CustomProgressBar progress={50} width={65} height={1.2}></CustomProgressBar>
           </View>
         </View>
 
