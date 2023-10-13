@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import * as StorageService from '../../services/StorageService'
 import * as DirectoryService from '../../services/DirectoryService'

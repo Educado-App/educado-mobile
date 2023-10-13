@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import React, { useEffect, useState } from 'react'
-import { View, Text, Platform, ScrollView } from 'react-native'
+import { View, Platform, ScrollView } from 'react-native'
 import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/dev'
 import { AppLoading } from 'expo-app-loading'
 import { SelectList } from 'react-native-dropdown-select-list'
@@ -8,7 +8,7 @@ import ActiveExploreCard from '../../components/explore/ActiveExploreCard'
 import ExploreCard from '../../components/explore/ExploreCard'
 import * as StorageService from '../../services/StorageService'
 import { useIsFocused } from '@react-navigation/native'
-
+import Text from '../../components/general/Text'
 
 export default function Explore() {
 

@@ -1,3 +1,4 @@
+import React from "react";
 import { View } from "react-native";
 import LeaveButton from "../exercise/LeaveButton";
 import EducadoLogo from "../images/EducadoLogo";

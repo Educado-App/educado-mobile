@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import CourseScreen from './screens/courses/CourseScreen';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -19,6 +19,9 @@ import ErrorScreen from './screens/errors/ErrorScreen';
 import SectionCompleteScreen from './screens/excercise/SectionCompleteScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { isFontsLoaded } from './constants/Fonts';
+import Loading from "./components/loading/Loading";
+import WelcomeScreen from "./screens/welcome/Welcome";
+import ProfileSettingsScreen from "./screens/profile/ProfileSettings";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -30,6 +33,41 @@ const checkLogin = () => {
     useNavigation().navigate('Login');
   }
 }
+function WelcomeStack() {
+  return (
+    <Stack.Navigator initialRouteName={"Welcome"}>
+      <Stack.Screen
+        name="Welcome"
+        component={WelcomeScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function LoginStack() {
+  return (
+    <Stack.Navigator initialRouteName={"Login"}>
+      <Stack.Screen
+        name="Login"
+        component={LoginScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Register"
+        component={RegisterScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
 function CourseStack() {
   checkLogin();
   return (
@@ -79,36 +117,17 @@ function CourseStack() {
     </Stack.Navigator>
   );
 }
-function LoginStack() {
-  return (
-    <Stack.Navigator initialRouteName={'Login'}>
-      <Stack.Screen
-        name="Login"
-        component={LoginScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="Register"
-        component={RegisterScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-    </Stack.Navigator>
-  );
-}
+
 function HomeStack() {
   checkLogin();
 
   return (
     <Tab.Navigator
-      initialRouteName={'Home'}
+      initialRouteName={"Home"}
       screenOptions={{
-        tabBarActiveTintColor: 'black',
-        tabBarActiveBackgroundColor: '#d9d9d9',
-        tabBarStyle: { backgroundColor: 'hsl(0, 0%, 92%)' }, //Oneplus menubar color
+        tabBarActiveTintColor: "black",
+        tabBarActiveBackgroundColor: "#d9d9d9",
+        tabBarStyle: { backgroundColor: "hsl(0, 0%, 92%)" }, //Oneplus menubar color
       }}
     >
       <Tab.Screen
@@ -148,7 +167,7 @@ function HomeStack() {
         }}
       />
       <Tab.Screen
-      // Explore
+        // Explore
         name="Explorar"
         component={Explore}
         options={{
@@ -169,29 +188,87 @@ function HomeStack() {
   );
 }
 
+export function useWelcomeScreenLogic() {
+  const [hasShownWelcome, setHasShownWelcome] = useState(false);
+  const [initialRoute, setInitialRoute] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      const fetchData = async () => {
+        try {
+          const value = await AsyncStorage.getItem("hasShownWelcome");
+          if (value === "true") {
+            setInitialRoute("LoginStack");
+          } else {
+            await AsyncStorage.setItem("hasShownWelcome", "true");
+            setHasShownWelcome(true);
+            setInitialRoute("WelcomeStack");
+          }
+        } catch (error) {
+          console.error(
+            "Error retrieving or setting AsyncStorage data:",
+            error
+          );
+        } finally {
+          setIsLoading(false);
+        }
+      };
+
+      fetchData();   
+    }, 3000);
+  }, []);
+
+  return { initialRoute, isLoading };
+}
+
 // Change InitialRouteName to HomeStack if you want to skip Login Screen
 export default function App() {
-  return isFontsLoaded() ? (
+  const fontsLoaded = isFontsLoaded();
+  const { initialRoute, isLoading } = useWelcomeScreenLogic();
+
+  // ************** Don't touch this code **************
+  if (!fontsLoaded) {
+    return null;
+  }
+
+  // Makes sure fonts are loaded before rendering the app
+  if (isLoading && fontsLoaded) {
+    return <Loading />;
+  }
+  // ***************************************************
+
+  return (
     <TailwindProvider>
       <>
         <IconRegistry icons={EvaIconsPack} />
         <ApplicationProvider {...eva} theme={eva.light}>
           <NavigationContainer>
-            <Stack.Navigator initialRouteName={'LoginStack'}>
+            <Stack.Navigator initialRouteName={initialRoute}>
               <Stack.Screen
-                name={'LoginStack'}
+                name={"WelcomeStack"}
+                component={WelcomeStack}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name={"LoginStack"}
                 component={LoginStack}
                 options={{ headerShown: false }}
               />
               <Stack.Screen
-                name={'HomeStack'}
+                name={"HomeStack"}
                 component={HomeStack}
                 options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name={"ProfileSettings"} // Name of your screen
+                component={ProfileSettingsScreen} // Component to be rendered for ProfileSettings screen
+                options={{ headerShown: false }} // You can customize the header title here
               />
             </Stack.Navigator>
           </NavigationContainer>
         </ApplicationProvider>
       </>
     </TailwindProvider>
-  ) : null;
+  );
 }
