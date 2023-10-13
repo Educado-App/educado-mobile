@@ -4,7 +4,7 @@ import { BgLinearGradient } from "../../constants/BgLinearGradient";
 import WelcomeSlider from "../../components/welcome/WelcomeSlider";
 import Text from '../../components/general/Text.js';
 
-const WelcomePage = ({ navigation }) => {
+export default function WelcomeScreen({ navigation }) {
 
   return (
     <BgLinearGradient>
@@ -22,7 +22,7 @@ const WelcomePage = ({ navigation }) => {
             <WelcomeSlider />
           </View>
 
-          <View className="flex gap-6 items-center">
+          <View className="justify-around">
 
             <View className="px-6 w-screen">
               <TouchableOpacity className="bg-primary px-10 py-4 rounded-medium"
@@ -32,7 +32,7 @@ const WelcomePage = ({ navigation }) => {
               </TouchableOpacity>
             </View>
 
-            <View>
+            <View className="mt-6">
               <TouchableOpacity 
                 onPress={() => { navigation.navigate('LoginStack', { initialRoute: 'Register' }); }}
               >
@@ -47,6 +47,4 @@ const WelcomePage = ({ navigation }) => {
     </BgLinearGradient>
   );
 };
-
-export default WelcomePage;
 

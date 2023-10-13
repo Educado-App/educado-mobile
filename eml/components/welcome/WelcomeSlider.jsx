@@ -5,7 +5,7 @@ import Sections from '../../constants/PreviewSections';
 import Slick from 'react-native-slick';
 import Text from '../general/Text';
 
-const WelcomeSlider = () => {
+export default function WelcomeSlider() {
   const slick = useRef(null);
   const tailwindConfig = require('../../tailwind.config.js');
   const projectColors = tailwindConfig.theme.colors;
@@ -49,7 +49,7 @@ const WelcomeSlider = () => {
           </View>
 
           <View className="bottom-0 absolute pb-[27.5%] px-6">
-            <Text className="text-center font-montserrat text-body">{sections.description}</Text>
+            <Text className="text-center text-body">{sections.description}</Text>
           </View>
 
         </View>
@@ -57,5 +57,3 @@ const WelcomeSlider = () => {
     </Slick>
   );
 };
-
-export default WelcomeSlider;

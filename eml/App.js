@@ -33,6 +33,7 @@ const checkLogin = () => {
     useNavigation().navigate('Login');
   }
 }
+
 function WelcomeStack() {
   return (
     <Stack.Navigator initialRouteName={"Welcome"}>
@@ -188,7 +189,7 @@ function HomeStack() {
   );
 }
 
-export function useWelcomeScreenLogic() {
+export function useWelcomeScreenLogic(loadingTime) {
   const [hasShownWelcome, setHasShownWelcome] = useState(false);
   const [initialRoute, setInitialRoute] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -216,7 +217,7 @@ export function useWelcomeScreenLogic() {
       };
 
       fetchData();   
-    }, 3000);
+    }, loadingTime);
   }, []);
 
   return { initialRoute, isLoading };
@@ -225,7 +226,7 @@ export function useWelcomeScreenLogic() {
 // Change InitialRouteName to HomeStack if you want to skip Login Screen
 export default function App() {
   const fontsLoaded = isFontsLoaded();
-  const { initialRoute, isLoading } = useWelcomeScreenLogic();
+  const { initialRoute, isLoading } = useWelcomeScreenLogic(3000);
 
   // ************** Don't touch this code **************
   if (!fontsLoaded) {
@@ -261,9 +262,9 @@ export default function App() {
                 options={{ headerShown: false }}
               />
               <Stack.Screen
-                name={"ProfileSettings"} // Name of your screen
-                component={ProfileSettingsScreen} // Component to be rendered for ProfileSettings screen
-                options={{ headerShown: false }} // You can customize the header title here
+                name={"ProfileSettings"}
+                component={ProfileSettingsScreen} 
+                options={{ headerShown: false }} 
               />
             </Stack.Navigator>
           </NavigationContainer>
