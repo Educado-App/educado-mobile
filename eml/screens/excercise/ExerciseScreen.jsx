@@ -1,6 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, View, Image, TouchableHighlight, Pressable, TouchableOpacity, Dimensions, SafeAreaView } from "react-native";
+import { ScrollView, Animated, Easing, View, TouchableOpacity, Dimensions, SafeAreaView } from "react-native";
 import { useNavigation, useRoute } from '@react-navigation/native';
 import LeaveButton from '../../components/exercise/LeaveButton';
 import * as StorageService from '../../services/StorageService';
@@ -26,26 +25,23 @@ export default function ExerciseScreen() {
   const [buttonClassName, setButtonClassName] = useState(""); // Used to change color of a view
   const [showFeedback, setShowFeedback] = useState(false); // Used to render feedback
   const [buttonText, setButtonText] = useState("Confirmar Resposta"); // Used to change the text of a button
+  const [isPopUpVisible, setIsPopUpVisible] = useState(false); // Used to render the pop up
 
 
   const handleAnswerSelect = (answerId) => {
     setSelectedAnswer(answerId);
   };
 
-  var reviewAnswer;
+  const animatedValue = new Animated.Value(0);
 
-  // Update this function to look like handleAnswerSelect, looks better
-  function handleReviewAnswer() {
-    if (dummyExerciseData.answers[selectedAnswer - 1].isCorrect) {
-      setButtonClassName("bg-projectGreen");
-      reviewAnswer = true;
-    } else {
-      setButtonClassName("bg-projectRed");
-      reviewAnswer = false;
-    }
-    setShowFeedback(true);
-    setButtonText("Continuar");
-  }
+  const startAnimation = () => {
+    Animated.timing(animatedValue, {
+      toValue: 1,
+      duration: 200, // Adjust the duration as needed
+      easing: Easing.ease, // Use a suitable easing function
+      useNativeDriver: false, // Set to true if possible
+    }).start();
+  };
 
   /*async function getExercise() {
     const exercise = await StorageService.getNextExercise(sectionId);
@@ -65,6 +61,18 @@ export default function ExerciseScreen() {
       navigation.navigate("ErrorScreen");
     }
   }*/
+
+  /*async function isSectionComplete(courseId, sectionId) {
+  const course = await StorageService.getCourseById(courseId);
+  const sections = course.sections;
+
+  for (let i = 0; i < sections.length; i++) {
+    console.log("Section is complete: ", sections[i].isComplete);
+    if (sections[i].id === sectionId) {
+      return sections[i].isComplete;
+    }
+  }
+}*/
 
   async function getExercise() {
     // Instead of calling StorageService.getNextExercise, use the dummy data
@@ -88,121 +96,144 @@ export default function ExerciseScreen() {
 
   }
 
-  /*async function isSectionComplete(courseId, sectionId) {
-    const course = await StorageService.getCourseById(courseId);
-    const sections = course.sections;
-
-    for (let i = 0; i < sections.length; i++) {
-      console.log("Section is complete: ", sections[i].isComplete);
-      if (sections[i].id === sectionId) {
-        return sections[i].isComplete;
-      }
+  // Update this function to look like handleAnswerSelect, looks better
+  function handleReviewAnswer() {
+    if (dummyExerciseData.answers[selectedAnswer - 1].isCorrect) {
+      setButtonClassName("bg-projectGreen");
+    } else {
+      setButtonClassName("bg-projectRed");
     }
-  }*/
+    setShowFeedback(true);
+    setButtonText("Continuar");
+    setIsPopUpVisible(true);
+  }
 
   useEffect(() => {
     getExercise().then(() => {
       setHasData(true);
     });
-  }, [route.params]);
+
+    if (isPopUpVisible) {
+      startAnimation();
+    }
+  }, [isPopUpVisible]);
 
   return (
-    <View className="bg-secondary flex-1 justify-between">
-      <SafeAreaView className="h-screen">
-        <View className="flex-row items-center justify-around top-0">
-          <View>
-            <LeaveButton
-              navigationPlace={"Course"}
-              courseId={dummyExerciseData.courseId}
-            />
+    <SafeAreaView className="h-screen bg-secondary">
+
+      <View className="flex-row items-center justify-around top-0">
+        <View>
+          <LeaveButton
+            navigationPlace={"Course"}
+            courseId={dummyExerciseData.courseId}
+          />
+        </View>
+        <View>
+          <CustomProgressBar progress={0.25 / 1}></CustomProgressBar>
+        </View>
+        <View>
+          <Text className="px-3 text-center font-sans-bold text-caption-medium text-projectBlack">
+            25%
+          </Text>
+        </View>
+      </View>
+
+      {dummyExerciseData === undefined ? (
+        // No Data
+        <Text>Sem dados</Text>
+      ) : (
+        <View className="items-center">
+          <Text className="pt-6 pb-10 px-6 text-center text-body font-sans-bold text-projectBlack w-5/6">
+            {dummyExerciseData.question}
+          </Text>
+          <View className={`${buttonClassName} items-start justify-start`} style={{ height: screenHeight * 0.5, width: ScreenWidth * 1 }}>
+            <ScrollView className="py-2">
+              {/* Map through the answers and render each one */}
+              {dummyExerciseData.answers.map((answer) => (
+                <View key={answer.id} className="flex-row pb-6 px-6 w-screen h-fit">
+
+                  <View className="">
+                    <RadioButton.Android
+                      value={answer.id}
+                      status={
+                        selectedAnswer === answer.id ? "checked" : "unchecked"
+                      }
+                      onPress={() => handleAnswerSelect(answer.id)}
+                      color={projectColors.primary}
+                      uncheckedColor={projectColors.primary}
+                    />
+                  </View>
+
+                  <View>
+                    <TouchableOpacity
+                      onPress={() => handleAnswerSelect(answer.id)}
+                      disabled={showFeedback}
+                    >
+                      <Text className="w-[304] text-body text-projectBlack">{answer.text}</Text>
+                    </TouchableOpacity>
+
+                    {showFeedback ? (
+                      <View className={`flex-row py-2 rounded-medium ${answer.isCorrect ? 'bg-projectGreen' : 'bg-projectRed'}`}>
+
+                        <View className="pt-0.5 pl-2">
+                          {answer.isCorrect === true ? (
+                            <Icon
+                              size={10}
+                              name="check"
+                              type="material"
+                              color={projectColors.success}
+                            />
+                          ) : (
+                            <Icon
+                              size={10}
+                              name="close"
+                              type="material"
+                              color={projectColors.error}
+                            />
+                          )}
+                        </View>
+
+                        <Text className={`w-[272] pl-1 text-caption-medium ${answer.isCorrect ? 'text-success' : 'text-error'}`}>{answer.feedback}</Text>
+                      </View>
+                    ) : null}
+                  </View>
+
+                </View>
+              ))}
+            </ScrollView>
           </View>
-          <View>
-            <CustomProgressBar progress={0.25 / 1}></CustomProgressBar>
-          </View>
-          <View>
-            <Text className="px-3 text-center font-sans-bold text-caption-medium text-projectBlack">
-              25%
-            </Text>
+          <View className="px-6 pt-10 w-screen">
+            <TouchableOpacity
+              disabled={selectedAnswer === null ? true : false}
+              className={`${selectedAnswer !== null ? 'opacity-100' : 'opacity-30'} bg-primary px-10 py-4 rounded-medium`}
+              onPress={() => handleReviewAnswer()}
+            >
+              <Text className="text-center font-sans-bold text-projectWhite">{buttonText}</Text>
+            </TouchableOpacity>
           </View>
         </View>
+      )}
 
-        {dummyExerciseData === undefined ? (
-          // No Data
-          <Text> Sem dados</Text>
-        ) : (
-          <View className="items-center">
-            <Text className="pt-6 pb-10 px-6 text-center text-body font-sans-bold text-projectBlack w-5/6">
-              {dummyExerciseData.question}
-            </Text>
-            <View className={`${buttonClassName} items-start justify-start`} style={{ height: screenHeight * 0.43, width: ScreenWidth * 1 }}>
-              <ScrollView>
-                {/* Map through the answers and render each one */}
-                {dummyExerciseData.answers.map((answer) => (
-                  <View key={answer.id} className="flex-row pb-6 px-6 w-screen h-fit">
+      {isPopUpVisible ? (
+        <Animated.View style={{
+          opacity: animatedValue, // Apply the animated value to opacity
+          transform: [
+            {
+              translateY: animatedValue.interpolate({
+                inputRange: [0, 1],
+                outputRange: [100, 0], // Adjust the values for the desired effect
+              }),
+            },
+          ],
+        }}
+          className="bg-bgPrimary absolute bottom-0 p-6 w-screen h-[12.5%] z-20 rounded-large shadow-md shadow-projectBlack flex-row justify-between">
+          <Text className="font-sans-bold">Nice Job!</Text>
+          <Text className="font-sans-bold">2xp</Text>
+        </Animated.View>
+      ) : null}
 
-                    <View className="">
-                      <RadioButton.Android
-                        value={answer.id}
-                        status={
-                          selectedAnswer === answer.id ? "checked" : "unchecked"
-                        }
-                        onPress={() => handleAnswerSelect(answer.id)}
-                        color={projectColors.primary}
-                        uncheckedColor={projectColors.primary}
-                      />
-                    </View>
 
-                    <View>
-                      <TouchableOpacity
-                        onPress={() => handleAnswerSelect(answer.id)}
-                        disabled={showFeedback}
-                      >
-                        <Text className="w-[304] text-body text-projectBlack">{answer.text}</Text>
-                      </TouchableOpacity>
-
-                      {showFeedback ? (
-                        <View className={`flex-row py-2 rounded-medium ${answer.isCorrect ? 'bg-projectGreen' : 'bg-projectRed'}`}>
-
-                          <View className="pt-0.5 pl-2">
-                            {answer.isCorrect === true ? (
-                              <Icon
-                                size={10}
-                                name="check"
-                                type="material"
-                                color={projectColors.success}
-                              />
-                            ) : (
-                              <Icon
-                                size={10}
-                                name="close"
-                                type="material"
-                                color={projectColors.error}
-                              />
-                            )}
-                          </View>
-
-                          <Text className={`w-[272] pl-1 text-caption-medium ${answer.isCorrect ? 'text-success' : 'text-error'}`}>{answer.feedback}</Text>
-                        </View>
-                      ) : null}
-                    </View>
-
-                  </View>
-                ))}
-              </ScrollView>
-            </View>
-            <View className="px-6 pt-10 w-screen">
-              <TouchableOpacity
-                disabled={selectedAnswer === null ? true : false}
-                className={`${selectedAnswer !== null ? 'opacity-100' : 'opacity-30'} bg-primary px-10 py-4 rounded-medium`}
-                onPress={() => handleReviewAnswer()}
-              >
-                <Text className="text-center font-sans-bold text-body text-projectWhite">{buttonText}</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        )}
-
-        {/* Old exercise buttons
+      {/* Old exercise buttons
         <View style={{ flex: 3 }}>
           {exerciseData === undefined ? (
             //No data
@@ -220,11 +251,9 @@ export default function ExerciseScreen() {
         </View>
         */}
 
+      <ExerciseInfo courseId={dummyExerciseData.courseId} sectionId={dummyExerciseData.sectionId} />
 
-        <ExerciseInfo courseId={dummyExerciseData.courseId} sectionId={dummyExerciseData.sectionId} />
-
-        {/* <StatusBar style="auto" /> */}
-      </SafeAreaView>
-    </View>
+      {/* <StatusBar style="auto" /> */}
+    </SafeAreaView>
   );
 }
