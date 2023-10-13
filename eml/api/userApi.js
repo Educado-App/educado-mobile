@@ -51,8 +51,17 @@ export const registerUser = async (obj) => {
  * - password
 */
 export const loginUser = async (obj) => {
-  const res = await axios.post(url + '/api/eml/login', obj)
-  return res.data
+  try {
+    const res = await client.post('/api/auth/login', obj);
+    console.log('User successfully registered');
+    return res.data;
+  } catch (e) {
+    if (e.response.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
 }
 
 export const deleteUser = async (user_id) => {
