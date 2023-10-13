@@ -25,6 +25,7 @@ export default function ExerciseScreen() {
   const [selectedAnswer, setSelectedAnswer] = useState(null); // State to store the selected answer
   const [buttonClassName, setButtonClassName] = useState(""); // Used to change color of a view
   const [showFeedback, setShowFeedback] = useState(false); // Used to render feedback
+  const [buttonText, setButtonText] = useState("Confirmar Resposta"); // Used to change the text of a button
 
 
   const handleAnswerSelect = (answerId) => {
@@ -43,7 +44,7 @@ export default function ExerciseScreen() {
       reviewAnswer = false;
     }
     setShowFeedback(true);
-    console.log(reviewAnswer);
+    setButtonText("Continuar");
   }
 
   /*async function getExercise() {
@@ -107,19 +108,19 @@ export default function ExerciseScreen() {
 
   return (
     <View className="bg-secondary flex-1 justify-between">
-      <SafeAreaView className="justify-between" >
-        <View className="flex-row items-center justify-around">
+      <SafeAreaView className="h-screen">
+        <View className="flex-row items-center justify-around top-0">
           <View>
             <LeaveButton
               navigationPlace={"Course"}
               courseId={dummyExerciseData.courseId}
-            ></LeaveButton>
+            />
           </View>
           <View>
             <CustomProgressBar progress={0.25 / 1}></CustomProgressBar>
           </View>
           <View>
-            <Text className="px-3 text-center font-montserrat-bold text-caption-medium text-projectBlack">
+            <Text className="px-3 text-center font-sans-bold text-caption-medium text-projectBlack">
               25%
             </Text>
           </View>
@@ -130,67 +131,72 @@ export default function ExerciseScreen() {
           <Text> Sem dados</Text>
         ) : (
           <View className="items-center">
-            <Text className="pt-6 pb-10 text-center text-body font-montserrat-bold text-projectBlack w-5/6">
+            <Text className="pt-6 pb-10 px-6 text-center text-body font-sans-bold text-projectBlack w-5/6">
               {dummyExerciseData.question}
             </Text>
-            <View className={`${buttonClassName} items-center justify-center`} style={{ height: screenHeight * 0.51, width: ScreenWidth * 1 }}>
+            <View className={`${buttonClassName} items-start justify-start`} style={{ height: screenHeight * 0.43, width: ScreenWidth * 1 }}>
               <ScrollView>
                 {/* Map through the answers and render each one */}
                 {dummyExerciseData.answers.map((answer) => (
-                  <View
-                    key={answer.id}
-                    className="flex-row w-[390] pb-6 pl-2"
-                  >
-                    <View>
+                  <View key={answer.id} className="flex-row pb-6 px-6 w-screen h-fit">
+
+                    <View className="">
                       <RadioButton.Android
                         value={answer.id}
                         status={
                           selectedAnswer === answer.id ? "checked" : "unchecked"
                         }
                         onPress={() => handleAnswerSelect(answer.id)}
-                        color="#5ECCE9"
-                        uncheckedColor="#5ECCE9"
+                        color={projectColors.primary}
+                        uncheckedColor={projectColors.primary}
                       />
                     </View>
+
                     <View>
-                      <Pressable onPress={() => handleAnswerSelect(answer.id)}>
-                        <Text className="pt-2 pb-1 w-[304] font-montserrat text-body text-projectBlack">{answer.text}</Text>
-                      </Pressable>
+                      <TouchableOpacity
+                        onPress={() => handleAnswerSelect(answer.id)}
+                        disabled={showFeedback}
+                      >
+                        <Text className="w-[304] text-body text-projectBlack">{answer.text}</Text>
+                      </TouchableOpacity>
+
                       {showFeedback ? (
-                        <View className={`flex-row pb-2 w-[310] rounded ${answer.isCorrect ? 'bg-projectGreen' : 'bg-projectRed'}`}>
-                          <View className="pl-2 pt-1">
-                            <View className="pt-1.5">
-                              {answer.isCorrect === true ? (
-                                <Icon
-                                  size={10}
-                                  name="check"
-                                  type="material"
-                                  color={projectColors.success}
-                                />
-                              ) : (
-                                <Icon
-                                  size={10}
-                                  name="close"
-                                  type="material"
-                                  color={projectColors.error}
-                                />
-                              )}
-                            </View>
+                        <View className={`flex-row py-2 rounded-medium ${answer.isCorrect ? 'bg-projectGreen' : 'bg-projectRed'}`}>
+
+                          <View className="pt-0.5 pl-2">
+                            {answer.isCorrect === true ? (
+                              <Icon
+                                size={10}
+                                name="check"
+                                type="material"
+                                color={projectColors.success}
+                              />
+                            ) : (
+                              <Icon
+                                size={10}
+                                name="close"
+                                type="material"
+                                color={projectColors.error}
+                              />
+                            )}
                           </View>
-                          <Text className={`w-[272] pl-1 pt-2 font-montserrat text-caption-medium rounded-medium ${answer.isCorrect ? 'text-success' : 'text-error'}`}>{answer.feedback}</Text>
+
+                          <Text className={`w-[272] pl-1 text-caption-medium ${answer.isCorrect ? 'text-success' : 'text-error'}`}>{answer.feedback}</Text>
                         </View>
                       ) : null}
                     </View>
+
                   </View>
                 ))}
               </ScrollView>
             </View>
-            <View className="px-6 pt-8 w-screen">
+            <View className="px-6 pt-10 w-screen">
               <TouchableOpacity
+                disabled={selectedAnswer === null ? true : false}
                 className={`${selectedAnswer !== null ? 'opacity-100' : 'opacity-30'} bg-primary px-10 py-4 rounded-medium`}
                 onPress={() => handleReviewAnswer()}
               >
-                <Text className="text-center font-montserrat-bold text-body text-projectWhite">Confirmar resposta</Text>
+                <Text className="text-center font-sans-bold text-body text-projectWhite">{buttonText}</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -214,8 +220,10 @@ export default function ExerciseScreen() {
         </View>
         */}
 
+
         <ExerciseInfo courseId={dummyExerciseData.courseId} sectionId={dummyExerciseData.sectionId} />
-        <StatusBar style="auto" />
+
+        {/* <StatusBar style="auto" /> */}
       </SafeAreaView>
     </View>
   );
