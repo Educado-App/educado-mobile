@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, Animated, Easing, View, TouchableOpacity, Dimensions, SafeAreaView } from "react-native";
+import { ScrollView, View, TouchableOpacity, Dimensions } from "react-native";
 import { useNavigation, useRoute } from '@react-navigation/native';
 import LeaveButton from '../../components/exercise/LeaveButton';
-import * as StorageService from '../../services/StorageService';
+import { getUserInfo } from '../../services/StorageService';
 import Text from '../../components/general/Text';
 import CustomProgressBar from "../../components/exercise/Progressbar";
 import dummyExerciseData from "./dummyExerciseData.json";
-import { Button, RadioButton } from "react-native-paper";
+import { RadioButton } from "react-native-paper";
 import ExerciseInfo from "../../components/exercise/ExerciseInfo";
 import { ScreenWidth } from "@rneui/base";
 import { Icon } from '@rneui/themed';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import PopUp from '../../components/gamification/PopUp';
+import { generateSuccessPhrases, generateEncouragementPhrases } from '../../constants/PopUpPhrases';
 
 export default function ExerciseScreen() {
   const navigation = useNavigation();
@@ -26,21 +29,12 @@ export default function ExerciseScreen() {
   const [showFeedback, setShowFeedback] = useState(false); // Used to render feedback
   const [buttonText, setButtonText] = useState("Confirmar Resposta"); // Used to change the text of a button
   const [isPopUpVisible, setIsPopUpVisible] = useState(false); // Used to render the pop up
+  const [randomPhrase, setRandomPhrase] = useState('');
+  const [firstName, setFirstName] = useState('');
 
 
   const handleAnswerSelect = (answerId) => {
     setSelectedAnswer(answerId);
-  };
-
-  const animatedValue = new Animated.Value(0);
-
-  const startAnimation = () => {
-    Animated.timing(animatedValue, {
-      toValue: 1,
-      duration: 200, // Adjust the duration as needed
-      easing: Easing.ease, // Use a suitable easing function
-      useNativeDriver: false, // Set to true if possible
-    }).start();
   };
 
   /*async function getExercise() {
@@ -93,18 +87,33 @@ export default function ExerciseScreen() {
     } else {
       navigation.navigate("ErrorScreen");
     }
-
   }
+
+  const getRandomPhrase = (answeredCorrectly) => {
+    let randomMessage = '';
+    let randomIndex = 0;
+
+    const phrases = answeredCorrectly
+      ? generateSuccessPhrases(firstName)
+      : generateEncouragementPhrases(firstName);
+
+    randomIndex = Math.floor(Math.random() * phrases.length);
+    randomMessage = phrases[randomIndex];
+
+    setRandomPhrase(randomMessage);
+  };
 
   // Update this function to look like handleAnswerSelect, looks better
   function handleReviewAnswer() {
-    if (dummyExerciseData.answers[selectedAnswer - 1].isCorrect) {
-      setButtonClassName("bg-projectGreen");
-    } else {
-      setButtonClassName("bg-projectRed");
-    }
+    const selectedAnswerData = dummyExerciseData.answers[selectedAnswer - 1];
+
+    setButtonClassName(
+      `bg-project${selectedAnswerData.isCorrect ? 'Green' : 'Red'}`
+    );
+
+    getRandomPhrase(selectedAnswerData.isCorrect);
     setShowFeedback(true);
-    setButtonText("Continuar");
+    setButtonText('Continuar');
     setIsPopUpVisible(true);
   }
 
@@ -113,10 +122,12 @@ export default function ExerciseScreen() {
       setHasData(true);
     });
 
-    if (isPopUpVisible) {
-      startAnimation();
-    }
-  }, [isPopUpVisible]);
+    const fetchUserFirstName = async () => {
+      const userInfo = await getUserInfo();
+      setFirstName(userInfo.firstName);
+    };
+    fetchUserFirstName();
+  }, []);
 
   return (
     <SafeAreaView className="h-screen bg-secondary">
@@ -146,6 +157,7 @@ export default function ExerciseScreen() {
           <Text className="pt-6 pb-10 px-6 text-center text-body font-sans-bold text-projectBlack w-5/6">
             {dummyExerciseData.question}
           </Text>
+
           <View className={`${buttonClassName} items-start justify-start`} style={{ height: screenHeight * 0.5, width: ScreenWidth * 1 }}>
             <ScrollView className="py-2">
               {/* Map through the answers and render each one */}
@@ -202,6 +214,7 @@ export default function ExerciseScreen() {
               ))}
             </ScrollView>
           </View>
+
           <View className="px-6 pt-10 w-screen">
             <TouchableOpacity
               disabled={selectedAnswer === null ? true : false}
@@ -215,21 +228,7 @@ export default function ExerciseScreen() {
       )}
 
       {isPopUpVisible ? (
-        <Animated.View style={{
-          opacity: animatedValue, // Apply the animated value to opacity
-          transform: [
-            {
-              translateY: animatedValue.interpolate({
-                inputRange: [0, 1],
-                outputRange: [100, 0], // Adjust the values for the desired effect
-              }),
-            },
-          ],
-        }}
-          className="bg-bgPrimary absolute bottom-0 p-6 w-screen h-[12.5%] z-20 rounded-large shadow-md shadow-projectBlack flex-row justify-between">
-          <Text className="font-sans-bold">Nice Job!</Text>
-          <Text className="font-sans-bold">2xp</Text>
-        </Animated.View>
+        <PopUp randomPhrase={randomPhrase} />
       ) : null}
 
 

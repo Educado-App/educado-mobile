@@ -55,6 +55,32 @@ export const loginUser = async (obj) => {
   return res.data
 }
 
+// *********** place in backencd ***********
+// router.get("users/:id", requireLogin, async (req, res) => {
+//   try {
+//     const { id } = req.params;
+
+//     const user = await User.findById(id);
+
+//     if (!user) {
+//       // User with the specified ID was not found
+//       return res.status(404).json({ error: "User not found" });
+//     }
+//   } catch (error) {
+//     res.status(500).json({ error: "An error occurred while getting the user" });
+//   }
+// });
+
+export const getUser = async (user_id) => {
+  try {
+    const res = await axios.get(url + `/api/user/` + user_id);
+    return res.data;
+  } catch (error) {
+    // Handle errors here
+    throw error; // You may want to handle the error or log it
+  }
+};
+
 export const deleteUser = async (user_id) => {
   try {
     const res = await axios.delete(url + `/api/user/delete/` + user_id);

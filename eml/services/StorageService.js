@@ -1,7 +1,32 @@
 import * as api from '../api/api.js';
+import * as userApi from '../api/userApi.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as DirectoryService from '../services/DirectoryService';
+
 const COURSE_LIST = '@courseList';
+const USER_INFO = '@userInfo';
+
+export const getUserInfo = async (userId) => {
+  try {
+    const fetchedUserInfo = JSON.parse(await AsyncStorage.getItem(USER_INFO));
+
+    if (fetchedUserInfo === null) {
+      const res = await userApi.getUser(userId);
+
+      await AsyncStorage.setItem(USER_INFO, JSON.stringify(res.data));
+
+      fetchedUserInfo = res.data;
+    }
+
+    return fetchedUserInfo;
+  } catch (e) {
+    console.log("Couldn't fetch user info", e);
+    throw e;
+  }
+};
+
+
+
 export const getCourseList = async () => {
   try {
     return await refreshCourseList();
@@ -14,6 +39,7 @@ export const getCourseList = async () => {
     console.error(e);
   }
 };
+
 export const refreshCourseList = async () => {
   return await api
     .getCourses()
@@ -39,6 +65,7 @@ export const refreshCourseList = async () => {
       console.log(e);
     });
 };
+
 export const getCourseById = async (courseId) => {
   try {
     const course = JSON.parse(await AsyncStorage.getItem(courseId));
@@ -114,6 +141,7 @@ export const getCourseById = async (courseId) => {
     console.error(e);
   }
 };
+
 export const downloadCourse = async (courseId) => {
   if (courseId !== undefined) {
     try {
@@ -184,6 +212,7 @@ export const downloadCourse = async (courseId) => {
     }
   } else console.log('error: course id is not defined!');
 };
+
 export const getNextExercise = async (sectionId) => {
   try {
     const currentSection = JSON.parse(await AsyncStorage.getItem(sectionId));
@@ -197,6 +226,7 @@ export const getNextExercise = async (sectionId) => {
     console.error(e);
   }
 };
+
 export const getFeedBackByExerciseId = async (sectionId, exerciseId) => {
   try {
     const currentSection = JSON.parse(await AsyncStorage.getItem(sectionId));
@@ -209,6 +239,7 @@ export const getFeedBackByExerciseId = async (sectionId, exerciseId) => {
     console.error(e);
   }
 };
+
 export const updateCompletionStatus = async (
   courseId,
   sectionId,
@@ -240,6 +271,7 @@ export const updateCompletionStatus = async (
     console.error(e);
   }
 };
+
 export const deleteCourse = async (courseId) => {
   if (courseId !== undefined) {
     const courseList = JSON.parse(await AsyncStorage.getItem(COURSE_LIST));
@@ -263,6 +295,7 @@ export const deleteCourse = async (courseId) => {
     }
   }
 };
+
 export const clearAsyncStorage = async () => {
   console.log(await AsyncStorage.getAllKeys());
   await AsyncStorage.clear();
