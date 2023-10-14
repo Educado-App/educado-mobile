@@ -189,44 +189,47 @@ function HomeStack() {
   );
 }
 
-export function useWelcomeScreenLogic(loadingTime) {
-  const [hasShownWelcome, setHasShownWelcome] = useState(false);
-  const [initialRoute, setInitialRoute] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
+export function useWelcomeScreenLogic(loadingTime, onResult) {
 
-  useEffect(() => {
-    setTimeout(() => {
-      const fetchData = async () => {
-        try {
-          const value = await AsyncStorage.getItem("hasShownWelcome");
-          if (value === "true") {
-            setInitialRoute("LoginStack");
-          } else {
-            await AsyncStorage.setItem("hasShownWelcome", "true");
-            setHasShownWelcome(true);
-            setInitialRoute("WelcomeStack");
-          }
-        } catch (error) {
-          console.error(
-            "Error retrieving or setting AsyncStorage data:",
-            error
-          );
-        } finally {
-          setIsLoading(false);
+  setTimeout(() => {
+    const fetchData = async () => {
+      try {
+        const value = await AsyncStorage.getItem("hasShownWelcome");
+        let initialRoute = "WelcomeStack";
+        let isLoading = true;
+
+        if (value === "true") {
+          initialRoute = "LoginStack";
+        } else {
+          await AsyncStorage.setItem("hasShownWelcome", "true");
         }
-      };
 
-      fetchData();   
-    }, loadingTime);
-  }, []);
+        // Pass the results to the callback
+        isLoading = false;
+        onResult(initialRoute, isLoading);
+      } catch (error) {
+        console.error("Error retrieving or setting AsyncStorage data:", error);
+      }
+    };
 
-  return { initialRoute, isLoading };
+    fetchData();
+  }, loadingTime);
+
 }
 
 // Change InitialRouteName to HomeStack if you want to skip Login Screen
 export default function App() {
   const fontsLoaded = isFontsLoaded();
-  const { initialRoute, isLoading } = useWelcomeScreenLogic(3000);
+  const [initialRoute, setInitialRoute] = useState(""); 
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Callback function to handle the results
+  const handleResult = (route, loading) => {
+    setInitialRoute(route);
+    setIsLoading(loading);
+  };
+
+  useWelcomeScreenLogic(3000, handleResult);
 
   // ************** Don't touch this code **************
   if (!fontsLoaded) {
