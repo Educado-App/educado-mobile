@@ -35,6 +35,8 @@ export default function EnterNewPasswordScreen(props) {
     
     try {
       await enterNewPassword(obj);
+      props.hideModal();
+      props.resetState();
     } catch (error) {
       console.log(error);
     }

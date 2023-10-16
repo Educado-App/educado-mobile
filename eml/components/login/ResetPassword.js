@@ -30,7 +30,7 @@ export default function ResetPassword(props) {
         .then(async () => {
           setEmailSent(true);
         }).catch((error) => {
-          console.log(error + " - YUH");
+          console.log(error);
         });
     } catch (error) {
       console.log(error);
@@ -48,15 +48,20 @@ export default function ResetPassword(props) {
         .then(async () => {
           setCodeEntered(true);
         }).catch((error) => {
-          console.log(error + " - YUH");
+          console.log(error);
         });
     } catch (error) {
       console.log(error);
     }
   }
 
+  const resetState = () => {
+    setEmailSent(false);
+    setCodeEntered(false);
+  };
+
   return (
-    <EducadoModal modalVisible={props.modalVisible} closeModal={props.onModalClose} id="EducadoModal" title="Redefinção de senha">
+    <EducadoModal modalVisible={props.modalVisible} closeModal={props.onModalClose} id="EducadoModal" title="Redefinição de senha">
       <View className="my-[80px] px-10">
         {!codeEntered ? (
           <View>
@@ -77,7 +82,7 @@ export default function ResetPassword(props) {
                     Enviamos um código par ao seu email de redefinição de senha,
                     por favor, insira o mesmo abaixo
                   </Text>
-                  <FormTextField placeholder="X X X X" onChangeText={(token) => setToken(token)} />
+                  <FormTextField bordered={true} placeholder="X X X X" onChangeText={(token) => setToken(token)} />
                   <View className="mt-[40px] mb-[24px]">
                     <FormButton
                       // Continue 
@@ -105,6 +110,8 @@ export default function ResetPassword(props) {
           <EnterNewPasswordScreen
             email={email}
             token={token}
+            hideModal={props.onModalClose}
+            resetState={resetState}
           />
         )}
       </View>

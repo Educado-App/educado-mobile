@@ -155,7 +155,7 @@ export default function LoginForm() {
           onModalClose={closeModal}
           testId="resetPasswordModal"
           // Reset password
-          title="Redefinção de senha"
+          title="Redefinição de senha"
         />
       </View>
     </View>
