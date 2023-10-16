@@ -25,13 +25,11 @@ export default function ExerciseScreen() {
   };
 
   function handleReviewAnswer() {
-    if (dummyExerciseData.answers[selectedAnswer - 1].isCorrect) {
-      setButtonClassName("bg-projectGreen");
-    } else {
-      setButtonClassName("bg-projectRed");
-    }
+    const correct = dummyExerciseData.answers[selectedAnswer - 1].isCorrect;
+    setButtonClassName(correct ? "bg-projectGreen" : "bg-projectRed");
     setShowFeedback(true);
   }
+  
 
   /*async function getExercise() {
     const exercise = await StorageService.getNextExercise(sectionId);
@@ -95,16 +93,15 @@ export default function ExerciseScreen() {
     <View className="bg-secondary flex-1 justify-between">
       <SafeAreaView className= "justify-between" >
         <View className = "flex-row items-center justify-around">
-          <View>
-              <LeaveButton
-                navigationPlace={"Course"}
-                courseId={dummyExerciseData.courseId}
-              ></LeaveButton>
-          </View>
+          <LeaveButton
+            navigationPlace={"Course"}
+            courseId={dummyExerciseData.courseId}
+          ></LeaveButton>
           <CustomProgressBar progress={50} width={65} height={1.2}></CustomProgressBar>
         </View>
 
         {dummyExerciseData === undefined ? (
+          //No data
           <Text> Sem dados</Text>
         ) : (
           <View className="items-center">
