@@ -1,12 +1,11 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useEffect, useRef, useState } from "react";
-import { ScrollView, StyleSheet, View, Text, Image, TouchableHighlight, Pressable, TouchableOpacity, Dimensions } from "react-native";
+import React, { useEffect, useState } from "react";
+import { ScrollView, View, Text, Image, TouchableHighlight, Pressable, TouchableOpacity } from "react-native";
 import LeaveButton from "../../components/exercise/LeaveButton";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import * as StorageService from "../../services/StorageService";
 import CustomProgressBar from "../../components/exercise/Progressbar";
 import dummyExerciseData from "./dummyExerciseData.json";
-import { Button, RadioButton } from "react-native-paper";
+import {RadioButton } from "react-native-paper";
 import ExerciseInfo from "../../components/exercise/ExerciseInfo";
 import { Icon } from '@rneui/themed';
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -14,35 +13,27 @@ import { SafeAreaView } from "react-native-safe-area-context";
 export default function ExerciseScreen() {
   const navigation = useNavigation();
   const route = useRoute();
-  const ScreenWidth = Dimensions.get('window').width;
   const tailwindConfig = require('../../tailwind.config.js');
   const projectColors = tailwindConfig.theme.colors;
 
   const [hasData, setHasData] = useState(false);
-  const [signal, setSignal] = useState([]);
   const [exerciseData, setExerciseData] = useState({});
-  const [selectedAnswer, setSelectedAnswer] = useState(null); // State to store the selected answer
-  const [buttonClassName, setButtonClassName] = useState(""); // Used to change color of a view
-  const [showFeedback, setShowFeedback] = useState(false); // Used to render feedback
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const [buttonClassName, setButtonClassName] = useState("");
+  const [showFeedback, setShowFeedback] = useState(false);
 
 
   const handleAnswerSelect = (answerId) => {
     setSelectedAnswer(answerId);
   };
 
-  var reviewAnswer;
-
-  // Update this function to look like handleAnswerSelect, looks better
   function handleReviewAnswer() {
     if (dummyExerciseData.answers[selectedAnswer - 1].isCorrect) {
       setButtonClassName("bg-projectGreen");
-      reviewAnswer = true;
     } else {
       setButtonClassName("bg-projectRed");
-      reviewAnswer = false;
     }
     setShowFeedback(true);
-    console.log(reviewAnswer);
   }
 
   /*async function getExercise() {
@@ -65,7 +56,6 @@ export default function ExerciseScreen() {
   }*/
 
   async function getExercise() {
-    // Instead of calling StorageService.getNextExercise, use the dummy data
     const exercise = dummyExerciseData;
 
     if (exercise !== null) {
@@ -118,7 +108,6 @@ export default function ExerciseScreen() {
         </View>
 
         {dummyExerciseData === undefined ? (
-          // No Data
           <Text> Sem dados</Text>
         ) : (
           <View className="items-center">
@@ -187,24 +176,6 @@ export default function ExerciseScreen() {
             </View>
           </View>
         )}
-
-        {/* Old exercise buttons
-        <View style={{ flex: 3 }}>
-          {exerciseData === undefined ? (
-            //No data
-            <Text> Sem dados</Text>
-          ) : (
-            <ExerciseButtons
-              answers={exerciseData.answers}
-              exerciseId={exerciseData.id}
-              courseId={exerciseData.courseId}
-              sectionId={exerciseData.sectionId}
-              setSignal={setSignal}
-              hasData={hasData}
-            ></ExerciseButtons>
-          )}
-        </View>
-        */}
         
       <ExerciseInfo courseId={dummyExerciseData.courseId} sectionId={dummyExerciseData.sectionId}/>
         <StatusBar style="auto" />
