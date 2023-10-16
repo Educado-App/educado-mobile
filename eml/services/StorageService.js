@@ -5,6 +5,17 @@ import * as DirectoryService from '../services/DirectoryService';
 
 const COURSE_LIST = '@courseList';
 const USER_INFO = '@userInfo';
+const USER_ID = '@userId';
+
+export const getUserId = async () => {
+  try {
+    const userId = await AsyncStorage.getItem(USER_ID);
+    return userId;
+  } catch (e) {
+    console.log("Couldn't fetch user id", e);
+    throw e;
+  }
+};
 
 export const getUserInfo = async (userId) => {
   try {

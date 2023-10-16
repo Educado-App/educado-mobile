@@ -13,8 +13,7 @@ import { Icon } from '@rneui/themed';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import PopUp from '../../components/gamification/PopUp';
 import { generateSuccessPhrases, generateEncouragementPhrases } from '../../constants/PopUpPhrases';
-
-const USER_ID = "@userId";
+import * as StorageService from '../../services/StorageService';
 
 export default function ExerciseScreen() {
   const navigation = useNavigation();
@@ -125,8 +124,8 @@ export default function ExerciseScreen() {
     });
 
     const fetchUserFirstName = async () => {
-      const userId = await AsyncStorage.getItem(USER_ID);
-      const userInfo = await getUserInfo(userId);
+      const userId = await StorageService.getUserId();
+      const userInfo = await StorageService.getUserInfo(userId);
       setFirstName(userInfo.firstName);
     };
     fetchUserFirstName();
