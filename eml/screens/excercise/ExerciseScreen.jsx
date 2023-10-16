@@ -13,15 +13,12 @@ import { SafeAreaView } from "react-native-safe-area-context";
 export default function ExerciseScreen() {
   const navigation = useNavigation();
   const route = useRoute();
-  const tailwindConfig = require('../../tailwind.config.js');
-  const projectColors = tailwindConfig.theme.colors;
 
   const [hasData, setHasData] = useState(false);
   const [exerciseData, setExerciseData] = useState({});
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [buttonClassName, setButtonClassName] = useState("");
   const [showFeedback, setShowFeedback] = useState(false);
-
 
   const handleAnswerSelect = (answerId) => {
     setSelectedAnswer(answerId);
@@ -146,14 +143,14 @@ export default function ExerciseScreen() {
                               size={10}
                               name="check"
                               type="material"
-                              color={projectColors.success}
+                              color="#4AA04A"
                               />
                             ) : (
                               <Icon
                               size={10}
                               name="close"
                               type="material"
-                              color={projectColors.error}
+                              color="#FF4949"
                               />
                             )}  
                            </View>                        
