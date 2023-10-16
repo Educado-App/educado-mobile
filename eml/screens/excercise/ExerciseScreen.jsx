@@ -14,6 +14,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import PopUp from '../../components/gamification/PopUp';
 import { generateSuccessPhrases, generateEncouragementPhrases } from '../../constants/PopUpPhrases';
 
+const USER_ID = "@userId";
+
 export default function ExerciseScreen() {
   const navigation = useNavigation();
   const route = useRoute();
@@ -111,9 +113,9 @@ export default function ExerciseScreen() {
       `bg-project${selectedAnswerData.isCorrect ? 'Green' : 'Red'}`
     );
 
-    getRandomPhrase(selectedAnswerData.isCorrect);
     setShowFeedback(true);
     setButtonText('Continuar');
+    getRandomPhrase(selectedAnswerData.isCorrect);
     setIsPopUpVisible(true);
   }
 
@@ -123,7 +125,8 @@ export default function ExerciseScreen() {
     });
 
     const fetchUserFirstName = async () => {
-      const userInfo = await getUserInfo();
+      const userId = await AsyncStorage.getItem(USER_ID);
+      const userInfo = await getUserInfo(userId);
       setFirstName(userInfo.firstName);
     };
     fetchUserFirstName();
