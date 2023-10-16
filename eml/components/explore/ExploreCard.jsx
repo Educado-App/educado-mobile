@@ -49,7 +49,7 @@ export default function ExploreCard({ course, isPublished }) {
 
   return isPublished ? (
     <Pressable
-      className="bg-white rounded-lg shadow-sm mb-4 mx-4 p-6 overflow-hidden"
+      className="bg-white rounded-lg shadow-[0_0px_2px_#000] mb-4 mx-4 p-6 overflow-hidden"
       onPress={() => setIsCollapsed(!isCollapsed)}
     >
       <View className="flex-col items-center">
