@@ -1,4 +1,5 @@
 import renderer from "react-test-renderer";
+import React from "react";
 import ResetPassword from "../../../components/login/ResetPassword"
 
 test("Ensure that the reset password page is rendered correctly when not visible", async () => {

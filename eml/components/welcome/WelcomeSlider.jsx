@@ -1,10 +1,11 @@
 import React, { useRef } from "react";
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import Svg, { Path } from 'react-native-svg';
 import Sections from '../../constants/PreviewSections';
 import Slick from 'react-native-slick';
+import Text from '../general/Text';
 
-const WelcomeSlider = () => {
+export default function WelcomeSlider() {
   const slick = useRef(null);
   const tailwindConfig = require('../../tailwind.config.js');
   const projectColors = tailwindConfig.theme.colors;
@@ -44,11 +45,11 @@ const WelcomeSlider = () => {
         <View key={index} className="relative h-full px-10 items-center">
 
           <View className="top-0 px-4">
-            <Text className="text-center font-montserrat-bold text-subheading">{sections.title}</Text>
+            <Text className="text-center font-sans-bold text-subheading">{sections.title}</Text>
           </View>
 
           <View className="bottom-0 absolute pb-[27.5%] px-6">
-            <Text className="text-center font-montserrat text-body">{sections.description}</Text>
+            <Text className="text-center text-body">{sections.description}</Text>
           </View>
 
         </View>
@@ -56,5 +57,3 @@ const WelcomeSlider = () => {
     </Slick>
   );
 };
-
-export default WelcomeSlider;

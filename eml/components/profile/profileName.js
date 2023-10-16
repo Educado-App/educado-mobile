@@ -1,7 +1,8 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
+import Text from '../general/Text';
 
-const ProfileName = ({ UserName, Name, PhoneNumber }) => {
+const ProfileName = ({ Name, PhoneNumber }) => {
   return (
     <View className="items-center">
       <View

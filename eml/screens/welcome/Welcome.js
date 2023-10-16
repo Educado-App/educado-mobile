@@ -1,14 +1,10 @@
 import React from "react";
-import { View, Text, TouchableOpacity, Image, SafeAreaView } from "react-native";
+import { View, TouchableOpacity, Image, SafeAreaView } from "react-native";
 import { BgLinearGradient } from "../../constants/BgLinearGradient";
-import { isFontsLoaded } from "../../constants/Fonts";
-import WelcomeSlider from "../../components/welcome/WelcomeSlider"; 
+import WelcomeSlider from "../../components/welcome/WelcomeSlider";
+import Text from '../../components/general/Text.js';
 
-const WelcomePage = ({ navigation }) => {
-
-  if (!isFontsLoaded()) {
-    return null;
-  }
+export default function WelcomeScreen({ navigation }) {
 
   return (
     <BgLinearGradient>
@@ -26,21 +22,21 @@ const WelcomePage = ({ navigation }) => {
             <WelcomeSlider />
           </View>
 
-          <View className="flex gap-6 items-center">
+          <View className="justify-around">
 
             <View className="px-6 w-screen">
               <TouchableOpacity className="bg-primary px-10 py-4 rounded-medium"
                 onPress={() => { navigation.navigate('LoginStack'); }}
               >
-                <Text className="text-center font-montserrat-bold text-body text-projectWhite">Entrar</Text>
+                <Text className="text-center font-sans-bold text-body text-projectWhite">Entrar</Text>
               </TouchableOpacity>
             </View>
 
-            <View>
+            <View className="mt-6">
               <TouchableOpacity 
                 onPress={() => { navigation.navigate('LoginStack', { initialRoute: 'Register' }); }}
               >
-                <Text className="text-center font-montserrat-bold text-body underline">Cadastrer</Text>
+                <Text className="text-center font-sans-bold text-body underline">Cadastrer</Text>
               </TouchableOpacity>
             </View>
 
@@ -51,6 +47,4 @@ const WelcomePage = ({ navigation }) => {
     </BgLinearGradient>
   );
 };
-
-export default WelcomePage;
 

@@ -1,25 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import {
-  StyleSheet,
   View,
   SafeAreaView,
-  Platform,
-  ScrollView
+  ScrollView,
 } from 'react-native'
-import AddFriendButton from '../../components/profile/addFriendButton'
-import ProfileImage from '../../components/profile/profileImage'
 import ProfileName from '../../components/profile/profileName'
-import ProfileSettings from '../../components/profile/profileSettings'
 import LogOutButton from '../../components/profile/LogOutButton'
-import DeleteAccount from '../../components/profile/deleteAccount'
+import SettingsButton from '../../components/profile/settingsButton.js'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { BgLinearGradient } from "../../constants/BgLinearGradient";
 
 const USER_INFO = '@userInfo'
 
 export default function ProfileComponent() {
   const [id, setId] = useState('')
-  const [userName, setUserName] = useState('')
-  const [phoneNumber, setPhoneNumber] = useState('')
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [email, setEmail] = useState('')
 
   const getProfile = async () => {
     try {
@@ -27,8 +24,9 @@ export default function ProfileComponent() {
 
       if (fetchedProfile !== null) {
         setId(fetchedProfile.id)
-        setUserName(fetchedProfile.userName)
-        setPhoneNumber(fetchedProfile.phoneNumber)
+        setFirstName(fetchedProfile.firstName)
+        setLastName(fetchedProfile.lastName)
+        setEmail(fetchedProfile.email)
       }
     } catch (e) {
       console.log(e)
@@ -38,25 +36,18 @@ export default function ProfileComponent() {
   useEffect(() => {
     getProfile()
   }, [])
-
+  
   return (
-    <SafeAreaView className="bg-babyBlue">
-      <ScrollView>
-        <View className="flex-1 flex-col justify-center h-screen">
-          <LogOutButton testID='logoutBtn'></LogOutButton>
-          <ProfileName Name={userName} PhoneNumber={phoneNumber}></ProfileName>
-          <DeleteAccount></DeleteAccount>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <BgLinearGradient>
+      <SafeAreaView>
+        <ScrollView>
+          <View className="flex-1 flex-col justify-center h-screen">
+            <ProfileName Name={`${firstName} ${lastName}`}></ProfileName>
+            <SettingsButton></SettingsButton>
+            <LogOutButton testID='logoutBtn'></LogOutButton>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    </BgLinearGradient>
   )
 }
-
-const styles = StyleSheet.create({
-  settings: {
-    textAlign: 'right'
-  },
-  container: {
-    paddingTop: Platform.OS === 'android' ? 25 : 0
-  }
-})

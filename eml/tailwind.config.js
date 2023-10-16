@@ -19,11 +19,20 @@ module.exports = {
         disabled: '#E4F2F5',
         projectRed: '#FFE4E4',
         projectGreen: '#E4F1E4',
+        projectLightGray: '#F1F9FB',
+        cyanBlue: '#65D4EE',
+        limeGreen: '#9DE89C',
+        yellow: '#FAC12F',
+        babyBlue: '#CFE9EF',
+        limeGreenDarker: '#8DD08C',
       },
       fontFamily: {
-        montserrat: 'Montserrat-Regular',
-        'montserrat-bold': 'Montserrat-Bold',
-        'montserrat-semi-bold': 'Montserrat-SemiBold',
+        montserrat: ['Montserrat-Regular'],
+        'montserrat-bold': ['Montserrat-Bold'],
+        'montserrat-semi-bold': ['Montserrat-SemiBold'],
+        sans: ['"Montserrat-Regular"'],
+        "sans-bold": ["'Montserrat-Bold'"],
+        "sans-semi-bold": ["'Montserrat-SemiBold'"],
       },
       extend: {
         fontSize: {
@@ -44,9 +53,9 @@ module.exports = {
     tailwind: './tailwind.config.js'
   },
   corePlugins: {
-    aspectRatio: false
+    aspectRatio: false,
   },
-  plugins: [
-    require('@tailwindcss/aspect-ratio')
-  ],
-}
+
+  plugins: [require("@tailwindcss/aspect-ratio")],
+};
+

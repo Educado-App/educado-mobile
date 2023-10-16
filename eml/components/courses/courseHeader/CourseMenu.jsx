@@ -1,7 +1,8 @@
-import React, { useRef } from 'react'
-import { DrawerLayoutAndroid, Text, StyleSheet, View } from 'react-native'
-import CourseProgress from './CourseProgress'
-import CourseTitleIcon from './CourseTitleIcon'
+import React, { useRef } from 'react';
+import { DrawerLayoutAndroid, StyleSheet, View } from 'react-native';
+import CourseProgress from './CourseProgress';
+import CourseTitleIcon from './CourseTitleIcon';
+import Text from '../../general/Text';
 
 import { Icon } from '@rneui/themed' // Checkout all supported icons https://oblador.github.io/react-native-vector-icons/
 const color = '#006622'

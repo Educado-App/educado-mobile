@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import CourseScreen from './screens/courses/CourseScreen';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -19,6 +19,9 @@ import ErrorScreen from './screens/errors/ErrorScreen';
 import SectionCompleteScreen from './screens/excercise/SectionCompleteScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { isFontsLoaded } from './constants/Fonts';
+import Loading from "./components/loading/Loading";
+import WelcomeScreen from "./screens/welcome/Welcome";
+import ProfileSettingsScreen from "./screens/profile/ProfileSettings";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -45,20 +48,6 @@ function WelcomeStack() {
   );
 }
 
-function ExerciseStack() {
-  return (
-    <Stack.Navigator initialRouteName={"Exercise"}>
-      <Stack.Screen
-        name="Exercise"
-        component={ExerciseScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-    </Stack.Navigator>
-  );
-}
-
 function LoginStack() {
   return (
     <Stack.Navigator initialRouteName={"Login"}>
@@ -77,7 +66,8 @@ function LoginStack() {
         }}
       />
     </Stack.Navigator>
-  )};
+  );
+}
 
 function CourseStack() {
   checkLogin();
@@ -199,52 +189,66 @@ function HomeStack() {
   );
 }
 
-function useWelcomeScreenLogic() {
-  const [hasShownWelcome, setHasShownWelcome] = useState(false);
-  const [initialRoute, setInitialRoute] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
+export function useWelcomeScreenLogic(loadingTime, onResult) {
 
-  // For dev purposes only - remove before production
-  //AsyncStorage.setItem("hasShownWelcome", "false");
+  setTimeout(() => {
+    const fetchData = async () => {
+      try {
+        const value = await AsyncStorage.getItem("hasShownWelcome");
+        let initialRoute = "WelcomeStack";
+        let isLoading = true;
 
-  useEffect(() => {
-    setTimeout(() => {
-      const fetchData = async () => {
-        try {
-          const value = await AsyncStorage.getItem("hasShownWelcome");
-          if (value === "true") {
-            setInitialRoute("LoginStack");
-          } else {
-            await AsyncStorage.setItem("hasShownWelcome", "true");
-            setHasShownWelcome(true); // Use the passed-in setHasShownWelcome
-            setInitialRoute("WelcomeStack");
-          }
-        } catch (error) {
-          console.error(
-            "Error retrieving or setting AsyncStorage data:",
-            error
-          );
-        } finally {
-          setIsLoading(false);
+        if (value === "true") {
+          initialRoute = "LoginStack";
+        } else {
+          await AsyncStorage.setItem("hasShownWelcome", "true");
         }
-      };
 
-      fetchData();
-    }, 3000);
-  }, []);
+        // Pass the results to the callback
+        isLoading = false;
+        onResult(initialRoute, isLoading);
+      } catch (error) {
+        console.error("Error retrieving or setting AsyncStorage data:", error);
+      }
+    };
 
-  return { initialRoute, isLoading };
+    fetchData();
+  }, loadingTime);
+
 }
 
 // Change InitialRouteName to HomeStack if you want to skip Login Screen
 export default function App() {
-  return isFontsLoaded() ? (
+  const fontsLoaded = isFontsLoaded();
+  const [initialRoute, setInitialRoute] = useState(""); 
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Callback function to handle the results
+  const handleResult = (route, loading) => {
+    setInitialRoute(route);
+    setIsLoading(loading);
+  };
+
+  useWelcomeScreenLogic(3000, handleResult);
+
+  // ************** Don't touch this code **************
+  if (!fontsLoaded) {
+    return null;
+  }
+
+  // Makes sure fonts are loaded before rendering the app
+  if (isLoading && fontsLoaded) {
+    return <Loading />;
+  }
+  // ***************************************************
+
+  return (
     <TailwindProvider>
       <>
         <IconRegistry icons={EvaIconsPack} />
         <ApplicationProvider {...eva} theme={eva.light}>
           <NavigationContainer>
-            <Stack.Navigator initialRouteName={"ExerciseStack"}>
+            <Stack.Navigator initialRouteName={initialRoute}>
               <Stack.Screen
                 name={"WelcomeStack"}
                 component={WelcomeStack}
@@ -261,14 +265,14 @@ export default function App() {
                 options={{ headerShown: false }}
               />
               <Stack.Screen
-                name={"ExerciseStack"}
-                component={ExerciseStack}
-                options={{ headerShown: false }}
+                name={"ProfileSettings"}
+                component={ProfileSettingsScreen} 
+                options={{ headerShown: false }} 
               />
             </Stack.Navigator>
           </NavigationContainer>
         </ApplicationProvider>
       </>
     </TailwindProvider>
-  ) : null;
-};
+  );
+}
