@@ -10,7 +10,6 @@ import ShowAlert from "../general/ShowAlert";
 import FormFieldAlert from "./FormFieldAlert";
 import { removeEmojis, validatePasswordContainsLetter, validatePasswordLength, validateEmail, validateName } from "../general/Validation";
 import Text from "../general/Text";
-import patterns from "../../assets/validation/patterns";
 import errorSwitch from "../general/errorSwitch";
 import { useNavigation } from "@react-navigation/native";
 

@@ -1,9 +1,13 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 import { View } from 'react-native';
 import FormTextField from '../../components/login/FormTextField';
 import FormButton from '../../components/login/FormButton';
 import PasswordEye from '../../components/login/PasswordEye';
 import { enterNewPassword } from "../../api/userApi";
+import FormFieldAlert from "./FormFieldAlert";
+import { removeEmojis, validatePasswordContainsLetter, validatePasswordLength, setPasswordContainsLetter } from "../general/Validation";
+import Text from '../general/Text';
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 
 /**
@@ -16,6 +20,15 @@ export default function EnterNewPasswordScreen(props) {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  // Password constraint variables
+  const [passwordContainsLetter, setPasswordContainsLetter] = useState(false);
+  const [passwordLengthValid, setPasswordLengthValid] = useState(false);
+
+  // password input alerts
+  const [confirmPasswordAlert, setConfirmPasswordAlert] = useState("");
+  const [passwordAlert, setPasswordAlert] = useState("");
 
   /**
    * Function to toggle the password visibility state
@@ -25,6 +38,29 @@ export default function EnterNewPasswordScreen(props) {
   const toggleShowPassword = (setShowPasswordFunction, shouldShowPassword) => {
     setShowPasswordFunction(!shouldShowPassword);
   }
+
+  const checkIfPasswordsMatch = (password, confirmPassword) => {
+    if (password === confirmPassword) {
+      setConfirmPasswordAlert("");
+    } else {
+      // The passwords do not match
+      setConfirmPasswordAlert("As senhas devem corresponder");
+    }
+  }
+
+  // password input alerts
+  useEffect(() => {
+    const containsLetter = validatePasswordContainsLetter(newPassword);
+    setPasswordContainsLetter(containsLetter);
+    const lengthValid = validatePasswordLength(newPassword);
+    setPasswordLengthValid(lengthValid);
+    checkIfPasswordsMatch(newPassword, confirmPassword);
+  }, [newPassword]);
+
+  // password input alerts
+  useEffect(() => {
+    checkIfPasswordsMatch(newPassword, confirmPassword);
+  }, [confirmPassword]);
 
   async function changePassword(email, token, newPassword) {
     const obj = {
@@ -41,17 +77,17 @@ export default function EnterNewPasswordScreen(props) {
       switch (error?.error?.code) {
         case 'E0401':
           // No user exists with this email!
-          setTokenAlert("Não existe nenhum usuário com este email!");
+          setPasswordAlert("Não existe nenhum usuário com este email!");
           break;
 
         case 'E0404':
           // Code expired!
-          setTokenAlert("Código expirado!");
+          setPasswordAlert("Código expirado!");
           break;
 
         case 'E0405':
           // Incorrect code!
-          setTokenAlert("Código incorreto!");
+          setPasswordAlert("Código incorreto!");
           break;
       }
     }
@@ -62,7 +98,7 @@ export default function EnterNewPasswordScreen(props) {
       <View>
         <FormTextField
           placeholder="Entre sua senha" // Enter your password
-          onChangeText={(password) => setNewPassword(password)}
+          onChangeText={(password) => setNewPassword(removeEmojis(password))}
           id="password"
           label="Nova senha" // New password
           required={true}
@@ -72,17 +108,41 @@ export default function EnterNewPasswordScreen(props) {
         />
         <PasswordEye id="showPasswordEye" showPasswordIcon={showPassword} toggleShowPassword={() => toggleShowPassword(setShowPassword, showPassword)} />
       </View>
-      <View className="mt-[24px] mb-[40px]">
+      <View className="flex-row justify-start mt-1 h-6">
+        <Text testId="passwordLengthAlert" className={"text-xs" + ((passwordLengthValid || !newPassword) ? " text-gray" : " text-error")}>
+          {/* Minimum 8 characters */}
+          • Mínimo 8 caracteres
+        </Text>
+        <View className="flex-row items-center -translate-y-1">
+          {passwordLengthValid ? (
+            <MaterialCommunityIcons name="check" size={20} color="#4AA04A" />
+          ) : null}
+        </View>
+      </View>
+      <View className="flex-row justify-start h-6">
+        <Text testId="passwordLetterAlert" className={"text-xs font-sans" + ((passwordContainsLetter || !newPassword) ? " text-gray" : " text-error")}>
+          {/* Must contain at least one letter */}
+          • Conter pelo menos uma letra
+        </Text>
+        <View className="flex-row items-center -translate-y-1">
+          {passwordContainsLetter ? (
+            <MaterialCommunityIcons name="check" size={20} color="#4AA04A" />
+          ) : null}
+        </View>
+      </View>
+      <FormFieldAlert label={passwordAlert} />
+      <View className="mt-[24px]">
         <FormTextField
           placeholder="Confirme sua senha" // Confirm your password
           bordered={true}
-          onChangeText={""}
+          onChangeText={(confirmPassword) => setConfirmPassword(removeEmojis(confirmPassword))}
           label="Confirmar nova senha" // Confirm new password
           required={true}
           secureTextEntry={!showConfirmPassword}
         />
         <PasswordEye showPasswordIcon={showConfirmPassword} toggleShowPassword={() => toggleShowPassword(setShowConfirmPassword, showConfirmPassword)} />
       </View>
+      <FormFieldAlert label={confirmPasswordAlert} />
       <FormButton
         label="Entrar" // Enter
         onPress={() => changePassword(props.email, props.token, newPassword)}

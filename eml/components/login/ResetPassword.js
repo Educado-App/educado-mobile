@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import FormTextField from "./FormTextField";
 import FormButton from "./FormButton";
 import EducadoModal from "../general/EducadoModal";
@@ -7,6 +7,7 @@ import EnterNewPasswordScreen from "./EnterNewPasswordScreen";
 import Text from '../general/Text';
 import { sendResetPasswordEmail, validateResetPasswordCode } from "../../api/userApi";
 import FormFieldAlert from "./FormFieldAlert";
+import { validateEmail } from "../general/Validation";
 
 /**
  * Component to create modal (popup) that prompts user for
@@ -22,6 +23,16 @@ export default function ResetPassword(props) {
   const [codeEntered, setCodeEntered] = useState(false);
   const [passwordResetAlert, setPasswordResetAlert] = useState("");
   const [tokenAlert, setTokenAlert] = useState("");
+
+  useEffect(() => {
+    if (email === '') {
+      setPasswordResetAlert('');
+      return;
+    }
+
+    const validationError = validateEmail(email);
+    setPasswordResetAlert(validationError);
+  }, [email]);
 
   async function sendEmail(email) {
     const obj = {
