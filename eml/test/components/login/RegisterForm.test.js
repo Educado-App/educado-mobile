@@ -10,6 +10,12 @@ beforeEach(async () => {
   });
 });
 
+jest.mock('@react-navigation/native', () => ({
+  useNavigation: () => ({
+    navigate: jest.fn(),
+  }),
+}))
+
 test("Ensure that the RegisterForm component renders correctly", () => {
   const tree = registerForm.toJSON();
   expect(tree).toMatchSnapshot();

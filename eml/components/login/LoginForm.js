@@ -51,9 +51,9 @@ export default function LoginForm() {
 
     try {
       await loginUser(obj) // Await the response from the backend API for login
-        .then((response) => {
+        .then(async (response) => {
           // Set login token in AsyncStorage and navigate to home screen
-          AsyncStorage.setItem(LOGIN_TOKEN, response.accessToken);
+          await AsyncStorage.setItem(LOGIN_TOKEN, response.accessToken);
           navigation.navigate("HomeStack");
         })
         .catch((error) => {

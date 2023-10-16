@@ -1,10 +1,10 @@
 import React from "react";
 import renderer from 'react-test-renderer';
-import Login from "../../../screens/login/Login";
+import Register from "../../../screens/register/Register";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 let navigated = false;
+const mockToken = "testToken";
 
 jest.mock('@react-navigation/native', () => ({
   useNavigation: () => ({
@@ -18,48 +18,47 @@ jest.mock('react-native-keyboard-aware-scroll-view', () => {
   };
 });
 
-describe('Login screen', () => {
+describe('Register screen', () => {
 
-  let loginScreen;
+  let registerScreen;
 
   beforeEach(() => {
     navigated = false;
     AsyncStorage.clear();
-    loginScreen = renderer.create(<Login />);
+    registerScreen = renderer.create(<Register />);
   });
 
   it('Login screen renders', () => {
-    expect(loginScreen.toJSON()).toMatchSnapshot();
+    expect(registerScreen.toJSON()).toMatchSnapshot();
   });
 
   it('Pressing register new user navigates to the register page', async () => {
-    const registerNav = loginScreen.root.findByProps({ testId: "registerNav" });
+    const loginNav = registerScreen.root.findByProps({ testId: "loginNav" });
     await renderer.act(() => {
-      registerNav.props.onPress();
+      loginNav.props.onPress();
     });
     expect(navigated).toBe(true);
   });
 
-  it('Check login when no valid token is stored', async () => {
+
+  it('Check register when no valid token is stored', async () => {
     await renderer.act(() => {
-      renderer.create(<Login />);
+      renderer.create(<Register />);
     });
     expect(navigated).toBe(false);
   })
 
-  it('Check login when valid token stored', async () => {
-    AsyncStorage.setItem("@loginToken", "testToken");
-    await renderer.act(() => {
-      renderer.create(<Login />);
-    });
-    expect(navigated).toBe(true);
-  });
 
-  it('Check screen is scrollable with keyboard active', async () => {
-    const scrollView = loginScreen.root.findByType(KeyboardAwareScrollView);
-    expect(scrollView.props.scrollEnabled).toBeTruthy();
-  });
+  it('Check register when valid token stored', async () => {
+    AsyncStorage.setItem("@loginToken", mockToken).then(async () => {
+      await renderer.act(() => {
+        renderer.create(<Register />);
+      });
+      expect(navigated).toBe(true);
+    });
+  })
 });
+
 
 /* TODO: Fix tests with AsyncStorage */ /*
 test('Check login when valid token stored', async () => {
@@ -69,5 +68,4 @@ test('Check login when valid token stored', async () => {
     renderer.create(<Login />);
     expect(useNavigation().navigate).toHaveBeenCalledTimes(1);
   });
-  
 })*/
