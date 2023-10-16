@@ -18,8 +18,15 @@ exports[`ExerciseScreen renders ExerciseScreen correctly 1`] = `
     ]
   }
 >
-  <RCTSafeAreaView
-    emulateUnlessSupported={true}
+  <RNCSafeAreaView
+    edges={
+      [
+        "bottom",
+        "left",
+        "right",
+        "top",
+      ]
+    }
     style={
       [
         {
@@ -138,7 +145,21 @@ exports[`ExerciseScreen renders ExerciseScreen correctly 1`] = `
           </View>
         </View>
       </View>
-      <View>
+      <View
+        style={
+          [
+            {
+              "flexDirection": "row",
+            },
+            {
+              "alignItems": "center",
+            },
+            {
+              "justifyContent": "space-around",
+            },
+          ]
+        }
+      >
         <View
           animated={true}
           animationConfig={
@@ -150,7 +171,7 @@ exports[`ExerciseScreen renders ExerciseScreen correctly 1`] = `
           indeterminate={false}
           indeterminateAnimationDuration={1000}
           onLayout={[Function]}
-          progress={0.25}
+          progress={0.5}
           style={
             [
               {
@@ -159,7 +180,7 @@ exports[`ExerciseScreen renders ExerciseScreen correctly 1`] = `
                 "borderRadius": 8,
                 "borderWidth": 0,
                 "overflow": "hidden",
-                "width": 253,
+                "width": 487.5,
               },
               undefined,
             ]
@@ -171,30 +192,28 @@ exports[`ExerciseScreen renders ExerciseScreen correctly 1`] = `
             style={
               {
                 "backgroundColor": "rgba(94, 204, 233, 1)",
-                "height": 10,
+                "height": 16.008,
                 "transform": [
                   {
                     "translateX": 0,
                   },
                   {
-                    "translateX": -94.875,
+                    "translateX": -121.875,
                   },
                   {
-                    "scaleX": 0.250075,
+                    "scaleX": 0.50005,
                   },
                 ],
               }
             }
           />
         </View>
-      </View>
-      <View>
         <Text
           style={
             [
               {
-                "paddingLeft": 12,
-                "paddingRight": 12,
+                "paddingLeft": 20,
+                "paddingRight": 20,
               },
               {
                 "textAlign": "center",
@@ -211,7 +230,8 @@ exports[`ExerciseScreen renders ExerciseScreen correctly 1`] = `
             ]
           }
         >
-          25%
+          50
+          %
         </Text>
       </View>
     </View>
@@ -246,7 +266,7 @@ exports[`ExerciseScreen renders ExerciseScreen correctly 1`] = `
               "color": "#383838",
             },
             {
-              "width": "83.333333%",
+              "width": "91.666667%",
             },
           ]
         }
@@ -263,8 +283,10 @@ exports[`ExerciseScreen renders ExerciseScreen correctly 1`] = `
               "justifyContent": "center",
             },
             {
-              "height": 680.34,
-              "width": 750,
+              "height": 384,
+            },
+            {
+              "width": "100%",
             },
           ]
         }
@@ -278,7 +300,7 @@ exports[`ExerciseScreen renders ExerciseScreen correctly 1`] = `
                     "flexDirection": "row",
                   },
                   {
-                    "width": 390,
+                    "width": 384,
                   },
                   {
                     "paddingBottom": 24,
@@ -359,7 +381,7 @@ exports[`ExerciseScreen renders ExerciseScreen correctly 1`] = `
                           "paddingBottom": 4,
                         },
                         {
-                          "width": 304,
+                          "width": 288,
                         },
                         {
                           "fontFamily": "Montserrat-Regular",
@@ -385,7 +407,7 @@ exports[`ExerciseScreen renders ExerciseScreen correctly 1`] = `
                     "flexDirection": "row",
                   },
                   {
-                    "width": 390,
+                    "width": 384,
                   },
                   {
                     "paddingBottom": 24,
@@ -466,7 +488,7 @@ exports[`ExerciseScreen renders ExerciseScreen correctly 1`] = `
                           "paddingBottom": 4,
                         },
                         {
-                          "width": 304,
+                          "width": 288,
                         },
                         {
                           "fontFamily": "Montserrat-Regular",
@@ -492,7 +514,7 @@ exports[`ExerciseScreen renders ExerciseScreen correctly 1`] = `
                     "flexDirection": "row",
                   },
                   {
-                    "width": 390,
+                    "width": 384,
                   },
                   {
                     "paddingBottom": 24,
@@ -573,7 +595,7 @@ exports[`ExerciseScreen renders ExerciseScreen correctly 1`] = `
                           "paddingBottom": 4,
                         },
                         {
-                          "width": 304,
+                          "width": 288,
                         },
                         {
                           "fontFamily": "Montserrat-Regular",
@@ -599,7 +621,7 @@ exports[`ExerciseScreen renders ExerciseScreen correctly 1`] = `
                     "flexDirection": "row",
                   },
                   {
-                    "width": 390,
+                    "width": 384,
                   },
                   {
                     "paddingBottom": 24,
@@ -680,7 +702,7 @@ exports[`ExerciseScreen renders ExerciseScreen correctly 1`] = `
                           "paddingBottom": 4,
                         },
                         {
-                          "width": 304,
+                          "width": 288,
                         },
                         {
                           "fontFamily": "Montserrat-Regular",
@@ -833,6 +855,6 @@ exports[`ExerciseScreen renders ExerciseScreen correctly 1`] = `
         />
       </View>
     </View>
-  </RCTSafeAreaView>
+  </RNCSafeAreaView>
 </View>
 `;
