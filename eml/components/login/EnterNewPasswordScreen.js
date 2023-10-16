@@ -32,13 +32,28 @@ export default function EnterNewPasswordScreen(props) {
       token,
       newPassword,
     };
-    
+
     try {
       await enterNewPassword(obj);
       props.hideModal();
       props.resetState();
     } catch (error) {
-      console.log(error);
+      switch (error?.error?.code) {
+        case 'E0401':
+          // No user exists with this email!
+          setTokenAlert("Não existe nenhum usuário com este email!");
+          break;
+
+        case 'E0404':
+          // Code expired!
+          setTokenAlert("Código expirado!");
+          break;
+
+        case 'E0405':
+          // Incorrect code!
+          setTokenAlert("Código incorreto!");
+          break;
+      }
     }
   }
 
@@ -48,7 +63,7 @@ export default function EnterNewPasswordScreen(props) {
         <FormTextField
           placeholder="Entre sua senha" // Enter your password
           onChangeText={(password) => setNewPassword(password)}
-          id = "password"
+          id="password"
           label="Nova senha" // New password
           required={true}
           bordered={true}
@@ -68,7 +83,7 @@ export default function EnterNewPasswordScreen(props) {
         />
         <PasswordEye showPasswordIcon={showConfirmPassword} toggleShowPassword={() => toggleShowPassword(setShowConfirmPassword, showConfirmPassword)} />
       </View>
-      <FormButton 
+      <FormButton
         label="Entrar" // Enter
         onPress={() => changePassword(props.email, props.token, newPassword)}
       />

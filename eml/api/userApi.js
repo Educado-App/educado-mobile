@@ -116,16 +116,41 @@ export const updateExerciseStatus = async (user_id, course_id, section_id, exerc
 }
 
 export const sendResetPasswordEmail = async (email) => {
-  const res = await axios.post(url + '/api/auth/reset-password-request', email);
-  return res.data;
+  try {
+    const res = await axios.post(url + '/api/auth/reset-password-request', email);
+    return res.data;
+  } catch (e) {
+    if (e.response.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
 };
 
 export const validateResetPasswordCode = async (obj) => {
-  const res = await axios.post(url + '/api/auth/reset-password-code', obj);
-  return res.data;
+  try {
+    const res = await axios.post(url + '/api/auth/reset-password-code', obj);
+    return res.data;
+  } catch (e) {
+    if (e.response.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
+
 };
 
 export const enterNewPassword = async (obj) => {
+  try{
   const res = await axios.put(url + '/api/auth/reset-password', obj);
   return res.data;
+  } catch (e) {
+    if (e.response.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
 };

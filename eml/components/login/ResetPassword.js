@@ -6,6 +6,7 @@ import EducadoModal from "../general/EducadoModal";
 import EnterNewPasswordScreen from "./EnterNewPasswordScreen";
 import Text from '../general/Text';
 import { sendResetPasswordEmail, validateResetPasswordCode } from "../../api/userApi";
+import FormFieldAlert from "./FormFieldAlert";
 
 /**
  * Component to create modal (popup) that prompts user for
@@ -19,6 +20,8 @@ export default function ResetPassword(props) {
   const [token, setToken] = useState("");
   const [emailSent, setEmailSent] = useState(false);
   const [codeEntered, setCodeEntered] = useState(false);
+  const [passwordResetAlert, setPasswordResetAlert] = useState("");
+  const [tokenAlert, setTokenAlert] = useState("");
 
   async function sendEmail(email) {
     const obj = {
@@ -29,8 +32,28 @@ export default function ResetPassword(props) {
       await sendResetPasswordEmail(obj)
         .then(async () => {
           setEmailSent(true);
+          setPasswordResetAlert("");
         }).catch((error) => {
-          console.log(error);
+          switch (error?.error?.code) {
+            case 'E0401':
+              // No user exists with this email!
+              setPasswordResetAlert("Não existe nenhum usuário com este email!");
+              break;
+
+            case 'E0406':
+              // Too many resend attempts!
+              setPasswordResetAlert("Muitas tentativas de reenvio!");
+              break;
+
+            case 'E0004':
+              // User not found!
+              setPasswordResetAlert("Usuário não encontrado!");
+              break;
+
+            // TODO: What error should we give here instead? Unknown error? 
+            default: // Errors not currently handled with specific alerts
+              console.log(error);
+          }
         });
     } catch (error) {
       console.log(error);
@@ -48,7 +71,22 @@ export default function ResetPassword(props) {
         .then(async () => {
           setCodeEntered(true);
         }).catch((error) => {
-          console.log(error);
+          switch (error?.error?.code) {
+            case 'E0401':
+              // No user exists with this email!
+              setTokenAlert("Não existe nenhum usuário com este email!");
+              break;
+
+            case 'E0404':
+              // Code expired!
+              setTokenAlert("Código expirado!");
+              break;
+
+            case 'E0405':
+              // Incorrect code!
+              setTokenAlert("Código incorreto!");
+              break;
+          }
         });
     } catch (error) {
       console.log(error);
@@ -73,6 +111,7 @@ export default function ResetPassword(props) {
               onChangeText={(email) => setEmail(email)}
               keyboardType="email-address"
             />
+            <FormFieldAlert testId="emailAlert" label={passwordResetAlert} />
             <View className="mt-[40px]">
               {emailSent ? (
                 <View>
@@ -83,6 +122,7 @@ export default function ResetPassword(props) {
                     por favor, insira o mesmo abaixo
                   </Text>
                   <FormTextField bordered={true} placeholder="X X X X" onChangeText={(token) => setToken(token)} />
+                  <FormFieldAlert testId="tokenAlert" label={tokenAlert} />
                   <View className="mt-[40px] mb-[24px]">
                     <FormButton
                       // Continue 
@@ -94,7 +134,7 @@ export default function ResetPassword(props) {
                     {/* Didn't the code arrive?*/}
                     <Text>O código não chegou?</Text>
                     {/* Resend code*/}
-                    <Text className="underline ml-1">Reenviar cógio</Text>
+                    <Text className="underline ml-1" onPress={() => sendEmail(email)}>Reenviar cógio</Text>
                   </View>
                 </View>
               ) : (
