@@ -23,9 +23,7 @@ export default function LogoBackButton(props) {
       </View>
       {/* Educado logo */}
       <View className='items-center justify-center w-full'>
-        <EducadoLogo
-          fill='fill-black'
-        />
+        <EducadoLogo />
       </View>
     </View>
   )
