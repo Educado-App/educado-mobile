@@ -18,43 +18,46 @@ jest.mock('react-native-keyboard-aware-scroll-view', () => {
   };
 });
 
-let registerScreen;
+describe('Register screen', () => {
 
-beforeEach(() => {
-  navigated = false;
-  AsyncStorage.clear();
-  registerScreen = renderer.create(<Register />);
-});
+  let registerScreen;
 
-test('Login screen renders', () => {
-  expect(registerScreen.toJSON()).toMatchSnapshot();
-});
-
-test('Pressing register new user navigates to the register page', async () => {
-  const loginNav = registerScreen.root.findByProps({ testId: "loginNav" });
-  await renderer.act(() => {
-    loginNav.props.onPress();
+  beforeEach(() => {
+    navigated = false;
+    AsyncStorage.clear();
+    registerScreen = renderer.create(<Register />);
   });
-  expect(navigated).toBe(true);
-});
 
-
-test('Check register when no valid token is stored', async () => {
-  await renderer.act(() => {
-    renderer.create(<Register />);
+  it('Login screen renders', () => {
+    expect(registerScreen.toJSON()).toMatchSnapshot();
   });
-  expect(navigated).toBe(false);
-})
 
-
-test('Check register when valid token stored', async () => {
-  AsyncStorage.setItem("@loginToken", mockToken).then(async () => {
+  it('Pressing register new user navigates to the register page', async () => {
+    const loginNav = registerScreen.root.findByProps({ testId: "loginNav" });
     await renderer.act(() => {
-      renderer.create(<Register />);
+      loginNav.props.onPress();
     });
     expect(navigated).toBe(true);
   });
-})
+
+
+  it('Check register when no valid token is stored', async () => {
+    await renderer.act(() => {
+      renderer.create(<Register />);
+    });
+    expect(navigated).toBe(false);
+  })
+
+
+  it('Check register when valid token stored', async () => {
+    AsyncStorage.setItem("@loginToken", mockToken).then(async () => {
+      await renderer.act(() => {
+        renderer.create(<Register />);
+      });
+      expect(navigated).toBe(true);
+    });
+  })
+});
 
 
 /* TODO: Fix tests with AsyncStorage */ /*
