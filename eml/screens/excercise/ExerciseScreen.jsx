@@ -114,9 +114,7 @@ export default function ExerciseScreen() {
                 courseId={dummyExerciseData.courseId}
               ></LeaveButton>
           </View>
-          <View>
-            <CustomProgressBar progress={50} width={65} height={1.2}></CustomProgressBar>
-          </View>
+          <CustomProgressBar progress={50} width={65} height={1.2}></CustomProgressBar>
         </View>
 
         {dummyExerciseData === undefined ? (
@@ -127,7 +125,7 @@ export default function ExerciseScreen() {
             <Text className="pt-6 pb-10 text-center text-body font-montserrat-bold text-projectBlack w-11/12">
               {dummyExerciseData.question}
             </Text>
-            <View className={`${buttonClassName} items-center justify-center h-96`}>
+            <View className={`${buttonClassName} items-center justify-center h-96 w-full`}>
               <ScrollView>
                 {/* Map through the answers and render each one */}
                 {dummyExerciseData.answers.map((answer) => (

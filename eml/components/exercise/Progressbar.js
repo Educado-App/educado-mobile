@@ -21,7 +21,7 @@ const CustomProgressBar = ({ progress, width, height }) => {
         borderWidth={0}
         borderRadius={8}
       ></Progress.Bar>
-      <Text className="px-4 text-center font-montserrat-bold text-caption-medium text-projectBlack">
+      <Text className="px-5 text-center font-montserrat-bold text-caption-medium text-projectBlack">
         {progress}%
       </Text>
     </View>
