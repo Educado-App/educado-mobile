@@ -50,19 +50,19 @@ export default function LectureScreen({ route }) {
 
 
 
+    //Safe area should not be used if we want to use the full screen
     return (
-
         <View className="flex-1 bg-[#f1f9fb] ">
 
             {lecture && course ?
 
-                <View className="w-screen h-screen">
+                <View className="w-screen h-screen flex-col justify-center items-center">
                     {lecture.video ?
                         <VideoLectureScreen lecture={lecture} course={course} />
                         :
-                        <View className=" items-center justify-center  ">
+                        <View className=" flex-col items-center justify-center  ">
                             {/* REPLACE THIS WHEN MERGED, THERE SHOULD BE A COMPONENT FOR THIS TOP BAR */}
-                            <View className="flex-row w-full items-center p-[10]">
+                            <View className="flex-row w-full just items-center p-[10]">
                                 <View className="pl-2">
                                     <TouchableOpacity onPress={() => navigation.goBack()} style={{ marginRight: 10 }}>
                                         <MaterialCommunityIcons name="chevron-left" size={25} color="black" />
