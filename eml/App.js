@@ -15,9 +15,11 @@ import ExerciseScreen from './screens/excercise/ExerciseScreen';
 import WrongAnswerComponent from './screens/excercise/WrongAnswerScreen';
 import Explore from './screens/explore/Explore';
 import { TailwindProvider } from 'tailwindcss-react-native';
+import TestScreen from './screens/test/TestScreen';
 import ErrorScreen from './screens/errors/ErrorScreen';
 import SectionCompleteScreen from './screens/excercise/SectionCompleteScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import SectionScreen from './screens/section/SectionScreen';
 import { isFontsLoaded } from './constants/Fonts';
 import Loading from "./components/loading/Loading";
 import WelcomeScreen from "./screens/welcome/Welcome";
@@ -25,6 +27,7 @@ import ProfileSettingsScreen from "./screens/profile/ProfileSettings";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
+
 /**
  * Check if user is logged in, if not redirect to login screen
  */
@@ -119,6 +122,8 @@ function CourseStack() {
   );
 }
 
+/** This can be removed since we use NavBar
+ *
 function HomeStack() {
   checkLogin();
 
@@ -189,6 +194,7 @@ function HomeStack() {
   );
 }
 
+*/
 export function useWelcomeScreenLogic(loadingTime, onResult) {
 
   setTimeout(() => {
@@ -260,8 +266,14 @@ export default function App() {
                 options={{ headerShown: false }}
               />
               <Stack.Screen
-                name={"HomeStack"}
-                component={HomeStack}
+                name={'HomeStack'}
+                component={NavBar} // Use the NavBar component here
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="Section"
+                component={SectionScreen}
+                initialParams={{ course_id: '' }}
                 options={{ headerShown: false }}
               />
               <Stack.Screen

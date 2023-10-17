@@ -1,0 +1,93 @@
+import React, { useState, useEffect } from 'react';
+import {Alert, View, TouchableOpacity, Modal, Pressable} from 'react-native';
+import Text  from '../../components/general/Text';
+import TestComponent from '../../components/test/TestComponent';
+import * as StorageService from '../../services/StorageService';
+import * as DirectoryService from '../../services/DirectoryService';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import SectionCard from '../../components/section/SectionCard';
+import {ScrollView} from "react-native-gesture-handler";
+import {MaterialCommunityIcons} from "@expo/vector-icons";
+import { useNavigation } from '@react-navigation/native';
+import CustomProgressBar from "../../components/exercise/Progressbar";
+import BaseScreen from '../../components/general/BaseScreen';
+import SubscriptionCancel from '../../components/section/CancelSubscriptionButton';
+import { unSubscribeToCourse } from '../../api/api';
+
+/**
+ * Section screen component.
+ * @param {object} route - The route object containing the courseId parameter.
+ * @returns {JSX.Element} - The section screen JSX elements.
+ */
+export default function SectionScreen({ route }) {
+  const { courseId } = route.params;
+  const navigation = useNavigation();
+  const [sections, setSections] = useState([]);
+  const [course, setCourse] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
+
+  /**
+   * Loads the sections for the given course ID.
+   * @param {string} id - The course ID.
+   * @returns {Promise<void>} - A promise that resolves when the sections are loaded.
+   */
+  async function loadSections(id) {
+    const sectionData = await StorageService.getSectionList(id);
+    setSections(sectionData);
+  }
+
+  /**
+   * Gets the course data for the given course ID.
+   * @param {string} id - The course ID.
+   * @returns {Promise<void>} - A promise that resolves when the course data is retrieved.
+   */
+  async function getCourse(id) {
+    const courseData = await StorageService.getCourseId(id);
+    setCourse(courseData);
+  }
+
+  //Fetch courses from backend and replace dummy data!
+  useEffect(() => {
+    loadSections(courseId);
+    getCourse(courseId);
+  }, []);
+  const unsubAlert = () =>
+    Alert.alert("Cancelar subscrição", "Tem certeza?", [
+      {
+        text: "Não",
+        onPress: () => console.log("No Pressed"),
+        style: "cancel",
+      },
+      { text: "Sim", onPress: () => unSubscribeToCourse(courseId) },
+    ]);
+
+  return (
+    <BaseScreen>
+      <View className="flex flex-row items-center justify-beween px-6 pt-[20%]">
+        {/* Back Button */}
+        <TouchableOpacity className="pr-3" onPress={() => navigation.goBack()}>
+          <MaterialCommunityIcons name="chevron-left" size={25} color="black" />
+        </TouchableOpacity>
+
+        {/* Course Title */}
+        <Text className="text-[25px] font-bold">{course.title}</Text>
+
+        {/* Spacer to push the Unsubscribe Button to the right */}
+        <View style={{ flex: 1 }}></View>
+
+        {/* Unsubscribe Button */}
+        <SubscriptionCancel onPress={unsubAlert} />
+      </View>
+
+      <View className="flex-[1] flex-col my-[10px]">
+        <CustomProgressBar width={60} progress={50} height={3}></CustomProgressBar>
+
+        <ScrollView className="mt-[5%]" showsVerticalScrollIndicator={false}>
+          {sections.map((section, i) => {
+            return <SectionCard key={i} section={section}></SectionCard>;
+          })}
+        </ScrollView>
+      </View>
+    </BaseScreen>
+  );
+}

@@ -1,50 +1,70 @@
-import { useRoute, useNavigation } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
-import CourseListUI from '../../components/easyDynComponents/courseListUI'
-import { View, Pressable, Image } from 'react-native'
+import { View, Pressable, Dimensions, Image, ScrollView } from 'react-native'
+import Text from '../../components/general/Text'
 import * as StorageService from "../../services/StorageService";
-import Text from '../../components/general/Text';
+import CourseCard from '../../components/courses/courseCard/CourseCard'
+import BaseScreen from '../../components/general/BaseScreen';
+import IconHeader from '../../components/general/IconHeader';
 
+/**
+ * Course screen component that displays a list of courses.
+ * @component
+ * @returns {JSX.Element} The course screen component.
+ */
 export default function CourseScreen() {
 
-
-    const route = useRoute();
-
-    const [course, setCourse] = useState({});
+    /**
+     * React hook that declares a state variable for courses and a function to update it.
+     * @typedef {[Object[], function]} CourseState
+     * @returns {CourseState} The state variable and its updater function.
+     */
+    const [courses, setCourses] = useState([]);
 
     const [courseLoaded, setCourseLoaded] = useState(false);
 
-    const [downloadState, setDownloadState] = useState(null);
+    const navigation = useNavigation()  
 
-    let courseId = null
-    if (route.params !== undefined) {
-        courseId = route.params.courseId;
-    }
-
-    const navigation = useNavigation()
-    let currentCourse = null;
-
-    async function loadCourse() {
-        const courseData = await StorageService.getCourseById(courseId);
-        setCourse(courseData);
-    }
-
-    useEffect(() => {
-
-        if (route.params !== undefined) {
-            loadCourse().then(() => {
+    /**
+         * Asynchronous function that loads the courses from storage and updates the state.
+         * @returns {void}
+         */
+    async function loadCourses() {
+        try {
+            const courseData = await StorageService.getSubCourseList();
+            if (courseData.length !== 0 && Array.isArray(courseData) ) {
+                setCourses(courseData);
                 setCourseLoaded(true);
-            });
+            } else {
+                setCourses([]);
+                setCourseLoaded(false);
+            }
+
+        } catch (error) {
+          console.error("Error checking subscription:", error);
         }
-
-    }, [route.params, downloadState])
-
+    } 
+    
+    useEffect(() => {
+            loadCourses();
+    }, [courses]);
 
     return (
-        <View className="flex-1 items-center justify-center bg-secondary">
+        <BaseScreen>
+            {/** Checks if the course(s) has been loaded
+             * If it has, it will render and map the courses
+             * If not, it will render a message saying that there are no active courses (in portugese)
+             */}
             {courseLoaded ?
-                <View className="justify-center items-center bg-secondary">
-                    <CourseListUI course={course} downloadState={setDownloadState}></CourseListUI>
+                <View height="100%">
+                    <IconHeader title={"Bem Vindo!"}/>
+                    <ScrollView showsVerticalScrollIndicator={false}>
+                        {courses.map((course) => (
+                            <CourseCard key={course.courseId} course={course}></CourseCard>
+                        )  
+                    ) 
+                    }
+                    </ScrollView>
                 </View>
                 :
                 <View className=" justify-center items-center bg-secondary ">
@@ -68,7 +88,5 @@ export default function CourseScreen() {
                         </View>
                     </View>
                 </View>}
-        </View>
-    )
-}
-
+        </BaseScreen>
+    )}
