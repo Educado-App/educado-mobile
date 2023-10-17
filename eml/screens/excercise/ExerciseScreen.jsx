@@ -114,16 +114,15 @@ export default function ExerciseScreen() {
     setIsCorrectAnswer(selectedAnswerData.isCorrect);
 
     setButtonClassName(
-      `bg-project${isCorrectAnswer ? 'Green' : 'Red'}`
+      `bg-project${selectedAnswerData.isCorrect ? 'Green' : 'Red'}`
     );
 
     setShowFeedback(true);
     setButtonText(continueText);
     if (buttonText !== continueText) {
-      getRandomPhrase(isCorrectAnswer);
+      getRandomPhrase(selectedAnswerData.isCorrect);
       setIsPopUpVisible(true);
     }
-
   }
 
   useEffect(() => {
