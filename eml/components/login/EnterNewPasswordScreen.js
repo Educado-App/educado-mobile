@@ -44,7 +44,7 @@ export default function EnterNewPasswordScreen(props) {
       setConfirmPasswordAlert("");
     } else {
       // The passwords do not match
-      setConfirmPasswordAlert("As senhas devem corresponder");
+      setConfirmPasswordAlert("Os campos de senha precisam ser iguais");
     }
   }
 
@@ -117,7 +117,7 @@ export default function EnterNewPasswordScreen(props) {
     <View>
       <View>
         <FormTextField
-          placeholder="Entre sua senha" // Enter your password
+          placeholder="Insira sua senha" // Enter your password
           onChangeText={(password) => setNewPassword(removeEmojis(password))}
           id="password"
           label="Nova senha" // New password
@@ -170,12 +170,14 @@ export default function EnterNewPasswordScreen(props) {
       />
       <View className="flex-row justify-center items-end mt-2">
         <Text className="text-gray leading-5 text-base mr-1">
-          E-mail errado?
+          {/* Wrong email? */}
+          E-mail errado? 
         </Text>
         <Text 
           className="text-black leading-5 text-base underline"
           onPress={() => props.resetState()}
         >
+          {/* Go back */}
           Volte aqui
         </Text>
       </View>

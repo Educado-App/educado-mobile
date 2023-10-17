@@ -103,7 +103,7 @@ export default function LoginForm() {
           testId="emailInput"
           placeholder="user@email.com"
           onChangeText={(email) => setEmail(email)}
-          label="Email"
+          label="E-mail"
           required={true}
           keyboardType="email-address"
         />
@@ -155,7 +155,7 @@ export default function LoginForm() {
           onModalClose={closeModal}
           testId="resetPasswordModal"
           // Reset password
-          title="Redefinição de senha"
+          title="Redefinir senha"
         />
       </View>
     </View>
