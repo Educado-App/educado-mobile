@@ -2,7 +2,6 @@ import React, { forwardRef, useEffect } from 'react';
 
 import { View, StyleSheet, Dimensions } from 'react-native';
 import { Video } from 'expo-av';
-import videoFile from '../../assets/video/content/testvideo3.mp4';
 
 
 const CustomExpoVideoPlayer = forwardRef(({ onStatusUpdate, isMuted = false, isPlaying = true, videoUri }, ref) => {
