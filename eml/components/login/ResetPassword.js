@@ -58,7 +58,7 @@ export default function ResetPassword(props) {
 
             case 'E0406':
               // Too many resend attempts!
-              setPasswordResetAlert("Muitas tentativas de reenvio!");
+              setPasswordResetAlert("Muitas tentativas de reenvio! Espere 5 minutos...");
               break;
 
             case 'E0004':
@@ -177,7 +177,6 @@ export default function ResetPassword(props) {
           />
         )}
       </View>
-
     </EducadoModal>
   );
 }

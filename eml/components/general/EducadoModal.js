@@ -4,6 +4,7 @@ import { Entypo } from '@expo/vector-icons';
 import EducadoLogo from '../images/EducadoLogo';
 import Text from './Text';
 import { BgLinearGradient } from '../../constants/BgLinearGradient';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 /**
  * 
@@ -22,24 +23,26 @@ export default function EducadoModal(props) {
       className="border-8 border-black"
     >
       <BgLinearGradient>
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View>
-            <View className="flex justify-center pt-[40px]">
-              <View className="flex flex-row justify-end px-10">
-                <Pressable onPress={props.closeModal}>
-                  <Entypo name="chevron-down" size={24} />
-                </Pressable>
+        <KeyboardAwareScrollView>
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View>
+              <View className="flex justify-center pt-[40px]">
+                <View className="flex flex-row justify-end px-10">
+                  <Pressable onPress={props.closeModal}>
+                    <Entypo name="chevron-down" size={24} />
+                  </Pressable>
+                </View>
+                <View className="flex flex-row justify-center my-10">
+                  <EducadoLogo fill='fill-black' />
+                </View>
+                <View className="flex flex-row justify-start px-10">
+                  <Text className="text-center text-[24px]">{props.title ? props.title : ""}</Text>
+                </View>
               </View>
-              <View className="flex flex-row justify-center my-10">
-                <EducadoLogo fill='fill-black' />
-              </View>
-              <View className="flex flex-row justify-start px-10">
-                <Text className="text-center text-[24px]">{props.title ? props.title : ""}</Text>
-              </View>
+              {props.children}
             </View>
-            {props.children}
-          </View>
-        </TouchableWithoutFeedback>
+          </TouchableWithoutFeedback>
+        </KeyboardAwareScrollView>
       </BgLinearGradient>
     </Modal >
   )

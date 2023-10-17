@@ -168,6 +168,17 @@ export default function EnterNewPasswordScreen(props) {
         onPress={() => changePassword(props.email, props.token, newPassword)}
         disabled={!validateInput()}
       />
+      <View className="flex-row justify-center items-end mt-2">
+        <Text className="text-gray leading-5 text-base mr-1">
+          E-mail errado?
+        </Text>
+        <Text 
+          className="text-black leading-5 text-base underline"
+          onPress={() => props.resetState()}
+        >
+          Volte aqui
+        </Text>
+      </View>
     </View>
   );
 }
