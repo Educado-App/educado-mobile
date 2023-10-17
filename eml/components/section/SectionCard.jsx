@@ -29,7 +29,6 @@ export default function SectionCard({ section }) {
     const [isOpen, setIsOpen] = useState(false);
     const className = isComplete ? "bg-[#87eb8e]" : inProgress ? "bg-[#87CEEB]" : notpossible ? "bg-[#F20000]" : {};
 
-
     useEffect(() => {
 
         console.log("THIS IS SECTION CARD")
