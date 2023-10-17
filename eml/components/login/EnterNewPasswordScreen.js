@@ -62,7 +62,19 @@ export default function EnterNewPasswordScreen(props) {
     checkIfPasswordsMatch(newPassword, confirmPassword);
   }, [confirmPassword]);
 
+  /**
+   * Function for changing the password
+   * @param {String} email 
+   * @param {String} token 
+   * @param {String} newPassword 
+   * @returns 
+   */
   async function changePassword(email, token, newPassword) {
+
+    if (!validateInput) {
+      return;
+    }
+
     const obj = {
       email,
       token,
@@ -90,6 +102,14 @@ export default function EnterNewPasswordScreen(props) {
           setPasswordAlert("Código incorreto!");
           break;
       }
+    }
+  }
+
+  function validateInput() {
+    if (passwordAlert === "" && confirmPasswordAlert === "" && passwordContainsLetter && passwordLengthValid) {
+      return true;
+    } else {
+      return false;
     }
   }
 
@@ -146,6 +166,7 @@ export default function EnterNewPasswordScreen(props) {
       <FormButton
         label="Entrar" // Enter
         onPress={() => changePassword(props.email, props.token, newPassword)}
+        disabled={!validateInput()}
       />
     </View>
   );

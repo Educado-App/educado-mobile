@@ -143,7 +143,7 @@ export const validateResetPasswordCode = async (obj) => {
 };
 
 export const enterNewPassword = async (obj) => {
-  try{
+  try {
   const res = await axios.put(url + '/api/auth/reset-password', obj);
   return res.data;
   } catch (e) {

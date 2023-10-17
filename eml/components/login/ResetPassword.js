@@ -34,6 +34,11 @@ export default function ResetPassword(props) {
     setPasswordResetAlert(validationError);
   }, [email]);
 
+  /**
+   * Function to send mail to user with code to reset password
+   * @param {*} email 
+   */
+
   async function sendEmail(email) {
     const obj = {
       email,
@@ -70,6 +75,12 @@ export default function ResetPassword(props) {
       console.log(error);
     }
   }
+
+  /**
+   * Function to validate the code entered by the user
+   * @param {String} email 
+   * @param {String} token 
+   */
 
   async function validateCode(email, token) {
     const obj = {
