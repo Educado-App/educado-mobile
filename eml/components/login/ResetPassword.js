@@ -17,6 +17,7 @@ import { validateEmail } from "../general/Validation";
  * - onModalClose: Function to do when modal closes
  */
 export default function ResetPassword(props) {
+  const emailAlertMessage = "Não existe nenhum usuário com este email!";
   const [email, setEmail] = useState("");
   const [token, setToken] = useState("");
   const [emailSent, setEmailSent] = useState(false);
@@ -53,7 +54,7 @@ export default function ResetPassword(props) {
           switch (error?.error?.code) {
             case 'E0401':
               // No user exists with this email!
-              setPasswordResetAlert("Não existe nenhum usuário com este email!");
+              setPasswordResetAlert(emailAlertMessage);
               break;
 
             case 'E0406':
@@ -96,7 +97,7 @@ export default function ResetPassword(props) {
           switch (error?.error?.code) {
             case 'E0401':
               // No user exists with this email!
-              setTokenAlert("Não existe nenhum usuário com este email!");
+              setTokenAlert(emailAlertMessage);
               break;
 
             case 'E0404':
@@ -132,6 +133,7 @@ export default function ResetPassword(props) {
               required={true}
               onChangeText={(email) => setEmail(email)}
               keyboardType="email-address"
+              testId="emailInput"
             />
             <FormFieldAlert testId="emailAlert" label={passwordResetAlert} />
             <View className="mt-[40px]">
@@ -164,6 +166,7 @@ export default function ResetPassword(props) {
                   // Send code
                   label="Enviar código"
                   onPress={() => sendEmail(email)}
+                  testId="resetPasswordButton"
                 />
               )}
             </View>
