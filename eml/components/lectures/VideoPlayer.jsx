@@ -3,8 +3,10 @@ import React, { forwardRef, useEffect } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import { Video } from 'expo-av';
 
+import { getVideoDownloadUrl } from '../../api/api';
 
-const CustomExpoVideoPlayer = forwardRef(({ onStatusUpdate, isMuted = false, isPlaying = true, videoUri }, ref) => {
+
+const CustomExpoVideoPlayer = forwardRef(({ onStatusUpdate, videoUrl, isMuted = false, isPlaying = true }, ref) => {
     const screenWidth = Dimensions.get('window').width;
     const screenHeight = Dimensions.get('window').height;
 
@@ -17,20 +19,18 @@ const CustomExpoVideoPlayer = forwardRef(({ onStatusUpdate, isMuted = false, isP
         video: {
             alignSelf: 'center',
             width: screenWidth,
-            height: screenHeight,
+            height: screenHeight + screenHeight / 10,
         },
     });
-
-    useEffect(() => {
-        console.log("CustomExpoVideoPlayer Ref:", ref);
-    }, [ref]);
 
     return (
         <View style={styles.container}>
             <Video
                 ref={ref}
                 useNativeControls={false}
-                source={videoUri}
+                source={{
+                    uri: videoUrl
+                }}
                 volume={1.0}
                 rate={1.0}
                 isMuted={isMuted}

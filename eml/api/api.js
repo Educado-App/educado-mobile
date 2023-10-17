@@ -2,7 +2,7 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const testUrl = "http://localhost:8888";
-const testExpo = "http://172.30.213.78:8888"; //Change to local expo ip
+const testExpo = "http://192.168.50.196:8888"; //Change to local expo ip
 const digitalOcean = "http://207.154.213.68:8888";
 
 const url = testExpo;
@@ -32,20 +32,51 @@ export const getAuthToken = async () => {
 };
 
 //CREATED BY VIDEOSTREAMING TEAM
-export const downloadFromBucketByFileName = async (fileName) => {
+export const downloadVideoByFileName = async (fileName) => {
   try {
-    console.log(`${url}/api/content/download/?fileName=${fileName}`);
+    console.log(`${url}/api/content/video/?fileName=${fileName}`);
     const res = await axios.get(
-      `${url}/api/content/download/?fileName=${fileName}`
+      `${url}/api/content/video/?fileName=${fileName}`
     );
     console.log("res.data", res);
-    const workingUrl = { uri: `data:video/mp4;base64,${res.data}` };
+    console.log("res.data", res);
+    // const workingUrl = { uri: `data:video/mp4;base64,${res.data}` };
+    const workingUrl = { uri: res.request.responseURL };
     return workingUrl;
   } catch (err) {
     console.log("Error getting bucket video", err);
   }
 };
 
+/**
+ *
+ * @param {* name of video in bucketRoute, should be the same as lecture id} fileId
+ * @param {* use 360p, 720p or 1080p - standard is 360p} resolution
+ */
+export const getVideoDownloadUrl = (fileName, resolution) => {
+  let usableResolution = "360x640";
+
+  switch (resolution) {
+    case "180p":
+      usableResolution = "180x320";
+      break;
+    case "360p":
+      usableResolution = "360x640";
+      break;
+    case "720p":
+      usableResolution = "720x1280";
+      break;
+    case "1080p":
+      usableResolution = "1080x1920";
+      break;
+    default:
+      usableResolution = "360x640";
+      break;
+  }
+  const _vidUrl = `${url}/api/content/stream/${fileName}_transcoded${usableResolution}.mp4`;
+  console.log("VIDEO URL FROM API", _vidUrl);
+  return _vidUrl;
+};
 /*
 
 export const getTestCourse = async () => {

@@ -7,10 +7,9 @@ import CustomProgressBar from '../../components/progress/ProgressBar2';
 import { ScrollView } from "react-native-gesture-handler";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from '@react-navigation/native';
-import { getCourse, getLectureById } from '../../api/api';
+import { downloadVideoByFileName, getCourse, getLectureById } from '../../api/api';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import VideoLectureScreen from './VideoLectureScreen';
-import { downloadFromBucketByFileName } from '../../api/api';
 
 import healthLogo from '../../assets/healthLogo.png'
 
@@ -24,24 +23,9 @@ export default function LectureScreen({ route }) {
         console.log("THIS IS THE LECTURE SCREEN")
         getLecture(lectureId);
         getCourseById(courseId);
-        downloadVideo(lectureId);
     }, [])
 
-    const [video, setVideo] = useState(null);
 
-    //download video
-    const downloadVideo = async (fileId) => {
-
-        try {
-            console.log("DOWNLOADINGVIDEO")
-            const vidRes = await downloadFromBucketByFileName(fileId + "_transcoded360x640.mp4");
-            setVideo(vidRes)
-            console.log("vidRes", vidRes)
-        }
-        catch (err) {
-            console.log(err)
-        }
-    }
 
 
 
@@ -56,7 +40,6 @@ export default function LectureScreen({ route }) {
 
         try {
             const res = await getCourse(id);
-            console.log(res)
             setCourse(res);
         }
         catch (err) {
@@ -69,35 +52,34 @@ export default function LectureScreen({ route }) {
 
     return (
 
-        <View className="flex-1 bg-[#f1f9fb]">
-            <SafeAreaView>
-                {lecture && course ?
+        <View className="flex-1 bg-[#f1f9fb] ">
 
-                    <View>
-                        {video ?
-                            <VideoLectureScreen lecture={lecture} course={course} videoUri={video} />
-                            :
-                            <View className="w-full h-full items-center justify-center align-middle">
-                                {/* REPLACE THIS WHEN MERGED, THERE SHOULD BE A COMPONENT FOR THIS TOP BAR */}
-                                <View className="flex-row w-full items-center p-[10]">
-                                    <View className="pl-2">
-                                        <TouchableOpacity onPress={() => navigation.goBack()} style={{ marginRight: 10 }}>
-                                            <MaterialCommunityIcons name="chevron-left" size={25} color="black" />
-                                        </TouchableOpacity>
-                                    </View>
-                                    <Text className="text-[25px] text-black font-bold ml-[10]">{lecture.title}</Text>
+            {lecture && course ?
+
+                <View className="w-screen h-screen">
+                    {lecture.video ?
+                        <VideoLectureScreen lecture={lecture} course={course} />
+                        :
+                        <View className=" items-center justify-center  ">
+                            {/* REPLACE THIS WHEN MERGED, THERE SHOULD BE A COMPONENT FOR THIS TOP BAR */}
+                            <View className="flex-row w-full items-center p-[10]">
+                                <View className="pl-2">
+                                    <TouchableOpacity onPress={() => navigation.goBack()} style={{ marginRight: 10 }}>
+                                        <MaterialCommunityIcons name="chevron-left" size={25} color="black" />
+                                    </TouchableOpacity>
                                 </View>
-                                <Text className="text-[25px] font-bold ml-[10]">INSERT TEXT LECTURE HERE</Text>
+                                <Text className="text-[25px] text-black font-bold ml-[10]">{lecture.title}</Text>
                             </View>
-                        }
-                    </View>
-                    :
-                    <View className="w-full h-full items-center justify-center align-middle">
-                        <Text className="text-[25px] font-bold ml-[10]">loading...</Text>
-                    </View>
+                            <Text className="text-[25px] font-bold ml-[10]">INSERT TEXT LECTURE HERE</Text>
+                        </View>
+                    }
+                </View>
+                :
+                <View className="w-full h-full items-center justify-center align-middle">
+                    <Text className="text-[25px] font-bold ml-[10]">loading...</Text>
+                </View>
 
-                }
-            </SafeAreaView>
+            }
         </View>
     );
 }
