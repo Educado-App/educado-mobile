@@ -62,6 +62,7 @@
     "react-dropdown": "^1.11.0",
     "react-error-boundary": "^4.0.11",
     "react-native": "0.69.9",
+    "react-native-collapsible": "^1.6.1",
     "react-native-app-intro-slider": "^4.0.4",
     "react-native-collapsible": "^1.6.1",
     "react-native-dropdown-menu": "^2.0.0",
