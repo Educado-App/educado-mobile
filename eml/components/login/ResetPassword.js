@@ -128,7 +128,7 @@ export default function ResetPassword(props) {
             <FormTextField
               bordered={true}
               placeholder="user@email.com"
-              label="Email"
+              label="E-mail"
               required={true}
               onChangeText={(email) => setEmail(email)}
               keyboardType="email-address"
@@ -138,10 +138,9 @@ export default function ResetPassword(props) {
               {emailSent ? (
                 <View>
                   <Text className="text-left mb-[10px]">
-                    {/* We have sent a code to your mail to reset password,
-                    please enter the same code below */}
-                    Enviamos um código par ao seu email de redefinição de senha,
-                    por favor, insira o mesmo abaixo
+                    {/* We have sent a code to your mail to reset your password,
+                     please enter the code you have received below: */}
+                    Enviamos para o seu email um código de redefinição de senha. Insira o código abaixo.
                   </Text>
                   <FormTextField bordered={true} placeholder="X X X X" onChangeText={(token) => setToken(token)} />
                   <FormFieldAlert testId="tokenAlert" label={tokenAlert} />
@@ -153,10 +152,10 @@ export default function ResetPassword(props) {
                     />
                   </View>
                   <View className="mx-10 flex-row justify-center">
-                    {/* Didn't the code arrive?*/}
+                    {/* Did not receieve the code? */}
                     <Text>O código não chegou?</Text>
                     {/* Resend code*/}
-                    <Text className="underline ml-1" onPress={() => sendEmail(email)}>Reenviar cógio</Text>
+                    <Text className="underline ml-1" onPress={() => sendEmail(email)}>Reenviar código</Text>
                   </View>
                 </View>
               ) : (
