@@ -33,7 +33,6 @@ export default function ExerciseScreen() {
   const [randomPhrase, setRandomPhrase] = useState('');
   const [firstName, setFirstName] = useState('');
 
-
   const handleAnswerSelect = (answerId) => {
     setSelectedAnswer(answerId);
   };
@@ -100,6 +99,9 @@ export default function ExerciseScreen() {
 
     randomIndex = Math.floor(Math.random() * phrases.length);
     randomMessage = phrases[randomIndex];
+    if (randomMessage.length > 55) {
+      randomMessage = randomMessage.substring(0, 55) + "...";
+    }
 
     setRandomPhrase(randomMessage);
   };
@@ -107,15 +109,19 @@ export default function ExerciseScreen() {
   // Update this function to look like handleAnswerSelect, looks better
   function handleReviewAnswer() {
     const selectedAnswerData = dummyExerciseData.answers[selectedAnswer - 1];
+    const continueText = "Continuar";
 
     setButtonClassName(
       `bg-project${selectedAnswerData.isCorrect ? 'Green' : 'Red'}`
     );
 
     setShowFeedback(true);
-    setButtonText('Continuar');
-    getRandomPhrase(selectedAnswerData.isCorrect);
-    setIsPopUpVisible(true);
+    setButtonText(continueText);
+    if (buttonText !== continueText) {
+      getRandomPhrase(selectedAnswerData.isCorrect);
+      setIsPopUpVisible(true);
+    }
+    
   }
 
   useEffect(() => {
@@ -168,6 +174,7 @@ export default function ExerciseScreen() {
 
                   <View className="">
                     <RadioButton.Android
+                      disabled={showFeedback}
                       value={answer.id}
                       status={
                         selectedAnswer === answer.id ? "checked" : "unchecked"
@@ -230,9 +237,9 @@ export default function ExerciseScreen() {
       )}
 
       {isPopUpVisible ? (
-        <PopUp randomPhrase={randomPhrase} />
+        <PopUp randomPhrase={randomPhrase} xpAmount={2} textOverflow={false}/>
       ) : null}
-
+ 
 
       {/* Old exercise buttons
         <View style={{ flex: 3 }}>
