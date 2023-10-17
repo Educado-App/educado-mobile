@@ -1,21 +1,26 @@
 import renderer from "react-test-renderer";
 import ResetPassword from "../../../components/login/ResetPassword"
-import { sendResetPasswordEmail, validateResetPasswordCode } from "../../../api/userApi";
 
 jest.mock("../../../api/userApi", () => ({
-  sendResetPasswordEmail: jest.fn(async ({ email, attempts }) => {
+  sendResetPasswordEmail: jest.fn(async ({ email }) => {
     if (email !== "test@test.dk") {
       return Promise.reject({ error: { code: 'E0401' } }); // No user exists with this email!
-    } else if (attempts > 2) {
+    } else if (email !== "resend@test.dk") {
       return Promise.reject({ error: { code: 'E0406' } }); // Too many resend attempts!
     } else {
       return Promise.resolve({ data: "Email sent" });
     }
   }),
   validateResetPasswordCode: jest.fn(async ({ email, token }) => {
-    if (email !== "test@test.dk" && token !== "1234") {
+    if (email !== "test@test.dk" && email !== "expired@test.dk") {
       return Promise.reject({ error: { code: 'E0401' } }); // No user exists with this email!
-    } else if (email === "test@test.dk" && token !== "1234") { }
+    } else if (email === "test@test.dk" && token !== "1234") {
+      return Promise.reject({ error: { code: 'E0405' } }); // Invalid token!
+    } else if (email === "expired@test.dk") {
+      return Promise.reject({ error: { code: 'E0404' } }); // Code expired!
+    } else {
+      return Promise.resolve({ data: "Code validated" });
+    }
   }),
 }));
 
@@ -72,24 +77,59 @@ describe("ResetPassword", () => {
         await emailInput.props.onChangeText("test@test.com");
         await resetPasswordButton.props.onPress();
       }).then(() => {
-        expect(emailAlert.props.label).toBeDefined();
+        expect(emailAlert.props.label).not.toBe("");
       });
     });
 
     it('Error message with too many attempts', async () => {
-      attempts = 3; // Set attempts to 3 to trigger error
       const emailInput = resetPassword.root.findByProps({ testId: "emailInput" });
       const resetPasswordButton = resetPassword.root.findByProps({ testId: "resetPasswordButton" });
       const emailAlert = resetPassword.root.findByProps({ testId: "emailAlert" });
 
       await renderer.act(async () => {
-        await emailInput.props.onChangeText("test@test.dk");
+        await emailInput.props.onChangeText("resend@test.dk");
         await resetPasswordButton.props.onPress();
       }).then(() => {
-        expect(emailAlert.props.label).toBeDefined();
+        expect(emailAlert.props.label).not.toBe("");
       });
     });
 
-    it('')
-  })
+    it('Error message with invalid token', async () => {
+      const emailInput = resetPassword.root.findByProps({ testId: "emailInput" });
+      const resetPasswordButton = resetPassword.root.findByProps({ testId: "resetPasswordButton" });
+
+      await renderer.act(async () => {
+        await emailInput.props.onChangeText("test@test.dk");
+        await resetPasswordButton.props.onPress();
+
+        // initialize after rendering new page, by pressing resetPasswordButton
+        const tokenInput = resetPassword.root.findByProps({ testId: "tokenInput" });
+        const validateCodeBtn = resetPassword.root.findByProps({ testId: "validateCodeBtn" });
+        await tokenInput.props.onChangeText("1337");
+        await validateCodeBtn.props.onPress();
+      }).then(() => {
+        const tokenAlert = resetPassword.root.findByProps({ testId: "tokenAlert" });
+        expect(tokenAlert.props.label).not.toBe("");
+      })
+    });
+
+    it('Error message with expired token', async () => {
+      const emailInput = resetPassword.root.findByProps({ testId: "emailInput" });
+      const resetPasswordButton = resetPassword.root.findByProps({ testId: "resetPasswordButton" });
+
+      await renderer.act(async () => {
+        await emailInput.props.onChangeText("expired@test.dk");
+        await resetPasswordButton.props.onPress();
+
+        // initialize after rendering new page, by pressing resetPasswordButton
+        const tokenInput = resetPassword.root.findByProps({ testId: "tokenInput" });
+        const validateCodeBtn = resetPassword.root.findByProps({ testId: "validateCodeBtn" });
+        await tokenInput.props.onChangeText("1337");
+        await validateCodeBtn.props.onPress();
+      }).then(() => {
+        const tokenAlert = resetPassword.root.findByProps({ testId: "tokenAlert" });
+        expect(tokenAlert.props.label).not.toBe("");
+      })
+    });
+  });
 });

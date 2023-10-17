@@ -5,7 +5,7 @@ import FormButton from '../../components/login/FormButton';
 import PasswordEye from '../../components/login/PasswordEye';
 import { enterNewPassword } from "../../api/userApi";
 import FormFieldAlert from "./FormFieldAlert";
-import { removeEmojis, validatePasswordContainsLetter, validatePasswordLength, setPasswordContainsLetter } from "../general/Validation";
+import { removeEmojis, validatePasswordContainsLetter, validatePasswordLength } from "../general/Validation";
 import Text from '../general/Text';
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -171,9 +171,9 @@ export default function EnterNewPasswordScreen(props) {
       <View className="flex-row justify-center items-end mt-2">
         <Text className="text-gray leading-5 text-base mr-1">
           {/* Wrong email? */}
-          E-mail errado? 
+          E-mail errado?
         </Text>
-        <Text 
+        <Text
           className="text-black leading-5 text-base underline"
           onPress={() => props.resetState()}
         >

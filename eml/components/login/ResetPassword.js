@@ -97,7 +97,7 @@ export default function ResetPassword(props) {
           switch (error?.error?.code) {
             case 'E0401':
               // No user exists with this email!
-              setTokenAlert(emailAlertMessage);
+              setPasswordResetAlert(emailAlertMessage);
               break;
 
             case 'E0404':
@@ -144,13 +144,19 @@ export default function ResetPassword(props) {
                      please enter the code you have received below: */}
                     Enviamos para o seu email um código de redefinição de senha. Insira o código abaixo.
                   </Text>
-                  <FormTextField bordered={true} placeholder="X X X X" onChangeText={(token) => setToken(token)} />
+                  <FormTextField
+                    bordered={true}
+                    placeholder="X X X X"
+                    onChangeText={(token) => setToken(token)}
+                    testId="tokenInput"
+                  />
                   <FormFieldAlert testId="tokenAlert" label={tokenAlert} />
                   <View className="mt-[40px] mb-[24px]">
                     <FormButton
                       // Continue 
                       label="Continuar"
                       onPress={() => validateCode(email, token)}
+                      testId="validateCodeBtn"
                     />
                   </View>
                   <View className="mx-10 flex-row justify-center">
