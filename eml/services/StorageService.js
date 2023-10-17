@@ -5,30 +5,10 @@ import * as DirectoryService from '../services/DirectoryService';
 
 const COURSE_LIST = '@courseList';
 const USER_INFO = '@userInfo';
-const USER_ID = '@userId';
 
-export const getUserId = async () => {
-  try {
-    const userId = await AsyncStorage.getItem(USER_ID);
-    return userId;
-  } catch (e) {
-    console.log("Couldn't fetch user id", e);
-    throw e;
-  }
-};
-
-export const getUserInfo = async (userId) => {
+export const getUserInfo = async () => {
   try {
     const fetchedUserInfo = JSON.parse(await AsyncStorage.getItem(USER_INFO));
-
-    if (fetchedUserInfo === null) {
-      const res = await userApi.getUser(userId);
-
-      await AsyncStorage.setItem(USER_INFO, JSON.stringify(res.data));
-
-      fetchedUserInfo = res.data;
-    }
-
     return fetchedUserInfo;
   } catch (e) {
     console.log("Couldn't fetch user info", e);

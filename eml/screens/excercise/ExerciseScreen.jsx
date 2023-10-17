@@ -32,6 +32,7 @@ export default function ExerciseScreen() {
   const [isPopUpVisible, setIsPopUpVisible] = useState(false); // Used to render the pop up
   const [randomPhrase, setRandomPhrase] = useState('');
   const [firstName, setFirstName] = useState('');
+  const [isCorrectAnswer, setIsCorrectAnswer] = useState(false);
 
   const handleAnswerSelect = (answerId) => {
     setSelectedAnswer(answerId);
@@ -99,8 +100,8 @@ export default function ExerciseScreen() {
 
     randomIndex = Math.floor(Math.random() * phrases.length);
     randomMessage = phrases[randomIndex];
-    if (randomMessage.length > 55) {
-      randomMessage = randomMessage.substring(0, 55) + "...";
+    if (randomMessage.length > 69) {
+      randomMessage = randomMessage.substring(0, 69) + "...";
     }
 
     setRandomPhrase(randomMessage);
@@ -110,18 +111,19 @@ export default function ExerciseScreen() {
   function handleReviewAnswer() {
     const selectedAnswerData = dummyExerciseData.answers[selectedAnswer - 1];
     const continueText = "Continuar";
+    setIsCorrectAnswer(selectedAnswerData.isCorrect);
 
     setButtonClassName(
-      `bg-project${selectedAnswerData.isCorrect ? 'Green' : 'Red'}`
+      `bg-project${isCorrectAnswer ? 'Green' : 'Red'}`
     );
 
     setShowFeedback(true);
     setButtonText(continueText);
     if (buttonText !== continueText) {
-      getRandomPhrase(selectedAnswerData.isCorrect);
+      getRandomPhrase(isCorrectAnswer);
       setIsPopUpVisible(true);
     }
-    
+
   }
 
   useEffect(() => {
@@ -130,8 +132,7 @@ export default function ExerciseScreen() {
     });
 
     const fetchUserFirstName = async () => {
-      const userId = await StorageService.getUserId();
-      const userInfo = await StorageService.getUserInfo(userId);
+      const userInfo = await StorageService.getUserInfo();
       setFirstName(userInfo.firstName);
     };
     fetchUserFirstName();
@@ -237,9 +238,8 @@ export default function ExerciseScreen() {
       )}
 
       {isPopUpVisible ? (
-        <PopUp randomPhrase={randomPhrase} xpAmount={2} textOverflow={false}/>
+        <PopUp randomPhrase={randomPhrase} xpAmount={2} isCorrectAnswer={isCorrectAnswer} />
       ) : null}
- 
 
       {/* Old exercise buttons
         <View style={{ flex: 3 }}>
