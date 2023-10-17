@@ -1,4 +1,5 @@
 import renderer from 'react-test-renderer';
+import React from "react";
 import LoginForm from '../../../components/login/LoginForm';
 import errorCodes from '../../../components/general/errorCodes';
 

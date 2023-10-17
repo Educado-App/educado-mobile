@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { React, useState } from "react";
+import React, { useState } from "react";
 import FormTextField from "./FormTextField";
 import FormButton from "./FormButton";
 import EducadoModal from "../general/EducadoModal";

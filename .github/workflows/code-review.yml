@@ -1,0 +1,39 @@
+name: Code Review
+
+on:
+  pull_request:
+    branches:
+      - gamified
+jobs:
+  code-review:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run eslint with reviewdog
+        run: |
+          npx eslint . --format=stylish | reviewdog -f=eslint -reporter=github-pr-check
+
+        
+      - # Request Code Review from the "social-gamified-learning-team" team
+      - name: Request Code Review from Team
+        run: |
+          PR_NUMBER=$(jq -r .pull_request.number "$GITHUB_EVENT_PATH")
+          TEAM_SLUG="social-gamified-learning-team"
+          ACCESS_TOKEN="$GITHUB_TOKEN"
+
+          curl -X POST \
+            -H "Authorization: token $ACCESS_TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            "https://api.github.com/repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER/requested_teams" \
+            -d "{\"teams\": [\"$TEAM_SLUG\"]}"

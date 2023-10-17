@@ -63,14 +63,46 @@ export const loginUser = async (obj) => {
     }
   }
 }
-/**
- * Sends a request to the backend to delete a user.
- * @param {user_id} user_id
- */
+
 export const deleteUser = async (user_id) => {
-  const res = await axios.delete(url + "/api/eml/delete/" + user_id);
-  return res.data;
-}
+  try {
+    const res = await axios.delete(url + `/api/user/delete/` + user_id);
+    return res.data;
+  } catch (error) {
+    // Handle errors here
+    throw error; // You may want to handle the error or log it
+  }
+};
+
+export const updateFirstName = async (user_id, new_FirstName) => {
+  try {
+    const res = await axios.put(url + `/api/user/update-first-name/` + user_id, { newFirstName: new_FirstName });
+    return res.data;
+  } catch (error) {
+    // Handle errors here
+    throw error; // You may want to handle the error or log it
+  }
+};
+
+export const updateLastName = async (user_id, new_LastName) => {
+  try {
+    const res = await axios.put(url + `/api/user/update-last-name/` + user_id, { newLastName: new_LastName });
+    return res.data;
+  } catch (error) {
+    // Handle errors here
+    throw error; // You may want to handle the error or log it
+  }
+};
+
+export const updateUserEmail = async (user_id, new_email) => {
+  try {
+    const res = await axios.put(url + `/api/user/update-email/` + user_id, { newEmail: new_email });
+    return res.data;
+  } catch (error) {
+    // Handle errors here
+    throw error; // You may want to handle the error or log it
+  }
+};
 
 export const enrollInCourse = async (user_Id, course_Id) => {
   try {

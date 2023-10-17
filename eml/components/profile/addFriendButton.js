@@ -1,6 +1,7 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { Icon } from '@rneui/themed'
+import Text from '../general/Text';
 
 const AddFriendButton = () => {
   return (

@@ -75,7 +75,7 @@ export const getAllSections = async (sections) => {
     sections,
   };
   // Send request to S3 server
-  const res = await axios.post(url + '/api/eml/course/getallsections', obj);
+  const res = await axios.post(url + '/api/eml/courses/getallsections', obj);
 
   return res.data;
 };

@@ -2,6 +2,7 @@ import { View, TouchableOpacity, Alert } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import React from 'react';
 
 const LOGIN_TOKEN = '@loginToken'
 const USER_INFO = '@userInfo'
