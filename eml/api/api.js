@@ -2,7 +2,7 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const testUrl = "http://localhost:8888";
-const testExpo = "http://172.30.213.180:8888"; //Change to local expo ip
+const testExpo = "http://172.30.213.78:8888"; //Change to local expo ip
 const digitalOcean = "http://207.154.213.68:8888";
 
 const url = testExpo;
@@ -30,6 +30,22 @@ export const getAuthToken = async () => {
     });
   return res.data;
 };
+
+//CREATED BY VIDEOSTREAMING TEAM
+export const downloadFromBucketByFileName = async (fileName) => {
+  try {
+    console.log(`${url}/api/content/download/?fileName=${fileName}`);
+    const res = await axios.get(
+      `${url}/api/content/download/?fileName=${fileName}`
+    );
+    console.log("res.data", res);
+    const workingUrl = { uri: `data:video/mp4;base64,${res.data}` };
+    return workingUrl;
+  } catch (err) {
+    console.log("Error getting bucket video", err);
+  }
+};
+
 /*
 
 export const getTestCourse = async () => {
@@ -93,6 +109,7 @@ catch (err) {
   console.log("Error getting bucket image",err);
 }
 }
+
 
 
 export const getCoverPhoto = async (course_id) => {
