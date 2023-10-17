@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from 'react';
-import { View } from 'react-native';
+import { View, Alert } from 'react-native';
 import FormTextField from '../../components/login/FormTextField';
 import FormButton from '../../components/login/FormButton';
 import PasswordEye from '../../components/login/PasswordEye';
@@ -85,6 +85,7 @@ export default function EnterNewPasswordScreen(props) {
       await enterNewPassword(obj);
       props.hideModal();
       props.resetState();
+      showPasswordChangedSuccess();
     } catch (error) {
       switch (error?.error?.code) {
         case 'E0401':
@@ -111,6 +112,20 @@ export default function EnterNewPasswordScreen(props) {
     } else {
       return false;
     }
+  }
+
+  const showPasswordChangedSuccess = () => {
+    Alert.alert(
+      "Sucesso!", // Success!
+      "A senha foi alterada.", // Password has been changed
+      [{
+        text: "OK", 
+        style: "cancel",
+      }],
+      {
+        cancelable: true,
+      }
+    );
   }
 
   return (

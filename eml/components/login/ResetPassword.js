@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { View, Alert } from "react-native";
 import { React, useState, useEffect } from "react";
 import FormTextField from "./FormTextField";
 import FormButton from "./FormButton";
@@ -50,6 +50,7 @@ export default function ResetPassword(props) {
         .then(async () => {
           setEmailSent(true);
           setPasswordResetAlert("");
+          showEmailSentSuccess(email);
         }).catch((error) => {
           switch (error?.error?.code) {
             case 'E0401':
@@ -119,7 +120,23 @@ export default function ResetPassword(props) {
   const resetState = () => {
     setEmailSent(false);
     setCodeEntered(false);
+    setPasswordResetAlert("");
+    setTokenAlert("");
   };
+
+  const showEmailSentSuccess = (email) => {
+    Alert.alert(
+      "Sucesso!", // Success!
+      "Código enviado para: " + email, // Code sent to: email
+      [{
+        text: "OK", 
+        style: "cancel",
+      }],
+      {
+        cancelable: true,
+      }
+    );
+  }
 
   return (
     <EducadoModal modalVisible={props.modalVisible} closeModal={props.onModalClose} id="EducadoModal" title="Redefinição de senha">
