@@ -32,8 +32,8 @@ export default function SectionCard({ section }) {
 
     useEffect(() => {
 
-
-
+        console.log("THIS IS SECTION CARD")
+        console.log("WE LOG SECTION", section.parentCourseId)
         fetchLectures(section.sectionId);
 
 
@@ -45,7 +45,6 @@ export default function SectionCard({ section }) {
     //function for fetching lectures in section
     const [lectures, setLectures] = useState([]); // [lecture1, lecture2, lecture3
     const fetchLectures = async (sectionId) => {
-        console.log("fetching lectures for section: " + sectionId);
         const res = await getSectionAndLecturesBySectionId(sectionId);
 
         if (!res?.components) {
@@ -55,7 +54,6 @@ export default function SectionCard({ section }) {
 
         setLectures(res.components);
 
-        console.log("lectures ", res.components)
     }
 
     const toggleDropdown = () => {
@@ -69,8 +67,11 @@ export default function SectionCard({ section }) {
     //const navigation = useNavigation();
     // Empty function that does nothing
     const handleLecturePress = (lectureId) => {
+
         navigation.navigate('Lecture', {
-            lectureId: lectureId
+
+            lectureId: lectureId,
+            courseId: section.parentCourseId,
         })
     };
 

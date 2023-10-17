@@ -7,95 +7,96 @@ import CustomProgressBar from '../../components/progress/ProgressBar2';
 import { ScrollView } from "react-native-gesture-handler";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from '@react-navigation/native';
-import { getLectureById } from '../../api/api';
+import { getCourse, getLectureById } from '../../api/api';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import VideoLectureScreen from './VideoLectureScreen';
+import { downloadFromBucketByFileName } from '../../api/api';
 
 import healthLogo from '../../assets/healthLogo.png'
 
 export default function LectureScreen({ route }) {
 
-    const { lectureId } = route.params;
+    const { lectureId, courseId } = route.params;
     const navigation = useNavigation();
     const [lecture, setLecture] = useState(null);
 
     useEffect(() => {
-        console.log("lectureId", lectureId)
+        console.log("THIS IS THE LECTURE SCREEN")
         getLecture(lectureId);
+        getCourseById(courseId);
+        downloadVideo(lectureId);
     }, [])
+
+    const [video, setVideo] = useState(null);
+
+    //download video
+    const downloadVideo = async (fileId) => {
+
+        try {
+            console.log("DOWNLOADINGVIDEO")
+            const vidRes = await downloadFromBucketByFileName(fileId + "_transcoded360x640.mp4");
+            setVideo(vidRes)
+            console.log("vidRes", vidRes)
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
+
+
 
     const getLecture = async (id) => {
         const res = await getLectureById(id);
-        console.log("lecture", res)
         setLecture(res);
     }
 
-    //make dummydata for testing
-    const dummyData = {
-        intro : "Nesse curso você vai aprender sobre finanças pessoais e como gerenciar sua vida financeira. Nesse curso você vai aprender sobre finanças pessoais e como gerenciar sua vida financeira.",
-        description : "Nesse curso você vai aprender sobre finanças pessoais e como gerenciar sua vida financeira.",
-        lectureImage : require('../../assets/dummyCourseImage.png'),
-        textUnderImage : "Nesse curso você vai aprender sobre finanças pessoais e como gerenciar sua vida financeira.Nesse curso você."
+    const [course, setCourse] = useState(null);
+
+    const getCourseById = async (id) => {
+
+        try {
+            const res = await getCourse(id);
+            console.log(res)
+            setCourse(res);
+        }
+        catch (err) {
+            console.log("error", err)
+        }
     }
+
 
 
 
     return (
 
         <View className="flex-1 bg-[#f1f9fb]">
-            <SafeAreaView> 
-            {lecture ?
-                <View className="flex-col w-full h-full "  >
-                    <View className="px-6 mt-4 mb-8">
-                        <View className=" flex flex-row justify-between items-center">
-                           
-                                <View>
-                                    <TouchableOpacity onPress={() => navigation.goBack()}>
-                                        <MaterialCommunityIcons name="chevron-left" size={20} color="black" />
-                                    </TouchableOpacity>
-                                </View>
+            <SafeAreaView>
+                {lecture && course ?
 
-                                <View>
-                                    <CustomProgressBar progress={28} width={0.70} height={0.01} />
+                    <View>
+                        {video ?
+                            <VideoLectureScreen lecture={lecture} course={course} videoUri={video} />
+                            :
+                            <View className="w-full h-full items-center justify-center align-middle">
+                                {/* REPLACE THIS WHEN MERGED, THERE SHOULD BE A COMPONENT FOR THIS TOP BAR */}
+                                <View className="flex-row w-full items-center p-[10]">
+                                    <View className="pl-2">
+                                        <TouchableOpacity onPress={() => navigation.goBack()} style={{ marginRight: 10 }}>
+                                            <MaterialCommunityIcons name="chevron-left" size={25} color="black" />
+                                        </TouchableOpacity>
+                                    </View>
+                                    <Text className="text-[25px] text-black font-bold ml-[10]">{lecture.title}</Text>
                                 </View>
-
-                                <View>
-                                    <Text className=" text-xs font-extrabold">
-                                        28%
-                                    </Text>
-                                </View>
-                      
-                        </View>
+                                <Text className="text-[25px] font-bold ml-[10]">INSERT TEXT LECTURE HERE</Text>
+                            </View>
+                        }
                     </View>
-                    <View className="flex-1 flex-col items-center">
-                            
-                            <View className="items-center">
-                                <Text className="text-2xl font-extrabold uppercase pb-4">Bem vindo!</Text>
-                            </View>
-
-                            <View className="px-4">
-                                <Text className="text-md text-primary font-normal">{dummyData.intro}</Text>
-                            </View>
-
-                            <View className="mt-8 px-4">
-                                <Text className="text-md text-gray font-normal">{dummyData.description}</Text>
-                            </View>
-
-                            <View className="mt-8">
-                                <Image
-                                    className=" w-80"
-                                    source={dummyData.lectureImage}
-                                />
-                            </View>
-                            <View className="mt-8 px-4">
-                                <Text className="text-md text-gray font-normal">{dummyData.textUnderImage}</Text>
-                            </View>
+                    :
+                    <View className="w-full h-full items-center justify-center align-middle">
+                        <Text className="text-[25px] font-bold ml-[10]">loading...</Text>
                     </View>
-                </View>
-                
-                : 
-                <View className="w-full h-full items-center justify-center align-middle">
-                    <Text className="text-[25px] font-bold ml-[10]">loading...</Text></View>
-            }
+
+                }
             </SafeAreaView>
         </View>
     );

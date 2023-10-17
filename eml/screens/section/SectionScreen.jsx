@@ -26,7 +26,6 @@ export default function SectionScreen({ route }) {
   }
   async function getCourse(id) {
     const courseData = await StorageService.getCourseId(id);
-    console.log("fetched courses", courseData)
     setCourse(courseData);
 
   }

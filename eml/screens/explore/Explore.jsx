@@ -72,7 +72,7 @@ function Explore() {
       />
       <ScrollView vertical >
         <View className="overflow-y-auto">
-          {courses && filteredCourses.map((course, index) => (
+          {courses && filteredCourses && filteredCourses.map((course, index) => (
 
             <ExploreCard key={index} isPublished={course.published} course={course} />
 
