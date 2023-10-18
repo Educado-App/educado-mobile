@@ -42,7 +42,7 @@ export default function SectionScreen({ route }) {
       const sectionData = await StorageService.getSectionList(id);
       setSections(sectionData);
     } catch (error) {
-      console.error("Error loading sections:", error);
+      throw new Error("Error loading sections:", error);
     }
   }
 
@@ -55,7 +55,7 @@ export default function SectionScreen({ route }) {
       const courseData = await StorageService.getCourseId(id);
       setCourse(courseData);
     } catch (error) {
-      console.error("Error loading course:", error);
+      throw new Error("Error loading course:", error);
     }
   }
 

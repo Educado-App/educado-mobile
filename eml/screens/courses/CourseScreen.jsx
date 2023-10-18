@@ -30,19 +30,16 @@ export default function CourseScreen() {
          * @returns {void}
          */
     async function loadCourses() {
-        try {
-            const courseData = await StorageService.getSubCourseList();
-            if (courseData.length !== 0 && Array.isArray(courseData)) {
-                setCourses(courseData);
-                setCourseLoaded(true);
-            } else {
-                setCourses([]);
-                setCourseLoaded(false);
-            }
-
-        } catch (error) {
-            console.error("Error checking subscription:", error);
+        const courseData = await StorageService.getSubCourseList();
+        if (courseData.length !== 0 && Array.isArray(courseData)) {
+            setCourses(courseData);
+            setCourseLoaded(true);
+        } else {
+            setCourses([]);
+            setCourseLoaded(false);
         }
+
+    
     }
 
     useEffect(() => {
@@ -59,8 +56,8 @@ export default function CourseScreen() {
                 <View height="100%">
                     <IconHeader title={"Bem Vindo!"} />
                     <ScrollView showsVerticalScrollIndicator={false}>
-                        {courses.map((course) => (
-                            <CourseCard key={course.courseId} course={course}></CourseCard>
+                        {courses.map((course, index) => (
+                            <CourseCard key={index} course={course}></CourseCard>
                         )
                         )
                         }

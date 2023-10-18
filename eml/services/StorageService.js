@@ -17,7 +17,7 @@ export const getCourseList = async () => {
     if (courseList !== null) {
       return courseList;
     }
-    console.error(e);
+    throw e;
   }
 };
 export const refreshCourseList = async () => {
@@ -45,7 +45,7 @@ export const refreshCourseList = async () => {
       return newCourseList;
     })
     .catch((e) => {
-      console.log(e);
+      throw e;
     });
 };
 
@@ -59,7 +59,7 @@ export const getSubCourseList = async () => {
     if (courseList !== null) {
       return courseList;
     }
-    console.error(e);
+    throw e;
   }
 };
 export const refreshSubCourseList = async (val) => {
@@ -88,8 +88,7 @@ export const refreshSubCourseList = async (val) => {
       return newCourseList;
     })
     .catch((e) => {
-
-      console.log(e);
+      throw e;
     });
 };
 
@@ -102,7 +101,7 @@ export const getSectionList = async (course_id) => {
     if (sectionList !== null) {
       return sectionList;
     }
-    console.error(e);
+    throw e;
   }
 };
 export const refreshSectionList = async (course_id) => {
@@ -126,7 +125,7 @@ export const refreshSectionList = async (course_id) => {
       return newSectionList;
     })
     .catch((e) => {
-      console.log(e);
+      throw e;
     });
 };
 
@@ -140,7 +139,7 @@ export const getCourseId = async (id) => {
       console.log(course);
       return course;
     }
-    console.error(e);
+    throw e;
   }
 };
 export const refreshCourse = async (id) => {
@@ -150,7 +149,7 @@ export const refreshCourse = async (id) => {
       return course;
     })
     .catch((e) => {
-      console.log(e);
+      throw e;
     });
 };
 

@@ -68,7 +68,28 @@ exports[`CourseCard renders CourseCard correctly 1`] = `
         ]
       }
     >
-      <Text />
+      <Text
+        allowFontScaling={false}
+        selectable={false}
+        style={
+          [
+            {
+              "color": undefined,
+              "fontSize": 28,
+            },
+            undefined,
+            {
+              "fontFamily": "material-community",
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+            },
+            {},
+          ]
+        }
+      >
+        󰑴
+         
+      </Text>
       <Text
         style={
           [
@@ -130,7 +151,27 @@ exports[`CourseCard renders CourseCard correctly 1`] = `
         ]
       }
     >
-      <Text />
+      <Text
+        allowFontScaling={false}
+        selectable={false}
+        style={
+          [
+            {
+              "color": "gray",
+              "fontSize": 18,
+            },
+            undefined,
+            {
+              "fontFamily": "material-community",
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+            },
+            {},
+          ]
+        }
+      >
+        󰑴
+      </Text>
       <Text
         style={
           [
@@ -152,7 +193,27 @@ exports[`CourseCard renders CourseCard correctly 1`] = `
       >
         category
       </Text>
-      <Text />
+      <Text
+        allowFontScaling={false}
+        selectable={false}
+        style={
+          [
+            {
+              "color": "gray",
+              "fontSize": 18,
+            },
+            undefined,
+            {
+              "fontFamily": "material-community",
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+            },
+            {},
+          ]
+        }
+      >
+        󰥔
+      </Text>
       <Text
         style={
           [
@@ -297,7 +358,27 @@ exports[`CourseCard renders CourseCard correctly 1`] = `
           ]
         }
       >
-        <Text />
+        <Text
+          allowFontScaling={false}
+          selectable={false}
+          style={
+            [
+              {
+                "color": "#5ECCE9",
+                "fontSize": 28,
+              },
+              undefined,
+              {
+                "fontFamily": "material-community",
+                "fontStyle": "normal",
+                "fontWeight": "normal",
+              },
+              {},
+            ]
+          }
+        >
+          󰐌
+        </Text>
       </View>
     </View>
   </View>

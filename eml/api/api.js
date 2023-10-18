@@ -103,7 +103,7 @@ export const getCourse = async (courseId) => {
     return res.data;
 
   } catch (error) {
-    console.log("Error getting specific course, error message: " + error);
+    throw new Error("Error getting specific course: " + error);
   }
 };
 
@@ -114,7 +114,7 @@ export const getCourses = async () => {
     return res.data;
 
   } catch (error) {
-    console.log("Error getting all courses, error message: " + error);
+    throw new Error("Error getting all courses: " + error); 
   }
 };
 
@@ -126,7 +126,7 @@ export const getAllSections = async (courseId) => {
     return res.data;
 
   } catch (error) {
-    console.log("Error getting all sections for specific course, error message: " + error);
+    throw new Error("Error getting all sections: " + error);
   }
 
 };
@@ -138,7 +138,7 @@ export const getSection = async (courseId, sectionId) => {
     return res.data;
   }
   catch (error) {
-    console.log("Error getting specific section, error message: " + error);
+    throw new Error("Error getting specific section: " + error);
   }
 };
 
@@ -149,7 +149,7 @@ export const getExercisesInSection = async (courseId, sectionId) => {
     return res.data;
 
   } catch (error) {
-    console.log("Error getting exercises for specific section, error message: " + error);
+    throw new Error("Error getting exercises in section: " + error);  
   }
 
 };
@@ -171,7 +171,7 @@ export const getSubscriptions = async () => {
     return res.data;
 
   } catch (error) {
-    console.log("Error getting subscriptions, error message: " + error);
+    throw new Error("Error getting user subscriptions: " + error);
   }
 
 
@@ -179,7 +179,7 @@ export const getSubscriptions = async () => {
 
 
 // Subscribe to course
-export async function subscribeToCourse(courseId) {
+export const subscribeToCourse = async (courseId) => {
 
   const userId = await AsyncStorage.getItem("@userId");
   const courseID = courseId;
@@ -192,13 +192,13 @@ export async function subscribeToCourse(courseId) {
       console.log("Subscribed successfully: " + response.data)
     })
     .catch(error => {
-      console.log("Error subscribing to course: " + error.message)
+      throw new Error("Error subscribing to course: " + error.message)
     })
 
 };
 
 // Unubscribe to course
-export async function unSubscribeToCourse(courseId) {
+export const unSubscribeToCourse = async (courseId) => {
 
   const userId = await AsyncStorage.getItem("@userId");
   const courseID = courseId;
@@ -210,11 +210,11 @@ export async function unSubscribeToCourse(courseId) {
       console.log("Unsubscribed successfully: " + response.data)
     })
     .catch(error => {
-      console.log("Error unsubscribing to course: " + error.message)
+      throw new Error("Error unsubscribing to course: " + error.message)
     })
 };
 
-export async function ifSubscribed(courseId) {
+export const ifSubscribed = async (courseId)=> {
 
 
   const userId = await AsyncStorage.getItem("@userId");
@@ -228,7 +228,7 @@ export async function ifSubscribed(courseId) {
     return (res.data);
 
   } catch (error) {
-    console.log("Error checking if user is subscribed to course: " + error);
+    throw new Error("Error getting user subscriptions: " + error);
   }
 
 }

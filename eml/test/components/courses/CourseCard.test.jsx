@@ -53,9 +53,9 @@ describe("CourseCard", () => {
     },
   ];
 
-  beforeEach(() => {
+  beforeEach(async () => {
     navigated = false;
-    AsyncStorage.clear();
+    await AsyncStorage.clear();
     courseCard = renderer.create(<CourseCard course={courses} />);
   });
 
@@ -67,21 +67,21 @@ describe("CourseCard", () => {
   /**
    * Tests if the CourseCard component renders correctly.
    */
-  it("renders CourseCard correctly", () => {
-    expect(courseCard.toJSON()).toMatchSnapshot();
+  it("renders CourseCard correctly", async () => {
+    expect(await courseCard.toJSON()).toMatchSnapshot();
   });
 
   /**
    * Tests if the CourseCard component navigates to the correct section when pressed.
    */
-  it('Navigate to section when pressing the course card', () => {
+  it('Navigate to section when pressing the course card', async () => {
     /**
      * Finds the button element in the CourseCard component using the testID prop.
      * @param {ReactWrapper} courseCard - The CourseCard component wrapper.
      * @returns {ReactWrapper} - The button element wrapper.
      */
     const button = courseCard.root.findByProps({ testID: 'courseCard' });
-    button.props.onPress();
+    await button.props.onPress();
     expect(navigated).toBe(true);
   });
 });

@@ -46,8 +46,8 @@ describe("CourseScreen", () => {
   /**
    * Test case to check if the CourseScreen component renders correctly when there are no courses.
    */
-  it("renders CourseScreen correctly when theres no courses", () => {
-    expect(courseScreen.toJSON()).toMatchSnapshot();
+  it("renders CourseScreen correctly when theres no courses", async () => {
+    expect(await courseScreen.toJSON()).toMatchSnapshot();
   });
 
   /**
@@ -81,15 +81,15 @@ describe("CourseScreen", () => {
       return courseScreen = renderer.create(<CourseScreen />);
     });
 
-    expect(courseScreen.toJSON()).toMatchSnapshot();
-    expect(courseScreen.root.findAllByType(CourseCard)).toHaveLength(2);
+    expect(await courseScreen.toJSON()).toMatchSnapshot();
+    expect(await courseScreen.root.findAllByType(CourseCard)).toHaveLength(2);
   });
 
   /**
    * Test case to check if the CourseScreen component navigates to the explorer screen when the explore button is pressed.
    */
-  it('Navigate to explorer when pressing the explore button', () => {
-    const button = courseScreen.root.findByProps({ testID: 'exploreButton' });
+  it('Navigate to explorer when pressing the explore button', async () => {
+    const button = await courseScreen.root.findByProps({ testID: 'exploreButton' });
     button.props.onPress();
     expect(navigated).toBe(true);
   });

@@ -57,7 +57,27 @@ exports[`<SubscriptionCancel /> SubscriptionCancel button renders 1`] = `
         ]
       }
     >
-      <Text />
+      <Text
+        allowFontScaling={false}
+        selectable={false}
+        style={
+          [
+            {
+              "color": "black",
+              "fontSize": 25,
+            },
+            undefined,
+            {
+              "fontFamily": "material-community",
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+            },
+            {},
+          ]
+        }
+      >
+        󰃀
+      </Text>
     </Text>
   </View>
 </View>

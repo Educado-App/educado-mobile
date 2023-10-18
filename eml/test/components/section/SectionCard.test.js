@@ -31,12 +31,17 @@ const mockSection = {
     total: 10
 };
 
-beforeEach(() => {
+beforeEach(async () => {
     sectionCard = renderer.create(<SectionCard section={mockSection} />);
 });
 
+afterAll(() => {
+    jest.resetModules();
+    jest.restoreAllMocks();
+});
+
 describe('<SectionCard />', () => {
-    it('Renders correctly with provided data', () => {
+    it('Renders correctly with provided data', async () => {
         const { getByText } = render(<SectionCard section={mockSection} />);
 
         // Check if title and description are displayed
@@ -44,7 +49,7 @@ describe('<SectionCard />', () => {
         expect(getByText(mockSection.description)).toBeTruthy();
     });
 
-    it('Displays correct status based on progress', () => {
+    it('Displays correct status based on progress', async () => {
         const { queryByText } = render(<SectionCard section={mockSection} />);
 
         // Use a regular expression to match the 0/total pattern
@@ -52,7 +57,7 @@ describe('<SectionCard />', () => {
         expect(queryByText(pattern)).toBeTruthy();
     });
 
-    it('should expand and collapse when clicked', () => {
+    it('should expand and collapse when clicked', async () => {
         /**
          * Represents a sample section.
          * @typedef {Object} Section

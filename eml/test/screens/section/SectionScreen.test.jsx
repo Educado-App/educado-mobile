@@ -104,19 +104,23 @@ describe("SectionScreen", () => {
     const StorageService = require("../../../services/StorageService");
     jest.spyOn(StorageService, "getSectionList").mockResolvedValue(sections);
 
-    sectionScreen = renderer.create(<SectionScreen route={route} />);
+    
+    await renderer.act(async () => {
+      return sectionScreen = renderer.create(<SectionScreen route={route} />);
+    });
+    
 
     await new Promise((resolve) => setTimeout(resolve, 0));
 
-    expect(sectionScreen.root.findAllByType(SectionCard)).toHaveLength(2);
-    expect(sectionScreen.toJSON()).toMatchSnapshot();
+    expect(await sectionScreen.root.findAllByType(SectionCard)).toHaveLength(2);
+    expect(await sectionScreen.toJSON()).toMatchSnapshot();
   });
 
   describe("unsubAlert", () => {
     /**
      * Tests that the unsub function is called when "Sim" is pressed.
      */
-    it("should call unsub function when 'Sim' is pressed", () => {
+    it("should call unsub function when 'Sim' is pressed", async () => {
       /**
        * Function that displays an alert asking the user if they want to unsubscribe.
        * @function unsubAlert
@@ -144,7 +148,7 @@ describe("SectionScreen", () => {
     /**
      * Tests that the unsub function is not called when "Não" is pressed.
      */
-    it("should not call unsub function when 'Não' is pressed", () => {
+    it("should not call unsub function when 'Não' is pressed", async () => {
       /**
        * Function that displays an alert asking the user if they want to unsubscribe.
        * @function unsubAlert

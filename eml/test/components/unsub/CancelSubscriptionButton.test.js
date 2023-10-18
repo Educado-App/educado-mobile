@@ -26,7 +26,7 @@ describe('<SubscriptionCancel />', () => {
   /**
    * Resets modules and restores all mocks after all tests have run.
    */
-  afterAll(() => {
+  afterAll(async () => {
     jest.resetModules();
     jest.restoreAllMocks();
   });
@@ -34,7 +34,7 @@ describe('<SubscriptionCancel />', () => {
   /**
    * Resets pressed to false and creates a new instance of SubscriptionCancel before each test.
    */
-  beforeEach(() => {
+  beforeEach(async () => {
     pressed = false;
     subscriptionCancel = renderer.create(<SubscriptionCancel onPress={mockOnPress} />);
   });
@@ -42,15 +42,15 @@ describe('<SubscriptionCancel />', () => {
   /**
    * Tests if the SubscriptionCancel button renders correctly.
    */
-  it('SubscriptionCancel button renders', () => {
-    expect(subscriptionCancel.toJSON()).toMatchSnapshot();
+  it('SubscriptionCancel button renders', async () => {
+    expect(await subscriptionCancel.toJSON()).toMatchSnapshot();
   });
 
   /**
    * Tests if the onPress function is called when the SubscriptionCancel button is pressed.
    */
   it('Pressing SubscriptionCancel button calls onPress function', async () => {
-    const subscriptionCancelButton = subscriptionCancel.root.findByProps({ testID: "subscriptionCancelButton" });
+    const subscriptionCancelButton = await subscriptionCancel.root.findByProps({ testID: "subscriptionCancelButton" });
     await renderer.act(() => {
       return subscriptionCancelButton.props.onPress();
     });
