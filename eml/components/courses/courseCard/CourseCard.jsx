@@ -40,6 +40,7 @@ export default function CourseCard({ course }) {
                     <Text className="mx-[2.5%] my-[3%]">{course.estimatedHours ? course.estimatedHours + ' hora(s)' : 'duration'}</Text>
                 </View>
                 <View className="flex-row items-center">
+                    {/* TODO: Implement progress dynamically */}
                     <CustomProgressBar width={60} progress={50} height={1} />
                     <Pressable className="z-[1]"
                         onPress={() => {
@@ -48,6 +49,7 @@ export default function CourseCard({ course }) {
                             });
                         }}
                     >
+                        {/* TODO: Implement color from Tailwind config */}
                         <MaterialCommunityIcons size={28} name="play-circle" color={'#5ECCE9'}></MaterialCommunityIcons>
                     </Pressable>
                 </View>
