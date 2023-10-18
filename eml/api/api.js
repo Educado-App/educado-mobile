@@ -114,7 +114,7 @@ export const getCourses = async () => {
     return res.data;
 
   } catch (error) {
-    throw new Error("Error getting all courses: " + error); 
+    throw new Error("Error getting all courses: " + error);
   }
 };
 
@@ -149,7 +149,7 @@ export const getExercisesInSection = async (courseId, sectionId) => {
     return res.data;
 
   } catch (error) {
-    throw new Error("Error getting exercises in section: " + error);  
+    throw new Error("Error getting exercises in section: " + error);
   }
 
 };
@@ -214,7 +214,7 @@ export const unSubscribeToCourse = async (courseId) => {
     })
 };
 
-export const ifSubscribed = async (courseId)=> {
+export const ifSubscribed = async (courseId) => {
 
 
   const userId = await AsyncStorage.getItem("@userId");
@@ -232,4 +232,3 @@ export const ifSubscribed = async (courseId)=> {
   }
 
 }
-

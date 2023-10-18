@@ -11,13 +11,13 @@ const COURSE = '@course';
 export const getCourseList = async () => {
   try {
     return await refreshCourseList();
-  } catch (e) {
+  } catch (error) {
     // Check if the course list already exists in AsyncStorage
     let courseList = JSON.parse(await AsyncStorage.getItem(COURSE_LIST));
     if (courseList !== null) {
       return courseList;
     }
-    throw e;
+    throw new Error("Error getting course list from async storage: " + error.message)
   }
 };
 export const refreshCourseList = async () => {
@@ -44,8 +44,8 @@ export const refreshCourseList = async () => {
       await AsyncStorage.setItem(COURSE_LIST, JSON.stringify(newCourseList));
       return newCourseList;
     })
-    .catch((e) => {
-      throw e;
+    .catch((error) => {
+      throw new Error("Error getting course list from database: " + error.message)
     });
 };
 
@@ -59,7 +59,7 @@ export const getSubCourseList = async () => {
     if (courseList !== null) {
       return courseList;
     }
-    throw e;
+    throw new Error("Error getting subscribed course list from async storage: " + error.message)
   }
 };
 export const refreshSubCourseList = async (val) => {
@@ -88,7 +88,7 @@ export const refreshSubCourseList = async (val) => {
       return newCourseList;
     })
     .catch((e) => {
-      throw e;
+      throw new Error("Error getting subscribed course list from database: " + error.message)
     });
 };
 
@@ -101,7 +101,7 @@ export const getSectionList = async (course_id) => {
     if (sectionList !== null) {
       return sectionList;
     }
-    throw e;
+    throw new Error("Error getting section list from async storage: " + error.message)
   }
 };
 export const refreshSectionList = async (course_id) => {
@@ -125,7 +125,7 @@ export const refreshSectionList = async (course_id) => {
       return newSectionList;
     })
     .catch((e) => {
-      throw e;
+      throw new Error("Error getting section list from database: " + error.message)
     });
 };
 
@@ -139,7 +139,7 @@ export const getCourseId = async (id) => {
       console.log(course);
       return course;
     }
-    throw e;
+    throw new Error("Error getting course from async storage: " + error.message)
   }
 };
 export const refreshCourse = async (id) => {
@@ -149,7 +149,7 @@ export const refreshCourse = async (id) => {
       return course;
     })
     .catch((e) => {
-      throw e;
+      throw new Error("Error getting course from database: " + error.message)
     });
 };
 
