@@ -39,6 +39,7 @@ describe('SectionScreen', () => {
             courseId: 1,
         }
     };
+
     const sections = [
         {
             id: 1,
@@ -53,19 +54,21 @@ describe('SectionScreen', () => {
             total: 10,
         },
     ];
-    test('Renders section screen with sections loaded', async () => { 
+  
+    it('Renders section screen with sections loaded', async () => { 
         const StorageService = require("../../../services/StorageService");
         jest.spyOn(StorageService, "getSectionList").mockResolvedValue(sections);
-        await renderer.act(async () => {
-          return sectionScreen = renderer.create(<SectionScreen route={route}/>);
-        })
+
+        sectionScreen = renderer.create(<SectionScreen route={route}/>);
+
+        await new Promise(resolve => setTimeout(resolve, 0));
+
         expect(sectionScreen.root.findAllByType(SectionCard)).toHaveLength(2);
         expect(sectionScreen.toJSON()).toMatchSnapshot();
     });
 
-
     describe('unsubAlert', () => {
-        test('should call unsub function when "Sim" is pressed', () => {
+        it('should call unsub function when "Sim" is pressed', () => {
             const unsubAlert = () => {
                 Alert.alert("Cancelar subscrição", "Tem certeza?", [
                   {
@@ -85,7 +88,7 @@ describe('SectionScreen', () => {
           alert.mockRestore();
         });
       
-        test('should not call unsub function when "Não" is pressed', () => {
+        it('should not call unsub function when "Não" is pressed', () => {
           const unsubAlert = () => {
                 Alert.alert("Cancelar subscrição", "Tem certeza?", [
                   {

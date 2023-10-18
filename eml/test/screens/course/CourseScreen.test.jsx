@@ -17,6 +17,7 @@ jest.mock('@react-navigation/native', () => ({
   }),
 }));
 
+describe("CourseScreen", () => {
 let courseScreen;
 
 beforeEach(() => {
@@ -30,11 +31,11 @@ afterAll(() => {
   jest.restoreAllMocks();
 });
 
-test("renders CourseScreen correctly when theres no courses", () => {
+it("renders CourseScreen correctly when theres no courses", () => {
   expect(courseScreen.toJSON()).toMatchSnapshot();
 });
 
-test("renders CourseScreen with courses loaded", async () => {
+it("renders CourseScreen with courses loaded", async () => {
   const courses = [
     {
       id: 1,
@@ -62,8 +63,9 @@ test("renders CourseScreen with courses loaded", async () => {
   expect(courseScreen.root.findAllByType(CourseCard)).toHaveLength(2);
 });
 
-test('Navigate to explorer when pressing the explore button', () => { 
+it('Navigate to explorer when pressing the explore button', () => { 
   const button = courseScreen.root.findByProps({testID: 'exploreButton'});
   button.props.onPress();
   expect(navigated).toBe(true);
+});
 });

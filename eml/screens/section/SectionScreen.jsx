@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import {Alert, View, TouchableOpacity, Modal, Pressable} from 'react-native';
-import Text  from '../../components/general/Text';
+import { Alert, View, TouchableOpacity, Modal, Pressable } from 'react-native';
+import Text from '../../components/general/Text';
 import TestComponent from '../../components/test/TestComponent';
 import * as StorageService from '../../services/StorageService';
 import * as DirectoryService from '../../services/DirectoryService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SectionCard from '../../components/section/SectionCard';
-import {ScrollView} from "react-native-gesture-handler";
-import {MaterialCommunityIcons} from "@expo/vector-icons";
+import { ScrollView } from "react-native-gesture-handler";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from '@react-navigation/native';
 import CustomProgressBar from "../../components/exercise/Progressbar";
 import BaseScreen from '../../components/general/BaseScreen';
 import SubscriptionCancel from '../../components/section/CancelSubscriptionButton';
 import { unSubscribeToCourse } from '../../api/api';
+import { set } from 'react-native-reanimated';
 
 /**
  * Section screen component.
@@ -32,8 +33,12 @@ export default function SectionScreen({ route }) {
    * @returns {Promise<void>} - A promise that resolves when the sections are loaded.
    */
   async function loadSections(id) {
-    const sectionData = await StorageService.getSectionList(id);
-    setSections(sectionData);
+    try {
+      const sectionData = await StorageService.getSectionList(id);
+      setSections(sectionData);
+    } catch (error) {
+      console.error("Error loading sections:", error);
+    }
   }
 
   /**
@@ -42,15 +47,30 @@ export default function SectionScreen({ route }) {
    * @returns {Promise<void>} - A promise that resolves when the course data is retrieved.
    */
   async function getCourse(id) {
+    try {
     const courseData = await StorageService.getCourseId(id);
     setCourse(courseData);
+    } catch (error) {
+      console.error("Error loading course:", error);
+    }
   }
 
   //Fetch courses from backend and replace dummy data!
   useEffect(() => {
-    loadSections(courseId);
-    getCourse(courseId);
+    let componentIsMounted = true;
+
+    async function loadData() {
+      await loadSections(courseId);
+      await getCourse(courseId);
+    }
+
+    if (componentIsMounted) {
+      loadData();
+    }
+
+    return () => componentIsMounted = false;
   }, []);
+
   const unsubAlert = () =>
     Alert.alert("Cancelar subscrição", "Tem certeza?", [
       {

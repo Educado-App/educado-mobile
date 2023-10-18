@@ -11,6 +11,7 @@ jest.mock('@react-navigation/native', () => ({
     }),
   }));
   
+  describe("CourseCard", () => {
     let courseCard;
 
     const courses = [
@@ -41,13 +42,13 @@ jest.mock('@react-navigation/native', () => ({
         jest.restoreAllMocks();
     });
 
-    test("renders CourseCard correctly", () => {
+    it("renders CourseCard correctly", () => {
         expect(courseCard.toJSON()).toMatchSnapshot();
     });
 
-    test('Navigate to section when pressing the course card', () => { 
+    it('Navigate to section when pressing the course card', () => { 
         const button = courseCard.root.findByProps({testID: 'courseCard'});
         button.props.onPress();
         expect(navigated).toBe(true);
     });
-
+  });

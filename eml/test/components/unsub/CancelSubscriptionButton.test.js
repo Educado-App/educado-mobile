@@ -2,6 +2,8 @@ import React from "react";
 import renderer from 'react-test-renderer';
 import SubscriptionCancel from "../../../components/section/CancelSubscriptionButton";
 
+describe('<SubscriptionCancel />', () => {
+
 let pressed = false;
 
 const mockOnPress = () => {
@@ -20,14 +22,15 @@ afterAll(() => {
   jest.restoreAllMocks();
 });
 
-test('SubscriptionCancel button renders', () => {
+it('SubscriptionCancel button renders', () => {
   expect(subscriptionCancel.toJSON()).toMatchSnapshot();
 });
 
-test('Pressing SubscriptionCancel button calls onPress function', async () => {
+it('Pressing SubscriptionCancel button calls onPress function', async () => {
   const subscriptionCancelButton = subscriptionCancel.root.findByProps({ testID: "subscriptionCancelButton" });
   await renderer.act(() => {
     return subscriptionCancelButton.props.onPress();
   });
   expect(pressed).toBe(true);
+});
 });
