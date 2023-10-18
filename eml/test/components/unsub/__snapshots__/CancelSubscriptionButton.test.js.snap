@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SubscriptionCancel /> SubscriptionCancel button renders 1`] = `
+<View
+  style={
+    [
+      {
+        "flexDirection": "column",
+      },
+      {
+        "alignItems": "flex-end",
+      },
+    ]
+  }
+>
+  <View
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "borderBottomLeftRadius": 8,
+        "borderBottomRightRadius": 8,
+        "borderTopLeftRadius": 8,
+        "borderTopRightRadius": 8,
+        "opacity": 1,
+        "paddingBottom": 16,
+        "paddingLeft": 20,
+        "paddingRight": 20,
+        "paddingTop": 16,
+      }
+    }
+    testID="subscriptionCancelButton"
+  >
+    <Text
+      style={
+        [
+          {
+            "textAlign": "center",
+          },
+          {
+            "fontFamily": "Montserrat-Bold",
+          },
+          {
+            "fontSize": 16,
+          },
+          {
+            "color": "#FFFFFF",
+          },
+        ]
+      }
+    >
+      <Text />
+    </Text>
+  </View>
+</View>
+`;
