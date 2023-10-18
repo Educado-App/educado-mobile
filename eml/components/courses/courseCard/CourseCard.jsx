@@ -33,11 +33,11 @@ export default function CourseCard({ course }) {
                     </Text>
                 </View>
                 <View className="h-[1px] bg-[#e0e0e0] m-[2%]"></View>
-                <View className="flex-row items-center justify-start">
+                <View className="flex-row items-center justify-start overflow-hidden">
                     <MaterialCommunityIcons size={18} name="school" color={'gray'}></MaterialCommunityIcons>
                     <Text className="mx-[2.5%] my-[3%]">{course.category ? course.category : 'category'}</Text>
                     <MaterialCommunityIcons size={18} name="clock" color={'gray'}></MaterialCommunityIcons>
-                    <Text className="mx-[2.5%] my-[3%]">{course.duration ? course.duration : 'duration'}</Text>
+                    <Text className="mx-[2.5%] my-[3%]">{course.estimatedHours ? course.estimatedHours : 'duration'}</Text>
                 </View>
                 <View className="flex-row items-center">
                     <CustomProgressBar width={60} progress={50} height={1} />
