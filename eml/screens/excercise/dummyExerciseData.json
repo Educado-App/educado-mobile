@@ -3,7 +3,7 @@
   "courseId": "lecture 1",
   "sectionId": "Question title",
   "content": "https://example.com/dummy-exercise-video.mp4",
-  "question": "Qual é a pergunta que o content creator irá fazer nessa etapa?",
+  "question": "Dummy Question",
   "answers": [
     {
       "id": 1,
