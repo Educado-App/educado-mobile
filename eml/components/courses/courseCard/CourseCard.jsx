@@ -37,7 +37,7 @@ export default function CourseCard({ course }) {
                     <MaterialCommunityIcons size={18} name="school" color={'gray'}></MaterialCommunityIcons>
                     <Text className="mx-[2.5%] my-[3%]">{course.category ? course.category : 'category'}</Text>
                     <MaterialCommunityIcons size={18} name="clock" color={'gray'}></MaterialCommunityIcons>
-                    <Text className="mx-[2.5%] my-[3%]">{course.estimatedHours ? course.estimatedHours : 'duration'}</Text>
+                    <Text className="mx-[2.5%] my-[3%]">{course.estimatedHours ? course.estimatedHours + ' hora(s)' : 'duration'}</Text>
                 </View>
                 <View className="flex-row items-center">
                     <CustomProgressBar width={60} progress={50} height={1} />
