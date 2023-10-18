@@ -122,8 +122,6 @@ function CourseStack() {
   );
 }
 
-/** This can be removed since we use NavBar
- *
 function HomeStack() {
   checkLogin();
 
@@ -194,7 +192,6 @@ function HomeStack() {
   );
 }
 
-*/
 export function useWelcomeScreenLogic(loadingTime, onResult) {
 
   setTimeout(() => {
@@ -267,7 +264,7 @@ export default function App() {
               />
               <Stack.Screen
                 name={'HomeStack'}
-                component={NavBar} // Use the NavBar component here
+                component={HomeStack} // Use the NavBar component here
                 options={{ headerShown: false }}
               />
               <Stack.Screen
