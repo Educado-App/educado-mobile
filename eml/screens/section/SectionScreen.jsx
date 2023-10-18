@@ -29,7 +29,7 @@ import { unSubscribeToCourse } from '../../api/api';
 export default function SectionScreen({ route }) {
   const { courseId } = route.params;
   const navigation = useNavigation();
-  const [sections, setSections] = useState([]);
+  const [sections, setSections] = useState(null);
   const [course, setCourse] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -109,19 +109,26 @@ export default function SectionScreen({ route }) {
         <SubscriptionCancel onPress={unsubAlert} />
       </View>
 
-      <View className="flex-[1] flex-col my-[10px]">
+      {/* Conditionally render the sections if they exist */}
+      {sections ? (
+        sections.length === 0 ? null : (
+          <View className="flex-[1] flex-col my-[10px]">
 
-        {/* Progress Bar */}
-        <CustomProgressBar width={60} progress={50} height={3}></CustomProgressBar>
+            {/* Progress Bar */}
+            {/* TODO: Implement progress dynamically */}
+            <CustomProgressBar width={60} progress={50} height={3}></CustomProgressBar>
 
-        {/* Section Cards */}
-        <ScrollView className="mt-[5%]" showsVerticalScrollIndicator={false}>
-          {sections.map((section, i) => {
-            return <SectionCard key={i} section={section}></SectionCard>;
-          })}
-        </ScrollView>
+            {/* Section Cards */}
+            <ScrollView className="mt-[5%]" showsVerticalScrollIndicator={false}>
+              {sections.map((section, i) => {
+                return <SectionCard key={i} section={section}></SectionCard>;
+              })}
+            </ScrollView>
 
-      </View>
+          </View>
+          )
+      ) : null}
+
     </BaseScreen>
   );
 }
