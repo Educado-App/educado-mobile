@@ -56,6 +56,12 @@ describe('<SectionCard />', () => {
         const pattern = new RegExp(`0/${mockSection.total}`);
         expect(queryByText(pattern)).toBeTruthy();
     });
+    /**
+    * Tests if the SectionCard component renders correctly.
+    */
+    it("renders SectionCard correctly", async () => {
+        expect(await sectionCard.toJSON()).toMatchSnapshot();
+    });
 
     it('should expand and collapse when clicked', async () => {
         /**
