@@ -13,7 +13,6 @@ import CustomProgressBar from "../../components/exercise/Progressbar";
 import BaseScreen from '../../components/general/BaseScreen';
 import SubscriptionCancel from '../../components/section/CancelSubscriptionButton';
 import { unSubscribeToCourse } from '../../api/api';
-import { set } from 'react-native-reanimated';
 
 /**
  * Section screen component.
