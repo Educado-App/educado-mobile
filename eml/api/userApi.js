@@ -66,7 +66,7 @@ export const loginUser = async (obj) => {
 
 export const deleteUser = async (user_id) => {
   try {
-    const res = await axios.delete(url + `/api/user/delete/` + user_id);
+    const res = await axios.delete(url + `/api/users/delete/` + user_id);
     return res.data;
   } catch (error) {
     // Handle errors here
@@ -74,29 +74,9 @@ export const deleteUser = async (user_id) => {
   }
 };
 
-export const updateFirstName = async (user_id, new_FirstName) => {
+export const updateUserFields = async (user_id, updateFields) => {
   try {
-    const res = await axios.put(url + `/api/user/update-first-name/` + user_id, { newFirstName: new_FirstName });
-    return res.data;
-  } catch (error) {
-    // Handle errors here
-    throw error; // You may want to handle the error or log it
-  }
-};
-
-export const updateLastName = async (user_id, new_LastName) => {
-  try {
-    const res = await axios.put(url + `/api/user/update-last-name/` + user_id, { newLastName: new_LastName });
-    return res.data;
-  } catch (error) {
-    // Handle errors here
-    throw error; // You may want to handle the error or log it
-  }
-};
-
-export const updateUserEmail = async (user_id, new_email) => {
-  try {
-    const res = await axios.put(url + `/api/user/update-email/` + user_id, { newEmail: new_email });
+    const res = await axios.patch(url + `/api/users/${user_id}`, updateFields);
     return res.data;
   } catch (error) {
     // Handle errors here

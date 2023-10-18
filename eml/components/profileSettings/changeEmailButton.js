@@ -8,7 +8,7 @@ import {
   Alert,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { updateUserEmail } from '../../api/userApi.js';
+import { updateUserFields } from '../../api/userApi.js';
 import patterns from '../../assets/validation/patterns.js';
 import Text from '../general/Text';
 
@@ -49,11 +49,12 @@ export default function ProfileComponent() {
   
     if (newEmail !== email && newEmail === tempEmail) {
       if (emailRegex.test(newEmail)) {
-        // Call the updateUserEmail function to update the email on the server
+        // Call the updateUserFields function to update the email on the server
         try {
         setIsLoading(true); // Set loading state to true
 
-        await updateUserEmail(id, newEmail);
+        await updateUserFields(id, { email: newEmail });
+
 
         // Update the state with the new username and close modal
         setEmail(newEmail);

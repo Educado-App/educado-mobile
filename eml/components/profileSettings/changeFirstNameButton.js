@@ -8,7 +8,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { updateFirstName } from '../../api/userApi.js';
+import { updateUserFields } from '../../api/userApi.js';
 import Text from '../general/Text';
 
 const USER_INFO = '@userInfo';
@@ -47,7 +47,9 @@ export default function ProfileComponent() {
       try {
         setIsLoading(true); // Set loading state to true
 
-        await updateFirstName(id, newFirstName);
+
+
+        await updateUserFields(id, { firstName: newFirstName });
 
         // Update the state with the new username and close modal
         setFirstName(newFirstName);

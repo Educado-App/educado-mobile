@@ -41,13 +41,13 @@ export const getCourseWithAuth = async (courseId) => {
 };
 
 export const getCourses = async () => {
-  // TODO: add bearer token to request header and omit /public
-  const res = await axios.get(url + '/api/public/courses');
+  // TODO: add bearer token to request header
+  const res = await axios.get(url + '/api/courses');
   return res.data;
 };
 
 export const getCourse = async (courseId) => {
-  const res = await axios.get(url + '/api/public/courses/' + courseId);
+  const res = await axios.get(url + '/api/courses/' + courseId);
   return res.data;
 };
 
@@ -70,12 +70,8 @@ export const getCoverPhoto = async (course_id) => {
   return res.data;
 };
 
-export const getAllSections = async (sections) => {
-  const obj = {
-    sections,
-  };
-  // Send request to S3 server
-  const res = await axios.post(url + '/api/eml/courses/getallsections', obj);
+export const getAllSections = async (course_id) => {
+  const res = await axios.get(url + '/api/courses/' + course_id + '/sections', obj);
 
   return res.data;
 };
