@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Alert, View, TouchableOpacity, Modal, Pressable } from 'react-native';
+import { Alert, View, TouchableOpacity } from 'react-native';
 import Text from '../../components/general/Text';
-import TestComponent from '../../components/test/TestComponent';
 import * as StorageService from '../../services/StorageService';
-import * as DirectoryService from '../../services/DirectoryService';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import SectionCard from '../../components/section/SectionCard';
 import { ScrollView } from "react-native-gesture-handler";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -19,6 +16,16 @@ import { unSubscribeToCourse } from '../../api/api';
  * @param {object} route - The route object containing the courseId parameter.
  * @returns {JSX.Element} - The section screen JSX elements.
  */
+/**
+ * Renders the screen for a specific course section.
+ * @param {object} route - The route object containing the course ID.
+ * @returns {JSX.Element} - The JSX element for the section screen.
+ */
+/**
+ * Section screen component that displays a list of sections for a given course.
+ * @param {object} route - The route object containing the courseId parameter.
+ * @returns {JSX.Element} - The SectionScreen component.
+ */
 export default function SectionScreen({ route }) {
   const { courseId } = route.params;
   const navigation = useNavigation();
@@ -27,9 +34,8 @@ export default function SectionScreen({ route }) {
   const [modalVisible, setModalVisible] = useState(false);
 
   /**
-   * Loads the sections for the given course ID.
-   * @param {string} id - The course ID.
-   * @returns {Promise<void>} - A promise that resolves when the sections are loaded.
+   * Loads the sections for the given course from the backend.
+   * @param {string} id - The id of the course to load sections for.
    */
   async function loadSections(id) {
     try {
@@ -41,14 +47,13 @@ export default function SectionScreen({ route }) {
   }
 
   /**
-   * Gets the course data for the given course ID.
-   * @param {string} id - The course ID.
-   * @returns {Promise<void>} - A promise that resolves when the course data is retrieved.
+   * Loads the course data for the given courseId from the backend.
+   * @param {string} id - The id of the course to load.
    */
   async function getCourse(id) {
     try {
-    const courseData = await StorageService.getCourseId(id);
-    setCourse(courseData);
+      const courseData = await StorageService.getCourseId(id);
+      setCourse(courseData);
     } catch (error) {
       console.error("Error loading course:", error);
     }
@@ -58,6 +63,9 @@ export default function SectionScreen({ route }) {
   useEffect(() => {
     let componentIsMounted = true;
 
+    /**
+     * Loads the sections and course data for the given courseId.
+     */
     async function loadData() {
       await loadSections(courseId);
       await getCourse(courseId);
@@ -70,6 +78,9 @@ export default function SectionScreen({ route }) {
     return () => componentIsMounted = false;
   }, []);
 
+  /**
+   * Displays an alert to confirm unsubscribing from the course.
+   */
   const unsubAlert = () =>
     Alert.alert("Cancelar subscrição", "Tem certeza?", [
       {
@@ -99,13 +110,17 @@ export default function SectionScreen({ route }) {
       </View>
 
       <View className="flex-[1] flex-col my-[10px]">
+
+        {/* Progress Bar */}
         <CustomProgressBar width={60} progress={50} height={3}></CustomProgressBar>
 
+        {/* Section Cards */}
         <ScrollView className="mt-[5%]" showsVerticalScrollIndicator={false}>
           {sections.map((section, i) => {
             return <SectionCard key={i} section={section}></SectionCard>;
           })}
         </ScrollView>
+
       </View>
     </BaseScreen>
   );

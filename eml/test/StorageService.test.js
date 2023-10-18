@@ -1,3 +1,17 @@
+/**
+ * This file contains unit tests for the StorageService module.
+ * The module provides functions for storing and retrieving data from AsyncStorage.
+ * The tests cover the following functions:
+ * - getCourseList
+ * - getSubCourseList
+ * - getSectionList
+ * - getCourseId
+ * - clearAsyncStorage
+ * 
+ * The tests use Jest and mock AsyncStorage to simulate storage operations.
+ * 
+ * @module StorageService.test.js
+ */
 import * as api from '../api/api.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {

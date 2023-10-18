@@ -1,36 +1,59 @@
+/**
+ * This file contains the unit tests for the CancelSubscriptionButton component.
+ * The component is tested for rendering and onPress function call.
+ * @module CancelSubscriptionButtonTest
+ */
 import React from "react";
 import renderer from 'react-test-renderer';
 import SubscriptionCancel from "../../../components/section/CancelSubscriptionButton";
 
+/**
+ * Describes the test suite for the SubscriptionCancel component.
+ */
 describe('<SubscriptionCancel />', () => {
 
-let pressed = false;
+  let pressed = false;
 
-const mockOnPress = () => {
-  pressed = true;
-};
+  /**
+   * Mock function to set pressed to true when called.
+   */
+  const mockOnPress = () => {
+    pressed = true;
+  };
 
-let subscriptionCancel;
+  let subscriptionCancel;
 
-beforeEach(() => {
-  pressed = false;
-  subscriptionCancel = renderer.create(<SubscriptionCancel onPress={mockOnPress} />);
-});
-
-afterAll(() => {
-  jest.resetModules();
-  jest.restoreAllMocks();
-});
-
-it('SubscriptionCancel button renders', () => {
-  expect(subscriptionCancel.toJSON()).toMatchSnapshot();
-});
-
-it('Pressing SubscriptionCancel button calls onPress function', async () => {
-  const subscriptionCancelButton = subscriptionCancel.root.findByProps({ testID: "subscriptionCancelButton" });
-  await renderer.act(() => {
-    return subscriptionCancelButton.props.onPress();
+  /**
+   * Resets modules and restores all mocks after all tests have run.
+   */
+  afterAll(() => {
+    jest.resetModules();
+    jest.restoreAllMocks();
   });
-  expect(pressed).toBe(true);
-});
+
+  /**
+   * Resets pressed to false and creates a new instance of SubscriptionCancel before each test.
+   */
+  beforeEach(() => {
+    pressed = false;
+    subscriptionCancel = renderer.create(<SubscriptionCancel onPress={mockOnPress} />);
+  });
+
+  /**
+   * Tests if the SubscriptionCancel button renders correctly.
+   */
+  it('SubscriptionCancel button renders', () => {
+    expect(subscriptionCancel.toJSON()).toMatchSnapshot();
+  });
+
+  /**
+   * Tests if the onPress function is called when the SubscriptionCancel button is pressed.
+   */
+  it('Pressing SubscriptionCancel button calls onPress function', async () => {
+    const subscriptionCancelButton = subscriptionCancel.root.findByProps({ testID: "subscriptionCancelButton" });
+    await renderer.act(() => {
+      return subscriptionCancelButton.props.onPress();
+    });
+    expect(pressed).toBe(true);
+  });
 });

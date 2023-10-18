@@ -1,3 +1,18 @@
+/**
+ * This file contains unit tests for the API functions.
+ * The functions tested include:
+ * - getCourse
+ * - getCourses
+ * - getAllSections
+ * - getSection
+ * - getSubscriptions
+ * - subscribeToCourse
+ * - unSubscribeToCourse
+ * - ifSubscribed
+ * 
+ * The tests use mock data and mock axios requests to simulate API calls.
+ * The tests check that the functions return the expected data and handle errors correctly.
+ */
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import MockAdapter from 'axios-mock-adapter';
@@ -397,5 +412,4 @@ describe('API Functions', () => {
 
     });
   });
-
 });

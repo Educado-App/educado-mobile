@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
-import { View, Pressable, Dimensions, Image, ScrollView } from 'react-native'
+import { View, Pressable, Image, ScrollView } from 'react-native'
 import Text from '../../components/general/Text'
 import * as StorageService from "../../services/StorageService";
 import CourseCard from '../../components/courses/courseCard/CourseCard'
@@ -23,7 +23,7 @@ export default function CourseScreen() {
 
     const [courseLoaded, setCourseLoaded] = useState(false);
 
-    const navigation = useNavigation()  
+    const navigation = useNavigation()
 
     /**
          * Asynchronous function that loads the courses from storage and updates the state.
@@ -32,7 +32,7 @@ export default function CourseScreen() {
     async function loadCourses() {
         try {
             const courseData = await StorageService.getSubCourseList();
-            if (courseData.length !== 0 && Array.isArray(courseData) ) {
+            if (courseData.length !== 0 && Array.isArray(courseData)) {
                 setCourses(courseData);
                 setCourseLoaded(true);
             } else {
@@ -41,12 +41,12 @@ export default function CourseScreen() {
             }
 
         } catch (error) {
-          console.error("Error checking subscription:", error);
+            console.error("Error checking subscription:", error);
         }
-    } 
-    
+    }
+
     useEffect(() => {
-            loadCourses();
+        loadCourses();
     }, [courses]);
 
     return (
@@ -57,13 +57,13 @@ export default function CourseScreen() {
              */}
             {courseLoaded ?
                 <View height="100%">
-                    <IconHeader title={"Bem Vindo!"}/>
+                    <IconHeader title={"Bem Vindo!"} />
                     <ScrollView showsVerticalScrollIndicator={false}>
                         {courses.map((course) => (
                             <CourseCard key={course.courseId} course={course}></CourseCard>
-                        )  
-                    ) 
-                    }
+                        )
+                        )
+                        }
                     </ScrollView>
                 </View>
                 :
@@ -82,7 +82,7 @@ export default function CourseScreen() {
                             <Pressable
                                 testID={"exploreButton"}
                                 className=" rounded-r-8 rounded-md bg-primary justify-center items-center p-2 h-[52] w-[342] "
-                                onPress = {() => navigation.navigate('Explorar')}>
+                                onPress={() => navigation.navigate('Explorar')}>
                                 {/* Click to explore courses */}
                                 <Text className=" text-projectWhite font-sans-bold text-center text-body " > Explore courses</Text>
                             </Pressable>
@@ -90,4 +90,5 @@ export default function CourseScreen() {
                     </View>
                 </View>}
         </BaseScreen>
-    )}
+    )
+}

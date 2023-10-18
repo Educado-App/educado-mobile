@@ -4,6 +4,14 @@ import * as Progress from "react-native-progress";
 import PropTypes from "prop-types";
 import { ScreenWidth, ScreenHeight } from "@rneui/base";
 
+/**
+ * A custom progress bar component.
+ * @param {Object} props - The props object.
+ * @param {number} props.progress - The progress value (0-100).
+ * @param {number} props.width - The width of the progress bar (in percentage).
+ * @param {number} props.height - The height of the progress bar (in percentage).
+ * @returns {JSX.Element} - A JSX element representing the custom progress bar.
+ */
 const CustomProgressBar = ({ progress, width, height }) => {
   CustomProgressBar.propTypes = {
     progress: PropTypes.number.isRequired,
