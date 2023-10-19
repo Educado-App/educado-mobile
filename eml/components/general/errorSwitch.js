@@ -8,11 +8,11 @@ export default function errorSwitch(error) {
      
     case 'E0212':
       // Password is required
-       return 'Senha é obrigatória';
+       return 'Senha obrigatória';
 
     case 'E0208':
       // Email is required
-       return 'E-mail é obrigatório'
+       return 'E-mail obrigatório'
 
     case 'E0207': 
       // Email must be atleast 6 characters
@@ -28,7 +28,7 @@ export default function errorSwitch(error) {
        
     case 'E0209':
       // First and last name is required
-       return 'Primeiro e último nome são obrigatórios';
+       return 'Nome e sobrenome são obrigatórios';
        
     case 'E0210':
       // Names must be between 1 and 50 characters
@@ -41,6 +41,6 @@ export default function errorSwitch(error) {
     default:
       console.log(error);
       // Something unknown went wrong
-       return 'Erro desconhecido! (unknown error)';
+       return 'Erro desconhecido!';
   }
 };

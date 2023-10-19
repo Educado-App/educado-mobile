@@ -40,7 +40,7 @@ const validateEmail = (email) => {
   const emailPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
   if (!emailPattern.test(email)) {
-    return 'Email inválido'; // Email invalid
+    return 'E-mail inválido'; // Email invalid
   }
 
   // Passed all checks, email is valid
