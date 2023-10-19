@@ -35,7 +35,7 @@ export default function SectionCard({ section }) {
     useEffect(() => {
 
         console.log("THIS IS SECTION CARD")
-        console.log("WE LOG SECTION", section.parentCourseId)
+        console.log("SectionID", section.parentCourseId)
         fetchLectures(section.sectionId);
 
 
@@ -75,8 +75,11 @@ export default function SectionCard({ section }) {
 
     const handleLecturePress = (lectureId) => {
 
-        navigation.navigate('Lecture', {
+        console.log("navigating to lecture with these params:")
+        console.log("lectureId: " + lectureId)
+        console.log("courseId: " + section.parentCourseId)
 
+        navigation.navigate('Lecture', {
             lectureId: lectureId,
             courseId: section.parentCourseId,
         })
@@ -128,13 +131,13 @@ export default function SectionCard({ section }) {
                             )
 
                         })}
-                        <TouchableOpacity className="w-[100%] h-[300] items-center justify-center relative"
+                        {/* <TouchableOpacity className="w-[100%] h-[300] items-center justify-center relative"
                             onPress={handleImagePress}>
                             <Image source={require('../../assets/sectionThumbnail.png')} className="w-[100%] h-[300] object-cover" />
                             <View className="absolute z-[1]">
                                 <MaterialCommunityIcons name="play-circle-outline" size={100} color="lightblue" />
                             </View>
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
                     </View>
                 </Collapsible>
             </Pressable>

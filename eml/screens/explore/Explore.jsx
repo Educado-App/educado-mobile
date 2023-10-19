@@ -74,7 +74,7 @@ function Explore() {
         <View className="overflow-y-auto">
           {courses && filteredCourses && filteredCourses.map((course, index) => (
 
-            <ExploreCard key={index} isPublished={course.published} course={course} />
+            <ExploreCard key={index} isPublished={course.published || true} course={course} />
 
           ))}
         </View>

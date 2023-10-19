@@ -24,7 +24,15 @@ const TextImageLectureScreen = ({ lecture, course }) => {
 
     //split text into paragraphs and dont cut words
     const splitText = (text) => {
+        console.log("INSIDE SPLIT TEXT")
+        console.log("TEXT", text, text.length)
         let _paragraphs = [];
+
+        if (text.length < 250) {
+            _paragraphs.push(text);
+            setParagraphs(_paragraphs);
+            return;
+        }
 
         // Function to find the nearest space to break the string.
         const findBreakPoint = (str, start, direction = 1) => {
@@ -55,6 +63,9 @@ const TextImageLectureScreen = ({ lecture, course }) => {
             }
         }
 
+
+        console.log("PARAGRAPHS", _paragraphs)
+
         // Now, `_paragraphs` contains the split text.
         setParagraphs(_paragraphs);
     };
@@ -68,14 +79,23 @@ const TextImageLectureScreen = ({ lecture, course }) => {
             <Text className="text-center text-2xl pt-8 font-bold">BEM VINDO!</Text>
 
             {
+                // Rendering all paragraphs above the image if the array has two or fewer elements
+                // If the array has more than two elements, rendering all but the last paragraph above the image
                 paragraphs && paragraphs.map((paragraph, index) => {
-                    if (index != paragraphs.length - 1 || !paragraphs.length > 2) {
+                    if (paragraphs.length <= 2 || index !== paragraphs.length - 1) {
                         return (
-                            <Text key={index + paragraph} className={index == 0 ? "text-[18px] pt-6 text-primary" : "text-[18px] pt-4 text-gray "}>{paragraph}</Text>
-                        )
+                            <Text key={index + paragraph} className={index === 0 ? "text-[18px] pt-6 text-primary" : "text-[18px] pt-4 text-gray "}>{paragraph}</Text>
+                        );
                     }
+                    return null;
                 })
             }
+
+
+            {/* {paragraphs && paragraphs.length == 1 &&
+                <Text className=" text-[18px] pt-4 text-gray ">{paragraphs[0]}</Text>
+            } */}
+
 
             {/* Image */}
             {imageUrl && <View className="w-full h-[50vh] pt-8" >
@@ -90,7 +110,9 @@ const TextImageLectureScreen = ({ lecture, course }) => {
                     style={{ width: '100%', height: '100%' }}
                 />
             </View>}
-            {paragraphs && paragraphs.length > 2 &&
+            {
+                // Rendering the last paragraph below the image if the array has more than two elements
+                paragraphs && paragraphs.length > 2 &&
                 <Text className=" text-[18px] pt-4 text-gray ">{paragraphs[paragraphs.length - 1]}</Text>
             }
         </ScrollView>

@@ -32,7 +32,6 @@ import NavBar from "./components/navBar/NavBar";
 // Constants
 import { isFontsLoaded } from "./constants/Fonts";
 
-
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
@@ -43,7 +42,7 @@ const checkLogin = () => {
   if (AsyncStorage.getItem("@login_token") === null) {
     useNavigation().navigate("Login");
   }
-}
+};
 
 function WelcomeStack() {
   return (
@@ -201,7 +200,6 @@ function HomeStack() {
 }
 
 export function useWelcomeScreenLogic(loadingTime, onResult) {
-
   setTimeout(() => {
     const fetchData = async () => {
       try {
@@ -225,13 +223,12 @@ export function useWelcomeScreenLogic(loadingTime, onResult) {
 
     fetchData();
   }, loadingTime);
-
 }
 
 // Change InitialRouteName to HomeStack if you want to skip Login Screen
 export default function App() {
   const fontsLoaded = isFontsLoaded();
-  const [initialRoute, setInitialRoute] = useState(""); 
+  const [initialRoute, setInitialRoute] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
   // Callback function to handle the results
@@ -288,15 +285,9 @@ export default function App() {
                 options={{ headerShown: false }}
               />
               <Stack.Screen
-                name="Section"
-                component={SectionScreen}
-                initialParams={{ course_id: '' }}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
                 name={"ProfileSettings"}
-                component={ProfileSettingsScreen} 
-                options={{ headerShown: false }} 
+                component={ProfileSettingsScreen}
+                options={{ headerShown: false }}
               />
             </Stack.Navigator>
           </NavigationContainer>

@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Alert, View, TouchableOpacity, Image } from 'react-native';
 import Text from '../../components/general/Text';
 import ProgressBar from '../../components/progress/ProgressBar';
@@ -11,7 +11,7 @@ import { downloadVideoByFileName, getCourse, getLectureById } from '../../api/ap
 import { SafeAreaView } from 'react-native-safe-area-context';
 import VideoLectureScreen from './VideoLectureScreen';
 
-import healthLogo from '../../assets/healthLogo.png'
+//import healthLogo from '../../assets/healthLogo.png'
 import TextImageLectureScreen from './TextImageLectureScreen';
 
 export default function LectureScreen({ route }) {
@@ -22,6 +22,8 @@ export default function LectureScreen({ route }) {
 
     useEffect(() => {
         console.log("THIS IS THE LECTURE SCREEN")
+        console.log("LectureID", lectureId)
+        console.log("CourseID", courseId)
         getLecture(lectureId);
         getCourseById(courseId);
     }, [])
