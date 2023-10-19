@@ -52,17 +52,14 @@ export default function CourseScreen() {
             if (courseData.length !== 0 && Array.isArray(courseData)) {
                 setCourses(courseData);
                 setCourseLoaded(true);
-                console.log("Courses True")
             }
             else {
                 setCourses([]);
                 setCourseLoaded(false);
-                console.log("Courses False")
             }
         } else {
             setCourses([]);
             setCourseLoaded(false);
-            console.log("Courses False")
         }
     }
 
