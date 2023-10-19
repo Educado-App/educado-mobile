@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExerciseInfo renders ExerciseInfo correctly 1`] = `
+<View
+  style={
+    [
+      {
+        "flexDirection": "row",
+      },
+      {
+        "justifyContent": "space-between",
+      },
+      {
+        "alignItems": "flex-end",
+      },
+      {
+        "paddingLeft": "6%",
+        "paddingRight": "6%",
+      },
+      {
+        "paddingBottom": "12%",
+        "paddingTop": "12%",
+      },
+    ]
+  }
+>
+  <View>
+    <Text
+      style={
+        [
+          {
+            "fontFamily": "Montserrat-Regular",
+          },
+          {
+            "fontSize": 10,
+          },
+          {
+            "color": "#A1ACB2",
+          },
+        ]
+      }
+    >
+      Course name: 
+    </Text>
+    <Text
+      style={
+        [
+          {
+            "fontFamily": "Montserrat-Bold",
+          },
+          {
+            "fontSize": 16,
+          },
+          {
+            "color": "#383838",
+          },
+        ]
+      }
+    />
+  </View>
+  <View>
+    <Image
+      source={1}
+    />
+  </View>
+</View>
+`;
