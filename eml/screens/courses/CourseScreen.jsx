@@ -30,6 +30,10 @@ export default function CourseScreen() {
 
     // Compare two course arrays to check for equality
     function areCoursesEqual(courses1, courses2) {
+        if (courses1.length === 0 && courses2.length === 0) {
+            return false;
+        }
+
         if (courses1.length !== courses2.length) {
             return false;
         }
@@ -57,10 +61,7 @@ export default function CourseScreen() {
                 setCourses([]);
                 setCourseLoaded(false);
             }
-        } else {
-            setCourses([]);
-            setCourseLoaded(false);
-        }
+        } 
     }
 
     // When refreshing the loadCourses function is called
