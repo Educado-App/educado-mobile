@@ -39,7 +39,7 @@ export default function ExerciseScreen({ givenId = "65181a4f4c78b45368126ed7"}) 
         setCourseData(course = await getCourse(section.parentCourse));
         setHasData(true);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.log("Error fetching data:", error);
         navigation.navigate("ErrorScreen");
       }
     };
