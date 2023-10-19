@@ -22,8 +22,7 @@ export default function SectionCard({ section }) {
     const inProgress = 0 < completed && completed < section.total;
     const notPossible = completed > section.total;
     const [isOpen, setIsOpen] = useState(false);
-    // backgroundColor should accommodate with color scheme for status notification (from Miro), but they didn't fit the with the style
-    const backgroundColor = isComplete ? "bg-[#87eb8e]" : inProgress ? "bg-[#87CEEB]" : notPossible ? "bg-[#F20000]" : {};
+    const backgroundColor = isComplete ? "bg-limeGreenDarker" : inProgress ? "bg-cyanBlue" : notPossible ? "bg-error" : {};
 
     /**
      * Toggles the dropdown state.

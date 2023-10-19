@@ -356,7 +356,7 @@ exports[`CourseScreen renders CourseScreen with courses loaded 1`] = `
           style={
             [
               {
-                "backgroundColor": "#fff",
+                "backgroundColor": "#FFFFFF",
               },
               {
                 "marginBottom": "3%",
@@ -372,6 +372,10 @@ exports[`CourseScreen renders CourseScreen with courses loaded 1`] = `
               },
               {
                 "elevation": 8,
+              },
+              {
+                "marginLeft": "5%",
+                "marginRight": "5%",
               },
               {
                 "paddingBottom": "5%",
@@ -461,7 +465,7 @@ exports[`CourseScreen renders CourseScreen with courses loaded 1`] = `
                     "height": 1,
                   },
                   {
-                    "backgroundColor": "#e0e0e0",
+                    "backgroundColor": "#DDD",
                   },
                   {
                     "marginBottom": "2%",
@@ -738,7 +742,7 @@ exports[`CourseScreen renders CourseScreen with courses loaded 1`] = `
           style={
             [
               {
-                "backgroundColor": "#fff",
+                "backgroundColor": "#FFFFFF",
               },
               {
                 "marginBottom": "3%",
@@ -754,6 +758,10 @@ exports[`CourseScreen renders CourseScreen with courses loaded 1`] = `
               },
               {
                 "elevation": 8,
+              },
+              {
+                "marginLeft": "5%",
+                "marginRight": "5%",
               },
               {
                 "paddingBottom": "5%",
@@ -843,7 +851,7 @@ exports[`CourseScreen renders CourseScreen with courses loaded 1`] = `
                     "height": 1,
                   },
                   {
-                    "backgroundColor": "#e0e0e0",
+                    "backgroundColor": "#DDD",
                   },
                   {
                     "marginBottom": "2%",
