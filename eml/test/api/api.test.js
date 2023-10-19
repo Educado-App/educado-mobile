@@ -18,6 +18,8 @@ jest.mock('@react-native-async-storage/async-storage');
 
 const mock = new MockAdapter(axios);
 
+const port = 'http://localhost:8888';
+
 const mockData = {
   userData: {
     _id: '651a78592cf67cb9e721aea1',
@@ -148,7 +150,7 @@ describe('API Functions', () => {
 
       const result = await getCourse(courseId);
 
-      expect(axios.get).toHaveBeenCalledWith(`http://localhost:8888/api/courses/${courseId}`);
+      expect(axios.get).toHaveBeenCalledWith(`${port}/api/courses/${courseId}`);
       expect(result).toEqual(mockData.courseData);
 
     });
@@ -169,7 +171,7 @@ describe('API Functions', () => {
 
       const result = await getCourses();
 
-      expect(axios.get).toHaveBeenCalledWith('http://localhost:8888/api/courses');
+      expect(axios.get).toHaveBeenCalledWith(`${port}/api/courses`);
       expect(result).toEqual(mockData.allCoursesData);
     });
 
@@ -189,7 +191,7 @@ describe('API Functions', () => {
 
       const result = await getAllSections(courseId);
 
-      expect(axios.get).toHaveBeenCalledWith(`http://localhost:8888/api/courses/${courseId}/sections`);
+      expect(axios.get).toHaveBeenCalledWith(`${port}/api/courses/${courseId}/sections`);
       expect(result).toEqual(mockData.sectionsData);
     });
 
@@ -211,7 +213,7 @@ describe('API Functions', () => {
 
       const result = await getSection(courseId, sectionId);
 
-      expect(axios.get).toHaveBeenCalledWith(`http://localhost:8888/api/courses/${courseId}/sections/${sectionId}`);
+      expect(axios.get).toHaveBeenCalledWith(`${port}/api/courses/${courseId}/sections/${sectionId}`);
       expect(result).toEqual(mockData.sectionData);
     });
 
@@ -239,7 +241,7 @@ describe('API Functions', () => {
       const result = await getSubscriptions(userId);
 
       // Check that axios.get was called with the correct URL
-      expect(axios.get).toHaveBeenCalledWith(`http://localhost:8888/api/users/${userId}/subscriptions`);
+      expect(axios.get).toHaveBeenCalledWith(`${port}/api/users/${userId}/subscriptions`);
       expect(result).toEqual(mockData.subscriptionData);
     });
 
@@ -260,7 +262,7 @@ describe('API Functions', () => {
 
       await subscribeToCourse(userId, courseId);
 
-      expect(axios.post).toHaveBeenCalledWith(`http://localhost:8888/api/courses/${courseId}/subscribe`, {
+      expect(axios.post).toHaveBeenCalledWith(`${port}/api/courses/${courseId}/subscribe`, {
         user_id: userId,
       });
     });
@@ -283,7 +285,7 @@ describe('API Functions', () => {
 
       await unSubscribeToCourse(userId, courseId);
 
-      expect(axios.post).toHaveBeenCalledWith(`http://localhost:8888/api/courses/${courseId}/unsubscribe`, {
+      expect(axios.post).toHaveBeenCalledWith(`${port}/api/courses/${courseId}/unsubscribe`, {
         user_id: userId,
       });
     });
@@ -312,7 +314,7 @@ describe('API Functions', () => {
 
       const result = await ifSubscribed(userId, courseId);
 
-      expect(axios.get).toHaveBeenCalledWith(`http://localhost:8888/api/users/subscriptions?user_id=${userId}&course_id=${courseId}`);
+      expect(axios.get).toHaveBeenCalledWith(`${port}/api/users/subscriptions?user_id=${userId}&course_id=${courseId}`);
       expect(result).toEqual(subscribedData.isSubscribed);
     });
 
