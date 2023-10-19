@@ -1,4 +1,5 @@
 import renderer from "react-test-renderer";
+import React from "react";
 import RegisterForm from "../../../components/login/RegisterForm";
 
 let registerForm;
@@ -8,6 +9,12 @@ beforeEach(async () => {
     registerForm = renderer.create(<RegisterForm />);
   });
 });
+
+jest.mock('@react-navigation/native', () => ({
+  useNavigation: () => ({
+    navigate: jest.fn(),
+  }),
+}))
 
 test("Ensure that the RegisterForm component renders correctly", () => {
   const tree = registerForm.toJSON();
@@ -167,16 +174,17 @@ test("Test that the password input works correctly", async () => {
   const passwordInput = registerForm.root.findByProps({
     testId: "passwordInput"
   });
-  await renderer.act(() => {
-    passwordInput.props.onChangeText("12345678a").then(() => {
-      expect(passwordInput.props.value)
-        .toBe("12345678a");
-    });
-  })
+  renderer.act(() => {
+    passwordInput.props.onChangeText("12345678a")
+  }).then(() => {
+    expect(passwordInput.props.value)
+      .toBe("12345678a");
+  });
 });
 
 test("Check that register button is disabled when fields are empty", async () => {
-  const nameInput = registerForm.root.findByProps({ testId: "nameInput" });
+  const firstNameInput = registerForm.root.findByProps({ testId: "firstNameInput" });
+  const lastNameInput = registerForm.root.findByProps({ testId: "lastNameInput" });
   const emailInput = registerForm.root.findByProps({ testId: "emailInput" });
   const passwordInput = registerForm.root.findByProps({ testId: "passwordInput" });
   const confirmPasswordInput = registerForm.root.findByProps({ testId: "confirmPasswordInput" });
@@ -184,7 +192,8 @@ test("Check that register button is disabled when fields are empty", async () =>
 
   // Check that register button is disabled when all fields are empty
   await renderer.act(() => {
-    nameInput.props.onChangeText("");
+    firstNameInput.props.onChangeText("");
+    lastNameInput.props.onChangeText("");
     emailInput.props.onChangeText("");
     passwordInput.props.onChangeText("");
     confirmPasswordInput.props.onChangeText("");
@@ -194,7 +203,8 @@ test("Check that register button is disabled when fields are empty", async () =>
 
 
 function testRegisterButtonDisable() {
-  const nameInput = registerForm.root.findByProps({ testId: "nameInput" });
+  const firstNameInput = registerForm.root.findByProps({ testId: "firstNameInput" });
+  const lastNameInput = registerForm.root.findByProps({ testId: "lastNameInput" });
   const emailInput = registerForm.root.findByProps({ testId: "emailInput" });
   const passwordInput = registerForm.root.findByProps({ testId: "passwordInput" });
   const confirmPasswordInput = registerForm.root.findByProps({ testId: "confirmPasswordInput" });
@@ -203,7 +213,8 @@ function testRegisterButtonDisable() {
   test("Check that register button is not disabled when fields are filled correctly", async () => {
     // Check that the button is disabled when only the name field is filled
     await renderer.act(async () => {
-      nameInput.props.onChangeText("testName");
+      firstNameInput.props.onChangeText("testFirstName");
+      lastNameInput.props.onChangeText("testLastName");
       emailInput.props.onChangeText("test@test.dk");
       await passwordInput.props.onChangeText("passwordTest");
       await confirmPasswordInput.props.onChangeText("passwordTest");
@@ -214,7 +225,8 @@ function testRegisterButtonDisable() {
   test("Check that register button is disabled when password and confirm password is not the same", async () => {
     // Test that the register button is disabled when the password and confirm password fields are not equal
     await renderer.act(() => {
-      nameInput.props.onChangeText("name");
+      firstNameInput.props.onChangeText("firstname");
+      lastNameInput.props.onChangeText("lastname");
       emailInput.props.onChangeText("test@test.dk");
       passwordInput.props.onChangeText("testing123");
       confirmPasswordInput.props.onChangeText("not the same password");

@@ -5,7 +5,7 @@ const testUrl = "http://localhost:8888";
 const testExpo = "http://172.30.213.213:8888"; //Change to local expo ip
 const digitalOcean = "http://207.154.213.68:8888";
 
-const url = testExpo;
+const url = testUrl;
 
 // TODO: Find a solution to refresh auth-token
 const authToken = "";
@@ -19,17 +19,18 @@ const config = {
   },
 };
 
+
 export const getAuthToken = async () => {
-  const res = await axios
-    .post(url + "/auth/jwt", authBody)
-    .then((response) => {
-      console.log("Success", response);
+  const res = await axios.post(url + '/auth/jwt', authBody)
+    .then(response => {
+      console.log("Success", response)
     })
-    .catch((error) => {
-      console.log("Error" + error);
-    });
+    .catch(error => {
+      console.log("Error" + error)
+    })
   return res.data;
 };
+/*
 
 //CREATED BY VIDEOSTREAMING TEAM
 export const downloadVideoByFileName = async (fileName) => {
@@ -168,22 +169,24 @@ export const getAllComponents = async (components) => {
 // Get specific course
 
 export const getCourse = async (courseId) => {
-  const res = await axios.get(url + "/api/courses/" + courseId);
-  return res.data;
+  try {
+    const res = await axios.get(url + '/api/courses/' + courseId)
+    return res.data;
+
+  } catch (error) {
+    throw new Error("Error getting specific course: " + error);
+  }
 };
 
 // Get all courses
 export const getCourses = async () => {
-  const res = await axios.get(url + "/api/courses");
-  console.log(res.data);
-  return res.data;
-};
+  try {
+    const res = await axios.get(url + '/api/courses')
+    return res.data;
 
-export const getSection = async (courseId, sectionId) => {
-  const res = await axios.get(
-    url + "/api/courses/" + courseId + "/sections/" + sectionId
-  );
-  return res.data;
+  } catch (error) {
+    throw new Error("Error getting all courses: " + error);
+  }
 };
 
 //CREATED BY VIDEO STREAMING TEAM
@@ -207,80 +210,117 @@ export const getLectureById = async (lectureId) => {
   }
 };
 
+// Get all sections for a specific course
 export const getAllSections = async (courseId) => {
-  const res = await axios.get(url + "/api/courses/" + courseId + "/sections");
 
-  return res.data;
+  try {
+    const res = await axios.get(url + '/api/courses/' + courseId + '/sections');
+    return res.data;
+
+  } catch (error) {
+    throw new Error("Error getting all sections: " + error);
+  }
+
 };
 
+// Get specific section
+export const getSection = async (courseId, sectionId) => {
+  try {
+    const res = await axios.get(url + '/api/courses/' + courseId + '/sections/' + sectionId);
+    return res.data;
+  }
+  catch (error) {
+    throw new Error("Error getting specific section: " + error);
+  }
+};
+
+// Get all exercises in a specific section:
 export const getExercisesInSection = async (courseId, sectionId) => {
-  const res = await axios.get(
-    url + "/api/courses/" + courseId + "/sections/" + sectionId + "/exercises"
-  );
-  return res.data;
+  try {
+    const res = await axios.get(url + '/api/courses/' + courseId + '/sections/' + sectionId + '/exercises');
+    return res.data;
+
+  } catch (error) {
+    throw new Error("Error getting exercises in section: " + error);
+  }
+
 };
+
 
 /*** SUBSCRIPTION ***/
 
 // Get user subsribtions
 export const getSubscriptions = async () => {
-  const userId = await AsyncStorage.getItem("@userId");
 
-  // maybe not best practise to pass user ID as request query
-  // but this is the only format where it works
-  // passing user ID as request body for get request gives error
-  const res = await axios.get(url + "/api/users/" + userId + "/subscriptions");
+  try {
+    const userId = await AsyncStorage.getItem("@userId");
 
-  return res.data;
+    // maybe not best practise to pass user ID as request query
+    // but this is the only format where it works
+    // passing user ID as request body for get request gives error
+    const res = await axios.get(url + '/api/users/' + userId + '/subscriptions')
+
+    return res.data;
+
+  } catch (error) {
+    throw new Error("Error getting user subscriptions: " + error);
+  }
+
+
 };
 
+
 // Subscribe to course
-export async function subscribeToCourse(courseId) {
+export const subscribeToCourse = async (courseId) => {
+
   const userId = await AsyncStorage.getItem("@userId");
   const courseID = courseId;
 
   // Send request -- TODO: replace with real credentials, when login is working
-  const res = await axios
-    .post(url + "/api/courses/" + courseID + "/subscribe", {
-      user_id: userId,
+  const res = await axios.post(url + '/api/courses/' + courseID + '/subscribe', {
+    user_id: userId
+  })
+    .then(response => {
+      console.log("Subscribed successfully: " + response.data)
     })
-    .then((response) => {
-      console.log("YAY! Du er nu subscribet " + response);
+    .catch(error => {
+      throw new Error("Error subscribing to course: " + error.message)
     })
-    .catch((error) => {
-      console.log("OMG nei, du er ikke blevet subscribet" + error);
-    });
-}
+
+};
 
 // Unubscribe to course
-export async function unSubscribeToCourse(courseId) {
+export const unSubscribeToCourse = async (courseId) => {
+
   const userId = await AsyncStorage.getItem("@userId");
   const courseID = courseId;
 
-  const res = await axios
-    .post(url + "/api/courses/" + courseID + "/unsubscribe", {
-      user_id: userId,
+  const res = await axios.post(url + '/api/courses/' + courseID + '/unsubscribe', {
+    user_id: userId
+  })
+    .then(response => {
+      console.log("Unsubscribed successfully: " + response.data)
     })
-    .then((response) => {
-      console.log("YAY! Du er nu unsubscribet" + response);
+    .catch(error => {
+      throw new Error("Error unsubscribing to course: " + error.message)
     })
-    .catch((error) => {
-      console.log("OMG nei, du er ikke blevet unsubscribet" + error);
-    });
-}
+};
 
-export async function ifSubscribed(courseId) {
+export const ifSubscribed = async (courseId) => {
+
+
   const userId = await AsyncStorage.getItem("@userId");
   try {
+
     // maybe not best practise to pass user ID as request query
     // but this is the only format where it works
     // passing user ID as request body for get request gives error
-    const res = await axios.get(
-      url + "/api/users?user_id=" + userId + "&" + "course_id=" + courseId
-    );
+    const res = await axios.get(url + '/api/users/subscriptions?user_id=' + userId + '&' + 'course_id=' + courseId);
 
-    return res.data;
+    return (res.data);
+
   } catch (error) {
-    console.log(error);
+    throw new Error("Error getting user subscriptions: " + error);
   }
+
 }

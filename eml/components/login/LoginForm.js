@@ -51,12 +51,9 @@ export default function LoginForm() {
 
     try {
       await loginUser(obj) // Await the response from the backend API for login
-        .then((response) => {
+        .then(async (response) => {
           // Set login token in AsyncStorage and navigate to home screen
-          AsyncStorage.setItem(LOGIN_TOKEN, response.accessToken);
-          AsyncStorage.setItem(USER_EMAIL, response.user.email);
-          AsyncStorage.setItem(USER_ID, response.user.id);
-
+          await AsyncStorage.setItem(LOGIN_TOKEN, response.accessToken);
           navigation.navigate("HomeStack");
         })
         .catch((error) => {
@@ -64,17 +61,17 @@ export default function LoginForm() {
           switch (error?.error?.code) {
             case 'E0101':
               // No user exists with this email!
-              setEmailAlert("Não existe nenhum usuário com este email!"); 
+              setEmailAlert("Não existe nenhum usuário com este email!");
               break;
 
             case 'E0105':
               // Password is incorrect!
-              setPasswordAlert("Senha incorreta!"); 
+              setPasswordAlert("Senha incorreta!");
               break;
 
             case 'E0003':
               // Error connecting to server!
-              ShowAlert("Erro de conexão com o servidor!"); 
+              ShowAlert("Erro de conexão com o servidor!");
               break;
 
             // TODO: What error should we give here instead? Unknown error? 

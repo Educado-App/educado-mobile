@@ -25,10 +25,13 @@ export default function SectionCard({ section }) {
     const navigation = useNavigation();
     const isComplete = completed === section.total;
     const inProgress = 0 < completed && completed < section.total;
-    const notpossible = completed > section.total;
+    const notPossible = completed > section.total;
     const [isOpen, setIsOpen] = useState(false);
-    const className = isComplete ? "bg-[#87eb8e]" : inProgress ? "bg-[#87CEEB]" : notpossible ? "bg-[#F20000]" : {};
+    // backgroundColor should accommodate with color scheme for status notification (from Miro), but they didn't fit the with the style
+    const backgroundColor = isComplete ? "bg-[#87eb8e]" : inProgress ? "bg-[#87CEEB]" : notPossible ? "bg-[#F20000]" : {};
 
+
+    //VIDEO STREAMING ADDITIONS
     useEffect(() => {
 
         console.log("THIS IS SECTION CARD")
@@ -54,17 +57,22 @@ export default function SectionCard({ section }) {
         setLectures(res.components);
 
     }
+    //VIDEO STREAMING ADDITIONS END
 
+    /**
+     * Toggles the dropdown state.
+     */
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
     }
+
+    /**
+     * Handles the image press event.
+     */
     const handleImagePress = () => {
         navigation.navigate('HomeStack'); // Replace with the name of the target screen
     }
 
-
-    //const navigation = useNavigation();
-    // Empty function that does nothing
     const handleLecturePress = (lectureId) => {
 
         navigation.navigate('Lecture', {
@@ -75,18 +83,19 @@ export default function SectionCard({ section }) {
     };
 
 
-
     return (
-        <View className="bg-transparent m-[8] rounded-[10px] shadow-[0px 2px 4.65px #000] shadow-opacity-[0.3]">
-            <Pressable onPress={toggleDropdown} className="bg-[#fff] rounded-[10px] mb-[15] mx-[18] overflow-hidden elevation-[8]">
-                <View className={"flex-row items-center justify-between px-[25] py-[15] " + className}>
+        <View className="bg-transparent m-[2.2%] rounded-[10px] shadow-[0px 2px 4.65px #000] shadow-opacity-[0.3]">
+            <Pressable testID="collapsible" onPress={toggleDropdown} className="bg-[#fff] rounded-[10px] mb-[15] mx-[18] overflow-hidden elevation-[8]">
+                <View className={"flex-row items-center justify-between px-[25] py-[15] " + backgroundColor}>
                     <Text className="text-[16px] font-bold text-black flex-[1]">
                         {section.title}
                     </Text>
                     <Text className="mr-[10] text-black">
-                        {completed}/{section.total} completed
+                        {/* completed */}
+                        {completed}/{section.total} concluídos
                     </Text>
                     <MaterialCommunityIcons
+                        testID={isOpen ? "chevron-up" : "chevron-down"}
                         name={isOpen ? "chevron-up" : "chevron-down"}
                         size={25}
                         color="gray"
@@ -94,11 +103,9 @@ export default function SectionCard({ section }) {
                 </View>
 
                 <Collapsible collapsed={!isOpen}>
-
                     <View className="h-[1px] bg-[#e0e0e0]" />
                     <Text className="mx-[20] my-[10]">{section.description}</Text>
                     <View className="w-[100%]">
-
                         {/* Lectures */}
                         {lectures && lectures.map((lecture) => {
 
@@ -108,8 +115,8 @@ export default function SectionCard({ section }) {
                                     console.log("pressed lecture: " + lecture._id);
                                 }} >
                                     <View key={lecture.lectureId} className={`flex-row items-center justify-between px-[25] py-[15]
-                                ${lecture.completed ? "bg-[#87eb8e]" : "bg-[#fff]"}
-                                ` }>
+                                    ${lecture.completed ? "bg-[#87eb8e]" : "bg-[#fff]"}
+    ` }>
                                         <Text className="text-[16px] font-bold text-black flex-[1]">
                                             {lecture.title}
                                         </Text>
@@ -128,7 +135,6 @@ export default function SectionCard({ section }) {
                                 <MaterialCommunityIcons name="play-circle-outline" size={100} color="lightblue" />
                             </View>
                         </TouchableOpacity>
-
                     </View>
                 </Collapsible>
             </Pressable>

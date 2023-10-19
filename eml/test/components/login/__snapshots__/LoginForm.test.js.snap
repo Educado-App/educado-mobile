@@ -59,7 +59,7 @@ exports[`Check LoginForm renders correctly 1`] = `
                   "lineHeight": 16,
                 },
                 {
-                  "color": "#CF6679",
+                  "color": "#FF4949",
                 },
               ],
             ]
@@ -84,9 +84,6 @@ exports[`Check LoginForm renders correctly 1`] = `
               },
               {
                 "paddingLeft": 10,
-              },
-              {
-                "backgroundColor": "#FFFFFF",
               },
               {
                 "borderBottomLeftRadius": 8,
@@ -123,7 +120,7 @@ exports[`Check LoginForm renders correctly 1`] = `
                 "lineHeight": 16,
               },
               {
-                "color": "#CF6679",
+                "color": "#FF4949",
               },
               {
                 "marginLeft": 8,
@@ -195,7 +192,7 @@ exports[`Check LoginForm renders correctly 1`] = `
                   "lineHeight": 16,
                 },
                 {
-                  "color": "#CF6679",
+                  "color": "#FF4949",
                 },
               ],
             ]
@@ -220,9 +217,6 @@ exports[`Check LoginForm renders correctly 1`] = `
               },
               {
                 "paddingLeft": 10,
-              },
-              {
-                "backgroundColor": "#FFFFFF",
               },
               {
                 "borderBottomLeftRadius": 8,
@@ -301,7 +295,7 @@ exports[`Check LoginForm renders correctly 1`] = `
                 "lineHeight": 16,
               },
               {
-                "color": "#CF6679",
+                "color": "#FF4949",
               },
               {
                 "marginLeft": 8,
@@ -331,9 +325,6 @@ exports[`Check LoginForm renders correctly 1`] = `
             {
               "fontSize": 16,
               "lineHeight": 24,
-            },
-            {
-              "color": "#383838",
             },
             {
               "marginLeft": 205,
@@ -405,9 +396,6 @@ exports[`Check LoginForm renders correctly 1`] = `
           {
             "opacity": 0.5,
           },
-          {
-            "backgroundColor": "#A1ACB2",
-          },
         ]
       }
     >
@@ -418,9 +406,6 @@ exports[`Check LoginForm renders correctly 1`] = `
               "fontFamily": "Montserrat-Regular",
             },
             [
-              {
-                "color": "#FFFFFF",
-              },
               {
                 "fontSize": 16,
               },
@@ -454,12 +439,6 @@ exports[`Check LoginForm renders correctly 1`] = `
             "borderLeftWidth": 8,
             "borderRightWidth": 8,
             "borderTopWidth": 8,
-          },
-          {
-            "borderBottomColor": "#383838",
-            "borderLeftColor": "#383838",
-            "borderRightColor": "#383838",
-            "borderTopColor": "#383838",
           },
         ]
       }

@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Icon } from '@rneui/themed';
 import { AppLoading } from 'expo-app-loading';
+import Text from '../general/Text';
 
 export default function RightAnswerScreen() {
   const navigation = useNavigation();

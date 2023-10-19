@@ -1,12 +1,13 @@
 import { StatusBar } from 'expo-status-bar'
-import { React, useEffect, useRef, useState } from 'react'
-import { Alert, StyleSheet, View, Text } from 'react-native'
+import React, { useEffect, useRef, useState } from 'react'
+import { Alert, StyleSheet, View } from 'react-native'
 import LeaveButton from '../../components/exercise/LeaveButton'
 import ExerciseButtons from '../../components/exercise/ExerciseButtons'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { Video } from 'expo-av'
 import * as StorageService from '../../services/StorageService'
 import CustomProgressBar from '../../components/exercise/Progressbar'
+import Text from '../../components/general/Text'
 
 export default function ExerciseScreen() {
   const navigation = useNavigation()

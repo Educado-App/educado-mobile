@@ -1,8 +1,8 @@
 import React from 'react'
-import { StyleSheet, Text, View } from "react-native"
+import { StyleSheet, View } from "react-native"
 import { Icon } from '@rneui/themed';
 
-const ProfileImage = ({UserName, Name}) => {
+const ProfileImage = () => {
 
     return (
       <View style={styles.container}>

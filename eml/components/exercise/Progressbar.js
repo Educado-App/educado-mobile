@@ -1,19 +1,43 @@
-import * as React from 'react'
-import * as Progress from 'react-native-progress'
-import PropTypes from 'prop-types'
-const CustomProgressBar = ({ progress }) => {
-  CustomProgressBar.propTypes = {
-    progress: PropTypes.number.isRequired
-  }
-  return (
-    <Progress.Bar
-      progress={progress}
-      width={275}
-      height={10}
-      color="rgba(123,254,77, 100)"
-      borderColor="rgba(0,0,0, 0.17)"
-    ></Progress.Bar>
-  )
-}
+import * as React from "react";
+import { View, Text } from "react-native";
+import * as Progress from "react-native-progress";
+import PropTypes from "prop-types";
+import { ScreenWidth, ScreenHeight } from "@rneui/base";
 
-export default CustomProgressBar
+/**
+ * A custom progress bar component.
+ * @param {Object} props - The props object.
+ * @param {number} props.progress - The progress value (0-100).
+ * @param {number} props.width - The width of the progress bar (in percentage).
+ * @param {number} props.height - The height of the progress bar (in percentage).
+ * @returns {JSX.Element} - A JSX element representing the custom progress bar.
+ */
+const CustomProgressBar = ({ progress, width, height }) => {
+  CustomProgressBar.propTypes = {
+    progress: PropTypes.number.isRequired,
+    width: PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired,
+  };
+
+  // Insure progress is between 0 and 100
+  progress = Math.min(100, Math.max(0, progress));
+
+  return (
+    <View className="flex-row items-center justify-around">
+      <Progress.Bar
+        progress={progress / 100}
+        width={ScreenWidth * (width / 100)}
+        height={ScreenHeight * (height / 100)}
+        color="rgba(94, 204, 233, 1)"
+        unfilledColor="rgba(228, 242, 245, 1)"
+        borderWidth={0}
+        borderRadius={8}
+      ></Progress.Bar>
+      <Text className="px-5 text-center font-montserrat-bold text-caption-medium text-projectBlack">
+        {progress}%
+      </Text>
+    </View>
+  );
+};
+
+export default CustomProgressBar;
