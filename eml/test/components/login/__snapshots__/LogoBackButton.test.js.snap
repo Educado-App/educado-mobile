@@ -129,8 +129,8 @@ exports[`Ensure that the field is rendered correctly without props 1`] = `
                   style={
                     [
                       {
-                        "color": "rgb(75,85,99)",
-                        "fontSize": 40,
+                        "color": "#383838",
+                        "fontSize": 25,
                       },
                       {
                         "backgroundColor": "transparent",
