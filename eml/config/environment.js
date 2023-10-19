@@ -1,0 +1,8 @@
+import { NODE_ENV, BACKEND_IP_PRODUCTION, BACKEND_IP_LOCAL, LANGUAGE } from '@env';
+
+module.exports = {
+  BACKEND_IP: NODE_ENV === 'production' ? BACKEND_IP_PRODUCTION : BACKEND_IP_LOCAL,
+  LANGUAGE: LANGUAGE,
+}
+
+

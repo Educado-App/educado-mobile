@@ -1,17 +1,14 @@
 import axios from 'axios'
+import { BACKEND_IP } from '../config/environment';
 
-const prod = 'http://educado.somethingnew.dk'
-const test = 'http://172.30.245.130:8888' // Change this to your LOCAL IP address when testing.
-const local = 'http://localhost:8888'
-const digitalOcean = 'http://207.154.213.68:8888'
-
-const url = test;
+const port = '8888';
+const url = 'http://' + BACKEND_IP + ':' + port;
 
 /**
  * This is the client that will be used to make requests to the backend.
  */
 export const client = axios.create({
-  baseURL: test,
+  baseURL: url,
   withCredentials: true,
   responseType: 'json',
   timeout: 30000,
@@ -51,6 +48,7 @@ export const registerUser = async (obj) => {
  * - password
 */
 export const loginUser = async (obj) => {
+  console.log(url)
   try {
     const res = await client.post('/api/auth/login', obj);
     console.log('User successfully registered');

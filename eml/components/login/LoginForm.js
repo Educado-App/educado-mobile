@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { loginUser } from "../../api/userApi";
@@ -10,6 +10,7 @@ import ResetPassword from "./ResetPassword";
 import FormFieldAlert from "./FormFieldAlert";
 import { removeEmojis } from "../general/Validation";
 import Text from "../general/Text";
+import { translate } from "../../constants/translations";
 
 const LOGIN_TOKEN = "@loginToken";
 const USER_INFO = "@userInfo";
@@ -30,7 +31,6 @@ export default function LoginForm() {
   const [emailAlert, setEmailAlert] = useState("");
   // State variable to track password visibility
   const [showPassword, setShowPassword] = useState(false);
-
   /**
    * Logs user in with the entered credentials 
    * @param {String} email Email user tries to login with
@@ -42,7 +42,6 @@ export default function LoginForm() {
     setEmailAlert("");
     setPasswordAlert("");
 
-    //The Object must be hashed before it is sent to backend (before loginUser() is called)
     //The Input must be conditioned (at least one capital letter, minimum 8 letters and a number etc.)
     const obj = {
       email: email,
@@ -57,16 +56,15 @@ export default function LoginForm() {
           navigation.navigate("HomeStack");
         })
         .catch((error) => {
-          console.log(error);
           switch (error?.error?.code) {
-            case 'E0101':
-              // No user exists with this email!
-              setEmailAlert("Não existe nenhum usuário com este email!");
+            case 'E0004':
+              // No user exists with this email!   "Não existe nenhum usuário com este email!"
+              setEmailAlert(translate("No user exists with this email!"));
               break;
 
             case 'E0105':
               // Password is incorrect!
-              setPasswordAlert("Senha incorreta!");
+              setPasswordAlert(translate("Password is incorrect!"));
               break;
 
             case 'E0003':
@@ -114,7 +112,7 @@ export default function LoginForm() {
       <View className="relative mb-6">
         <FormTextField
           testId="passwordInput"
-          placeholder="Digite sua senha" // Type your password
+          placeholder={translate("Enter your password")}
           value={password}
           onChangeText={(inputPassword) => {
             setPassword(removeEmojis(inputPassword, password))

@@ -25,6 +25,8 @@ import ProfileSettingsScreen from "./screens/profile/ProfileSettings";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
+export const Language = React.createContext('br');
+
 /**
  * Check if user is logged in, if not redirect to login screen
  */
@@ -222,6 +224,11 @@ export default function App() {
   const fontsLoaded = isFontsLoaded();
   const [initialRoute, setInitialRoute] = useState(""); 
   const [isLoading, setIsLoading] = useState(true);
+  const [language, setLanguage] = useState("br");
+
+  useEffect(() => {
+    process.env.LANGUAGE=language;
+  }, [language]);
 
   // Callback function to handle the results
   const handleResult = (route, loading) => {
@@ -244,7 +251,7 @@ export default function App() {
 
   return (
     <TailwindProvider>
-      <>
+      <Language.Provider value={{ language: language, setLanguage: setLanguage }}>
         <IconRegistry icons={EvaIconsPack} />
         <ApplicationProvider {...eva} theme={eva.light}>
           <NavigationContainer>
@@ -272,7 +279,7 @@ export default function App() {
             </Stack.Navigator>
           </NavigationContainer>
         </ApplicationProvider>
-      </>
+      </Language.Provider>
     </TailwindProvider>
   );
 }
