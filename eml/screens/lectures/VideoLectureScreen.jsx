@@ -34,8 +34,7 @@ export default function VideoLectureScreen({ lecture, course }) {
     const onStatusUpdate = (status) => {
         setPositionMillis(status.positionMillis || 0);
         setDurationMillis(status.durationMillis || 0);
-        //setIsPlaying(status.isPlaying || false);
-        // console.log("onStatusUpdate", status.positionMillis);
+
     };
 
 
@@ -45,6 +44,9 @@ export default function VideoLectureScreen({ lecture, course }) {
         const _videoUrl = getVideoDownloadUrl(lecture._id, "180p")
 
         console.log("INSIDE VIDEO LECTURE SCREEN", _videoUrl)
+
+        //test if video is available for download from internet
+
         setVideoUrl(_videoUrl)
     }, [])
 
@@ -81,6 +83,27 @@ export default function VideoLectureScreen({ lecture, course }) {
 
     const navigation = useNavigation();
 
+    //check if video url is valid
+    useEffect(() => {
+        const _videoUrl = getVideoDownloadUrl(lecture._id, "180p");
+        console.log("INSIDE VIDEO LECTURE SCREEN", _videoUrl);
+
+        fetch(_videoUrl, {
+            method: 'HEAD'
+        })
+            .then(response => {
+                if (response.ok) {
+                    // HTTP status between 200-299 or equals 304.
+                    setVideoUrl(_videoUrl);
+                } else {
+                    console.error('Video URL is not valid');
+                    Alert.alert("Error", "The video is corrupted. Please try again later", "OK");
+                }
+            })
+            .catch(error => {
+            });
+    }, []);
+
 
 
 
@@ -115,6 +138,7 @@ export default function VideoLectureScreen({ lecture, course }) {
 
                 <View className="w-full h-full " >
                     {videoUrl ? <CustomExpoVideoPlayer
+
                         videoUrl={videoUrl}
                         ref={videoRef}
                         isPlaying={isPlaying}
@@ -138,8 +162,8 @@ export default function VideoLectureScreen({ lecture, course }) {
                         <View className="w-full flex-row justify-between items-end">
 
                             <View className=" flex-col">
-                                <Text style={{color: tailwindConfig.theme.colors.projectGray}}  >Course Name: {course.title}</Text>
-                                <Text style={{color: tailwindConfig.theme.colors.white}} className="text-xl" >{lecture.title && lecture.title}</Text>
+                                <Text style={{ color: tailwindConfig.theme.colors.projectGray }}  >Course Name: {course.title}</Text>
+                                <Text style={{ color: tailwindConfig.theme.colors.white }} className="text-xl" >{lecture.title && lecture.title}</Text>
                             </View>
                             <VideoActions isPlaying={isPlaying} isMuted={isMuted} onVolumeClick={handleMutepress} onPlayClick={handlePress} />
                         </View>

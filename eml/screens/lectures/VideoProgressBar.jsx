@@ -17,6 +17,10 @@ const VideoProgressBar = ({ elapsedMs = 10000, totalMs = 20000, color, height, v
     const [percent, setPercent] = useState((elapsedMs / totalMs) * 100);
     const [progressBarWidth, setProgressBarWidth] = useState(0);
 
+
+
+
+
     const panResponder = useRef(
         PanResponder.create({
             onStartShouldSetPanResponder: () => true,
@@ -64,7 +68,7 @@ const VideoProgressBar = ({ elapsedMs = 10000, totalMs = 20000, color, height, v
     return (
         <View className="w-full flex-row justify-between items-center h-8">
             {/* Start Time */}
-            <Text style={{color: tailwindConfig.theme.colors.white}}>{convertMsToTime(elapsedMs)}</Text>
+            <Text style={{ color: tailwindConfig.theme.colors.white }}>{convertMsToTime(elapsedMs)}</Text>
 
             {/* Progress Bar Container */}
             <View
@@ -89,7 +93,7 @@ const VideoProgressBar = ({ elapsedMs = 10000, totalMs = 20000, color, height, v
             </View>
 
             {/* End Time */}
-            <Text style={{color: tailwindConfig.theme.colors.white}}>{convertMsToTime(totalMs)}</Text>
+            <Text style={{ color: tailwindConfig.theme.colors.white }}>{convertMsToTime(totalMs)}</Text>
         </View>
     )
 };

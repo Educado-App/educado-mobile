@@ -1,7 +1,9 @@
-import React, { forwardRef, useEffect } from 'react';
+import React, { forwardRef, useEffect, useState } from 'react';
 
 import { View, StyleSheet, Dimensions } from 'react-native';
 import { Video } from 'expo-av';
+
+import axios from 'axios';
 
 
 
@@ -21,6 +23,9 @@ const CustomExpoVideoPlayer = forwardRef(({ onStatusUpdate, videoUrl, isMuted = 
             height: screenHeight + screenHeight / 10,
         },
     });
+
+
+
 
     return (
         <View style={styles.container}>
