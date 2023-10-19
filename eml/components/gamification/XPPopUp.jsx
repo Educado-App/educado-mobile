@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Animated, Easing } from 'react-native';
 import Text from '../general/Text';
 
-export default function PopUp({ randomPhrase, xpAmount, isCorrectAnswer }) {
+export default function XpPopUp({ randomPhrase, xpAmount, isCorrectAnswer }) {
   const animatedValue = new Animated.Value(0);
   const opacityValue = new Animated.Value(1);
   const timer = 3000;
@@ -64,6 +64,7 @@ export default function PopUp({ randomPhrase, xpAmount, isCorrectAnswer }) {
         ],
       }}
       className="absolute bottom-0 w-screen h-[12.5%] z-20 shadow-md shadow-projectBlack"
+      testID={'XpPopUp'}
     >
       {isCorrectAnswer === true ? (
         <Animated.Text

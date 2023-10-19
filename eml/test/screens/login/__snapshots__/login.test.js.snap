@@ -232,6 +232,12 @@ exports[`Login screen renders 1`] = `
                       {
                         "fontFamily": "Montserrat-Regular",
                       },
+                      {
+                        "color": "#383838",
+                      },
+                      {
+                        "fontSize": 16,
+                      },
                       [
                         {
                           "marginLeft": 8,
@@ -251,6 +257,12 @@ exports[`Login screen renders 1`] = `
                     [
                       {
                         "fontFamily": "Montserrat-Regular",
+                      },
+                      {
+                        "color": "#383838",
+                      },
+                      {
+                        "fontSize": 16,
                       },
                       [
                         {
@@ -316,6 +328,12 @@ exports[`Login screen renders 1`] = `
                     {
                       "fontFamily": "Montserrat-Regular",
                     },
+                    {
+                      "color": "#383838",
+                    },
+                    {
+                      "fontSize": 16,
+                    },
                     [
                       {
                         "fontSize": 12,
@@ -365,6 +383,12 @@ exports[`Login screen renders 1`] = `
                       {
                         "fontFamily": "Montserrat-Regular",
                       },
+                      {
+                        "color": "#383838",
+                      },
+                      {
+                        "fontSize": 16,
+                      },
                       [
                         {
                           "marginLeft": 8,
@@ -384,6 +408,12 @@ exports[`Login screen renders 1`] = `
                     [
                       {
                         "fontFamily": "Montserrat-Regular",
+                      },
+                      {
+                        "color": "#383838",
+                      },
+                      {
+                        "fontSize": 16,
                       },
                       [
                         {
@@ -470,6 +500,12 @@ exports[`Login screen renders 1`] = `
                     {
                       "fontFamily": "Montserrat-Regular",
                     },
+                    {
+                      "color": "#383838",
+                    },
+                    {
+                      "fontSize": 16,
+                    },
                     [
                       {
                         "fontSize": 12,
@@ -495,6 +531,12 @@ exports[`Login screen renders 1`] = `
                 [
                   {
                     "fontFamily": "Montserrat-Regular",
+                  },
+                  {
+                    "color": "#383838",
+                  },
+                  {
+                    "fontSize": 16,
                   },
                   [
                     {
@@ -586,6 +628,12 @@ exports[`Login screen renders 1`] = `
                     {
                       "fontFamily": "Montserrat-Regular",
                     },
+                    {
+                      "color": "#383838",
+                    },
+                    {
+                      "fontSize": 16,
+                    },
                     [
                       {
                         "fontSize": 16,
@@ -646,6 +694,12 @@ exports[`Login screen renders 1`] = `
               {
                 "fontFamily": "Montserrat-Regular",
               },
+              {
+                "color": "#383838",
+              },
+              {
+                "fontSize": 16,
+              },
               [
                 {
                   "fontSize": 16,
@@ -666,6 +720,12 @@ exports[`Login screen renders 1`] = `
             [
               {
                 "fontFamily": "Montserrat-Regular",
+              },
+              {
+                "color": "#383838",
+              },
+              {
+                "fontSize": 16,
               },
               [
                 {
