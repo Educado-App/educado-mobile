@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, PanResponder } from 'react-native';
 
+import tailwindConfig from '../../tailwind.config';
 // THIS DOES NOT WORK YET
 const VideoProgressBar = ({ elapsedMs = 10000, totalMs = 20000, color, height, videoRef }) => {
     const convertMsToTime = (ms) => {
@@ -63,7 +64,7 @@ const VideoProgressBar = ({ elapsedMs = 10000, totalMs = 20000, color, height, v
     return (
         <View className="w-full flex-row justify-between items-center h-8">
             {/* Start Time */}
-            <Text className="text-white">{convertMsToTime(elapsedMs)}</Text>
+            <Text style={{color: tailwindConfig.theme.colors.white}}>{convertMsToTime(elapsedMs)}</Text>
 
             {/* Progress Bar Container */}
             <View
@@ -88,7 +89,7 @@ const VideoProgressBar = ({ elapsedMs = 10000, totalMs = 20000, color, height, v
             </View>
 
             {/* End Time */}
-            <Text className="text-white">{convertMsToTime(totalMs)}</Text>
+            <Text style={{color: tailwindConfig.theme.colors.white}}>{convertMsToTime(totalMs)}</Text>
         </View>
     )
 };

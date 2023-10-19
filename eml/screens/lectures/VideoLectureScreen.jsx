@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 
 import { Alert, View, TouchableOpacity, Pressable } from 'react-native';
 
-
+import tailwindConfig from '../../tailwind.config';
 import Text from '../../components/general/Text';
 
 import VideoActions from '../../components/lectures/VideoActions';
@@ -138,8 +138,8 @@ export default function VideoLectureScreen({ lecture, course }) {
                         <View className="w-full flex-row justify-between items-end">
 
                             <View className=" flex-col">
-                                <Text className=" text-gray " >Course Name: {course.title}</Text>
-                                <Text className=" text-2xl font-bold text-white " >{lecture.title && lecture.title}</Text>
+                                <Text style={{color: tailwindConfig.theme.colors.projectGray}}  >Course Name: {course.title}</Text>
+                                <Text style={{color: tailwindConfig.theme.colors.white}} className="text-xl" >{lecture.title && lecture.title}</Text>
                             </View>
                             <VideoActions isPlaying={isPlaying} isMuted={isMuted} onVolumeClick={handleMutepress} onPlayClick={handlePress} />
                         </View>

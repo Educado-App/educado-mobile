@@ -4,6 +4,8 @@ import { Image } from 'react-native';
 import ProgressTopBar from './ProgressTopBar';
 import { ScrollView } from 'react-native-gesture-handler';
 
+import tailwindConfig from '../../tailwind.config';
+
 const TextImageLectureScreen = ({ lecture, course }) => {
 
 
@@ -84,7 +86,7 @@ const TextImageLectureScreen = ({ lecture, course }) => {
                 paragraphs && paragraphs.map((paragraph, index) => {
                     if (paragraphs.length <= 2 || index !== paragraphs.length - 1) {
                         return (
-                            <Text key={index + paragraph} className={index === 0 ? "text-[18px] pt-6 text-primary" : "text-[18px] pt-4 text-gray "}>{paragraph}</Text>
+                            <Text key={index + paragraph} className={index === 0 ? "text-[18px] pt-6" : "text-[18px] pt-4 "} style={{ color: index == 0 ? tailwindConfig.theme.colors.primary : tailwindConfig.theme.colors.projectGray } } >{paragraph}</Text>
                         );
                     }
                     return null;
@@ -113,7 +115,7 @@ const TextImageLectureScreen = ({ lecture, course }) => {
             {
                 // Rendering the last paragraph below the image if the array has more than two elements
                 paragraphs && paragraphs.length > 2 &&
-                <Text className=" text-[18px] pt-4 text-gray ">{paragraphs[paragraphs.length - 1]}</Text>
+                <Text className=" text-[18px] pt-4 " style={{color: tailwindConfig.theme.colors.projectGray}} >{paragraphs[paragraphs.length - 1]}</Text>
             }
         </ScrollView>
 
@@ -123,7 +125,7 @@ const TextImageLectureScreen = ({ lecture, course }) => {
             <View className="w-full flex-row justify-between items-end">
 
                 <View className=" flex-col">
-                    <Text className=" text-gray " >Course Name: {course.title}</Text>
+                    <Text className=" text-projectGray " >Course Name: {course.title}</Text>
                     <Text className=" text-xl font-bold text-black " >{lecture.title && lecture.title}</Text>
                 </View>
             </View>
