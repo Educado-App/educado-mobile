@@ -9,7 +9,7 @@ import { useNavigation } from '@react-navigation/native';
 import CustomProgressBar from "../../components/exercise/Progressbar";
 import BaseScreen from '../../components/general/BaseScreen';
 import SubscriptionCancel from '../../components/section/CancelSubscriptionButton';
-import { unSubscribeToCourse } from '../../api/api';
+import { unsubscribe } from '../../services/StorageService';
 
 /**
  * Section screen component.
@@ -88,7 +88,7 @@ export default function SectionScreen({ route }) {
         onPress: () => console.log("No Pressed"),
         style: "cancel",
       },
-      { text: "Sim", onPress: () => unSubscribeToCourse(courseId) },
+      { text: "Sim", onPress: () => unsubscribe(courseId) },
     ]);
 
   return (

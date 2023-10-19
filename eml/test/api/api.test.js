@@ -230,24 +230,15 @@ describe('API Functions', () => {
     it('should get user subscriptions', async () => {
       const userId = mockData.userData._id;
 
-      // Mock AsyncStorage.getItem to return the user ID
-      AsyncStorage.getItem.mockResolvedValue(userId);
-
       mock
         .onGet(`/api/users/${userId}/subscriptions`)
         .reply(200, { data: mockData.subscriptionData });
 
       axios.get.mockResolvedValue({ data: mockData.subscribeData, data: mockData.subscriptionData });
 
-      const result = await getSubscriptions();
-
-      // Check that AsyncStorage.getItem was called with the expected argument
-      expect(AsyncStorage.getItem).toHaveBeenCalledWith('@userId');
+      const result = await getSubscriptions(userId);
 
       // Check that axios.get was called with the correct URL
-      expect(axios.get).toHaveBeenCalledWith(`http://localhost:8888/api/users/${userId}/subscriptions`);
-
-      expect(AsyncStorage.getItem).toHaveBeenCalledWith('@userId');
       expect(axios.get).toHaveBeenCalledWith(`http://localhost:8888/api/users/${userId}/subscriptions`);
       expect(result).toEqual(mockData.subscriptionData);
     });
@@ -267,19 +258,11 @@ describe('API Functions', () => {
       const userId = mockData.userData._id;
       const courseId = mockData.courseData._id;
 
-      AsyncStorage.getItem.mockResolvedValue(userId);
-      axios.post.mockResolvedValue({ data: 'subscription successful' });
+      await subscribeToCourse(userId, courseId);
 
-      const consoleLogSpy = jest.spyOn(console, 'log').mockImplementation();
-
-      await subscribeToCourse(courseId);
-
-      expect(AsyncStorage.getItem).toHaveBeenCalledWith('@userId');
       expect(axios.post).toHaveBeenCalledWith(`http://localhost:8888/api/courses/${courseId}/subscribe`, {
         user_id: userId,
       });
-      expect(consoleLogSpy).toHaveBeenCalledWith('Subscribed successfully: subscription successful');
-      consoleLogSpy.mockRestore();
     });
 
     it('should handle errors', async () => {
@@ -298,19 +281,11 @@ describe('API Functions', () => {
       const userId = mockData.userData._id;
       const courseId = mockData.courseData._id;
 
-      AsyncStorage.getItem.mockResolvedValue(userId);
-      axios.post.mockResolvedValue({ data: 'unsubscription successful' });
+      await unSubscribeToCourse(userId, courseId);
 
-      const consoleLogSpy = jest.spyOn(console, 'log').mockImplementation();
-
-      await unSubscribeToCourse(courseId);
-
-      expect(AsyncStorage.getItem).toHaveBeenCalledWith('@userId');
       expect(axios.post).toHaveBeenCalledWith(`http://localhost:8888/api/courses/${courseId}/unsubscribe`, {
         user_id: userId,
       });
-      expect(consoleLogSpy).toHaveBeenCalledWith('Unsubscribed successfully: unsubscription successful');
-      consoleLogSpy.mockRestore();
     });
 
     it('should handle errors', async () => {
@@ -329,18 +304,14 @@ describe('API Functions', () => {
       const userId = mockData.userData._id;
       const courseId = mockData.courseData._id;
 
-      // Mock AsyncStorage.getItem to return the user ID
-      AsyncStorage.getItem.mockResolvedValue(userId);
-
       // Mock the Axios request
       const subscribedData = {
         isSubscribed: true
       };
       axios.get.mockResolvedValue({ data: subscribedData.isSubscribed });
 
-      const result = await ifSubscribed(courseId);
+      const result = await ifSubscribed(userId, courseId);
 
-      expect(AsyncStorage.getItem).toHaveBeenCalledWith('@userId');
       expect(axios.get).toHaveBeenCalledWith(`http://localhost:8888/api/users/subscriptions?user_id=${userId}&course_id=${courseId}`);
       expect(result).toEqual(subscribedData.isSubscribed);
     });

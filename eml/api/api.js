@@ -1,5 +1,4 @@
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const testUrl = 'http://localhost:8888';
 const testExpo = 'http://172.30.245.130:8888'; //Change to local expo ip
@@ -158,10 +157,9 @@ export const getExercisesInSection = async (courseId, sectionId) => {
 /*** SUBSCRIPTION ***/
 
 // Get user subsribtions
-export const getSubscriptions = async () => {
+export const getSubscriptions = async (userId) => {
 
   try {
-    const userId = await AsyncStorage.getItem("@userId");
 
     // maybe not best practise to pass user ID as request query
     // but this is the only format where it works
@@ -179,45 +177,35 @@ export const getSubscriptions = async () => {
 
 
 // Subscribe to course
-export const subscribeToCourse = async (courseId) => {
+export const subscribeToCourse = async (userId, courseId) => {
 
-  const userId = await AsyncStorage.getItem("@userId");
-  const courseID = courseId;
-
-  // Send request -- TODO: replace with real credentials, when login is working
-  const res = await axios.post(url + '/api/courses/' + courseID + '/subscribe', {
+try {
+  const res = await axios.post(url + '/api/courses/' + courseId + '/subscribe', {
     user_id: userId
-  })
-    .then(response => {
-      console.log("Subscribed successfully: " + response.data)
-    })
-    .catch(error => {
+  });
+}
+catch(error) {
       throw new Error("Error subscribing to course: " + error.message)
-    })
+}
 
 };
 
 // Unubscribe to course
-export const unSubscribeToCourse = async (courseId) => {
+export const unSubscribeToCourse = async (userId, courseId) => {
 
-  const userId = await AsyncStorage.getItem("@userId");
-  const courseID = courseId;
+  try {
+    const res = await axios.post(url + '/api/courses/' + courseId + '/unsubscribe', {
+      user_id: userId
+    });
+  }
 
-  const res = await axios.post(url + '/api/courses/' + courseID + '/unsubscribe', {
-    user_id: userId
-  })
-    .then(response => {
-      console.log("Unsubscribed successfully: " + response.data)
-    })
-    .catch(error => {
+  catch(error){
       throw new Error("Error unsubscribing to course: " + error.message)
-    })
+  }
 };
 
-export const ifSubscribed = async (courseId) => {
+export const ifSubscribed = async (userId, courseId) => {
 
-
-  const userId = await AsyncStorage.getItem("@userId");
   try {
 
     // maybe not best practise to pass user ID as request query

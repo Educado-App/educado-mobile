@@ -10,7 +10,7 @@ exports[`CourseScreen renders CourseScreen correctly when theres no courses 1`] 
         "flexShrink": 1,
       },
       {
-        "backgroundColor": "#f1f9fb",
+        "backgroundColor": "#F1F9FB",
       },
     ]
   }
@@ -266,7 +266,7 @@ exports[`CourseScreen renders CourseScreen with courses loaded 1`] = `
         "flexShrink": 1,
       },
       {
-        "backgroundColor": "#f1f9fb",
+        "backgroundColor": "#F1F9FB",
       },
     ]
   }
