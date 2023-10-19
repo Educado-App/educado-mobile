@@ -88,7 +88,7 @@ export default function SectionScreen({ route }) {
         onPress: () => console.log("No Pressed"),
         style: "cancel",
       },
-      { text: "Sim", onPress: () => unsubscribe(courseId) },
+      { text: "Sim", onPress: () => { unsubscribe(courseId); setTimeout(() =>  {navigation.goBack();}, 300 ); }},
     ]);
 
   return (
