@@ -21,9 +21,6 @@ export default function LectureScreen({ route }) {
     const [lecture, setLecture] = useState(null);
 
     useEffect(() => {
-        console.log("THIS IS THE LECTURE SCREEN")
-        console.log("LectureID", lectureId)
-        console.log("CourseID", courseId)
         getLecture(lectureId);
         getCourseById(courseId);
     }, [])
@@ -46,7 +43,7 @@ export default function LectureScreen({ route }) {
             setCourse(res);
         }
         catch (err) {
-            console.log("error", err)
+
         }
     }
 

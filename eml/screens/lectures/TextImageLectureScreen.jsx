@@ -18,10 +18,10 @@ const TextImageLectureScreen = ({ lecture, course }) => {
     useEffect(() => {
 
         if (lecture.image) {
-            console.log("INSIDE TEXT IMAGE LECTURE SCREEN", lecture.image)
+
             getLectureImage();
         } else {
-            console.log("NO IMAGE")
+
         }
         splitText(lecture.description);
 
@@ -35,7 +35,7 @@ const TextImageLectureScreen = ({ lecture, course }) => {
             setImageUrl(imageRes);
         }
         catch (err) {
-            console.log("error", err)
+
             setImageUrl(null);
         }
 
@@ -44,8 +44,8 @@ const TextImageLectureScreen = ({ lecture, course }) => {
 
     //split text into paragraphs and dont cut words
     const splitText = (text) => {
-        console.log("INSIDE SPLIT TEXT")
-        console.log("TEXT", text, text.length)
+
+
         let _paragraphs = [];
 
         if (text.length < 250) {
@@ -83,8 +83,6 @@ const TextImageLectureScreen = ({ lecture, course }) => {
             }
         }
 
-
-        console.log("PARAGRAPHS", _paragraphs)
 
         // Now, `_paragraphs` contains the split text.
         setParagraphs(_paragraphs);

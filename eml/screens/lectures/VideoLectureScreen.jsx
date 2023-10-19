@@ -43,7 +43,7 @@ export default function VideoLectureScreen({ lecture, course }) {
     useEffect(() => {
         const _videoUrl = getVideoDownloadUrl(lecture._id, "180p")
 
-        console.log("INSIDE VIDEO LECTURE SCREEN", _videoUrl)
+
 
         //test if video is available for download from internet
 
@@ -52,9 +52,7 @@ export default function VideoLectureScreen({ lecture, course }) {
 
 
     useEffect(() => {
-        console.log(course)
         if (videoRef.current) {
-            // console.log("Video Ref is now set:");
         }
     }, [videoRef]);
 
@@ -62,17 +60,14 @@ export default function VideoLectureScreen({ lecture, course }) {
 
 
         if (!videoRef.current) {
-            console.log("Video Ref is not set:");
             return;
         }
 
 
         setIsPlaying(!isPlaying);
-        console.log("handlePress,", !isPlaying ? "pausing" : "playing");
     };
 
     const handleMutepress = () => {
-        console.log("handleMutepress,", isMuted ? "unmuting" : "muting");
 
         setIsMuted(!isMuted);
     }
@@ -86,7 +81,6 @@ export default function VideoLectureScreen({ lecture, course }) {
     //check if video url is valid
     useEffect(() => {
         const _videoUrl = getVideoDownloadUrl(lecture._id, "180p");
-        console.log("INSIDE VIDEO LECTURE SCREEN", _videoUrl);
 
         fetch(_videoUrl, {
             method: 'HEAD'

@@ -30,19 +30,14 @@ const VideoProgressBar = ({ elapsedMs = 10000, totalMs = 20000, color, height, v
             onPanResponderMove: (evt, gestureState) => {
                 // Calculate the percentage change
                 const _prograssBarWith = progressBarWidth == 0 ? 1 : progressBarWidth;
-                console.log("_prograssBarWith", _prograssBarWith);
-                console.log("gestureState.dx", gestureState.dx);
                 const percentageChange = (gestureState.dx / _prograssBarWith) * 100;
                 let newPercent = percent + percentageChange;
                 newPercent = Math.max(0, Math.min(newPercent, 100));  // Ensure the percentage is between 0 and 100
 
-                console.log("newPercent", newPercent);
-                console.log("percent", percent);
-                console.log("percentChange", percentageChange);
+     
                 // Convert the new percentage to milliseconds
                 const newElapsedMs = (newPercent / 100) * totalMs;
 
-                console.log("newElapsedMs", newElapsedMs);
                 // Set the video time (assuming videoRef.current has a setPositionAsync method)
                 if (videoRef.current && videoRef.current.setPositionAsync) {
                     videoRef.current.setPositionAsync(newElapsedMs);
@@ -58,7 +53,6 @@ const VideoProgressBar = ({ elapsedMs = 10000, totalMs = 20000, color, height, v
     ).current;
 
     useEffect(() => {
-        console.log("Video Ref is now set:");
         setPercent((elapsedMs / totalMs) * 100);
     }, [elapsedMs]);
 
