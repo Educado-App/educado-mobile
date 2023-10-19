@@ -12,6 +12,7 @@ import { ScreenWidth } from "@rneui/base";
 import { Icon } from '@rneui/themed';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import PopUp from '../../components/gamification/PopUp';
+import XPPopUp from '../../components/gamification/XPPopUp';
 import { generateSuccessPhrases, generateEncouragementPhrases } from '../../constants/PopUpPhrases';
 import * as StorageService from '../../services/StorageService';
 
@@ -30,6 +31,7 @@ export default function ExerciseScreen() {
   const [showFeedback, setShowFeedback] = useState(false); // Used to render feedback
   const [buttonText, setButtonText] = useState("Confirmar Resposta"); // Used to change the text of a button
   const [isPopUpVisible, setIsPopUpVisible] = useState(false); // Used to render the pop up
+  const [isXPPopUpVisible, setIsXPPopUpVisible] = useState(false); // Used to render the pop up
   const [randomPhrase, setRandomPhrase] = useState('');
   const [firstName, setFirstName] = useState('');
   const [isCorrectAnswer, setIsCorrectAnswer] = useState(false);
@@ -121,6 +123,7 @@ export default function ExerciseScreen() {
     setButtonText(continueText);
     if (buttonText !== continueText) {
       getRandomPhrase(selectedAnswerData.isCorrect);
+      setIsXPPopUpVisible(true);
       setIsPopUpVisible(true);
     }
   }
@@ -237,8 +240,12 @@ export default function ExerciseScreen() {
       )}
 
       {isPopUpVisible ? (
-        <PopUp randomPhrase={randomPhrase} xpAmount={2} isCorrectAnswer={isCorrectAnswer} />
+        <PopUp randomPhrase={randomPhrase} xpAmount={xp} isCorrectAnswer={isCorrectAnswer} />
       ) : null}
+
+      {isXPPopUpVisible ? (
+        <XPPopUp randomPhrase={randomPhrase} xpAmount={xp} isCorrectAnswer={isCorrectAnswer} />
+        ) : null}
 
       {/* Old exercise buttons
         <View style={{ flex: 3 }}>
