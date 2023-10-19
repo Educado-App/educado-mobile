@@ -10,6 +10,7 @@ import SectionScreen from "../../../screens/section/SectionScreen";
 import SectionCard from "../../../components/section/SectionCard";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Alert } from "react-native";
+import { mockDataAsyncStorage } from "../../mockData/mockDataAsyncStorage";
 
 /**
  * Mock navigation object used for testing.
@@ -82,27 +83,14 @@ describe("SectionScreen", () => {
    * Mock sections array used for testing.
    * @type {Array<object>}
    */
-  const sections = [
-    {
-      id: 1,
-      title: "Section 1",
-      description: "Description for section 1",
-      total: 10,
-    },
-    {
-      id: 2,
-      title: "Section 2",
-      description: "Description for section 2",
-      total: 10,
-    },
-  ];
+  const mockData = mockDataAsyncStorage();
 
   /**
    * Tests the rendering of the SectionScreen component with sections loaded.
    */
   it("Renders section screen with sections loaded", async () => {
     const StorageService = require("../../../services/StorageService");
-    jest.spyOn(StorageService, "getSectionList").mockResolvedValue(sections);
+    jest.spyOn(StorageService, "getSectionList").mockResolvedValue(mockData.sectionData);
 
     
     await renderer.act(async () => {

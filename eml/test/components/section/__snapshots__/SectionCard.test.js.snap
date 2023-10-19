@@ -97,7 +97,7 @@ exports[`<SectionCard /> renders SectionCard correctly 1`] = `
           ]
         }
       >
-        Sample Section
+        test section
       </Text>
       <Text
         style={
@@ -115,7 +115,7 @@ exports[`<SectionCard /> renders SectionCard correctly 1`] = `
       >
         0
         /
-        10
+        100
          concluídos
       </Text>
       <Text
@@ -188,7 +188,7 @@ exports[`<SectionCard /> renders SectionCard correctly 1`] = `
             ]
           }
         >
-          This is a sample section description.
+          this is a test section
         </Text>
         <View
           style={

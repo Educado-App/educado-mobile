@@ -2,6 +2,7 @@ import React from "react";
 import { render, fireEvent, waitFor } from "@testing-library/react-native";
 import CourseScreen from "../../../screens/courses/CourseScreen";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { mockDataAsyncStorage } from "../../mockData/mockDataAsyncStorage";
 
 // Mock the useNavigation hook and the navigate function
 const mockNavigate = jest.fn();
@@ -16,6 +17,8 @@ jest.mock("@react-navigation/native", () => ({
 jest.mock("../../../services/StorageService", () => ({
   getSubCourseList: jest.fn(),
 }));
+
+const mockData = mockDataAsyncStorage();
 
 describe("CourseScreen", () => {
   afterEach(() => {
@@ -33,25 +36,9 @@ describe("CourseScreen", () => {
   });
 
   it("renders CourseScreen with courses loaded", async () => {
-    const courses = [
-      {
-        id: 1,
-        title: "Course 1",
-        category: "Category 1",
-        duration: "Duration for course 1",
-        image: "",
-      },
-      {
-        id: 2,
-        title: "Course 2",
-        category: "Category 2",
-        duration: "Duration for course 2",
-        image: "",
-      },
-    ];
 
     // Mock that courses are loaded
-    require("../../../services/StorageService").getSubCourseList.mockResolvedValue(courses);
+    require("../../../services/StorageService").getSubCourseList.mockResolvedValue(mockData.allCourses);
 
     const { toJSON } = render(<CourseScreen />);
     await waitFor(() => {

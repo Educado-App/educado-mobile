@@ -401,7 +401,7 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
                   ]
                 }
               >
-                Section 1
+                test section
               </Text>
               <Text
                 style={
@@ -419,7 +419,7 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
               >
                 0
                 /
-                10
+                100
                  concluídos
               </Text>
               <Text
@@ -492,7 +492,7 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
                     ]
                   }
                 >
-                  Description for section 1
+                  this is a test section
                 </Text>
                 <View
                   style={
@@ -674,7 +674,7 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
                   ]
                 }
               >
-                Section 2
+                test section 2
               </Text>
               <Text
                 style={
@@ -692,7 +692,7 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
               >
                 0
                 /
-                10
+                200
                  concluídos
               </Text>
               <Text
@@ -765,7 +765,7 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
                     ]
                   }
                 >
-                  Description for section 2
+                  this is a test section 2
                 </Text>
                 <View
                   style={
