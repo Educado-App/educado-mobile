@@ -1,8 +1,9 @@
 import renderer from 'react-test-renderer';
 import EnterNewPasswordScreen from "../../../components/login/EnterNewPasswordScreen";
+import { waitFor } from '@testing-library/react-native';
 
 jest.mock("../../../api/userApi", () => ({
-  enterNewPassword: jest.fn(async ({ email, token, newPassword }) => {
+  enterNewPassword: jest.fn(async ({ email, token }) => {
     if (email !== "test@test.dk") {
       return Promise.reject({ error: { code: 'E0401' } }); // No user exists with this email!
     } else if (email === "test@test.dk" && token !== "1234") {
@@ -99,11 +100,16 @@ describe("EnterNewPasswordScreen", () => {
       const passwordInput = newPasswordScreen.root.findByProps({
         testId: "passwordInput"
       });
+
+      const confirmPasswordInput = newPasswordScreen.root.findByProps({
+        testId: "confirmPasswordInput"
+      });
       renderer.act(() => {
         passwordInput.props.onChangeText("12345678a")
+        confirmPasswordInput.props.onChangeText("12345678a")
       }).then(() => {
-        expect(passwordInput.props.value)
-          .toBe("12345678a");
+        expect(passwordInput.props.value).toBe("12345678a");
+        expect(confirmPasswordInput.props.value).toBe("12345678a");
       });
     });
 
@@ -124,7 +130,11 @@ describe("EnterNewPasswordScreen", () => {
         passwordInput.props.onChangeText("testing123");
         confirmPasswordInput.props.onChangeText("not the same password");
       });
-      expect(resetPasswordButton.props.disabled).toBe(true);
+
+      await waitFor(() => {
+        expect(resetPasswordButton.props.disabled).toBe(true);
+      });
+      
     });
 
     it("Password fields filters out emojis", async () => {

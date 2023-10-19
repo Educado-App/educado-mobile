@@ -81,33 +81,35 @@ describe("ResetPassword", () => {
       });
     });
 
-    it('Error if invalid email, no error if valid', async () => {
+    it('Error if invalid email, no error if valid', () => {
       const emailInput = resetPassword.root.findByProps({
         testId: "emailInput"
       });
       const emailAlert = resetPassword.root.findByProps({
         testId: "emailAlert"
       });
-      console.log(emailAlert.props)
-      await renderer.act(async () => {
-        await emailInput.props.onChangeText("test.com").then(() => {
-          expect(emailAlert.props.label)
-            .not.toBe("");
-        });
-        await emailInput.props.onChangeText("test@test.c").then(() => {
-          expect(emailAlert.props.label)
-            .not.toBe("");
-        });
-        await emailInput.props.onChangeText("test@test").then(() => {
-          expect(emailAlert.props.label)
-            .not.toBe("");
-        });
-        await emailInput.props.onChangeText("test@test.com").then(() => {
-          expect(emailAlert.props.label)
-            .toBe("");
-        });
+
+      renderer.act(() => {
+        emailInput.props.onChangeText("test.com")
       });
+      expect(emailAlert.props.label).not.toBe("");
+
+      renderer.act(() => {
+        emailInput.props.onChangeText("test@test.c")
+      });
+      expect(emailAlert.props.label).not.toBe("");
+
+      renderer.act(() => {
+        emailInput.props.onChangeText("test@test")
+      });
+      expect(emailAlert.props.label).not.toBe("");
+
+      renderer.act(() => {
+        emailInput.props.onChangeText("test@test.com")
+      });
+      expect(emailAlert.props.label).toBe("");
     });
+
 
     it('Error message with too many attempts', async () => {
       const emailInput = resetPassword.root.findByProps({ testId: "emailInput" });
@@ -157,7 +159,7 @@ describe("ResetPassword", () => {
       }).then(() => {
         const tokenAlert = resetPassword.root.findByProps({ testId: "tokenAlert" });
         expect(tokenAlert.props.label).not.toBe("");
-      })
+      });
     });
   });
 });

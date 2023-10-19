@@ -129,7 +129,7 @@ export default function ResetPassword(props) {
       "Sucesso!", // Success!
       "Código enviado para: " + email, // Code sent to: email
       [{
-        text: "OK", 
+        text: "OK",
         style: "cancel",
       }],
       {
@@ -151,6 +151,7 @@ export default function ResetPassword(props) {
               onChangeText={(email) => setEmail(email)}
               keyboardType="email-address"
               testId="emailInput"
+              value={email}
             />
             <FormFieldAlert testId="emailAlert" label={passwordResetAlert} />
             <View className="mt-[40px]">
@@ -166,6 +167,7 @@ export default function ResetPassword(props) {
                     placeholder="X X X X"
                     onChangeText={(token) => setToken(token)}
                     testId="tokenInput"
+                    value={token}
                   />
                   <FormFieldAlert testId="tokenAlert" label={tokenAlert} />
                   <View className="mt-[40px] mb-[24px]">
