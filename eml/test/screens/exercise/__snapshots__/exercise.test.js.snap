@@ -233,7 +233,9 @@ exports[`ExerciseScreen renders ExerciseScreen correctly 1`] = `
         </Text>
       </View>
     </View>
-    <Text>
+    <Text
+      testID="hasData"
+    >
        Sem dados
     </Text>
     <View

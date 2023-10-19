@@ -12,19 +12,19 @@ jest.mock("@react-navigation/native", () => ({
     }),
   }),
   useRoute: () => ({
-    params: {}, // Add any route parameters your component relies on
+    params: {},
   }),
 }));
 
 let excerciseScreen;
 
-beforeEach(() => {
-  navigated = false;
-  AsyncStorage.clear();
-  excerciseScreen = renderer.create(<ExerciseScreen />);
-});
-
 describe("ExerciseScreen", () => {
+  beforeEach(() => {
+    navigated = false;
+    AsyncStorage.clear();
+    excerciseScreen = renderer.create(<ExerciseScreen />);
+  });
+
   it("renders ExerciseScreen correctly", () => {
     expect(excerciseScreen.toJSON()).toMatchSnapshot();
   });
