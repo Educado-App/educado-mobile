@@ -115,13 +115,7 @@ export default function VideoLectureScreen({ lecture, course }) {
     }, [isPlaying]);
 
 
-    //get ios or android version
-    const [ios, setIos] = useState(false);
-    useEffect(() => {
-        if (Platform.OS === 'ios') {
-            setIos(true);
-        }
-    }, [])
+
 
     return (
 
