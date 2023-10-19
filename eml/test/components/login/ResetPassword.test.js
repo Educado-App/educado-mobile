@@ -81,6 +81,34 @@ describe("ResetPassword", () => {
       });
     });
 
+    it('Error if invalid email, no error if valid', async () => {
+      const emailInput = resetPassword.root.findByProps({
+        testId: "emailInput"
+      });
+      const emailAlert = resetPassword.root.findByProps({
+        testId: "emailAlert"
+      });
+      console.log(emailAlert.props)
+      await renderer.act(async () => {
+        await emailInput.props.onChangeText("test.com").then(() => {
+          expect(emailAlert.props.label)
+            .not.toBe("");
+        });
+        await emailInput.props.onChangeText("test@test.c").then(() => {
+          expect(emailAlert.props.label)
+            .not.toBe("");
+        });
+        await emailInput.props.onChangeText("test@test").then(() => {
+          expect(emailAlert.props.label)
+            .not.toBe("");
+        });
+        await emailInput.props.onChangeText("test@test.com").then(() => {
+          expect(emailAlert.props.label)
+            .toBe("");
+        });
+      });
+    });
+
     it('Error message with too many attempts', async () => {
       const emailInput = resetPassword.root.findByProps({ testId: "emailInput" });
       const resetPasswordButton = resetPassword.root.findByProps({ testId: "resetPasswordButton" });

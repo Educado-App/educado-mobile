@@ -140,6 +140,7 @@ export default function EnterNewPasswordScreen(props) {
           bordered={true}
           secureTextEntry={!showPassword}
           passwordGuidelines={true}
+          testId="passwordInput"
         />
         <PasswordEye id="showPasswordEye" showPasswordIcon={showPassword} toggleShowPassword={() => toggleShowPassword(setShowPassword, showPassword)} />
       </View>
@@ -174,6 +175,7 @@ export default function EnterNewPasswordScreen(props) {
           label="Confirmar nova senha" // Confirm new password
           required={true}
           secureTextEntry={!showConfirmPassword}
+          testId="confirmPasswordInput"
         />
         <PasswordEye showPasswordIcon={showConfirmPassword} toggleShowPassword={() => toggleShowPassword(setShowConfirmPassword, showConfirmPassword)} />
       </View>
