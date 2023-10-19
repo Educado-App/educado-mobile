@@ -17,6 +17,8 @@ import { generateSuccessPhrases, generateEncouragementPhrases } from '../../cons
 import * as StorageService from '../../services/StorageService';
 
 export default function ExerciseScreen() {
+  const xp = Math.floor(Math.random() * (10 - 5 + 1)) + 5;
+
   const navigation = useNavigation();
   const route = useRoute();
   const screenHeight = Dimensions.get('window').height;
