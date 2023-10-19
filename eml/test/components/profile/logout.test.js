@@ -41,6 +41,27 @@ describe('Logout', () => {
     });
   });
 
+  it('should delete userInfo when logging out', async () => {
+    let profile
+
+    const mockToken = "testToken"
+    // Set token
+    AsyncStorage.setItem("@userInfo", mockToken).then(async () => {
+      // Check if token is set
+      await AsyncStorage.getItem("@userInfo").expect(mockToken);
+      profile = render(<Profile />);
+
+      // Check if token is deleted when logout button pressed
+      const LogOutButton = profile.root.findByProps({ testID: "logoutBtn" });
+
+      fireEvent.press(LogOutButton);
+
+      // Check if token is null after logout
+      const updatedToken = await AsyncStorage.getItem("@loginToken");
+      expect(updatedToken).toBeNull();
+    });
+  });
+
   it('should navigate to login screen when logging out', () => {
     let profile
 
