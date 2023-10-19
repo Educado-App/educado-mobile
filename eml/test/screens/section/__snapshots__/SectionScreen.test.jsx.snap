@@ -305,24 +305,7 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
       }
     >
       <View>
-        <View
-          style={
-            [
-              {
-                "marginBottom": "2.2%",
-                "marginLeft": "2.2%",
-                "marginRight": "2.2%",
-                "marginTop": "2.2%",
-              },
-              {
-                "borderBottomLeftRadius": 10,
-                "borderBottomRightRadius": 10,
-                "borderTopLeftRadius": 10,
-                "borderTopRightRadius": 10,
-              },
-            ]
-          }
-        >
+        <View>
           <View
             accessible={true}
             collapsable={false}
@@ -339,13 +322,22 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
             style={
               [
                 {
-                  "backgroundColor": "#fff",
+                  "backgroundColor": "#FFFFFF",
                 },
                 {
-                  "borderBottomLeftRadius": 10,
-                  "borderBottomRightRadius": 10,
-                  "borderTopLeftRadius": 10,
-                  "borderTopRightRadius": 10,
+                  "borderBottomLeftRadius": 8,
+                  "borderBottomRightRadius": 8,
+                  "borderTopLeftRadius": 8,
+                  "borderTopRightRadius": 8,
+                },
+                {
+                  "shadowColor": "rgba(0, 0, 0, 0.1)",
+                  "shadowOffset": {
+                    "height": 10,
+                    "width": 0,
+                  },
+                  "shadowOpacity": 1,
+                  "shadowRadius": 15,
                 },
                 {
                   "marginBottom": 15,
@@ -476,7 +468,7 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
                         "height": 1,
                       },
                       {
-                        "backgroundColor": "#e0e0e0",
+                        "backgroundColor": "#DDD",
                       },
                     ]
                   }
@@ -586,24 +578,7 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
             </View>
           </View>
         </View>
-        <View
-          style={
-            [
-              {
-                "marginBottom": "2.2%",
-                "marginLeft": "2.2%",
-                "marginRight": "2.2%",
-                "marginTop": "2.2%",
-              },
-              {
-                "borderBottomLeftRadius": 10,
-                "borderBottomRightRadius": 10,
-                "borderTopLeftRadius": 10,
-                "borderTopRightRadius": 10,
-              },
-            ]
-          }
-        >
+        <View>
           <View
             accessible={true}
             collapsable={false}
@@ -620,13 +595,22 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
             style={
               [
                 {
-                  "backgroundColor": "#fff",
+                  "backgroundColor": "#FFFFFF",
                 },
                 {
-                  "borderBottomLeftRadius": 10,
-                  "borderBottomRightRadius": 10,
-                  "borderTopLeftRadius": 10,
-                  "borderTopRightRadius": 10,
+                  "borderBottomLeftRadius": 8,
+                  "borderBottomRightRadius": 8,
+                  "borderTopLeftRadius": 8,
+                  "borderTopRightRadius": 8,
+                },
+                {
+                  "shadowColor": "rgba(0, 0, 0, 0.1)",
+                  "shadowOffset": {
+                    "height": 10,
+                    "width": 0,
+                  },
+                  "shadowOpacity": 1,
+                  "shadowRadius": 15,
                 },
                 {
                   "marginBottom": 15,
@@ -757,7 +741,7 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
                         "height": 1,
                       },
                       {
-                        "backgroundColor": "#e0e0e0",
+                        "backgroundColor": "#DDD",
                       },
                     ]
                   }

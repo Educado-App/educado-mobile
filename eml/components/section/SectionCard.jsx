@@ -40,8 +40,8 @@ export default function SectionCard({ section }) {
 
 
     return (
-        <View className="bg-transparent m-[2.2%] rounded-[10px] shadow-[0px 2px 4.65px #000] shadow-opacity-[0.3]">
-            <Pressable testID="collapsible" onPress={toggleDropdown} className="bg-[#fff] rounded-[10px] mb-[15] mx-[18] overflow-hidden elevation-[8]">
+        <View>
+            <Pressable testID="collapsible" onPress={toggleDropdown} className="bg-projectWhite rounded-lg shadow-lg shadow-opacity-[0.3] mb-[15] mx-[18] overflow-hidden elevation-[8]">
                 <View className={"flex-row items-center justify-between px-[25] py-[15] " + backgroundColor}>
                     <Text className="text-[16px] font-bold text-black flex-[1]">
                         {section.title}
@@ -59,7 +59,7 @@ export default function SectionCard({ section }) {
                 </View>
 
                 <Collapsible collapsed={!isOpen}>
-                    <View className="h-[1px] bg-[#e0e0e0]" />
+                    <View className="h-[1] bg-disable" />
                     <Text className="mx-[20] my-[10]">{section.description}</Text>
                     <View className="w-[100%]">
                         <TouchableOpacity className="w-[100%] h-[300] items-center justify-center relative"
