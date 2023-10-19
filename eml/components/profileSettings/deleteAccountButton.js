@@ -6,7 +6,7 @@ import {clearAsyncStorage} from "../../services/StorageService";
 import React from 'react';
 import Text from '../general/Text';
 
-const LOGIN_TOKEN = '@loginToken'
+let LOGIN_TOKEN;
 const USER_INFO = '@userInfo'
 
 export default function DeleteAccount() {
@@ -15,10 +15,11 @@ export default function DeleteAccount() {
   async function Delete() {
     try {
       const obj = JSON.parse(await AsyncStorage.getItem(USER_INFO))
+      LOGIN_TOKEN = await AsyncStorage.getItem('@loginToken')
       
       if (obj !== null) {
         try {
-          await deleteUser(obj.id) // skift obj.id til users actual id to test this function
+          await deleteUser(obj.id, LOGIN_TOKEN) // skift obj.id til users actual id to test this function
             .then(function (response) {
               console.log(response)
               AsyncStorage.multiRemove([LOGIN_TOKEN, USER_INFO]).then((r) => {

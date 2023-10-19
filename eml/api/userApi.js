@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const prod = 'http://educado.somethingnew.dk'
-const test = 'http://172.30.245.130:8888' // Change this to your LOCAL IP address when testing.
+const test = 'http://172.30.254.222:8888' // Change this to your LOCAL IP address when testing.
 const local = 'http://localhost:8888'
 const digitalOcean = 'http://207.154.213.68:8888'
 
@@ -64,9 +64,15 @@ export const loginUser = async (obj) => {
   }
 }
 
-export const deleteUser = async (user_id) => {
+export const deleteUser = async (user_id, token) => {
   try {
-    const res = await axios.delete(url + `/api/users/delete/` + user_id);
+    console.log(user_id + " token: " + token)
+    const res = await axios.delete(url + `/api/users/delete/` + user_id, {
+      headers: {
+        'Content-Type': 'application/json',
+        'token': token, // Include the token in the headers
+      },
+    });
     return res.data;
   } catch (error) {
     // Handle errors here
@@ -74,15 +80,22 @@ export const deleteUser = async (user_id) => {
   }
 };
 
-export const updateUserFields = async (user_id, updateFields) => {
+export const updateUserFields = async (user_id, updateFields, token) => {
   try {
-    const res = await axios.patch(url + `/api/users/${user_id}`, updateFields);
+    const res = await axios.patch(url + `/api/users/${user_id}`, updateFields, {
+      headers: {
+        'Content-Type': 'application/json',
+        'token': token, // Include the token in the headers
+      },
+    });
+
     return res.data;
   } catch (error) {
     // Handle errors here
     throw error; // You may want to handle the error or log it
   }
 };
+
 
 export const enrollInCourse = async (user_Id, course_Id) => {
   try {

@@ -12,6 +12,7 @@ import { updateUserFields } from '../../api/userApi.js';
 import patterns from '../../assets/validation/patterns.js';
 import Text from '../general/Text';
 
+let LOGIN_TOKEN;
 const USER_INFO = '@userInfo';
 
 export default function ProfileComponent() {
@@ -33,6 +34,7 @@ export default function ProfileComponent() {
         setFirstName(fetchedProfile.firstName);
         setLastName(fetchedProfile.lastName);
         setEmail(fetchedProfile.email);
+        LOGIN_TOKEN = await AsyncStorage.getItem('@loginToken');
       }
     } catch (e) {
       console.log(e);
@@ -53,7 +55,7 @@ export default function ProfileComponent() {
         try {
         setIsLoading(true); // Set loading state to true
 
-        await updateUserFields(id, { email: newEmail });
+        await updateUserFields(id, { email: newEmail }, LOGIN_TOKEN);
 
 
         // Update the state with the new username and close modal
