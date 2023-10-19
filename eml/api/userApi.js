@@ -1,9 +1,9 @@
 import axios from "axios";
 
-const prod = 'http://educado.somethingnew.dk'
-const test = 'http://172.30.213.227:8888' // Change this to your LOCAL IP address when testing.
-const local = 'http://localhost:8888'
-const digitalOcean = 'http://207.154.213.68:8888'
+const prod = "http://educado.somethingnew.dk";
+const test = "http://172.30.213.213:8888"; // Change this to your LOCAL IP address when testing.
+const local = "http://localhost:8888";
+const digitalOcean = "http://207.154.213.68:8888";
 
 const url = test;
 
@@ -27,9 +27,9 @@ export const client = axios.create({
  */
 export const registerUser = async (obj) => {
   console.log(`User trying to register:
-    firstName: ${obj.firstName ?? 'undefined'}
-    lastName: ${obj.lastName ?? 'undefined'}
-    email: ${obj.email ?? 'undefined'}`);
+    firstName: ${obj.firstName ?? "undefined"}
+    lastName: ${obj.lastName ?? "undefined"}
+    email: ${obj.email ?? "undefined"}`);
 
   try {
     const res = await client.post("/api/signup/user", obj);
@@ -52,8 +52,8 @@ export const registerUser = async (obj) => {
  */
 export const loginUser = async (obj) => {
   try {
-    const res = await client.post('/api/auth/login', obj);
-    console.log('User successfully registered');
+    const res = await client.post("/api/auth/login", obj);
+    console.log("User successfully registered");
     return res.data;
   } catch (e) {
     if (e.response.data != null) {
@@ -62,7 +62,7 @@ export const loginUser = async (obj) => {
       throw e;
     }
   }
-}
+};
 
 export const deleteUser = async (user_id) => {
   try {
@@ -76,7 +76,10 @@ export const deleteUser = async (user_id) => {
 
 export const updateFirstName = async (user_id, new_FirstName) => {
   try {
-    const res = await axios.put(url + `/api/user/update-first-name/` + user_id, { newFirstName: new_FirstName });
+    const res = await axios.put(
+      url + `/api/user/update-first-name/` + user_id,
+      { newFirstName: new_FirstName }
+    );
     return res.data;
   } catch (error) {
     // Handle errors here
@@ -86,7 +89,9 @@ export const updateFirstName = async (user_id, new_FirstName) => {
 
 export const updateLastName = async (user_id, new_LastName) => {
   try {
-    const res = await axios.put(url + `/api/user/update-last-name/` + user_id, { newLastName: new_LastName });
+    const res = await axios.put(url + `/api/user/update-last-name/` + user_id, {
+      newLastName: new_LastName,
+    });
     return res.data;
   } catch (error) {
     // Handle errors here
@@ -96,7 +101,9 @@ export const updateLastName = async (user_id, new_LastName) => {
 
 export const updateUserEmail = async (user_id, new_email) => {
   try {
-    const res = await axios.put(url + `/api/user/update-email/` + user_id, { newEmail: new_email });
+    const res = await axios.put(url + `/api/user/update-email/` + user_id, {
+      newEmail: new_email,
+    });
     return res.data;
   } catch (error) {
     // Handle errors here
@@ -135,22 +142,45 @@ export const enrollInCourse = async (user_Id, course_Id) => {
 export const updateCourseStatus = async (user_id, course_id) => {
   // When user completes course it should update the user document from
   // isComplete: false, to isComplete: true for that course
-  const res = await axios.put(url + '/api/eml/' + user_id + '/updateCourse/' + course_id);
+  const res = await axios.put(
+    url + "/api/eml/" + user_id + "/updateCourse/" + course_id
+  );
   return res.data;
-}
+};
 
 export const updateSectionStatus = async (user_id, course_id, section_id) => {
   // When user completes section it should update the user document from
   // isComplete: false, to isComplete: true for that section
-  const res = await axios.put(url + '/api/eml/' + user_id + '/updateSection/' + course_id + '/' + section_id);
+  const res = await axios.put(
+    url +
+      "/api/eml/" +
+      user_id +
+      "/updateSection/" +
+      course_id +
+      "/" +
+      section_id
+  );
   return res.data;
-}
+};
 
-export const updateExerciseStatus = async (user_id, course_id, section_id, exercise_id) => {
+export const updateExerciseStatus = async (
+  user_id,
+  course_id,
+  section_id,
+  exercise_id
+) => {
   // When user completes an exercise it should update the user document from
   // isComplete: false, to isComplete: true for that exercise
-  const res = await axios.put(url + '/api/eml/' + user_id + '/updateExercise/' + course_id + '/' + section_id + '/' + exercise_id);
+  const res = await axios.put(
+    url +
+      "/api/eml/" +
+      user_id +
+      "/updateExercise/" +
+      course_id +
+      "/" +
+      section_id +
+      "/" +
+      exercise_id
+  );
   return res.data;
-}
-
-
+};

@@ -2,7 +2,7 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const testUrl = "http://localhost:8888";
-const testExpo = "http://172.30.213.227:8888"; //Change to local expo ip
+const testExpo = "http://172.30.213.213:8888"; //Change to local expo ip
 const digitalOcean = "http://207.154.213.68:8888";
 
 const url = testExpo;
@@ -78,6 +78,21 @@ export const getVideoDownloadUrl = (fileName, resolution) => {
   console.log("VIDEO URL FROM API", _vidUrl);
   return _vidUrl;
 };
+
+export const getBucketImage = async (fileName) => {
+  try {
+    console.log(`${url}/api/content/download?fileName=${fileName}`);
+    const res = await axios.get(
+      `${url}/api/content/download?fileName=${fileName}`
+    );
+    const workingUrl = `data:image/png;base64,${res.data}`;
+    return workingUrl;
+  } catch (err) {
+    console.log("Error getting bucket image", err);
+    return null;
+  }
+};
+
 /*
 
 export const getTestCourse = async () => {

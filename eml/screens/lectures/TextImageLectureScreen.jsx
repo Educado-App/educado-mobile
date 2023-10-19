@@ -5,6 +5,7 @@ import ProgressTopBar from './ProgressTopBar';
 import { ScrollView } from 'react-native-gesture-handler';
 
 import tailwindConfig from '../../tailwind.config';
+import { getBucketImage } from '../../api/api';
 
 const TextImageLectureScreen = ({ lecture, course }) => {
 
@@ -18,11 +19,28 @@ const TextImageLectureScreen = ({ lecture, course }) => {
 
         if (lecture.image) {
             console.log("INSIDE TEXT IMAGE LECTURE SCREEN", lecture.image)
+            getLectureImage();
+        } else {
+            console.log("NO IMAGE")
         }
         splitText(lecture.description);
 
     }, [])
 
+
+    const getLectureImage = async () => {
+
+        try {
+            const imageRes = await getBucketImage(lecture.image);
+            setImageUrl(imageRes);
+        }
+        catch (err) {
+            console.log("error", err)
+            setImageUrl(null);
+        }
+
+
+    }
 
     //split text into paragraphs and dont cut words
     const splitText = (text) => {
@@ -86,7 +104,7 @@ const TextImageLectureScreen = ({ lecture, course }) => {
                 paragraphs && paragraphs.map((paragraph, index) => {
                     if (paragraphs.length <= 2 || index !== paragraphs.length - 1) {
                         return (
-                            <Text key={index + paragraph} className={index === 0 ? "text-[18px] pt-6" : "text-[18px] pt-4 "} style={{ color: index == 0 ? tailwindConfig.theme.colors.primary : tailwindConfig.theme.colors.projectGray } } >{paragraph}</Text>
+                            <Text key={index + paragraph} className={index === 0 ? "text-[18px] pt-6" : "text-[18px] pt-4 "} style={{ color: index == 0 ? tailwindConfig.theme.colors.primary : tailwindConfig.theme.colors.projectGray }} >{paragraph}</Text>
                         );
                     }
                     return null;
@@ -100,22 +118,22 @@ const TextImageLectureScreen = ({ lecture, course }) => {
 
 
             {/* Image */}
-            {imageUrl && <View className="w-full h-[50vh] pt-8" >
+            {imageUrl && <View className="w-full h-[25vh] pt-8" >
                 <Image
-                    source={{ uri: lecture.image }}
+                    source={{ uri: imageUrl }}
                     style={{ width: '100%', height: '100%' }}
                 />
             </View>}
-            {!imageUrl && <View className="w-full h-[25vh] pt-8" >
+            {/* {!imageUrl && <View className="w-full h-[25vh] pt-8" >
                 <Image
-                    source={{ uri: "https://media.cnn.com/api/v1/images/stellar/prod/231003090501-01-lebron-bronny-james.jpg?c=16x9&q=h_720,w_1280,c_fill" }}
+                    source={{ uri: imageUrl }}
                     style={{ width: '100%', height: '100%' }}
                 />
-            </View>}
+            </View>} */}
             {
                 // Rendering the last paragraph below the image if the array has more than two elements
                 paragraphs && paragraphs.length > 2 &&
-                <Text className=" text-[18px] pt-4 " style={{color: tailwindConfig.theme.colors.projectGray}} >{paragraphs[paragraphs.length - 1]}</Text>
+                <Text className=" text-[18px] pt-4 " style={{ color: tailwindConfig.theme.colors.projectGray }} >{paragraphs[paragraphs.length - 1]}</Text>
             }
         </ScrollView>
 
