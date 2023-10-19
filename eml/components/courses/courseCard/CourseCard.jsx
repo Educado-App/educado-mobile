@@ -2,9 +2,9 @@ import { View, Image, Pressable, Dimensions } from 'react-native';
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import Text from '../../../components/general/Text';
-import { AppLoading } from 'expo-app-loading';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import CustomProgressBar from "../../exercise/Progressbar";
+import tailwindConfig from "../../../tailwind.config";
 
 /**
  * CourseCard component displays a card for a course with its details
@@ -17,7 +17,7 @@ export default function CourseCard({ course }) {
 
     return (
         <Pressable testID="courseCard"
-            className="bg-[#fff] m-[3%] rounded-[10px] shadow-[0_0px_2px_#000] shadow-opacity-[0.3] elevation-[8] mb-[5%]mx-[5%] p-[5%]"
+            className="bg-projectWhite m-[3%] rounded-[10px] shadow-[0_0px_2px_#000] shadow-opacity-[0.3] elevation-[8] mx-[5%] p-[5%]"
             onPress={() => {
                 navigation.navigate('Section', {
                     courseId: course.courseId,
@@ -32,7 +32,7 @@ export default function CourseCard({ course }) {
                         {course.title ? course.title : 'Course Title'}
                     </Text>
                 </View>
-                <View className="h-[1px] bg-[#e0e0e0] m-[2%]"></View>
+                <View className="h-[1px] bg-disable m-[2%]"></View>
                 <View className="flex-row items-center justify-start overflow-hidden">
                     <MaterialCommunityIcons size={18} name="school" color={'gray'}></MaterialCommunityIcons>
                     <Text className="mx-[2.5%] my-[3%]">{course.category ? course.category : 'category'}</Text>
@@ -49,8 +49,7 @@ export default function CourseCard({ course }) {
                             });
                         }}
                     >
-                        {/* TODO: Implement color from Tailwind config */}
-                        <MaterialCommunityIcons size={28} name="play-circle" color={'#5ECCE9'}></MaterialCommunityIcons>
+                        <MaterialCommunityIcons size={28} name="play-circle" color={tailwindConfig.theme.colors.primary}></MaterialCommunityIcons>
                     </Pressable>
                 </View>
             </View>
