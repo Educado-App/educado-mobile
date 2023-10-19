@@ -1,3 +1,4 @@
+import React from 'react';
 import renderer from 'react-test-renderer';
 import EnterNewPasswordScreen from "../../../components/login/EnterNewPasswordScreen";
 import { waitFor } from '@testing-library/react-native';

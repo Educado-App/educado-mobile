@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Alert } from 'react-native';
 import FormTextField from '../../components/login/FormTextField';
 import FormButton from '../../components/login/FormButton';
@@ -119,7 +119,7 @@ export default function EnterNewPasswordScreen(props) {
       "Sucesso!", // Success!
       "A senha foi alterada.", // Password has been changed
       [{
-        text: "OK", 
+        text: "OK",
         style: "cancel",
       }],
       {
