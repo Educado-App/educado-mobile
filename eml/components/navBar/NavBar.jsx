@@ -5,6 +5,7 @@ import Explore from '../../screens/explore/Explore';
 import TestScreen from '../../screens/test/TestScreen';
 import ProfileComponent from '../../screens/profile/Profile';
 import { Icon } from '@rneui/themed';
+import { Platform } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
@@ -12,6 +13,7 @@ export default function NavBar() {
 
   return (
     <Tab.Navigator
+      testID="navBar" // Make sure you set the testID on the correct element
       initialRouteName={'Home'}
       screenOptions={{
         tabBarActiveTintColor: 'black',
@@ -19,12 +21,12 @@ export default function NavBar() {
         tabBarLabelStyle: {
           fontSize: 12,
         },
-        
+
         tabBarStyle: {
           backgroundColor: 'white',
           height: '10%',
           paddingBottom: '2%',
-          
+
           // THIS IS SHADOW STUFF - HAVE TO BE PLATFORM SPECIFIC
           ...Platform.select({
             ios: {
@@ -91,7 +93,7 @@ export default function NavBar() {
           tabBarInactiveTintColor: 'grey', // Set the inactive text color to grey
         }}
       />
-    
+
       {/* <Tab.Screen
         name="TestScreen"
         component={TestScreen}
