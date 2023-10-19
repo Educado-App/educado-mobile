@@ -1,21 +1,32 @@
 import * as React from "react"
-import { styled } from "nativewind"
-import Svg, { Ellipse, Path } from "react-native-svg"
+import { Image } from 'react-native';
 
 
+export default function EducadoLogo(props) {
+  return (
+    <Image
+      source={require('../../assets/logo_educado.png')}
+      style={props.style}
+      className={'h-12'}
+      resizeMode='contain'
+    />
+  )
+}
 
+// THE CODE BELOW DOES NOT WORK. THE SVG NEVER SHOWS AFTER MERGING TO DEV. 
+// I SUSPECT IT IS BECAUSE OF THE REACT-NATIVE-SVG PACKAGE CLASHING WITH OTHER PACKAGES
+// I WILL LEAVE IT HERE FOR FUTURE REFERENCE, AS IT MAY ASSIST IN A FURTHER IMPLEMENTATION OF SVG'S
+
+// import { styled } from "nativewind"
+// import Svg, { Ellipse, Path } from "react-native-svg"
+
+/*
 const StyledEllipse = styled(Ellipse, { classProps: ["fill", "stroke"] });
 const StyledPath = styled(Path, { classProps: ["fill", "stroke"] });
+*/
 
-/**
- * Component that contains the logo and title test for Educado, used in the logoBackButton component
- * @param {Object} fill Should contain the following properties:
- * - fill: should contain "fill-[any-tailwind color]"
- *   ---- eg. fill: "fill-primary"
- * @returns {React.Element} Header logo/title component
 
- */
-export default function EducadoLogo({fill, width, height, ...props }) {
+/*export default function EducadoLogo({fill, width, height, ...props }) {
 
   return (
     <Svg
@@ -103,4 +114,4 @@ export default function EducadoLogo({fill, width, height, ...props }) {
       />
     </Svg>
   );
-}
+}*/
