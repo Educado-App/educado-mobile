@@ -44,21 +44,27 @@ describe('Logout', () => {
   it('should delete userInfo when logging out', async () => {
     let profile
 
-    const mockToken = "testToken"
-    // Set token
-    AsyncStorage.setItem("@userInfo", mockToken).then(async () => {
-      // Check if token is set
-      await AsyncStorage.getItem("@userInfo").expect(mockToken);
+    const mockUserInfo = {
+      id: "123",
+      firstName: "Is",
+      lastName: "User",
+      email: "is@user.com",
+    }
+
+    // Set user info
+    AsyncStorage.setItem("@userInfo", mockUserInfo).then(async () => {
+      // Check if user info is set
+      await AsyncStorage.getItem("@userInfo").expect(mockUserInfo);
       profile = render(<Profile />);
 
-      // Check if token is deleted when logout button pressed
+      // Press logout button
       const LogOutButton = profile.root.findByProps({ testID: "logoutBtn" });
 
       fireEvent.press(LogOutButton);
 
-      // Check if token is null after logout
-      const updatedToken = await AsyncStorage.getItem("@loginToken");
-      expect(updatedToken).toBeNull();
+      // Check if user info is null after logout
+      const updatedUserInfo = await AsyncStorage.getItem("@userInfo");
+      expect(updatedUserInfo).toBeNull();
     });
   });
 

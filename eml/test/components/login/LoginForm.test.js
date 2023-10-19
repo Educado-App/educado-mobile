@@ -37,18 +37,17 @@ jest.mock("../../../api/userApi", () => ({
   })
 }));
 
+beforeEach(async () => {
+  await renderer.act(async () => {
+    loginForm = renderer.create(<LoginForm />);
+  });
+});
+
+afterEach(() => {
+  loginForm = null;
+});
+
 describe('login', () => {
-
-  beforeEach(async () => {
-    await renderer.act(async () => {
-      loginForm = renderer.create(<LoginForm />);
-    });
-  });
-
-  afterEach(() => {
-    loginForm = null;
-  });
-
 
   test("Check LoginForm renders correctly", async () => {
     const tree = loginForm.toJSON();
@@ -88,17 +87,6 @@ describe('login', () => {
 });
 
 describe("Form behaviour", () => {
-
-  beforeEach(async () => {
-    await renderer.act(async () => {
-      loginForm = renderer.create(<LoginForm />);
-    });
-  });
-
-  afterEach(() => {
-    loginForm = null;
-  });
-
 
   test("Check that password visibility is toggled correctly", async () => {
     const passwordEye = loginForm.root.findByProps({ testId: "passwordEye" });
@@ -208,17 +196,6 @@ describe("Form behaviour", () => {
 });
 
 describe('localstorage', () => {
-
-  beforeEach(async () => {
-    await renderer.act(async () => {
-      loginForm = renderer.create(<LoginForm />);
-    });
-  });
-
-  afterEach(() => {
-    loginForm = null;
-  });
-
 
   it('should save jwt in localstorage', async () => {
     await renderer.act(async () => {
