@@ -12,6 +12,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import VideoLectureScreen from './VideoLectureScreen';
 
 import healthLogo from '../../assets/healthLogo.png'
+import TextImageLectureScreen from './TextImageLectureScreen';
 
 export default function LectureScreen({ route }) {
 
@@ -60,18 +61,7 @@ export default function LectureScreen({ route }) {
                     {lecture.video ?
                         <VideoLectureScreen lecture={lecture} course={course} />
                         :
-                        <View className=" flex-col items-center justify-center  ">
-                            {/* REPLACE THIS WHEN MERGED, THERE SHOULD BE A COMPONENT FOR THIS TOP BAR */}
-                            <View className="flex-row w-full just items-center p-[10]">
-                                <View className="pl-2">
-                                    <TouchableOpacity onPress={() => navigation.goBack()} style={{ marginRight: 10 }}>
-                                        <MaterialCommunityIcons name="chevron-left" size={25} color="black" />
-                                    </TouchableOpacity>
-                                </View>
-                                <Text className="text-[25px] text-black font-bold ml-[10]">{lecture.title}</Text>
-                            </View>
-                            <Text className="text-[25px] font-bold ml-[10]">INSERT TEXT LECTURE HERE</Text>
-                        </View>
+                        <TextImageLectureScreen lecture={lecture} course={course} />
                     }
                 </View>
                 :

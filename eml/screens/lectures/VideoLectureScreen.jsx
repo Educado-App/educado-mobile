@@ -19,6 +19,7 @@ import ReactSliderProgress from './ReactSliderProgress';
 import { getVideoDownloadUrl } from '../../api/api';
 
 import { useNavigation } from '@react-navigation/native';
+import ProgressTopBar from './ProgressTopBar';
 
 export default function VideoLectureScreen({ lecture, course }) {
 
@@ -126,18 +127,10 @@ export default function VideoLectureScreen({ lecture, course }) {
             </View>
             {/* Layers on top of video */}
 
-            <View className={ios ? "absolute w-full h-full p-5 pt-[15%] pb-[15%]" : "absolute w-full h-full p-5 pt-[15%] pb-[1%]"}>
+            <View className={"absolute w-full h-full p-5 pb-20"}>
                 <View className="w-full h-full flex-col justify-between items-center  bg-opacity-20" >
                     {/* Progress bar (on top) */}
-                    {/* REPLACE THIS WHEN MERGED, THERE SHOULD BE A COMPONENT FOR THIS TOP BAR */}
-                    <View className="flex-row w-full items-center p-[10]">
-                        <View className="pl-2">
-                            <TouchableOpacity onPress={() => navigation.goBack()} style={{ marginRight: 10 }}>
-                                <MaterialCommunityIcons name="chevron-left" size={25} color="white" />
-                            </TouchableOpacity>
-                        </View>
-                        <Text className="text-[25px] text-white font-bold ml-[10]">{lecture.title}</Text>
-                    </View>
+                    <ProgressTopBar progressPercent={75} />
                     {/* Lecture information */}
 
                     <View className="w-full flex-col items-start justify-left" >

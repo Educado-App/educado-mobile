@@ -3,7 +3,6 @@ import React, { forwardRef, useEffect } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import { Video } from 'expo-av';
 
-import { getVideoDownloadUrl } from '../../api/api';
 
 
 const CustomExpoVideoPlayer = forwardRef(({ onStatusUpdate, videoUrl, isMuted = false, isPlaying = true }, ref) => {
