@@ -32,7 +32,7 @@ export const registerUser = async (obj) => {
     email: ${obj.email ?? 'undefined'}`);
 
   try {
-    const res = await client.post('/api/signup/user', obj);
+    const res = await client.post('/api/signup/users', obj);
     console.log('User successfully registered');
     return res.data;
   } catch (e) {
@@ -67,7 +67,7 @@ export const loginUser = async (obj) => {
 export const deleteUser = async (user_id, token) => {
   try {
     console.log(user_id + " token: " + token)
-    const res = await axios.delete(url + `/api/users/delete/` + user_id, {
+    const res = await axios.delete(url + `/api/users/` + user_id, {
       headers: {
         'Content-Type': 'application/json',
         'token': token, // Include the token in the headers
