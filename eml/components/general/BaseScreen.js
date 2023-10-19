@@ -9,7 +9,7 @@ import { View } from 'react-native';
  */
 export default function BaseScreen({ children }) {
     return (
-        <View className="flex-1 bg-[#f1f9fb]">
+        <View className="flex-1 bg-secondary">
             {children}
         </View>
     );
