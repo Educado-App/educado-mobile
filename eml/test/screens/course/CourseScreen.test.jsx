@@ -1,38 +1,63 @@
+/**
+ * This file contains the test suite for the CourseScreen component.
+ * It imports the necessary dependencies and mocks the useNavigation hook from react-navigation/native.
+ * The test suite includes three test cases:
+ * 1. Test case to check if the CourseScreen component renders correctly when there are no courses.
+ * 2. Test case to check if the CourseScreen component renders correctly when courses are loaded.
+ * 3. Test case to check if the CourseScreen component navigates to the explorer screen when the explore button is pressed.
+ */
 import React from "react";
-import { render, fireEvent, waitFor } from "@testing-library/react-native";
+import renderer from "react-test-renderer";
 import CourseScreen from "../../../screens/courses/CourseScreen";
+import CourseCard from "../../../components/courses/courseCard/CourseCard";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-// Mock the useNavigation hook and the navigate function
-const mockNavigate = jest.fn();
-jest.mock("@react-navigation/native", () => ({
+let navigated = false;
+let mockNavigation = {
+  goBack: jest.fn(),
+  navigate: jest.fn(),
+};
+
+// Mocking the useNavigation hook from react-navigation/native
+jest.mock('@react-navigation/native', () => ({
   useNavigation: () => ({
-    navigate: mockNavigate,
-    addListener: jest.fn(), // Mock the addListener function as well
+    mockNavigation,
+    navigate: jest.fn(() => { navigated = true }),
   }),
 }));
 
-// Mock the StorageService
-jest.mock("../../../services/StorageService", () => ({
-  getSubCourseList: jest.fn(),
-}));
-
+/**
+ * Test suite for the CourseScreen component.
+ */
 describe("CourseScreen", () => {
-  afterEach(() => {
+  let courseScreen;
+
+  beforeEach(() => {
+    navigated = false;
     AsyncStorage.clear();
+    courseScreen = renderer.create(<CourseScreen />);
   });
 
-  it("renders CourseScreen correctly when there are no courses", async () => {
-    // Mock that there are no courses
-    require("../../../services/StorageService").getSubCourseList.mockResolvedValue([]);
-
-    const { toJSON } = render(<CourseScreen />);
-    await waitFor(() => {
-      expect(toJSON()).toMatchSnapshot();
-    });
+  afterAll(() => {
+    jest.resetModules();
+    jest.restoreAllMocks();
   });
 
+  /**
+   * Test case to check if the CourseScreen component renders correctly when there are no courses.
+   */
+  it("renders CourseScreen correctly when theres no courses", async () => {
+    expect(await courseScreen.toJSON()).toMatchSnapshot();
+  });
+
+  /**
+   * Test case to check if the CourseScreen component renders correctly when courses are loaded.
+   */
   it("renders CourseScreen with courses loaded", async () => {
+    /**
+     * Array of courses used for testing CourseScreen component.
+     * @type {Array<Object>}
+     */
     const courses = [
       {
         id: 1,
@@ -49,22 +74,23 @@ describe("CourseScreen", () => {
         image: "",
       },
     ];
+    const StorageService = require("../../../services/StorageService");
+    jest.spyOn(StorageService, "getSubCourseList").mockResolvedValue(courses);
 
-    // Mock that courses are loaded
-    require("../../../services/StorageService").getSubCourseList.mockResolvedValue(courses);
-
-    const { toJSON } = render(<CourseScreen />);
-    await waitFor(() => {
-      expect(toJSON()).toMatchSnapshot();
+    await renderer.act(async () => {
+      return courseScreen = renderer.create(<CourseScreen />);
     });
+
+    expect(await courseScreen.toJSON()).toMatchSnapshot();
+    expect(await courseScreen.root.findAllByType(CourseCard)).toHaveLength(2);
   });
 
-  it("navigates to the explorer screen when explore button is pressed", async () => {
-    const { getByTestId } = render(<CourseScreen />);
-    const exploreButton = getByTestId("exploreButton");
-
-    fireEvent.press(exploreButton);
-
-    expect(mockNavigate).toHaveBeenCalledWith("Explorar");
+  /**
+   * Test case to check if the CourseScreen component navigates to the explorer screen when the explore button is pressed.
+   */
+  it('Navigate to explorer when pressing the explore button', async () => {
+    const button = await courseScreen.root.findByProps({ testID: 'exploreButton' });
+    button.props.onPress();
+    expect(navigated).toBe(true);
   });
 });

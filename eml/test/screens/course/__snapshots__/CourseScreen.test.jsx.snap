@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CourseScreen renders CourseScreen correctly when there are no courses 1`] = `
+exports[`CourseScreen renders CourseScreen correctly when theres no courses 1`] = `
 <View
   style={
     [
@@ -272,168 +272,74 @@ exports[`CourseScreen renders CourseScreen with courses loaded 1`] = `
   }
 >
   <View
-    style={
-      [
-        {
-          "justifyContent": "center",
-        },
-        {
-          "alignItems": "center",
-        },
-        {
-          "backgroundColor": "#F1F9FB",
-        },
-      ]
-    }
+    height="100%"
   >
     <View
       style={
         [
           {
-            "paddingTop": 96,
+            "display": "flex",
           },
           {
-            "paddingBottom": 64,
-          },
-        ]
-      }
-    >
-      <Image
-        source={1}
-        style={
-          [
-            {
-              "justifyContent": "center",
-            },
-            {
-              "alignItems": "center",
-            },
-            {
-              "width": 175.88,
-            },
-            {
-              "height": 25.54,
-            },
-          ]
-        }
-      />
-    </View>
-    <View
-      style={
-        [
-          {
-            "justifyContent": "center",
+            "flexDirection": "row",
           },
           {
             "alignItems": "center",
           },
           {
-            "paddingBottom": 96,
+            "paddingLeft": 24,
           },
           {
-            "paddingTop": 96,
+            "paddingTop": "20%",
           },
           {
-            "marginLeft": -40,
-            "marginTop": -40,
+            "paddingBottom": "10%",
           },
         ]
       }
     >
-      <View
+      <Image
+        alt="Icon"
+        source={1}
         style={
           [
             {
-              "justifyContent": "center",
+              "width": 32,
             },
             {
-              "alignItems": "center",
+              "height": 32,
             },
             {
-              "width": 342,
+              "marginRight": 8,
             },
+          ]
+        }
+      />
+      <Text
+        style={
+          [
             {
-              "height": 308.02,
+              "fontFamily": "Montserrat-Regular",
             },
             [
               {
-                "marginLeft": 40,
-                "marginTop": 40,
+                "fontSize": 20,
+                "lineHeight": 28,
+              },
+              {
+                "fontWeight": "700",
               },
             ],
           ]
         }
       >
-        <Image
-          source={1}
-        />
-        <Text
-          style={
-            [
-              {
-                "fontFamily": "Montserrat-Regular",
-              },
-              [
-                {
-                  "color": "#383838",
-                },
-                {
-                  "paddingBottom": 16,
-                },
-                {
-                  "paddingTop": 16,
-                },
-                {
-                  "fontFamily": "Montserrat-Bold",
-                },
-                {
-                  "fontSize": 24,
-                },
-                {
-                  "textAlign": "center",
-                },
-              ],
-            ]
-          }
-        >
-          Comece agora
-        </Text>
-        <Text
-          style={
-            [
-              {
-                "fontFamily": "Montserrat-Regular",
-              },
-              [
-                {
-                  "color": "#383838",
-                },
-                {
-                  "fontFamily": "Montserrat-Regular",
-                },
-                {
-                  "textAlign": "center",
-                },
-                {
-                  "fontSize": 16,
-                },
-              ],
-            ]
-          }
-        >
-           Você ainda não se increveu em nenhum curso. Acesse a página Explore e use a busca para encontrar cursos do seu intresse.
-        </Text>
-      </View>
-      <View
-        style={
-          [
-            {
-              "marginLeft": 40,
-              "marginTop": 40,
-            },
-          ]
-        }
-      >
+        Bem Vindo!
+      </Text>
+    </View>
+    <RCTScrollView
+      showsVerticalScrollIndicator={false}
+    >
+      <View>
         <View
           accessible={true}
           collapsable={false}
@@ -450,64 +356,782 @@ exports[`CourseScreen renders CourseScreen with courses loaded 1`] = `
           style={
             [
               {
-                "borderBottomLeftRadius": 6,
-                "borderBottomRightRadius": 6,
-                "borderTopLeftRadius": 6,
-                "borderTopRightRadius": 6,
+                "backgroundColor": "#FFFFFF",
               },
               {
-                "backgroundColor": "#5ECCE9",
+                "marginBottom": "3%",
+                "marginLeft": "3%",
+                "marginRight": "3%",
+                "marginTop": "3%",
               },
               {
-                "justifyContent": "center",
+                "borderBottomLeftRadius": 8,
+                "borderBottomRightRadius": 8,
+                "borderTopLeftRadius": 8,
+                "borderTopRightRadius": 8,
               },
               {
-                "alignItems": "center",
+                "shadowColor": "rgba(0, 0, 0, 0.1)",
+                "shadowOffset": {
+                  "height": 1,
+                  "width": 0,
+                },
+                "shadowOpacity": 1,
+                "shadowRadius": 2,
               },
               {
-                "paddingBottom": 8,
-                "paddingLeft": 8,
-                "paddingRight": 8,
-                "paddingTop": 8,
+                "elevation": 8,
               },
               {
-                "height": 52,
+                "marginLeft": "5%",
+                "marginRight": "5%",
               },
               {
-                "width": 342,
+                "paddingBottom": "5%",
+                "paddingLeft": "5%",
+                "paddingRight": "5%",
+                "paddingTop": "5%",
               },
             ]
           }
-          testID="exploreButton"
+          testID="courseCard"
         >
-          <Text
-            style={
-              [
-                {
-                  "fontFamily": "Montserrat-Regular",
-                },
+          <View>
+            <View
+              style={
                 [
                   {
-                    "color": "#FFFFFF",
+                    "flexDirection": "row",
                   },
                   {
-                    "fontFamily": "Montserrat-Bold",
+                    "alignItems": "flex-start",
                   },
                   {
-                    "textAlign": "center",
+                    "justifyContent": "space-between",
                   },
                   {
-                    "fontSize": 16,
+                    "paddingLeft": "1%",
+                    "paddingRight": "1%",
                   },
-                ],
-              ]
-            }
-          >
-             Explore courses
-          </Text>
+                  {
+                    "paddingBottom": "1%",
+                    "paddingTop": "1%",
+                  },
+                ]
+              }
+            >
+              <Text
+                allowFontScaling={false}
+                selectable={false}
+                style={
+                  [
+                    {
+                      "color": undefined,
+                      "fontSize": 28,
+                    },
+                    undefined,
+                    {
+                      "fontFamily": "material-community",
+                      "fontStyle": "normal",
+                      "fontWeight": "normal",
+                    },
+                    {},
+                  ]
+                }
+              >
+                󰑴
+                 
+              </Text>
+              <Text
+                style={
+                  [
+                    {
+                      "fontFamily": "Montserrat-Regular",
+                    },
+                    [
+                      {
+                        "fontSize": 18,
+                      },
+                      {
+                        "flexBasis": "0%",
+                        "flexGrow": 1,
+                        "flexShrink": 1,
+                      },
+                      {
+                        "alignSelf": "center",
+                      },
+                    ],
+                  ]
+                }
+              >
+                Course 1
+              </Text>
+            </View>
+            <View
+              style={
+                [
+                  {
+                    "height": 1,
+                  },
+                  {
+                    "backgroundColor": "#DDD",
+                  },
+                  {
+                    "marginBottom": "2%",
+                    "marginLeft": "2%",
+                    "marginRight": "2%",
+                    "marginTop": "2%",
+                  },
+                ]
+              }
+            />
+            <View
+              style={
+                [
+                  {
+                    "flexDirection": "row",
+                  },
+                  {
+                    "alignItems": "center",
+                  },
+                  {
+                    "justifyContent": "flex-start",
+                  },
+                  {
+                    "overflow": "hidden",
+                  },
+                ]
+              }
+            >
+              <Text
+                allowFontScaling={false}
+                selectable={false}
+                style={
+                  [
+                    {
+                      "color": "gray",
+                      "fontSize": 18,
+                    },
+                    undefined,
+                    {
+                      "fontFamily": "material-community",
+                      "fontStyle": "normal",
+                      "fontWeight": "normal",
+                    },
+                    {},
+                  ]
+                }
+              >
+                󰑴
+              </Text>
+              <Text
+                style={
+                  [
+                    {
+                      "fontFamily": "Montserrat-Regular",
+                    },
+                    [
+                      {
+                        "marginLeft": "2.5%",
+                        "marginRight": "2.5%",
+                      },
+                      {
+                        "marginBottom": "3%",
+                        "marginTop": "3%",
+                      },
+                    ],
+                  ]
+                }
+              >
+                Category 1
+              </Text>
+              <Text
+                allowFontScaling={false}
+                selectable={false}
+                style={
+                  [
+                    {
+                      "color": "gray",
+                      "fontSize": 18,
+                    },
+                    undefined,
+                    {
+                      "fontFamily": "material-community",
+                      "fontStyle": "normal",
+                      "fontWeight": "normal",
+                    },
+                    {},
+                  ]
+                }
+              >
+                󰥔
+              </Text>
+              <Text
+                style={
+                  [
+                    {
+                      "fontFamily": "Montserrat-Regular",
+                    },
+                    [
+                      {
+                        "marginLeft": "2.5%",
+                        "marginRight": "2.5%",
+                      },
+                      {
+                        "marginBottom": "3%",
+                        "marginTop": "3%",
+                      },
+                    ],
+                  ]
+                }
+              >
+                duration
+              </Text>
+            </View>
+            <View
+              style={
+                [
+                  {
+                    "flexDirection": "row",
+                  },
+                  {
+                    "alignItems": "center",
+                  },
+                ]
+              }
+            >
+              <View
+                style={
+                  [
+                    {
+                      "flexDirection": "row",
+                    },
+                    {
+                      "alignItems": "center",
+                    },
+                    {
+                      "justifyContent": "space-around",
+                    },
+                  ]
+                }
+              >
+                <View
+                  animated={true}
+                  animationConfig={
+                    {
+                      "bounciness": 0,
+                    }
+                  }
+                  animationType="spring"
+                  indeterminate={false}
+                  indeterminateAnimationDuration={1000}
+                  onLayout={[Function]}
+                  progress={0.5}
+                  style={
+                    [
+                      {
+                        "backgroundColor": "rgba(228, 242, 245, 1)",
+                        "borderColor": "rgba(94, 204, 233, 1)",
+                        "borderRadius": 8,
+                        "borderWidth": 0,
+                        "overflow": "hidden",
+                        "width": 450,
+                      },
+                      undefined,
+                    ]
+                  }
+                  useNativeDriver={false}
+                >
+                  <View
+                    collapsable={false}
+                    style={
+                      {
+                        "backgroundColor": "rgba(94, 204, 233, 1)",
+                        "height": 13.34,
+                        "transform": [
+                          {
+                            "translateX": 0,
+                          },
+                          {
+                            "translateX": -112.5,
+                          },
+                          {
+                            "scaleX": 0.50005,
+                          },
+                        ],
+                      }
+                    }
+                  />
+                </View>
+                <Text
+                  style={
+                    [
+                      {
+                        "paddingLeft": 20,
+                        "paddingRight": 20,
+                      },
+                      {
+                        "textAlign": "center",
+                      },
+                      {
+                        "fontFamily": "Montserrat-Bold",
+                      },
+                      {
+                        "fontSize": 12,
+                      },
+                      {
+                        "color": "#383838",
+                      },
+                    ]
+                  }
+                >
+                  50
+                  %
+                </Text>
+              </View>
+              <View
+                accessible={true}
+                collapsable={false}
+                focusable={true}
+                onBlur={[Function]}
+                onClick={[Function]}
+                onFocus={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  [
+                    {
+                      "zIndex": 1,
+                    },
+                  ]
+                }
+              >
+                <Text
+                  allowFontScaling={false}
+                  selectable={false}
+                  style={
+                    [
+                      {
+                        "color": "#5ECCE9",
+                        "fontSize": 28,
+                      },
+                      undefined,
+                      {
+                        "fontFamily": "material-community",
+                        "fontStyle": "normal",
+                        "fontWeight": "normal",
+                      },
+                      {},
+                    ]
+                  }
+                >
+                  󰐌
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            [
+              {
+                "backgroundColor": "#FFFFFF",
+              },
+              {
+                "marginBottom": "3%",
+                "marginLeft": "3%",
+                "marginRight": "3%",
+                "marginTop": "3%",
+              },
+              {
+                "borderBottomLeftRadius": 8,
+                "borderBottomRightRadius": 8,
+                "borderTopLeftRadius": 8,
+                "borderTopRightRadius": 8,
+              },
+              {
+                "shadowColor": "rgba(0, 0, 0, 0.1)",
+                "shadowOffset": {
+                  "height": 1,
+                  "width": 0,
+                },
+                "shadowOpacity": 1,
+                "shadowRadius": 2,
+              },
+              {
+                "elevation": 8,
+              },
+              {
+                "marginLeft": "5%",
+                "marginRight": "5%",
+              },
+              {
+                "paddingBottom": "5%",
+                "paddingLeft": "5%",
+                "paddingRight": "5%",
+                "paddingTop": "5%",
+              },
+            ]
+          }
+          testID="courseCard"
+        >
+          <View>
+            <View
+              style={
+                [
+                  {
+                    "flexDirection": "row",
+                  },
+                  {
+                    "alignItems": "flex-start",
+                  },
+                  {
+                    "justifyContent": "space-between",
+                  },
+                  {
+                    "paddingLeft": "1%",
+                    "paddingRight": "1%",
+                  },
+                  {
+                    "paddingBottom": "1%",
+                    "paddingTop": "1%",
+                  },
+                ]
+              }
+            >
+              <Text
+                allowFontScaling={false}
+                selectable={false}
+                style={
+                  [
+                    {
+                      "color": undefined,
+                      "fontSize": 28,
+                    },
+                    undefined,
+                    {
+                      "fontFamily": "material-community",
+                      "fontStyle": "normal",
+                      "fontWeight": "normal",
+                    },
+                    {},
+                  ]
+                }
+              >
+                󰑴
+                 
+              </Text>
+              <Text
+                style={
+                  [
+                    {
+                      "fontFamily": "Montserrat-Regular",
+                    },
+                    [
+                      {
+                        "fontSize": 18,
+                      },
+                      {
+                        "flexBasis": "0%",
+                        "flexGrow": 1,
+                        "flexShrink": 1,
+                      },
+                      {
+                        "alignSelf": "center",
+                      },
+                    ],
+                  ]
+                }
+              >
+                Course 2
+              </Text>
+            </View>
+            <View
+              style={
+                [
+                  {
+                    "height": 1,
+                  },
+                  {
+                    "backgroundColor": "#DDD",
+                  },
+                  {
+                    "marginBottom": "2%",
+                    "marginLeft": "2%",
+                    "marginRight": "2%",
+                    "marginTop": "2%",
+                  },
+                ]
+              }
+            />
+            <View
+              style={
+                [
+                  {
+                    "flexDirection": "row",
+                  },
+                  {
+                    "alignItems": "center",
+                  },
+                  {
+                    "justifyContent": "flex-start",
+                  },
+                  {
+                    "overflow": "hidden",
+                  },
+                ]
+              }
+            >
+              <Text
+                allowFontScaling={false}
+                selectable={false}
+                style={
+                  [
+                    {
+                      "color": "gray",
+                      "fontSize": 18,
+                    },
+                    undefined,
+                    {
+                      "fontFamily": "material-community",
+                      "fontStyle": "normal",
+                      "fontWeight": "normal",
+                    },
+                    {},
+                  ]
+                }
+              >
+                󰑴
+              </Text>
+              <Text
+                style={
+                  [
+                    {
+                      "fontFamily": "Montserrat-Regular",
+                    },
+                    [
+                      {
+                        "marginLeft": "2.5%",
+                        "marginRight": "2.5%",
+                      },
+                      {
+                        "marginBottom": "3%",
+                        "marginTop": "3%",
+                      },
+                    ],
+                  ]
+                }
+              >
+                Category 2
+              </Text>
+              <Text
+                allowFontScaling={false}
+                selectable={false}
+                style={
+                  [
+                    {
+                      "color": "gray",
+                      "fontSize": 18,
+                    },
+                    undefined,
+                    {
+                      "fontFamily": "material-community",
+                      "fontStyle": "normal",
+                      "fontWeight": "normal",
+                    },
+                    {},
+                  ]
+                }
+              >
+                󰥔
+              </Text>
+              <Text
+                style={
+                  [
+                    {
+                      "fontFamily": "Montserrat-Regular",
+                    },
+                    [
+                      {
+                        "marginLeft": "2.5%",
+                        "marginRight": "2.5%",
+                      },
+                      {
+                        "marginBottom": "3%",
+                        "marginTop": "3%",
+                      },
+                    ],
+                  ]
+                }
+              >
+                duration
+              </Text>
+            </View>
+            <View
+              style={
+                [
+                  {
+                    "flexDirection": "row",
+                  },
+                  {
+                    "alignItems": "center",
+                  },
+                ]
+              }
+            >
+              <View
+                style={
+                  [
+                    {
+                      "flexDirection": "row",
+                    },
+                    {
+                      "alignItems": "center",
+                    },
+                    {
+                      "justifyContent": "space-around",
+                    },
+                  ]
+                }
+              >
+                <View
+                  animated={true}
+                  animationConfig={
+                    {
+                      "bounciness": 0,
+                    }
+                  }
+                  animationType="spring"
+                  indeterminate={false}
+                  indeterminateAnimationDuration={1000}
+                  onLayout={[Function]}
+                  progress={0.5}
+                  style={
+                    [
+                      {
+                        "backgroundColor": "rgba(228, 242, 245, 1)",
+                        "borderColor": "rgba(94, 204, 233, 1)",
+                        "borderRadius": 8,
+                        "borderWidth": 0,
+                        "overflow": "hidden",
+                        "width": 450,
+                      },
+                      undefined,
+                    ]
+                  }
+                  useNativeDriver={false}
+                >
+                  <View
+                    collapsable={false}
+                    style={
+                      {
+                        "backgroundColor": "rgba(94, 204, 233, 1)",
+                        "height": 13.34,
+                        "transform": [
+                          {
+                            "translateX": 0,
+                          },
+                          {
+                            "translateX": -112.5,
+                          },
+                          {
+                            "scaleX": 0.50005,
+                          },
+                        ],
+                      }
+                    }
+                  />
+                </View>
+                <Text
+                  style={
+                    [
+                      {
+                        "paddingLeft": 20,
+                        "paddingRight": 20,
+                      },
+                      {
+                        "textAlign": "center",
+                      },
+                      {
+                        "fontFamily": "Montserrat-Bold",
+                      },
+                      {
+                        "fontSize": 12,
+                      },
+                      {
+                        "color": "#383838",
+                      },
+                    ]
+                  }
+                >
+                  50
+                  %
+                </Text>
+              </View>
+              <View
+                accessible={true}
+                collapsable={false}
+                focusable={true}
+                onBlur={[Function]}
+                onClick={[Function]}
+                onFocus={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  [
+                    {
+                      "zIndex": 1,
+                    },
+                  ]
+                }
+              >
+                <Text
+                  allowFontScaling={false}
+                  selectable={false}
+                  style={
+                    [
+                      {
+                        "color": "#5ECCE9",
+                        "fontSize": 28,
+                      },
+                      undefined,
+                      {
+                        "fontFamily": "material-community",
+                        "fontStyle": "normal",
+                        "fontWeight": "normal",
+                      },
+                      {},
+                    ]
+                  }
+                >
+                  󰐌
+                </Text>
+              </View>
+            </View>
+          </View>
         </View>
       </View>
-    </View>
+    </RCTScrollView>
   </View>
 </View>
 `;
