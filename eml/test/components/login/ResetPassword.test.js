@@ -32,6 +32,7 @@ jest.mock('react-native-keyboard-aware-scroll-view', () => {
   };
 });
 
+
 describe("ResetPassword", () => {
 
   describe("Test modal open and close", () => {
@@ -57,23 +58,36 @@ describe("ResetPassword", () => {
 
   describe("Test errors and validation", () => {
 
-    let resetPassword;
+    // Function used to initialize tokenInput and validateCodeBtn
+    // this should be called after rendering new page, by pressing resetPasswordButton
+    function initTokenComponents() {
+      const tokenInput = resetPassword.root.findByProps({ testId: "tokenInput" });
+      const validateCodeBtn = resetPassword.root.findByProps({ testId: "validateCodeBtn" });
+      const tokenAlert = resetPassword.root.findByProps({ testId: "tokenAlert" });
+    }
 
-    beforeEach(async () => {
-      await renderer.act(async () => {
+    let resetPassword;
+    let emailInput;
+    let resetPasswordButton;
+    let emailAlert;
+
+    beforeAll(async () => {
+      renderer.act(async () => {
         resetPassword = renderer.create(<ResetPassword />);
       });
+      emailInput = resetPassword.root.findByProps({ testId: "emailInput" });
+      resetPasswordButton = resetPassword.root.findByProps({ testId: "resetPasswordButton" });
+      emailAlert = resetPassword.root.findByProps({ testId: "emailAlert" });
     });
 
-    afterEach(() => {
+    afterAll(() => {
       resetPassword = null;
+      emailInput = null;
+      resetPasswordButton = null;
+      emailAlert = null;
     });
 
     it('Error if email does not exist', async () => {
-      const emailInput = resetPassword.root.findByProps({ testId: "emailInput" });
-      const resetPasswordButton = resetPassword.root.findByProps({ testId: "resetPasswordButton" });
-      const emailAlert = resetPassword.root.findByProps({ testId: "emailAlert" });
-
       await renderer.act(async () => {
         await emailInput.props.onChangeText("test@test.com");
         await resetPasswordButton.props.onPress();
@@ -83,13 +97,6 @@ describe("ResetPassword", () => {
     });
 
     it('Error if invalid email, no error if valid', () => {
-      const emailInput = resetPassword.root.findByProps({
-        testId: "emailInput"
-      });
-      const emailAlert = resetPassword.root.findByProps({
-        testId: "emailAlert"
-      });
-
       renderer.act(() => {
         emailInput.props.onChangeText("test.com")
       });
@@ -113,10 +120,6 @@ describe("ResetPassword", () => {
 
 
     it('Error message with too many attempts', async () => {
-      const emailInput = resetPassword.root.findByProps({ testId: "emailInput" });
-      const resetPasswordButton = resetPassword.root.findByProps({ testId: "resetPasswordButton" });
-      const emailAlert = resetPassword.root.findByProps({ testId: "emailAlert" });
-
       await renderer.act(async () => {
         await emailInput.props.onChangeText("resend@test.dk");
         await resetPasswordButton.props.onPress();
@@ -126,39 +129,28 @@ describe("ResetPassword", () => {
     });
 
     it('Error message with invalid token', async () => {
-      const emailInput = resetPassword.root.findByProps({ testId: "emailInput" });
-      const resetPasswordButton = resetPassword.root.findByProps({ testId: "resetPasswordButton" });
-
       await renderer.act(async () => {
         await emailInput.props.onChangeText("test@test.dk");
         await resetPasswordButton.props.onPress();
 
-        // initialize after rendering new page, by pressing resetPasswordButton
-        const tokenInput = resetPassword.root.findByProps({ testId: "tokenInput" });
-        const validateCodeBtn = resetPassword.root.findByProps({ testId: "validateCodeBtn" });
+        initTokenComponents();
         await tokenInput.props.onChangeText("1337");
         await validateCodeBtn.props.onPress();
       }).then(() => {
-        const tokenAlert = resetPassword.root.findByProps({ testId: "tokenAlert" });
         expect(tokenAlert.props.label).not.toBe("");
       })
     });
 
     it('Error message with expired token', async () => {
-      const emailInput = resetPassword.root.findByProps({ testId: "emailInput" });
-      const resetPasswordButton = resetPassword.root.findByProps({ testId: "resetPasswordButton" });
-
       await renderer.act(async () => {
         await emailInput.props.onChangeText("expired@test.dk");
         await resetPasswordButton.props.onPress();
 
         // initialize after rendering new page, by pressing resetPasswordButton
-        const tokenInput = resetPassword.root.findByProps({ testId: "tokenInput" });
-        const validateCodeBtn = resetPassword.root.findByProps({ testId: "validateCodeBtn" });
+        initTokenComponents();
         await tokenInput.props.onChangeText("1337");
         await validateCodeBtn.props.onPress();
       }).then(() => {
-        const tokenAlert = resetPassword.root.findByProps({ testId: "tokenAlert" });
         expect(tokenAlert.props.label).not.toBe("");
       });
     });
