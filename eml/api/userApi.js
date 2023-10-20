@@ -32,7 +32,7 @@ export const registerUser = async (obj) => {
     email: ${obj.email ?? 'undefined'}`);
 
   try {
-    const res = await client.post('/api/signup/user', obj);
+    const res = await client.post('/api/signup/users', obj);
     console.log('User successfully registered');
     return res.data;
   } catch (e) {
@@ -64,9 +64,15 @@ export const loginUser = async (obj) => {
   }
 }
 
-export const deleteUser = async (user_id) => {
+export const deleteUser = async (user_id, token) => {
   try {
-    const res = await axios.delete(url + `/api/user/delete/` + user_id);
+    console.log(user_id + " token: " + token)
+    const res = await axios.delete(url + `/api/users/` + user_id, {
+      headers: {
+        'Content-Type': 'application/json',
+        'token': token, // Include the token in the headers
+      },
+    });
     return res.data;
   } catch (error) {
     // Handle errors here
@@ -74,9 +80,15 @@ export const deleteUser = async (user_id) => {
   }
 };
 
-export const updateFirstName = async (user_id, new_FirstName) => {
+export const updateUserFields = async (user_id, updateFields, token) => {
   try {
-    const res = await axios.put(url + `/api/user/update-first-name/` + user_id, { newFirstName: new_FirstName });
+    const res = await axios.patch(url + `/api/users/${user_id}`, updateFields, {
+      headers: {
+        'Content-Type': 'application/json',
+        'token': token, // Include the token in the headers
+      },
+    });
+
     return res.data;
   } catch (error) {
     // Handle errors here
@@ -84,25 +96,6 @@ export const updateFirstName = async (user_id, new_FirstName) => {
   }
 };
 
-export const updateLastName = async (user_id, new_LastName) => {
-  try {
-    const res = await axios.put(url + `/api/user/update-last-name/` + user_id, { newLastName: new_LastName });
-    return res.data;
-  } catch (error) {
-    // Handle errors here
-    throw error; // You may want to handle the error or log it
-  }
-};
-
-export const updateUserEmail = async (user_id, new_email) => {
-  try {
-    const res = await axios.put(url + `/api/user/update-email/` + user_id, { newEmail: new_email });
-    return res.data;
-  } catch (error) {
-    // Handle errors here
-    throw error; // You may want to handle the error or log it
-  }
-};
 
 export const enrollInCourse = async (user_Id, course_Id) => {
   try {

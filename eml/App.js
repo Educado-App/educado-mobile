@@ -20,7 +20,7 @@ import SectionCompleteScreen from './screens/excercise/SectionCompleteScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SectionScreen from './screens/section/SectionScreen';
 import { isFontsLoaded } from './constants/Fonts';
-import Loading from "./components/loading/Loading";
+import LoadingScreen from "./components/loading/Loading";
 import WelcomeScreen from "./screens/welcome/Welcome";
 import ProfileSettingsScreen from "./screens/profile/ProfileSettings";
 
@@ -240,7 +240,7 @@ export default function App() {
 
   // Makes sure fonts are loaded before rendering the app
   if (isLoading && fontsLoaded) {
-    return <Loading />;
+    return <LoadingScreen />;
   }
   // ***************************************************
 
