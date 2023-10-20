@@ -69,12 +69,12 @@ export default function ResetPassword(props) {
               break;
 
             // TODO: What error should we give here instead? Unknown error? 
-            default: // Errors not currently handled with specific alerts
-              console.log(error);
+            default: 
+            // Errors not currently handled with specific alerts
           }
         });
     } catch (error) {
-      console.log(error);
+      // Error not currently handled with specific alert
     }
   }
 
