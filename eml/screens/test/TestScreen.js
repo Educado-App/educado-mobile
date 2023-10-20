@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Alert, StyleSheet, View, Text } from 'react-native';
 import TestComponent from '../../components/test/TestComponent';
 import * as StorageService from '../../services/StorageService';

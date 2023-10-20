@@ -1,4 +1,5 @@
 import renderer from "react-test-renderer";
+import React from "react";
 import RegisterForm from "../../../components/login/RegisterForm";
 
 let registerForm;
@@ -8,6 +9,12 @@ beforeEach(async () => {
     registerForm = renderer.create(<RegisterForm />);
   });
 });
+
+jest.mock('@react-navigation/native', () => ({
+  useNavigation: () => ({
+    navigate: jest.fn(),
+  }),
+}))
 
 test("Ensure that the RegisterForm component renders correctly", () => {
   const tree = registerForm.toJSON();
