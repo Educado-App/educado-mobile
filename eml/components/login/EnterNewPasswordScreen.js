@@ -32,8 +32,8 @@ export default function EnterNewPasswordScreen(props) {
 
   /**
    * Function to toggle the password visibility state
-   * @param {Function} setPasswordFunction function for handling password visibility state
-   * @param {boolean} password boolean state for visibility of password
+   * @param {Function} setShowPasswordFunction function for handling password visibility state
+   * @param {boolean} shouldShowPassword boolean state for visibility of password
    */
   const toggleShowPassword = (setShowPasswordFunction, shouldShowPassword) => {
     setShowPasswordFunction(!shouldShowPassword);

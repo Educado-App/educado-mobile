@@ -58,61 +58,65 @@ describe("ResetPassword", () => {
 
   describe("Test errors and validation", () => {
 
-    // Function used to initialize tokenInput and validateCodeBtn
-    // this should be called after rendering new page, by pressing resetPasswordButton
-    function initTokenComponents() {
-      const tokenInput = resetPassword.root.findByProps({ testId: "tokenInput" });
-      const validateCodeBtn = resetPassword.root.findByProps({ testId: "validateCodeBtn" });
-      const tokenAlert = resetPassword.root.findByProps({ testId: "tokenAlert" });
-    }
-
     let resetPassword;
     let emailInput;
     let resetPasswordButton;
     let emailAlert;
+    let tokenInput;
+    let validateCodeBtn;
+    let tokenAlert;
+
+    // Function used to initialize tokenInput and validateCodeBtn
+    // this should be called after rendering new page, by pressing resetPasswordButton
+    function initTokenComponents() {
+      tokenInput = resetPassword.root.findByProps({ testId: "tokenInput" });
+      validateCodeBtn = resetPassword.root.findByProps({ testId: "validateCodeBtn" });
+      tokenAlert = resetPassword.root.findByProps({ testId: "tokenAlert" });
+    }
 
     beforeAll(async () => {
-      renderer.act(async () => {
+      await renderer.act(async () => {
         resetPassword = renderer.create(<ResetPassword />);
-      });
+      }).then(() => {
       emailInput = resetPassword.root.findByProps({ testId: "emailInput" });
       resetPasswordButton = resetPassword.root.findByProps({ testId: "resetPasswordButton" });
       emailAlert = resetPassword.root.findByProps({ testId: "emailAlert" });
-    });
-
-    afterAll(() => {
-      resetPassword = null;
-      emailInput = null;
-      resetPasswordButton = null;
-      emailAlert = null;
+      });
     });
 
     it('Error if email does not exist', async () => {
+      // Ensure emailAlert is properly initialized
+    
       await renderer.act(async () => {
         await emailInput.props.onChangeText("test@test.com");
         await resetPasswordButton.props.onPress();
       }).then(() => {
+        // Initialize emailAlert here after the component has rendered
+        emailAlert = resetPassword.root.findByProps({ testId: "emailAlert" });
+    
         expect(emailAlert.props.label).not.toBe("");
       });
     });
+    
 
-    it('Error if invalid email, no error if valid', () => {
-      renderer.act(() => {
+    it('Error if invalid email, no error if valid', async() => {
+      emailInput = resetPassword.root.findByProps({ testId: "emailInput" });
+      await renderer.act(() => {
         emailInput.props.onChangeText("test.com")
       });
       expect(emailAlert.props.label).not.toBe("");
 
-      renderer.act(() => {
+      await renderer.act(() => {
         emailInput.props.onChangeText("test@test.c")
       });
       expect(emailAlert.props.label).not.toBe("");
 
-      renderer.act(() => {
+      await renderer.act(() => {
         emailInput.props.onChangeText("test@test")
       });
       expect(emailAlert.props.label).not.toBe("");
 
-      renderer.act(() => {
+      await renderer.act(() => {
         emailInput.props.onChangeText("test@test.com")
       });
       expect(emailAlert.props.label).toBe("");

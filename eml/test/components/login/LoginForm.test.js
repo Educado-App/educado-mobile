@@ -30,7 +30,7 @@ jest.mock("../../../api/userApi", () => ({
     if (email === "is@user.com" && password === "password123") {
       return Promise.resolve({ test: "token" });
     } else if (email !== "is@user.com") {
-      return Promise.reject({ error: { code: 'E0101' } });
+      return Promise.reject({ error: { code: 'E0004' } });
     } else if (password !== "password123") {
       return Promise.reject({ error: { code: 'E0105' } });
     }
@@ -168,7 +168,6 @@ test("Test email alert", async () => {
 test("Test password alert", async () => {
   const emailInput = loginForm.root.findByProps({ testId: "emailInput" });
   const passwordInput = loginForm.root.findByProps({ testId: "passwordInput" });
-  const passwordAlert = loginForm.root.findByProps({ testId: "passwordAlert" });
   const loginButton = loginForm.root.findByProps({ testId: "loginButton" });
 
   await renderer.act(async () => {
@@ -176,6 +175,7 @@ test("Test password alert", async () => {
     await passwordInput.props.onChangeText("wrongpassword");
     loginButton.props.onPress();
   }).then(() => {
+    const passwordAlert = loginForm.root.findByProps({ testId: "passwordAlert" });
     expect(passwordAlert.props.label)
       .not.toBe((""))
   });
