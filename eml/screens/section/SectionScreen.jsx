@@ -27,12 +27,8 @@ export default function SectionScreen({ route }) {
    * @param {string} id - The id of the course to load sections for.
    */
   async function loadSections(id) {
-    try {
       const sectionData = await StorageService.getSectionList(id);
       setSections(sectionData);
-    } catch (error) {
-      throw new Error("Error loading sections:", error);
-    }
   }
 
   /**
@@ -40,12 +36,8 @@ export default function SectionScreen({ route }) {
    * @param {string} id - The id of the course to load.
    */
   async function getCourse(id) {
-    try {
       const courseData = await StorageService.getCourseId(id);
       setCourse(courseData);
-    } catch (error) {
-      throw new Error("Error loading course:", error);
-    }
   }
 
   // Fetch courses from backend and replace dummy data!
