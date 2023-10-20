@@ -21,6 +21,9 @@ import { getVideoDownloadUrl } from '../../api/api';
 import { useNavigation } from '@react-navigation/native';
 import ProgressTopBar from './ProgressTopBar';
 
+import { Platform } from 'react-native';
+
+
 export default function VideoLectureScreen({ lecture, course }) {
 
 
@@ -74,6 +77,13 @@ export default function VideoLectureScreen({ lecture, course }) {
 
 
 
+
+    const paddingBottomValue = Platform.select({
+        ios: '10vh',
+        android: '4vh',
+        // add other platforms if needed
+        default: '2vh'
+    });
 
 
     const navigation = useNavigation();
@@ -139,7 +149,7 @@ export default function VideoLectureScreen({ lecture, course }) {
             </View>
             {/* Layers on top of video */}
 
-            <View className={"absolute w-full h-full p-5 pb-20"}>
+            <View className={`absolute w-full h-full p-5 pb-[${paddingBottomValue}]`}>
                 <View className="w-full h-full flex-col justify-between items-center  bg-opacity-20" >
                     {/* Progress bar (on top) */}
                     <ProgressTopBar progressPercent={75} />
@@ -156,7 +166,7 @@ export default function VideoLectureScreen({ lecture, course }) {
                             <VideoActions isPlaying={isPlaying} isMuted={isMuted} onVolumeClick={handleMutepress} onPlayClick={handlePress} />
                         </View>
 
-                        <View className="h-[2vh]" />
+                        <View className="h-[3vh]" />
 
                         {/* Video Progress Bar Component */}
                         {/* <VideoProgressBar elapsedMs={positionMillis} totalMs={durationMillis} videoRef={videoRef} /> */}
