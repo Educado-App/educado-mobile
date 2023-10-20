@@ -8,7 +8,7 @@ import { RadioButton } from "react-native-paper";
 import ExerciseInfo from "../../components/exercise/ExerciseInfo";
 import { Icon } from '@rneui/themed';
 import { SafeAreaView } from "react-native-safe-area-context";
-import { getExercise, getSection, getCourse } from '../../api/api';
+import { getExerciseByid, getSectionByid, getCourseByid } from '../../api/api';
 
 export default function ExerciseScreen({ givenId = "65181a4f4c78b45368126ed7"}) {
   const navigation = useNavigation();
@@ -34,9 +34,9 @@ export default function ExerciseScreen({ givenId = "65181a4f4c78b45368126ed7"}) 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setExerciseData(exercise = await getExercise(givenId));
-        setSectionData(section = await getSection(exercise.parentSection));
-        setCourseData(course = await getCourse(section.parentCourse));
+        setExerciseData(exercise = await getExerciseByid(givenId));
+        setSectionData(section = await getSectionByid(exercise.parentSection));
+        setCourseData(course = await getCourseByid(section.parentCourse));
         setHasData(true);
       } catch (error) {
         console.log("Error fetching data:", error);

@@ -46,17 +46,17 @@ export const getCourses = async () => {
   return res.data;
 };
 
-export const getCourse = async (courseId) => {
+export const getCourseByid = async (courseId) => {
   const res = await axios.get(url + "/api/courses/" + courseId);
   return res.data;
 };
 
-export const getSection = async (sectionId) => {
+export const getSectionByid = async (sectionId) => {
   const res = await axios.get(url + "/api/sections/" + sectionId);
   return res.data;
 };
 
-export const getExercise = async (exerciseId) => {
+export const getExerciseByid = async (exerciseId) => {
   const res = await axios.get(url + "/api/exercises/" + exerciseId);
   return res.data;
 };
