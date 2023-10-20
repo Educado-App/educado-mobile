@@ -15,8 +15,12 @@ export const getCourse = async (courseId) => {
     const res = await axios.get(url + '/api/courses/' + courseId)
     return res.data;
 
-  } catch (error) {
-    throw new Error("Error getting specific course: " + error);
+  } catch (e) {
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
   }
 };
 
@@ -26,8 +30,12 @@ export const getCourses = async () => {
     const res = await axios.get(url + '/api/courses')
     return res.data;
 
-  } catch (error) {
-    throw new Error("Error getting all courses: " + error);
+  } catch (e) {
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
   }
 };
 
@@ -38,8 +46,12 @@ export const getAllSections = async (courseId) => {
     const res = await axios.get(url + '/api/courses/' + courseId + '/sections');
     return res.data;
 
-  } catch (error) {
-    throw new Error("Error getting all sections: " + error);
+  } catch (e) {
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
   }
 
 };
@@ -49,9 +61,13 @@ export const getSection = async (courseId, sectionId) => {
   try {
     const res = await axios.get(url + '/api/courses/' + courseId + '/sections/' + sectionId);
     return res.data;
-  }
-  catch (error) {
-    throw new Error("Error getting specific section: " + error);
+
+  } catch (e) {
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
   }
 };
 
@@ -61,8 +77,12 @@ export const getExercisesInSection = async (courseId, sectionId) => {
     const res = await axios.get(url + '/api/courses/' + courseId + '/sections/' + sectionId + '/exercises');
     return res.data;
 
-  } catch (error) {
-    throw new Error("Error getting exercises in section: " + error);
+  } catch (e) {
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
   }
 
 };
@@ -82,8 +102,12 @@ export const getSubscriptions = async (userId) => {
 
     return res.data;
 
-  } catch (error) {
-    throw new Error("Error getting user subscriptions: " + error);
+  } catch (e) {
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
   }
 
 
@@ -97,9 +121,12 @@ try {
   const res = await axios.post(url + '/api/courses/' + courseId + '/subscribe', {
     user_id: userId
   });
-}
-catch(error) {
-      throw new Error("Error subscribing to course: " + error.message)
+} catch (e) {
+  if (e?.response?.data != null) {
+    throw e.response.data;
+  } else {
+    throw e;
+  }
 }
 
 };
@@ -111,10 +138,12 @@ export const unSubscribeToCourse = async (userId, courseId) => {
     const res = await axios.post(url + '/api/courses/' + courseId + '/unsubscribe', {
       user_id: userId
     });
-  }
-
-  catch(error){
-      throw new Error("Error unsubscribing to course: " + error.message)
+  } catch (e) {
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
   }
 };
 
@@ -129,8 +158,12 @@ export const ifSubscribed = async (userId, courseId) => {
 
     return (res.data);
 
-  } catch (error) {
-    throw new Error("Error getting user subscriptions: " + error);
+  } catch (e) {
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
   }
 
 }
