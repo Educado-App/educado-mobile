@@ -32,9 +32,9 @@ describe("ExerciseScreen", () => {
     const mockData = exerciseScreenMock();
 
     const api = require("../../../api/api");
-    jest.spyOn(api, "getExercise").mockResolvedValue(mockData.exerciseData);
-    jest.spyOn(api, "getSection").mockResolvedValue(mockData.sectionData);
-    jest.spyOn(api, "getCourse").mockResolvedValue(mockData.courseData);
+    jest.spyOn(api, "getExerciseByid").mockResolvedValue(mockData.exerciseData);
+    jest.spyOn(api, "getSectionByid").mockResolvedValue(mockData.sectionData);
+    jest.spyOn(api, "getCourseByid").mockResolvedValue(mockData.courseData);
 
     await renderer.act(async () => {
       return (exerciseScreen = renderer.create(<ExerciseScreen />));
