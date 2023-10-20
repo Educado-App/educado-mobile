@@ -10,6 +10,7 @@ import ResetPassword from "./ResetPassword";
 import FormFieldAlert from "./FormFieldAlert";
 import { removeEmojis } from "../general/Validation";
 import Text from "../general/Text";
+import ShowAlert from "../general/ShowAlert";
 
 const LOGIN_TOKEN = "@loginToken";
 const USER_INFO = "@userInfo";
@@ -49,41 +50,36 @@ export default function LoginForm() {
       password: password,
     };
 
-    try {
-      await loginUser(obj) // Await the response from the backend API for login
-        .then(async (response) => {
-          // Set login token in AsyncStorage and navigate to home screen
-          await AsyncStorage.setItem(LOGIN_TOKEN, response.accessToken);
-          navigation.navigate("HomeStack");
-        })
-        .catch((error) => {
-          console.log(error);
-          switch (error?.error?.code) {
-            case 'E0101':
-              // No user exists with this email!
-              setEmailAlert("Não existe nenhum usuário com este email!");
-              break;
+    await loginUser(obj) // Await the response from the backend API for login
+      .then(async (response) => {
+        // Set login token in AsyncStorage and navigate to home screen
+        await AsyncStorage.setItem(LOGIN_TOKEN, response.accessToken);
+        navigation.navigate("HomeStack");
+      })
+      .catch((error) => {
+        switch (error?.error?.code) {
+          case 'E0101':
+            // No user exists with this email!
+            setEmailAlert("Não existe nenhum usuário com este email!");
+            break;
 
-            case 'E0105':
-              // Password is incorrect!
-              setPasswordAlert("Senha incorreta!");
-              break;
+          case 'E0105':
+            // Password is incorrect!
+            setPasswordAlert("Senha incorreta!");
+            break;
 
-            case 'E0003':
-              // Error connecting to server!
-              ShowAlert("Erro de conexão com o servidor!");
-              break;
+          case 'E0003':
+            // Error connecting to server!
+            ShowAlert("Erro de conexão com o servidor!");
+            break;
 
-            // TODO: What error should we give here instead? Unknown error? 
-            default: // Errors not currently handled with specific alerts
-              console.log(error);
-          }
-        });
-    } catch (e) {
-      console.log(e);
-    }
-
+          // TODO: What error should we give here instead? Unknown error? 
+          default: // Errors not currently handled with specific alerts
+            ShowAlert("Erro desconhecido!");
+        }
+      });
   }
+
 
   // Function to close the reset password modal
   const closeModal = () => {
