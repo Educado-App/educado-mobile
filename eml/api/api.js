@@ -215,7 +215,7 @@ export const getSectionAndLecturesBySectionId = async (sectionId) => {
 
 export const getLectureById = async (lectureId) => {
   try {
-    const res = await axios.get(url + "/api/courses/lecture/" + lectureId);
+    const res = await axios.get(url + "/api/lectures/" + lectureId);
     return res.data;
   } catch (err) {
     console.log("Error getting lecture by id", err);
