@@ -56,7 +56,6 @@ export default function LoginForm() {
       await AsyncStorage.setItem(LOGIN_TOKEN, response.accessToken);
       navigation.navigate("HomeStack");
     }).catch((error) => {
-      console.log(error)
       switch (error?.error?.code) {
         case 'E0004':
           // No user exists with this email!
