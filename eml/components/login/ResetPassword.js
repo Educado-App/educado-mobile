@@ -1,4 +1,4 @@
-import { View, Alert } from "react-native";
+import { View } from "react-native";
 import React, { useState, useEffect } from "react";
 import FormTextField from "./FormTextField";
 import FormButton from "./FormButton";
@@ -24,54 +24,65 @@ export default function ResetPassword(props) {
   const [codeEntered, setCodeEntered] = useState(false);
   const [passwordResetAlert, setPasswordResetAlert] = useState("");
   const [tokenAlert, setTokenAlert] = useState("");
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [buttonLoading, setButtonLoading] = useState(false);
+
+  /**
+   * Function to display an alert to the user
+   * @param {String} message Message to display in alert
+   * @param {Boolean} status Displays if alert is success or error (green if true or red if false)
+   */
+  function displayErrorAlert(message, status) {
+    setPasswordResetAlert(message);
+    setIsSuccess(status);
+  }
 
   useEffect(() => {
     if (email === '') {
-      setPasswordResetAlert('');
+      displayErrorAlert('', false);
       return;
     }
 
     const validationError = validateEmail(email);
-    setPasswordResetAlert(validationError);
+    displayErrorAlert(validationError, false);
   }, [email]);
 
   /**
    * Function to send mail to user with code to reset password
    * @param {*} email 
    */
-
   async function sendEmail(email) {
     const obj = {
       email,
     };
 
+    setButtonLoading(true);
     await sendResetPasswordEmail(obj)
       .then(async () => {
         setEmailSent(true);
-        setPasswordResetAlert("");
-        showEmailSentSuccess(email);
+        setButtonLoading(false);
+        displayErrorAlert("E-mail enviado com sucesso!", true);
       }).catch((error) => {
         switch (error?.error?.code) {
           case 'E0401':
             // No user exists with this email!
-            setPasswordResetAlert(emailAlertMessage);
+            displayErrorAlert(emailAlertMessage, false);
             break;
 
           case 'E0406':
             // Too many resend attempts!
-            setPasswordResetAlert("Muitas tentativas de reenvio! Espere 5 minutos...");
+            displayErrorAlert("Muitas tentativas de reenvio! Espere 5 minutos...", false);
             break;
 
           case 'E0004':
             // User not found!
-            setPasswordResetAlert("Usuário não encontrado!");
+            displayErrorAlert("Usuário não encontrado!", false);
             break;
 
           // TODO: What error should we give here instead? Unknown error? 
           default:
             // Errors not currently handled with specific alerts
-            setPasswordResetAlert("Erro desconhecido!");
-            break;
+            displayErrorAlert("Erro desconhecido!", false);
         }
       });
   }
@@ -96,7 +107,7 @@ export default function ResetPassword(props) {
         switch (error?.error?.code) {
           case 'E0401':
             // No user exists with this email!
-            setPasswordResetAlert(emailAlertMessage);
+            displayErrorAlert(emailAlertMessage, false);
             break;
 
           case 'E0404':
@@ -112,31 +123,22 @@ export default function ResetPassword(props) {
           default:
             // Errors not currently handled with specific alerts
             setTokenAlert("Erro desconhecido!");
-            break;
         }
       });
   }
 
+  //resets the state of the reset password modal
   const resetState = () => {
     setEmailSent(false);
     setCodeEntered(false);
-    setPasswordResetAlert("");
+    displayErrorAlert("", false);
     setTokenAlert("");
   };
 
-  const showEmailSentSuccess = (email) => {
-    Alert.alert(
-      "Sucesso!", // Success!
-      "Código enviado para: " + email, // Code sent to: email
-      [{
-        text: "OK",
-        style: "cancel",
-      }],
-      {
-        cancelable: true,
-      }
-    );
-  }
+  //checks if the 4-digit code entered is valid
+  const codeInputValid = (code) => {
+    return /^\d+$/.test(code) && (code.length === 4);
+  };
 
   return (
     <EducadoModal modalVisible={props.modalVisible} closeModal={props.onModalClose} id="EducadoModal" title="Redefinição de senha">
@@ -153,7 +155,7 @@ export default function ResetPassword(props) {
               testId="emailInput"
               value={email}
             />
-            <FormFieldAlert testId="emailAlert" label={passwordResetAlert} />
+            <FormFieldAlert testId="emailAlert" label={passwordResetAlert} success={isSuccess} />
             <View className="mt-[40px]">
               {emailSent ? (
                 <View>
@@ -173,9 +175,10 @@ export default function ResetPassword(props) {
                   <View className="mt-[40px] mb-[24px]">
                     <FormButton
                       // Continue 
-                      label="Continuar"
+                      label={buttonLoading ? "Validando código..." : "Continuar"}
                       onPress={() => validateCode(email, token)}
                       testId="validateCodeBtn"
+                      disabled={!codeInputValid(token)}
                     />
                   </View>
                   <View className="mx-10 flex-row justify-center">
@@ -188,9 +191,10 @@ export default function ResetPassword(props) {
               ) : (
                 <FormButton
                   // Send code
-                  label="Enviar código"
+                  label={buttonLoading ? "Enviando e-mail..." : "Enviar código"}
                   onPress={() => sendEmail(email)}
                   testId="resetPasswordButton"
+                  disabled={passwordResetAlert !== "" || email === ""}
                 />
               )}
             </View>
@@ -207,3 +211,4 @@ export default function ResetPassword(props) {
     </EducadoModal>
   );
 }
+
