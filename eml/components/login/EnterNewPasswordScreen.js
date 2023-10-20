@@ -102,6 +102,11 @@ export default function EnterNewPasswordScreen(props) {
           // Incorrect code!
           setPasswordAlert("Código incorreto!");
           break;
+
+        default:
+          // Errors not currently handled with specific alerts
+          setPasswordAlert("Erro desconhecido!");
+          break;
       }
     }
   }

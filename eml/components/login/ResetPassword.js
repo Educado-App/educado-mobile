@@ -1,5 +1,5 @@
 import { View, Alert } from "react-native";
-import React ,{ useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import FormTextField from "./FormTextField";
 import FormButton from "./FormButton";
 import EducadoModal from "../general/EducadoModal";
@@ -45,38 +45,37 @@ export default function ResetPassword(props) {
       email,
     };
 
-    try {
-      await sendResetPasswordEmail(obj)
-        .then(async () => {
-          setEmailSent(true);
-          setPasswordResetAlert("");
-          showEmailSentSuccess(email);
-        }).catch((error) => {
-          switch (error?.error?.code) {
-            case 'E0401':
-              // No user exists with this email!
-              setPasswordResetAlert(emailAlertMessage);
-              break;
+    await sendResetPasswordEmail(obj)
+      .then(async () => {
+        setEmailSent(true);
+        setPasswordResetAlert("");
+        showEmailSentSuccess(email);
+      }).catch((error) => {
+        switch (error?.error?.code) {
+          case 'E0401':
+            // No user exists with this email!
+            setPasswordResetAlert(emailAlertMessage);
+            break;
 
-            case 'E0406':
-              // Too many resend attempts!
-              setPasswordResetAlert("Muitas tentativas de reenvio! Espere 5 minutos...");
-              break;
+          case 'E0406':
+            // Too many resend attempts!
+            setPasswordResetAlert("Muitas tentativas de reenvio! Espere 5 minutos...");
+            break;
 
-            case 'E0004':
-              // User not found!
-              setPasswordResetAlert("Usuário não encontrado!");
-              break;
+          case 'E0004':
+            // User not found!
+            setPasswordResetAlert("Usuário não encontrado!");
+            break;
 
-            // TODO: What error should we give here instead? Unknown error? 
-            default: 
+          // TODO: What error should we give here instead? Unknown error? 
+          default:
             // Errors not currently handled with specific alerts
-          }
-        });
-    } catch (error) {
-      // Error not currently handled with specific alert
-    }
+            setPasswordResetAlert("Erro desconhecido!");
+            break;
+        }
+      });
   }
+
 
   /**
    * Function to validate the code entered by the user
@@ -90,31 +89,32 @@ export default function ResetPassword(props) {
       token,
     };
 
-    try {
-      await validateResetPasswordCode(obj)
-        .then(async () => {
-          setCodeEntered(true);
-        }).catch((error) => {
-          switch (error?.error?.code) {
-            case 'E0401':
-              // No user exists with this email!
-              setPasswordResetAlert(emailAlertMessage);
-              break;
+    await validateResetPasswordCode(obj)
+      .then(async () => {
+        setCodeEntered(true);
+      }).catch((error) => {
+        switch (error?.error?.code) {
+          case 'E0401':
+            // No user exists with this email!
+            setPasswordResetAlert(emailAlertMessage);
+            break;
 
-            case 'E0404':
-              // Code expired!
-              setTokenAlert("Código expirado!");
-              break;
+          case 'E0404':
+            // Code expired!
+            setTokenAlert("Código expirado!");
+            break;
 
-            case 'E0405':
-              // Incorrect code!
-              setTokenAlert("Código incorreto!");
-              break;
-          }
-        });
-    } catch (error) {
-      console.log(error);
-    }
+          case 'E0405':
+            // Incorrect code!
+            setTokenAlert("Código incorreto!");
+            break;
+
+          default:
+            // Errors not currently handled with specific alerts
+            setTokenAlert("Erro desconhecido!");
+            break;
+        }
+      });
   }
 
   const resetState = () => {
