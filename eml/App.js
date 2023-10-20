@@ -18,7 +18,6 @@ import { TailwindProvider } from 'tailwindcss-react-native';
 import ErrorScreen from './screens/errors/ErrorScreen';
 import SectionCompleteScreen from './screens/excercise/SectionCompleteScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import SectionScreen from './screens/section/SectionScreen';
 import { isFontsLoaded } from './constants/Fonts';
 import Loading from "./components/loading/Loading";
 import WelcomeScreen from "./screens/welcome/Welcome";
@@ -26,7 +25,6 @@ import ProfileSettingsScreen from "./screens/profile/ProfileSettings";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
-
 /**
  * Check if user is logged in, if not redirect to login screen
  */
@@ -262,14 +260,8 @@ export default function App() {
                 options={{ headerShown: false }}
               />
               <Stack.Screen
-                name={'HomeStack'}
-                component={HomeStack} // Use the NavBar component here
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="Section"
-                component={SectionScreen}
-                initialParams={{ course_id: '' }}
+                name={"HomeStack"}
+                component={HomeStack}
                 options={{ headerShown: false }}
               />
               <Stack.Screen
