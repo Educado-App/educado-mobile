@@ -4,8 +4,7 @@ import Text from './Text'
 
 /**
  * Custom header component with an icon and title.
- * @param {Object} props - The component props.
- * @param {string} props.title - The title to display next to the icon.
+ * @param {string} title - The title to display next to the icon.
  * @returns {JSX.Element} The IconHeader component.
  */
 export default function IconHeader({ title }) {
