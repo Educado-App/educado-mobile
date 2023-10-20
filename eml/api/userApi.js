@@ -147,6 +147,10 @@ export const updateExerciseStatus = async (user_id, course_id, section_id, exerc
   return res.data;
 }
 
+/**
+ * Function to send mail to user with code to reset password
+ * @param {Object} email should contain an email, to receive a reset password message
+*/
 export const sendResetPasswordEmail = async (email) => {
   try {
     const res = await axios.post(url + '/api/auth/reset-password-request', email);
@@ -160,6 +164,13 @@ export const sendResetPasswordEmail = async (email) => {
   }
 };
 
+
+/**
+ * function to validate the code sent to the user 
+ * @param {Object} obj should contain the following properties:
+ * - email
+ * - token
+*/
 export const validateResetPasswordCode = async (obj) => {
   try {
     const res = await axios.post(url + '/api/auth/reset-password-code', obj);
@@ -174,6 +185,13 @@ export const validateResetPasswordCode = async (obj) => {
 
 };
 
+/**
+ * When user enters a new password it should update the password of the user
+ * @param {Object} obj should contain the following properties:
+ * - email
+ * - token
+ * - newPassword
+*/
 export const enterNewPassword = async (obj) => {
   try {
   const res = await axios.patch(url + '/api/auth/reset-password', obj);
