@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`LeaveButton renders LeaveButton correctly 1`] = `
+exports[`LeaveButton renders correctly 1`] = `
 <View
   style={
     [
@@ -87,7 +87,30 @@ exports[`LeaveButton renders LeaveButton correctly 1`] = `
             }
             testID="RNE__ICON"
           >
-            <Text />
+            <Text
+              allowFontScaling={false}
+              selectable={false}
+              style={
+                [
+                  {
+                    "color": "#383838",
+                    "fontSize": 25,
+                  },
+                  {
+                    "backgroundColor": "transparent",
+                  },
+                  {
+                    "fontFamily": "material-community",
+                    "fontStyle": "normal",
+                    "fontWeight": "normal",
+                  },
+                  {},
+                ]
+              }
+              testID="RNE__ICON__Component"
+            >
+              󰅁
+            </Text>
           </View>
         </View>
       </View>

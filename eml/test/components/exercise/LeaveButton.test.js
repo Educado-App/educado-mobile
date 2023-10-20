@@ -1,7 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import LeaveButton from "../../../components/exercise/LeaveButton";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 let navigated = false;
 
@@ -12,20 +11,22 @@ jest.mock("@react-navigation/native", () => ({
     }),
   }),
   useRoute: () => ({
-    params: {}, // Add any route parameters your component relies on
+    params: {},
   }),
 }));
 
-let LeaveButtonScreen;
-
-beforeEach(() => {
-  navigated = false;
-  AsyncStorage.clear();
-  LeaveButtonScreen = renderer.create(<LeaveButton />);
-});
+let leaveButtonScreen;
 
 describe("LeaveButton", () => {
-  it("renders LeaveButton correctly", () => {
-    expect(LeaveButtonScreen.toJSON()).toMatchSnapshot();
+  it("renders correctly", async () => {
+    await renderer.act(async () => {
+      return (leaveButtonScreen = renderer.create(
+        <LeaveButton navigationPlace="examplePlace" courseId={123} />
+      ));
+    });
+
+    await new Promise((r) => setTimeout(r, 0));
+
+    expect(leaveButtonScreen.toJSON()).toMatchSnapshot();
   });
 });
