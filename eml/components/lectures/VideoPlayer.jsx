@@ -6,6 +6,7 @@ import { Video } from 'expo-av';
 import axios from 'axios';
 
 
+import tailwindConfig from '../../tailwind.config';
 
 const CustomExpoVideoPlayer = forwardRef(({ onStatusUpdate, videoUrl, isMuted = false, isPlaying = true }, ref) => {
     const screenWidth = Dimensions.get('window').width;
@@ -15,7 +16,7 @@ const CustomExpoVideoPlayer = forwardRef(({ onStatusUpdate, videoUrl, isMuted = 
         container: {
             flex: 1,
             justifyContent: 'center',
-            backgroundColor: '#ecf0f1',
+            backgroundColor: tailwindConfig.theme.colors.black,
         },
         video: {
             alignSelf: 'center',

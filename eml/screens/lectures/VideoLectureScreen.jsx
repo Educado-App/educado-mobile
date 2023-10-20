@@ -105,6 +105,7 @@ export default function VideoLectureScreen({ lecture, course }) {
                 }
             })
             .catch(error => {
+                Alert.alert("Error", "The video is corrupted. Please try again later", "OK");
             });
     }, []);
 
@@ -132,9 +133,9 @@ export default function VideoLectureScreen({ lecture, course }) {
         <View className=" relative  w-screen h-screen">
 
             {/* Video - currently just black image */}
-            <View className="w-full h-full bg-black" >
+            <View className="w-full h-full bg-projectBlack" >
 
-                <View className="w-full h-full " >
+                <View className="w-full h-full  bg-projectBlack " >
                     {videoUrl ? <CustomExpoVideoPlayer
 
                         videoUrl={videoUrl}
