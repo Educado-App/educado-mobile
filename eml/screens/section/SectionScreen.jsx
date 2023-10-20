@@ -12,16 +12,6 @@ import SubscriptionCancel from '../../components/section/CancelSubscriptionButto
 import { unsubscribe } from '../../services/StorageService';
 
 /**
- * Section screen component.
- * @param {object} route - The route object containing the courseId parameter.
- * @returns {JSX.Element} - The section screen JSX elements.
- */
-/**
- * Renders the screen for a specific course section.
- * @param {object} route - The route object containing the course ID.
- * @returns {JSX.Element} - The JSX element for the section screen.
- */
-/**
  * Section screen component that displays a list of sections for a given course.
  * @param {object} route - The route object containing the courseId parameter.
  * @returns {JSX.Element} - The SectionScreen component.
@@ -31,7 +21,6 @@ export default function SectionScreen({ route }) {
   const navigation = useNavigation();
   const [sections, setSections] = useState(null);
   const [course, setCourse] = useState([]);
-  const [modalVisible, setModalVisible] = useState(false);
 
   /**
    * Loads the sections for the given course from the backend.
@@ -59,7 +48,7 @@ export default function SectionScreen({ route }) {
     }
   }
 
-  //Fetch courses from backend and replace dummy data!
+  // Fetch courses from backend and replace dummy data!
   useEffect(() => {
     let componentIsMounted = true;
 

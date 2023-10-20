@@ -21,29 +21,34 @@ export default function CourseScreen() {
     * @returns {CourseState} The state variable and its updater function.
     */
     const [courses, setCourses] = useState([]);
-
     const [courseLoaded, setCourseLoaded] = useState(false);
-
     const [refreshing, setRefreshing] = useState(false);
-
     const navigation = useNavigation()
 
-    // Compare two course arrays to check for equality
-    function areCoursesEqual(courses1, courses2) {
+    /**
+     * Determines if the two arrays of courses are different and require an update.
+     * @param {Array} courses1 - The first array of courses, typically representing the current state.
+     * @param {Array} courses2 - The second array of courses, typically representing the new fetched data.
+     * @returns {boolean} - Returns true if the two arrays are different and an update is required, otherwise false.
+     */
+    function shouldUpdate(courses1, courses2) {
+        // If both arrays are empty, they are equal, but should still update
         if (courses1.length === 0 && courses2.length === 0) {
-            return false;
+            return true;
         }
 
+        // If the lengths are different, they are not equal
         if (courses1.length !== courses2.length) {
-            return false;
+            return true;
         }
 
+        // If the IDs are different, they are not equal
         for (let i = 0; i < courses1.length; i++) {
             if (courses1[i].id !== courses2[i].id) {
-                return false;
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     /**
@@ -52,7 +57,7 @@ export default function CourseScreen() {
     */
     async function loadCourses() {
         const courseData = await StorageService.getSubCourseList();
-        if (!areCoursesEqual(courses, courseData)) {
+        if (shouldUpdate(courses, courseData)) {
             if (courseData.length !== 0 && Array.isArray(courseData)) {
                 setCourses(courseData);
                 setCourseLoaded(true);

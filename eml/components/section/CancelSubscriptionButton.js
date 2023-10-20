@@ -10,15 +10,13 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
  */
 const SubscriptionCancel = ({ onPress }) => {
   return (
-    <View className="flex-col items-end">
+    <View>
       <TouchableOpacity
         testID="subscriptionCancelButton"
-        className="px-5 py-4 rounded-medium"
+        className="px-5 py-4"
         onPress={onPress}
       >
-        <Text className="text-center font-sans-bold text-body text-projectWhite">
-          <MaterialCommunityIcons name="bookmark" size={25} color="black" />
-        </Text>
+        <MaterialCommunityIcons name="bookmark" size={25} color="black" />
       </TouchableOpacity>
     </View>
   );

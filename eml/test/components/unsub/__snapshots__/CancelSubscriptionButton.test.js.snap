@@ -1,18 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<SubscriptionCancel /> SubscriptionCancel button renders 1`] = `
-<View
-  style={
-    [
-      {
-        "flexDirection": "column",
-      },
-      {
-        "alignItems": "flex-end",
-      },
-    ]
-  }
->
+<View>
   <View
     accessible={true}
     collapsable={false}
@@ -26,10 +15,6 @@ exports[`<SubscriptionCancel /> SubscriptionCancel button renders 1`] = `
     onStartShouldSetResponder={[Function]}
     style={
       {
-        "borderBottomLeftRadius": 8,
-        "borderBottomRightRadius": 8,
-        "borderTopLeftRadius": 8,
-        "borderTopRightRadius": 8,
         "opacity": 1,
         "paddingBottom": 16,
         "paddingLeft": 20,
@@ -40,44 +25,25 @@ exports[`<SubscriptionCancel /> SubscriptionCancel button renders 1`] = `
     testID="subscriptionCancelButton"
   >
     <Text
+      allowFontScaling={false}
+      selectable={false}
       style={
         [
           {
-            "textAlign": "center",
+            "color": "black",
+            "fontSize": 25,
           },
+          undefined,
           {
-            "fontFamily": "Montserrat-Bold",
+            "fontFamily": "material-community",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
           },
-          {
-            "fontSize": 16,
-          },
-          {
-            "color": "#FFFFFF",
-          },
+          {},
         ]
       }
     >
-      <Text
-        allowFontScaling={false}
-        selectable={false}
-        style={
-          [
-            {
-              "color": "black",
-              "fontSize": 25,
-            },
-            undefined,
-            {
-              "fontFamily": "material-community",
-              "fontStyle": "normal",
-              "fontWeight": "normal",
-            },
-            {},
-          ]
-        }
-      >
-        󰃀
-      </Text>
+      󰃀
     </Text>
   </View>
 </View>
