@@ -64,7 +64,7 @@ export default function ExerciseScreen({ givenId = "65181a4f4c78b45368126ed7"}) 
           <Text> Sem dados</Text>
         ) : (
           <View className="items-center">
-            <Text className="pt-6 pb-10 text-center text-body font-montserrat-bold text-projectBlack w-11/12">
+            <Text testID="exerciseQuestion" className="pt-6 pb-10 text-center text-body font-montserrat-bold text-projectBlack w-11/12">
               {exerciseData.description}
             </Text>
             <View className={`${buttonClassName} items-center justify-center h-96 w-full`}>
