@@ -7,8 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 
 /**
  * A component that displays a section card with collapsible content.
- * @param {Object} props - The props object.
- * @param {Object} props.section - The section object containing the section's information.
+ * @param {Object} section - The section object containing the section data.
  * @returns {JSX.Element} - The SectionCard component.
  */
 export default function SectionCard({ section }) {
@@ -64,7 +63,7 @@ export default function SectionCard({ section }) {
                     <View className="w-[100%]">
                         <TouchableOpacity className="w-[100%] h-[300] items-center justify-center relative"
                             onPress={handleImagePress}>
-                            <Image source={require('../../assets/sectionThumbnail.png')} className="w-[100%] h-[300] object-cover" />
+                            <Image source={require('../../assets/images/sectionThumbnail.png')} className="w-[100%] h-[300] object-cover" />
                             <View className="absolute z-[1]">
                                 <MaterialCommunityIcons name="play-circle-outline" size={100} color="lightblue" />
                             </View>
