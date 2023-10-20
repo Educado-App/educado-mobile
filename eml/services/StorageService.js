@@ -20,7 +20,11 @@ export const getCourseId = async (id) => {
     if (course !== null) {
       return course;
     }
-    throw new Error("Error getting course from async storage: " + error.message)
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
   }
 };
 export const refreshCourse = async (id) => {
@@ -29,8 +33,12 @@ export const refreshCourse = async (id) => {
     .then(async (course) => {
       return course;
     })
-    .catch((error) => {
-      throw new Error("Error getting course from database: " + error.message)
+    .catch((e) => {
+      if (e?.response?.data != null) {
+        throw e.response.data;
+      } else {
+        throw e;
+      }
     });
 };
 
@@ -44,7 +52,11 @@ export const getCourseList = async () => {
     if (courseList !== null) {
       return courseList;
     }
-    throw new Error("Error getting course list from async storage: " + error.message)
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
   }
 };
 export const refreshCourseList = async () => {
@@ -71,8 +83,12 @@ export const refreshCourseList = async () => {
       await AsyncStorage.setItem(COURSE_LIST, JSON.stringify(newCourseList));
       return newCourseList;
     })
-    .catch((error) => {
-      throw new Error("Error getting course list from database: " + error.message)
+    .catch((e) => {
+      if (e?.response?.data != null) {
+        throw e.response.data;
+      } else {
+        throw e;
+      }
     });
 };
 
@@ -88,7 +104,11 @@ export const getSectionList = async (course_id) => {
     if (sectionList !== null) {
       return sectionList;
     }
-    throw new Error("Error getting section list from async storage: " + error.message)
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
   }
 };
 export const refreshSectionList = async (course_id) => {
@@ -111,8 +131,12 @@ export const refreshSectionList = async (course_id) => {
 
       return newSectionList;
     })
-    .catch((error) => {
-      throw new Error("Error getting section list from database: " + error.message)
+    .catch((e) => {
+      if (e?.response?.data != null) {
+        throw e.response.data;
+      } else {
+        throw e;
+      }
     });
 };
 
@@ -131,13 +155,17 @@ export const getSubCourseList = async () => {
   try {
     return await refreshSubCourseList(userId);
 
-  } catch (error) {
+  } catch (e) {
     // Check if the course list already exists in AsyncStorage
     let courseList = JSON.parse(await AsyncStorage.getItem(SUB_COURSE_LIST));
     if (courseList !== null) {
       return courseList;
     }
-    throw new Error("Error getting subscribed course list from async storage: " + error.message)
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
   }
 };
 export const refreshSubCourseList = async (userId) => {
@@ -165,8 +193,12 @@ export const refreshSubCourseList = async (userId) => {
       await AsyncStorage.setItem(SUB_COURSE_LIST, JSON.stringify(newCourseList));
       return newCourseList;
     })
-    .catch((error) => {
-      throw new Error("Error getting subscribed course list from database: " + error.message)
+    .catch((e) => {
+      if (e?.response?.data != null) {
+        throw e.response.data;
+      } else {
+        throw e;
+      }
     });
 };
 
@@ -184,8 +216,12 @@ export const subscribe = async (courseId) => {
   try {
     return await api.subscribeToCourse(userId, courseId);
 
-  } catch (error) {
-    throw new Error("Error subscribing user to course id through database: " + error.message)
+  } catch (e) {
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
   }
 };
 
@@ -202,8 +238,12 @@ export const unsubscribe = async (courseId) => {
   try {
     return await api.unSubscribeToCourse(userId, courseId);
 
-  } catch (error) {
-    throw new Error("Error unsubscribing user to course id through database: " + error.message)
+  } catch (e) {
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
   }
 };
 
@@ -221,8 +261,12 @@ export const checkSubscriptions = async (courseId) => {
   try {
     return await api.ifSubscribed(userId, courseId);
 
-  } catch (error) {
-    throw new Error("Error checking user subscribtions to course id through database: " + error.message)
+  } catch (e) {
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
   }
 };
 

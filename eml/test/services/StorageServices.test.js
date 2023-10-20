@@ -364,7 +364,7 @@ describe('Async Storage Functions', () => {
       api.subscribeToCourse.mockRejectedValue(new Error('Subscription failed'));
 
       // Assert that the subscribe function throws the expected error
-      await expect(StorageService.subscribe(mockData.courseData._id)).rejects.toThrow('Error subscribing user to course id through database: Subscription failed');
+      await expect(StorageService.subscribe(mockData.courseData._id)).rejects.toThrow('Subscription failed');
 
       // Assert that AsyncStorage.getItem was called with the correct arguments
       expect(AsyncStorage.getItem).toHaveBeenCalledWith('@userId');
@@ -418,7 +418,7 @@ describe('Async Storage Functions', () => {
       api.unSubscribeToCourse.mockRejectedValue(new Error('Unsubscription failed'));
 
       // Assert that the subscribe function throws the expected error
-      await expect(StorageService.unsubscribe(mockData.courseData._id)).rejects.toThrow('Error unsubscribing user to course id through database: Unsubscription failed');
+      await expect(StorageService.unsubscribe(mockData.courseData._id)).rejects.toThrow('Unsubscription failed');
 
       // Assert that AsyncStorage.getItem was called with the correct arguments
       expect(AsyncStorage.getItem).toHaveBeenCalledWith('@userId');
@@ -472,7 +472,7 @@ describe('Async Storage Functions', () => {
       await api.ifSubscribed.mockRejectedValue(new Error('Subscription check failed'));
 
       // Assert that the checkSubscriptions function throws the expected error
-      await expect(StorageService.checkSubscriptions(mockData.courseData._id)).rejects.toThrow('Error checking user subscribtions to course id through database: Subscription check failed');
+      await expect(StorageService.checkSubscriptions(mockData.courseData._id)).rejects.toThrow('Subscription check failed');
 
       // Assert that AsyncStorage.getItem was called with the correct arguments
       expect(AsyncStorage.getItem).toHaveBeenCalledWith('@userId');
