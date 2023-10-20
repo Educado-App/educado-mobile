@@ -21,7 +21,7 @@ const USER_INFO = "@userInfo";
  * @returns {React.Element} Component containing the form for registering a new user
  */
 
-export default function LoginForm(props) {
+export default function RegisterForm() {
 
   const navigation = useNavigation();
   const [firstName, setFirstName] = useState("");
