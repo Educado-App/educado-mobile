@@ -16,6 +16,7 @@ export default function CourseCard({ course }) {
     const navigation = useNavigation();
     let categoryBr = "";
 
+    // Should maybe be changed to a seperate typescript file instead
     function determineIcon(category) {
         switch (category) {
             case "personal finance":
@@ -34,7 +35,6 @@ export default function CourseCard({ course }) {
                 categoryBr = "Categoria";
                 return "bookshelf"
         }
-
     }
 
     return (
@@ -55,15 +55,19 @@ export default function CourseCard({ course }) {
                     </Text>
                 </View>
                 <View className="h-[1] bg-disable m-[2%]" />
-                <View className="flex-row items-center justify-start overflow-hidden">
-                    <MaterialCommunityIcons size={18} name={determineIcon(course.category)} color={'gray'}></MaterialCommunityIcons>
-                    <Text className="mx-[2.5%] my-[3%]">{course.category ? categoryBr : 'categoria'}</Text>
-                    <MaterialCommunityIcons size={18} name="clock" color={'gray'}></MaterialCommunityIcons>
-                    <Text className="mx-[2.5%] my-[3%]">{course.estimatedHours ? course.estimatedHours + ' hora(s)' : 'duração'}</Text>
+                <View className="flex-row flex-wrap items-center justify-start">
+                    <View className="flex-row items-center">
+                        <MaterialCommunityIcons size={18} name={determineIcon(course.category)} color={'gray'}></MaterialCommunityIcons>
+                        <Text className="mx-[2.5%] my-[3%]">{course.category ? categoryBr : 'categoria'}</Text>
+                    </View>
+                    <View className="flex-row items-center">
+                        <MaterialCommunityIcons size={18} name="clock" color={'gray'}></MaterialCommunityIcons>
+                        <Text className="mx-[2.5%] my-[3%]">{course.estimatedHours ? course.estimatedHours + ' hora(s)' : 'duração'}</Text>
+                    </View>
                 </View>
                 <View className="flex-row items-center">
                     {/* TODO: Implement progress dynamically */}
-                    <CustomProgressBar width={60} progress={50} height={1} />
+                    <CustomProgressBar width={56} progress={50} height={1} />
                     <Pressable className="z-[1]"
                         onPress={() => {
                             navigation.navigate('Section', {
