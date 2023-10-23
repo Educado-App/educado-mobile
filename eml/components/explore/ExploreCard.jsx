@@ -9,11 +9,8 @@ import CustomRating from "./CustomRating";
 import SubscriptionButton from "./SubscriptionButton";
 import AccesCourseButton from "./AccesCourseButton";
 
-export default function ExploreCard({ course, isPublished, subscribed }) {
+export default function ExploreCard({ course, isPublished, subscribed}) {
   const [isCollapsed, setIsCollapsed] = useState(true);
-  const [isSubscribed, setIsSubscribed] = useState([]);
-  
-  
   
 
   const getDifficultyLabel = (lvl) => {
@@ -29,22 +26,10 @@ export default function ExploreCard({ course, isPublished, subscribed }) {
     }
   };
 
-  const checkSubscriptions = async () => {
-    if (subscribed === true) {
-      setIsSubscribed(true);
-    } else {
-      setIsSubscribed(false);
-    }
-  }
-
-  useEffect(() => { 
-    checkSubscriptions();
-  } , [])
-
   return isPublished ? (
     <Pressable
       className="bg-white rounded-lg shadow-[0_0px_2px_#000] mb-4 mx-4 p-6 overflow-hidden"
-      onPress={() => setIsCollapsed(!isCollapsed)}
+      onPress={() => setIsCollapsed(!isCollapsed) }
     >
       <View className="flex-col items-center">
         <View className="flex-row justify-between w-full items-center">
@@ -104,8 +89,9 @@ export default function ExploreCard({ course, isPublished, subscribed }) {
 
         <View>
           <View>
+            
             {
-              isSubscribed ? (
+              subscribed ? (
                 <AccesCourseButton course={course} />
               ) : (
                 <SubscriptionButton course={course} />
@@ -120,7 +106,7 @@ export default function ExploreCard({ course, isPublished, subscribed }) {
       </Collapsible>
       <View className=" items-start absolute">
         <View className=" rotate-[315deg] items-center">
-          {isSubscribed ? (
+          {subscribed ? (
             <Text className=" bg-[#f1CC4f] text-xs text-white font-bold px-8 -left-8 -top-4 drop-shadow-sm">
               Inscrito
             </Text>

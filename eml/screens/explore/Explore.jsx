@@ -58,6 +58,7 @@ function Explore() {
     if (shouldUpdate(subCourses, subData)) {
       if (subData.length !== 0 && Array.isArray(subData)) {
         setSubCourses(subData);
+        return subData;
       }
       else {
         setSubCourses([]);
@@ -74,6 +75,7 @@ function Explore() {
     if (shouldUpdate(courses, courseData)) {
       if (courseData.length !== 0 && Array.isArray(courseData)) {
         setCourses(courseData);
+        return courseData;
       }
       else {
         setCourses([]);
@@ -81,32 +83,46 @@ function Explore() {
     }
   }
 
-  // When refreshing the loadCourses function is called
+  // When refreshing the loadCourse and load subscription function is called
   const onRefresh = () => {
     setRefreshing(true);
     loadSubscriptions();
     loadCourses();
+    // Fetch subscriptions for filtered courses and set them in state
+    fetchSubscriptionsForFilteredCourses().then((results) => {
+      setIsSubscribed(results);
+    });
     setRefreshing(false);
   };
 
-  useEffect(() => {
+  // Function to check if user is subscribed to a specific course
+  async function fetchCourseSubscription(course) {
+    const result = await StorageService.checkSubscriptions(course.courseId);
+    return result;
+  }
+
+  // Function to check if user is subscribed to all filtered courses
+  async function fetchSubscriptionsForFilteredCourses() {
+    const results = await Promise.all(
+      filteredCourses.map((course) => fetchCourseSubscription(course))
+    );
+    return results;
+  }
+
+  useEffect( () => {
     // this makes sure loadcourses is called when the screen is focused
     const update = navigation.addListener('focus', () => {
       loadCourses();
       loadSubscriptions();
     });
-    return update;
-  }, [navigation]);
+    // Fetch subscriptions for filtered courses and set them in state
+    fetchSubscriptionsForFilteredCourses().then((results) => {
+      setIsSubscribed(results);
+    });
+    console.log("useEffect");
+    return update; 
 
-  /**
-  * Asynchronous function that check if user is subscribed to course.
-  * @returns {Boolean}
-  */
-  async function checkSubscriptions(id) {
-    const result = await StorageService.checkSubscriptions(id);
-    return result;
-  }
-  
+  }, [navigation, subCourses]);
   
   ///---------------------------------------------///
 
@@ -155,10 +171,14 @@ function Explore() {
       />
       <ScrollView showsVerticalScrollIndicator={false} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
         <View className="overflow-y-auto">
-          {courses && filteredCourses && filteredCourses.map((course, index) => ( checkSubscriptions(course.courseId) === true ? setIsSubscribed(true) : setIsSubscribed(false),
-
-            <ExploreCard key={index} isPublished={course.published} subscribed={isSubscribed} course={course}></ExploreCard>
-
+          {courses && filteredCourses && filteredCourses.map((course, index) => (
+            <ExploreCard
+              key={index}
+              isPublished={course.published}
+              subscribed={isSubscribed[index]}
+              course={course}
+              onSubscribe={onRefresh}
+            ></ExploreCard>
           ))}
         </View>
       </ScrollView>
@@ -167,5 +187,9 @@ function Explore() {
 
   );
 }
+
+
+
+
 
 export default Explore;

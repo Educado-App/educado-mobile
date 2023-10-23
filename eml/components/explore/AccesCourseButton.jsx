@@ -8,7 +8,6 @@ import { useNavigation } from '@react-navigation/native';
 const AccessCourseButton = ({ course }) => {
 
 const navigation = useNavigation();
-  // Empty function that does nothing
   const handlePress = () => {
     navigation.navigate('Section', {
     courseId: course.courseId,
