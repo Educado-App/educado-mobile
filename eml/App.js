@@ -24,6 +24,10 @@ import LoadingScreen from "./components/loading/Loading";
 import WelcomeScreen from "./screens/welcome/Welcome";
 import ProfileSettingsScreen from "./screens/profile/ProfileSettings";
 
+import SectionCompleteScreen from "./screens/excercise/SectionCompleteScreen";
+import NavBar from "./components/navBar/NavBar";
+import LectureScreen from "./screens/lectures/LectureScreen";
+
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
@@ -32,7 +36,7 @@ const Stack = createNativeStackNavigator();
  */
 const checkLogin = () => {
   if (AsyncStorage.getItem("@login_token") === null) {
-    useNavigation().navigate('Login');
+    useNavigation().navigate("Login");
   }
 }
 
@@ -121,6 +125,8 @@ function CourseStack() {
   );
 }
 
+/** This can be removed since we use NavBar
+ *
 function HomeStack() {
   checkLogin();
 
@@ -190,6 +196,8 @@ function HomeStack() {
     </Tab.Navigator>
   );
 }
+
+*/
 
 export function useWelcomeScreenLogic(loadingTime, onResult) {
 
@@ -263,7 +271,19 @@ export default function App() {
               />
               <Stack.Screen
                 name={'HomeStack'}
-                component={HomeStack} // Use the NavBar component here
+                component={NavBar} // Use the NavBar component here
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="Section"
+                component={SectionScreen}
+                initialParams={{ course_id: "" }}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="Lecture"
+                component={LectureScreen}
+                initialParams={{ lecture_id: "" }}
                 options={{ headerShown: false }}
               />
               <Stack.Screen

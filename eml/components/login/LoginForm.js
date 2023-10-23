@@ -12,7 +12,7 @@ import { removeEmojis } from "../general/Validation";
 import Text from "../general/Text";
 
 const LOGIN_TOKEN = "@loginToken";
-const USER_INFO = "@userInfo";
+const USER_ID = "@userId";
 
 //When Logout: back button should be disabled!!!!
 
@@ -28,8 +28,6 @@ export default function LoginForm() {
   const [modalVisible, setModalVisible] = useState(false);
   const [passwordAlert, setPasswordAlert] = useState("");
   const [emailAlert, setEmailAlert] = useState("");
-  // State variable to track password visibility
-  const [showPassword, setShowPassword] = useState(false);
 
   /**
    * Logs user in with the entered credentials 
@@ -54,6 +52,8 @@ export default function LoginForm() {
         .then(async (response) => {
           // Set login token in AsyncStorage and navigate to home screen
           await AsyncStorage.setItem(LOGIN_TOKEN, response.accessToken);
+          await AsyncStorage.setItem(USER_ID, response.user.id);
+
           navigation.navigate("HomeStack");
         })
         .catch((error) => {
@@ -90,6 +90,8 @@ export default function LoginForm() {
     setModalVisible(false);
   };
 
+  // State variable to track password visibility
+  const [showPassword, setShowPassword] = useState(false);
 
   // Function to toggle the password visibility state
   const toggleShowPassword = () => {
@@ -149,14 +151,14 @@ export default function LoginForm() {
         disabled={!(password.length > 0 && email.length > 0)}
       />
       <View className="pt-10">
-        <ResetPassword
-          className={(!modalVisible ? "hidden" : "")}
-          modalVisible={modalVisible}
-          onModalClose={closeModal}
-          testId="resetPasswordModal"
-          // Reset password
-          title="Redefinção de senha"
-        />
+        {modalVisible ? (
+          <ResetPassword
+            modalVisible={modalVisible}
+            onModalClose={closeModal}
+            // Reset password
+            title="Redefinção de senha"
+          />
+        ) : null}
       </View>
     </View>
   );

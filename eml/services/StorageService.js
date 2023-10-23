@@ -146,9 +146,9 @@ export const refreshSectionList = async (course_id) => {
 export const getSubCourseList = async () => {
 
   // get the logged-in user id from async storage
-  const userId = await AsyncStorage.getItem(USER_ID); 
+  const userId = await AsyncStorage.getItem(USER_ID);
 
-  if(userId === null) {
+  if (userId === null) {
     throw new Error("Cannot fetch user id from async storage");
   }
 
