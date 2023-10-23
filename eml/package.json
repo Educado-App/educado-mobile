@@ -61,6 +61,7 @@
     "react-dropdown": "^1.11.0",
     "react-native": "0.69.9",
     "react-native-app-intro-slider": "^4.0.4",
+    "react-native-collapsible": "^1.6.1",
     "react-native-dropdown-menu": "^2.0.0",
     "react-native-dropdown-select-list": "^2.0.2",
     "react-native-gesture-handler": "~2.5.0",
