@@ -24,7 +24,7 @@ function Explore() {
       setCourses(courseData);
     }
     loadCourses();
-  }, [courses]);
+  }, []);
 
   ///---------------------------------------------///
 
