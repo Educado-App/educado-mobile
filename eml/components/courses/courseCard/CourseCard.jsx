@@ -14,6 +14,28 @@ import tailwindConfig from "../../../tailwind.config";
  */
 export default function CourseCard({ course }) {
     const navigation = useNavigation();
+    let categoryBr = "";
+
+    function determineIcon(category) {
+        switch (category) {
+            case "personal finance":
+                categoryBr = "Finanças pessoais";
+                return "finance"
+            case "health and workplace safety":
+                categoryBr = "Saúde e segurança no trabalho";
+                return "medical-bag"
+            case "sewing":
+                categoryBr = "Costura";
+                return "needle-thread"
+            case "electronics":
+                categoryBr = "Eletrônica";
+                return "laptop"
+            default:
+                categoryBr = "Categoria";
+                return "bookshelf"
+        }
+
+    }
 
     return (
         <Pressable testID="courseCard"
@@ -29,15 +51,15 @@ export default function CourseCard({ course }) {
                     <MaterialCommunityIcons size={28}
                         name={course.image ? course.image : 'school'}> </MaterialCommunityIcons>
                     <Text className="text-[18px] text-black flex-1 self-center">
-                        {course.title ? course.title : 'Course Title'}
+                        {course.title ? course.title : 'Título do curso'}
                     </Text>
                 </View>
                 <View className="h-[1] bg-disable m-[2%]" />
                 <View className="flex-row items-center justify-start overflow-hidden">
-                    <MaterialCommunityIcons size={18} name="school" color={'gray'}></MaterialCommunityIcons>
-                    <Text className="mx-[2.5%] my-[3%]">{course.category ? course.category : 'category'}</Text>
+                    <MaterialCommunityIcons size={18} name={determineIcon(course.category)} color={'gray'}></MaterialCommunityIcons>
+                    <Text className="mx-[2.5%] my-[3%]">{course.category ? categoryBr : 'categoria'}</Text>
                     <MaterialCommunityIcons size={18} name="clock" color={'gray'}></MaterialCommunityIcons>
-                    <Text className="mx-[2.5%] my-[3%]">{course.estimatedHours ? course.estimatedHours + ' hora(s)' : 'duration'}</Text>
+                    <Text className="mx-[2.5%] my-[3%]">{course.estimatedHours ? course.estimatedHours + ' hora(s)' : 'duração'}</Text>
                 </View>
                 <View className="flex-row items-center">
                     {/* TODO: Implement progress dynamically */}
