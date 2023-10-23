@@ -17,6 +17,7 @@ function Explore() {
   //Sets dummy data for courses (will be replaced with data from backend)
   const [courses, setCourses] = useState([]);
   const [subCourses, setSubCourses] = useState([]);
+  const [isSubscribed, setIsSubscribed] = useState([]);
 
   const [refreshing, setRefreshing] = useState(false);
   const navigation = useNavigation()
@@ -94,7 +95,6 @@ function Explore() {
       loadCourses();
       loadSubscriptions();
     });
-    console.log("lol");
     return update;
   }, [navigation]);
 
@@ -102,13 +102,9 @@ function Explore() {
   * Asynchronous function that check if user is subscribed to course.
   * @returns {Boolean}
   */
-  async function isSubscribed(id) {
+  async function checkSubscriptions(id) {
     const result = await StorageService.checkSubscriptions(id);
-    if (result === true ) {
-      return true;
-    } else {
-      return false;
-    }
+    return result;
   }
   
   
@@ -159,9 +155,9 @@ function Explore() {
       />
       <ScrollView showsVerticalScrollIndicator={false} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
         <View className="overflow-y-auto">
-          {courses && filteredCourses && filteredCourses.map((course, index) => (
+          {courses && filteredCourses && filteredCourses.map((course, index) => ( checkSubscriptions(course.courseId) === true ? setIsSubscribed(true) : setIsSubscribed(false),
 
-            <ExploreCard key={index} isPublished={course.published} subscribed={isSubscribed(course.courseId)} course={course}></ExploreCard>
+            <ExploreCard key={index} isPublished={course.published} subscribed={isSubscribed} course={course}></ExploreCard>
 
           ))}
         </View>

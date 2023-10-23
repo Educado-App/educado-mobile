@@ -8,11 +8,10 @@ import CardLabel from "./CardLabel";
 import CustomRating from "./CustomRating";
 import SubscriptionButton from "./SubscriptionButton";
 import AccesCourseButton from "./AccesCourseButton";
-import { set } from "react-native-reanimated";
 
 export default function ExploreCard({ course, isPublished, subscribed }) {
   const [isCollapsed, setIsCollapsed] = useState(true);
-  const [isSubscribed, setIsSubscribed] = useState(false);
+  const [isSubscribed, setIsSubscribed] = useState([]);
   
   
   
