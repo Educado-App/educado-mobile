@@ -6,7 +6,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import LogoBackButton from "../../components/login/LogoBackButton";
 import Text from "../../components/general/Text";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const LOGIN_TOKEN = "@loginToken";
 
