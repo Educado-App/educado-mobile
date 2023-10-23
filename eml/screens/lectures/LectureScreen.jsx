@@ -11,7 +11,7 @@ import { downloadVideoByFileName, getCourse, getLectureById } from '../../api/ap
 import { SafeAreaView } from 'react-native-safe-area-context';
 import VideoLectureScreen from './VideoLectureScreen';
 
-import healthLogo from '../../assets/healthLogo.png'
+import healthLogo from '../../assets/images/healthLogo.png'
 import TextImageLectureScreen from './TextImageLectureScreen';
 
 export default function LectureScreen({ route }) {

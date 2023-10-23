@@ -1,11 +1,11 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { View, Image } from 'react-native';
+import { View, Image, ScrollView, RefreshControl } from 'react-native';
 import Text from '../../components/general/Text';
 import FilterNavBar from '../../components/explore/FilterNavBar';
-import { ScrollView } from 'react-native-gesture-handler';
 import ExploreCard from '../../components/explore/ExploreCard';
-import { getCourseList } from '../../services/StorageService';
+import * as StorageService from '../../services/StorageService';
+import { useNavigation } from '@react-navigation/native';
 
 function Explore() {
 
@@ -17,15 +17,66 @@ function Explore() {
   //Sets dummy data for courses (will be replaced with data from backend)
   const [courses, setCourses] = useState([]);
 
-  //Fetch courses from backend and replace dummy data!
-  useEffect(() => {
-    async function loadCourses() {
-      const courseData = await getCourseList();
-      setCourses(courseData);
-    }
-    loadCourses();
-  }, [courses]);
+  const [refreshing, setRefreshing] = useState(false);
+  const navigation = useNavigation()
 
+  /**
+ * Determines if the two arrays of courses are different and require an update.
+ * @param {Array} courses1 - The first array of courses, typically representing the current state.
+ * @param {Array} courses2 - The second array of courses, typically representing the new fetched data.
+ * @returns {boolean} - Returns true if the two arrays are different and an update is required, otherwise false.
+ */
+  function shouldUpdate(courses1, courses2) {
+    // If both arrays are empty, they are equal, but should still update
+    if (courses1.length === 0 && courses2.length === 0) {
+      return true;
+    }
+
+    // If the lengths are different, they are not equal
+    if (courses1.length !== courses2.length) {
+      return true;
+    }
+
+    // If the IDs are different, they are not equal
+    for (let i = 0; i < courses1.length; i++) {
+      if (courses1[i].id !== courses2[i].id) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+  * Asynchronous function that loads the courses from storage and updates the state.
+  * @returns {void}
+  */
+  async function loadCourses() {
+    const courseData = await StorageService.getCourseList();
+    if (shouldUpdate(courses, courseData)) {
+      if (courseData.length !== 0 && Array.isArray(courseData)) {
+        setCourses(courseData);
+      }
+      else {
+        setCourses([]);
+      }
+    }
+  }
+
+  // When refreshing the loadCourses function is called
+  const onRefresh = () => {
+    setRefreshing(true);
+    loadCourses();
+    setRefreshing(false);
+  };
+
+  useEffect(() => {
+    // this makes sure loadcourses is called when the screen is focused
+    const update = navigation.addListener('focus', () => {
+      loadCourses();
+    });
+    return update;
+  }, [navigation]);
+  
   ///---------------------------------------------///
 
   // Function to filter courses based on searchText or selectedCategory
@@ -63,6 +114,7 @@ function Explore() {
           className="w-8 h-8 mr-2"
         />
         <Text className="text-xl font-bold">Explorar cursos</Text>
+        
       </View>
 
 
@@ -70,7 +122,7 @@ function Explore() {
         onChangeText={(text) => handleFilter(text)}
         onCategoryChange={handleCategoryFilter}
       />
-      <ScrollView vertical >
+      <ScrollView showsVerticalScrollIndicator={false} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
         <View className="overflow-y-auto">
           {courses && filteredCourses && filteredCourses.map((course, index) => (
 

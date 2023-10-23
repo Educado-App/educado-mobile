@@ -23,8 +23,6 @@ import { isFontsLoaded } from './constants/Fonts';
 import LoadingScreen from "./components/loading/Loading";
 import WelcomeScreen from "./screens/welcome/Welcome";
 import ProfileSettingsScreen from "./screens/profile/ProfileSettings";
-
-import SectionCompleteScreen from "./screens/excercise/SectionCompleteScreen";
 import NavBar from "./components/navBar/NavBar";
 import LectureScreen from "./screens/lectures/LectureScreen";
 
@@ -284,12 +282,6 @@ export default function App() {
                 name="Lecture"
                 component={LectureScreen}
                 initialParams={{ lecture_id: "" }}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="Section"
-                component={SectionScreen}
-                initialParams={{ course_id: '' }}
                 options={{ headerShown: false }}
               />
               <Stack.Screen

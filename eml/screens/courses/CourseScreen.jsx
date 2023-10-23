@@ -13,11 +13,6 @@ import IconHeader from '../../components/general/IconHeader';
  * @returns {JSX.Element} The course screen component.
  */
 
-/**
- * Course screen component that displays a list of courses.
- * @component
- * @returns {JSX.Element} The course screen component.
- */
 export default function CourseScreen() {
 
     /**
@@ -40,11 +35,7 @@ export default function CourseScreen() {
         // If both arrays are empty, they are equal, but should still update
         if (courses1.length === 0 && courses2.length === 0) {
             return true;
-    } 
-    
-    useEffect(() => {
-            loadCourses();
-    }, [courses]);
+        }
 
         // If the lengths are different, they are not equal
         if (courses1.length !== courses2.length) {
@@ -75,7 +66,7 @@ export default function CourseScreen() {
                 setCourses([]);
                 setCourseLoaded(false);
             }
-        } 
+        }
     }
 
     // When refreshing the loadCourses function is called

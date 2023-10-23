@@ -3,36 +3,35 @@ import { View, Text, Image, Pressable } from "react-native";
 import Collapsible from "react-native-collapsible";
 import { useNavigation } from "@react-navigation/native";
 import UpdateDate from "./ExploreUpdate";
-
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-
 import CardLabel from "./CardLabel";
 import CustomRating from "./CustomRating";
 import SubscriptionButton from "./SubscriptionButton";
 import AccesCourseButton from "./AccesCourseButton";
-
-import {ifSubscribed } from "../../api/api";
-
-
-
+import * as StorageService from "../../services/StorageService";
 
 export default function ExploreCard({ course, isPublished }) {
   const [isCollapsed, setIsCollapsed] = React.useState(true);
   const [isSubscribed, setIsSubscribed] = React.useState(false);
   const navigation = useNavigation();
-
+  
+  /* 
+   *  Check if user is subscribed to course
+   */
+  async function loadSubscriptions() {
+      const result = await StorageService.checkSubscriptions(course.courseId);
+      setIsSubscribed(result);
+  }
+  // Fetch courses from backend and replace dummy data
   useEffect(() => {
-    async function checkSubscription() {
-      try {
-        const result = await ifSubscribed(course.courseId);
-        setIsSubscribed(result);
-      } catch (error) {
-        console.error("Error checking subscription:", error);
-      }
+    let componentIsMounted = true;
+
+    if (componentIsMounted) {
+      loadSubscriptions();
     }
 
-    checkSubscription();
-  }, [course.courseId, ifSubscribed(course.courseId), course]);
+    return () => componentIsMounted = false;
+  }, []);
 
   const getDifficultyLabel = (lvl) => {
     switch (lvl) {
