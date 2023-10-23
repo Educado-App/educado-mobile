@@ -1,0 +1,399 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CourseCard renders CourseCard correctly 1`] = `
+<View
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    [
+      {
+        "backgroundColor": "#FFFFFF",
+      },
+      {
+        "marginBottom": "3%",
+        "marginLeft": "3%",
+        "marginRight": "3%",
+        "marginTop": "3%",
+      },
+      {
+        "borderBottomLeftRadius": 8,
+        "borderBottomRightRadius": 8,
+        "borderTopLeftRadius": 8,
+        "borderTopRightRadius": 8,
+      },
+      {
+        "shadowColor": "rgba(0, 0, 0, 0.1)",
+        "shadowOffset": {
+          "height": 1,
+          "width": 0,
+        },
+        "shadowOpacity": 1,
+        "shadowRadius": 2,
+      },
+      {
+        "elevation": 8,
+      },
+      {
+        "marginLeft": "5%",
+        "marginRight": "5%",
+      },
+      {
+        "paddingBottom": "5%",
+        "paddingLeft": "5%",
+        "paddingRight": "5%",
+        "paddingTop": "5%",
+      },
+    ]
+  }
+  testID="courseCard"
+>
+  <View>
+    <View
+      style={
+        [
+          {
+            "flexDirection": "row",
+          },
+          {
+            "alignItems": "flex-start",
+          },
+          {
+            "justifyContent": "space-between",
+          },
+          {
+            "paddingLeft": "1%",
+            "paddingRight": "1%",
+          },
+          {
+            "paddingBottom": "1%",
+            "paddingTop": "1%",
+          },
+        ]
+      }
+    >
+      <Text
+        allowFontScaling={false}
+        selectable={false}
+        style={
+          [
+            {
+              "color": undefined,
+              "fontSize": 28,
+            },
+            undefined,
+            {
+              "fontFamily": "material-community",
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+            },
+            {},
+          ]
+        }
+      >
+        󰑴
+         
+      </Text>
+      <Text
+        style={
+          [
+            {
+              "fontFamily": "Montserrat-Regular",
+            },
+            [
+              {
+                "fontSize": 18,
+              },
+              {
+                "flexBasis": "0%",
+                "flexGrow": 1,
+                "flexShrink": 1,
+              },
+              {
+                "alignSelf": "center",
+              },
+            ],
+          ]
+        }
+      >
+        Course Title
+      </Text>
+    </View>
+    <View
+      style={
+        [
+          {
+            "height": 1,
+          },
+          {
+            "backgroundColor": "#DDD",
+          },
+          {
+            "marginBottom": "2%",
+            "marginLeft": "2%",
+            "marginRight": "2%",
+            "marginTop": "2%",
+          },
+        ]
+      }
+    />
+    <View
+      style={
+        [
+          {
+            "flexDirection": "row",
+          },
+          {
+            "alignItems": "center",
+          },
+          {
+            "justifyContent": "flex-start",
+          },
+          {
+            "overflow": "hidden",
+          },
+        ]
+      }
+    >
+      <Text
+        allowFontScaling={false}
+        selectable={false}
+        style={
+          [
+            {
+              "color": "gray",
+              "fontSize": 18,
+            },
+            undefined,
+            {
+              "fontFamily": "material-community",
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+            },
+            {},
+          ]
+        }
+      >
+        󰑴
+      </Text>
+      <Text
+        style={
+          [
+            {
+              "fontFamily": "Montserrat-Regular",
+            },
+            [
+              {
+                "marginLeft": "2.5%",
+                "marginRight": "2.5%",
+              },
+              {
+                "marginBottom": "3%",
+                "marginTop": "3%",
+              },
+            ],
+          ]
+        }
+      >
+        category
+      </Text>
+      <Text
+        allowFontScaling={false}
+        selectable={false}
+        style={
+          [
+            {
+              "color": "gray",
+              "fontSize": 18,
+            },
+            undefined,
+            {
+              "fontFamily": "material-community",
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+            },
+            {},
+          ]
+        }
+      >
+        󰥔
+      </Text>
+      <Text
+        style={
+          [
+            {
+              "fontFamily": "Montserrat-Regular",
+            },
+            [
+              {
+                "marginLeft": "2.5%",
+                "marginRight": "2.5%",
+              },
+              {
+                "marginBottom": "3%",
+                "marginTop": "3%",
+              },
+            ],
+          ]
+        }
+      >
+        duration
+      </Text>
+    </View>
+    <View
+      style={
+        [
+          {
+            "flexDirection": "row",
+          },
+          {
+            "alignItems": "center",
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          [
+            {
+              "flexDirection": "row",
+            },
+            {
+              "alignItems": "center",
+            },
+            {
+              "justifyContent": "space-around",
+            },
+          ]
+        }
+      >
+        <View
+          animated={true}
+          animationConfig={
+            {
+              "bounciness": 0,
+            }
+          }
+          animationType="spring"
+          indeterminate={false}
+          indeterminateAnimationDuration={1000}
+          onLayout={[Function]}
+          progress={0.5}
+          style={
+            [
+              {
+                "backgroundColor": "rgba(228, 242, 245, 1)",
+                "borderColor": "rgba(94, 204, 233, 1)",
+                "borderRadius": 8,
+                "borderWidth": 0,
+                "overflow": "hidden",
+                "width": 450,
+              },
+              undefined,
+            ]
+          }
+          useNativeDriver={false}
+        >
+          <View
+            collapsable={false}
+            style={
+              {
+                "backgroundColor": "rgba(94, 204, 233, 1)",
+                "height": 13.34,
+                "transform": [
+                  {
+                    "translateX": 0,
+                  },
+                  {
+                    "translateX": -112.5,
+                  },
+                  {
+                    "scaleX": 0.50005,
+                  },
+                ],
+              }
+            }
+          />
+        </View>
+        <Text
+          style={
+            [
+              {
+                "paddingLeft": 20,
+                "paddingRight": 20,
+              },
+              {
+                "textAlign": "center",
+              },
+              {
+                "fontFamily": "Montserrat-Bold",
+              },
+              {
+                "fontSize": 12,
+              },
+              {
+                "color": "#383838",
+              },
+            ]
+          }
+        >
+          50
+          %
+        </Text>
+      </View>
+      <View
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          [
+            {
+              "zIndex": 1,
+            },
+          ]
+        }
+      >
+        <Text
+          allowFontScaling={false}
+          selectable={false}
+          style={
+            [
+              {
+                "color": "#5ECCE9",
+                "fontSize": 28,
+              },
+              undefined,
+              {
+                "fontFamily": "material-community",
+                "fontStyle": "normal",
+                "fontWeight": "normal",
+              },
+              {},
+            ]
+          }
+        >
+          󰐌
+        </Text>
+      </View>
+    </View>
+  </View>
+</View>
+`;
