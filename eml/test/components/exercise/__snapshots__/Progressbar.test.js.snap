@@ -395,7 +395,7 @@ exports[`<CustomProgressBar /> Limits display to 0% for negative progress 1`] = 
     indeterminate={false}
     indeterminateAnimationDuration={1000}
     onLayout={[Function]}
-    progress={-0.5}
+    progress={0}
     style={
       [
         {
@@ -454,7 +454,7 @@ exports[`<CustomProgressBar /> Limits display to 0% for negative progress 1`] = 
       ]
     }
   >
-    -50
+    0
     %
   </Text>
 </View>
@@ -487,7 +487,7 @@ exports[`<CustomProgressBar /> Limits display to 100% for excess progress 1`] = 
     indeterminate={false}
     indeterminateAnimationDuration={1000}
     onLayout={[Function]}
-    progress={1.5}
+    progress={1}
     style={
       [
         {
@@ -546,7 +546,7 @@ exports[`<CustomProgressBar /> Limits display to 100% for excess progress 1`] = 
       ]
     }
   >
-    150
+    100
     %
   </Text>
 </View>
