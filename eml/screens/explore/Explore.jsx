@@ -16,16 +16,18 @@ function Explore() {
 
   //Sets dummy data for courses (will be replaced with data from backend)
   const [courses, setCourses] = useState([]);
+  const [subCourses, setSubCourses] = useState([]);
 
   const [refreshing, setRefreshing] = useState(false);
   const navigation = useNavigation()
 
+
   /**
- * Determines if the two arrays of courses are different and require an update.
- * @param {Array} courses1 - The first array of courses, typically representing the current state.
- * @param {Array} courses2 - The second array of courses, typically representing the new fetched data.
- * @returns {boolean} - Returns true if the two arrays are different and an update is required, otherwise false.
- */
+* Determines if the two arrays of courses are different and require an update.
+* @param {Array} courses1 - The first array of courses, typically representing the current state.
+* @param {Array} courses2 - The second array of courses, typically representing the new fetched data.
+* @returns {boolean} - Returns true if the two arrays are different and an update is required, otherwise false.
+*/
   function shouldUpdate(courses1, courses2) {
     // If both arrays are empty, they are equal, but should still update
     if (courses1.length === 0 && courses2.length === 0) {
@@ -47,9 +49,25 @@ function Explore() {
   }
 
   /**
-  * Asynchronous function that loads the courses from storage and updates the state.
+  * Asynchronous function that loads the subscribed courses from storage and updates the state.
   * @returns {void}
   */
+  async function loadSubscriptions() {
+    const subData = await StorageService.getSubCourseList();
+    if (shouldUpdate(subCourses, subData)) {
+      if (subData.length !== 0 && Array.isArray(subData)) {
+        setSubCourses(subData);
+      }
+      else {
+        setSubCourses([]);
+      }
+    }
+  }
+
+/**
+* Asynchronous function that loads the courses from storage and updates the state.
+* @returns {void}
+*/
   async function loadCourses() {
     const courseData = await StorageService.getCourseList();
     if (shouldUpdate(courses, courseData)) {
@@ -65,6 +83,7 @@ function Explore() {
   // When refreshing the loadCourses function is called
   const onRefresh = () => {
     setRefreshing(true);
+    loadSubscriptions();
     loadCourses();
     setRefreshing(false);
   };
@@ -73,9 +92,25 @@ function Explore() {
     // this makes sure loadcourses is called when the screen is focused
     const update = navigation.addListener('focus', () => {
       loadCourses();
+      loadSubscriptions();
     });
+    console.log("lol");
     return update;
   }, [navigation]);
+
+  /**
+  * Asynchronous function that check if user is subscribed to course.
+  * @returns {Boolean}
+  */
+  async function isSubscribed(id) {
+    const result = await StorageService.checkSubscriptions(id);
+    if (result === true ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
   
   ///---------------------------------------------///
 
@@ -126,7 +161,7 @@ function Explore() {
         <View className="overflow-y-auto">
           {courses && filteredCourses && filteredCourses.map((course, index) => (
 
-            <ExploreCard key={index} isPublished={course.published} course={course} />
+            <ExploreCard key={index} isPublished={course.published} subscribed={isSubscribed(course.courseId)} course={course}></ExploreCard>
 
           ))}
         </View>

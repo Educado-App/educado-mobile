@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, Image, Pressable } from "react-native";
 import Collapsible from "react-native-collapsible";
 import { useNavigation } from "@react-navigation/native";
@@ -8,30 +8,14 @@ import CardLabel from "./CardLabel";
 import CustomRating from "./CustomRating";
 import SubscriptionButton from "./SubscriptionButton";
 import AccesCourseButton from "./AccesCourseButton";
-import * as StorageService from "../../services/StorageService";
+import { set } from "react-native-reanimated";
 
-export default function ExploreCard({ course, isPublished }) {
-  const [isCollapsed, setIsCollapsed] = React.useState(true);
-  const [isSubscribed, setIsSubscribed] = React.useState(false);
-  const navigation = useNavigation();
+export default function ExploreCard({ course, isPublished, subscribed }) {
+  const [isCollapsed, setIsCollapsed] = useState(true);
+  const [isSubscribed, setIsSubscribed] = useState(false);
   
-  /* 
-   *  Check if user is subscribed to course
-   */
-  async function loadSubscriptions() {
-      const result = await StorageService.checkSubscriptions(course.courseId);
-      setIsSubscribed(result);
-  }
-  // Fetch courses from backend and replace dummy data
-  useEffect(() => {
-    let componentIsMounted = true;
-
-    if (componentIsMounted) {
-      loadSubscriptions();
-    }
-
-    return () => componentIsMounted = false;
-  }, []);
+  
+  
 
   const getDifficultyLabel = (lvl) => {
     switch (lvl) {
@@ -45,6 +29,18 @@ export default function ExploreCard({ course, isPublished }) {
         return lvl; // default to the provided level if not 1, 2, or 3
     }
   };
+
+  const checkSubscriptions = async () => {
+    if (subscribed === true) {
+      setIsSubscribed(true);
+    } else {
+      setIsSubscribed(false);
+    }
+  }
+
+  useEffect(() => { 
+    checkSubscriptions();
+  } , [])
 
   return isPublished ? (
     <Pressable

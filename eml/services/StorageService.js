@@ -214,6 +214,7 @@ export const subscribe = async (courseId) => {
   }
 
   try {
+    console.log("hej");
     return await api.subscribeToCourse(userId, courseId);
 
   } catch (e) {

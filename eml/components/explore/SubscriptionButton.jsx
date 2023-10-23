@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { View, Pressable, Text } from 'react-native';
-import { subscribeToCourse } from '../../api/api';
+import { subscribe } from '../../services/StorageService';
 
 
 
@@ -12,7 +12,7 @@ const SubscriptionButton = ({ course })  => {
     <View className="">
       <Pressable
         onPress={() => {
-          subscribeToCourse(courseId);
+          subscribe(courseId);
         }}
         className="w-full flex items-center justify-center rounded-lg bg-primary p-2"
       >
