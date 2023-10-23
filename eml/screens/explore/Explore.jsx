@@ -58,7 +58,6 @@ function Explore() {
     if (shouldUpdate(subCourses, subData)) {
       if (subData.length !== 0 && Array.isArray(subData)) {
         setSubCourses(subData);
-        return subData;
       }
       else {
         setSubCourses([]);
@@ -75,7 +74,6 @@ function Explore() {
     if (shouldUpdate(courses, courseData)) {
       if (courseData.length !== 0 && Array.isArray(courseData)) {
         setCourses(courseData);
-        return courseData;
       }
       else {
         setCourses([]);
@@ -119,7 +117,6 @@ function Explore() {
     fetchSubscriptionsForFilteredCourses().then((results) => {
       setIsSubscribed(results);
     });
-    console.log("useEffect");
     return update; 
 
   }, [navigation, subCourses]);
@@ -151,6 +148,8 @@ function Explore() {
     }
   };
 
+
+
   return (
     <View className="flex-1 bg-[#f1f9fb]">
 
@@ -177,7 +176,6 @@ function Explore() {
               isPublished={course.published}
               subscribed={isSubscribed[index]}
               course={course}
-              onSubscribe={onRefresh}
             ></ExploreCard>
           ))}
         </View>

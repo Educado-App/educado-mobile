@@ -26,6 +26,23 @@ export default function ExploreCard({ course, isPublished, subscribed}) {
     }
   };
 
+
+  const getUpdatedDate = (courseDate) => {
+
+    const date = new Date(courseDate); 
+
+    // Get the year, month, day, hours, and minutes from the Date object
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-based
+    const day = date.getDate().toString().padStart(2, '0');
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+
+    // Format the date and time in the desired format
+    return `${year}/${month}/${day}, ${hours}:${minutes}`;
+  };
+
+
   return isPublished ? (
     <Pressable
       className="bg-white rounded-lg shadow-[0_0px_2px_#000] mb-4 mx-4 p-6 overflow-hidden"
@@ -57,7 +74,7 @@ export default function ExploreCard({ course, isPublished, subscribed}) {
               />
               <View className="w-2.5" />
               <CardLabel
-                title={course.time}
+                title={course.estimatedHours}
                 time={true}
                 icon={"clock-outline"}
                 color={"gray"}
@@ -101,7 +118,7 @@ export default function ExploreCard({ course, isPublished, subscribed}) {
         </View>
 
         <View>
-          <UpdateDate dateUpdated={course.dateUpdated} />
+          <UpdateDate dateUpdated={getUpdatedDate(course.dateUpdated)} />
         </View>
       </Collapsible>
       <View className=" items-start absolute">
