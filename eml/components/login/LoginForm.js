@@ -10,6 +10,7 @@ import ResetPassword from "./ResetPassword";
 import FormFieldAlert from "./FormFieldAlert";
 import { removeEmojis } from "../general/Validation";
 import Text from "../general/Text";
+import ShowAlert from "../general/ShowAlert";
 
 const LOGIN_TOKEN = "@loginToken";
 const USER_ID = "@userId";
@@ -21,13 +22,33 @@ const USER_ID = "@userId";
  * @returns {React.Element} Component for logging in (login screen)
  */
 export default function LoginForm() {
-
+  
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const [passwordAlert, setPasswordAlert] = useState("");
   const [emailAlert, setEmailAlert] = useState("");
+
+  /**
+   * Stores the user info in async storage
+   * @param {*} userInfo: {id, firstName, lastName, email}
+   */
+  async function saveUserInfoLocally(userInfo) {
+    try {
+      const obj = {
+        id: userInfo.id,
+        firstName: userInfo.firstName,
+        lastName: userInfo.lastName,
+        email: userInfo.email,
+      };
+
+      await AsyncStorage.setItem(USER_INFO, JSON.stringify(obj));
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
 
   /**
    * Logs user in with the entered credentials 
@@ -47,43 +68,37 @@ export default function LoginForm() {
       password: password,
     };
 
-    try {
-      await loginUser(obj) // Await the response from the backend API for login
-        .then(async (response) => {
-          // Set login token in AsyncStorage and navigate to home screen
-          await AsyncStorage.setItem(LOGIN_TOKEN, response.accessToken);
-          await AsyncStorage.setItem(USER_ID, response.user.id);
 
-          navigation.navigate("HomeStack");
-        })
-        .catch((error) => {
-          console.log(error);
-          switch (error?.error?.code) {
-            case 'E0101':
-              // No user exists with this email!
-              setEmailAlert("Não existe nenhum usuário com este email!");
-              break;
+    // Await the response from the backend API for login
+    await loginUser(obj).then(async (response) => {
+      // Set login token in AsyncStorage and navigate to home screen
+      await AsyncStorage.setItem(LOGIN_TOKEN, response.accessToken);
+      await saveUserInfoLocally(response.userInfo);
+      navigation.navigate("HomeStack");
+    }).catch((error) => {
+      switch (error?.error?.code) {
+        case 'E0004':
+          // No user exists with this email!
+          setEmailAlert("Não existe nenhum usuário com este email!");
+          break;
 
-            case 'E0105':
-              // Password is incorrect!
-              setPasswordAlert("Senha incorreta!");
-              break;
+        case 'E0105':
+          // Password is incorrect!
+          setPasswordAlert("Senha incorreta!");
+          break;
 
-            case 'E0003':
-              // Error connecting to server!
-              ShowAlert("Erro de conexão com o servidor!");
-              break;
+        case 'E0003':
+          // Error connecting to server!
+          ShowAlert("Erro de conexão com o servidor!");
+          break;
 
-            // TODO: What error should we give here instead? Unknown error? 
-            default: // Errors not currently handled with specific alerts
-              console.log(error);
-          }
-        });
-    } catch (e) {
-      console.log(e);
-    }
-
+        // TODO: What error should we give here instead? Unknown error? 
+        default: // Errors not currently handled with specific alerts
+          ShowAlert("Erro desconhecido!");
+      }
+    });
   }
+
 
   // Function to close the reset password modal
   const closeModal = () => {
@@ -105,7 +120,7 @@ export default function LoginForm() {
           testId="emailInput"
           placeholder="user@email.com"
           onChangeText={(email) => setEmail(email)}
-          label="Email"
+          label="E-mail"
           required={true}
           keyboardType="email-address"
         />
@@ -151,14 +166,14 @@ export default function LoginForm() {
         disabled={!(password.length > 0 && email.length > 0)}
       />
       <View className="pt-10">
-        {modalVisible ? (
-          <ResetPassword
-            modalVisible={modalVisible}
-            onModalClose={closeModal}
-            // Reset password
-            title="Redefinção de senha"
-          />
-        ) : null}
+        <ResetPassword
+          className={(!modalVisible ? "hidden" : "")}
+          modalVisible={modalVisible}
+          onModalClose={closeModal}
+          testId="resetPasswordModal"
+          // Reset password
+          title="Redefinir senha"
+        />
       </View>
     </View>
   );
