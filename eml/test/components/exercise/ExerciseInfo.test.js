@@ -1,11 +1,11 @@
-import React from "react";
-import renderer from "react-test-renderer";
-import ExerciseInfo from "../../../components/exercise/ExerciseInfo";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import React from 'react';
+import renderer from 'react-test-renderer';
+import ExerciseInfo from '../../../components/exercise/ExerciseInfo';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 let navigated = false;
 
-jest.mock("@react-navigation/native", () => ({
+jest.mock('@react-navigation/native', () => ({
   useNavigation: () => ({
     navigate: jest.fn(() => {
       navigated = true;
@@ -24,8 +24,8 @@ beforeEach(() => {
   ExerciseInfoScreen = renderer.create(<ExerciseInfo />);
 });
 
-describe("ExerciseInfo", () => {
-  it("renders ExerciseInfo correctly", () => {
+describe('ExerciseInfo', () => {
+  it('renders ExerciseInfo correctly', () => {
     expect(ExerciseInfoScreen.toJSON()).toMatchSnapshot();
   });
 });

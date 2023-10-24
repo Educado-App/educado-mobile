@@ -1,10 +1,10 @@
-import React from "react";
-import renderer from "react-test-renderer";
-import LeaveButton from "../../../components/exercise/LeaveButton";
+import React from 'react';
+import renderer from 'react-test-renderer';
+import LeaveButton from '../../../components/exercise/LeaveButton';
 
 let navigated = false;
 
-jest.mock("@react-navigation/native", () => ({
+jest.mock('@react-navigation/native', () => ({
   useNavigation: () => ({
     navigate: jest.fn(() => {
       navigated = true;
@@ -17,11 +17,11 @@ jest.mock("@react-navigation/native", () => ({
 
 let leaveButtonScreen;
 
-describe("LeaveButton", () => {
-  it("renders correctly", async () => {
+describe('LeaveButton', () => {
+  it('renders correctly', async () => {
     await renderer.act(async () => {
       return (leaveButtonScreen = renderer.create(
-        <LeaveButton navigationPlace="examplePlace" courseId={123} />
+        <LeaveButton navigationPlace='examplePlace' courseId={123} />
       ));
     });
 
