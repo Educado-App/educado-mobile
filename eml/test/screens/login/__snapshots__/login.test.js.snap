@@ -529,9 +529,6 @@ exports[`Login screen Login screen renders 1`] = `
                       "fontSize": 16,
                       "lineHeight": 24,
                     },
-                    {
-                      "marginLeft": 205,
-                    },
                   ],
                 ]
               }
