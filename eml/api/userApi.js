@@ -1,10 +1,9 @@
-import axios from 'axios';
+import axios from "axios";
 
-const prod = 'http://educado.somethingnew.dk';
-const test = 'http://172.30.210.200:8888'; // Change this to your LOCAL IP address when testing.
-const local = 'http://localhost:8888';
-const digitalOcean = 'http://207.154.213.68:8888';
-
+const prod = "http://educado.somethingnew.dk";
+const test = "http://172.30.212.33:8888"; // Change this to your LOCAL IP address when testing.
+const local = "http://localhost:8888";
+const digitalOcean = "http://207.154.213.68:8888";
 
 const url = test;
 
@@ -12,10 +11,10 @@ const url = test;
  * This is the client that will be used to make requests to the backend.
  */
 export const client = axios.create({
-  baseURL: test,
+  baseURL: url,
   withCredentials: true,
-  responseType: 'json',
-  timeout: 30000,
+  responseType: "json",
+  timeout: 3000,
 });
 
 /**
@@ -53,8 +52,8 @@ export const registerUser = async (obj) => {
  */
 export const loginUser = async (obj) => {
   try {
-    const res = await client.post('/api/auth/login', obj);
-    console.log('User successfully registered');
+    const res = await client.post("/api/auth/login", obj);
+    console.log("User successfully registered");
     return res.data;
   } catch (e) {
     if (e.response.data != null) {

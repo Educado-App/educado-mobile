@@ -4,7 +4,6 @@ const testUrl = "http://localhost:8888";
 const testExpo = "http://172.30.210.200:8888"; //Change to local expo ip
 const digitalOcean = "http://207.154.213.68:8888";
 
-const url = testUrl;
 
 /*** COURS, SECTIONS AND EXERCISES ***/
 
@@ -50,6 +49,27 @@ export const getCourses = async () => {
       throw e;
     }
   }
+};
+
+//CREATED BY VIDEO STREAMING TEAM
+export const getSectionAndLecturesBySectionId = async (sectionId) => {
+  try {
+    const res = await axios.get(url + "/api/courses/section/" + sectionId);
+    return res.data;
+  } catch (err) {
+    console.log("Error getting section and lectures by section id", err);
+    return null;
+  }
+};
+
+export const getLectureById = async (lectureId) => {
+  try {
+    const res = await axios.get(url + "/api/lectures/" + lectureId);
+    return res.data;
+  } catch (err) {
+    return null;
+  }
+    
 };
 
 // Get all sections for a specific course
