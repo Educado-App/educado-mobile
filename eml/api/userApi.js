@@ -62,11 +62,10 @@ export const loginUser = async (obj) => {
       throw e;
     }
   }
-}
+};
 
 export const deleteUser = async (user_id, token) => {
   try {
-    console.log(user_id + " token: " + token)
     const res = await axios.delete(url + `/api/users/` + user_id, {
       headers: {
         'Content-Type': 'application/json',
@@ -96,13 +95,12 @@ export const updateUserFields = async (user_id, updateFields, token) => {
   }
 };
 
-
 export const enrollInCourse = async (user_Id, course_Id) => {
   try {
     // When user enrolls in a course it sends the course id to the database,
     // and then stores the course and completion status in the user document.
     const res = await axios.post(
-      url + "/api/eml/" + user_Id + "/enroll/" + course_Id
+      url + '/api/eml/' + user_Id + '/enroll/' + course_Id
     );
 
     // First time user enrolls in course
@@ -128,16 +126,26 @@ export const enrollInCourse = async (user_Id, course_Id) => {
 export const updateCourseStatus = async (user_id, course_id) => {
   // When user completes course it should update the user document from
   // isComplete: false, to isComplete: true for that course
-  const res = await axios.put(url + '/api/eml/' + user_id + '/updateCourse/' + course_id);
+  const res = await axios.put(
+    url + '/api/eml/' + user_id + '/updateCourse/' + course_id
+  );
   return res.data;
-}
+};
 
 export const updateSectionStatus = async (user_id, course_id, section_id) => {
   // When user completes section it should update the user document from
   // isComplete: false, to isComplete: true for that section
-  const res = await axios.put(url + '/api/eml/' + user_id + '/updateSection/' + course_id + '/' + section_id);
+  const res = await axios.put(
+    url +
+      '/api/eml/' +
+      user_id +
+      '/updateSection/' +
+      course_id +
+      '/' +
+      section_id
+  );
   return res.data;
-}
+};
 
 export const updateExerciseStatus = async (
   user_id,
@@ -149,14 +157,72 @@ export const updateExerciseStatus = async (
   // isComplete: false, to isComplete: true for that exercise
   const res = await axios.put(
     url +
-      "/api/eml/" +
+      '/api/eml/' +
       user_id +
-      "/updateExercise/" +
+      '/updateExercise/' +
       course_id +
-      "/" +
+      '/' +
       section_id +
-      "/" +
+      '/' +
       exercise_id
   );
   return res.data;
+};
+
+/**
+ * Function to send mail to user with code to reset password
+ * @param {Object} email should contain an email, to receive a reset password message
+*/
+export const sendResetPasswordEmail = async (email) => {
+  try {
+    const res = await axios.post(url + '/api/auth/reset-password-request', email);
+    return res.data;
+  } catch (e) {
+    if (e.response.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
+};
+
+
+/**
+ * function to validate the code sent to the user 
+ * @param {Object} obj should contain the following properties:
+ * - email
+ * - token
+*/
+export const validateResetPasswordCode = async (obj) => {
+  try {
+    const res = await axios.post(url + '/api/auth/reset-password-code', obj);
+    return res.data;
+  } catch (e) {
+    if (e.response.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
+
+};
+
+/**
+ * When user enters a new password it should update the password of the user
+ * @param {Object} obj should contain the following properties:
+ * - email
+ * - token
+ * - newPassword
+*/
+export const enterNewPassword = async (obj) => {
+  try {
+  const res = await axios.patch(url + '/api/auth/reset-password', obj);
+  return res.data;
+  } catch (e) {
+    if (e.response.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
 };

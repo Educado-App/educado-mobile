@@ -4,6 +4,38 @@ import LoginForm from '../../../components/login/LoginForm';
 import errorCodes from '../../../components/general/errorCodes';
 
 let loginForm;
+const LOGIN_TOKEN = "@loginToken";
+const USER_INFO = "@userInfo";
+const testJwt = "token";
+
+const testUserInfo = {
+  id: "123",
+  firstName: "Is",
+  lastName: "User",
+  email: "is@user.com",
+}
+
+jest.mock('@react-navigation/native', () => ({
+  useNavigation: () => ({
+    navigate: jest.fn(),
+  }),
+}))
+
+const errorCodesStr = JSON.stringify(errorCodes);
+const errorCodesJSON = JSON.parse(errorCodesStr);
+
+jest.mock("../../../api/userApi", () => ({
+  loginUser: jest.fn(async ({ email, password }) => {
+
+    if (email === testUserInfo.email && password === "password123") {
+      return Promise.resolve({ accessToken: testJwt, userInfo: testUserInfo });
+    } else if (email !== testUserInfo.email) {
+      return Promise.reject({ error: { code: 'E0004' } });
+    } else if (password !== "password123") {
+      return Promise.reject({ error: { code: 'E0105' } });
+    }
+  })
+}));
 
 beforeEach(async () => {
   await renderer.act(async () => {
@@ -21,8 +53,6 @@ jest.mock('@react-navigation/native', () => ({
   }),
 }))
 
-const errorCodesStr = JSON.stringify(errorCodes);
-const errorCodesJSON = JSON.parse(errorCodesStr);
 
 
 jest.mock("../../../api/userApi", () => ({

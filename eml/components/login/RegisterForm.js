@@ -10,7 +10,6 @@ import ShowAlert from "../general/ShowAlert";
 import FormFieldAlert from "./FormFieldAlert";
 import { removeEmojis, validatePasswordContainsLetter, validatePasswordLength, validateEmail, validateName } from "../general/Validation";
 import Text from "../general/Text";
-import patterns from "../../assets/validation/patterns";
 import errorSwitch from "../general/errorSwitch";
 import { useNavigation } from "@react-navigation/native";
 
@@ -22,7 +21,7 @@ const USER_INFO = "@userInfo";
  * @returns {React.Element} Component containing the form for registering a new user
  */
 
-export default function LoginForm(props) {
+export default function RegisterForm() {
 
   const navigation = useNavigation();
   const [firstName, setFirstName] = useState("");
@@ -73,7 +72,7 @@ export default function LoginForm(props) {
   useEffect(() => {
     let validationError = '';
     if (firstName !== '') {
-      validationError = validateName(firstName, 'Primeiro nome'); // First name
+      validationError = validateName(firstName, 'Nome'); // First name
     }
     if (validationError === '' && lastName !== '') {
       validationError = validateName(lastName, 'Sobrenome'); // Last name
@@ -110,7 +109,7 @@ export default function LoginForm(props) {
       setConfirmPasswordAlert("");
     } else {
       // The passwords do not match
-      setConfirmPasswordAlert("As senhas devem corresponder");
+      setConfirmPasswordAlert("Os campos de senha precisam ser iguais");
     }
   }
 
@@ -141,7 +140,7 @@ export default function LoginForm(props) {
    * @param {String} email 
    * @param {String} password
    */
-  async function register(firstName, lastName, email, password) {
+  async function register() {
 
     validateInput(firstName, email, password);
 
@@ -174,11 +173,11 @@ export default function LoginForm(props) {
   }
 
   /**
-   * Stores the user info in async storage
-   * @param {*} id user id
-   * @param {*} firstName 
-   * @param {*} lastName
-   * @param {*} email 
+   * Stores the user info in async storage (locally)
+   * @param {String} id this is the user id trying to register
+   * @param {String} firstName first name of the user trying to register
+   * @param {String} lastName last name of the user trying to register
+   * @param {String} email email of the user trying to register
    */
   async function saveUserInfoLocally(id, firstName, lastName, email) {
     try {
@@ -195,7 +194,13 @@ export default function LoginForm(props) {
     }
   }
 
-  // function to log in the user and set the login token, meant to be called after registering
+    /**
+   * function to log in the user and set the login token, meant to be called after registering
+   * @param {Object} obj the object containing the following fields:
+   *  firstName: String
+   *  lastName: String
+   *  email: String
+   */
   async function loginFromRegister(obj) {
     try {
       await loginUser(obj).then((response) => {
@@ -214,13 +219,11 @@ export default function LoginForm(props) {
     <View>
       <View className="mb-6">
         <FormTextField
-
-          label="Primeiro nome"
-          name={"Primeiro nome"}
+          label="Nome" // first name
+          name={"Nome"}
           value={firstName}
           testId="firstNameInput"
-          //First name
-          placeholder="Primeiro nome"
+          placeholder="Nome"
           required={true}
           onChangeText={(firstName) => {
             setFirstName(firstName);
@@ -229,11 +232,10 @@ export default function LoginForm(props) {
       </View>
       <View className="mb-6">
         <FormTextField
-          label="Sobrenome"
+          label="Sobrenome" // Last name
           name={"Sobrenome"}
           value={lastName}
           testId="lastNameInput"
-          // Last name
           placeholder="Sobrenome"
 
           required={true}
@@ -246,8 +248,8 @@ export default function LoginForm(props) {
       <View className="mb-6">
         <FormTextField
           className="mb-6"
-          label="Email"
-          name={"Email"}
+          label="E-mail"
+          name={"E-mail"}
           testId="emailInput"
           value={email}
           placeholder="user@email.com"
@@ -261,10 +263,10 @@ export default function LoginForm(props) {
         <View className="relative">
           <FormTextField
             label="Senha" //Password
-            name={"password"}
+            name={"Senha"}
             testId="passwordInput"
             value={password}
-            placeholder="Entre sua senha" // Enter your password
+            placeholder="Insira sua senha" // Enter your password
             placeholderTextColor="grey"
             secureTextEntry={!showPassword}
             required={true}
@@ -306,7 +308,7 @@ export default function LoginForm(props) {
       <View className="mb-2">
         <View className="relative">
           <FormTextField
-            label="Confirmar Senha" // Confirm password
+            label="Confirmar senha" // Confirm password
             value={confirmPassword}
             testId="confirmPasswordInput"
             onChangeText={(inputConfirmPassword) => {
