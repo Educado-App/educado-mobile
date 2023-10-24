@@ -7,7 +7,7 @@ import ExploreCard from '../../components/explore/ExploreCard';
 import * as StorageService from '../../services/StorageService';
 import { useNavigation } from '@react-navigation/native';
 
-function Explore() {
+export default function Explore() {
 
   // Search text state
   const [searchText, setSearchText] = useState('');
@@ -123,13 +123,29 @@ function Explore() {
 
   ///---------------------------------------------///
 
+  // Function to dermine category
+  function determineCategory(category) {
+    switch (category) {
+      case "personal finance":
+        return "Finanças pessoais";
+      case "health and workplace safety":
+        return "Saúde e segurança no trabalho";
+      case "sewing":
+        return "Costura";
+      case "electronics":
+        return "Eletrônica";
+      default: "other";
+        return "Outro";
+    }
+  }
+
   // Function to filter courses based on searchText or selectedCategory
 
   const filteredCourses = courses.filter((course) => {
     // Check if the course title includes the search text
     const titleMatchesSearch = course.title.toLowerCase().includes(searchText.toLowerCase());
     // Check if the course category matches the selected category (or no category is selected)
-    const categoryMatchesFilter = !selectedCategory || course.category === selectedCategory;
+    const categoryMatchesFilter = !selectedCategory || determineCategory(course.category) === selectedCategory;
     // Return true if both title and category conditions are met
     return titleMatchesSearch && categoryMatchesFilter;
   });
@@ -185,9 +201,3 @@ function Explore() {
 
   );
 }
-
-
-
-
-
-export default Explore;

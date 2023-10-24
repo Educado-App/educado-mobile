@@ -3,9 +3,6 @@ import { View, Pressable, Text } from 'react-native';
 import { subscribe } from '../../services/StorageService';
 import { useNavigation } from '@react-navigation/native';
 
-
-
-
 const SubscriptionButton = ({ course })  => {
   const navigation = useNavigation();
 

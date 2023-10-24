@@ -50,8 +50,6 @@ export default function ExploreCard({ course, isPublished, subscribed }) {
         return "scissors-cutting"
       case "electronics":
         return "laptop"
-      case "other":
-        return "bookshelf"
       default:
         return "bookshelf"
     }
