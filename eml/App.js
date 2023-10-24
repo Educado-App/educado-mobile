@@ -23,6 +23,7 @@ import { isFontsLoaded } from './constants/Fonts';
 import Loading from "./components/loading/Loading";
 import WelcomeScreen from "./screens/welcome/Welcome";
 import ProfileSettingsScreen from "./screens/profile/ProfileSettings";
+import CompleteSectionScreen from "./screens/section/CompleteSection";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -75,6 +76,13 @@ function CourseStack() {
   checkLogin();
   return (
     <Stack.Navigator>
+      <Stack.Screen
+        name="CompleteSection"
+        component={CompleteSectionScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
       <Stack.Screen
         name="Course"
         component={CourseScreen}
@@ -250,7 +258,7 @@ export default function App() {
         <IconRegistry icons={EvaIconsPack} />
         <ApplicationProvider {...eva} theme={eva.light}>
           <NavigationContainer>
-            <Stack.Navigator initialRouteName={initialRoute}>
+            <Stack.Navigator initialRouteName={"CourseStack"}>
               <Stack.Screen
                 name={"WelcomeStack"}
                 component={WelcomeStack}
@@ -267,9 +275,8 @@ export default function App() {
                 options={{ headerShown: false }}
               />
               <Stack.Screen
-                name="Section"
-                component={SectionScreen}
-                initialParams={{ course_id: '' }}
+                name={"CourseStack"}
+                component={CourseStack}
                 options={{ headerShown: false }}
               />
               <Stack.Screen

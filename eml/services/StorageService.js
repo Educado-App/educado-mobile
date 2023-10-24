@@ -1,14 +1,26 @@
 import * as api from '../api/api.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import errorCodes from '../components/general/errorCodes';
 
 
 const COURSE_LIST = '@courseList';
 const SUB_COURSE_LIST = '@subCourseList';
 const SECTION_LIST = '@sectionList';
 const COURSE = '@course';
-const USER_ID = '@userId';
+const USER_INFO = '@userInfo';
 
-/** COURSE AND COURS LIST **/
+/** USER **/
+export const getUserId = async () => {
+  try {
+    const fetchedUserInfo = JSON.parse(await AsyncStorage.getItem(USER_INFO));
+    return fetchedUserInfo.id;
+  } catch (e) {
+    throw errorCodes.E0004.code + ": " + errorCodes.E0004.message;
+  }
+};
+
+
+/** COURSE AND COURSE LIST **/
 
 // get specific course
 export const getCourseId = async (id) => {
@@ -146,7 +158,7 @@ export const refreshSectionList = async (course_id) => {
 export const getSubCourseList = async () => {
 
   // get the logged-in user id from async storage
-  const userId = await AsyncStorage.getItem(USER_ID); 
+  const userId = await getUserId(); 
 
   if(userId === null) {
     throw new Error("Cannot fetch user id from async storage");
@@ -207,7 +219,7 @@ export const refreshSubCourseList = async (userId) => {
 export const subscribe = async (courseId) => {
 
   // get the logged-in user id from async storage
-  const userId = await AsyncStorage.getItem(USER_ID);
+  const userId = await getUserId();
 
   if (userId === null) {
     throw new Error("Cannot fetch user id from async storage");
@@ -229,7 +241,7 @@ export const subscribe = async (courseId) => {
 export const unsubscribe = async (courseId) => {
 
   // get the logged-in user id from async storage
-  const userId = await AsyncStorage.getItem(USER_ID);
+  const userId = await getUserId();
 
   if (userId === null) {
     throw new Error("Cannot fetch user id from async storage");
@@ -252,7 +264,7 @@ export const unsubscribe = async (courseId) => {
 export const checkSubscriptions = async (courseId) => {
 
   // get the logged-in user id from async storage
-  const userId = await AsyncStorage.getItem(USER_ID);
+  const userId = await getUserId();
 
   if (userId === null) {
     throw new Error("Cannot fetch user id from async storage");
