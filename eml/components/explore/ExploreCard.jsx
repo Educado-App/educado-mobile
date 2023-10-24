@@ -40,6 +40,22 @@ export default function ExploreCard({ course, isPublished, subscribed }) {
         return "Outro";
     }
   }
+  function determineIcon(category) {
+    switch (category) {
+      case "personal finance":
+        return "finance"
+      case "health and workplace safety":
+        return "medical-bag"
+      case "sewing":
+        return "scissors-cutting"
+      case "electronics":
+        return "laptop"
+      case "other":
+        return "bookshelf"
+      default:
+        return "bookshelf"
+    }
+  }
 
 
   const getUpdatedDate = (courseDate) => {
@@ -52,7 +68,7 @@ export default function ExploreCard({ course, isPublished, subscribed }) {
     const day = date.getDate().toString().padStart(2, '0');
 
     // Format the date and time in the desired format
-    return `${year}/${month}/${day}, ${hours}:${minutes}`;
+    return `${year}/${month}/${day}`;
   };
 
 
@@ -80,9 +96,9 @@ export default function ExploreCard({ course, isPublished, subscribed }) {
           <View className="flex-col items-start justify-between">
             <View className="flex-row items-center justify-start pb-2 flex-wrap">
               <CardLabel
-                title={course.category}
+                title={determineCategory(course.category)}
                 time={false}
-                icon={"school-outline"}
+                icon={determineIcon(course.category)}
                 color={"gray"}
               />
               <View className="w-2.5" />

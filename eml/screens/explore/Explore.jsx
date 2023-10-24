@@ -173,7 +173,7 @@ function Explore() {
           {courses && filteredCourses && filteredCourses.map((course, index) => (
             <ExploreCard
               key={index}
-              isPublished={course.published}
+              isPublished={course.status === 'published'}
               subscribed={isSubscribed[index]}
               course={course}
             ></ExploreCard>

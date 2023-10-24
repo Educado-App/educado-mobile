@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Text from '../general/Text';
 
-const CustomRating = ({ rating = 0}) => {
+const CustomRating = ({ rating = 0 }) => {
   const [ratingIcons, setRatingIcons] = useState(Array(5).fill({ icon: 'star-outline', color: 'gray' }));
   const [noRating, setNoRating] = useState(false);
 
@@ -27,15 +27,15 @@ const CustomRating = ({ rating = 0}) => {
     } else {
       setNoRating(true);
     }
-    
+
   }, [rating]);
 
   return (
     noRating ? (
       <View className="w-full flex-row items-start justify-start">
-        <Text className="pl-1 text-xs" style={{color: "grey"}}>no ratings yet</Text>
-    </View>
-  ) :
+        <Text className="pl-1 text-xs" style={{ color: "grey" }}>no ratings yet</Text>
+      </View>
+    ) :
       <View className="w-full flex-row items-start justify-start">
         {ratingIcons.map((icon, index) => (
           <MaterialCommunityIcons key={index} name={icon.icon} size={14} color={icon.color} />
