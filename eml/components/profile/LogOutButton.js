@@ -12,10 +12,10 @@ export default function LogOutButton(props) {
 
   async function logOut() {
     try {
-      await AsyncStorage.removeItem(LOGIN_TOKEN).then((r) => {
-        console.log('User logged out successfully!')
-        navigation.navigate('LoginStack')
-      })
+      await AsyncStorage.removeItem(LOGIN_TOKEN);
+      await AsyncStorage.removeItem(USER_INFO);
+
+      navigation.navigate('LoginStack');
     } catch (e) {
       console.log(e)
     }

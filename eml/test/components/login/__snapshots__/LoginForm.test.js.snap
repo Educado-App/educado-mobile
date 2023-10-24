@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Check LoginForm renders correctly 1`] = `
+exports[`login Check LoginForm renders correctly 1`] = `
 <View>
   <View
     style={
