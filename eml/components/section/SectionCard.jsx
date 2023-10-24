@@ -34,7 +34,7 @@ export default function SectionCard({ section }) {
      * Handles the image press event.
      */
     const handleImagePress = () => {
-        navigation.navigate('HomeStack'); // Replace with the name of the target screen
+        navigation.navigate('Lecture'); // Replace with the name of the target screen
     }
 
 
