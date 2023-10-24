@@ -529,9 +529,6 @@ exports[`Login screen Login screen renders 1`] = `
                       "fontSize": 16,
                       "lineHeight": 24,
                     },
-                    {
-                      "marginLeft": 205,
-                    },
                   ],
                 ]
               }
@@ -631,7 +628,23 @@ exports[`Login screen Login screen renders 1`] = `
                 },
               ]
             }
-          />
+          >
+            <Modal
+              animationType="slide"
+              hardwareAccelerated={false}
+              style={
+                [
+                  {
+                    "borderBottomWidth": 8,
+                    "borderLeftWidth": 8,
+                    "borderRightWidth": 8,
+                    "borderTopWidth": 8,
+                  },
+                ]
+              }
+              visible={false}
+            />
+          </View>
         </View>
       </View>
       <View

@@ -109,6 +109,7 @@ export default function LoginForm() {
     setModalVisible(false);
   };
 
+
   // Function to toggle the password visibility state
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
