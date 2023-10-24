@@ -24,7 +24,6 @@ import LoadingScreen from "./components/loading/Loading";
 import WelcomeScreen from "./screens/welcome/Welcome";
 import ProfileSettingsScreen from "./screens/profile/ProfileSettings";
 import NavBar from "./components/navBar/NavBar";
-import LectureScreen from "./screens/lectures/LectureScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -123,6 +122,7 @@ function CourseStack() {
 }
 
 export function useWelcomeScreenLogic(loadingTime, onResult) {
+
   setTimeout(() => {
     const fetchData = async () => {
       try {
@@ -146,76 +146,77 @@ export function useWelcomeScreenLogic(loadingTime, onResult) {
 
     fetchData();
   }, loadingTime);
+
 }
 
 
-  export default function App() {
-    const fontsLoaded = isFontsLoaded();
-    const [initialRoute, setInitialRoute] = useState('');
-    const [isLoading, setIsLoading] = useState(true);
+export default function App() {
+  const fontsLoaded = isFontsLoaded();
+  const [initialRoute, setInitialRoute] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
-    // Callback function to handle the results
-    const handleResult = (route, loading) => {
-      setInitialRoute(route);
-      setIsLoading(loading);
-    };
+  // Callback function to handle the results
+  const handleResult = (route, loading) => {
+    setInitialRoute(route);
+    setIsLoading(loading);
+  };
 
-    useWelcomeScreenLogic(3000, handleResult);
+  useWelcomeScreenLogic(3000, handleResult);
 
-    // ************** Don't touch this code **************
-    if (!fontsLoaded) {
-      return null;
-    }
-
-    // Makes sure fonts are loaded before rendering the app
-    if (isLoading && fontsLoaded) {
-      return <LoadingScreen />;
-    }
-    // ***************************************************
-
-    return (
-      <TailwindProvider>
-        <>
-          <IconRegistry icons={EvaIconsPack} />
-          <ApplicationProvider {...eva} theme={eva.light}>
-            <NavigationContainer>
-              <Stack.Navigator initialRouteName={initialRoute}>
-                <Stack.Screen
-                  name="WelcomeStack"
-                  component={WelcomeStack}
-                  options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                  name="LoginStack"
-                  component={LoginStack}
-                  options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                  name="HomeStack"
-                  component={NavBar}
-                  options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                  name="Section"
-                  component={SectionScreen}
-                  initialParams={{ course_id: '' }}
-                  options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                  name="Lecture"
-                  component={LectureScreen}
-                  initialParams={{ lecture_id: '' }}
-                  options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                  name="ProfileSettings"
-                  component={ProfileSettingsScreen}
-                  options={{ headerShown: false }}
-                />
-              </Stack.Navigator>
-            </NavigationContainer>
-          </ApplicationProvider>
-        </>
-      </TailwindProvider>
-    );
+  // ************** Don't touch this code **************
+  if (!fontsLoaded) {
+    return null;
   }
+
+  // Makes sure fonts are loaded before rendering the app
+  if (isLoading && fontsLoaded) {
+    return <LoadingScreen />;
+  }
+  // ***************************************************
+
+  return (
+    <TailwindProvider>
+      <>
+        <IconRegistry icons={EvaIconsPack} />
+        <ApplicationProvider {...eva} theme={eva.light}>
+          <NavigationContainer>
+            <Stack.Navigator initialRouteName={initialRoute}>
+              <Stack.Screen
+                name="WelcomeStack"
+                component={WelcomeStack}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="LoginStack"
+                component={LoginStack}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="HomeStack"
+                component={NavBar}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="Section"
+                component={SectionScreen}
+                initialParams={{ course_id: '' }}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="Lecture"
+                component={LectureScreen}
+                initialParams={{ lecture_id: '' }}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="ProfileSettings"
+                component={ProfileSettingsScreen}
+                options={{ headerShown: false }}
+              />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </ApplicationProvider>
+      </>
+    </TailwindProvider>
+  );
+}
