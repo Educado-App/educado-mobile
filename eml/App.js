@@ -203,12 +203,6 @@ export default function App() {
                 options={{ headerShown: false }}
               />
               <Stack.Screen
-                name="Lecture"
-                component={LectureScreen}
-                initialParams={{ lecture_id: '' }}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
                 name="ProfileSettings"
                 component={ProfileSettingsScreen}
                 options={{ headerShown: false }}
