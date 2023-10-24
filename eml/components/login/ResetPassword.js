@@ -122,7 +122,8 @@ export default function ResetPassword(props) {
 
           default:
             // Errors not currently handled with specific alerts
-            setTokenAlert("Erro desconhecido!");
+            showAlert("Erro desconhecido!");
+            console.log(error);
         }
       });
   }
@@ -194,7 +195,7 @@ export default function ResetPassword(props) {
                   label={buttonLoading ? "Enviando e-mail..." : "Enviar código"}
                   onPress={() => sendEmail(email)}
                   testId="resetPasswordButton"
-                  disabled={passwordResetAlert !== "" || email === ""}
+                  disabled={passwordResetAlert !== "" || email === "" || buttonLoading}
                 />
               )}
             </View>

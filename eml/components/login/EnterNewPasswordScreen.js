@@ -8,6 +8,7 @@ import FormFieldAlert from "./FormFieldAlert";
 import { removeEmojis, validatePasswordContainsLetter, validatePasswordLength } from "../general/Validation";
 import Text from '../general/Text';
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import ShowAlert from '../general/ShowAlert';
 
 
 /**
@@ -105,14 +106,20 @@ export default function EnterNewPasswordScreen(props) {
 
         default:
           // Errors not currently handled with specific alerts
-          setPasswordAlert("Erro desconhecido!");
+          ShowAlert("Erro desconhecido!");
+          console.log(error);
           break;
       }
     }
   }
 
+  // Function to validate the input
   function validateInput() {
-    if (passwordAlert === "" && confirmPasswordAlert === "" && passwordContainsLetter && passwordLengthValid) {
+    // Check if passwords are empty
+    let isPasswordsEmpty = newPassword === "" && confirmPassword === "";
+    // Check if password contains a letter and is at least 8 characters long
+    let passwordRequirements = passwordContainsLetter && passwordLengthValid;
+    if (isPasswordsEmpty && passwordRequirements) {
       return true;
     } else {
       return false;
