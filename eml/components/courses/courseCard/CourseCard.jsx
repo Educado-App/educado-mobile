@@ -32,7 +32,7 @@ export default function CourseCard({ course }) {
                 return "medical-bag"
             case "sewing":
                 categoryBr = "Costura";
-                return "needle-thread"
+                return "scissors-cutting"
             case "electronics":
                 categoryBr = "Eletrônica";
                 return "laptop"
