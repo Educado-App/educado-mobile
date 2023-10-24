@@ -115,15 +115,8 @@ export default function EnterNewPasswordScreen(props) {
 
   // Function to validate the input
   function validateInput() {
-    // Check if passwords are empty
-    let isPasswordsEmpty = newPassword === "" && confirmPassword === "";
-    // Check if password contains a letter and is at least 8 characters long
-    let passwordRequirements = passwordContainsLetter && passwordLengthValid;
-    if (isPasswordsEmpty && passwordRequirements) {
-      return true;
-    } else {
-      return false;
-    }
+    // Check if password contains a letter and is at least 8 characters long and if the passwords match
+    return (passwordContainsLetter && passwordLengthValid && confirmPasswordAlert === "");
   }
 
   const showPasswordChangedSuccess = () => {

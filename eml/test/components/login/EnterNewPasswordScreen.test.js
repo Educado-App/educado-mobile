@@ -130,12 +130,9 @@ describe("EnterNewPasswordScreen", () => {
       await renderer.act(() => {
         passwordInput.props.onChangeText("testing123");
         confirmPasswordInput.props.onChangeText("not the same password");
-      });
-
-      await waitFor(() => {
+      }).then(() => {
         expect(resetPasswordButton.props.disabled).toBe(true);
-      });
-      
+      });      
     });
 
     it("Password fields filters out emojis", async () => {
