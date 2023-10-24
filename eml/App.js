@@ -258,7 +258,7 @@ export default function App() {
               />
               <Stack.Screen
                 name={"LoginStack"}
-                component={LoginStack}
+                component={ExerciseScreen}
                 options={{ headerShown: false }}
               />
               <Stack.Screen

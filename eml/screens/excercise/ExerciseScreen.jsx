@@ -1,162 +1,139 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useEffect, useRef, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Video } from 'expo-av';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
+import { ScrollView, View, Text, Image, TouchableOpacity } from 'react-native';
 import LeaveButton from '../../components/exercise/LeaveButton';
-import ExerciseButtons from '../../components/exercise/ExerciseButtons';
-import * as StorageService from '../../services/StorageService';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import CustomProgressBar from '../../components/exercise/Progressbar';
-import Text from '../../components/general/Text';
+import { RadioButton } from 'react-native-paper';
+import ExerciseInfo from '../../components/exercise/ExerciseInfo';
+import { Icon } from '@rneui/themed';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { getExerciseByid, getSectionByid, getCourse } from '../../api/api';
 
-export default function ExerciseScreen() {
+export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7'}) {
   const navigation = useNavigation();
-
   const route = useRoute();
 
-  const { sectionId, courseId } = route.params;
-
   const [hasData, setHasData] = useState(false);
-
-  const [signal, setSignal] = useState([]);
   const [exerciseData, setExerciseData] = useState({});
+  const [sectionData, setSectionData] = useState({});
+  const [courseData, setCourseData] = useState({});
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const [buttonClassName, setButtonClassName] = useState('');
+  const [showFeedback, setShowFeedback] = useState(false);
 
-  async function getExercise() {
-    const exercise = await StorageService.getNextExercise(sectionId);
+  const handleAnswerSelect = (answerIndex) => {
+    setSelectedAnswer(answerIndex);
+  };
 
-    if (isSectionComplete(courseId, sectionId) === true) {
-      navigation.navigate('SectionComplete', {
-        courseId: courseId,
-        sectionId: sectionId,
-      });
-    } else if (exercise === undefined) {
-      navigation.navigate('ErrorScreen');
-    }
-    setExerciseData(exercise);
+  function handleReviewAnswer(selectedAnswer) {
+    setButtonClassName(selectedAnswer ? 'bg-projectGreen' : 'bg-projectRed');
+    setShowFeedback(true);
   }
 
-  async function isSectionComplete() {
-    const course = await StorageService.getCourseById(courseId);
-    const { sections } = course;
-
-    for (let i = 0; i < sections.length; i += 1) {
-      console.log(sections[i].isComplete);
-      if (sections[i].id === sectionId) {
-        return sections[i].isComplete;
-      }
-    }
-    return null;
-  }
-
-  // Find en anden løsning end useEffect...
   useEffect(() => {
-    getExercise().then(() => {
-      setHasData(true);
-    });
+    const fetchData = async () => {
+      try {
+        setExerciseData(exercise = await getExerciseByid(givenId));
+        setSectionData(section = await getSectionByid(exercise.parentSection));
+        setCourseData(course = await getCourse(section.parentCourse));
+        setHasData(true);
+      } catch (error) {
+        console.log('Error fetching data:', error);
+        navigation.navigate('ErrorScreen');
+      }
+    };
+  
+    fetchData();
   }, [route.params]);
-
-  const video = useRef(0);
-
-  useEffect(() => {
-    if (video !== undefined) {
-      if (signal === 0) {
-        try {
-          video.current.pauseAsync();
-        } catch (e) {
-          console.log(`Something went wrong :${e}`);
-        }
-      }
-      setSignal(1);
-    }
-  }, [signal]);
+    
 
   return (
-    <View style={styles.container} className="bg-babyBlue">
-      <View style={{ flex: 1 }}>
-        <View className="pt-8 flex-row w-screen">
-          <View className="">
-            <LeaveButton
-              navigationPlace="Course"
-              courseId={courseId}
-            />
-          </View>
-          <View
-            style={{
-              left: '80%',
-              justifyContent: 'center',
-              alignItems: 'center',
-              flexDirection: 'column',
-            }}
-          >
-            {/* <Star></Star> */}
-            {/* <Text style={{ fontSize: 25 }}>
-              {correctNr}/{answerArray.length}
-            </Text> */}
-          </View>
+    <View className='bg-secondary flex-1 justify-between'>
+      <SafeAreaView className='justify-between'>
+        <View className='flex-row items-center justify-around'>
+          <LeaveButton
+            navigationPlace='Course'
+            courseId={exerciseData.courseId}
+          ></LeaveButton>
+          <CustomProgressBar progress={50} width={65} height={1.2}></CustomProgressBar>
         </View>
-        <View className="items-center">
-          <CustomProgressBar progress={0.5 / 1} />
-        </View>
-      </View>
-      <View style={{ flex: 2, width: '100%' }}>
-        {exerciseData === undefined ? (
-          //No Data
+
+        {hasData === false ? (
+          // No data
           <Text> Sem dados</Text>
         ) : (
-          <Video
-            source={{ uri: exerciseData.content }}
-            rate={1.0}
-            volume={1.0}
-            isMuted={false}
-            resizeMode="cover"
-            shouldPlay
-            useNativeControls
-            ref={video}
-            style={styles.backgroundVideo}
-          />
+          <View className='items-center'>
+            <Text testID='exerciseQuestion' className='pt-6 pb-10 text-center text-body font-montserrat-bold text-projectBlack w-11/12'>
+              {exerciseData.description}
+            </Text>
+            <View className={`${buttonClassName} items-center justify-center h-96 w-full`}>
+              <ScrollView>
+                {/*Map through the answers and render each one*/}
+                {exerciseData.answers.map((answer, index) => (
+                  <View
+                    key={index}
+                    className='flex-row w-96 pb-6 pl-2'
+                  >
+                    <View>
+                      <RadioButton.Android
+                        value={index}
+                        status={
+                          selectedAnswer === index ? 'checked' : 'unchecked'
+                        }
+                        onPress={() => handleAnswerSelect(index)}
+                        color='#5ECCE9'
+                        uncheckedColor='#5ECCE9'
+                      />
+                    </View>
+                    <View>
+                      <TouchableOpacity onPress={() => handleAnswerSelect(index)}>
+                        <Text className='pt-2 pb-1 w-72 font-montserrat text-body text-projectBlack'>{answer.text}</Text>
+                      </TouchableOpacity>
+                      {showFeedback ? (
+                        <View className={`flex-row pb-2 w-fit rounded-medium ${answer.isCorrect ? 'bg-projectGreen' : 'bg-projectRed'}`}>
+                          <View className='pl-2 pt-1'>
+                            <View className='pt-1.5'>
+                              {answer.isCorrect === true ? ( 
+                                <Icon
+                                  size={10}
+                                  name='check'
+                                  type='material'
+                                  color='#4AA04A'
+                                />
+                              ) : (
+                                <Icon
+                                  size={10}
+                                  name='close'
+                                  type='material'
+                                  color='#FF4949'
+                                />
+                              )}  
+                            </View>                        
+                          </View>
+                          <Text className={`w-72 pl-1 pt-2 pr-2 font-montserrat text-caption-medium ${answer.isCorrect ? 'text-success' : 'text-error'}`}>{answer.feedback}</Text>
+                        </View>
+                      ) : null}
+                    </View>
+                  </View>
+                ))}
+
+              </ScrollView>
+            </View>
+            <View className='px-6 pt-8 w-screen'>
+              <TouchableOpacity 
+                className={`${selectedAnswer !== null ? 'opacity-100' : 'opacity-30'} bg-primary px-10 py-4 rounded-medium`}
+                onPress={() => handleReviewAnswer(exerciseData.answers[selectedAnswer].isCorrect)}
+              >
+                <Text className='text-center font-montserrat-bold text-body text-projectWhite'>Confirmar resposta</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
         )}
-      </View>
-      <View style={{ flex: 3 }}>
-        {exerciseData === undefined ? (
-          //No Data
-          <Text> Sem dados</Text>
-        ) : (
-          <ExerciseButtons
-            answers={exerciseData.answers}
-            exerciseId={exerciseData.id}
-            courseId={courseId}
-            sectionId={sectionId}
-            setSignal={setSignal}
-            hasData={hasData}
-          />
-        )}
-      </View>
-      <StatusBar />
+
+        <ExerciseInfo courseId={courseData.title} sectionId={sectionData.title} />
+        <StatusBar style='auto' />
+      </SafeAreaView>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  row: {
-    flexDirection: 'row',
-  },
-  textStyle: {
-    zIndex: 100,
-    fontSize: 100,
-  },
-  buttonShadow: {
-    shadowOpacity: 0.4,
-    shadowRadius: 10,
-    shadowOffset: { width: 0, height: 0 },
-  },
-  backgroundVideo: {
-    height: '100%',
-  },
-});
