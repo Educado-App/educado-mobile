@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Alert, View, TouchableOpacity, Image } from 'react-native';
-import Text from '../../components/general/Text';
+import { Alert, View, TouchableOpacity, Image, Text} from 'react-native';
 import ProgressBar from '../../components/progress/ProgressBar';
 import CustomProgressBar from '../../components/progress/ProgressBar2';
 
@@ -10,9 +9,10 @@ import { useNavigation } from '@react-navigation/native';
 import { downloadVideoByFileName, getCourse, getLectureById } from '../../api/api';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import VideoLectureScreen from './VideoLectureScreen';
+import TextImageLectureScreen from './TextImageLectureScreen';
+
 
 //import healthLogo from '../../assets/healthLogo.png'
-import TextImageLectureScreen from './TextImageLectureScreen';
 
 export default function LectureScreen({ route }) {
 
@@ -24,10 +24,6 @@ export default function LectureScreen({ route }) {
         getLecture(lectureId);
         getCourseById(courseId);
     }, [])
-
-
-
-
 
     const getLecture = async (id) => {
         const res = await getLectureById(id);
@@ -47,16 +43,14 @@ export default function LectureScreen({ route }) {
         }
     }
 
-
-
-
     //Safe area should not be used if we want to use the full screen
     return (
-        <View className="flex-1 bg-[#f1f9fb] ">
+        <View className="flex-1 bg-projectWhite ">
 
             {lecture && course ?
 
-                <View className="w-screen h-screen flex-col justify-center items-center">
+                <View className="w-full h-full flex-col justify-center items-center">
+                    <Text>Hej</Text>
                     {lecture.video ?
                         <VideoLectureScreen lecture={lecture} course={course} />
                         :

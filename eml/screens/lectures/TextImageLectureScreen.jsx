@@ -89,11 +89,11 @@ const TextImageLectureScreen = ({ lecture, course }) => {
     };
 
 
-    return (<View className={"absolute w-full h-full p-5 pb-20"}>
+    return (<View className={"absolute w-full h-full px-4"}>
         <ProgressTopBar progressPercent={75} color='black' />
         {/* Content */}
 
-        <ScrollView className="flex-grow">
+        <ScrollView className="">
             <Text className="text-center text-2xl pt-8 font-bold">BEM VINDO!</Text>
 
             {
@@ -136,9 +136,9 @@ const TextImageLectureScreen = ({ lecture, course }) => {
         </ScrollView>
 
 
-        <View className="w-full flex-col items-start justify-left pt-4" >
+        <View className="flex-col w-full justify-left mt-8 pb-4 pt-2" >
             {/* Course name and lecturen name */}
-            <View className="w-full flex-row justify-between items-end">
+            <View className="w-full flex-row justify-between">
 
                 <View className=" flex-col">
                     <Text className=" text-projectGray " >Course Name: {course.title}</Text>

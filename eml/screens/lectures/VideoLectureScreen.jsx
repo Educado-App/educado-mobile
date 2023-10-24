@@ -75,17 +75,6 @@ export default function VideoLectureScreen({ lecture, course }) {
         setIsMuted(!isMuted);
     }
 
-
-
-
-    const paddingBottomValue = Platform.select({
-        ios: '10vh',
-        android: '4vh',
-        // add other platforms if needed
-        default: '2vh'
-    });
-
-
     const navigation = useNavigation();
 
     //check if video url is valid
@@ -130,12 +119,12 @@ export default function VideoLectureScreen({ lecture, course }) {
 
     return (
 
-        <View className=" relative  w-screen h-screen">
+        <View className="relative">
 
             {/* Video - currently just black image */}
             <View className="w-full h-full bg-projectBlack" >
 
-                <View className="w-full h-full  bg-projectBlack " >
+                <View className="w-full h-full  bg-projectBlack" >
                     {videoUrl ? <CustomExpoVideoPlayer
 
                         videoUrl={videoUrl}
@@ -149,8 +138,8 @@ export default function VideoLectureScreen({ lecture, course }) {
                 </View>
             </View>
             {/* Layers on top of video */}
-
-            <View className={`absolute w-full h-full p-5 pb-[${paddingBottomValue}]`}>
+            
+            <View className="absolute w-full h-full p-5 border-2 border-projectWhite">
                 <View className="w-full h-full flex-col justify-between items-center  bg-opacity-20" >
                     {/* Progress bar (on top) */}
                     <ProgressTopBar progressPercent={75} />
@@ -161,8 +150,8 @@ export default function VideoLectureScreen({ lecture, course }) {
                         <View className="w-full flex-row justify-between items-end">
 
                             <View className=" flex-col">
-                                <Text style={{ color: tailwindConfig.theme.colors.projectGray }}  >Course Name: {course.title}</Text>
-                                <Text style={{ color: tailwindConfig.theme.colors.white }} className="text-xl" >{lecture.title && lecture.title}</Text>
+                                <Text className=" text-projectGray"  >Course Name: {course.title}</Text>
+                                <Text className="text-xl text-projectWhite" >{lecture.title && lecture.title}</Text>
                             </View>
                             <VideoActions isPlaying={isPlaying} isMuted={isMuted} onVolumeClick={handleMutepress} onPlayClick={handlePress} />
                         </View>
@@ -198,11 +187,6 @@ export default function VideoLectureScreen({ lecture, course }) {
                     </View>
                 </View>
             )}
-
-
-
-
-
         </View>
     );
 }
