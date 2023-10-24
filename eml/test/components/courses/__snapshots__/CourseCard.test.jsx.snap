@@ -125,7 +125,7 @@ exports[`CourseCard renders CourseCard correctly 1`] = `
           ]
         }
       >
-        Course Title
+        Título do curso
       </Text>
     </View>
     <View
@@ -153,101 +153,127 @@ exports[`CourseCard renders CourseCard correctly 1`] = `
             "flexDirection": "row",
           },
           {
+            "flexWrap": "wrap",
+          },
+          {
             "alignItems": "center",
           },
           {
             "justifyContent": "flex-start",
           },
-          {
-            "overflow": "hidden",
-          },
         ]
       }
     >
-      <Text
-        allowFontScaling={false}
-        selectable={false}
+      <View
         style={
           [
             {
-              "color": "gray",
-              "fontSize": 18,
+              "flexDirection": "row",
             },
-            undefined,
             {
-              "fontFamily": "material-community",
-              "fontStyle": "normal",
-              "fontWeight": "normal",
+              "alignItems": "center",
             },
-            {},
           ]
         }
       >
-        󰑴
-      </Text>
-      <Text
-        style={
-          [
-            {
-              "fontFamily": "Montserrat-Regular",
-            },
+        <Text
+          allowFontScaling={false}
+          selectable={false}
+          style={
             [
               {
-                "marginLeft": "2.5%",
-                "marginRight": "2.5%",
+                "color": "gray",
+                "fontSize": 18,
               },
+              undefined,
               {
-                "marginBottom": "3%",
-                "marginTop": "3%",
+                "fontFamily": "material-community",
+                "fontStyle": "normal",
+                "fontWeight": "normal",
               },
-            ],
-          ]
-        }
-      >
-        category
-      </Text>
-      <Text
-        allowFontScaling={false}
-        selectable={false}
-        style={
-          [
-            {
-              "color": "gray",
-              "fontSize": 18,
-            },
-            undefined,
-            {
-              "fontFamily": "material-community",
-              "fontStyle": "normal",
-              "fontWeight": "normal",
-            },
-            {},
-          ]
-        }
-      >
-        󰥔
-      </Text>
-      <Text
-        style={
-          [
-            {
-              "fontFamily": "Montserrat-Regular",
-            },
+              {},
+            ]
+          }
+        >
+          󱉟
+        </Text>
+        <Text
+          style={
             [
               {
-                "marginLeft": "2.5%",
-                "marginRight": "2.5%",
+                "fontFamily": "Montserrat-Regular",
               },
-              {
-                "marginBottom": "3%",
-                "marginTop": "3%",
-              },
-            ],
+              [
+                {
+                  "marginLeft": "2.5%",
+                  "marginRight": "2.5%",
+                },
+                {
+                  "marginBottom": "3%",
+                  "marginTop": "3%",
+                },
+              ],
+            ]
+          }
+        >
+          categoria
+        </Text>
+      </View>
+      <View
+        style={
+          [
+            {
+              "flexDirection": "row",
+            },
+            {
+              "alignItems": "center",
+            },
           ]
         }
       >
-        duration
-      </Text>
+        <Text
+          allowFontScaling={false}
+          selectable={false}
+          style={
+            [
+              {
+                "color": "gray",
+                "fontSize": 18,
+              },
+              undefined,
+              {
+                "fontFamily": "material-community",
+                "fontStyle": "normal",
+                "fontWeight": "normal",
+              },
+              {},
+            ]
+          }
+        >
+          󰥔
+        </Text>
+        <Text
+          style={
+            [
+              {
+                "fontFamily": "Montserrat-Regular",
+              },
+              [
+                {
+                  "marginLeft": "2.5%",
+                  "marginRight": "2.5%",
+                },
+                {
+                  "marginBottom": "3%",
+                  "marginTop": "3%",
+                },
+              ],
+            ]
+          }
+        >
+          duração
+        </Text>
+      </View>
     </View>
     <View
       style={
@@ -296,7 +322,7 @@ exports[`CourseCard renders CourseCard correctly 1`] = `
                 "borderRadius": 8,
                 "borderWidth": 0,
                 "overflow": "hidden",
-                "width": 450,
+                "width": 420.00000000000006,
               },
               undefined,
             ]
@@ -314,7 +340,7 @@ exports[`CourseCard renders CourseCard correctly 1`] = `
                     "translateX": 0,
                   },
                   {
-                    "translateX": -112.5,
+                    "translateX": -105.00000000000001,
                   },
                   {
                     "scaleX": 0.50005,
