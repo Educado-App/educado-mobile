@@ -1,12 +1,36 @@
 import React from 'react';
 import { View, Animated, Easing } from 'react-native';
 import Text from '../general/Text';
+import { generateSuccessPhrases, generateEncouragementPhrases } from '../../constants/PopUpPhrases';
+import { getUserInfo } from '../../services/StorageService';
 
-export default function PopUp({ randomPhrase, xpAmount, isCorrectAnswer }) {
+export default function PopUp({ xpAmount, isCorrectAnswer }) {
+  let randomPhrase = "";
+  let firstName = "";
+
   const animatedPopUpValue = new Animated.Value(0);
   const animatedXpValue = new Animated.Value(0);
   const opacityValue = new Animated.Value(1);
   const randomVariation = Math.random() * 150; // Adjust the range as needed
+
+  const getRandomPhrase = () => {
+    let randomIndex = 0;
+
+    const phrases = isCorrectAnswer
+      ? generateSuccessPhrases(firstName)
+      : generateEncouragementPhrases(firstName);
+
+    randomIndex = Math.floor(Math.random() * phrases.length);
+    randomPhrase = phrases[randomIndex];
+    if (randomPhrase.length > 69) {
+      randomPhrase = randomPhrase.substring(0, 69) + "...";
+    }
+  };
+
+  const fetchUserFirstName = async () => {
+    const userInfo = await getUserInfo();
+    firstName = userInfo.firstName;
+  };
 
   const customEasing = (value) => {
     // Adjust these parameters to control the easing effect
@@ -65,6 +89,8 @@ export default function PopUp({ randomPhrase, xpAmount, isCorrectAnswer }) {
     });
   };
 
+  fetchUserFirstName();
+  getRandomPhrase();
   startPopUpAnimation();
   startXpAnimation();
 

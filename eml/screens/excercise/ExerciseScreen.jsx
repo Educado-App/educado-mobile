@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { ScrollView, View, TouchableOpacity, Dimensions } from "react-native";
 import { useNavigation, useRoute } from '@react-navigation/native';
 import LeaveButton from '../../components/exercise/LeaveButton';
-import { getUserInfo } from '../../services/StorageService';
 import Text from '../../components/general/Text';
 import CustomProgressBar from "../../components/exercise/Progressbar";
 import dummyExerciseData from "./dummyExerciseData.json";
@@ -12,11 +11,9 @@ import { ScreenWidth } from "@rneui/base";
 import { Icon } from '@rneui/themed';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import PopUp from '../../components/gamification/PopUp';
-import { generateSuccessPhrases, generateEncouragementPhrases } from '../../constants/PopUpPhrases';
-import * as StorageService from '../../services/StorageService';
 
 export default function ExerciseScreen() {
-  const xp = Math.floor(Math.random() * (10 - 5 + 1)) + 5;
+  const xp = Math.floor(Math.random() * (10 - 5 + 1)) + 5; // Replace with intricate point system
 
   const navigation = useNavigation();
   const route = useRoute();
@@ -32,8 +29,6 @@ export default function ExerciseScreen() {
   const [showFeedback, setShowFeedback] = useState(false); // Used to render feedback
   const [buttonText, setButtonText] = useState("Confirmar Resposta"); // Used to change the text of a button
   const [isPopUpVisible, setIsPopUpVisible] = useState(false); // Used to render the pop up
-  const [randomPhrase, setRandomPhrase] = useState('');
-  const [firstName, setFirstName] = useState('');
   const [isCorrectAnswer, setIsCorrectAnswer] = useState(false);
 
   const handleAnswerSelect = (answerId) => {
@@ -92,23 +87,6 @@ export default function ExerciseScreen() {
     }
   }
 
-  const getRandomPhrase = (answeredCorrectly) => {
-    let randomMessage = '';
-    let randomIndex = 0;
-
-    const phrases = answeredCorrectly
-      ? generateSuccessPhrases(firstName)
-      : generateEncouragementPhrases(firstName);
-
-    randomIndex = Math.floor(Math.random() * phrases.length);
-    randomMessage = phrases[randomIndex];
-    if (randomMessage.length > 69) {
-      randomMessage = randomMessage.substring(0, 69) + "...";
-    }
-
-    setRandomPhrase(randomMessage);
-  };
-
   // Update this function to look like handleAnswerSelect, looks better
   function handleReviewAnswer() {
     const selectedAnswerData = dummyExerciseData.answers[selectedAnswer - 1];
@@ -122,7 +100,6 @@ export default function ExerciseScreen() {
     setShowFeedback(true);
     setButtonText(continueText);
     if (buttonText !== continueText) {
-      getRandomPhrase(selectedAnswerData.isCorrect);
       setIsPopUpVisible(true);
     }
   }
@@ -131,12 +108,6 @@ export default function ExerciseScreen() {
     getExercise().then(() => {
       setHasData(true);
     });
-
-    const fetchUserFirstName = async () => {
-      const userInfo = await StorageService.getUserInfo();
-      setFirstName(userInfo.firstName);
-    };
-    fetchUserFirstName();
   }, []);
 
   return (
@@ -239,7 +210,7 @@ export default function ExerciseScreen() {
       )}
 
       {isPopUpVisible ? (
-        <PopUp randomPhrase={randomPhrase} xpAmount={xp} isCorrectAnswer={isCorrectAnswer} />
+        <PopUp xpAmount={xp} isCorrectAnswer={isCorrectAnswer} />
       ) : null}
 
 
