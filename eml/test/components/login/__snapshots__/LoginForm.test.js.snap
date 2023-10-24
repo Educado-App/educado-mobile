@@ -428,22 +428,6 @@ exports[`Check LoginForm renders correctly 1`] = `
         },
       ]
     }
-  >
-    <Modal
-      animationType="slide"
-      hardwareAccelerated={false}
-      style={
-        [
-          {
-            "borderBottomWidth": 8,
-            "borderLeftWidth": 8,
-            "borderRightWidth": 8,
-            "borderTopWidth": 8,
-          },
-        ]
-      }
-      visible={false}
-    />
-  </View>
+  />
 </View>
 `;
