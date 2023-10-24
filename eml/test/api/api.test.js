@@ -1,6 +1,6 @@
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import MockAdapter from 'axios-mock-adapter';
+import { mockDataAPI } from '../mockData/mockDataAPI';
 
 import {
   getCourse,
@@ -18,122 +18,9 @@ jest.mock('@react-native-async-storage/async-storage');
 
 const mock = new MockAdapter(axios);
 
-const mockData = {
-  userData: {
-    _id: '651a78592cf67cb9e721aea1',
-    name: 'test test',
-    email: 'test@mail.dk',
-    subscriptions: ['651d596a26cd9875d86a12b7'],
-  },
-  courseData: {
-    title: 'Course math',
-    _id: '651d3a15cda7d5bd2878dfc7',
-    sections: ['651d40e3cdcba354b1b9490d', '651d599626cd9875d86a12bc'],
-    description: 'Test',
-    category: 'Finanças pessoais',
-    estimatedHours: 10,
-    dateUpdated: '2023-10-04T10:10:29.897Z',
-    dateCreated: '2023-10-04T10:10:29.897Z',
-    difficulty: 1,
-    published: true,
-    status: 'published',
-    rating: 0,
-    numOfSubscriptions: 0,
-    __v: 6,
-  },
-  sectionData:
-  {
-    title: 'test section',
-    _id: '651d40e3cdcba354b1b9490d',
-    parentCourse: '651d3a15cda7d5bd2878dfc7',
-    description: 'this is a test section',
-    components: [],
-    sectionNumber: 1,
-    totalPoints: 100,
-    dateUpdated: '2023-10-04T10:10:29.897Z',
-    dateCreated: '2023-10-04T10:10:29.897Z',
-    __v: 1,
-  },
-  sectionsData: [
-    {
-      title: 'test section',
-      _id: '651d40e3cdcba354b1b9490d',
-      parentCourse: '651d3a15cda7d5bd2878dfc7',
-      description: 'this is a test section',
-      components: [],
-      sectionNumber: 1,
-      totalPoints: 100,
-      dateUpdated: '2023-10-04T10:10:29.897Z',
-      dateCreated: '2023-10-04T10:10:29.897Z',
-      __v: 1,
-    },
-    {
-      title: 'test section 2',
-      _id: '651d599626cd9875d86a12bc',
-      parentCourse: '651d3a15cda7d5bd2878dfc7',
-      description: 'this is a test section 2',
-      components: [],
-      sectionNumber: 2,
-      totalPoints: 200,
-      dateUpdated: '2023-10-04T10:10:29.897Z',
-      dateCreated: '2023-10-04T10:10:29.897Z',
-      __v: 1,
-    },
-  ],
-  allCoursesData: [
-    {
-      title: 'Course math',
-      _id: '651d3a15cda7d5bd2878dfc7',
-      sections: ['651d40e3cdcba354b1b9490d'],
-      description: 'Test',
-      category: 'Finanças pessoais',
-      estimatedHours: 10,
-      dateUpdated: '2023-10-04T10:10:29.897Z',
-      dateCreated: '2023-10-04T10:10:29.897Z',
-      difficulty: 1,
-      published: true,
-      status: 'published',
-      rating: 0,
-      numOfSubscriptions: 0,
-      __v: 6,
-    },
-    {
-      title: 'Just a test course',
-      _id: '651d596a26cd9875d86a12b7',
-      sections: ['651d599626cd9875d86a12bc', '651d59a126cd9875d86a12c0'],
-      description: 'Test description',
-      category: 'Costura',
-      estimatedHours: 20,
-      dateUpdated: '2023-10-04T12:24:10.740Z',
-      dateCreated: '2023-10-04T12:24:10.740Z',
-      difficulty: 3,
-      published: true,
-      status: 'published',
-      rating: 3,
-      numOfSubscriptions: 0,
-      __v: 2,
-    },
-  ],
-  subscribedCourses: [
-    {
-      title: 'Just a test course',
-      _id: '651d596a26cd9875d86a12b7',
-      sections: ['651d599626cd9875d86a12bc', '651d59a126cd9875d86a12c0'],
-      description: 'Test description',
-      category: 'Costura',
-      estimatedHours: 20,
-      dateUpdated: '2023-10-04T12:24:10.740Z',
-      dateCreated: '2023-10-04T12:24:10.740Z',
-      difficulty: 3,
-      published: true,
-      status: 'published',
-      rating: 3,
-      numOfSubscriptions: 0,
-      __v: 2,
-    },
-  ],
-  errorResponse: new Error('Error message'),
-};
+const port = 'http://localhost:8888';
+
+const mockData = mockDataAPI();
 
 describe('API Functions', () => {
   beforeEach(() => {
@@ -148,7 +35,7 @@ describe('API Functions', () => {
 
       const result = await getCourse(courseId);
 
-      expect(axios.get).toHaveBeenCalledWith(`http://localhost:8888/api/courses/${courseId}`);
+      expect(axios.get).toHaveBeenCalledWith(`${port}/api/courses/${courseId}`);
       expect(result).toEqual(mockData.courseData);
 
     });
@@ -169,7 +56,7 @@ describe('API Functions', () => {
 
       const result = await getCourses();
 
-      expect(axios.get).toHaveBeenCalledWith('http://localhost:8888/api/courses');
+      expect(axios.get).toHaveBeenCalledWith(`${port}/api/courses`);
       expect(result).toEqual(mockData.allCoursesData);
     });
 
@@ -189,7 +76,7 @@ describe('API Functions', () => {
 
       const result = await getAllSections(courseId);
 
-      expect(axios.get).toHaveBeenCalledWith(`http://localhost:8888/api/courses/${courseId}/sections`);
+      expect(axios.get).toHaveBeenCalledWith(`${port}/api/courses/${courseId}/sections`);
       expect(result).toEqual(mockData.sectionsData);
     });
 
@@ -211,7 +98,7 @@ describe('API Functions', () => {
 
       const result = await getSection(courseId, sectionId);
 
-      expect(axios.get).toHaveBeenCalledWith(`http://localhost:8888/api/courses/${courseId}/sections/${sectionId}`);
+      expect(axios.get).toHaveBeenCalledWith(`${port}/api/courses/${courseId}/sections/${sectionId}`);
       expect(result).toEqual(mockData.sectionData);
     });
 
@@ -230,25 +117,16 @@ describe('API Functions', () => {
     it('should get user subscriptions', async () => {
       const userId = mockData.userData._id;
 
-      // Mock AsyncStorage.getItem to return the user ID
-      AsyncStorage.getItem.mockResolvedValue(userId);
-
       mock
         .onGet(`/api/users/${userId}/subscriptions`)
         .reply(200, { data: mockData.subscriptionData });
 
       axios.get.mockResolvedValue({ data: mockData.subscribeData, data: mockData.subscriptionData });
 
-      const result = await getSubscriptions();
-
-      // Check that AsyncStorage.getItem was called with the expected argument
-      expect(AsyncStorage.getItem).toHaveBeenCalledWith('@userId');
+      const result = await getSubscriptions(userId);
 
       // Check that axios.get was called with the correct URL
-      expect(axios.get).toHaveBeenCalledWith(`http://localhost:8888/api/users/${userId}/subscriptions`);
-
-      expect(AsyncStorage.getItem).toHaveBeenCalledWith('@userId');
-      expect(axios.get).toHaveBeenCalledWith(`http://localhost:8888/api/users/${userId}/subscriptions`);
+      expect(axios.get).toHaveBeenCalledWith(`${port}/api/users/${userId}/subscriptions`);
       expect(result).toEqual(mockData.subscriptionData);
     });
 
@@ -267,19 +145,11 @@ describe('API Functions', () => {
       const userId = mockData.userData._id;
       const courseId = mockData.courseData._id;
 
-      AsyncStorage.getItem.mockResolvedValue(userId);
-      axios.post.mockResolvedValue({ data: 'subscription successful' });
+      await subscribeToCourse(userId, courseId);
 
-      const consoleLogSpy = jest.spyOn(console, 'log').mockImplementation();
-
-      await subscribeToCourse(courseId);
-
-      expect(AsyncStorage.getItem).toHaveBeenCalledWith('@userId');
-      expect(axios.post).toHaveBeenCalledWith(`http://localhost:8888/api/courses/${courseId}/subscribe`, {
+      expect(axios.post).toHaveBeenCalledWith(`${port}/api/courses/${courseId}/subscribe`, {
         user_id: userId,
       });
-      expect(consoleLogSpy).toHaveBeenCalledWith('Subscribed successfully: subscription successful');
-      consoleLogSpy.mockRestore();
     });
 
     it('should handle errors', async () => {
@@ -298,19 +168,11 @@ describe('API Functions', () => {
       const userId = mockData.userData._id;
       const courseId = mockData.courseData._id;
 
-      AsyncStorage.getItem.mockResolvedValue(userId);
-      axios.post.mockResolvedValue({ data: 'unsubscription successful' });
+      await unSubscribeToCourse(userId, courseId);
 
-      const consoleLogSpy = jest.spyOn(console, 'log').mockImplementation();
-
-      await unSubscribeToCourse(courseId);
-
-      expect(AsyncStorage.getItem).toHaveBeenCalledWith('@userId');
-      expect(axios.post).toHaveBeenCalledWith(`http://localhost:8888/api/courses/${courseId}/unsubscribe`, {
+      expect(axios.post).toHaveBeenCalledWith(`${port}/api/courses/${courseId}/unsubscribe`, {
         user_id: userId,
       });
-      expect(consoleLogSpy).toHaveBeenCalledWith('Unsubscribed successfully: unsubscription successful');
-      consoleLogSpy.mockRestore();
     });
 
     it('should handle errors', async () => {
@@ -329,19 +191,15 @@ describe('API Functions', () => {
       const userId = mockData.userData._id;
       const courseId = mockData.courseData._id;
 
-      // Mock AsyncStorage.getItem to return the user ID
-      AsyncStorage.getItem.mockResolvedValue(userId);
-
       // Mock the Axios request
       const subscribedData = {
         isSubscribed: true
       };
       axios.get.mockResolvedValue({ data: subscribedData.isSubscribed });
 
-      const result = await ifSubscribed(courseId);
+      const result = await ifSubscribed(userId, courseId);
 
-      expect(AsyncStorage.getItem).toHaveBeenCalledWith('@userId');
-      expect(axios.get).toHaveBeenCalledWith(`http://localhost:8888/api/users/subscriptions?user_id=${userId}&course_id=${courseId}`);
+      expect(axios.get).toHaveBeenCalledWith(`${port}/api/users/subscriptions?user_id=${userId}&course_id=${courseId}`);
       expect(result).toEqual(subscribedData.isSubscribed);
     });
 

@@ -10,6 +10,7 @@ import React from "react";
 import renderer from "react-test-renderer";
 import CourseCard from "../../../components/courses/courseCard/CourseCard";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { mockDataAsyncStorage } from "../../mockData/mockDataAsyncStorage";
 
 let navigated = false;
 
@@ -18,6 +19,8 @@ jest.mock('@react-navigation/native', () => ({
     navigate: jest.fn(() => { navigated = true }),
   }),
 }));
+
+const mockData = mockDataAsyncStorage();
 
 describe("CourseCard", () => {
   let courseCard;
@@ -36,27 +39,11 @@ describe("CourseCard", () => {
    * An array of course objects.
    * @type {Course[]}
    */
-  const courses = [
-    {
-      id: 1,
-      title: "Course 1",
-      category: "Category 1",
-      duration: "Duration for course 1",
-      image: "",
-    },
-    {
-      id: 2,
-      title: "Course 2",
-      category: "Category 2",
-      duration: "Duration for course 2",
-      image: "",
-    },
-  ];
 
   beforeEach(async () => {
     navigated = false;
     await AsyncStorage.clear();
-    courseCard = renderer.create(<CourseCard course={courses} />);
+    courseCard = renderer.create(<CourseCard course={mockData.allCourses} />);
   });
 
   afterAll(() => {

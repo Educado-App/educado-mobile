@@ -1,24 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<SectionCard /> renders SectionCard correctly 1`] = `
-<View
-  style={
-    [
-      {
-        "marginBottom": "2.2%",
-        "marginLeft": "2.2%",
-        "marginRight": "2.2%",
-        "marginTop": "2.2%",
-      },
-      {
-        "borderBottomLeftRadius": 10,
-        "borderBottomRightRadius": 10,
-        "borderTopLeftRadius": 10,
-        "borderTopRightRadius": 10,
-      },
-    ]
-  }
->
+<View>
   <View
     accessible={true}
     collapsable={false}
@@ -35,13 +18,22 @@ exports[`<SectionCard /> renders SectionCard correctly 1`] = `
     style={
       [
         {
-          "backgroundColor": "#fff",
+          "backgroundColor": "#FFFFFF",
         },
         {
-          "borderBottomLeftRadius": 10,
-          "borderBottomRightRadius": 10,
-          "borderTopLeftRadius": 10,
-          "borderTopRightRadius": 10,
+          "borderBottomLeftRadius": 8,
+          "borderBottomRightRadius": 8,
+          "borderTopLeftRadius": 8,
+          "borderTopRightRadius": 8,
+        },
+        {
+          "shadowColor": "rgba(0, 0, 0, 0.1)",
+          "shadowOffset": {
+            "height": 10,
+            "width": 0,
+          },
+          "shadowOpacity": 1,
+          "shadowRadius": 15,
         },
         {
           "marginBottom": 15,
@@ -105,7 +97,7 @@ exports[`<SectionCard /> renders SectionCard correctly 1`] = `
           ]
         }
       >
-        Sample Section
+        test section
       </Text>
       <Text
         style={
@@ -123,7 +115,7 @@ exports[`<SectionCard /> renders SectionCard correctly 1`] = `
       >
         0
         /
-        10
+        100
          concluídos
       </Text>
       <Text
@@ -172,7 +164,7 @@ exports[`<SectionCard /> renders SectionCard correctly 1`] = `
                 "height": 1,
               },
               {
-                "backgroundColor": "#e0e0e0",
+                "backgroundColor": "#DDD",
               },
             ]
           }
@@ -196,7 +188,7 @@ exports[`<SectionCard /> renders SectionCard correctly 1`] = `
             ]
           }
         >
-          This is a sample section description.
+          this is a test section
         </Text>
         <View
           style={

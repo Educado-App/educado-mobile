@@ -1,44 +1,17 @@
-import { View, Image, Pressable } from 'react-native'
-import React from 'react'
-import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/dev'
-import { useNavigation } from '@react-navigation/native'
-import { AppLoading } from 'expo-app-loading'
-import Text from '../general/Text';
-
-import UpdateDate from './ExploreUpdate'
-
-
-import Collapsible from 'react-native-collapsible';
-import { useEffect } from 'react'
-
+import React, { useEffect, useState } from "react";
+import { View, Text, Image, Pressable } from "react-native";
+import Collapsible from "react-native-collapsible";
+import { useNavigation } from "@react-navigation/native";
+import UpdateDate from "./ExploreUpdate";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-
 import CardLabel from "./CardLabel";
 import CustomRating from "./CustomRating";
 import SubscriptionButton from "./SubscriptionButton";
 import AccesCourseButton from "./AccesCourseButton";
 
-import { ifSubscribed } from '../../api/api'
+export default function ExploreCard({ course, isPublished, subscribed }) {
+  const [isCollapsed, setIsCollapsed] = useState(true);
 
-
-
-export default function ExploreCard({ course, isPublished }) {
-  const [isCollapsed, setIsCollapsed] = React.useState(true);
-  const [isSubscribed, setIsSubscribed] = React.useState(false);
-  const navigation = useNavigation();
-
-  useEffect(() => {
-    async function checkSubscription() {
-      try {
-        const result = await ifSubscribed(course.courseId);
-        setIsSubscribed(result);
-      } catch (error) {
-        console.error("Error checking subscription:", error);
-      }
-    }
-
-    checkSubscription();
-  }, [course.courseId, ifSubscribed(course.courseId), course]);
 
   const getDifficultyLabel = (lvl) => {
     switch (lvl) {
@@ -53,9 +26,41 @@ export default function ExploreCard({ course, isPublished }) {
     }
   };
 
-  return isPublished != false ? (
+  function determineCategory(category) {
+    switch (category) {
+      case "personal finance":
+        return "Finanças pessoais";
+      case "health and workplace safety":
+        return "Saúde e segurança no trabalho";
+      case "sewing":
+        return "Costura";
+      case "electronics":
+        return "Eletrônica";
+      default: "other";
+        return "Outro";
+    }
+  }
+
+
+  const getUpdatedDate = (courseDate) => {
+
+    const date = new Date(courseDate);
+
+    // Get the year, month, day, hours, and minutes from the Date object
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-based
+    const day = date.getDate().toString().padStart(2, '0');
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+
+    // Format the date and time in the desired format
+    return `${year}/${month}/${day}, ${hours}:${minutes}`;
+  };
+
+
+  return isPublished ? (
     <Pressable
-      className="bg-white rounded-lg shadow-[0_0px_2px_#000] mb-4 mx-4 p-6 overflow-hidden"
+      className=" bg-projectWhite rounded-lg shadow-2xl mb-4 mx-4 p-6 overflow-hidden"
       onPress={() => setIsCollapsed(!isCollapsed)}
     >
       <View className="flex-col items-center">
@@ -75,7 +80,7 @@ export default function ExploreCard({ course, isPublished }) {
         <View className="w-full h-[0.5] bg-gray-500 opacity-50 pt-2" />
         <View className="flex-row justify-between w-full items-start">
           <View className="flex-col items-start justify-between">
-            <View className="flex-row items-center justify-start pb-2">
+            <View className="flex-row items-center justify-start pb-2 flex-wrap">
               <CardLabel
                 title={course.category}
                 time={false}
@@ -84,7 +89,7 @@ export default function ExploreCard({ course, isPublished }) {
               />
               <View className="w-2.5" />
               <CardLabel
-                title={course.time}
+                title={course.estimatedHours}
                 time={true}
                 icon={"clock-outline"}
                 color={"gray"}
@@ -116,8 +121,9 @@ export default function ExploreCard({ course, isPublished }) {
 
         <View>
           <View>
+
             {
-              isSubscribed ? (
+              subscribed ? (
                 <AccesCourseButton course={course} />
               ) : (
                 <SubscriptionButton course={course} />
@@ -127,12 +133,12 @@ export default function ExploreCard({ course, isPublished }) {
         </View>
 
         <View>
-          <UpdateDate dateUpdated={course.dateUpdated} />
+          <UpdateDate dateUpdated={getUpdatedDate(course.dateUpdated)} />
         </View>
       </Collapsible>
       <View className=" items-start absolute">
         <View className=" rotate-[315deg] items-center">
-          {isSubscribed ? (
+          {subscribed ? (
             <Text className=" bg-[#f1CC4f] text-xs text-white font-bold px-8 -left-8 -top-4 drop-shadow-sm">
               Inscrito
             </Text>

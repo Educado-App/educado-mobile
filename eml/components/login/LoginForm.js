@@ -12,8 +12,6 @@ import { removeEmojis } from "../general/Validation";
 import Text from "../general/Text";
 
 const LOGIN_TOKEN = "@loginToken";
-const USER_EMAIL = "@userEmail";
-const USER_NAME = "@userName";
 const USER_ID = "@userId";
 
 //When Logout: back button should be disabled!!!!
@@ -54,6 +52,8 @@ export default function LoginForm() {
         .then(async (response) => {
           // Set login token in AsyncStorage and navigate to home screen
           await AsyncStorage.setItem(LOGIN_TOKEN, response.accessToken);
+          await AsyncStorage.setItem(USER_ID, response.user.id);
+
           navigation.navigate("HomeStack");
         })
         .catch((error) => {

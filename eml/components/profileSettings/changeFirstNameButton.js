@@ -8,9 +8,10 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { updateFirstName } from '../../api/userApi.js';
+import { updateUserFields } from '../../api/userApi.js';
 import Text from '../general/Text';
 
+let LOGIN_TOKEN;
 const USER_INFO = '@userInfo';
 
 export default function ProfileComponent() {
@@ -31,6 +32,7 @@ export default function ProfileComponent() {
         setFirstName(fetchedProfile.firstName);
         setLastName(fetchedProfile.lastName);
         setEmail(fetchedProfile.email);
+        LOGIN_TOKEN = await AsyncStorage.getItem('@loginToken');
       }
     } catch (e) {
       console.log(e);
@@ -47,7 +49,7 @@ export default function ProfileComponent() {
       try {
         setIsLoading(true); // Set loading state to true
 
-        await updateFirstName(id, newFirstName);
+        await updateUserFields(id, { firstName: newFirstName }, LOGIN_TOKEN);
 
         // Update the state with the new username and close modal
         setFirstName(newFirstName);

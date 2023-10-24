@@ -9,18 +9,8 @@ import { useNavigation } from '@react-navigation/native';
 import CustomProgressBar from "../../components/exercise/Progressbar";
 import BaseScreen from '../../components/general/BaseScreen';
 import SubscriptionCancel from '../../components/section/CancelSubscriptionButton';
-import { unSubscribeToCourse } from '../../api/api';
+import { unsubscribe } from '../../services/StorageService';
 
-/**
- * Section screen component.
- * @param {object} route - The route object containing the courseId parameter.
- * @returns {JSX.Element} - The section screen JSX elements.
- */
-/**
- * Renders the screen for a specific course section.
- * @param {object} route - The route object containing the course ID.
- * @returns {JSX.Element} - The JSX element for the section screen.
- */
 /**
  * Section screen component that displays a list of sections for a given course.
  * @param {object} route - The route object containing the courseId parameter.
@@ -31,19 +21,14 @@ export default function SectionScreen({ route }) {
   const navigation = useNavigation();
   const [sections, setSections] = useState(null);
   const [course, setCourse] = useState([]);
-  const [modalVisible, setModalVisible] = useState(false);
 
   /**
    * Loads the sections for the given course from the backend.
    * @param {string} id - The id of the course to load sections for.
    */
   async function loadSections(id) {
-    try {
       const sectionData = await StorageService.getSectionList(id);
       setSections(sectionData);
-    } catch (error) {
-      throw new Error("Error loading sections:", error);
-    }
   }
 
   /**
@@ -51,15 +36,11 @@ export default function SectionScreen({ route }) {
    * @param {string} id - The id of the course to load.
    */
   async function getCourse(id) {
-    try {
       const courseData = await StorageService.getCourseId(id);
       setCourse(courseData);
-    } catch (error) {
-      throw new Error("Error loading course:", error);
-    }
   }
 
-  //Fetch courses from backend and replace dummy data!
+  // Fetch courses from backend and replace dummy data!
   useEffect(() => {
     let componentIsMounted = true;
 
@@ -88,7 +69,7 @@ export default function SectionScreen({ route }) {
         onPress: () => console.log("No Pressed"),
         style: "cancel",
       },
-      { text: "Sim", onPress: () => unSubscribeToCourse(courseId) },
+      { text: "Sim", onPress: () => { unsubscribe(courseId); setTimeout(() =>  {navigation.goBack();}, 300 ); }},
     ]);
 
   return (

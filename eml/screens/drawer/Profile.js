@@ -1,4 +1,3 @@
-import * as React from 'react';
 import {View, StyleSheet} from "react-native";
 import LogOutButton from "../../components/profile/LogOutButton";
 import {Feather} from "@expo/vector-icons";

@@ -1,38 +1,31 @@
 import React, { useState, useEffect } from "react";
-import { NavigationContainer, useNavigation } from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { ApplicationProvider, IconRegistry } from "@ui-kitten/components";
-import { Icon } from "@rneui/themed";
-import { TailwindProvider } from "tailwindcss-react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import * as eva from "@eva-design/eva";
-import { EvaIconsPack } from "@ui-kitten/eva-icons";
-
-// Screens
-import CourseScreen from "./screens/courses/CourseScreen";
-import ProfileComponent from "./screens/profile/Profile";
-import LoginScreen from "./screens/login/Login";
-import RegisterScreen from "./screens/register/Register";
-import RightAnswerScreen from "./screens/excercise/RightAnswerScreen";
-import ExerciseScreen from "./screens/excercise/ExerciseScreen";
-import WrongAnswerComponent from "./screens/excercise/WrongAnswerScreen";
-import Explore from "./screens/explore/Explore";
-import ErrorScreen from "./screens/errors/ErrorScreen";
-import SectionCompleteScreen from "./screens/excercise/SectionCompleteScreen";
-import SectionScreen from "./screens/section/SectionScreen";
-import LectureScreen from "./screens/lectures/LectureScreen";
-import Loading from "./components/loading/Loading";
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import CourseScreen from './screens/courses/CourseScreen';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Icon } from '@rneui/themed';
+import ProfileComponent from './screens/profile/Profile';
+import LoginScreen from './screens/login/Login';
+import RegisterScreen from './screens/register/Register';
+import * as eva from '@eva-design/eva';
+import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
+import { EvaIconsPack } from '@ui-kitten/eva-icons';
+import RightAnswerScreen from './screens/excercise/RightAnswerScreen';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import ExerciseScreen from './screens/excercise/ExerciseScreen';
+import WrongAnswerComponent from './screens/excercise/WrongAnswerScreen';
+import Explore from './screens/explore/Explore';
+import { TailwindProvider } from 'tailwindcss-react-native';
+import ErrorScreen from './screens/errors/ErrorScreen';
+import SectionCompleteScreen from './screens/excercise/SectionCompleteScreen';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import SectionScreen from './screens/section/SectionScreen';
+import { isFontsLoaded } from './constants/Fonts';
+import LoadingScreen from "./components/loading/Loading";
 import WelcomeScreen from "./screens/welcome/Welcome";
 import ProfileSettingsScreen from "./screens/profile/ProfileSettings";
-
-// Components
 import NavBar from "./components/navBar/NavBar";
+import LectureScreen from "./screens/lectures/LectureScreen";
 
-// Constants
-import { isFontsLoaded } from "./constants/Fonts";
-
-const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 /**
@@ -42,7 +35,7 @@ const checkLogin = () => {
   if (AsyncStorage.getItem("@login_token") === null) {
     useNavigation().navigate("Login");
   }
-};
+}
 
 function WelcomeStack() {
   return (
@@ -129,76 +122,6 @@ function CourseStack() {
   );
 }
 
-function HomeStack() {
-  checkLogin();
-
-  return (
-    <Tab.Navigator
-      initialRouteName={"Home"}
-      screenOptions={{
-        tabBarActiveTintColor: "black",
-        tabBarActiveBackgroundColor: "#d9d9d9",
-        tabBarStyle: { backgroundColor: "hsl(0, 0%, 92%)" }, //Oneplus menubar color
-      }}
-    >
-      <Tab.Screen
-        //Home
-        name="Casa"
-        component={CourseStack}
-        options={{
-          headerShown: false,
-          tabBarIcon: () => {
-            return (
-              <Icon
-                size={30}
-                name="home"
-                type="material-community"
-                color="#8DD08C"
-              />
-            );
-          },
-        }}
-      />
-      <Tab.Screen
-        //Perfil
-        name="Perfil"
-        component={ProfileComponent}
-        options={{
-          headerShown: false,
-          tabBarIcon: () => {
-            return (
-              <Icon
-                size={30}
-                name="account-circle"
-                type="material-community"
-                color="#8DD08C"
-              />
-            );
-          },
-        }}
-      />
-      <Tab.Screen
-        // Explore
-        name="Explorar"
-        component={Explore}
-        options={{
-          headerShown: false,
-          tabBarIcon: () => {
-            return (
-              <Icon
-                size={30}
-                name="magnify"
-                type="material-community"
-                color="#8DD08C"
-              />
-            );
-          },
-        }}
-      />
-    </Tab.Navigator>
-  );
-}
-
 export function useWelcomeScreenLogic(loadingTime, onResult) {
   setTimeout(() => {
     const fetchData = async () => {
@@ -225,74 +148,74 @@ export function useWelcomeScreenLogic(loadingTime, onResult) {
   }, loadingTime);
 }
 
-// Change InitialRouteName to HomeStack if you want to skip Login Screen
-export default function App() {
-  const fontsLoaded = isFontsLoaded();
-  const [initialRoute, setInitialRoute] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
 
-  // Callback function to handle the results
-  const handleResult = (route, loading) => {
-    setInitialRoute(route);
-    setIsLoading(loading);
-  };
+  export default function App() {
+    const fontsLoaded = isFontsLoaded();
+    const [initialRoute, setInitialRoute] = useState('');
+    const [isLoading, setIsLoading] = useState(true);
 
-  useWelcomeScreenLogic(3000, handleResult);
+    // Callback function to handle the results
+    const handleResult = (route, loading) => {
+      setInitialRoute(route);
+      setIsLoading(loading);
+    };
 
-  // ************** Don't touch this code **************
-  if (!fontsLoaded) {
-    return null;
+    useWelcomeScreenLogic(3000, handleResult);
+
+    // ************** Don't touch this code **************
+    if (!fontsLoaded) {
+      return null;
+    }
+
+    // Makes sure fonts are loaded before rendering the app
+    if (isLoading && fontsLoaded) {
+      return <LoadingScreen />;
+    }
+    // ***************************************************
+
+    return (
+      <TailwindProvider>
+        <>
+          <IconRegistry icons={EvaIconsPack} />
+          <ApplicationProvider {...eva} theme={eva.light}>
+            <NavigationContainer>
+              <Stack.Navigator initialRouteName={initialRoute}>
+                <Stack.Screen
+                  name="WelcomeStack"
+                  component={WelcomeStack}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name="LoginStack"
+                  component={LoginStack}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name="HomeStack"
+                  component={NavBar}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name="Section"
+                  component={SectionScreen}
+                  initialParams={{ course_id: '' }}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name="Lecture"
+                  component={LectureScreen}
+                  initialParams={{ lecture_id: '' }}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name="ProfileSettings"
+                  component={ProfileSettingsScreen}
+                  options={{ headerShown: false }}
+                />
+              </Stack.Navigator>
+            </NavigationContainer>
+          </ApplicationProvider>
+        </>
+      </TailwindProvider>
+    );
   }
-
-  // Makes sure fonts are loaded before rendering the app
-  if (isLoading && fontsLoaded) {
-    return <Loading />;
-  }
-  // ***************************************************
-
-  return (
-    <TailwindProvider>
-      <>
-        <IconRegistry icons={EvaIconsPack} />
-        <ApplicationProvider {...eva} theme={eva.light}>
-          <NavigationContainer>
-            <Stack.Navigator initialRouteName={initialRoute}>
-              <Stack.Screen
-                name={"WelcomeStack"}
-                component={WelcomeStack}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name={"LoginStack"}
-                component={LoginStack}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name={"HomeStack"}
-                component={NavBar} // Use the NavBar component here
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="Section"
-                component={SectionScreen}
-                initialParams={{ course_id: "" }}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="Lecture"
-                component={LectureScreen}
-                initialParams={{ lecture_id: "" }}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name={"ProfileSettings"}
-                component={ProfileSettingsScreen}
-                options={{ headerShown: false }}
-              />
-            </Stack.Navigator>
-          </NavigationContainer>
-        </ApplicationProvider>
-      </>
-    </TailwindProvider>
-  );
-}

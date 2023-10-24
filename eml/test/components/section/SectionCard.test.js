@@ -13,6 +13,7 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
 import renderer from "react-test-renderer";
 import SectionCard from '../../../components/section/SectionCard';
+import { mockDataAsyncStorage } from '../../mockData/mockDataAsyncStorage';
 
 // Mock the useNavigation hook outside the describe block
 jest.mock('@react-navigation/native', () => ({
@@ -25,14 +26,10 @@ jest.mock('@react-navigation/native', () => ({
 let sectionCard;
 
 // Sample section data for testing
-const mockSection = {
-    title: "Sample Section",
-    description: "This is a sample section description.",
-    total: 10
-};
+const mockData = mockDataAsyncStorage();
 
 beforeEach(async () => {
-    sectionCard = renderer.create(<SectionCard section={mockSection} />);
+    sectionCard = renderer.create(<SectionCard section={mockData.section} />);
 });
 
 afterAll(() => {
@@ -42,18 +39,18 @@ afterAll(() => {
 
 describe('<SectionCard />', () => {
     it('Renders correctly with provided data', async () => {
-        const { getByText } = render(<SectionCard section={mockSection} />);
+        const { getByText } = render(<SectionCard section={mockData.section} />);
 
         // Check if title and description are displayed
-        expect(getByText(mockSection.title)).toBeTruthy();
-        expect(getByText(mockSection.description)).toBeTruthy();
+        expect(getByText(mockData.section.title)).toBeTruthy();
+        expect(getByText(mockData.section.description)).toBeTruthy();
     });
 
     it('Displays correct status based on progress', async () => {
-        const { queryByText } = render(<SectionCard section={mockSection} />);
+        const { queryByText } = render(<SectionCard section={mockData.section} />);
 
         // Use a regular expression to match the 0/total pattern
-        const pattern = new RegExp(`0/${mockSection.total}`);
+        const pattern = new RegExp(`0/${mockData.section.total}`);
         expect(queryByText(pattern)).toBeTruthy();
     });
     /**
@@ -72,17 +69,7 @@ describe('<SectionCard />', () => {
          * @property {number} total - The total number of items in the section.
          */
 
-        /**
-         * A sample section object.
-         * @type {Section}
-         */
-        const section = {
-            title: 'Sample Section',
-            description: 'Sample section description',
-            total: 10, // Update with the desired total
-        };
-
-        const { getByTestId } = render(<SectionCard section={section} />);
+        const { getByTestId } = render(<SectionCard section={mockData.section} />);
 
         const collapsibleButton = getByTestId('collapsible');
 

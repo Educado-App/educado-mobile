@@ -10,7 +10,7 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
         "flexShrink": 1,
       },
       {
-        "backgroundColor": "#f1f9fb",
+        "backgroundColor": "#F1F9FB",
       },
     ]
   }
@@ -101,18 +101,7 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
         }
       }
     />
-    <View
-      style={
-        [
-          {
-            "flexDirection": "column",
-          },
-          {
-            "alignItems": "flex-end",
-          },
-        ]
-      }
-    >
+    <View>
       <View
         accessible={true}
         collapsable={false}
@@ -126,10 +115,6 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
         onStartShouldSetResponder={[Function]}
         style={
           {
-            "borderBottomLeftRadius": 8,
-            "borderBottomRightRadius": 8,
-            "borderTopLeftRadius": 8,
-            "borderTopRightRadius": 8,
             "opacity": 1,
             "paddingBottom": 16,
             "paddingLeft": 20,
@@ -140,44 +125,25 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
         testID="subscriptionCancelButton"
       >
         <Text
+          allowFontScaling={false}
+          selectable={false}
           style={
             [
               {
-                "textAlign": "center",
+                "color": "black",
+                "fontSize": 25,
               },
+              undefined,
               {
-                "fontFamily": "Montserrat-Bold",
+                "fontFamily": "material-community",
+                "fontStyle": "normal",
+                "fontWeight": "normal",
               },
-              {
-                "fontSize": 16,
-              },
-              {
-                "color": "#FFFFFF",
-              },
+              {},
             ]
           }
         >
-          <Text
-            allowFontScaling={false}
-            selectable={false}
-            style={
-              [
-                {
-                  "color": "black",
-                  "fontSize": 25,
-                },
-                undefined,
-                {
-                  "fontFamily": "material-community",
-                  "fontStyle": "normal",
-                  "fontWeight": "normal",
-                },
-                {},
-              ]
-            }
-          >
-            󰃀
-          </Text>
+          󰃀
         </Text>
       </View>
     </View>
@@ -305,24 +271,7 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
       }
     >
       <View>
-        <View
-          style={
-            [
-              {
-                "marginBottom": "2.2%",
-                "marginLeft": "2.2%",
-                "marginRight": "2.2%",
-                "marginTop": "2.2%",
-              },
-              {
-                "borderBottomLeftRadius": 10,
-                "borderBottomRightRadius": 10,
-                "borderTopLeftRadius": 10,
-                "borderTopRightRadius": 10,
-              },
-            ]
-          }
-        >
+        <View>
           <View
             accessible={true}
             collapsable={false}
@@ -339,13 +288,22 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
             style={
               [
                 {
-                  "backgroundColor": "#fff",
+                  "backgroundColor": "#FFFFFF",
                 },
                 {
-                  "borderBottomLeftRadius": 10,
-                  "borderBottomRightRadius": 10,
-                  "borderTopLeftRadius": 10,
-                  "borderTopRightRadius": 10,
+                  "borderBottomLeftRadius": 8,
+                  "borderBottomRightRadius": 8,
+                  "borderTopLeftRadius": 8,
+                  "borderTopRightRadius": 8,
+                },
+                {
+                  "shadowColor": "rgba(0, 0, 0, 0.1)",
+                  "shadowOffset": {
+                    "height": 10,
+                    "width": 0,
+                  },
+                  "shadowOpacity": 1,
+                  "shadowRadius": 15,
                 },
                 {
                   "marginBottom": 15,
@@ -409,7 +367,7 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
                   ]
                 }
               >
-                Section 1
+                test section
               </Text>
               <Text
                 style={
@@ -427,7 +385,7 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
               >
                 0
                 /
-                10
+                100
                  concluídos
               </Text>
               <Text
@@ -476,7 +434,7 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
                         "height": 1,
                       },
                       {
-                        "backgroundColor": "#e0e0e0",
+                        "backgroundColor": "#DDD",
                       },
                     ]
                   }
@@ -500,7 +458,7 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
                     ]
                   }
                 >
-                  Description for section 1
+                  this is a test section
                 </Text>
                 <View
                   style={
@@ -586,24 +544,7 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
             </View>
           </View>
         </View>
-        <View
-          style={
-            [
-              {
-                "marginBottom": "2.2%",
-                "marginLeft": "2.2%",
-                "marginRight": "2.2%",
-                "marginTop": "2.2%",
-              },
-              {
-                "borderBottomLeftRadius": 10,
-                "borderBottomRightRadius": 10,
-                "borderTopLeftRadius": 10,
-                "borderTopRightRadius": 10,
-              },
-            ]
-          }
-        >
+        <View>
           <View
             accessible={true}
             collapsable={false}
@@ -620,13 +561,22 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
             style={
               [
                 {
-                  "backgroundColor": "#fff",
+                  "backgroundColor": "#FFFFFF",
                 },
                 {
-                  "borderBottomLeftRadius": 10,
-                  "borderBottomRightRadius": 10,
-                  "borderTopLeftRadius": 10,
-                  "borderTopRightRadius": 10,
+                  "borderBottomLeftRadius": 8,
+                  "borderBottomRightRadius": 8,
+                  "borderTopLeftRadius": 8,
+                  "borderTopRightRadius": 8,
+                },
+                {
+                  "shadowColor": "rgba(0, 0, 0, 0.1)",
+                  "shadowOffset": {
+                    "height": 10,
+                    "width": 0,
+                  },
+                  "shadowOpacity": 1,
+                  "shadowRadius": 15,
                 },
                 {
                   "marginBottom": 15,
@@ -690,7 +640,7 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
                   ]
                 }
               >
-                Section 2
+                test section 2
               </Text>
               <Text
                 style={
@@ -708,7 +658,7 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
               >
                 0
                 /
-                10
+                200
                  concluídos
               </Text>
               <Text
@@ -757,7 +707,7 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
                         "height": 1,
                       },
                       {
-                        "backgroundColor": "#e0e0e0",
+                        "backgroundColor": "#DDD",
                       },
                     ]
                   }
@@ -781,7 +731,7 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
                     ]
                   }
                 >
-                  Description for section 2
+                  this is a test section 2
                 </Text>
                 <View
                   style={
