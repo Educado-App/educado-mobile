@@ -9,9 +9,9 @@ import CustomRating from "./CustomRating";
 import SubscriptionButton from "./SubscriptionButton";
 import AccesCourseButton from "./AccesCourseButton";
 
-export default function ExploreCard({ course, isPublished, subscribed}) {
+export default function ExploreCard({ course, isPublished, subscribed }) {
   const [isCollapsed, setIsCollapsed] = useState(true);
-  
+
 
   const getDifficultyLabel = (lvl) => {
     switch (lvl) {
@@ -26,10 +26,25 @@ export default function ExploreCard({ course, isPublished, subscribed}) {
     }
   };
 
+  function determineCategory(category) {
+    switch (category) {
+      case "personal finance":
+        return "Finanças pessoais";
+      case "health and workplace safety":
+        return "Saúde e segurança no trabalho";
+      case "sewing":
+        return "Costura";
+      case "electronics":
+        return "Eletrônica";
+      default: "other";
+        return "Outro";
+    }
+  }
+
 
   const getUpdatedDate = (courseDate) => {
 
-    const date = new Date(courseDate); 
+    const date = new Date(courseDate);
 
     // Get the year, month, day, hours, and minutes from the Date object
     const year = date.getFullYear();
@@ -45,8 +60,8 @@ export default function ExploreCard({ course, isPublished, subscribed}) {
 
   return isPublished ? (
     <Pressable
-      className="bg-white rounded-lg shadow-[0_0px_2px_#000] mb-4 mx-4 p-6 overflow-hidden"
-      onPress={() => setIsCollapsed(!isCollapsed) }
+      className=" bg-projectWhite rounded-lg shadow-2xl mb-4 mx-4 p-6 overflow-hidden"
+      onPress={() => setIsCollapsed(!isCollapsed)}
     >
       <View className="flex-col items-center">
         <View className="flex-row justify-between w-full items-center">
@@ -65,7 +80,7 @@ export default function ExploreCard({ course, isPublished, subscribed}) {
         <View className="w-full h-[0.5] bg-gray-500 opacity-50 pt-2" />
         <View className="flex-row justify-between w-full items-start">
           <View className="flex-col items-start justify-between">
-            <View className="flex-row items-center justify-start pb-2">
+            <View className="flex-row items-center justify-start pb-2 flex-wrap">
               <CardLabel
                 title={course.category}
                 time={false}
@@ -106,7 +121,7 @@ export default function ExploreCard({ course, isPublished, subscribed}) {
 
         <View>
           <View>
-            
+
             {
               subscribed ? (
                 <AccesCourseButton course={course} />

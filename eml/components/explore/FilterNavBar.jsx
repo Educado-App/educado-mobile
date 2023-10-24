@@ -4,12 +4,12 @@ import { View, Text, Pressable } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
 const categories = [
-  { key: 'category1', label: 'All' },
-  { key: 'category2', label: 'Finance' },
-  { key: 'category3', label: 'Art' },
-  { key: 'category4', label: 'History' },
-  { key: 'category5', label: 'Science' },
-  { key: 'category6', label: 'Mathematics' },
+  { key: 'category0', label: "Todos"},
+  { key: 'category1', label: "Finanças pessoais" },
+  { key: 'category2', label: "Saúde e segurança no trabalho" },
+  { key: 'category3', label: "Costura" },
+  { key: 'category4', label: "Eletrônica" },
+  { key: 'category5', label: "Outro" },
 ];
 
 function FilterNavBar({ onChangeText, onCategoryChange }) {
