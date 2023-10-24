@@ -22,7 +22,7 @@ const USER_INFO = "@userInfo";
  * @returns {React.Element} Component for logging in (login screen)
  */
 export default function LoginForm() {
-
+  
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,6 +31,26 @@ export default function LoginForm() {
   const [emailAlert, setEmailAlert] = useState("");
   // State variable to track password visibility
   const [showPassword, setShowPassword] = useState(false);
+
+  /**
+   * Stores the user info in async storage
+   * @param {*} userInfo: {id, firstName, lastName, email}
+   */
+  async function saveUserInfoLocally(userInfo) {
+    try {
+      const obj = {
+        id: userInfo.id,
+        firstName: userInfo.firstName,
+        lastName: userInfo.lastName,
+        email: userInfo.email,
+      };
+
+      await AsyncStorage.setItem(USER_INFO, JSON.stringify(obj));
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
 
   /**
    * Logs user in with the entered credentials 
@@ -50,10 +70,12 @@ export default function LoginForm() {
       password: password,
     };
 
+
     // Await the response from the backend API for login
     await loginUser(obj).then(async (response) => {
       // Set login token in AsyncStorage and navigate to home screen
       await AsyncStorage.setItem(LOGIN_TOKEN, response.accessToken);
+      await saveUserInfoLocally(response.userInfo);
       navigation.navigate("HomeStack");
     }).catch((error) => {
       switch (error?.error?.code) {
