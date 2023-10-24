@@ -62,8 +62,8 @@ export default function CourseCard({ course }) {
                     <Text className="text-[18px] text-black flex-1 self-center">
                         {course.title ? course.title : 'Título do curso'}
                     </Text>
-                    <View className="flex-2 self-center">
-                        <DownloadCourseButton/>
+                    <View className="flex-2 pr-6">
+                        <DownloadCourseButton />
                     </View>
                 </View>
                 <View className="h-[1] bg-disable m-[2%]" />
