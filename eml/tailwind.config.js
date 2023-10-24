@@ -10,6 +10,7 @@ module.exports = {
         bgPrimary: '#C9E5EC',
         primary: '#5ECCE9',
         secondary: '#F1F9FB',
+        white: '#FFFFFF',
         projectWhite: '#FFFFFF',
         projectBlack: '#383838',
         projectGray: '#A1ACB2',
