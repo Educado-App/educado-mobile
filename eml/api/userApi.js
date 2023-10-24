@@ -5,6 +5,7 @@ const test = 'http://172.30.210.200:8888'; // Change this to your LOCAL IP addre
 const local = 'http://localhost:8888';
 const digitalOcean = 'http://207.154.213.68:8888';
 
+
 const url = test;
 
 /**
@@ -32,7 +33,7 @@ export const registerUser = async (obj) => {
     email: ${obj.email ?? 'undefined'}`);
 
   try {
-    const res = await client.post('/api/signup/user', obj);
+    const res = await client.post('/api/signup/users', obj);
     console.log('User successfully registered');
     return res.data;
   } catch (e) {
@@ -146,4 +147,62 @@ export const updateExerciseStatus = async (
       exercise_id
   );
   return res.data;
+};
+
+/**
+ * Function to send mail to user with code to reset password
+ * @param {Object} email should contain an email, to receive a reset password message
+*/
+export const sendResetPasswordEmail = async (email) => {
+  try {
+    const res = await axios.post(url + '/api/auth/reset-password-request', email);
+    return res.data;
+  } catch (e) {
+    if (e.response.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
+};
+
+
+/**
+ * function to validate the code sent to the user 
+ * @param {Object} obj should contain the following properties:
+ * - email
+ * - token
+*/
+export const validateResetPasswordCode = async (obj) => {
+  try {
+    const res = await axios.post(url + '/api/auth/reset-password-code', obj);
+    return res.data;
+  } catch (e) {
+    if (e.response.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
+
+};
+
+/**
+ * When user enters a new password it should update the password of the user
+ * @param {Object} obj should contain the following properties:
+ * - email
+ * - token
+ * - newPassword
+*/
+export const enterNewPassword = async (obj) => {
+  try {
+  const res = await axios.patch(url + '/api/auth/reset-password', obj);
+  return res.data;
+  } catch (e) {
+    if (e.response.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
 };

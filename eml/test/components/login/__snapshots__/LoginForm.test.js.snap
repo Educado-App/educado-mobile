@@ -42,7 +42,7 @@ exports[`login Check LoginForm renders correctly 1`] = `
             ]
           }
         >
-          Email
+          E-mail
         </Text>
         <Text
           style={
