@@ -10,28 +10,40 @@ const ANIMATION_STATES = {
     DELETE: "delete",
 }
 
-export default function ControllingAnimationProgress() {
+/**
+ * DownloadCourseButton component displays a button that downloads a course
+ * @returns {JSX.Element} - The DownloadCourseButton component
+ */
+export default function DownloadCourseButton() {
     const animationRef = useRef(null);
     const [animationState, setAnimationState] = useState(ANIMATION_STATES.INITIAL);
 
+    // Play animation based on animation state
+    // Hardcoded frame numbers are based on the animation
+    // https://lottiefiles.com/animations/download-ZdWE0VoaZW
     useEffect(() => {
-        if (animationRef.current) {
-            switch (animationState) {
-                case ANIMATION_STATES.INITIAL:
-                    return animationRef.current.play(17, 17);
-                case ANIMATION_STATES.DOWNLOADING:
-                    return animationRef.current.play(18, 77);
-                case ANIMATION_STATES.FINISHING:
-                    setTimeout(() => setAnimationState(ANIMATION_STATES.COMPLETED), 2333);
-                    return animationRef.current.play(78, 148);
-                case ANIMATION_STATES.COMPLETED:
-                    return animationRef.current.play(149, 149);
-                case ANIMATION_STATES.DELETE:
-                    setTimeout(() => setAnimationState(ANIMATION_STATES.INITIAL), 1066);
-                    return animationRef.current.play(110, 78);
-                default:
-                    break;
-            }
+        switch (animationState) {
+            case ANIMATION_STATES.INITIAL:
+                return animationRef.current.play(17, 17);
+
+            case ANIMATION_STATES.DOWNLOADING:
+                return animationRef.current.play(18, 77);
+
+            case ANIMATION_STATES.FINISHING:
+                // 2333ms is the duration of the animation from frame 78 to 148
+                setTimeout(() => setAnimationState(ANIMATION_STATES.COMPLETED), 2333);
+                return animationRef.current.play(78, 148);
+
+            case ANIMATION_STATES.COMPLETED:
+                return animationRef.current.play(149, 149);
+
+            case ANIMATION_STATES.DELETE:
+                // 1066ms is the duration of the animation from frame 110 to 78
+                setTimeout(() => setAnimationState(ANIMATION_STATES.INITIAL), 1066);
+                return animationRef.current.play(110, 78);
+
+            default:
+                break;
         }
     }, [animationState]);
 
@@ -39,24 +51,22 @@ export default function ControllingAnimationProgress() {
         Alert.alert("Baixar curso", "Deseja baixar este curso para acesso offline?", [
             {
                 text: "Cancelar",
-                onPress: () => console.log("Download Cancelled"),
                 style: "cancel",
             },
             {
                 text: "Baixar",
                 onPress: () => {
                     setAnimationState(ANIMATION_STATES.DOWNLOADING);
-                    setTimeout(() => setAnimationState(ANIMATION_STATES.FINISHING), 5000);
+                    // Hardcoded timeout to simulate download
+                    setTimeout(() => setAnimationState(ANIMATION_STATES.FINISHING), Math.floor(Math.random() * 5001));
                 },
             },
         ]);
-
 
     const removeDownloadConfirmation = () =>
         Alert.alert("Remover curso", "Tem certeza de que deseja remover este curso baixado?", [
             {
                 text: "Cancelar",
-                onPress: () => console.log("Cancel Pressed"),
                 style: "cancel",
             },
             {
@@ -67,7 +77,6 @@ export default function ControllingAnimationProgress() {
                 style: "destructive",
             },
         ]);
-
 
     // TODO: Implement download functionality
     const handlePress = () => {
