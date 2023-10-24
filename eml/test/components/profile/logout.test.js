@@ -41,6 +41,33 @@ describe('Logout', () => {
     });
   });
 
+  it('should delete userInfo when logging out', async () => {
+    let profile
+
+    const mockUserInfo = {
+      id: "123",
+      firstName: "Is",
+      lastName: "User",
+      email: "is@user.com",
+    }
+
+    // Set user info
+    AsyncStorage.setItem("@userInfo", mockUserInfo).then(async () => {
+      // Check if user info is set
+      await AsyncStorage.getItem("@userInfo").expect(mockUserInfo);
+      profile = render(<Profile />);
+
+      // Press logout button
+      const LogOutButton = profile.root.findByProps({ testID: "logoutBtn" });
+
+      fireEvent.press(LogOutButton);
+
+      // Check if user info is null after logout
+      const updatedUserInfo = await AsyncStorage.getItem("@userInfo");
+      expect(updatedUserInfo).toBeNull();
+    });
+  });
+
   it('should navigate to login screen when logging out', () => {
     let profile
 

@@ -42,7 +42,7 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
             ]
           }
         >
-          Primeiro nome
+          Nome
         </Text>
         <Text
           style={
@@ -74,7 +74,7 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
           keyboardType="default"
           onChangeText={[Function]}
           passwordGuidelines={false}
-          placeholder="Primeiro nome"
+          placeholder="Nome"
           secureTextEntry={false}
           style={
             [
@@ -269,7 +269,7 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
             ]
           }
         >
-          Email
+          E-mail
         </Text>
         <Text
           style={
@@ -441,7 +441,7 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
             keyboardType="default"
             onChangeText={[Function]}
             passwordGuidelines={false}
-            placeholder="Entre sua senha"
+            placeholder="Insira sua senha"
             secureTextEntry={true}
             style={
               [
@@ -674,7 +674,7 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
               ]
             }
           >
-            Confirmar Senha
+            Confirmar senha
           </Text>
           <Text
             style={
