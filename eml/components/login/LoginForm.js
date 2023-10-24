@@ -14,6 +14,7 @@ import ShowAlert from "../general/ShowAlert";
 
 const LOGIN_TOKEN = "@loginToken";
 const USER_INFO = "@userInfo";
+const USER_ID = "@userId";
 
 //When Logout: back button should be disabled!!!!
 
@@ -46,6 +47,7 @@ export default function LoginForm() {
       };
 
       await AsyncStorage.setItem(USER_INFO, JSON.stringify(obj));
+      await AsyncStorage.setItem(USER_ID, userInfo.id); // needs to be seperate
     } catch (e) {
       console.log(e);
     }
