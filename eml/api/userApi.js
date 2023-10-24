@@ -1,8 +1,7 @@
 import axios from 'axios'
 
 const prod = 'http://educado.somethingnew.dk'
-
-const test = 'http://192.168.0.224:8888' // Change this to your LOCAL IP address when testing.
+const test = 'http://172.30.244.175:8888' // Change this to your LOCAL IP address when testing.
 const local = 'http://localhost:8888'
 const digitalOcean = 'http://207.154.213.68:8888'
 
@@ -148,3 +147,60 @@ export const updateExerciseStatus = async (user_id, course_id, section_id, exerc
   return res.data;
 }
 
+/**
+ * Function to send mail to user with code to reset password
+ * @param {Object} email should contain an email, to receive a reset password message
+*/
+export const sendResetPasswordEmail = async (email) => {
+  try {
+    const res = await axios.post(url + '/api/auth/reset-password-request', email);
+    return res.data;
+  } catch (e) {
+    if (e.response.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
+};
+
+
+/**
+ * function to validate the code sent to the user 
+ * @param {Object} obj should contain the following properties:
+ * - email
+ * - token
+*/
+export const validateResetPasswordCode = async (obj) => {
+  try {
+    const res = await axios.post(url + '/api/auth/reset-password-code', obj);
+    return res.data;
+  } catch (e) {
+    if (e.response.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
+
+};
+
+/**
+ * When user enters a new password it should update the password of the user
+ * @param {Object} obj should contain the following properties:
+ * - email
+ * - token
+ * - newPassword
+*/
+export const enterNewPassword = async (obj) => {
+  try {
+  const res = await axios.patch(url + '/api/auth/reset-password', obj);
+  return res.data;
+  } catch (e) {
+    if (e.response.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
+};
