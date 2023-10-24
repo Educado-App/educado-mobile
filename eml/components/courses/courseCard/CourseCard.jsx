@@ -32,7 +32,7 @@ export default function CourseCard({ course }) {
           <Text className="text-[18px] text-black flex-1 self-center font-montserrat-semi-bold">
             {course.title ? course.title : 'Título do curso'}
           </Text>
-          <View className="flex-2 self-center">
+          <View className="flex-2 pr-6">
             <DownloadCourseButton/>
           </View>
         </View>
