@@ -16,7 +16,12 @@ export default function CourseCard({ course }) {
     const navigation = useNavigation();
     let categoryBr = "";
 
-    // Should maybe be changed to a seperate typescript file instead
+    /**
+     * Determines the icon to be displayed based on the category of the course.
+     * Also changes the category name to portuguese.
+     * @param {string} category - The category of the course.
+     * @returns {string} - The name of the icon to be displayed.
+     */
     function determineIcon(category) {
         switch (category) {
             case "personal finance":
@@ -31,8 +36,11 @@ export default function CourseCard({ course }) {
             case "electronics":
                 categoryBr = "Eletrônica";
                 return "laptop"
+            case "other":
+                categoryBr = "Outro";
+                return "bookshelf"
             default:
-                categoryBr = "Categoria";
+                categoryBr = course.category;
                 return "bookshelf"
         }
     }
