@@ -65,9 +65,30 @@ export const loginUser = async (obj) => {
   }
 };
 
-export const deleteUser = async (user_id) => {
+export const deleteUser = async (user_id, token) => {
   try {
-    const res = await axios.delete(url + `/api/user/delete/` + user_id);
+    const res = await axios.delete(url + `/api/users/` + user_id, {
+      headers: {
+        'Content-Type': 'application/json',
+        'token': token, // Include the token in the headers
+      },
+    });
+    return res.data;
+  } catch (error) {
+    // Handle errors here
+    throw error; // You may want to handle the error or log it
+  }
+};
+
+export const updateUserFields = async (user_id, updateFields, token) => {
+  try {
+    const res = await axios.patch(url + `/api/users/${user_id}`, updateFields, {
+      headers: {
+        'Content-Type': 'application/json',
+        'token': token, // Include the token in the headers
+      },
+    });
+
     return res.data;
   } catch (error) {
     // Handle errors here
