@@ -140,7 +140,7 @@ export default function RegisterForm() {
    * @param {String} email 
    * @param {String} password
    */
-  async function register(firstName, lastName, email, password) {
+  async function register() {
 
     validateInput(firstName, email, password);
 
