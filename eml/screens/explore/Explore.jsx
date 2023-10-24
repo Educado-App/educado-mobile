@@ -141,7 +141,7 @@ function Explore() {
 
   const handleCategoryFilter = (category) => {
     //if category label is "all" it will display all courses, otherwise it will display courses with the selected category
-    if (category === "All") {
+    if (category === "Todos") {
       setSelectedCategory(null); // Set selectedCategory to null to show all items
     } else {
       setSelectedCategory(category); // Set selectedCategory to the selected category label
