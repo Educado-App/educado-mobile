@@ -5,6 +5,7 @@ import Text from '../../../components/general/Text';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import CustomProgressBar from "../../exercise/Progressbar";
 import tailwindConfig from "../../../tailwind.config";
+import DownloadCourseButton from "./DownloadCourseButton";
 
 /**
  * CourseCard component displays a card for a course with its details
@@ -61,6 +62,9 @@ export default function CourseCard({ course }) {
                     <Text className="text-[18px] text-black flex-1 self-center">
                         {course.title ? course.title : 'Título do curso'}
                     </Text>
+                    <View className="flex-2 self-center">
+                        <DownloadCourseButton/>
+                    </View>
                 </View>
                 <View className="h-[1] bg-disable m-[2%]" />
                 <View className="flex-row flex-wrap items-center justify-start">
