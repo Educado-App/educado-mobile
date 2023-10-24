@@ -13,6 +13,7 @@ import Text from "../general/Text";
 
 const LOGIN_TOKEN = "@loginToken";
 const USER_ID = "@userId";
+const USER_INFO = "@userInfo";
 
 //When Logout: back button should be disabled!!!!
 
@@ -21,13 +22,34 @@ const USER_ID = "@userId";
  * @returns {React.Element} Component for logging in (login screen)
  */
 export default function LoginForm() {
-
+  
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const [passwordAlert, setPasswordAlert] = useState("");
   const [emailAlert, setEmailAlert] = useState("");
+
+  /**
+   * Stores the user info in async storage
+   * @param {*} userInfo: {id, firstName, lastName, email}
+   */
+  async function saveUserInfoLocally(userInfo) {
+    try {
+      const obj = {
+        id: userInfo.id,
+        firstName: userInfo.firstName,
+        lastName: userInfo.lastName,
+        email: userInfo.email,
+      };
+
+      await AsyncStorage.setItem(USER_INFO, JSON.stringify(obj));
+      await AsyncStorage.setItem(USER_ID, userInfo.id.toString());
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
 
   /**
    * Logs user in with the entered credentials 
@@ -52,8 +74,7 @@ export default function LoginForm() {
         .then(async (response) => {
           // Set login token in AsyncStorage and navigate to home screen
           await AsyncStorage.setItem(LOGIN_TOKEN, response.accessToken);
-          await AsyncStorage.setItem(USER_ID, response.user.id);
-
+          await saveUserInfoLocally(response.userInfo);
           navigation.navigate("HomeStack");
         })
         .catch((error) => {
