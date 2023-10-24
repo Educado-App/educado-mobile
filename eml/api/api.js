@@ -6,6 +6,8 @@ const digitalOcean = "http://207.154.213.68:8888";
 
 const url = testUrl;
 
+//this is just a comment to trigg github action
+
 /*** COURS, SECTIONS AND EXERCISES ***/
 
 export const getCourseByid = async (courseId) => {
