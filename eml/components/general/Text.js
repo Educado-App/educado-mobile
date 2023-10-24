@@ -4,6 +4,6 @@ import React from "react";
 export default function Text(props) {
   const children = props.children;
   return (
-    <RN.Text {...props} className="font-sans">{props.children}</RN.Text>
+    <RN.Text {...props} className="font-sans text-projectBlack text-body">{props.children}</RN.Text>
   )
 }

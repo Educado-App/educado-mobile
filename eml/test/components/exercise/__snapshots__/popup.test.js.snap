@@ -1,0 +1,273 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PopUp renders PopUp correctly for correct answer 1`] = `
+[
+  <View
+    collapsable={false}
+    style={
+      {
+        "backgroundColor": "#C9E5EC",
+        "borderBottomLeftRadius": 16,
+        "borderBottomRightRadius": 16,
+        "borderTopLeftRadius": 16,
+        "borderTopRightRadius": 16,
+        "bottom": 0,
+        "flexDirection": "row",
+        "height": "12.5%",
+        "justifyContent": "space-between",
+        "opacity": 0,
+        "paddingBottom": 16,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 16,
+        "position": "absolute",
+        "shadowColor": "#383838",
+        "shadowOffset": {
+          "height": 6,
+          "width": 0,
+        },
+        "shadowOpacity": 1,
+        "shadowRadius": 10,
+        "transform": [
+          {
+            "translateY": 100,
+          },
+        ],
+        "width": 750,
+        "zIndex": 20,
+      }
+    }
+    testID="PopUp"
+  >
+    <View
+      style={
+        [
+          {
+            "width": "83.333333%",
+          },
+        ]
+      }
+    >
+      <Text
+        style={
+          [
+            {
+              "fontFamily": "Montserrat-Regular",
+            },
+            {
+              "color": "#383838",
+            },
+            {
+              "fontSize": 16,
+            },
+            [
+              {
+                "fontFamily": "Montserrat-Bold",
+              },
+              {
+                "fontSize": 14,
+                "lineHeight": 20,
+              },
+              {
+                "color": "#00897B",
+              },
+            ],
+          ]
+        }
+        testID="Phrase"
+      >
+        Test Phrase
+      </Text>
+    </View>
+    <Text
+      style={
+        [
+          {
+            "fontFamily": "Montserrat-Regular",
+          },
+          {
+            "color": "#383838",
+          },
+          {
+            "fontSize": 16,
+          },
+          [
+            {
+              "fontFamily": "Montserrat-Bold",
+            },
+            {
+              "fontSize": 14,
+              "lineHeight": 20,
+            },
+            {
+              "color": "#00897B",
+            },
+          ],
+        ]
+      }
+      testID="Xp"
+    >
+      100
+      xp
+    </Text>
+  </View>,
+  <View
+    collapsable={false}
+    style={
+      {
+        "bottom": 0,
+        "height": "12.5%",
+        "opacity": 0,
+        "position": "absolute",
+        "shadowColor": "#383838",
+        "shadowOffset": {
+          "height": 6,
+          "width": 0,
+        },
+        "shadowOpacity": 1,
+        "shadowRadius": 10,
+        "transform": [
+          {
+            "translateY": 100,
+          },
+          {
+            "translateX": 85,
+          },
+        ],
+        "width": 750,
+        "zIndex": 20,
+      }
+    }
+    testID="XpPopUp"
+  >
+    <Text
+      collapsable={false}
+      style={
+        {
+          "color": "#00897B",
+          "fontFamily": "Montserrat-Bold",
+          "fontSize": 18,
+          "lineHeight": 28,
+          "opacity": 1,
+          "textAlign": "center",
+        }
+      }
+    >
+      100
+      xp
+    </Text>
+  </View>,
+]
+`;
+
+exports[`PopUp renders PopUp correctly for incorrect answer 1`] = `
+[
+  <View
+    collapsable={false}
+    style={
+      {
+        "backgroundColor": "#C9E5EC",
+        "borderBottomLeftRadius": 16,
+        "borderBottomRightRadius": 16,
+        "borderTopLeftRadius": 16,
+        "borderTopRightRadius": 16,
+        "bottom": 0,
+        "flexDirection": "row",
+        "height": "12.5%",
+        "justifyContent": "space-between",
+        "opacity": 0,
+        "paddingBottom": 16,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 16,
+        "position": "absolute",
+        "shadowColor": "#383838",
+        "shadowOffset": {
+          "height": 6,
+          "width": 0,
+        },
+        "shadowOpacity": 1,
+        "shadowRadius": 10,
+        "transform": [
+          {
+            "translateY": 100,
+          },
+        ],
+        "width": 750,
+        "zIndex": 20,
+      }
+    }
+    testID="PopUp"
+  >
+    <View
+      style={
+        [
+          {
+            "width": "100%",
+          },
+        ]
+      }
+    >
+      <Text
+        style={
+          [
+            {
+              "fontFamily": "Montserrat-Regular",
+            },
+            {
+              "color": "#383838",
+            },
+            {
+              "fontSize": 16,
+            },
+            [
+              {
+                "fontFamily": "Montserrat-Bold",
+              },
+              {
+                "fontSize": 14,
+                "lineHeight": 20,
+              },
+              {
+                "color": "#CF6679",
+              },
+            ],
+          ]
+        }
+        testID="Phrase"
+      >
+        Test Phrase
+      </Text>
+    </View>
+  </View>,
+  <View
+    collapsable={false}
+    style={
+      {
+        "bottom": 0,
+        "height": "12.5%",
+        "opacity": 0,
+        "position": "absolute",
+        "shadowColor": "#383838",
+        "shadowOffset": {
+          "height": 6,
+          "width": 0,
+        },
+        "shadowOpacity": 1,
+        "shadowRadius": 10,
+        "transform": [
+          {
+            "translateY": 100,
+          },
+          {
+            "translateX": 85,
+          },
+        ],
+        "width": 750,
+        "zIndex": 20,
+      }
+    }
+    testID="XpPopUp"
+  />,
+]
+`;

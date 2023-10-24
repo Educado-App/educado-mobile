@@ -5,6 +5,7 @@ const testExpo = "http://172.30.210.200:8888"; //Change to local expo ip
 const digitalOcean = "http://207.154.213.68:8888";
 
 const url = testUrl;
+const url = testUrl;
 
 /*** COURS, SECTIONS AND EXERCISES ***/
 

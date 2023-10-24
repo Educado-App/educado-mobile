@@ -1,16 +1,23 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
-import { ScrollView, View, Text, Image, TouchableOpacity } from 'react-native';
-import LeaveButton from '../../components/exercise/LeaveButton';
+import { ScrollView, View, TouchableOpacity, Dimensions } from "react-native";
 import { useNavigation, useRoute } from '@react-navigation/native';
-import CustomProgressBar from '../../components/exercise/Progressbar';
-import { RadioButton } from 'react-native-paper';
-import ExerciseInfo from '../../components/exercise/ExerciseInfo';
+import LeaveButton from '../../components/exercise/LeaveButton';
+import Text from '../../components/general/Text';
+import CustomProgressBar from "../../components/exercise/Progressbar";
+import { RadioButton } from "react-native-paper";
+import ExerciseInfo from "../../components/exercise/ExerciseInfo";
+import { ScreenWidth } from "@rneui/base";
 import { Icon } from '@rneui/themed';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import PopUp from '../../components/gamification/PopUp';
+import { StatusBar } from 'expo-status-bar';
 import { getExerciseByid, getSectionByid, getCourse } from '../../api/api';
 
+// givenId is used for testing purposes, in the future an exercise object should be passed by the previous screen
 export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7'}) {
+
+  const xp = Math.floor(Math.random() * (10 - 5 + 1)) + 5; // Replace with intricate point system
+
   const navigation = useNavigation();
   const route = useRoute();
 
@@ -21,14 +28,27 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7'}) 
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [buttonClassName, setButtonClassName] = useState('');
   const [showFeedback, setShowFeedback] = useState(false);
+  const [buttonText, setButtonText] = useState("Confirmar Resposta"); // Used to change the text of a button
+  const [isPopUpVisible, setIsPopUpVisible] = useState(false); // Used to render the pop up
+  const [isCorrectAnswer, setIsCorrectAnswer] = useState(false);
 
   const handleAnswerSelect = (answerIndex) => {
     setSelectedAnswer(answerIndex);
   };
 
   function handleReviewAnswer(selectedAnswer) {
-    setButtonClassName(selectedAnswer ? 'bg-projectGreen' : 'bg-projectRed');
+    const continueText = "Continuar";
+    setIsCorrectAnswer(selectedAnswer);
+
+    setButtonClassName(
+      `bg-project${selectedAnswer ? 'Green' : 'Red'}`
+    );
+
     setShowFeedback(true);
+    setButtonText(continueText);
+    if (buttonText !== continueText) {
+      setIsPopUpVisible(true);
+    }
   }
 
   useEffect(() => {
@@ -49,9 +69,8 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7'}) 
     
 
   return (
-    <View className='bg-secondary flex-1 justify-between'>
-      <SafeAreaView className='justify-between'>
-        <View className='flex-row items-center justify-around'>
+    <SafeAreaView className="h-screen bg-secondary">
+      <View className='flex-row items-center justify-around top-0'>
           <LeaveButton
             navigationPlace='Course'
             courseId={exerciseData.courseId}
@@ -61,15 +80,17 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7'}) 
 
         {hasData === false ? (
           // No data
-          <Text> Sem dados</Text>
+          <Text>Sem dados</Text>
         ) : (
           <View className='items-center'>
-            <Text testID='exerciseQuestion' className='pt-6 pb-10 text-center text-body font-montserrat-bold text-projectBlack w-11/12'>
+            <Text testID='exerciseQuestion' 
+              className='pt-6 pb-10 text-center text-body font-sans-bold text-projectBlack w-11/12'>
               {exerciseData.description}
             </Text>
+
             <View className={`${buttonClassName} items-center justify-center h-96 w-full`}>
-              <ScrollView>
-                {/*Map through the answers and render each one*/}
+              <ScrollView className="py-2">
+                {/* Map through the answers and render each one */}
                 {exerciseData.answers.map((answer, index) => (
                   <View
                     key={index}
@@ -77,6 +98,7 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7'}) 
                   >
                     <View>
                       <RadioButton.Android
+                        disabled={showFeedback}
                         value={index}
                         status={
                           selectedAnswer === index ? 'checked' : 'unchecked'
@@ -86,10 +108,12 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7'}) 
                         uncheckedColor='#5ECCE9'
                       />
                     </View>
+
                     <View>
-                      <TouchableOpacity onPress={() => handleAnswerSelect(index)}>
+                      <TouchableOpacity onPress={() => handleAnswerSelect(index)} disabled={showFeedback}>
                         <Text className='pt-2 pb-1 w-72 font-montserrat text-body text-projectBlack'>{answer.text}</Text>
                       </TouchableOpacity>
+
                       {showFeedback ? (
                         <View className={`flex-row pb-2 w-fit rounded-medium ${answer.isCorrect ? 'bg-projectGreen' : 'bg-projectRed'}`}>
                           <View className='pl-2 pt-1'>
@@ -111,7 +135,7 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7'}) 
                               )}  
                             </View>                        
                           </View>
-                          <Text className={`w-72 pl-1 pt-2 pr-2 font-montserrat text-caption-medium ${answer.isCorrect ? 'text-success' : 'text-error'}`}>{answer.feedback}</Text>
+                          <Text className={`w-72 pl-1 pt-2 pr-2 text-caption-medium ${answer.isCorrect ? 'text-success' : 'text-error'}`}>{answer.feedback}</Text>
                         </View>
                       ) : null}
                     </View>
@@ -120,20 +144,79 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7'}) 
 
               </ScrollView>
             </View>
-            <View className='px-6 pt-8 w-screen'>
-              <TouchableOpacity 
+
+            <View className='px-6 pt-10 w-screen'>
+              <TouchableOpacity
+                disabled={selectedAnswer === null ? true : false}
                 className={`${selectedAnswer !== null ? 'opacity-100' : 'opacity-30'} bg-primary px-10 py-4 rounded-medium`}
                 onPress={() => handleReviewAnswer(exerciseData.answers[selectedAnswer].isCorrect)}
               >
-                <Text className='text-center font-montserrat-bold text-body text-projectWhite'>Confirmar resposta</Text>
+                <Text className='text-center font-sans-bold text-body text-projectWhite'>{buttonText}</Text>
               </TouchableOpacity>
             </View>
           </View>
         )}
 
+        {isPopUpVisible ? (
+          <PopUp xpAmount={xp} isCorrectAnswer={isCorrectAnswer} />
+        ) : null}
+
         <ExerciseInfo courseId={courseData.title} sectionId={sectionData.title} />
         <StatusBar style='auto' />
       </SafeAreaView>
-    </View>
   );
 }
+
+/*
+async function getExercise() {
+  const exercise = await StorageService.getNextExercise(sectionId);
+
+  if (exercise !== null) {
+    console.log(exercise);
+
+    if (exercise === true) {
+      navigation.navigate("SectionComplete", {
+        courseId: courseId,
+        sectionId: sectionId,
+      });
+    } else {
+      setExerciseData(exercise);
+    }
+  } else {
+    navigation.navigate("ErrorScreen");
+  }
+}*/
+
+/*async function isSectionComplete(courseId, sectionId) {
+const course = await StorageService.getCourseById(courseId);
+const sections = course.sections;
+
+for (let i = 0; i < sections.length; i++) {
+  console.log("Section is complete: ", sections[i].isComplete);
+  if (sections[i].id === sectionId) {
+    return sections[i].isComplete;
+  }
+}
+}
+
+async function getExercise() {
+  // Instead of calling StorageService.getNextExercise, use the dummy data
+  const exercise = dummyExerciseData;
+
+  if (exercise !== null) {
+    const courseId = exercise.courseId || "defaultCourseId";
+    const sectionId = exercise.sectionId || "defaultSectionId";
+
+    if (exercise === true) {
+        navigation.navigate("SectionComplete", {
+        courseId: courseId,
+        sectionId: sectionId,
+      });
+    } else {
+      setExerciseData(exercise);
+    }
+  } else {
+    navigation.navigate("ErrorScreen");
+  }
+}
+*/
