@@ -26,6 +26,7 @@ export default function ExploreCard({ course, isPublished, subscribed }) {
     }
   };
 
+  // not implemented yet, since categories in db is in portuguese, not english
   function determineCategory(category) {
     switch (category) {
       case "personal finance":
