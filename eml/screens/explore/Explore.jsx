@@ -65,10 +65,10 @@ function Explore() {
     }
   }
 
-/**
-* Asynchronous function that loads the courses from storage and updates the state.
-* @returns {void}
-*/
+  /**
+  * Asynchronous function that loads the courses from storage and updates the state.
+  * @returns {void}
+  */
   async function loadCourses() {
     const courseData = await StorageService.getCourseList();
     if (shouldUpdate(courses, courseData)) {
@@ -107,7 +107,7 @@ function Explore() {
     return results;
   }
 
-  useEffect( () => {
+  useEffect(() => {
     // this makes sure loadcourses is called when the screen is focused
     const update = navigation.addListener('focus', () => {
       loadCourses();
@@ -117,10 +117,10 @@ function Explore() {
     fetchSubscriptionsForFilteredCourses().then((results) => {
       setIsSubscribed(results);
     });
-    return update; 
+    return update;
 
   }, [navigation, subCourses]);
-  
+
   ///---------------------------------------------///
 
   // Function to filter courses based on searchText or selectedCategory
@@ -160,7 +160,7 @@ function Explore() {
           className="w-8 h-8 mr-2"
         />
         <Text className="text-xl font-bold">Explorar cursos</Text>
-        
+
       </View>
 
 
@@ -173,7 +173,7 @@ function Explore() {
           {courses && filteredCourses && filteredCourses.map((course, index) => (
             <ExploreCard
               key={index}
-              isPublished={true}
+              isPublished={course.published}
               subscribed={isSubscribed[index]}
               course={course}
             ></ExploreCard>
