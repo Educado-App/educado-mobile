@@ -6,12 +6,8 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import CardLabel from "./CardLabel";
 import CustomRating from "./CustomRating";
 import SubscriptionButton from "./SubscriptionButton";
-<<<<<<< Updated upstream
 import AccessCourseButton from "./AccessCourseButton";
-=======
-import AccesCourseButton from "./AccesCourseButton";
 import { determineCategory, determineIcon, getDifficultyLabel, getUpdatedDate } from "../../services/utilityFunctions";
->>>>>>> Stashed changes
 
 export default function ExploreCard({ course, isPublished, subscribed }) {
   const [isCollapsed, setIsCollapsed] = useState(true);

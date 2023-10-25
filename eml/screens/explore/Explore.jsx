@@ -5,12 +5,9 @@ import FilterNavBar from '../../components/explore/FilterNavBar';
 import ExploreCard from '../../components/explore/ExploreCard';
 import * as StorageService from '../../services/StorageService';
 import { useNavigation } from '@react-navigation/native';
-<<<<<<< Updated upstream
 import BaseScreen from "../../components/general/BaseScreen";
 import IconHeader from "../../components/general/IconHeader";
-=======
 import { shouldUpdate, determineCategory } from '../../services/utilityFunctions';
->>>>>>> Stashed changes
 
 export default function Explore() {
 
