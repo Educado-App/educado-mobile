@@ -1,3 +1,5 @@
+/** Utility functions used in Explore and Course screens **/
+
 export function getDifficultyLabel(lvl) {
   switch (lvl) {
     case 1:
