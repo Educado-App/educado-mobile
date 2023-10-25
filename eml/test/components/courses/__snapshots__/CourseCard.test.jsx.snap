@@ -109,6 +109,12 @@ exports[`CourseCard renders CourseCard correctly 1`] = `
             {
               "fontFamily": "Montserrat-Regular",
             },
+            {
+              "color": "#383838",
+            },
+            {
+              "fontSize": 16,
+            },
             [
               {
                 "fontSize": 18,
@@ -203,6 +209,12 @@ exports[`CourseCard renders CourseCard correctly 1`] = `
               {
                 "fontFamily": "Montserrat-Regular",
               },
+              {
+                "color": "#383838",
+              },
+              {
+                "fontSize": 16,
+              },
               [
                 {
                   "marginLeft": "2.5%",
@@ -257,6 +269,12 @@ exports[`CourseCard renders CourseCard correctly 1`] = `
             [
               {
                 "fontFamily": "Montserrat-Regular",
+              },
+              {
+                "color": "#383838",
+              },
+              {
+                "fontSize": 16,
               },
               [
                 {

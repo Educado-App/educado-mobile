@@ -207,6 +207,13 @@ export default function App() {
                 component={ProfileSettingsScreen}
                 options={{ headerShown: false }}
               />
+              <Stack.Screen
+                name="Exercise"
+                component={ExerciseScreen}
+                options={{
+                  headerShown: false,
+                }}
+              />
             </Stack.Navigator>
           </NavigationContainer>
         </ApplicationProvider>
