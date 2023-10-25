@@ -5,8 +5,12 @@ import FilterNavBar from '../../components/explore/FilterNavBar';
 import ExploreCard from '../../components/explore/ExploreCard';
 import * as StorageService from '../../services/StorageService';
 import { useNavigation } from '@react-navigation/native';
+<<<<<<< Updated upstream
 import BaseScreen from "../../components/general/BaseScreen";
 import IconHeader from "../../components/general/IconHeader";
+=======
+import { shouldUpdate, determineCategory } from '../../services/utilityFunctions';
+>>>>>>> Stashed changes
 
 export default function Explore() {
 
@@ -23,32 +27,6 @@ export default function Explore() {
   const [refreshing, setRefreshing] = useState(false);
   const navigation = useNavigation()
 
-
-  /**
-* Determines if the two arrays of courses are different and require an update.
-* @param {Array} courses1 - The first array of courses, typically representing the current state.
-* @param {Array} courses2 - The second array of courses, typically representing the new fetched data.
-* @returns {boolean} - Returns true if the two arrays are different and an update is required, otherwise false.
-*/
-  function shouldUpdate(courses1, courses2) {
-    // If both arrays are empty, they are equal, but should still update
-    if (courses1.length === 0 && courses2.length === 0) {
-      return true;
-    }
-
-    // If the lengths are different, they are not equal
-    if (courses1.length !== courses2.length) {
-      return true;
-    }
-
-    // If the IDs are different, they are not equal
-    for (let i = 0; i < courses1.length; i++) {
-      if (courses1[i].id !== courses2[i].id) {
-        return true;
-      }
-    }
-    return false;
-  }
 
   /**
   * Asynchronous function that loads the subscribed courses from storage and updates the state.
@@ -123,22 +101,6 @@ export default function Explore() {
   }, [navigation, subCourses]);
 
   ///---------------------------------------------///
-
-  // Function to dermine category
-  function determineCategory(category) {
-    switch (category) {
-      case "personal finance":
-        return "Finanças pessoais";
-      case "health and workplace safety":
-        return "Saúde e segurança no trabalho";
-      case "sewing":
-        return "Costura";
-      case "electronics":
-        return "Eletrônica";
-      default: "other";
-        return "Outro";
-    }
-  }
 
   // Function to filter courses based on searchText or selectedCategory
 

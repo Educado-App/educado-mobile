@@ -216,7 +216,7 @@ exports[`CourseCard renders CourseCard correctly 1`] = `
             ]
           }
         >
-          categoria
+          Outro
         </Text>
       </View>
       <View

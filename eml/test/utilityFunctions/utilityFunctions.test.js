@@ -1,11 +1,13 @@
-// utilityFunctions.test.js
+// Tests for utility functions used in ExploreCard.jsx, Explore.jsx and CourseCard.jsx
+
+
 
 import {
   getDifficultyLabel,
   determineCategory,
   determineIcon,
   getUpdatedDate,
-} from './utilityFunctions';
+} from '../../services/utilityFunctions';
 
 describe('ExploreCard', () => {
 
