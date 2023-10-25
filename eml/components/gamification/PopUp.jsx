@@ -1,19 +1,18 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Animated, Easing } from 'react-native';
 import Text from '../general/Text';
 import { generateSuccessPhrases, generateEncouragementPhrases } from '../../constants/PopUpPhrases';
 import { getUserInfo } from '../../services/StorageService';
 
 export default function PopUp({ xpAmount, isCorrectAnswer }) {
-  let randomPhrase = "";
-  let firstName = "";
 
   const animatedPopUpValue = new Animated.Value(0);
   const animatedXpValue = new Animated.Value(0);
   const opacityValue = new Animated.Value(1);
   const randomVariation = Math.random() * 150; // Adjust the range as needed
+  const [randomPhrase, setRandomPhrase] = useState('');
 
-  const getRandomPhrase = () => {
+  const getRandomPhrase = (firstName) => {
     let randomIndex = 0;
 
     const phrases = isCorrectAnswer
@@ -21,15 +20,17 @@ export default function PopUp({ xpAmount, isCorrectAnswer }) {
       : generateEncouragementPhrases(firstName);
 
     randomIndex = Math.floor(Math.random() * phrases.length);
-    randomPhrase = phrases[randomIndex];
+    let randomPhrase = phrases[randomIndex];
     if (randomPhrase.length > 69) {
       randomPhrase = randomPhrase.substring(0, 69) + "...";
     }
+
+    return randomPhrase;
   };
 
   const fetchUserFirstName = async () => {
     const userInfo = await getUserInfo();
-    firstName = userInfo.firstName;
+    return userInfo.firstName;
   };
 
   const customEasing = (value) => {
@@ -89,11 +90,15 @@ export default function PopUp({ xpAmount, isCorrectAnswer }) {
     });
   };
 
-  fetchUserFirstName();
-  getRandomPhrase();
+  useEffect(() => {
+    fetchUserFirstName().then((firstName) => {
+      setRandomPhrase( getRandomPhrase(firstName));
+    });
+  }, []);
+
   startPopUpAnimation();
   startXpAnimation();
-
+  
   return (
     <>
       {/* Pop Up */}
