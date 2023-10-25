@@ -23,7 +23,7 @@ const USER_ID = "@userId";
  * @returns {React.Element} Component for logging in (login screen)
  */
 export default function LoginForm() {
-  
+
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -77,7 +77,7 @@ export default function LoginForm() {
     await loginUser(obj).then(async (response) => {
       // Set login token in AsyncStorage and navigate to home screen
       await AsyncStorage.setItem(LOGIN_TOKEN, response.accessToken);
-      await saveUserInfoLocally(response.userInfo);
+      await saveUserInfoLocally(response.user);
       navigation.navigate("HomeStack");
     }).catch((error) => {
       switch (error?.error?.code) {
