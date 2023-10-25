@@ -42,15 +42,15 @@ function FilterNavBar({ onChangeText, onCategoryChange }) {
                   onPress={() => handleCategorySelect(category.label)}
                   className={`${
                     selectedCategory === category.label
-                      ? 'bg-primary border-primary text-white'
-                      : 'border-2 border-gray text-gray'
-                    } px-2 py-2 rounded-lg border-[1px] mr-2 items-center justify-center`}
+                      ? 'bg-primary border-primary text-projectWhite'
+                      : 'border-2 border-projectGray text-gray'
+                    } px-2 py-2 rounded-lg border-projectGray border-[1px] mr-2 items-center justify-center`}
                 >
                   <Text
                     className={`${
                       selectedCategory === category.label
-                        ? 'text-white font-bold'
-                        : 'text-gray'
+                        ? 'text-projectWhite font-bold'
+                        : 'text-projectGray'
                       }`}
                   >{category.label}</Text>
                 </Pressable>
