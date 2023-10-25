@@ -12,6 +12,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import PopUp from '../../components/gamification/PopUp';
 import { StatusBar } from 'expo-status-bar';
 import { getExerciseByid, getSectionByid, getCourse } from '../../api/api';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 // givenId is used for testing purposes, in the future an exercise object should be passed by the previous screen
 export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7'}) {
@@ -71,10 +72,10 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7'}) 
   return (
     <SafeAreaView className="h-screen bg-secondary">
       <View className='flex-row items-center justify-around top-0'>
-          <LeaveButton
-            navigationPlace='Course'
-            courseId={exerciseData.courseId}
-          ></LeaveButton>
+        {/* Back Button */}
+        <TouchableOpacity className="pr-3" onPress={() => navigation.goBack()}>
+          <MaterialCommunityIcons name="chevron-left" size={25} color="black" />
+        </TouchableOpacity>
           <CustomProgressBar progress={50} width={65} height={1.2}></CustomProgressBar>
         </View>
 
