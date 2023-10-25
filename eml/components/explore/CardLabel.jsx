@@ -1,0 +1,24 @@
+import React from 'react';
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { View, Text } from 'react-native';
+
+/**
+ * This component is used to display a label in a course card.
+ * @param title - The text of the label.
+ * @param icon - The icon of the label.
+ * @param color - The color of the label and icon.
+ * @param time - Boolean value to determine to render the time label.
+ * @returns {JSX.Element} - Returns a JSX element.
+ */
+const CardLabel = ({title, icon, color = "gray", time = false}) => {
+    const displayTitle = time ? `${title} Horas` : title;
+
+    return ( 
+        <View className="flex-row items-center justify-start">
+            <MaterialCommunityIcons name={icon} size={13} color={color} />
+            <Text className="pl-1 text-xs" style={{color: color}}>{displayTitle}</Text>
+        </View>
+    );
+}
+ 
+export default CardLabel;
