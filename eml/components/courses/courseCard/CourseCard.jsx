@@ -1,4 +1,4 @@
-import { View, Image, Pressable, Dimensions } from 'react-native';
+import { View, Pressable } from 'react-native';
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import Text from '../../../components/general/Text';
@@ -16,14 +16,6 @@ import { determineIcon, determineCategory } from '../../../services/utilityFunct
  */
 export default function CourseCard({ course }) {
     const navigation = useNavigation();
-
-    /**
-     * Determines the icon to be displayed based on the category of the course.
-     * Also changes the category name to portuguese.
-     * @param {string} category - The category of the course.
-     * @returns {string} - The name of the icon to be displayed.
-     */
- 
 
     return (
         <Pressable testID="courseCard"

@@ -10,6 +10,10 @@ import tailwindConfig from "../../tailwind.config";
 
 const Tab = createBottomTabNavigator();
 
+/**
+ * This component is used to display the navigation bar at the bottom of the screen.
+ * @returns {JSX.Element} - Returns a JSX element.
+ */
 export default function NavBar() {
 
   return (

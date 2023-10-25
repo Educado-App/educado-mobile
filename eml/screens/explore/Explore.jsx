@@ -9,6 +9,10 @@ import BaseScreen from "../../components/general/BaseScreen";
 import IconHeader from "../../components/general/IconHeader";
 import { shouldUpdate, determineCategory } from '../../services/utilityFunctions';
 
+/**
+ * Explore screen displays all courses and allows the user to filter them by category or search text.
+ * @returns {JSX.Element} - Rendered component
+ */
 export default function Explore() {
 
   // Search text state

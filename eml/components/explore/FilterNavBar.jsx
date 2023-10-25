@@ -2,16 +2,14 @@ import React, { useState } from 'react';
 import SearchBar from './SearchBar'; 
 import { View, Text, Pressable } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import { categories } from "./Categories";
 
-const categories = [
-  { key: 'category0', label: "Todos"},
-  { key: 'category1', label: "Finanças pessoais" },
-  { key: 'category2', label: "Saúde e segurança no trabalho" },
-  { key: 'category3', label: "Costura" },
-  { key: 'category4', label: "Eletrônica" },
-  { key: 'category5', label: "Outro" },
-];
-
+/**
+ * FilterNavBar component displays a search bar and a list of categories.
+ * @param onChangeText - Callback function called when the text in the search bar changes.
+ * @param onCategoryChange - Callback function called when a category is selected.
+ * @returns {JSX.Element} - Rendered component
+ */
 function FilterNavBar({ onChangeText, onCategoryChange }) {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [searchText, setSearchText] = useState('');

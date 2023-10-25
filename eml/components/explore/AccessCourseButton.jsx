@@ -2,6 +2,11 @@ import React from 'react';
 import { View, Pressable, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
+/**
+ * AccessCourseButton component displays a button to access a course
+ * @param course - Course object containing course details
+ * @returns {JSX.Element} - Rendered component
+ */
 const AccessCourseButton = ({ course }) => {
 
 const navigation = useNavigation();

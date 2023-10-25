@@ -4,6 +4,11 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Text from '../general/Text';
 import tailwindConfig from "../../tailwind.config";
 
+/**
+ * CustomRating component displays a star rating based on a number
+ * @param rating - Number between 0 and 5
+ * @returns {JSX.Element} - Rendered component
+ */
 const CustomRating = ({ rating = 0 }) => {
   const [ratingIcons, setRatingIcons] = useState(Array(5).fill({ icon: 'star-outline', color: 'gray' }));
   const [noRating, setNoRating] = useState(false);
