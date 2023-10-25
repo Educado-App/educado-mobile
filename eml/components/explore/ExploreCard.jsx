@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, Image, Pressable } from "react-native";
+import React, { useState } from "react";
+import { View, Text, Pressable } from "react-native";
 import Collapsible from "react-native-collapsible";
-import { useNavigation } from "@react-navigation/native";
 import UpdateDate from "./ExploreUpdate";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import CardLabel from "./CardLabel";
 import CustomRating from "./CustomRating";
 import SubscriptionButton from "./SubscriptionButton";
-import AccesCourseButton from "./AccesCourseButton";
+import AccessCourseButton from "./AccessCourseButton";
 
 export default function ExploreCard({ course, isPublished, subscribed }) {
   const [isCollapsed, setIsCollapsed] = useState(true);
@@ -78,13 +77,11 @@ export default function ExploreCard({ course, isPublished, subscribed }) {
       <View className="flex-col items-center">
         <View className="flex-row justify-between w-full items-center">
           <Text className="text-black font-medium text-lg">{course.title}</Text>
-          <View>
-            <MaterialCommunityIcons
-              name={isCollapsed ? "chevron-down" : "chevron-up"}
-              size={25}
-              color="gray"
-            />
-          </View>
+          <MaterialCommunityIcons
+            name={isCollapsed ? "chevron-down" : "chevron-up"}
+            size={25}
+            color="gray"
+          />
         </View>
 
         <View className="h-1 border-b-[1px] w-full border-gray opacity-50 pt-2"></View>
@@ -126,32 +123,25 @@ export default function ExploreCard({ course, isPublished, subscribed }) {
 
       <Collapsible className="w-full" collapsed={isCollapsed}>
         <View className="py-7 flex-row items-center justify-between px-1">
-          <View>
             <Text className="text-black text-m">{course.description}</Text>
-          </View>
         </View>
 
         <View>
-          <View>
-
             {
               subscribed ? (
-                <AccesCourseButton course={course} />
+                <AccessCourseButton course={course} />
               ) : (
                 <SubscriptionButton course={course} />
               )
             }
-          </View>
-        </View>
-
-        <View>
           <UpdateDate dateUpdated={getUpdatedDate(course.dateUpdated)} />
         </View>
+
       </Collapsible>
       <View className=" items-start absolute">
         <View className=" rotate-[315deg] items-center">
           {subscribed ? (
-            <Text className=" bg-[#f1CC4f] text-xs text-white font-bold px-8 -left-8 -top-4 drop-shadow-sm">
+            <Text className=" bg-yellow text-xs text-white font-bold px-8 -left-8 -top-4 drop-shadow-sm">
               Inscrito
             </Text>
           ) : null}

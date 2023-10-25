@@ -1,11 +1,12 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { View, Image, ScrollView, RefreshControl } from 'react-native';
-import Text from '../../components/general/Text';
+import { View, ScrollView, RefreshControl } from 'react-native';
 import FilterNavBar from '../../components/explore/FilterNavBar';
 import ExploreCard from '../../components/explore/ExploreCard';
 import * as StorageService from '../../services/StorageService';
 import { useNavigation } from '@react-navigation/native';
+import BaseScreen from "../../components/general/BaseScreen";
+import IconHeader from "../../components/general/IconHeader";
 
 export default function Explore() {
 
@@ -164,21 +165,9 @@ export default function Explore() {
     }
   };
 
-
-
   return (
-    <View className="flex-1 bg-[#f1f9fb]">
-
-      <View className="flex flex-row items-center pl-6 pt-[30%] pb-[10%]">
-        <Image
-          source={require('../../assets/singleIcon.png')}
-          alt="Icon"
-          className="w-8 h-8 mr-2"
-        />
-        <Text className="text-xl font-bold">Explorar cursos</Text>
-
-      </View>
-
+    <BaseScreen>
+      <IconHeader title={"Explorar cursos"}/>
 
       <FilterNavBar
         onChangeText={(text) => handleFilter(text)}
@@ -197,7 +186,6 @@ export default function Explore() {
         </View>
       </ScrollView>
 
-    </View>
-
+    </BaseScreen>
   );
 }
