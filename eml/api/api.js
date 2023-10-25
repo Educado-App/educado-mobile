@@ -8,6 +8,8 @@ const url = testUrl;
 
 /*** COURS, SECTIONS AND EXERCISES ***/
 
+// trigger actions
+
 export const getCourseByid = async (courseId) => {
   const res = await axios.get(url + "/api/courses/" + courseId);
   return res.data;
