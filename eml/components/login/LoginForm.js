@@ -41,8 +41,7 @@ export default function LoginForm() {
     try {
       const obj = {
         id: userInfo.id,
-        firstName: userInfo.firstName,
-        lastName: userInfo.lastName,
+        name: userInfo.name,
         email: userInfo.email,
       };
 
