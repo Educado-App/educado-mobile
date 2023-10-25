@@ -15,7 +15,6 @@ export const getUserInfo = async () => {
     const fetchedUserInfo = JSON.parse(await AsyncStorage.getItem(USER_INFO));
     return fetchedUserInfo;
   } catch (e) {
-    console.log("Couldn't fetch user info", e);
     throw e;
   }
 };
