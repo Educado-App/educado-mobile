@@ -117,6 +117,12 @@ exports[`CourseScreen renders CourseScreen correctly when there are no courses 1
               {
                 "fontFamily": "Montserrat-Regular",
               },
+              {
+                "color": "#383838",
+              },
+              {
+                "fontSize": 16,
+              },
               [
                 {
                   "color": "#383838",
@@ -147,6 +153,12 @@ exports[`CourseScreen renders CourseScreen correctly when there are no courses 1
             [
               {
                 "fontFamily": "Montserrat-Regular",
+              },
+              {
+                "color": "#383838",
+              },
+              {
+                "fontSize": 16,
               },
               [
                 {
@@ -229,6 +241,12 @@ exports[`CourseScreen renders CourseScreen correctly when there are no courses 1
               [
                 {
                   "fontFamily": "Montserrat-Regular",
+                },
+                {
+                  "color": "#383838",
+                },
+                {
+                  "fontSize": 16,
                 },
                 [
                   {
@@ -373,6 +391,12 @@ exports[`CourseScreen renders CourseScreen with courses loaded 1`] = `
               {
                 "fontFamily": "Montserrat-Regular",
               },
+              {
+                "color": "#383838",
+              },
+              {
+                "fontSize": 16,
+              },
               [
                 {
                   "color": "#383838",
@@ -403,6 +427,12 @@ exports[`CourseScreen renders CourseScreen with courses loaded 1`] = `
             [
               {
                 "fontFamily": "Montserrat-Regular",
+              },
+              {
+                "color": "#383838",
+              },
+              {
+                "fontSize": 16,
               },
               [
                 {
@@ -485,6 +515,12 @@ exports[`CourseScreen renders CourseScreen with courses loaded 1`] = `
               [
                 {
                   "fontFamily": "Montserrat-Regular",
+                },
+                {
+                  "color": "#383838",
+                },
+                {
+                  "fontSize": 16,
                 },
                 [
                   {

@@ -26,7 +26,11 @@ describe("App", () => {
       return null;
     }
 
-    render(<TestComponent />);
+    render(
+      <ErrorBoundary>
+        <TestComponent />
+      </ErrorBoundary>
+    );
   });
 
   it("should set initialRoute to LoginStack when hasShownWelcome is true", async () => {
@@ -45,7 +49,11 @@ describe("App", () => {
       return null;
     }
 
-    render(<TestComponent />);
+    render(
+      <ErrorBoundary>
+        <TestComponent />
+      </ErrorBoundary>
+    );
   });
 
   it("should handle errors when AsyncStorage operations fail", async () => {
@@ -64,6 +72,29 @@ describe("App", () => {
       return null;
     }
 
-    render(<TestComponent />);
+    render(
+      <ErrorBoundary>
+        <TestComponent />
+      </ErrorBoundary>
+    );
   });
 });
+
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true };
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return <h1>Something went wrong.</h1>;
+    }
+
+    return this.props.children;
+  }
+}

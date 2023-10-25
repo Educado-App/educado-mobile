@@ -5,28 +5,36 @@ exports[`ExerciseInfo renders ExerciseInfo correctly 1`] = `
   style={
     [
       {
-        "flexDirection": "row",
+        "alignItems": "flex-start",
       },
       {
-        "justifyContent": "space-between",
+        "paddingLeft": 24,
+        "paddingRight": 24,
       },
       {
-        "alignItems": "flex-end",
+        "position": "absolute",
       },
       {
-        "paddingLeft": "6%",
-        "paddingRight": "6%",
+        "bottom": 40,
       },
       {
-        "paddingBottom": "12%",
-        "paddingTop": "12%",
+        "zIndex": 10,
       },
     ]
   }
 >
-  <View>
-    <Text
-      style={
+  <Text
+    style={
+      [
+        {
+          "fontFamily": "Montserrat-Regular",
+        },
+        {
+          "color": "#383838",
+        },
+        {
+          "fontSize": 16,
+        },
         [
           {
             "fontFamily": "Montserrat-Regular",
@@ -37,13 +45,24 @@ exports[`ExerciseInfo renders ExerciseInfo correctly 1`] = `
           {
             "color": "#A1ACB2",
           },
-        ]
-      }
-    >
-      Course name: 
-    </Text>
-    <Text
-      style={
+        ],
+      ]
+    }
+  >
+    Course name: 
+  </Text>
+  <Text
+    style={
+      [
+        {
+          "fontFamily": "Montserrat-Regular",
+        },
+        {
+          "color": "#383838",
+        },
+        {
+          "fontSize": 16,
+        },
         [
           {
             "fontFamily": "Montserrat-Bold",
@@ -54,14 +73,9 @@ exports[`ExerciseInfo renders ExerciseInfo correctly 1`] = `
           {
             "color": "#383838",
           },
-        ]
-      }
-    />
-  </View>
-  <View>
-    <Image
-      source={1}
-    />
-  </View>
+        ],
+      ]
+    }
+  />
 </View>
 `;
