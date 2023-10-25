@@ -94,26 +94,6 @@ export default function NavBar() {
           tabBarInactiveTintColor: 'grey', // Set the inactive text color to grey
         }}
       />
-
-      {/* <Tab.Screen
-        name="TestScreen"
-        component={TestScreen}
-
-        options={{
-          tabBarActiveBackgroundColor: tailwindConfig.theme.colors.cyanBlue,
-          headerShown: false,
-          tabBarIcon: ({ color }) => ( // Pass the color as a parameter to the icon component
-            <Icon
-              size={17}
-              name="bug-outline"
-              type="material-community"
-              color={color} // Use the color parameter here
-            />
-          ),
-          tabBarActiveTintColor: 'white', // Set the active text color to white
-          tabBarInactiveTintColor: 'grey', // Set the inactive text color to grey
-        }}
-      /> */}
       <Tab.Screen
         name="Perfil"
         component={ProfileComponent}
