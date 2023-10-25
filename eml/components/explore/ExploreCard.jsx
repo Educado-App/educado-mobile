@@ -94,21 +94,18 @@ export default function ExploreCard({ course, isPublished, subscribed }) {
                 title={determineCategory(course.category)}
                 time={false}
                 icon={determineIcon(course.category)}
-                color={"gray"}
               />
               <View className="w-2.5" />
               <CardLabel
                 title={course.estimatedHours}
                 time={true}
                 icon={"clock-outline"}
-                color={"gray"}
               />
               <View className="w-2.5" />
               <CardLabel
                 title={getDifficultyLabel(course.difficulty)}
                 time={false}
                 icon={"book-multiple-outline"}
-                color={"gray"}
               />
             </View>
             <View className="h-1.25 opacity-50" />
