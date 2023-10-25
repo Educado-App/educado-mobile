@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Keyboard } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
@@ -8,6 +8,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { TouchableWithoutFeedback } from "react-native";
 import Text from "../../components/general/Text";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import LoadingScreen from "../../components/loading/Loading";
 
 const LOGIN_TOKEN = "@loginToken";
 
@@ -17,6 +18,7 @@ const LOGIN_TOKEN = "@loginToken";
  */
 export default function Login(props) {
 
+  const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
 
   /**
@@ -30,8 +32,12 @@ export default function Login(props) {
       const fetchedToken = await AsyncStorage.getItem(LOGIN_TOKEN);
       if (fetchedToken !== null) {
         navigation.navigate("HomeStack");
+        setLoading(false);
+      } else {
+        throw new Error("No login token found");
       }
     } catch (error) {
+      setLoading(false);
       console.log("Failed to fetch the login token from storage");
     }
   };
@@ -42,39 +48,40 @@ export default function Login(props) {
 
   return (
     <SafeAreaView className="justify-start bg-secondary flex-1">
-      <KeyboardAwareScrollView
-        className="flex-1"
-        resetScrollToCoords={{ x: 0, y: 0 }}
-        scrollEnabled={true}>
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View>
-            <View className="mt-10">
-              <LogoBackButton navigationPlace="Login" />
-            </View>
-            <View className="mx-6">
-              {/* Login form */}
-              <View className="my-8">
-                <LoginForm />
+      {loading ? (<LoadingScreen />) :
+        (<KeyboardAwareScrollView
+          className="flex-1"
+          resetScrollToCoords={{ x: 0, y: 0 }}
+          scrollEnabled={true}>
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View>
+              <View className="mt-10">
+                <LogoBackButton navigationPlace="Login" />
               </View>
-              {/* Register button */}
-              <View className="flex-row justify-center">
-                <Text className="text-base text-gray mr-1">
-                  {/* Dont have an account yet? */}
-                  Ainda não tem conta?
-                </Text>
-                <Text
-                  testId="registerNav"
-                  className={"text-base text-black underline"}
-                  onPress={() => navigation.navigate("Register")}
-                >
-                  {/* Sign up now */}
-                  Cadastre-se agora
-                </Text>
+              <View className="mx-6">
+                {/* Login form */}
+                <View className="my-8">
+                  <LoginForm />
+                </View>
+                {/* Register button */}
+                <View className="flex-row justify-center">
+                  <Text className="text-base text-gray mr-1">
+                    {/* Dont have an account yet? */}
+                    Ainda não tem conta?
+                  </Text>
+                  <Text
+                    testId="registerNav"
+                    className={"text-base text-black underline"}
+                    onPress={() => navigation.navigate("Register")}
+                  >
+                    {/* Sign up now */}
+                    Cadastre-se agora
+                  </Text>
+                </View>
               </View>
             </View>
-          </View>
-        </TouchableWithoutFeedback>
-      </KeyboardAwareScrollView>
+          </TouchableWithoutFeedback>
+        </KeyboardAwareScrollView>)}
     </SafeAreaView >
   );
 }
