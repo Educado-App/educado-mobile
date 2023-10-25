@@ -1,4 +1,5 @@
 /** Utility functions used in Explore and Course screens **/
+import { updateUserFields } from "../api/userApi.js"
 
 export function getDifficultyLabel(lvl) {
   switch (lvl) {
@@ -80,4 +81,33 @@ export function shouldUpdate(courses1, courses2) {
     }
   }
   return false;
+}
+
+export function givePoints(user_id, points, token) {
+  const updateFields = {
+    points: points,
+  };
+
+  // Call the updateUserFields function to send points as a field in JSON format
+  return updateUserFields(user_id, updateFields, token);
+}
+
+function isExerciseCompleted(user, exerciseIdToCheck) {
+  // Check if exerciseIdToCheck exists in completedExercises array
+  return user.completedCourses.some(course =>
+      course.completedSections.some(section =>
+          section.completedExercises.some(exercise =>
+              exercise.exerciseId.$oid === exerciseIdToCheck.$oid
+          )
+      )
+  );
+}
+
+function isSectionCompleted(user, sectionIdToCheck) {
+  // Check if sectionIdToCheck exists in completedSections array
+  return user.completedCourses.some(course =>
+      course.completedSections.some(section =>
+          section.sectionId.$oid === sectionIdToCheck.$oid
+      )
+  );
 }

@@ -13,12 +13,16 @@ import PopUp from '../../components/gamification/PopUp';
 import { StatusBar } from 'expo-status-bar';
 import { getExerciseByid, getSectionByid, getCourse } from '../../api/api';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { givePoints } from '../../services/utilityFunctions';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+const USER_INFO = '@userInfo';
+const USER_ID = '@userId';
+const LOGIN_TOKEN = '@loginToken';
+const xp = Math.floor(Math.random() * (10 - 5 + 1)) + 5; // Replace with intricate point system
 
 // givenId is used for testing purposes, in the future an exercise object should be passed by the previous screen
 export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7'}) {
-
-  const xp = Math.floor(Math.random() * (10 - 5 + 1)) + 5; // Replace with intricate point system
-
   const navigation = useNavigation();
   const route = useRoute();
 
@@ -37,6 +41,23 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7'}) 
     setSelectedAnswer(answerIndex);
   };
 
+  async function retrieveUserInfoAndLoginToken() {
+    try {
+      // Retrieve the user info object and parse it from JSON
+      const userInfoString = await AsyncStorage.getItem(USER_INFO);
+      const userInfo = JSON.parse(userInfoString);
+      const loginToken = await AsyncStorage.getItem(LOGIN_TOKEN);
+  
+      // Retrieve the user ID as a string
+      const userId = await AsyncStorage.getItem(USER_ID);
+  
+      return { userInfo, userId, loginToken };
+    } catch (error) {
+      // Handle errors here
+      console.error('Error retrieving data:', error);
+    }
+  }
+
   function handleReviewAnswer(selectedAnswer) {
     const continueText = "Continuar";
     setIsCorrectAnswer(selectedAnswer);
@@ -44,6 +65,15 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7'}) 
     setButtonClassName(
       `bg-project${selectedAnswer ? 'Green' : 'Red'}`
     );
+
+    if (selectedAnswer) {
+      retrieveUserInfoAndLoginToken().then(({ userInfo, userId, loginToken }) => {
+        // Do something with userInfo and userId here
+        console.log("XP: " + xp)
+        console.log("User info: " + userInfo.completedCourses[0].isComplete)
+        givePoints(userId, xp, loginToken);
+      });
+    }
 
     setShowFeedback(true);
     setButtonText(continueText);
