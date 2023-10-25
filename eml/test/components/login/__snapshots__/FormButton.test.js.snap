@@ -62,6 +62,12 @@ exports[`Ensure that the button is rendered correctly 1`] = `
           {
             "fontFamily": "Montserrat-Regular",
           },
+          {
+            "color": "#383838",
+          },
+          {
+            "fontSize": 16,
+          },
           [
             {
               "fontSize": 16,

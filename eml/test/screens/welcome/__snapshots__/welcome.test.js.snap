@@ -240,6 +240,12 @@ exports[`WelcomeScreen renders welcomeScreen correctly 1`] = `
                           {
                             "fontFamily": "Montserrat-Regular",
                           },
+                          {
+                            "color": "#383838",
+                          },
+                          {
+                            "fontSize": 16,
+                          },
                           [
                             {
                               "textAlign": "center",
@@ -281,6 +287,12 @@ exports[`WelcomeScreen renders welcomeScreen correctly 1`] = `
                         [
                           {
                             "fontFamily": "Montserrat-Regular",
+                          },
+                          {
+                            "color": "#383838",
+                          },
+                          {
+                            "fontSize": 16,
                           },
                           [
                             {
@@ -349,6 +361,12 @@ exports[`WelcomeScreen renders welcomeScreen correctly 1`] = `
                           {
                             "fontFamily": "Montserrat-Regular",
                           },
+                          {
+                            "color": "#383838",
+                          },
+                          {
+                            "fontSize": 16,
+                          },
                           [
                             {
                               "textAlign": "center",
@@ -390,6 +408,12 @@ exports[`WelcomeScreen renders welcomeScreen correctly 1`] = `
                         [
                           {
                             "fontFamily": "Montserrat-Regular",
+                          },
+                          {
+                            "color": "#383838",
+                          },
+                          {
+                            "fontSize": 16,
                           },
                           [
                             {
@@ -458,6 +482,12 @@ exports[`WelcomeScreen renders welcomeScreen correctly 1`] = `
                           {
                             "fontFamily": "Montserrat-Regular",
                           },
+                          {
+                            "color": "#383838",
+                          },
+                          {
+                            "fontSize": 16,
+                          },
                           [
                             {
                               "textAlign": "center",
@@ -499,6 +529,12 @@ exports[`WelcomeScreen renders welcomeScreen correctly 1`] = `
                         [
                           {
                             "fontFamily": "Montserrat-Regular",
+                          },
+                          {
+                            "color": "#383838",
+                          },
+                          {
+                            "fontSize": 16,
                           },
                           [
                             {
@@ -769,6 +805,12 @@ exports[`WelcomeScreen renders welcomeScreen correctly 1`] = `
                   {
                     "fontFamily": "Montserrat-Regular",
                   },
+                  {
+                    "color": "#383838",
+                  },
+                  {
+                    "fontSize": 16,
+                  },
                   [
                     {
                       "textAlign": "center",
@@ -821,6 +863,12 @@ exports[`WelcomeScreen renders welcomeScreen correctly 1`] = `
                 [
                   {
                     "fontFamily": "Montserrat-Regular",
+                  },
+                  {
+                    "color": "#383838",
+                  },
+                  {
+                    "fontSize": 16,
                   },
                   [
                     {

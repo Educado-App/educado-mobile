@@ -81,6 +81,12 @@ exports[`<SectionCard /> renders SectionCard correctly 1`] = `
             {
               "fontFamily": "Montserrat-Regular",
             },
+            {
+              "color": "#383838",
+            },
+            {
+              "fontSize": 16,
+            },
             [
               {
                 "fontSize": 16,
@@ -104,6 +110,12 @@ exports[`<SectionCard /> renders SectionCard correctly 1`] = `
           [
             {
               "fontFamily": "Montserrat-Regular",
+            },
+            {
+              "color": "#383838",
+            },
+            {
+              "fontSize": 16,
             },
             [
               {
@@ -174,6 +186,12 @@ exports[`<SectionCard /> renders SectionCard correctly 1`] = `
             [
               {
                 "fontFamily": "Montserrat-Regular",
+              },
+              {
+                "color": "#383838",
+              },
+              {
+                "fontSize": 16,
               },
               [
                 {
