@@ -6,6 +6,7 @@ import TestScreen from '../../screens/test/TestScreen';
 import ProfileComponent from '../../screens/profile/Profile';
 import { Icon } from '@rneui/themed';
 import { Platform } from 'react-native';
+import tailwindConfig from "../../tailwind.config";
 
 const Tab = createBottomTabNavigator();
 
@@ -17,7 +18,7 @@ export default function NavBar() {
       initialRouteName={'Home'}
       screenOptions={{
         tabBarActiveTintColor: 'black',
-        tabBarActiveBackgroundColor: '#d9d9d9',
+        tabBarActiveBackgroundColor: tailwindConfig.theme.colors.cyanBlue,
         tabBarLabelStyle: {
           fontSize: 12,
         },
@@ -61,7 +62,7 @@ export default function NavBar() {
         name="Central"
         component={CourseScreen}
         options={{
-          tabBarActiveBackgroundColor: '#5fcce9',
+          tabBarActiveBackgroundColor: tailwindConfig.theme.colors.cyanBlue,
           headerShown: false,
           tabBarIcon: ({ color }) => ( // Pass the color as a parameter to the icon component
             <Icon
@@ -79,7 +80,7 @@ export default function NavBar() {
         name="Explorar"
         component={Explore}
         options={{
-          tabBarActiveBackgroundColor: '#5fcce9',
+          tabBarActiveBackgroundColor: tailwindConfig.theme.colors.cyanBlue,
           headerShown: false,
           tabBarIcon: ({ color }) => ( // Pass the color as a parameter to the icon component
             <Icon
@@ -99,7 +100,7 @@ export default function NavBar() {
         component={TestScreen}
 
         options={{
-          tabBarActiveBackgroundColor: '#5fcce9',
+          tabBarActiveBackgroundColor: tailwindConfig.theme.colors.cyanBlue,
           headerShown: false,
           tabBarIcon: ({ color }) => ( // Pass the color as a parameter to the icon component
             <Icon
@@ -117,7 +118,7 @@ export default function NavBar() {
         name="Perfil"
         component={ProfileComponent}
         options={{
-          tabBarActiveBackgroundColor: '#5fcce9',
+          tabBarActiveBackgroundColor: tailwindConfig.theme.colors.cyanBlue,
           headerShown: false,
           tabBarIcon: ({ color }) => ( // Pass the color as a parameter to the icon component
             <Icon
