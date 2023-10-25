@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Educado",
-    "slug": "educado",
+    "slug": "educado-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -32,9 +32,9 @@
     },
     "extra": {
       "eas": {
-        "projectId": "905e0110-07e0-404f-a525-ab1ae18052d9"
+        "projectId": "c5fe94c6-f83d-499b-8c99-e30e712bbb5b"
       }
     },
-    "owner": "ebjona"
+    "owner": "sofiiagran"
   }
 }
