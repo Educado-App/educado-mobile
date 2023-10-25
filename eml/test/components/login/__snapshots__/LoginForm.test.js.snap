@@ -368,9 +368,6 @@ exports[`login Check LoginForm renders correctly 1`] = `
               "fontSize": 16,
               "lineHeight": 24,
             },
-            {
-              "marginLeft": 205,
-            },
           ],
         ]
       }
