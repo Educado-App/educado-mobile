@@ -13,7 +13,7 @@ import PopUp from '../../components/gamification/PopUp';
 import { StatusBar } from 'expo-status-bar';
 import { getExerciseByid, getSectionByid, getCourse } from '../../api/api';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { givePoints } from '../../services/utilityFunctions';
+import { givePoints, isExerciseCompleted } from '../../services/utilityFunctions';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const USER_INFO = '@userInfo';
@@ -71,7 +71,10 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7'}) 
         // Do something with userInfo and userId here
         console.log("XP: " + xp)
         console.log("User info: " + userInfo.completedCourses[0].isComplete)
-        givePoints(userId, xp, loginToken);
+        if (!isExerciseCompleted(userInfo, exerciseData._id)) {
+          console.log("exercise is not completed: " + exerciseData._id)
+          givePoints(userId, xp, loginToken);
+        }
       });
     }
 
