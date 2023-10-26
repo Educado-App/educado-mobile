@@ -207,21 +207,18 @@ export const getVideoDownloadUrl = (fileName, resolution) => {
       break;
   }
   const _vidUrl = `${url}/api/bucket/stream/${fileName}_transcoded${usableResolution}.mp4`;
-  console.log("VIDEO URL FROM API", _vidUrl);
   return _vidUrl;
 };
 
 //CREATED BY VIDEOSTREAM TEAM
 export const getBucketImage = async (fileName) => {
   try {
-    console.log(`${url}/api/bucket/${fileName}`);
     const res = await axios.get(
       `${url}/api/bucket/${fileName}`
     );
     const workingUrl = `data:image/png;base64,${res.data}`;
     return workingUrl;
   } catch (err) {
-    console.log("Error getting bucket image", err);
     return null;
   }
 };
@@ -230,10 +227,8 @@ export const getBucketImage = async (fileName) => {
 export const getSectionAndLecturesBySectionId = async (sectionId) => {
   try {
     const res = await axios.get(url + "/api/sections/" + sectionId);
-    console.log("res.data", res.data);
     return res.data;
   } catch (err) {
-    console.log("Error getting section and lectures by section id", err);
     return null;
   }
 };

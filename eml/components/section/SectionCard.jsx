@@ -43,7 +43,6 @@ export default function SectionCard({ section }) {
     useEffect(() => {
 
         fetchLectures(section.sectionId);
-        console.log("sectionId: ", section.sectionId);
 
 
         //get section with lectures
@@ -55,7 +54,6 @@ export default function SectionCard({ section }) {
     const [lectures, setLectures] = useState([]); // [lecture1, lecture2, lecture3
     const fetchLectures = async (sectionId) => {
         const res = await getSectionAndLecturesBySectionId(sectionId);
-        console.log("res: ", res);
         if (!res?.components) {
             setLectures([])
             return;
@@ -101,7 +99,6 @@ export default function SectionCard({ section }) {
                         return (
                             <Pressable key={lecture._id} onPress={() => {
                                 handleLecturePress(lecture._id);
-                                console.log("pressed lecture: " + lecture._id);
                             }} >
                                 <View key={lecture.lectureId} className={`flex-row items-center justify-between px-[25] py-[15]
                             ${lecture.completed ? "bg-[#87eb8e]" : "bg-[#fff]"}
