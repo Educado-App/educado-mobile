@@ -21,7 +21,6 @@ describe('LectureScreen', () => {
             }
         };
 
-        console.log("params: ", route.params);
         
         const { getByText } = render(<LectureScreen route={route} />);
         expect(getByText('loading...')).toBeTruthy();

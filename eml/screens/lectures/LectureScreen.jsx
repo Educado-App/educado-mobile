@@ -25,7 +25,6 @@ export default function LectureScreen({ route }) {
     }, [])
 
     const getLecture = async (id) => {
-        console.log("lectureId: ", id);
         const res = await getLectureById(id);
         setLecture(res);
     }
