@@ -41,7 +41,8 @@ export default function LoginForm() {
     try {
       const obj = {
         id: userInfo.id,
-        name: userInfo.name,
+        // firstName: userInfo.firstName, this is commented out for now
+        // lastName: userInfo.lastName, this is commented out for now
         email: userInfo.email,
       };
 
