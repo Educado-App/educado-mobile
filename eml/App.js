@@ -24,6 +24,7 @@ import LoadingScreen from "./components/loading/Loading";
 import WelcomeScreen from "./screens/welcome/Welcome";
 import ProfileSettingsScreen from "./screens/profile/ProfileSettings";
 import NavBar from "./components/navBar/NavBar";
+import LectureScreen from "./screens/lectures/LectureScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -213,6 +214,12 @@ export default function App() {
                 options={{
                   headerShown: false,
                 }}
+              />
+              <Stack.Screen
+                name="Lecture"
+                component={LectureScreen}
+                initialParams={{ lecture_id: '' }}
+                options={{ headerShown: false }}
               />
             </Stack.Navigator>
           </NavigationContainer>

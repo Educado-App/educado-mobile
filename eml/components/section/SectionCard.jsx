@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Pressable, Image, TouchableOpacity } from 'react-native';
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Text from '../general/Text';
 import Collapsible from "react-native-collapsible";
 import { useNavigation } from '@react-navigation/native';
+
+import { getSectionAndLecturesBySectionId } from "../../api/api";
+
 
 /**
  * A component that displays a section card with collapsible content.
@@ -37,6 +40,37 @@ export default function SectionCard({ section }) {
         navigation.navigate('Exercise'); // Replace with the name of the target screen
     }
 
+    useEffect(() => {
+
+        fetchLectures(section.sectionId);
+        console.log("sectionId: ", section.sectionId);
+
+
+        //get section with lectures
+
+
+    }, []);
+
+    //function for fetching lectures in section
+    const [lectures, setLectures] = useState([]); // [lecture1, lecture2, lecture3
+    const fetchLectures = async (sectionId) => {
+        const res = await getSectionAndLecturesBySectionId(sectionId);
+        console.log("res: ", res);
+        if (!res?.components) {
+            setLectures([])
+            return;
+        }
+        setLectures(res.components);
+    }
+
+    const handleLecturePress = (lectureId) => {
+        navigation.navigate('Lecture', {
+
+            lectureId: lectureId,
+            courseId: section.parentCourseId,
+        })
+    };
+
 
     return (
         <View>
@@ -61,6 +95,28 @@ export default function SectionCard({ section }) {
                     <View className="h-[1] bg-disable" />
                     <Text className="mx-[20] my-[10]">{section.description}</Text>
                     <View className="w-[100%]">
+                         {/* Lectures */}
+                         {lectures && lectures.map((lecture) => {
+
+                        return (
+                            <Pressable key={lecture._id} onPress={() => {
+                                handleLecturePress(lecture._id);
+                                console.log("pressed lecture: " + lecture._id);
+                            }} >
+                                <View key={lecture.lectureId} className={`flex-row items-center justify-between px-[25] py-[15]
+                            ${lecture.completed ? "bg-[#87eb8e]" : "bg-[#fff]"}
+                            ` }>
+                                    <Text className="text-[16px] font-bold text-black flex-[1]">
+                                        {lecture.title}
+                                    </Text>
+                                    <Text className="mr-[10] text-black">
+                                        {lecture.completed ? "Completed" : "Not completed"}
+                                    </Text>
+                                </View>
+                            </Pressable>
+                        )
+
+                        })}
                         <TouchableOpacity className="w-[100%] h-[300] items-center justify-center relative"
                             onPress={handleImagePress}>
                             <Image source={require('../../assets/images/sectionThumbnail.png')} className="w-[100%] h-[300] object-cover" />
