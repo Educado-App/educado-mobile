@@ -1,5 +1,5 @@
 /** Utility functions used in Explore and Course screens **/
-import { updateUserFields } from "../api/userApi.js"
+import { completeExercise, updateUserFields } from "../api/userApi.js"
 
 export function getDifficultyLabel(lvl) {
   switch (lvl) {
@@ -83,24 +83,42 @@ export function shouldUpdate(courses1, courses2) {
   return false;
 }
 
-export function givePoints(user_id, points, token) {
+export function givePoints(user, exercise_id, points, token) {
   const updateFields = {
     points: points,
   };
 
+  console.log(JSON.stringify(user));
+
   // Call the updateUserFields function to send points as a field in JSON format
-  return updateUserFields(user_id, updateFields, token);
+  if (!isExerciseCompleted(user, exercise_id)) {
+    console.log("Exercise not completed")
+    completeExercise(user.id, exercise_id, token);
+  } else {
+    console.log("Exercise completed")
+  }
+  return updateUserFields(user.id, updateFields, token);
 }
 
 function isExerciseCompleted(user, exerciseIdToCheck) {
-  // Check if exerciseIdToCheck exists in completedExercises array
-  return user.completedCourses.some(course =>
+  try {
+    // Check if completedCourses, completedSections and completedExercises exist
+    if (!user.completedCourses || !user.completedCourses.length) return false;
+    if (!user.completedCourses[0].completedSections || !user.completedCourses[0].completedSections.length) return false;
+    if (!user.completedCourses[0].completedSections[0].completedExercises || !user.completedCourses[0].completedSections[0].completedExercises.length) return false;
+    
+    // Check if exerciseIdToCheck exists in completedExercises array
+    return user.completedCourses.some(course =>
       course.completedSections.some(section =>
           section.completedExercises.some(exercise =>
               exercise.exerciseId.$oid === exerciseIdToCheck.$oid
+              )
           )
-      )
-  );
+    );
+  } catch(error) {
+    console.log(error)
+    return false;
+  }
 }
 
 function isSectionCompleted(user, sectionIdToCheck) {

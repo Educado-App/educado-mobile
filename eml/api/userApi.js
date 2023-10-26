@@ -96,6 +96,23 @@ export const updateUserFields = async (user_id, updateFields, token) => {
   }
 };
 
+export const completeExercise = async (user_id, exercise_id, token) => {
+  console.log("exercise_id: " + exercise_id)
+  console.log(url + '/api/users/' + user_id + '/completed')
+  try {
+    const res = await axios.post(url + '/api/users/' + user_id + '/completed', {exerciseId: exercise_id}, {}, {
+      headers: {
+        'Content-Type': 'application/json',
+        'token': token, // Include the token in the headers
+      },
+    });
+
+    return res.data;
+  } catch(error) {
+    throw error;
+  }
+}
+
 export const enrollInCourse = async (user_Id, course_Id) => {
   try {
     // When user enrolls in a course it sends the course id to the database,

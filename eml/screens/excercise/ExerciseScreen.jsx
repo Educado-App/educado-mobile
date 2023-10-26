@@ -13,11 +13,10 @@ import PopUp from '../../components/gamification/PopUp';
 import { StatusBar } from 'expo-status-bar';
 import { getExerciseByid, getSectionByid, getCourse } from '../../api/api';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { givePoints, isExerciseCompleted } from '../../services/utilityFunctions';
+import { givePoints } from '../../services/utilityFunctions';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const USER_INFO = '@userInfo';
-const USER_ID = '@userId';
 const LOGIN_TOKEN = '@loginToken';
 const xp = Math.floor(Math.random() * (10 - 5 + 1)) + 5; // Replace with intricate point system
 
@@ -48,10 +47,7 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7'}) 
       const userInfo = JSON.parse(userInfoString);
       const loginToken = await AsyncStorage.getItem(LOGIN_TOKEN);
   
-      // Retrieve the user ID as a string
-      const userId = await AsyncStorage.getItem(USER_ID);
-  
-      return { userInfo, userId, loginToken };
+      return { userInfo, loginToken };
     } catch (error) {
       // Handle errors here
       console.error('Error retrieving data:', error);
@@ -67,14 +63,11 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7'}) 
     );
 
     if (selectedAnswer) {
-      retrieveUserInfoAndLoginToken().then(({ userInfo, userId, loginToken }) => {
+      retrieveUserInfoAndLoginToken().then(({ userInfo, loginToken }) => {
         // Do something with userInfo and userId here
-        console.log("XP: " + xp)
-        console.log("User info: " + userInfo.completedCourses[0].isComplete)
-        if (!isExerciseCompleted(userInfo, exerciseData._id)) {
-          console.log("exercise is not completed: " + exerciseData._id)
-          givePoints(userId, xp, loginToken);
-        }
+        //console.log("User info: " + userInfo.completedCourses[0].isComplete)
+        //console.log(JSON.stringify(exerciseData))
+        givePoints(userInfo, exerciseData._id, xp, loginToken);
       });
     }
 
