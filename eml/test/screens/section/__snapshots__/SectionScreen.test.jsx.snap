@@ -83,6 +83,12 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
           {
             "fontFamily": "Montserrat-Regular",
           },
+          {
+            "color": "#383838",
+          },
+          {
+            "fontSize": 16,
+          },
           [
             {
               "fontSize": 25,
@@ -351,6 +357,12 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
                     {
                       "fontFamily": "Montserrat-Regular",
                     },
+                    {
+                      "color": "#383838",
+                    },
+                    {
+                      "fontSize": 16,
+                    },
                     [
                       {
                         "fontSize": 16,
@@ -374,6 +386,12 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
                   [
                     {
                       "fontFamily": "Montserrat-Regular",
+                    },
+                    {
+                      "color": "#383838",
+                    },
+                    {
+                      "fontSize": 16,
                     },
                     [
                       {
@@ -444,6 +462,12 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
                     [
                       {
                         "fontFamily": "Montserrat-Regular",
+                      },
+                      {
+                        "color": "#383838",
+                      },
+                      {
+                        "fontSize": 16,
                       },
                       [
                         {
@@ -624,6 +648,12 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
                     {
                       "fontFamily": "Montserrat-Regular",
                     },
+                    {
+                      "color": "#383838",
+                    },
+                    {
+                      "fontSize": 16,
+                    },
                     [
                       {
                         "fontSize": 16,
@@ -647,6 +677,12 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
                   [
                     {
                       "fontFamily": "Montserrat-Regular",
+                    },
+                    {
+                      "color": "#383838",
+                    },
+                    {
+                      "fontSize": 16,
                     },
                     [
                       {
@@ -717,6 +753,12 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
                     [
                       {
                         "fontFamily": "Montserrat-Regular",
+                      },
+                      {
+                        "color": "#383838",
+                      },
+                      {
+                        "fontSize": 16,
                       },
                       [
                         {

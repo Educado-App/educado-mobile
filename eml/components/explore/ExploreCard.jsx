@@ -1,36 +1,100 @@
-import { View, Image, Pressable } from 'react-native'
-import React from 'react'
-import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/dev'
-import { useNavigation } from '@react-navigation/native'
-import { AppLoading } from 'expo-app-loading'
-import Text from '../general/Text';
+import React, { useState } from "react";
+import { View, Text, Pressable } from "react-native";
+import Collapsible from "react-native-collapsible";
+import UpdateDate from "./ExploreUpdate";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import CardLabel from "./CardLabel";
+import CustomRating from "./CustomRating";
+import SubscriptionButton from "./SubscriptionButton";
+import AccessCourseButton from "./AccessCourseButton";
+import { determineCategory, determineIcon, getDifficultyLabel, getUpdatedDate } from "../../services/utilityFunctions";
+
+/**
+ * This component is used to display a course card.
+ * @param course - The course object to be displayed.
+ * @param isPublished - Boolean value that indicates if the course is published. If false, the card will not be displayed.
+ * @param subscribed - Boolean value that indicates if the user is subscribed to the course.
+ * @returns {JSX.Element|null} - Returns a JSX element. If the course is not published, returns null.
+ */
+export default function ExploreCard({ course, isPublished, subscribed }) {
+  const [isCollapsed, setIsCollapsed] = useState(true);
 
 
-export default function ExploreCard({ title, courseId }) {
-  const navigation = useNavigation()
-  let [fontsLoaded] = useFonts({
-    VarelaRound_400Regular
-  })
-
-  if (!fontsLoaded) {
-    return AppLoading
-  } else {
-    return (
-      <Pressable
-        style={{ shadowColor: 'black', elevation: 10 }}
-        className="w-2/5 h-24 rounded-md items-center flex-col bg-cyanBlue m-2"
-        onPress={() => navigation.navigate('Course', { courseId: courseId })}
-      >
-        <Text numberOfLines={1} style={{ fontFamily: 'VarelaRound_400Regular', fontSize: 14, }} className="pt-4 text-gray-600">
-          {title}
-        </Text>
-        <View className="pt-2">
-          <Image
-            className="w-10 h-10"
-            source={require('../../assets/images/favicon.png')}
-          ></Image>
+  return isPublished ? (
+    <Pressable
+      className=" bg-projectWhite rounded-lg shadow-2xl mb-4 mx-4 p-6 overflow-hidden"
+      onPress={() => setIsCollapsed(!isCollapsed)}
+    >
+      <View className="flex-col items-center">
+        <View className="flex-row justify-between w-full items-center">
+          <Text className="text-black font-medium text-lg">{course.title}</Text>
+          <MaterialCommunityIcons
+            name={isCollapsed ? "chevron-down" : "chevron-up"}
+            size={25}
+            color="gray"
+          />
         </View>
-      </Pressable>
-    )
-  }
+
+        <View className="h-1 border-b-[1px] w-full border-gray opacity-50 pt-2"></View>
+
+        <View className="w-full h-[0.5] bg-gray-500 opacity-50 pt-2" />
+        <View className="flex-row justify-between w-full items-start">
+          <View className="flex-col items-start justify-between">
+            <View className="flex-row items-center justify-start pb-2 flex-wrap">
+              <CardLabel
+                title={determineCategory(course.category)}
+                time={false}
+                icon={determineIcon(course.category)}
+              />
+              <View className="w-2.5" />
+              <CardLabel
+                title={course.estimatedHours}
+                time={true}
+                icon={"clock-outline"}
+              />
+              <View className="w-2.5" />
+              <CardLabel
+                title={getDifficultyLabel(course.difficulty)}
+                time={false}
+                icon={"book-multiple-outline"}
+              />
+            </View>
+            <View className="h-1.25 opacity-50" />
+            <CustomRating rating={course.rating} />
+
+          </View>
+
+        </View>
+
+      </View>
+
+
+      <Collapsible className="w-full" collapsed={isCollapsed}>
+        <View className="py-7 flex-row items-center justify-between px-1">
+            <Text className="text-black text-m">{course.description}</Text>
+        </View>
+
+        <View>
+            {
+              subscribed ? (
+                <AccessCourseButton course={course} />
+              ) : (
+                <SubscriptionButton course={course} />
+              )
+            }
+          <UpdateDate dateUpdated={getUpdatedDate(course.dateUpdated)} />
+        </View>
+
+      </Collapsible>
+      <View className=" items-start absolute">
+        <View className=" rotate-[315deg] items-center">
+          {subscribed ? (
+            <Text className=" bg-yellow text-xs text-projectWhite font-bold px-8 -left-8 -top-4 drop-shadow-sm">
+              Inscrito
+            </Text>
+          ) : null}
+        </View>
+      </View>
+    </Pressable>
+  ) : null;
 }

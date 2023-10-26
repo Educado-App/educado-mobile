@@ -1,4 +1,4 @@
-import { View, Image, Pressable, Dimensions } from 'react-native';
+import { View, Pressable } from 'react-native';
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import Text from '../../../components/general/Text';
@@ -6,6 +6,8 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import CustomProgressBar from "../../exercise/Progressbar";
 import tailwindConfig from "../../../tailwind.config";
 import DownloadCourseButton from "./DownloadCourseButton";
+import { determineIcon, determineCategory } from '../../../services/utilityFunctions';
+
 
 /**
  * CourseCard component displays a card for a course with its details
@@ -15,36 +17,6 @@ import DownloadCourseButton from "./DownloadCourseButton";
  */
 export default function CourseCard({ course }) {
     const navigation = useNavigation();
-    let categoryBr = "";
-
-    /**
-     * Determines the icon to be displayed based on the category of the course.
-     * Also changes the category name to portuguese.
-     * @param {string} category - The category of the course.
-     * @returns {string} - The name of the icon to be displayed.
-     */
-    function determineIcon(category) {
-        switch (category) {
-            case "personal finance":
-                categoryBr = "Finanças pessoais";
-                return "finance"
-            case "health and workplace safety":
-                categoryBr = "Saúde e segurança no trabalho";
-                return "medical-bag"
-            case "sewing":
-                categoryBr = "Costura";
-                return "needle-thread"
-            case "electronics":
-                categoryBr = "Eletrônica";
-                return "laptop"
-            case "other":
-                categoryBr = "Outro";
-                return "bookshelf"
-            default:
-                categoryBr = course.category;
-                return "bookshelf"
-        }
-    }
 
     return (
         <Pressable testID="courseCard"
@@ -70,7 +42,7 @@ export default function CourseCard({ course }) {
                 <View className="flex-row flex-wrap items-center justify-start">
                     <View className="flex-row items-center">
                         <MaterialCommunityIcons size={18} name={determineIcon(course.category)} color={'gray'}></MaterialCommunityIcons>
-                        <Text className="mx-[2.5%] my-[3%]">{course.category ? categoryBr : 'categoria'}</Text>
+                        <Text className="mx-[2.5%] my-[3%]">{determineCategory(course.category)}</Text>
                     </View>
                     <View className="flex-row items-center">
                         <MaterialCommunityIcons size={18} name="clock" color={'gray'}></MaterialCommunityIcons>
