@@ -137,7 +137,7 @@ export default function VideoLectureScreen({ lecture, course }) {
 
                         {/* Video Progress Bar Component */}
                         {/* <VideoProgressBar elapsedMs={positionMillis} totalMs={durationMillis} videoRef={videoRef} /> */}
-                        <ReactSliderProgress elapsedMs={positionMillis} totalMs={durationMillis} videoRef={videoRef} />
+                        <ReactSliderProgress elapsedMs={positionMillis} totalMs={durationMillis} ref={videoRef} />
 
 
 

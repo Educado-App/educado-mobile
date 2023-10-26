@@ -1,10 +1,11 @@
 import React, { useState, useEffect, StyleSheet } from 'react';
 import { View, Text } from 'react-native';
 import Slider from '@react-native-community/slider';
+import { forwardRef } from 'react';
 
 
 
-const ReactSliderProgress = ({ elapsedMs = 10000, totalMs = 20000,  videoRef }) => {
+const ReactSliderProgress = forwardRef(({ elapsedMs = 10000, totalMs = 20000,   }, ref) => {
 
     const convertMsToTime = (ms) => {
         let seconds = Math.floor((ms / 1000) % 60);
@@ -25,9 +26,9 @@ const ReactSliderProgress = ({ elapsedMs = 10000, totalMs = 20000,  videoRef }) 
     }, [elapsedMs]);
 
     const onSlidingComplete = async (value) => {
-        if (videoRef.current) {
+        if (ref.current) {
             try {
-                await videoRef.current.setStatusAsync({
+                await ref.current.setStatusAsync({
                     positionMillis: value,
                 });
             } catch (error) {
@@ -65,6 +66,6 @@ const ReactSliderProgress = ({ elapsedMs = 10000, totalMs = 20000,  videoRef }) 
     );
 
 
-};
+});
 
 export default ReactSliderProgress;
