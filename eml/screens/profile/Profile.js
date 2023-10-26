@@ -14,8 +14,7 @@ const USER_INFO = '@userInfo'
 
 export default function ProfileComponent() {
   const [id, setId] = useState('')
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
+  const [name, setName] = useState('')
   const [email, setEmail] = useState('')
 
   const getProfile = async () => {
@@ -24,8 +23,7 @@ export default function ProfileComponent() {
 
       if (fetchedProfile !== null) {
         setId(fetchedProfile.id)
-        setFirstName(fetchedProfile.firstName)
-        setLastName(fetchedProfile.lastName)
+        setName(fetchedProfile.name)
         setEmail(fetchedProfile.email)
       }
     } catch (e) {
@@ -42,7 +40,7 @@ export default function ProfileComponent() {
       <SafeAreaView>
         <ScrollView>
           <View className="flex-1 flex-col justify-center h-screen">
-            <ProfileName Name={`${firstName} ${lastName}`}></ProfileName>
+            <ProfileName Name={`${name}`}></ProfileName>
             <SettingsButton></SettingsButton>
             <LogOutButton testID='logoutBtn'></LogOutButton>
           </View>
