@@ -32,13 +32,11 @@ export default function Login(props) {
       const fetchedToken = await AsyncStorage.getItem(LOGIN_TOKEN);
       if (fetchedToken !== null) {
         navigation.navigate("HomeStack");
-        setLoading(false);
-      } else {
-        throw new Error("No login token found");
       }
-    } catch (error) {
       setLoading(false);
+    } catch (error) {
       console.log("Failed to fetch the login token from storage");
+      setLoading(false);
     }
   };
 
