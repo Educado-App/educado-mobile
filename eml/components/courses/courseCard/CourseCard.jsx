@@ -5,8 +5,8 @@ import Text from '../../../components/general/Text';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import CustomProgressBar from "../../exercise/Progressbar";
 import tailwindConfig from "../../../tailwind.config";
-import { determineIcon, determineCategory } from '../../../services/utilityFunctions';
-
+import DownloadCourseButton from "./DownloadCourseButton";
+import { determineIcon, determineCategory, formatHours } from '../../../services/utilityFunctions';
 
 /**
  * CourseCard component displays a card for a course with its details
@@ -33,6 +33,9 @@ export default function CourseCard({ course }) {
                     <Text className="text-[18px] text-black flex-1 self-center">
                         {course.title ? course.title : 'Título do curso'}
                     </Text>
+                    <View className="flex-2 pr-6">
+                        <DownloadCourseButton />
+                    </View>
                 </View>
                 <View className="h-[1] bg-disable m-[2%]" />
                 <View className="flex-row flex-wrap items-center justify-start">
@@ -42,7 +45,7 @@ export default function CourseCard({ course }) {
                     </View>
                     <View className="flex-row items-center">
                         <MaterialCommunityIcons size={18} name="clock" color={'gray'}></MaterialCommunityIcons>
-                        <Text className="mx-[2.5%] my-[3%]">{course.estimatedHours ? course.estimatedHours + ' hora(s)' : 'duração'}</Text>
+                        <Text className="mx-[2.5%] my-[3%]">{course.estimatedHours ? formatHours(course.estimatedHours) : 'duração'}</Text>
                     </View>
                 </View>
                 <View className="flex-row items-center">

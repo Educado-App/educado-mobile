@@ -10,13 +10,12 @@ import { View, Text } from 'react-native';
  * @param time - Boolean value to determine to render the time label.
  * @returns {JSX.Element} - Returns a JSX element.
  */
-const CardLabel = ({title, icon, color = "gray", time = false}) => {
-    const displayTitle = time ? `${title} Horas` : title;
+const CardLabel = ({title, icon, color = "gray"}) => {
 
     return ( 
         <View className="flex-row items-center justify-start">
             <MaterialCommunityIcons name={icon} size={13} color={color} />
-            <Text className="pl-1 text-xs" style={{color: color}}>{displayTitle}</Text>
+            <Text className="pl-1 text-xs" style={{color: color}}>{title}</Text>
         </View>
     );
 }

@@ -1,5 +1,11 @@
 /** Utility functions used in Explore and Course screens **/
 
+/**
+ * Converts a numeric difficulty level to a human-readable label.
+ * @param {number} lvl - The difficulty level of the course.
+ * @returns {string} The corresponding difficulty label in Portuguese.
+ */
+
 export function getDifficultyLabel(lvl) {
   switch (lvl) {
     case 1:
@@ -11,7 +17,13 @@ export function getDifficultyLabel(lvl) {
     default:
       return "Iniciante";
   }
-};
+}
+
+/**
+ * Maps an English course category to its Portuguese equivalent.
+ * @param {string} category - The category of the course in English.
+ * @returns {string} The translated category label in Portuguese.
+ */
 
 export function determineCategory(category) {
   switch (category) {
@@ -27,6 +39,13 @@ export function determineCategory(category) {
       return "Outro";
   }
 }
+
+/**
+ * Determines the appropriate icon name for a given course category.
+ * @param {string} category - The category of the course.
+ * @returns {string} The icon name corresponding to the given category.
+ */
+
 export function determineIcon(category) {
   switch (category) {
     case "personal finance":
@@ -42,6 +61,12 @@ export function determineIcon(category) {
   }
 }
 
+/**
+ * Formats a date string into a standardized date format.
+ * @param {string} courseDate - The date the course was last updated in ISO format.
+ * @returns {string} The formatted date in 'YYYY/MM/DD' format.
+ */
+
 export function getUpdatedDate(courseDate){
 
   const date = new Date(courseDate);
@@ -53,7 +78,7 @@ export function getUpdatedDate(courseDate){
 
   // Format the date and time in the desired format
   return `${year}/${month}/${day}`;
-};
+}
 
 /**
 * Determines if the two arrays of courses are different and require an update.
@@ -80,4 +105,22 @@ export function shouldUpdate(courses1, courses2) {
     }
   }
   return false;
+}
+
+/**
+ * Returns a string with the number and the correct form of "Hora/Horas" in Portuguese.
+ * @param {number} number - The number of hours.
+ * @returns {string} A string combining the number and either "Hora" (singular) or "Horas" (plural). Returns "- Hora" for non-numeric or negative inputs.
+ */
+
+export function formatHours(number) {
+  if (typeof number !== "number" || isNaN(number) || number <= 0) {
+    return "- Hora";
+  }
+
+  if (number <= 1) {
+    return `${number} Hora`;
+  } else {
+    return `${number} Horas`;
+  }
 }
