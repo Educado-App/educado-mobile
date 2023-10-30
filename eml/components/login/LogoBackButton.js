@@ -1,7 +1,7 @@
-import React from "react";
-import { View } from "react-native";
-import LeaveButton from "../exercise/LeaveButton";
-import EducadoLogo from "../images/EducadoLogo";
+import React from 'react';
+import { View } from 'react-native';
+import LeaveButton from '../exercise/LeaveButton';
+import EducadoLogo from '../images/EducadoLogo';
 
 
 /**
@@ -13,18 +13,18 @@ import EducadoLogo from "../images/EducadoLogo";
  */
 export default function LogoBackButton(props) {
 
-  return (
-    <View className='flex-row justify-center items-center w-full mt-4'>
-      {/* TODO: Implement with general back button instead */}
-      <View className='absolute left-0 z-50'>
-        <LeaveButton
-          navigationPlace={props.navigationPlace ? props.navigationPlace : 'Home'}
-        />
-      </View>
-      {/* Educado logo */}
-      <View className='items-center justify-center w-full'>
-        <EducadoLogo />
-      </View>
-    </View>
-  )
+	return (
+		<View className='flex-row justify-center items-center w-full mt-4'>
+			{/* TODO: Implement with general back button instead */}
+			<View className='absolute left-0 z-50'>
+				<LeaveButton
+					navigationPlace={props.navigationPlace ? props.navigationPlace : 'Home'}
+				/>
+			</View>
+			{/* Educado logo */}
+			<View className='items-center justify-center w-full'>
+				<EducadoLogo />
+			</View>
+		</View>
+	);
 }
