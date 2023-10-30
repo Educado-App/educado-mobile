@@ -114,8 +114,8 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7'}) 
                           selectedAnswer === index ? 'checked' : 'unchecked'
                         }
                         onPress={() => handleAnswerSelect(index)}
-                        color='#5ECCE9'
-                        uncheckedColor='#5ECCE9'
+                        color={projectColors.primary}
+                        uncheckedColor={projectColors.primary}
                       />
                     </View>
 
