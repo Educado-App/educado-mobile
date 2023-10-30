@@ -3,7 +3,9 @@ name: ESLint
 on:
   push:
     branches:
-      - main  # Change this to the branch you want to trigger linting on
+      - main
+      - stage
+      - dev
 
 jobs:
   eslint:
