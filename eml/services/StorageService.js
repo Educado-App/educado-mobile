@@ -1,6 +1,7 @@
 import * as api from '../api/api.js';
 import * as userApi from '../api/userApi.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {getAllSections, getExercisesInSection} from "../api/api.js";
 
 
 const COURSE_LIST = '@courseList';
@@ -281,6 +282,34 @@ export const checkSubscriptions = async (courseId) => {
     }
   }
 };
+
+/** TO DO:
+Store course,
+ relevant sections,
+ relevant lectures/exersises
+ locally **/
+
+export const storeCourseLocally = async (courseID)=> {
+
+  const course = await getCourse(courseID);
+  await AsyncStorage.setItem(courseID, JSON.stringify(course));
+  const sectionList = await getAllSections(courseID);
+  await AsyncStorage.setItem("S"+courseID,JSON.stringify(sectionList));
+  let sectionListID = [];
+  for (let e in sectionList) {
+    sectionListID.put(e.id);
+  }
+  for (let e in sectionListID) {
+    let exerciseList = await getExercisesInSection(courseID,e);
+    await AsyncStorage.setItem(""+e+courseID,JSON.stringify(exerciseList));
+  }
+
+
+
+}
+
+
+
 
 
 
