@@ -13,31 +13,31 @@ import { ScreenWidth, ScreenHeight } from '@rneui/base';
  * @returns {JSX.Element} - A JSX element representing the custom progress bar.
  */
 const CustomProgressBar = ({ progress, width, height }) => {
-  CustomProgressBar.propTypes = {
-    progress: PropTypes.number.isRequired,
-    width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired,
-  };
+	CustomProgressBar.propTypes = {
+		progress: PropTypes.number.isRequired,
+		width: PropTypes.number.isRequired,
+		height: PropTypes.number.isRequired,
+	};
 
-  // Insure progress is between 0 and 100
-  progress = Math.min(100, Math.max(0, progress));
+	// Insure progress is between 0 and 100
+	progress = Math.min(100, Math.max(0, progress));
 
-  return (
-    <View className='flex-row items-center justify-around'>
-      <Progress.Bar
-        progress={progress / 100}
-        width={ScreenWidth * (width / 100)}
-        height={ScreenHeight * (height / 100)}
-        color='rgba(94, 204, 233, 1)'
-        unfilledColor='rgba(228, 242, 245, 1)'
-        borderWidth={0}
-        borderRadius={8}
-      ></Progress.Bar>
-      <Text className='px-5 text-center font-montserrat-bold text-caption-medium text-projectBlack'>
-        {progress}%
-      </Text>
-    </View>
-  );
+	return (
+		<View className='flex-row items-center justify-around'>
+			<Progress.Bar
+				progress={progress / 100}
+				width={ScreenWidth * (width / 100)}
+				height={ScreenHeight * (height / 100)}
+				color='rgba(94, 204, 233, 1)'
+				unfilledColor='rgba(228, 242, 245, 1)'
+				borderWidth={0}
+				borderRadius={8}
+			></Progress.Bar>
+			<Text className='px-5 text-center font-montserrat-bold text-caption-medium text-projectBlack'>
+				{progress}%
+			</Text>
+		</View>
+	);
 };
 
 export default CustomProgressBar;
