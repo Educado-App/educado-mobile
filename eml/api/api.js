@@ -1,26 +1,51 @@
 import axios from "axios";
 
 const testUrl = "http://localhost:8888";
-const testExpo = "http://172.30.210.200:8888"; //Change to local expo ip
+const testExpo = "http://172.30.211.57:8888"; //Change to local expo ip
 const digitalOcean = "http://207.154.213.68:8888";
 
-const url = testUrl;
+const url = testExpo;
 
 /*** COURS, SECTIONS AND EXERCISES ***/
 
 export const getCourseByid = async (courseId) => {
-  const res = await axios.get(url + "/api/courses/" + courseId);
-  return res.data;
+  try {
+    const res = await axios.get(url + "/api/courses/" + courseId);
+    return res.data;
+  } catch (e) {
+    if (e?.response?.data != null) {
+    throw e.response.data;
+  } else {
+    throw e;
+  }
+  }
 };
 
 export const getSectionByid = async (sectionId) => {
-  const res = await axios.get(url + "/api/sections/" + sectionId);
-  return res.data;
+  try {
+    const res = await axios.get(url + "/api/sections/" + sectionId);
+    return res.data;
+  } catch (e) {
+      if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+
+  }
 };
 
 export const getExerciseByid = async (exerciseId) => {
-  const res = await axios.get(url + "/api/exercises/" + exerciseId);
-  return res.data;
+  try {
+    const res = await axios.get(url + "/api/exercises/" + exerciseId);
+    return res.data;
+  } catch (e) {
+    if (e?.response?.data != null) {
+    throw e.response.data;
+  } else {
+    throw e;
+  }
+  }
 };
 
 // Get specific course

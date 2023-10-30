@@ -14,13 +14,22 @@ import { StatusBar } from 'expo-status-bar';
 import { getExerciseByid, getSectionByid, getCourse } from '../../api/api';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
+/**
+ * Exercise screen component for displaying and handling exercises in a course.
+ * @module ExerciseScreen
+ * @param {string} givenId - The ID of the exercise (default: '65181a4f4c78b45368126ed7').
+ * @returns {JSX.Element} React component for the exercise screen.
+ */
 // givenId is used for testing purposes, in the future an exercise object should be passed by the previous screen
+
 export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7'}) {
 
   const xp = Math.floor(Math.random() * (10 - 5 + 1)) + 5; // Replace with intricate point system
 
   const navigation = useNavigation();
   const route = useRoute();
+  const tailwindConfig = require('../../tailwind.config.js');
+  const projectColors = tailwindConfig.theme.colors;
 
   const [hasData, setHasData] = useState(false);
   const [exerciseData, setExerciseData] = useState({});
@@ -124,14 +133,14 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7'}) 
                                   size={10}
                                   name='check'
                                   type='material'
-                                  color='#4AA04A'
+                                  color={projectColors.success}
                                 />
                               ) : (
                                 <Icon
                                   size={10}
                                   name='close'
                                   type='material'
-                                  color='#FF4949'
+                                  color={projectColors.error}
                                 />
                               )}  
                             </View>                        
