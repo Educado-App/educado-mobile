@@ -41,7 +41,7 @@ const ReactSliderProgress = ({ elapsedMs = 10000, totalMs = 20000, color, height
     return (
         <View className="w-full flex-row justify-between items-center h-8">
             {/* Start Time */}
-            <Text className="text-white">{convertMsToTime(sliderValue)}</Text>
+            <Text className="text-projectWhite">{convertMsToTime(sliderValue)}</Text>
 
             {/* Slider for Progress Bar */}
             <Slider
@@ -60,7 +60,7 @@ const ReactSliderProgress = ({ elapsedMs = 10000, totalMs = 20000, color, height
 
 
             {/* End Time */}
-            <Text className="text-white">{convertMsToTime(totalMs)}</Text>
+            <Text className="text-projectWhite">{convertMsToTime(totalMs)}</Text>
         </View>
     );
 

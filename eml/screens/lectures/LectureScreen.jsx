@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Alert, View, TouchableOpacity, Image, Text} from 'react-native';
+import { Alert, View, TouchableOpacity, Image, Text } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
 import VideoLectureScreen from './VideoLectureScreen';
@@ -10,12 +10,14 @@ export default function LectureScreen({ lectureObject, courseObject, currentInde
 
     const navigation = useNavigation();
     const [lecture, setLecture] = useState(lectureObject);
-    const [progressPercent, setProgressPercent] = useState(0);
+    const [progressPercent, setProgressPercent] = useState(null);
     useEffect(() => {
         setLecture(lectureObject);
         setCourse(courseObject);
-        setProgressPercent(calculateProgressInPercent());
-        
+        const _progressPercent = calculateProgressInPercent();
+        setProgressPercent(_progressPercent);
+        console.log("progressPercent", progressPercent)
+
     }, [])
 
     const [course, setCourse] = useState(courseObject);
@@ -30,7 +32,7 @@ export default function LectureScreen({ lectureObject, courseObject, currentInde
 
             {lecture && course ?
                 <View className="w-full h-full flex-col justify-center items-center">
-                    
+
                     {lecture.video ?
                         <VideoLectureScreen lecture={lecture} progress={progressPercent} course={course} />
                         :

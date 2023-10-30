@@ -26,7 +26,7 @@ export default function VideoLectureScreen({ lecture, course, progress }) {
 
 
     const videoRef = useRef(null);
-    const [isPlaying, setIsPlaying] = useState(true); // Keep track of playback status
+    const [isPlaying, setIsPlaying] = useState(false); // Keep track of playback status
     const [positionMillis, setPositionMillis] = useState(0);
     const [durationMillis, setDurationMillis] = useState(0);
     const [isMuted, setIsMuted] = useState(false); // Keep track of mute status
@@ -37,6 +37,7 @@ export default function VideoLectureScreen({ lecture, course, progress }) {
         setDurationMillis(status.durationMillis || 0);
 
     };
+
 
 
     const [videoUrl, setVideoUrl] = useState(null);
@@ -136,7 +137,7 @@ export default function VideoLectureScreen({ lecture, course, progress }) {
                 </View>
             </View>
             {/* Layers on top of video */}
-            
+
             <View className="absolute w-full h-full p-5">
                 <View className="w-full h-full flex-col justify-end items-center  bg-opacity-20" >
                     {/* Progress bar (on top) */}
@@ -178,7 +179,7 @@ export default function VideoLectureScreen({ lecture, course, progress }) {
                 >
                     <View>
                         <MaterialCommunityIcons
-                            name={isPlaying ? "pause" : "play"}
+                            name={isPlaying ? "play" : "pause"}
                             size={50}
                             color="white"
                         />

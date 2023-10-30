@@ -5,7 +5,7 @@ const test = "http://172.30.212.101:8888"; // Change this to your LOCAL IP addre
 const local = "http://localhost:8888";
 const digitalOcean = "http://207.154.213.68:8888";
 
-const url = local;
+const url = test;
 
 /**
  * This is the client that will be used to make requests to the backend.
