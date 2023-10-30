@@ -14,3 +14,7 @@ eslint-job:
     - cd eml
     - npm install --only-dev
     - node_modules/eslint/bin/eslint.js .
+
+- name: Lint Action
+uses: wearerequired/lint-action@v2.3.0
+            
