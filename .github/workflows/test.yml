@@ -8,25 +8,28 @@ on:
       - dev
       - staging
       - main
-
 jobs:
-  test:
+  eslint:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Check out code
         uses: actions/checkout@v2
 
-      - name: Set up Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: "16" # Change to the Node.js version you need
-
+          node-version: 20 
+      
       - name: List directories and files
         run: ls -al
 
       - name: Install dependencies
-        run: cd eml && npm i
+        run: cd eml && npm install
+        
+      - name: Run Tests
+        run: cd eml && npm run test  
 
-      - name: Run tests
-        run: cd eml && npm run test
+      - name: Run ESLint
+        run: cd eml && npm run lint 
+´
