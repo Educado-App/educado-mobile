@@ -34,7 +34,7 @@ export default function CourseCard({ course }) {
                         {course.title ? course.title : 'Título do curso'}
                     </Text>
                     <View className="flex-2 pr-6">
-                        <DownloadCourseButton />
+                        <DownloadCourseButton courseID={course.courseId} />
                     </View>
                 </View>
                 <View className="h-[1] bg-disable m-[2%]" />

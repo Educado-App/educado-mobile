@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import LottieView from "lottie-react-native";
 import {Alert, TouchableWithoutFeedback} from "react-native";
+import {storeCourseLocally} from "../../../services/StorageService";
 
 const ANIMATION_STATES = {
     INITIAL: "initial",
@@ -14,7 +15,7 @@ const ANIMATION_STATES = {
  * DownloadCourseButton component displays a button that downloads a course
  * @returns {JSX.Element} - The DownloadCourseButton component
  */
-export default function DownloadCourseButton() {
+export default function DownloadCourseButton(courseID) {
     const animationRef = useRef(null);
     const [animationState, setAnimationState] = useState(ANIMATION_STATES.INITIAL);
 
@@ -57,8 +58,9 @@ export default function DownloadCourseButton() {
                 text: "Baixar",
                 onPress: () => {
                     setAnimationState(ANIMATION_STATES.DOWNLOADING);
+                    storeCourseLocally(courseID.courseID).then(setAnimationState(ANIMATION_STATES.FINISHING));
                     // Hardcoded timeout to simulate download
-                    setTimeout(() => setAnimationState(ANIMATION_STATES.FINISHING), Math.floor(Math.random() * 5001));
+                    //setTimeout(() => setAnimationState(ANIMATION_STATES.FINISHING), Math.floor(Math.random() * 5001));
                 },
             },
         ]);

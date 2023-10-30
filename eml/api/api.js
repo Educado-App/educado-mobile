@@ -86,7 +86,8 @@ export const getSection = async (courseId, sectionId) => {
 export const getExercisesInSection = async (courseId, sectionId) => {
   try {
     const res = await axios.get(
-      url + "/api/courses/" + courseId + "/sections/" + sectionId + "/exercises"
+      //url + "/api/courses/" + courseId + "/sections/" + sectionId + "/exercises"
+        url + "/api/exercises/getall/" + sectionId
     );
     return res.data;
   } catch (e) {

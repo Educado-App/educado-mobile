@@ -284,28 +284,35 @@ export const checkSubscriptions = async (courseId) => {
 };
 
 /** TO DO:
-Store course,
+ Store course,
  relevant sections,
  relevant lectures/exersises
  locally **/
 
-export const storeCourseLocally = async (courseID)=> {
-
+export const storeCourseLocally = async (courseID) => {
+    try {
   const course = await getCourse(courseID);
-  await AsyncStorage.setItem(courseID, JSON.stringify(course));
-  const sectionList = await getAllSections(courseID);
+        const course = await api.getCourse(courseID);
+        await AsyncStorage.setItem(courseID, JSON.stringify(course));
+        const sectionList = await getAllSections(courseID);
   await AsyncStorage.setItem("S"+courseID,JSON.stringify(sectionList));
-  let sectionListID = [];
-  for (let e in sectionList) {
+        await AsyncStorage.setItem("S" + courseID, JSON.stringify(sectionList));
+        let sectionListID = [];
+        for (let e of sectionList) {
     sectionListID.put(e.id);
-  }
+            sectionListID.push(e._id);
+        }
   for (let e in sectionListID) {
-    let exerciseList = await getExercisesInSection(courseID,e);
+        for (let e of sectionListID) {
     await AsyncStorage.setItem(""+e+courseID,JSON.stringify(exerciseList));
-  }
+            let exerciseList = await getExercisesInSection(courseID, e);
+            await AsyncStorage.setItem("" + e + courseID, JSON.stringify(exerciseList));
+        }
 
-
-
+        return true;
+    } catch (e) {
+        console.log("Error in storeCourseLocally " + e);
+    }
 }
 
 
