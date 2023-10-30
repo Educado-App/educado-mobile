@@ -1,11 +1,10 @@
 import React, { useState, useEffect, StyleSheet } from 'react';
 import { View, Text } from 'react-native';
 import Slider from '@react-native-community/slider';
-import { forwardRef } from 'react';
 
 
 
-const ReactSliderProgress = forwardRef(({ elapsedMs = 10000, totalMs = 20000,   }, ref) => {
+const ReactSliderProgress = ({ elapsedMs = 10000, totalMs = 20000, color, height, videoRef }) => {
 
     const convertMsToTime = (ms) => {
         let seconds = Math.floor((ms / 1000) % 60);
@@ -26,9 +25,9 @@ const ReactSliderProgress = forwardRef(({ elapsedMs = 10000, totalMs = 20000,   
     }, [elapsedMs]);
 
     const onSlidingComplete = async (value) => {
-        if (ref.current) {
+        if (videoRef.current) {
             try {
-                await ref.current.setStatusAsync({
+                await videoRef.current.setStatusAsync({
                     positionMillis: value,
                 });
             } catch (error) {
@@ -42,7 +41,7 @@ const ReactSliderProgress = forwardRef(({ elapsedMs = 10000, totalMs = 20000,   
     return (
         <View className="w-full flex-row justify-between items-center h-8">
             {/* Start Time */}
-            <Text className="text-projectWhite">{convertMsToTime(sliderValue)}</Text>
+            <Text className="text-white">{convertMsToTime(sliderValue)}</Text>
 
             {/* Slider for Progress Bar */}
             <Slider
@@ -61,11 +60,11 @@ const ReactSliderProgress = forwardRef(({ elapsedMs = 10000, totalMs = 20000,   
 
 
             {/* End Time */}
-            <Text className=" text-projectWhite">{convertMsToTime(totalMs)}</Text>
+            <Text className="text-white">{convertMsToTime(totalMs)}</Text>
         </View>
     );
 
 
-});
+};
 
 export default ReactSliderProgress;

@@ -2,22 +2,26 @@ import React, { useState, useEffect, useRef } from 'react';
 
 // For animating play button
 
-import { Alert, View, Pressable } from 'react-native';
+import { Alert, View, TouchableOpacity, Pressable } from 'react-native';
 
+import tailwindConfig from '../../tailwind.config';
 import Text from '../../components/general/Text';
 
 import VideoActions from '../../components/lectures/VideoActions';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import CustomExpoVideoPlayer from '../../components/lectures/VideoPlayer';
+import ProgressBar from '../../components/progress/ProgressBar';
+import VideoProgressBar from './VideoProgressBar';
 import ReactSliderProgress from './ReactSliderProgress';
 import { getVideoDownloadUrl } from '../../api/api';
 
 import { useNavigation } from '@react-navigation/native';
 import ProgressTopBar from './ProgressTopBar';
-import axios from 'axios';
 
+import { Platform } from 'react-native';
 
 
 export default function VideoLectureScreen({ lecture, course }) {
@@ -42,11 +46,10 @@ export default function VideoLectureScreen({ lecture, course }) {
     useEffect(() => {
         const _videoUrl = getVideoDownloadUrl(lecture._id, "180p")
 
-        //send head request to check if video is valid
-        axios.head(_videoUrl).then((response) => {}).catch((error) => {
-            Alert.alert("Error", "The video is corrupted. Please try again later", "OK");
-        })
-            
+
+
+        //test if video is available for download from internet
+
         setVideoUrl(_videoUrl)
     }, [])
 
@@ -74,6 +77,26 @@ export default function VideoLectureScreen({ lecture, course }) {
 
     const navigation = useNavigation();
 
+    //check if video url is valid
+    useEffect(() => {
+        const _videoUrl = getVideoDownloadUrl(lecture._id, "180p");
+
+        fetch(_videoUrl, {
+            method: 'HEAD'
+        })
+            .then(response => {
+                if (response.ok) {
+                    // HTTP status between 200-299 or equals 304.
+                    setVideoUrl(_videoUrl);
+                } else {
+                    console.error('Video URL is not valid');
+                    Alert.alert("Error", "The video is corrupted. Please try again later", "OK");
+                }
+            })
+            .catch(error => {
+                Alert.alert("Error", "The video is corrupted. Please try again later", "OK");
+            });
+    }, []);
 
 
 
@@ -116,7 +139,7 @@ export default function VideoLectureScreen({ lecture, course }) {
             </View>
             {/* Layers on top of video */}
             
-            <View className="absolute w-full h-full p-5 ">
+            <View className="absolute w-full h-full p-5 border-2 border-projectWhite">
                 <View className="w-full h-full flex-col justify-between items-center  bg-opacity-20" >
                     {/* Progress bar (on top) */}
                     <ProgressTopBar progressPercent={75} />
@@ -137,7 +160,7 @@ export default function VideoLectureScreen({ lecture, course }) {
 
                         {/* Video Progress Bar Component */}
                         {/* <VideoProgressBar elapsedMs={positionMillis} totalMs={durationMillis} videoRef={videoRef} /> */}
-                        <ReactSliderProgress elapsedMs={positionMillis} totalMs={durationMillis} ref={videoRef} />
+                        <ReactSliderProgress elapsedMs={positionMillis} totalMs={durationMillis} videoRef={videoRef} />
 
 
 
@@ -157,7 +180,7 @@ export default function VideoLectureScreen({ lecture, course }) {
                 >
                     <View>
                         <MaterialCommunityIcons
-                            name={isPlaying ? "play" : "pause"}
+                            name={isPlaying ? "pause" : "play"}
                             size={50}
                             color="white"
                         />
@@ -167,3 +190,4 @@ export default function VideoLectureScreen({ lecture, course }) {
         </View>
     );
 }
+

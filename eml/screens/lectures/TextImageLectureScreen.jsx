@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { Image } from 'react-native';
 import ProgressTopBar from './ProgressTopBar';
 import { ScrollView } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native';
 
 import tailwindConfig from '../../tailwind.config';
 import { getBucketImage } from '../../api/api';
 
-const TextImageLectureScreen = ({ lecture, course }) => {
-
+const TextImageLectureScreen = ({ lecture, course, pastLecture, nextLecture, lectures }) => {
 
 
     const [imageUrl, setImageUrl] = useState(null);
 
     const [paragraphs, setParagraphs] = useState(null);
+
+    const navigation = useNavigation();
 
     useEffect(() => {
 
@@ -24,9 +26,9 @@ const TextImageLectureScreen = ({ lecture, course }) => {
 
         }
         splitText(lecture.description);
+        
 
     }, [])
-
 
     const getLectureImage = async () => {
 
@@ -44,10 +46,10 @@ const TextImageLectureScreen = ({ lecture, course }) => {
 
     //split text into paragraphs and dont cut words
     const splitText = (text) => {
-        if(!text) text = "";
+
 
         let _paragraphs = [];
-
+ 
         if (text.length < 250) {
             _paragraphs.push(text);
             setParagraphs(_paragraphs);
@@ -87,7 +89,6 @@ const TextImageLectureScreen = ({ lecture, course }) => {
         // Now, `_paragraphs` contains the split text.
         setParagraphs(_paragraphs);
     };
-
 
     return (<View className={"absolute w-full h-full px-4"}>
         <ProgressTopBar progressPercent={75} color='black' />
@@ -131,7 +132,7 @@ const TextImageLectureScreen = ({ lecture, course }) => {
             {
                 // Rendering the last paragraph below the image if the array has more than two elements
                 paragraphs && paragraphs.length > 2 &&
-                <Text className=" text-[18px] pt-4 " style={{ color: tailwindConfig.theme.colors.projectGray }} >{paragraphs[paragraphs.length - 1]}</Text>
+                <Text className=" text-[18px] pt-4 text-projectGray" >{paragraphs[paragraphs.length - 1]}</Text>
             }
         </ScrollView>
 
