@@ -13,8 +13,6 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import CustomExpoVideoPlayer from '../../components/lectures/VideoPlayer';
-import ProgressBar from '../../components/progress/ProgressBar';
-import VideoProgressBar from './VideoProgressBar';
 import ReactSliderProgress from './ReactSliderProgress';
 import { getVideoDownloadUrl } from '../../api/api';
 
@@ -24,7 +22,7 @@ import ProgressTopBar from './ProgressTopBar';
 import { Platform } from 'react-native';
 
 
-export default function VideoLectureScreen({ lecture, course }) {
+export default function VideoLectureScreen({ lecture, course, progress }) {
 
 
     const videoRef = useRef(null);
@@ -139,10 +137,10 @@ export default function VideoLectureScreen({ lecture, course }) {
             </View>
             {/* Layers on top of video */}
             
-            <View className="absolute w-full h-full p-5 border-2 border-projectWhite">
-                <View className="w-full h-full flex-col justify-between items-center  bg-opacity-20" >
+            <View className="absolute w-full h-full p-5">
+                <View className="w-full h-full flex-col justify-end items-center  bg-opacity-20" >
                     {/* Progress bar (on top) */}
-                    <ProgressTopBar progressPercent={75} />
+                    {/* <ProgressTopBar progressPercent={progress} /> */}
                     {/* Lecture information */}
 
                     <View className="w-full flex-col items-start justify-left" >

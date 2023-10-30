@@ -1,21 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text } from 'react-native';
 import { Image } from 'react-native';
 import ProgressTopBar from './ProgressTopBar';
 import { ScrollView } from 'react-native-gesture-handler';
-import { useNavigation } from '@react-navigation/native';
 
 import tailwindConfig from '../../tailwind.config';
 import { getBucketImage } from '../../api/api';
 
-const TextImageLectureScreen = ({ lecture, course, pastLecture, nextLecture, lectures }) => {
+const TextImageLectureScreen = ({ lecture, course, progress }) => {
+
 
 
     const [imageUrl, setImageUrl] = useState(null);
 
     const [paragraphs, setParagraphs] = useState(null);
-
-    const navigation = useNavigation();
 
     useEffect(() => {
 
@@ -26,9 +24,9 @@ const TextImageLectureScreen = ({ lecture, course, pastLecture, nextLecture, lec
 
         }
         splitText(lecture.description);
-        
 
     }, [])
+
 
     const getLectureImage = async () => {
 
@@ -49,7 +47,7 @@ const TextImageLectureScreen = ({ lecture, course, pastLecture, nextLecture, lec
 
 
         let _paragraphs = [];
- 
+
         if (text.length < 250) {
             _paragraphs.push(text);
             setParagraphs(_paragraphs);
@@ -90,12 +88,12 @@ const TextImageLectureScreen = ({ lecture, course, pastLecture, nextLecture, lec
         setParagraphs(_paragraphs);
     };
 
-    return (<View className={"absolute w-full h-full px-4"}>
-        <ProgressTopBar progressPercent={75} color='black' />
+    return (<View className={"absolute w-full h-full px-4 pt-20"}>
+        {/* <ProgressTopBar progressPercent={progress} color='black' /> */}
         {/* Content */}
-
-        <ScrollView className="">
-            <Text className="text-center text-2xl pt-8 font-bold">BEM VINDO!</Text>
+        <Text className="text-center text-2xl pt-6 font-bold">BEM VINDO!</Text>
+        <ScrollView className=" mt-2">
+            
 
             {
                 // Rendering all paragraphs above the image if the array has two or fewer elements
@@ -103,7 +101,7 @@ const TextImageLectureScreen = ({ lecture, course, pastLecture, nextLecture, lec
                 paragraphs && paragraphs.map((paragraph, index) => {
                     if (paragraphs.length <= 2 || index !== paragraphs.length - 1) {
                         return (
-                            <Text key={index + paragraph} className={index === 0 ? "text-[18px] pt-6" : "text-[18px] pt-4 "} style={{ color: index == 0 ? tailwindConfig.theme.colors.primary : tailwindConfig.theme.colors.projectGray }} >{paragraph}</Text>
+                            <Text className="text-[18px] pt-4 px-4 " style={{ color: index == 0 ? tailwindConfig.theme.colors.primary : tailwindConfig.theme.colors.projectGray }} >{paragraph}</Text>
                         );
                     }
                     return null;
@@ -117,7 +115,7 @@ const TextImageLectureScreen = ({ lecture, course, pastLecture, nextLecture, lec
 
 
             {/* Image */}
-            {imageUrl && <View className="w-full h-[25vh] pt-8" >
+            {imageUrl && <View className="w-full h-[25vh] px-4 pt-8" >
                 <Image
                     source={{ uri: imageUrl }}
                     style={{ width: '100%', height: '100%' }}
@@ -132,18 +130,17 @@ const TextImageLectureScreen = ({ lecture, course, pastLecture, nextLecture, lec
             {
                 // Rendering the last paragraph below the image if the array has more than two elements
                 paragraphs && paragraphs.length > 2 &&
-                <Text className=" text-[18px] pt-4 text-projectGray" >{paragraphs[paragraphs.length - 1]}</Text>
+                <Text className=" text-[18px] pt-4 " style={{ color: tailwindConfig.theme.colors.projectGray }} >{paragraphs[paragraphs.length - 1]}</Text>
             }
         </ScrollView>
 
-
-        <View className="flex-col w-full justify-left mt-8 pb-4 pt-2" >
+        <View className="flex-col w-full justify-left drop-shadow-2xl mt-2 pb-4 pt-2" >
             {/* Course name and lecturen name */}
             <View className="w-full flex-row justify-between">
 
-                <View className=" flex-col">
+                <View className=" flex-col mb-8">
                     <Text className=" text-projectGray " >Course Name: {course.title}</Text>
-                    <Text className=" text-xl font-bold text-black " >{lecture.title && lecture.title}</Text>
+                    <Text className=" text-xl font-bold text-black " >{lecture.title}</Text>
                 </View>
             </View>
         </View>

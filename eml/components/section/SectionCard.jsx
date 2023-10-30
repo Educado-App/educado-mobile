@@ -63,7 +63,7 @@ export default function SectionCard({ section }) {
 
     const handleLecturePress = (lectureId) => {
         navigation.navigate('Lecture', {
-
+            sectionId: section.sectionId,
             lectureId: lectureId,
             courseId: section.parentCourseId,
         })
@@ -93,25 +93,25 @@ export default function SectionCard({ section }) {
                     <View className="h-[1] bg-disable" />
                     <Text className="mx-[20] my-[10]">{section.description}</Text>
                     <View className="w-[100%]">
-                         {/* Lectures */}
-                         {lectures && lectures.map((lecture) => {
+                        {/* Lectures */}
+                        {lectures && lectures.map((lecture) => {
 
-                        return (
-                            <Pressable key={lecture._id} onPress={() => {
-                                handleLecturePress(lecture._id);
-                            }} >
-                                <View key={lecture.lectureId} className={`flex-row items-center justify-between px-[25] py-[15]
+                            return (
+                                <Pressable key={lecture._id} onPress={() => {
+                                    handleLecturePress(lecture._id);
+                                }} >
+                                    <View key={lecture.lectureId} className={`flex-row items-center justify-between px-[25] py-[15]
                             ${lecture.completed ? "bg-[#87eb8e]" : "bg-[#fff]"}
                             ` }>
-                                    <Text className="text-[16px] font-bold text-black flex-[1]">
-                                        {lecture.title}
-                                    </Text>
-                                    <Text className="mr-[10] text-black">
-                                        {lecture.completed ? "Completed" : "Not completed"}
-                                    </Text>
-                                </View>
-                            </Pressable>
-                        )
+                                        <Text className="text-[16px] font-bold text-black flex-[1]">
+                                            {lecture.title}
+                                        </Text>
+                                        <Text className="mr-[10] text-black">
+                                            {lecture.completed ? "Completed" : "Not completed"}
+                                        </Text>
+                                    </View>
+                                </Pressable>
+                            )
 
                         })}
                         <TouchableOpacity className="w-[100%] h-[300] items-center justify-center relative"
