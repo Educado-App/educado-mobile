@@ -1,20 +1,25 @@
-# A pipeline is composed of independent jobs that run scripts, grouped into stages.
-# Stages run in sequential order, but jobs within stages run in parallel.
-#
-# For more information, see: https://docs.gitlab.com/ee/ci/yaml/index.html#stages
+name: ESLint
 
-image: node
+on:
+  push:
+    branches:
+      - main  # Change this to the branch you want to trigger linting on
 
-stages:
-  - test
+jobs:
+  eslint:
+    runs-on: ubuntu-latest
 
-eslint-job:
-  stage: test
-  script:
-    - cd eml
-    - npm install --only-dev
-    - node_modules/eslint/bin/eslint.js .
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
 
-- name: Lint Action
-uses: wearerequired/lint-action@v2.3.0
-            
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14  # You can change this to your preferred Node.js version
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run ESLint
+        run: npm run lint  # Adjust the lint script command if needed
