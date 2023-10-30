@@ -8,6 +8,8 @@ import Text from '../general/Text';
 import { sendResetPasswordEmail, validateResetPasswordCode } from "../../api/userApi";
 import FormFieldAlert from "./FormFieldAlert";
 import { validateEmail } from "../general/Validation";
+import { RootSiblingParent } from 'react-native-root-siblings';
+import ToastNotification from "../general/ToastNotification";
 
 /**
  * Component to create modal (popup) that prompts user for
@@ -17,6 +19,7 @@ import { validateEmail } from "../general/Validation";
  * - onModalClose: Function to do when modal closes
  */
 export default function ResetPassword(props) {
+
   const emailAlertMessage = "Não existe nenhum usuário com este email!";
   const [email, setEmail] = useState("");
   const [token, setToken] = useState("");
@@ -60,8 +63,7 @@ export default function ResetPassword(props) {
     await sendResetPasswordEmail(obj)
       .then(async () => {
         setEmailSent(true);
-        setButtonLoading(false);
-        displayErrorAlert("E-mail enviado com sucesso!", true);
+        ToastNotification('E-mail enviado com sucesso!', 'success', 'top');
       }).catch((error) => {
         switch (error?.error?.code) {
           case 'E0401':
@@ -84,8 +86,8 @@ export default function ResetPassword(props) {
             // Errors not currently handled with specific alerts
             displayErrorAlert("Erro desconhecido!", false);
         }
-        setButtonLoading(false);
       });
+    setButtonLoading(false);
   }
 
 
@@ -146,70 +148,72 @@ export default function ResetPassword(props) {
   return (
     <EducadoModal modalVisible={props.modalVisible} closeModal={props.onModalClose} id="EducadoModal" title="Redefinição de senha">
       <View className="my-[80px] px-10">
-        {!codeEntered ? (
-          <View>
-            <FormTextField
-              bordered={true}
-              placeholder="user@email.com"
-              label="E-mail"
-              required={true}
-              onChangeText={(email) => setEmail(email)}
-              keyboardType="email-address"
-              testId="emailInput"
-              value={email}
-            />
-            <FormFieldAlert testId="emailAlert" label={passwordResetAlert} success={isSuccess} />
-            <View className="mt-[40px]">
-              {emailSent ? (
-                <View>
-                  <Text className="text-left mb-[10px]">
-                    {/* We have sent a code to your mail to reset your password,
+        <RootSiblingParent>
+          {!codeEntered ? (
+            <View>
+              <FormTextField
+                bordered={true}
+                placeholder="user@email.com"
+                label="E-mail"
+                required={true}
+                onChangeText={(email) => setEmail(email)}
+                keyboardType="email-address"
+                testId="emailInput"
+                value={email}
+              />
+              <FormFieldAlert testId="emailAlert" label={passwordResetAlert} success={isSuccess} />
+              <View className="mt-[40px]">
+                {emailSent ? (
+                  <View>
+                    <Text className="text-left mb-[10px]">
+                      {/* We have sent a code to your mail to reset your password,
                      please enter the code you have received below: */}
-                    Enviamos para o seu email um código de redefinição de senha. Insira o código abaixo.
-                  </Text>
-                  <FormTextField
-                    bordered={true}
-                    placeholder="X X X X"
-                    onChangeText={(token) => setToken(token)}
-                    testId="tokenInput"
-                    value={token}
-                  />
-                  <FormFieldAlert testId="tokenAlert" label={tokenAlert} />
-                  <View className="mt-[40px] mb-[24px]">
-                    <FormButton
-                      // Continue 
-                      label={buttonLoading ? "Validando código..." : "Continuar"}
-                      onPress={() => validateCode(email, token)}
-                      testId="validateCodeBtn"
-                      disabled={!codeInputValid(token)}
+                      Enviamos para o seu email um código de redefinição de senha. Insira o código abaixo.
+                    </Text>
+                    <FormTextField
+                      bordered={true}
+                      placeholder="X X X X"
+                      onChangeText={(token) => setToken(token)}
+                      testId="tokenInput"
+                      value={token}
                     />
+                    <FormFieldAlert testId="tokenAlert" label={tokenAlert} />
+                    <View className="mt-[40px] mb-[24px]">
+                      <FormButton
+                        // Continue 
+                        label={buttonLoading ? "Validando código..." : "Continuar"}
+                        onPress={() => validateCode(email, token)}
+                        testId="validateCodeBtn"
+                        disabled={!codeInputValid(token)}
+                      />
+                    </View>
+                    <View className="mx-10 flex-row justify-center">
+                      {/* Did not receieve the code? */}
+                      <Text>O código não chegou?</Text>
+                      {/* Resend code*/}
+                      <Text className="underline ml-1" onPress={() => sendEmail(email)}>Reenviar código</Text>
+                    </View>
                   </View>
-                  <View className="mx-10 flex-row justify-center">
-                    {/* Did not receieve the code? */}
-                    <Text>O código não chegou?</Text>
-                    {/* Resend code*/}
-                    <Text className="underline ml-1" onPress={() => sendEmail(email)}>Reenviar código</Text>
-                  </View>
-                </View>
-              ) : (
-                <FormButton
-                  // Send code
-                  label={buttonLoading ? "Enviando e-mail..." : "Enviar código"}
-                  onPress={() => sendEmail(email)}
-                  testId="resetPasswordButton"
-                  disabled={passwordResetAlert !== "" || email === "" || buttonLoading}
-                />
-              )}
+                ) : (
+                  <FormButton
+                    // Send code
+                    label={buttonLoading ? "Enviando e-mail..." : "Enviar código"}
+                    onPress={() => sendEmail(email)}
+                    testId="resetPasswordButton"
+                    disabled={passwordResetAlert !== "" || email === "" || buttonLoading}
+                  />
+                )}
+              </View>
             </View>
-          </View>
-        ) : (
-          <EnterNewPasswordScreen
-            email={email}
-            token={token}
-            hideModal={props.onModalClose}
-            resetState={resetState}
-          />
-        )}
+          ) : (
+            <EnterNewPasswordScreen
+              email={email}
+              token={token}
+              hideModal={props.onModalClose}
+              resetState={resetState}
+            />
+          )}
+        </RootSiblingParent>
       </View>
     </EducadoModal>
   );

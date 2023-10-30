@@ -11,6 +11,7 @@ import FormFieldAlert from "./FormFieldAlert";
 import { removeEmojis } from "../general/Validation";
 import Text from "../general/Text";
 import ShowAlert from "../general/ShowAlert";
+import ToastNotification from "../../components/general/ToastNotification";
 
 const LOGIN_TOKEN = "@loginToken";
 const USER_INFO = "@userInfo";
@@ -79,6 +80,7 @@ export default function LoginForm() {
       await AsyncStorage.setItem(LOGIN_TOKEN, response.accessToken);
       await saveUserInfoLocally(response.userInfo);
       navigation.navigate("HomeStack");
+      ToastNotification('Logged in!', 'success');
     }).catch((error) => {
       switch (error?.error?.code) {
         case 'E0004':
