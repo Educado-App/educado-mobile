@@ -10,7 +10,6 @@ import SettingsButton from '../../components/profile/settingsButton.js';
 import { BgLinearGradient } from '../../constants/BgLinearGradient';
 import { getUserInfo } from '../../services/StorageService';
 
-const USER_INFO = '@userInfo';
 
 export default function ProfileComponent() {
 	const [firstName, setFirstName] = useState('');
@@ -19,7 +18,7 @@ export default function ProfileComponent() {
 
 	const getProfile = async () => {
 		try {
-			const fetchedProfile = getUserInfo();
+			const fetchedProfile = await getUserInfo();
 
 			if (fetchedProfile !== null) {
 				setFirstName(fetchedProfile.firstName); 

@@ -45,7 +45,6 @@ export default function LoginForm() {
 				lastName: userInfo.lastName,
 				email: userInfo.email,
 			};
-
 			await AsyncStorage.setItem(USER_INFO, JSON.stringify(obj));
 			await AsyncStorage.setItem(USER_ID, userInfo.id); // needs to be seperate
 		} catch (e) {
@@ -77,7 +76,10 @@ export default function LoginForm() {
 		await loginUser(obj).then(async (response) => {
 			// Set login token in AsyncStorage and navigate to home screen
 			await AsyncStorage.setItem(LOGIN_TOKEN, response.accessToken);
+
+			console.log(response.userInfo);
 			await saveUserInfoLocally(response.userInfo);
+
 			navigation.navigate('HomeStack');
 		}).catch((error) => {
 			switch (error?.error?.code) {

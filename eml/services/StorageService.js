@@ -12,7 +12,6 @@ const USER_INFO = '@userInfo';
 export const getUserInfo = async () => {
 
 	const fetchedUserInfo = JSON.parse(await AsyncStorage.getItem(USER_INFO));
-
 	// I had to format the error handling as this,
 	// beacuse AsyncStorage.getItem() does not throw error itself 
 

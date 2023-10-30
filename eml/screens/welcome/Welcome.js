@@ -4,9 +4,9 @@ import { BgLinearGradient } from '../../constants/BgLinearGradient';
 import WelcomeSlider from '../../components/welcome/WelcomeSlider';
 import Text from '../../components/general/Text.js';
 import { useNavigation } from '@react-navigation/native';
-export default function WelcomeScreen({ }) {
+export default function WelcomeScreen() {
 
-const navigation = useNavigation();
+	const navigation = useNavigation();
 
 	return (
 		<BgLinearGradient>

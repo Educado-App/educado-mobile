@@ -8,7 +8,7 @@ const LOGIN_TOKEN = '@loginToken';
 const USER_INFO = '@userInfo';
 
 export default function LogOutButton() {
-	;
+	
 
 	const navigation = useNavigation();
 
