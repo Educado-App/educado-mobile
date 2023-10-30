@@ -1,17 +1,17 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Animated, Text } from 'react-native';
-import axios from "axios";
+//import axios from "axios";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import {checkBackendOnline} from "../../api/api";
 
 export default function OfflineBanner() {
     const [isBackendReachable, setIsBackendReachable] = useState(false);
     const translateY = useRef(new Animated.Value(-100)).current;
-    const BACKEND_URL = 'http://localhost:8888/api';
+    //const BACKEND_URL = 'http://localhost:8888/api';
 
     const checkBackendConnection = async () => {
         try {
-            await axios.get(BACKEND_URL);
-            setIsBackendReachable(true);
+            setIsBackendReachable(await checkBackendOnline());
         } catch (error) {
             setIsBackendReachable(false);
         }

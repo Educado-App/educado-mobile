@@ -179,3 +179,10 @@ export const ifSubscribed = async (userId, courseId) => {
     }
   }
 };
+// Call to backend to see if online
+export const checkBackendOnline = async () => {
+  const res = await axios.get(url + '/api/utility/online/');
+  return res.data;
+};
+
+
