@@ -10,7 +10,9 @@ module.exports = {
 	'overrides': [
 		{
 			'env': {
-				'node': true
+				'node': true,
+				'commonjs': true,
+				'es6': true
 			},
 			'files': [
 				'.eslintrc.{js,cjs}'
@@ -28,7 +30,8 @@ module.exports = {
 		'react'
 	],
 	'ignorePatterns': [
-		'**/*.test.js', '**/*.spec.js', 'jestSetup.js'
+		'**/*.test.js', '**/*.spec.js', 'jestSetup.js',
+
 	],
 	'rules': {
 	}
