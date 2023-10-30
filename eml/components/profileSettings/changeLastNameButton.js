@@ -26,7 +26,7 @@ export default function ProfileComponent() {
 
 	const getProfile = async () => {
 		try {
-			const fetchedProfile = getUserInfo();
+			const fetchedProfile = await getUserInfo();
 
 			if (fetchedProfile !== null) {
 				setId(fetchedProfile.id);
