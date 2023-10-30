@@ -1,10 +1,9 @@
-import axios from 'axios';
+import axios from "axios";
 
-const prod = 'http://educado.somethingnew.dk';
-const test = 'http://172.30.213.88:8888'; // Change this to your LOCAL IP address when testing.
-const local = 'http://localhost:8888';
-const digitalOcean = 'http://207.154.213.68:8888';
-
+const prod = "http://educado.somethingnew.dk";
+const test = "http://172.30.212.101:8888"; // Change this to your LOCAL IP address when testing.
+const local = "http://localhost:8888";
+const digitalOcean = "http://207.154.213.68:8888";
 
 const url = local;
 
@@ -14,7 +13,7 @@ const url = local;
 export const client = axios.create({
   baseURL: test,
   withCredentials: true,
-  responseType: 'json',
+  responseType: "json",
   timeout: 30000,
 });
 
@@ -28,13 +27,13 @@ export const client = axios.create({
  */
 export const registerUser = async (obj) => {
   console.log(`User trying to register:
-    firstName: ${obj.firstName ?? 'undefined'}
-    lastName: ${obj.lastName ?? 'undefined'}
-    email: ${obj.email ?? 'undefined'}`);
+    firstName: ${obj.firstName ?? "undefined"}
+    lastName: ${obj.lastName ?? "undefined"}
+    email: ${obj.email ?? "undefined"}`);
 
   try {
-    const res = await client.post('/api/signup/users', obj);
-    console.log('User successfully registered');
+    const res = await client.post("/api/signup/users", obj);
+    console.log("User successfully registered");
     return res.data;
   } catch (e) {
     if (e.response.data != null) {
@@ -53,8 +52,8 @@ export const registerUser = async (obj) => {
  */
 export const loginUser = async (obj) => {
   try {
-    const res = await client.post('/api/auth/login', obj);
-    console.log('User successfully registered');
+    const res = await client.post("/api/auth/login", obj);
+    console.log("User successfully registered");
     return res.data;
   } catch (e) {
     if (e.response.data != null) {
@@ -69,8 +68,8 @@ export const deleteUser = async (user_id, token) => {
   try {
     const res = await axios.delete(url + `/api/users/` + user_id, {
       headers: {
-        'Content-Type': 'application/json',
-        'token': token, // Include the token in the headers
+        "Content-Type": "application/json",
+        token: token, // Include the token in the headers
       },
     });
     return res.data;
@@ -84,8 +83,8 @@ export const updateUserFields = async (user_id, updateFields, token) => {
   try {
     const res = await axios.patch(url + `/api/users/${user_id}`, updateFields, {
       headers: {
-        'Content-Type': 'application/json',
-        'token': token, // Include the token in the headers
+        "Content-Type": "application/json",
+        token: token, // Include the token in the headers
       },
     });
 
@@ -101,7 +100,7 @@ export const enrollInCourse = async (user_Id, course_Id) => {
     // When user enrolls in a course it sends the course id to the database,
     // and then stores the course and completion status in the user document.
     const res = await axios.post(
-      url + '/api/eml/' + user_Id + '/enroll/' + course_Id
+      url + "/api/eml/" + user_Id + "/enroll/" + course_Id
     );
 
     // First time user enrolls in course
@@ -128,7 +127,7 @@ export const updateCourseStatus = async (user_id, course_id) => {
   // When user completes course it should update the user document from
   // isComplete: false, to isComplete: true for that course
   const res = await axios.put(
-    url + '/api/eml/' + user_id + '/updateCourse/' + course_id
+    url + "/api/eml/" + user_id + "/updateCourse/" + course_id
   );
   return res.data;
 };
@@ -138,11 +137,11 @@ export const updateSectionStatus = async (user_id, course_id, section_id) => {
   // isComplete: false, to isComplete: true for that section
   const res = await axios.put(
     url +
-      '/api/eml/' +
+      "/api/eml/" +
       user_id +
-      '/updateSection/' +
+      "/updateSection/" +
       course_id +
-      '/' +
+      "/" +
       section_id
   );
   return res.data;
@@ -158,13 +157,13 @@ export const updateExerciseStatus = async (
   // isComplete: false, to isComplete: true for that exercise
   const res = await axios.put(
     url +
-      '/api/eml/' +
+      "/api/eml/" +
       user_id +
-      '/updateExercise/' +
+      "/updateExercise/" +
       course_id +
-      '/' +
+      "/" +
       section_id +
-      '/' +
+      "/" +
       exercise_id
   );
   return res.data;
@@ -173,10 +172,13 @@ export const updateExerciseStatus = async (
 /**
  * Function to send mail to user with code to reset password
  * @param {Object} email should contain an email, to receive a reset password message
-*/
+ */
 export const sendResetPasswordEmail = async (email) => {
   try {
-    const res = await axios.post(url + '/api/auth/reset-password-request', email);
+    const res = await axios.post(
+      url + "/api/auth/reset-password-request",
+      email
+    );
     return res.data;
   } catch (e) {
     if (e.response.data != null) {
@@ -187,16 +189,15 @@ export const sendResetPasswordEmail = async (email) => {
   }
 };
 
-
 /**
- * function to validate the code sent to the user 
+ * function to validate the code sent to the user
  * @param {Object} obj should contain the following properties:
  * - email
  * - token
-*/
+ */
 export const validateResetPasswordCode = async (obj) => {
   try {
-    const res = await axios.post(url + '/api/auth/reset-password-code', obj);
+    const res = await axios.post(url + "/api/auth/reset-password-code", obj);
     return res.data;
   } catch (e) {
     if (e.response.data != null) {
@@ -205,7 +206,6 @@ export const validateResetPasswordCode = async (obj) => {
       throw e;
     }
   }
-
 };
 
 /**
@@ -214,11 +214,11 @@ export const validateResetPasswordCode = async (obj) => {
  * - email
  * - token
  * - newPassword
-*/
+ */
 export const enterNewPassword = async (obj) => {
   try {
-  const res = await axios.patch(url + '/api/auth/reset-password', obj);
-  return res.data;
+    const res = await axios.patch(url + "/api/auth/reset-password", obj);
+    return res.data;
   } catch (e) {
     if (e.response.data != null) {
       throw e.response.data;
