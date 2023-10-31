@@ -202,8 +202,8 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
         style={
           [
             {
-              "backgroundColor": "#E4F2F5",
-              "borderColor": "#5ECCDD",
+              "backgroundColor": "rgba(228, 242, 245, 1)",
+              "borderColor": "rgba(94, 204, 233, 1)",
               "borderRadius": 8,
               "borderWidth": 0,
               "overflow": "hidden",
@@ -218,7 +218,7 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
           collapsable={false}
           style={
             {
-              "backgroundColor": "#5ECCDD",
+              "backgroundColor": "rgba(94, 204, 233, 1)",
               "height": 40.019999999999996,
               "transform": [
                 {

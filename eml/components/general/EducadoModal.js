@@ -5,6 +5,7 @@ import EducadoLogo from '../images/EducadoLogo';
 import Text from './Text';
 import { BgLinearGradient } from '../../constants/BgLinearGradient';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import PropTypes from 'prop-types';
 
 /**
  * 
@@ -36,7 +37,7 @@ export default function EducadoModal(props) {
                   <EducadoLogo fill='fill-black' />
                 </View>
                 <View className="flex flex-row justify-start px-10">
-                  <Text className="text-center text-[24px]">{props.title ? props.title : ""}</Text>
+                  <Text className="text-center text-[24px]">{props.title ? props.title : ''}</Text>
                 </View>
               </View>
               {props.children}
@@ -45,5 +46,12 @@ export default function EducadoModal(props) {
         </KeyboardAwareScrollView>
       </BgLinearGradient>
     </Modal >
-  )
+  );
 }
+
+EducadoModal.propTypes = {
+  children: PropTypes.object,
+  closeModal: PropTypes.func,
+  modalVisible: PropTypes.bool,
+  title: PropTypes.string,
+};

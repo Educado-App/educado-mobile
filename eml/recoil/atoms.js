@@ -1,17 +1,17 @@
-import { atom } from "recoil";
+import { atom } from 'recoil';
 
 export const currentActiveCourseState = atom({
-  key: "currentActiveCourseState",
-  default: {},
+	key: 'currentActiveCourseState',
+	default: {},
 });
 
 export const currentCategory = atom({
-  key: "currentCategory",
-  default: 'All',
+	key: 'currentCategory',
+	default: 'All',
 });
 
 
 export const sectionProgressFlag = atom({
-  key: "sectionProgressFlag",
-  default: false,
+	key: 'sectionProgressFlag',
+	default: false,
 });

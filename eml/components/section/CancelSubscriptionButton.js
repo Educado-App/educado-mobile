@@ -1,6 +1,7 @@
-import React from "react";
-import { View, TouchableOpacity } from "react-native";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { View, TouchableOpacity } from 'react-native';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 /**
  * Renders a button component for cancelling a subscription.
@@ -8,17 +9,21 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
  * @returns {JSX.Element} - The rendered component.
  */
 const SubscriptionCancel = ({ onPress }) => {
-  return (
-    <View>
-      <TouchableOpacity
-        testID="subscriptionCancelButton"
-        className="px-5 py-4"
-        onPress={onPress}
-      >
-        <MaterialCommunityIcons name="bookmark" size={25} color="black" />
-      </TouchableOpacity>
-    </View>
-  );
+	SubscriptionCancel.propTypes = {
+		onPress: PropTypes.func.isRequired,
+	};
+
+	return (
+		<View>
+			<TouchableOpacity
+				testID="subscriptionCancelButton"
+				className="px-5 py-4"
+				onPress={onPress}
+			>
+				<MaterialCommunityIcons name="bookmark" size={25} color="black" />
+			</TouchableOpacity>
+		</View>
+	);
 };
 
 export default SubscriptionCancel;
