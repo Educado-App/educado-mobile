@@ -31,6 +31,9 @@ export default function EnterNewPasswordScreen(props) {
   const [confirmPasswordAlert, setConfirmPasswordAlert] = useState("");
   const [passwordAlert, setPasswordAlert] = useState("");
 
+  let isPasswordsEmpty
+  let passwordRequirements
+
   /**
    * Function to toggle the password visibility state
    * @param {Function} setShowPasswordFunction function for handling password visibility state
@@ -115,8 +118,11 @@ export default function EnterNewPasswordScreen(props) {
 
   // Function to validate the input
   function validateInput() {
-    // Check if password contains a letter and is at least 8 characters long and if the passwords match
-    return (passwordContainsLetter && passwordLengthValid && confirmPasswordAlert === "");
+    // Check if passwords are empty
+    isPasswordsEmpty = newPassword === "" && confirmPassword === "";
+    // Check if password contains a letter and is at least 8 characters long
+    passwordRequirements = passwordContainsLetter && passwordLengthValid;
+    return (!isPasswordsEmpty && passwordRequirements && confirmPasswordAlert === "");
   }
 
   const showPasswordChangedSuccess = () => {

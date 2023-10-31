@@ -30,6 +30,12 @@ exports[`login Check LoginForm renders correctly 1`] = `
               {
                 "fontFamily": "Montserrat-Regular",
               },
+              {
+                "color": "#383838",
+              },
+              {
+                "fontSize": 16,
+              },
               [
                 {
                   "marginLeft": 8,
@@ -49,6 +55,12 @@ exports[`login Check LoginForm renders correctly 1`] = `
             [
               {
                 "fontFamily": "Montserrat-Regular",
+              },
+              {
+                "color": "#383838",
+              },
+              {
+                "fontSize": 16,
               },
               [
                 {
@@ -114,6 +126,12 @@ exports[`login Check LoginForm renders correctly 1`] = `
             {
               "fontFamily": "Montserrat-Regular",
             },
+            {
+              "color": "#383838",
+            },
+            {
+              "fontSize": 16,
+            },
             [
               {
                 "fontSize": 12,
@@ -163,6 +181,12 @@ exports[`login Check LoginForm renders correctly 1`] = `
               {
                 "fontFamily": "Montserrat-Regular",
               },
+              {
+                "color": "#383838",
+              },
+              {
+                "fontSize": 16,
+              },
               [
                 {
                   "marginLeft": 8,
@@ -182,6 +206,12 @@ exports[`login Check LoginForm renders correctly 1`] = `
             [
               {
                 "fontFamily": "Montserrat-Regular",
+              },
+              {
+                "color": "#383838",
+              },
+              {
+                "fontSize": 16,
               },
               [
                 {
@@ -289,6 +319,12 @@ exports[`login Check LoginForm renders correctly 1`] = `
             {
               "fontFamily": "Montserrat-Regular",
             },
+            {
+              "color": "#383838",
+            },
+            {
+              "fontSize": 16,
+            },
             [
               {
                 "fontSize": 12,
@@ -315,6 +351,12 @@ exports[`login Check LoginForm renders correctly 1`] = `
           {
             "fontFamily": "Montserrat-Regular",
           },
+          {
+            "color": "#383838",
+          },
+          {
+            "fontSize": 16,
+          },
           [
             {
               "textAlign": "right",
@@ -325,9 +367,6 @@ exports[`login Check LoginForm renders correctly 1`] = `
             {
               "fontSize": 16,
               "lineHeight": 24,
-            },
-            {
-              "marginLeft": 205,
             },
           ],
         ]
@@ -404,6 +443,12 @@ exports[`login Check LoginForm renders correctly 1`] = `
           [
             {
               "fontFamily": "Montserrat-Regular",
+            },
+            {
+              "color": "#383838",
+            },
+            {
+              "fontSize": 16,
             },
             [
               {

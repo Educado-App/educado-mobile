@@ -20,6 +20,12 @@ exports[`Ensure that the text field is rendered correctly 1`] = `
           {
             "fontFamily": "Montserrat-Regular",
           },
+          {
+            "color": "#383838",
+          },
+          {
+            "fontSize": 16,
+          },
           [
             {
               "marginLeft": 8,
@@ -37,6 +43,12 @@ exports[`Ensure that the text field is rendered correctly 1`] = `
         [
           {
             "fontFamily": "Montserrat-Regular",
+          },
+          {
+            "color": "#383838",
+          },
+          {
+            "fontSize": 16,
           },
           [
             {

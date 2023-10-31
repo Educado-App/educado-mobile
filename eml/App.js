@@ -23,8 +23,8 @@ import { isFontsLoaded } from './constants/Fonts';
 import LoadingScreen from "./components/loading/Loading";
 import WelcomeScreen from "./screens/welcome/Welcome";
 import ProfileSettingsScreen from "./screens/profile/ProfileSettings";
+import NavBar from "./components/navBar/NavBar";
 
-const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 /**
@@ -32,7 +32,7 @@ const Stack = createNativeStackNavigator();
  */
 const checkLogin = () => {
   if (AsyncStorage.getItem("@login_token") === null) {
-    useNavigation().navigate('Login');
+    useNavigation().navigate("Login");
   }
 }
 
@@ -121,76 +121,6 @@ function CourseStack() {
   );
 }
 
-function HomeStack() {
-  checkLogin();
-
-  return (
-    <Tab.Navigator
-      initialRouteName={"Home"}
-      screenOptions={{
-        tabBarActiveTintColor: "black",
-        tabBarActiveBackgroundColor: "#d9d9d9",
-        tabBarStyle: { backgroundColor: "hsl(0, 0%, 92%)" }, //Oneplus menubar color
-      }}
-    >
-      <Tab.Screen
-        //Home
-        name="Casa"
-        component={CourseStack}
-        options={{
-          headerShown: false,
-          tabBarIcon: () => {
-            return (
-              <Icon
-                size={30}
-                name="home"
-                type="material-community"
-                color="#8DD08C"
-              />
-            );
-          },
-        }}
-      />
-      <Tab.Screen
-        //Perfil
-        name="Perfil"
-        component={ProfileComponent}
-        options={{
-          headerShown: false,
-          tabBarIcon: () => {
-            return (
-              <Icon
-                size={30}
-                name="account-circle"
-                type="material-community"
-                color="#8DD08C"
-              />
-            );
-          },
-        }}
-      />
-      <Tab.Screen
-        // Explore
-        name="Explorar"
-        component={Explore}
-        options={{
-          headerShown: false,
-          tabBarIcon: () => {
-            return (
-              <Icon
-                size={30}
-                name="magnify"
-                type="material-community"
-                color="#8DD08C"
-              />
-            );
-          },
-        }}
-      />
-    </Tab.Navigator>
-  );
-}
-
 export function useWelcomeScreenLogic(loadingTime, onResult) {
 
   setTimeout(() => {
@@ -219,10 +149,10 @@ export function useWelcomeScreenLogic(loadingTime, onResult) {
 
 }
 
-// Change InitialRouteName to HomeStack if you want to skip Login Screen
+
 export default function App() {
   const fontsLoaded = isFontsLoaded();
-  const [initialRoute, setInitialRoute] = useState(""); 
+  const [initialRoute, setInitialRoute] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
   // Callback function to handle the results
@@ -252,18 +182,18 @@ export default function App() {
           <NavigationContainer>
             <Stack.Navigator initialRouteName={initialRoute}>
               <Stack.Screen
-                name={"WelcomeStack"}
+                name="WelcomeStack"
                 component={WelcomeStack}
                 options={{ headerShown: false }}
               />
               <Stack.Screen
-                name={"LoginStack"}
+                name="LoginStack"
                 component={LoginStack}
                 options={{ headerShown: false }}
               />
               <Stack.Screen
-                name={'HomeStack'}
-                component={HomeStack} // Use the NavBar component here
+                name="HomeStack"
+                component={NavBar}
                 options={{ headerShown: false }}
               />
               <Stack.Screen
@@ -273,9 +203,16 @@ export default function App() {
                 options={{ headerShown: false }}
               />
               <Stack.Screen
-                name={"ProfileSettings"}
-                component={ProfileSettingsScreen} 
-                options={{ headerShown: false }} 
+                name="ProfileSettings"
+                component={ProfileSettingsScreen}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="Exercise"
+                component={ExerciseScreen}
+                options={{
+                  headerShown: false,
+                }}
               />
             </Stack.Navigator>
           </NavigationContainer>

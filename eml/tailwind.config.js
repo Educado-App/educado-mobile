@@ -25,6 +25,10 @@ module.exports = {
         yellow: '#FAC12F',
         babyBlue: '#CFE9EF',
         limeGreenDarker: '#8DD08C',
+        correctAnswer: '#00897B',
+        wrongAnswer: '#CF6679',
+        progressBar: '#5ECCDD',
+        progressBarUnFilled: '#E4F2F5',
       },
       fontFamily: {
         montserrat: ['Montserrat-Regular'],

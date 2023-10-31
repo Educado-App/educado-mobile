@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { View, ScrollView, StyleSheet, Pressable } from 'react-native'
 import { Icon } from '@rneui/base'
 import Text from '../../components/general/Text';
+
 export default function CourseView({ title }) {
     return (
         <View style={{ flexDirection: 'column', flex: 1, alignItems: 'center' }}>

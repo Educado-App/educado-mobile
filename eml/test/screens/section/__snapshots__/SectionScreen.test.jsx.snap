@@ -83,6 +83,12 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
           {
             "fontFamily": "Montserrat-Regular",
           },
+          {
+            "color": "#383838",
+          },
+          {
+            "fontSize": 16,
+          },
           [
             {
               "fontSize": 25,
@@ -196,8 +202,8 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
         style={
           [
             {
-              "backgroundColor": "rgba(228, 242, 245, 1)",
-              "borderColor": "rgba(94, 204, 233, 1)",
+              "backgroundColor": "#E4F2F5",
+              "borderColor": "#5ECCDD",
               "borderRadius": 8,
               "borderWidth": 0,
               "overflow": "hidden",
@@ -212,7 +218,7 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
           collapsable={false}
           style={
             {
-              "backgroundColor": "rgba(94, 204, 233, 1)",
+              "backgroundColor": "#5ECCDD",
               "height": 40.019999999999996,
               "transform": [
                 {
@@ -351,6 +357,12 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
                     {
                       "fontFamily": "Montserrat-Regular",
                     },
+                    {
+                      "color": "#383838",
+                    },
+                    {
+                      "fontSize": 16,
+                    },
                     [
                       {
                         "fontSize": 16,
@@ -374,6 +386,12 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
                   [
                     {
                       "fontFamily": "Montserrat-Regular",
+                    },
+                    {
+                      "color": "#383838",
+                    },
+                    {
+                      "fontSize": 16,
                     },
                     [
                       {
@@ -444,6 +462,12 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
                     [
                       {
                         "fontFamily": "Montserrat-Regular",
+                      },
+                      {
+                        "color": "#383838",
+                      },
+                      {
+                        "fontSize": 16,
                       },
                       [
                         {
@@ -624,6 +648,12 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
                     {
                       "fontFamily": "Montserrat-Regular",
                     },
+                    {
+                      "color": "#383838",
+                    },
+                    {
+                      "fontSize": 16,
+                    },
                     [
                       {
                         "fontSize": 16,
@@ -647,6 +677,12 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
                   [
                     {
                       "fontFamily": "Montserrat-Regular",
+                    },
+                    {
+                      "color": "#383838",
+                    },
+                    {
+                      "fontSize": 16,
                     },
                     [
                       {
@@ -717,6 +753,12 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
                     [
                       {
                         "fontFamily": "Montserrat-Regular",
+                      },
+                      {
+                        "color": "#383838",
+                      },
+                      {
+                        "fontSize": 16,
                       },
                       [
                         {

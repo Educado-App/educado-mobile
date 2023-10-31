@@ -42,7 +42,7 @@ export default function LoginForm() {
       const obj = {
         id: userInfo.id,
         firstName: userInfo.firstName,
-        lastName: userInfo.lastName,
+        lastName: userInfo.lastName, 
         email: userInfo.email,
       };
 
@@ -77,7 +77,7 @@ export default function LoginForm() {
     await loginUser(obj).then(async (response) => {
       // Set login token in AsyncStorage and navigate to home screen
       await AsyncStorage.setItem(LOGIN_TOKEN, response.accessToken);
-      await saveUserInfoLocally(response.user);
+      await saveUserInfoLocally(response.userInfo);
       navigation.navigate("HomeStack");
     }).catch((error) => {
       switch (error?.error?.code) {
@@ -153,7 +153,7 @@ export default function LoginForm() {
       <View>
         {/* TODO: tilføj onPress til nedenstående; reset password */}
         <Text
-          className={"text-right underline text-base text-black mb-15 ml-[205px]"}
+          className={"text-right underline text-base text-black mb-15"}
           onPress={() => setModalVisible(true)}
         >
           {/* reset your password? */}

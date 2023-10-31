@@ -38,18 +38,8 @@ export default function ProfileComponent() {
     }
   }
 
-  const fetchCourses = async () => {
-    try {
-      const courseData = await getCourses();
-      setCourses(courseData);
-    } catch (error) {
-      console.error('Error fetching courses:', error);
-    }
-  }
-
   useEffect(() => {
     getProfile();
-    //fetchCourses();
   }, []);
 
   return (
