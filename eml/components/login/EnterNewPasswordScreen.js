@@ -9,7 +9,7 @@ import { removeEmojis, validatePasswordContainsLetter, validatePasswordLength } 
 import Text from '../general/Text';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import ShowAlert from '../general/ShowAlert';
-
+import PropTypes from 'prop-types';
 
 /**
  * Component for entering a new password in the resetPassword modal
@@ -219,3 +219,10 @@ export default function EnterNewPasswordScreen(props) {
 		</View>
 	);
 }
+
+EnterNewPasswordScreen.propTypes = {
+  email: PropTypes.string,
+  hideModal: PropTypes.func,
+  resetState: PropTypes.func,
+  token: PropTypes.string,
+};

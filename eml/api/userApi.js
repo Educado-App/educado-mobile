@@ -76,9 +76,12 @@ export const deleteUser = async (user_id, token) => {
 			},
 		});
 		return res.data;
-	} catch (error) {
-		// Handle errors here
-		throw error; // You may want to handle the error or log it
+	} catch (e) {
+		if (e.response.data != null) {
+			throw e.response.data;
+		} else {
+			throw e;
+		}
 	}
 };
 
@@ -92,9 +95,12 @@ export const updateUserFields = async (user_id, updateFields, token) => {
 		});
 
 		return res.data;
-	} catch (error) {
-		// Handle errors here
-		throw error; // You may want to handle the error or log it
+	} catch (e) {
+		if (e.response.data != null) {
+			throw e.response.data;
+		} else {
+			throw e;
+		}
 	}
 };
 

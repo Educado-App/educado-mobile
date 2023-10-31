@@ -37,7 +37,7 @@ const validatePasswordLength = (password) => {
  * @returns {String} error message if email is invalid, empty string otherwise
  */
 const validateEmail = (email) => {
-	const emailPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+	const emailPattern = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 
 	if (!emailPattern.test(email)) {
 		return 'E-mail inválido'; // Email invalid

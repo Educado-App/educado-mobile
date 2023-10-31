@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Image } from 'react-native';
 import logo from '../../assets/images/logo_educado.png'
+import PropTypes from 'prop-types';
 
 
 export default function EducadoLogo(props) {
@@ -116,3 +117,7 @@ const StyledPath = styled(Path, { classProps: ["fill", "stroke"] });
     </Svg>
   );
 }*/
+
+EducadoLogo.propTypes = {
+  style: PropTypes.object,
+}

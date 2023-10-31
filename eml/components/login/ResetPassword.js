@@ -8,6 +8,8 @@ import Text from '../general/Text';
 import { sendResetPasswordEmail, validateResetPasswordCode } from '../../api/userApi';
 import FormFieldAlert from './FormFieldAlert';
 import { validateEmail } from '../general/Validation';
+import PropTypes from 'prop-types';
+import { showAlert } from '../general/ShowAlert';
 
 /**
  * Component to create modal (popup) that prompts user for
@@ -213,3 +215,7 @@ export default function ResetPassword(props) {
 	);
 }
 
+ResetPassword.propTypes = {
+  modalVisible: PropTypes.bool,
+  onModalClose: PropTypes.func,
+};
