@@ -6,9 +6,9 @@ on:
   push:
     branches:
       - dev
-      - stage
+      - staging
       - main
-
+      - dev_toStageWithLinting
 jobs:
   eslint:
     runs-on: ubuntu-latest
