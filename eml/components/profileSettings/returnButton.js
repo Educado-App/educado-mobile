@@ -2,10 +2,10 @@ import { View, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import tailwindConfig from '../../tailwind.config.js';
 
 export default function ReturnButton() {
 	const navigation = useNavigation();
-	const tailwindConfig = require('../../tailwind.config.js');
 	const projectColors = tailwindConfig.theme.colors;
 
 	const handleBackButtonPress = () => {

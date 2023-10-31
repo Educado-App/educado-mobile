@@ -12,6 +12,7 @@ import DeleteAccountButton from '../../components/profileSettings/deleteAccountB
 import ChangeFirstNameButton from '../../components/profileSettings/changeFirstNameButton';
 import ChangeLastNameButton from '../../components/profileSettings/changeLastNameButton';
 import ChangeEmailButton from '../../components/profileSettings/changeEmailButton';
+import logo from '../../assets/images/logo.png';
 
 export default function ProfileComponent() {
   
@@ -26,7 +27,7 @@ export default function ProfileComponent() {
 							<ReturnButton/>
 							<Image
 								className = "h-[25.54] w-[175.88]"
-								source={require('../../assets/images/logo.png')}
+								source={logo}
 							/>
 						</View>
 					</View>

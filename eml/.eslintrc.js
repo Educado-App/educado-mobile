@@ -29,7 +29,7 @@ module.exports = {
 		'react'
 	],
 	'ignorePatterns': [
-		'**/*.test.js', '**/*.spec.js', 'jestSetup.js', 'jest.config.js', 'babel.config.js'
+		'**/*.test.js', '**/*.spec.js', '**/*.config.js', 'jestSetup.js'
 
 	],
 	'rules': {
