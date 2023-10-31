@@ -5,6 +5,10 @@ import { Icon, Button } from '@rneui/base';
 import PropTypes from 'prop-types';
 
 const LeaveButton = ({ navigationPlace, courseId }) => {
+
+  const tailwindConfig = require('../../tailwind.config.js');
+  const projectColors = tailwindConfig.theme.colors;
+
   LeaveButton.propTypes = {
     navigationPlace: PropTypes.string.isRequired,
   };
@@ -23,7 +27,7 @@ const LeaveButton = ({ navigationPlace, courseId }) => {
           size={25}
           name='chevron-left'
           type='material-community'
-          color='#383838'
+          color={projectColors.projectBlack}
         />
       }
     ></Button>
