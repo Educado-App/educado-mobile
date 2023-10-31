@@ -37,20 +37,21 @@ export default function LoginForm() {
    * Stores the user info in async storage
    * @param {*} userInfo: {id, firstName, lastName, email}
    */
-	async function saveUserInfoLocally(userInfo) {
-		try {
-			const obj = {
-				id: userInfo.id,
-				firstName: userInfo.firstName,
-				lastName: userInfo.lastName,
-				email: userInfo.email,
-			};
-			await AsyncStorage.setItem(USER_INFO, JSON.stringify(obj));
-			await AsyncStorage.setItem(USER_ID, userInfo.id); // needs to be seperate
-		} catch (e) {
-			console.log(e);
-		}
-	}
+  async function saveUserInfoLocally(userInfo) {
+    try {
+      const obj = {
+        id: userInfo.id,
+        firstName: userInfo.firstName,
+        lastName: userInfo.lastName, 
+        email: userInfo.email,
+      };
+
+      await AsyncStorage.setItem(USER_INFO, JSON.stringify(obj));
+      await AsyncStorage.setItem(USER_ID, userInfo.id); // needs to be seperate
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
 
 	/**
