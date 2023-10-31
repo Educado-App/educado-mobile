@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import LottieView from "lottie-react-native";
 import {Alert, TouchableWithoutFeedback} from "react-native";
-import {storeCourseLocally} from "../../../services/StorageService";
+import {deleteLocallyStoredCourse, storeCourseLocally} from "../../../services/StorageService";
 
 const ANIMATION_STATES = {
     INITIAL: "initial",
@@ -58,7 +58,12 @@ export default function DownloadCourseButton(courseID) {
                 text: "Baixar",
                 onPress: () => {
                     setAnimationState(ANIMATION_STATES.DOWNLOADING);
-                    storeCourseLocally(courseID.courseID).then(setAnimationState(ANIMATION_STATES.FINISHING));
+                    if (storeCourseLocally(courseID.courseID)){
+                        setAnimationState(ANIMATION_STATES.FINISHING);
+                    } else {
+                        alert("Não foi possível baixar o curso. Certifique-se de estar conectado à Internet."); //Could not download course. Make sure you are connected to the internet
+                        setAnimationState(ANIMATION_STATES.INITIAL);
+                    }
                     // Hardcoded timeout to simulate download
                     //setTimeout(() => setAnimationState(ANIMATION_STATES.FINISHING), Math.floor(Math.random() * 5001));
                 },
@@ -74,7 +79,13 @@ export default function DownloadCourseButton(courseID) {
             {
                 text: "Remover",
                 onPress: () => {
-                    setAnimationState(ANIMATION_STATES.DELETE);
+                    if(deleteLocallyStoredCourse(courseID.courseID)){
+                        setAnimationState(ANIMATION_STATES.DELETE);
+                    } else {
+                        alert("Algo deu errado. Não foi possível remover os dados armazenados do curso."); //Something went wrong. Could not remove stored course data.
+                        setAnimationState(ANIMATION_STATES.COMPLETED)
+                    }
+
                 },
                 style: "destructive",
             },

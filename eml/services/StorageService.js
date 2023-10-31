@@ -283,41 +283,57 @@ export const checkSubscriptions = async (courseId) => {
   }
 };
 
-/** TO DO:
- Store course,
- relevant sections,
- relevant lectures/exersises
- locally **/
 
+
+/**
+ * Stores a course locally
+ * @param {String} courseID - A string with the ID of the course to be stored
+ * @returns {boolean} - Returns true if no errors was thrown during the storage and false if there was
+ */
 export const storeCourseLocally = async (courseID) => {
     try {
-  const course = await getCourse(courseID);
         const course = await api.getCourse(courseID);
         await AsyncStorage.setItem(courseID, JSON.stringify(course));
+
         const sectionList = await getAllSections(courseID);
-  await AsyncStorage.setItem("S"+courseID,JSON.stringify(sectionList));
         await AsyncStorage.setItem("S" + courseID, JSON.stringify(sectionList));
-        let sectionListID = [];
-        for (let e of sectionList) {
-    sectionListID.put(e.id);
-            sectionListID.push(e._id);
-        }
-  for (let e in sectionListID) {
-        for (let e of sectionListID) {
-    await AsyncStorage.setItem(""+e+courseID,JSON.stringify(exerciseList));
-            let exerciseList = await getExercisesInSection(courseID, e);
-            await AsyncStorage.setItem("" + e + courseID, JSON.stringify(exerciseList));
+
+        for (let section of sectionList) {
+            let exerciseList = await getExercisesInSection(courseID, section._id);
+            await AsyncStorage.setItem("" + section._id + courseID, JSON.stringify(exerciseList));
         }
 
         return true;
     } catch (e) {
         console.log("Error in storeCourseLocally " + e);
+        return false;
     }
 }
 
 
+/**
+ * Deletes a locally stored course
+ * @param {String} courseID - A string with the ID of the course to be removed from lacal storage
+ * @returns {boolean} - Returns true if no errors was thrown during the deletion and false if there was
+ */
+export const deleteLocallyStoredCourse = async (courseID) => {
+    try {
+        const course = JSON.parse(await AsyncStorage.getItem(courseID));
+        await AsyncStorage.removeItem(courseID);
 
+        const sectionList = JSON.parse(await AsyncStorage.getItem("S" + courseID));
+        await AsyncStorage.removeItem("S" + courseID);
 
+        for (let section of sectionList) {
+            await AsyncStorage.removeItem("" + section._id + courseID);
+        }
+
+        return true;
+    } catch (e) {
+        console.log("Error in deleteLocallyStoredCourse " + e);
+        return false;
+    }
+}
 
 
 export const clearAsyncStorage = async () => {
