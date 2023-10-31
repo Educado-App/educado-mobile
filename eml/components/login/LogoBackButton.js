@@ -30,5 +30,5 @@ export default function LogoBackButton(props) {
 }
 
 LogoBackButton.propTypes = {
-  navigationPlace: PropTypes.string,
+	navigationPlace: PropTypes.string,
 };

@@ -216,6 +216,6 @@ export default function ResetPassword(props) {
 }
 
 ResetPassword.propTypes = {
-  modalVisible: PropTypes.bool,
-  onModalClose: PropTypes.func,
+	modalVisible: PropTypes.bool,
+	onModalClose: PropTypes.func,
 };

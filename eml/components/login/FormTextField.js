@@ -48,15 +48,15 @@ export default function FormTextField(props) {
 }
 
 FormTextField.propTypes = {
-  autoComplete: PropTypes.string,
-  bordered: PropTypes.bool,
-  error: PropTypes.bool,
-  keyboardType: PropTypes.string,
-  label: PropTypes.string,
-  onChangeText: PropTypes.func,
-  passwordGuidelines: PropTypes.bool,
-  placeholder: PropTypes.string,
-  required: PropTypes.bool,
-  secureTextEntry: PropTypes.bool,
-  value: PropTypes.string,
+	autoComplete: PropTypes.string,
+	bordered: PropTypes.bool,
+	error: PropTypes.bool,
+	keyboardType: PropTypes.string,
+	label: PropTypes.string,
+	onChangeText: PropTypes.func,
+	passwordGuidelines: PropTypes.bool,
+	placeholder: PropTypes.string,
+	required: PropTypes.bool,
+	secureTextEntry: PropTypes.bool,
+	value: PropTypes.string,
 };

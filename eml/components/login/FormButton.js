@@ -27,7 +27,7 @@ export default function FormButton(props) {
 }
 
 FormButton.propTypes = {
-  disabled: PropTypes.bool,
-  label: PropTypes.string,
-  onPress: PropTypes.func,
+	disabled: PropTypes.bool,
+	label: PropTypes.string,
+	onPress: PropTypes.func,
 };

@@ -23,6 +23,6 @@ export default function PasswordEye(props) {
 }
 
 PasswordEye.propTypes = {
-  showPasswordIcon: PropTypes.bool,
-  toggleShowPassword: PropTypes.func,
+	showPasswordIcon: PropTypes.bool,
+	toggleShowPassword: PropTypes.func,
 };

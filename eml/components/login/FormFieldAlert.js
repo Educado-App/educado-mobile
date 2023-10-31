@@ -20,6 +20,6 @@ export default function FormFieldAlert(props) {
 }
 
 FormFieldAlert.propTypes = {
-  label: PropTypes.string,
-  success: PropTypes.bool,
+	label: PropTypes.string,
+	success: PropTypes.bool,
 };

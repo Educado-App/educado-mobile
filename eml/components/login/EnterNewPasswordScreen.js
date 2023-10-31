@@ -116,14 +116,14 @@ export default function EnterNewPasswordScreen(props) {
 		}
 	}
 
-  // Function to validate the input
-  function validateInput() {
-    // Check if passwords are empty
-    isPasswordsEmpty = newPassword === "" && confirmPassword === "";
-    // Check if password contains a letter and is at least 8 characters long
-    passwordRequirements = passwordContainsLetter && passwordLengthValid;
-    return (!isPasswordsEmpty && passwordRequirements && confirmPasswordAlert === "");
-  }
+	// Function to validate the input
+	function validateInput() {
+		// Check if passwords are empty
+		isPasswordsEmpty = newPassword === '' && confirmPassword === '';
+		// Check if password contains a letter and is at least 8 characters long
+		passwordRequirements = passwordContainsLetter && passwordLengthValid;
+		return (!isPasswordsEmpty && passwordRequirements && confirmPasswordAlert === '');
+	}
 
 	const showPasswordChangedSuccess = () => {
 		Alert.alert(
@@ -217,8 +217,8 @@ export default function EnterNewPasswordScreen(props) {
 }
 
 EnterNewPasswordScreen.propTypes = {
-  email: PropTypes.string,
-  hideModal: PropTypes.func,
-  resetState: PropTypes.func,
-  token: PropTypes.string,
+	email: PropTypes.string,
+	hideModal: PropTypes.func,
+	resetState: PropTypes.func,
+	token: PropTypes.string,
 };
