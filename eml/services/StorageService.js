@@ -295,11 +295,11 @@ export const storeCourseLocally = async (courseID) => {
         const course = await api.getCourse(courseID);
         await AsyncStorage.setItem(courseID, JSON.stringify(course));
 
-        const sectionList = await getAllSections(courseID);
+        const sectionList = await api.getAllSections(courseID);
         await AsyncStorage.setItem("S" + courseID, JSON.stringify(sectionList));
 
         for (let section of sectionList) {
-            let exerciseList = await getExercisesInSection(courseID, section._id);
+            let exerciseList = await api.getExercisesInSection(courseID, section._id);
             await AsyncStorage.setItem("" + section._id + courseID, JSON.stringify(exerciseList));
         }
 
@@ -318,7 +318,6 @@ export const storeCourseLocally = async (courseID) => {
  */
 export const deleteLocallyStoredCourse = async (courseID) => {
     try {
-        const course = JSON.parse(await AsyncStorage.getItem(courseID));
         await AsyncStorage.removeItem(courseID);
 
         const sectionList = JSON.parse(await AsyncStorage.getItem("S" + courseID));
