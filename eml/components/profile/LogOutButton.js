@@ -14,8 +14,8 @@ export default function LogOutButton() {
 
 	async function logOut() {
 
-		await AsyncStorage.removeItem(await AsyncStorage.getItem(LOGIN_TOKEN));
-		await AsyncStorage.removeItem(await AsyncStorage.getItem(USER_INFO));
+		await AsyncStorage.removeItem(LOGIN_TOKEN);
+		await AsyncStorage.removeItem(USER_INFO);
 
 		navigation.navigate('Login');
 
