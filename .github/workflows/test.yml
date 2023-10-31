@@ -8,6 +8,7 @@ on:
       - dev
       - staging
       - main
+      - dev_toStageMerge
 
 jobs:
   test:
