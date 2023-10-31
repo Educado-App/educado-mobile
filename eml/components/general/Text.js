@@ -10,5 +10,5 @@ export default function Text(props) {
 }
 
 Text.propTypes = {
-  children: PropTypes.object,
+  children: PropTypes.string,
 }
