@@ -8,6 +8,7 @@ on:
       - dev
       - staging
       - main
+      - dev_toStageWithLinting
 jobs:
   eslint:
     runs-on: ubuntu-latest
