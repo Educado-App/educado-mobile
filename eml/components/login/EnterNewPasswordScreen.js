@@ -122,11 +122,7 @@ export default function EnterNewPasswordScreen(props) {
     isPasswordsEmpty = newPassword === "" && confirmPassword === "";
     // Check if password contains a letter and is at least 8 characters long
     passwordRequirements = passwordContainsLetter && passwordLengthValid;
-    if (!isPasswordsEmpty && passwordRequirements) {
-      return true;
-    } else {
-      return false;
-    }
+    return (!isPasswordsEmpty && passwordRequirements && confirmPasswordAlert === "");
   }
 
   const showPasswordChangedSuccess = () => {
