@@ -96,11 +96,11 @@ export const updateUserFields = async (user_id, updateFields, token) => {
   }
 };
 
-export const completeExercise = async (user_id, exercise_id, token) => {
+export const completeExercise = async (user_id, exercise_id, points, token) => {
   console.log("exercise_id: " + exercise_id)
   console.log(url + '/api/users/' + user_id + '/completed')
   try {
-    const res = await axios.post(url + '/api/users/' + user_id + '/completed', {exerciseId: exercise_id}, {}, {
+    const res = await axios.post(url + '/api/users/' + user_id + '/completed', {exerciseId: exercise_id, points: points}, {}, {
       headers: {
         'Content-Type': 'application/json',
         'token': token, // Include the token in the headers

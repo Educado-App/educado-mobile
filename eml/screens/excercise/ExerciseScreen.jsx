@@ -18,7 +18,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const USER_INFO = '@userInfo';
 const LOGIN_TOKEN = '@loginToken';
-const xp = Math.floor(Math.random() * (10 - 5 + 1)) + 5; // Replace with intricate point system
+const xp = 10; // Replace with intricate point system
 
 // givenId is used for testing purposes, in the future an exercise object should be passed by the previous screen
 export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7'}) {

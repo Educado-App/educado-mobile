@@ -89,13 +89,16 @@ export function givePoints(user, exercise_id, points, token) {
   };
 
   console.log(JSON.stringify(user));
-
-  // Call the updateUserFields function to send points as a field in JSON format
-  if (!isExerciseCompleted(user, exercise_id)) {
-    console.log("Exercise not completed")
-    completeExercise(user.id, exercise_id, token);
-  } else {
-    console.log("Exercise completed")
+  try {
+    // Call the updateUserFields function to send points as a field in JSON format
+    if (!isExerciseCompleted(user, exercise_id)) {
+      console.log("Exercise not completed")
+      completeExercise(user.id, exercise_id, points, token);
+    } else {
+      console.log("Exercise completed")
+    }
+  } catch(error) {
+    console.log(error)
   }
   return updateUserFields(user.id, updateFields, token);
 }
@@ -117,7 +120,7 @@ function isExerciseCompleted(user, exerciseIdToCheck) {
     );
   } catch(error) {
     console.log(error)
-    return false;
+    throw error;
   }
 }
 
