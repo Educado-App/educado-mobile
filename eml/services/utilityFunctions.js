@@ -125,7 +125,7 @@ function isExerciseCompleted(user, exerciseIdToCheck) {
     return user.completedCourses.some(course =>
       course.completedSections.some(section =>
         section.completedExercises.some(exercise =>
-          exercise._id === exerciseIdToCheck
+          exercise.exerciseId == exerciseId
         )
       )
     );
@@ -146,7 +146,7 @@ function exerciseIsCompleteStatus(user, exerciseIdToCheck) {
     return user.completedCourses.forEach(course => {
       course.completedSections.forEach(section => {
         section.completedExercises.forEach(exercise => {
-          if (exercise._id === exerciseIdToCheck) {
+          if (exercise.exerciseId == exerciseId) {
             // Found the matching exerciseId, set exerciseIsComplete to the associated isComplete value
             exerciseIsComplete = exercise.isComplete;
           }
