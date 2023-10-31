@@ -7,10 +7,8 @@ import {
 import ProfileName from '../../components/profile/profileName'
 import LogOutButton from '../../components/profile/LogOutButton'
 import SettingsButton from '../../components/profile/settingsButton.js'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { BgLinearGradient } from "../../constants/BgLinearGradient";
-
-const USER_INFO = '@userInfo'
+import { getUserInfo } from '../../services/StorageService'
 
 export default function ProfileComponent() {
   const [id, setId] = useState('')
@@ -18,16 +16,16 @@ export default function ProfileComponent() {
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
 
-  // this file is modified only for the review on Thursday the 26/10/23
+
 
   const getProfile = async () => {
     try {
-      const fetchedProfile = JSON.parse(await AsyncStorage.getItem(USER_INFO))
+      const fetchedProfile = await getUserInfo();
 
       if (fetchedProfile !== null) {
         setId(fetchedProfile.id)
-        setFirstName("") // refer to fetched profile when backend is ready
-        setLastName("") // refer to fetched profile when backend is ready
+        setFirstName(fetchedProfile.firstName) 
+        setLastName(fetchedProfile.lastName) 
         setEmail(fetchedProfile.email)
       }
     } catch (e) {
