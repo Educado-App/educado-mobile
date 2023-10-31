@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 	'env': {
 		'browser': true,
 		'es2021': true
@@ -11,7 +11,6 @@ module.exports = {
 		{
 			'env': {
 				'node': true,
-				'commonjs': true,
 				'es6': true
 			},
 			'files': [
@@ -30,7 +29,7 @@ module.exports = {
 		'react'
 	],
 	'ignorePatterns': [
-		'**/*.test.js', '**/*.spec.js', 'jestSetup.js',
+		'**/*.test.js', '**/*.spec.js', 'jestSetup.js', 'jest.config.js', 'babel.config.js'
 
 	],
 	'rules': {

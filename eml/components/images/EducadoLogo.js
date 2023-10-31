@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { Image } from 'react-native';
+import logo from '../../assets/images/logo_educado.png'
 
 
 export default function EducadoLogo(props) {
 	return (
 		<Image
-			source={require('../../assets/images/logo_educado.png')}
+			source={logo}
 			style={props.style}
 			className={'h-12'}
 			resizeMode='contain'
