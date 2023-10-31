@@ -11,7 +11,6 @@ import FormFieldAlert from "./FormFieldAlert";
 import { removeEmojis } from "../general/Validation";
 import Text from "../general/Text";
 import ShowAlert from "../general/ShowAlert";
-import ToastNotification from "../../components/general/ToastNotification";
 
 const LOGIN_TOKEN = "@loginToken";
 const USER_INFO = "@userInfo";
@@ -23,8 +22,8 @@ const USER_ID = "@userId";
  * Login form component for login screen containing email and password input fields and a login button.
  * @returns {React.Element} Component for logging in (login screen)
  */
-export default function LoginForm() {
-  
+export default function LoginForm(props) {
+
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -80,7 +79,6 @@ export default function LoginForm() {
       await AsyncStorage.setItem(LOGIN_TOKEN, response.accessToken);
       await saveUserInfoLocally(response.userInfo);
       navigation.navigate("HomeStack");
-      ToastNotification('Logged in!', 'success');
     }).catch((error) => {
       switch (error?.error?.code) {
         case 'E0004':

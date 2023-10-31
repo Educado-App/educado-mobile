@@ -5,7 +5,7 @@ import EducadoLogo from '../images/EducadoLogo';
 import Text from './Text';
 import { BgLinearGradient } from '../../constants/BgLinearGradient';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { RootSiblingParent } from 'react-native-root-siblings';
+import { AlertNotificationRoot } from 'react-native-alert-notification';
 
 /**
  * 
@@ -18,12 +18,12 @@ import { RootSiblingParent } from 'react-native-root-siblings';
 export default function EducadoModal(props) {
 
   return (
-    <RootSiblingParent>
-      <Modal
-        visible={props.modalVisible}
-        animationType="slide"
-        className="border-8 border-black"
-      >
+    <Modal
+      visible={props.modalVisible}
+      animationType="slide"
+      className="border-8 border-black"
+    >
+      <AlertNotificationRoot>
         <BgLinearGradient>
           <KeyboardAwareScrollView>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -46,7 +46,7 @@ export default function EducadoModal(props) {
             </TouchableWithoutFeedback>
           </KeyboardAwareScrollView>
         </BgLinearGradient>
-      </Modal >
-    </RootSiblingParent>
+      </AlertNotificationRoot>
+    </Modal>
   )
 }

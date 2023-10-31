@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Keyboard } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
@@ -54,7 +54,7 @@ export default function Login(props) {
             <View className="mx-6">
               {/* Login form */}
               <View className="my-8">
-                <LoginForm />
+                <LoginForm/>
               </View>
               {/* Register button */}
               <View className="flex-row justify-center">
