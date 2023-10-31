@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const prod = 'http://educado.somethingnew.dk';
-const test = 'http://172.30.254.222:8888'; // Change this to your LOCAL IP address when testing.
+const test = 'http://192.168.1.10:8888'; // Change this to your LOCAL IP address when testing.
 const local = 'http://localhost:8888';
 const digitalOcean = 'http://207.154.213.68:8888';
 
@@ -96,11 +96,9 @@ export const updateUserFields = async (user_id, updateFields, token) => {
   }
 };
 
-export const completeExercise = async (user_id, exercise_id, points, token) => {
-  console.log("exercise_id: " + exercise_id)
-  console.log(url + '/api/users/' + user_id + '/completed')
+export const completeExercise = async (user_id, exercise_id, isComplete, points, token) => {
   try {
-    const res = await axios.post(url + '/api/users/' + user_id + '/completed', {exerciseId: exercise_id, points: points}, {}, {
+    const res = await axios.patch(url + '/api/users/' + user_id + '/completed', {exerciseId: exercise_id, isComplete: isComplete, points: points}, {
       headers: {
         'Content-Type': 'application/json',
         'token': token, // Include the token in the headers

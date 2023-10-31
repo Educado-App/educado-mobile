@@ -64,10 +64,11 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7'}) 
 
     if (selectedAnswer) {
       retrieveUserInfoAndLoginToken().then(({ userInfo, loginToken }) => {
-        // Do something with userInfo and userId here
-        //console.log("User info: " + userInfo.completedCourses[0].isComplete)
-        //console.log(JSON.stringify(exerciseData))
-        givePoints(userInfo, exerciseData._id, xp, loginToken);
+        givePoints(userInfo, exerciseData._id, true, xp, loginToken);
+      });
+    } else {
+      retrieveUserInfoAndLoginToken().then(({ userInfo, loginToken }) => {
+        givePoints(userInfo, exerciseData._id, false, xp, loginToken);
       });
     }
 

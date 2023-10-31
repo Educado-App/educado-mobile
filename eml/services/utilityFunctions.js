@@ -83,24 +83,35 @@ export function shouldUpdate(courses1, courses2) {
   return false;
 }
 
-export function givePoints(user, exercise_id, points, token) {
-  const updateFields = {
-    points: points,
-  };
-
-  console.log(JSON.stringify(user));
+export function givePoints(user, exercise_id, isComplete, points, token) {
   try {
-    // Call the updateUserFields function to send points as a field in JSON format
-    if (!isExerciseCompleted(user, exercise_id)) {
-      console.log("Exercise not completed")
-      completeExercise(user.id, exercise_id, points, token);
-    } else {
-      console.log("Exercise completed")
+    let exerciseExists = isExerciseCompleted(user, exercise_id);
+
+    let exerciseIsComplete = exerciseIsCompleteStatus(user, exercise_id)
+    
+    // If the exercise is present but it's field "isComplete" is false, it means the user has answered wrong before and only gets 5 points.
+    if (exerciseExists && !exerciseIsComplete) {
+      points = 5;
     }
+
+    const updateFields = {
+      points: points,
+    };
+
+    // Call the updateUserFields function to send points as a field in JSON format
+    if (!exerciseExists) {
+      completeExercise(user.id, exercise_id, isComplete, points, token);
+    } else {
+      completeExercise(user.id, exercise_id, isComplete, points, token);
+    }
+
+    //updateUserFields(user.id, updateFields, token);
+
+    return points;
+
   } catch(error) {
     console.log(error)
   }
-  return updateUserFields(user.id, updateFields, token);
 }
 
 function isExerciseCompleted(user, exerciseIdToCheck) {
@@ -113,22 +124,37 @@ function isExerciseCompleted(user, exerciseIdToCheck) {
     // Check if exerciseIdToCheck exists in completedExercises array
     return user.completedCourses.some(course =>
       course.completedSections.some(section =>
-          section.completedExercises.some(exercise =>
-              exercise.exerciseId.$oid === exerciseIdToCheck.$oid
-              )
-          )
+        section.completedExercises.some(exercise =>
+          exercise.exerciseId.$oid === exerciseIdToCheck.$oid
+        )
+      )
     );
+    
   } catch(error) {
     console.log(error)
     throw error;
   }
 }
 
-function isSectionCompleted(user, sectionIdToCheck) {
-  // Check if sectionIdToCheck exists in completedSections array
-  return user.completedCourses.some(course =>
-      course.completedSections.some(section =>
-          section.sectionId.$oid === sectionIdToCheck.$oid
-      )
-  );
+function exerciseIsCompleteStatus(user, exerciseIdToCheck) {
+  try {
+    // Check if completedCourses, completedSections and completedExercises exist
+    if (!user.completedCourses || !user.completedCourses.length) return false;
+    if (!user.completedCourses[0].completedSections || !user.completedCourses[0].completedSections.length) return false;
+    if (!user.completedCourses[0].completedSections[0].completedExercises || !user.completedCourses[0].completedSections[0].completedExercises.length) return false;
+
+    return user.completedCourses.forEach(course => {
+      course.completedSections.forEach(section => {
+        section.completedExercises.forEach(exercise => {
+          if (exercise.exerciseId.$oid === exerciseIdToCheck.$oid) {
+            // Found the matching exerciseId, set exerciseIsComplete to the associated isComplete value
+            exerciseIsComplete = exercise.isComplete;
+          }
+        });
+      });
+    });
+  } catch(error) {
+    console.log(error)
+    throw error;
+  }
 }
