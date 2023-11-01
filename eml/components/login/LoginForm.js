@@ -22,7 +22,7 @@ const USER_ID = "@userId";
  * Login form component for login screen containing email and password input fields and a login button.
  * @returns {React.Element} Component for logging in (login screen)
  */
-export default function LoginForm(props) {
+export default function LoginForm() {
 
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
