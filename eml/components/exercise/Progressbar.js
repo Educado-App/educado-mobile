@@ -3,6 +3,9 @@ import { View, Text } from 'react-native';
 import * as Progress from 'react-native-progress';
 import PropTypes from 'prop-types';
 import { ScreenWidth, ScreenHeight } from '@rneui/base';
+import tailwindConfig from '../../tailwind.config';
+
+const projectColors = tailwindConfig.theme.colors;
 
 /**
  * A custom progress bar component.
@@ -28,8 +31,8 @@ const CustomProgressBar = ({ progress, width, height }) => {
         progress={progress / 100}
         width={ScreenWidth * (width / 100)}
         height={ScreenHeight * (height / 100)}
-        color='rgba(94, 204, 233, 1)'
-        unfilledColor='rgba(228, 242, 245, 1)'
+        color={projectColors.progressBar}
+        unfilledColor={projectColors.progressBarUnFilled}
         borderWidth={0}
         borderRadius={8}
       ></Progress.Bar>
