@@ -54,7 +54,7 @@ export default function Login(props) {
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View>
               <View className="mt-10">
-                <LogoBackButton navigationPlace="Login" />
+                <LogoBackButton navigationPlace="WelcomeStack" />
               </View>
               <View className="mx-6">
                 {/* Login form */}
