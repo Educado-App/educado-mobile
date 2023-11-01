@@ -227,6 +227,681 @@ exports[`Register screen Login screen renders 1`] = `
         <View>
           <RNCSafeAreaProvider
             onInsetsChange={[Function]}
+          <View
+            style={
+              [
+                {
+                  "marginBottom": 24,
+                },
+              ]
+            }
+          >
+            <View>
+              <View
+                style={
+                  [
+                    {
+                      "display": "flex",
+                    },
+                    {
+                      "flexDirection": "row",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    [
+                      {
+                        "fontFamily": "Montserrat-Regular",
+                      },
+                      {
+                        "color": "#383838",
+                      },
+                      {
+                        "fontSize": 16,
+                      },
+                      [
+                        {
+                          "marginLeft": 8,
+                        },
+                        {
+                          "fontSize": 12,
+                          "lineHeight": 16,
+                        },
+                      ],
+                    ]
+                  }
+                >
+                  Nome
+                </Text>
+                <Text
+                  style={
+                    [
+                      {
+                        "fontFamily": "Montserrat-Regular",
+                      },
+                      {
+                        "color": "#383838",
+                      },
+                      {
+                        "fontSize": 16,
+                      },
+                      [
+                        {
+                          "marginLeft": 4,
+                        },
+                        {
+                          "fontSize": 12,
+                          "lineHeight": 16,
+                        },
+                        {
+                          "color": "#FF4949",
+                        },
+                      ],
+                    ]
+                  }
+                >
+                  *
+                </Text>
+              </View>
+              <View>
+                <TextInput
+                  autoComplete="off"
+                  keyboardType="default"
+                  onChangeText={[Function]}
+                  passwordGuidelines={false}
+                  placeholder="Nome"
+                  secureTextEntry={false}
+                  style={
+                    [
+                      {
+                        "paddingBottom": 4,
+                        "paddingTop": 4,
+                      },
+                      {
+                        "paddingLeft": 10,
+                      },
+                      {
+                        "borderBottomLeftRadius": 8,
+                        "borderBottomRightRadius": 8,
+                        "borderTopLeftRadius": 8,
+                        "borderTopRightRadius": 8,
+                      },
+                    ]
+                  }
+                  value=""
+                />
+              </View>
+            </View>
+          </View>
+          <View
+            style={
+              [
+                {
+                  "marginBottom": 24,
+                },
+              ]
+            }
+          >
+            <View>
+              <View
+                style={
+                  [
+                    {
+                      "display": "flex",
+                    },
+                    {
+                      "flexDirection": "row",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    [
+                      {
+                        "fontFamily": "Montserrat-Regular",
+                      },
+                      {
+                        "color": "#383838",
+                      },
+                      {
+                        "fontSize": 16,
+                      },
+                      [
+                        {
+                          "marginLeft": 8,
+                        },
+                        {
+                          "fontSize": 12,
+                          "lineHeight": 16,
+                        },
+                      ],
+                    ]
+                  }
+                >
+                  Sobrenome
+                </Text>
+                <Text
+                  style={
+                    [
+                      {
+                        "fontFamily": "Montserrat-Regular",
+                      },
+                      {
+                        "color": "#383838",
+                      },
+                      {
+                        "fontSize": 16,
+                      },
+                      [
+                        {
+                          "marginLeft": 4,
+                        },
+                        {
+                          "fontSize": 12,
+                          "lineHeight": 16,
+                        },
+                        {
+                          "color": "#FF4949",
+                        },
+                      ],
+                    ]
+                  }
+                >
+                  *
+                </Text>
+              </View>
+              <View>
+                <TextInput
+                  autoComplete="off"
+                  keyboardType="default"
+                  onChangeText={[Function]}
+                  passwordGuidelines={false}
+                  placeholder="Sobrenome"
+                  secureTextEntry={false}
+                  style={
+                    [
+                      {
+                        "paddingBottom": 4,
+                        "paddingTop": 4,
+                      },
+                      {
+                        "paddingLeft": 10,
+                      },
+                      {
+                        "borderBottomLeftRadius": 8,
+                        "borderBottomRightRadius": 8,
+                        "borderTopLeftRadius": 8,
+                        "borderTopRightRadius": 8,
+                      },
+                    ]
+                  }
+                  value=""
+                />
+              </View>
+            </View>
+            <View
+              style={
+                [
+                  {
+                    "flexDirection": "row",
+                  },
+                  {
+                    "alignItems": "center",
+                  },
+                ]
+              }
+            >
+              <Text
+                style={
+                  [
+                    {
+                      "fontFamily": "Montserrat-Regular",
+                    },
+                    {
+                      "color": "#383838",
+                    },
+                    {
+                      "fontSize": 16,
+                    },
+                    [
+                      {
+                        "fontSize": 12,
+                        "lineHeight": 16,
+                      },
+                      {
+                        "color": "#FF4949",
+                      },
+                      {
+                        "marginLeft": 8,
+                        "marginRight": 8,
+                      },
+                    ],
+                  ]
+                }
+              />
+            </View>
+          </View>
+          <View
+            style={
+              [
+                {
+                  "marginBottom": 24,
+                },
+              ]
+            }
+          >
+            <View>
+              <View
+                style={
+                  [
+                    {
+                      "display": "flex",
+                    },
+                    {
+                      "flexDirection": "row",
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    [
+                      {
+                        "fontFamily": "Montserrat-Regular",
+                      },
+                      {
+                        "color": "#383838",
+                      },
+                      {
+                        "fontSize": 16,
+                      },
+                      [
+                        {
+                          "marginLeft": 8,
+                        },
+                        {
+                          "fontSize": 12,
+                          "lineHeight": 16,
+                        },
+                      ],
+                    ]
+                  }
+                >
+                  E-mail
+                </Text>
+                <Text
+                  style={
+                    [
+                      {
+                        "fontFamily": "Montserrat-Regular",
+                      },
+                      {
+                        "color": "#383838",
+                      },
+                      {
+                        "fontSize": 16,
+                      },
+                      [
+                        {
+                          "marginLeft": 4,
+                        },
+                        {
+                          "fontSize": 12,
+                          "lineHeight": 16,
+                        },
+                        {
+                          "color": "#FF4949",
+                        },
+                      ],
+                    ]
+                  }
+                >
+                  *
+                </Text>
+              </View>
+              <View>
+                <TextInput
+                  autoComplete="off"
+                  keyboardType="email-address"
+                  onChangeText={[Function]}
+                  passwordGuidelines={false}
+                  placeholder="Insira sua e-mail"
+                  secureTextEntry={false}
+                  style={
+                    [
+                      {
+                        "paddingBottom": 4,
+                        "paddingTop": 4,
+                      },
+                      {
+                        "paddingLeft": 10,
+                      },
+                      {
+                        "borderBottomLeftRadius": 8,
+                        "borderBottomRightRadius": 8,
+                        "borderTopLeftRadius": 8,
+                        "borderTopRightRadius": 8,
+                      },
+                    ]
+                  }
+                  value=""
+                />
+              </View>
+            </View>
+            <View
+              style={
+                [
+                  {
+                    "flexDirection": "row",
+                  },
+                  {
+                    "alignItems": "center",
+                  },
+                ]
+              }
+            >
+              <Text
+                style={
+                  [
+                    {
+                      "fontFamily": "Montserrat-Regular",
+                    },
+                    {
+                      "color": "#383838",
+                    },
+                    {
+                      "fontSize": 16,
+                    },
+                    [
+                      {
+                        "fontSize": 12,
+                        "lineHeight": 16,
+                      },
+                      {
+                        "color": "#FF4949",
+                      },
+                      {
+                        "marginLeft": 8,
+                        "marginRight": 8,
+                      },
+                    ],
+                  ]
+                }
+              />
+            </View>
+          </View>
+          <View
+            style={
+              [
+                {
+                  "marginBottom": 24,
+                },
+              ]
+            }
+          >
+            <View
+              style={
+                [
+                  {
+                    "position": "relative",
+                  },
+                ]
+              }
+            >
+              <View>
+                <View
+                  style={
+                    [
+                      {
+                        "display": "flex",
+                      },
+                      {
+                        "flexDirection": "row",
+                      },
+                    ]
+                  }
+                >
+                  <Text
+                    style={
+                      [
+                        {
+                          "fontFamily": "Montserrat-Regular",
+                        },
+                        {
+                          "color": "#383838",
+                        },
+                        {
+                          "fontSize": 16,
+                        },
+                        [
+                          {
+                            "marginLeft": 8,
+                          },
+                          {
+                            "fontSize": 12,
+                            "lineHeight": 16,
+                          },
+                        ],
+                      ]
+                    }
+                  >
+                    Senha
+                  </Text>
+                  <Text
+                    style={
+                      [
+                        {
+                          "fontFamily": "Montserrat-Regular",
+                        },
+                        {
+                          "color": "#383838",
+                        },
+                        {
+                          "fontSize": 16,
+                        },
+                        [
+                          {
+                            "marginLeft": 4,
+                          },
+                          {
+                            "fontSize": 12,
+                            "lineHeight": 16,
+                          },
+                          {
+                            "color": "#FF4949",
+                          },
+                        ],
+                      ]
+                    }
+                  >
+                    *
+                  </Text>
+                </View>
+                <View>
+                  <TextInput
+                    autoComplete="off"
+                    keyboardType="default"
+                    onChangeText={[Function]}
+                    passwordGuidelines={false}
+                    placeholder="Insira sua senha"
+                    secureTextEntry={true}
+                    style={
+                      [
+                        {
+                          "paddingBottom": 4,
+                          "paddingTop": 4,
+                        },
+                        {
+                          "paddingLeft": 10,
+                        },
+                        {
+                          "borderBottomLeftRadius": 8,
+                          "borderBottomRightRadius": 8,
+                          "borderTopLeftRadius": 8,
+                          "borderTopRightRadius": 8,
+                        },
+                      ]
+                    }
+                    value=""
+                  />
+                </View>
+              </View>
+              <View
+                style={
+                  [
+                    {
+                      "position": "absolute",
+                    },
+                    {
+                      "right": 8,
+                    },
+                    {
+                      "top": 8,
+                    },
+                    {
+                      "marginTop": 12,
+                    },
+                  ]
+                }
+              >
+                <Text />
+              </View>
+            </View>
+            <View
+              style={
+                [
+                  {
+                    "flexDirection": "row",
+                  },
+                  {
+                    "justifyContent": "flex-start",
+                  },
+                  {
+                    "marginTop": 4,
+                  },
+                  {
+                    "height": 24,
+                  },
+                ]
+              }
+            >
+              <Text
+                style={
+                  [
+                    {
+                      "fontFamily": "Montserrat-Regular",
+                    },
+                    {
+                      "color": "#383838",
+                    },
+                    {
+                      "fontSize": 16,
+                    },
+                    [
+                      {
+                        "fontSize": 12,
+                        "lineHeight": 16,
+                      },
+                    ],
+                  ]
+                }
+                testId="passwordLengthAlert"
+              >
+                • Mínimo 8 caracteres
+              </Text>
+              <View
+                style={
+                  [
+                    {
+                      "flexDirection": "row",
+                    },
+                    {
+                      "alignItems": "center",
+                    },
+                    {
+                      "transform": [
+                        {
+                          "translateY": -4,
+                        },
+                        {
+                          "translateX": 0,
+                        },
+                      ],
+                    },
+                  ]
+                }
+              />
+            </View>
+            <View
+              style={
+                [
+                  {
+                    "flexDirection": "row",
+                  },
+                  {
+                    "justifyContent": "flex-start",
+                  },
+                  {
+                    "height": 24,
+                  },
+                ]
+              }
+            >
+              <Text
+                style={
+                  [
+                    {
+                      "fontFamily": "Montserrat-Regular",
+                    },
+                    {
+                      "color": "#383838",
+                    },
+                    {
+                      "fontSize": 16,
+                    },
+                    [
+                      {
+                        "fontSize": 12,
+                        "lineHeight": 16,
+                      },
+                      {
+                        "fontFamily": "Montserrat-Regular",
+                      },
+                    ],
+                  ]
+                }
+                testId="passwordLetterAlert"
+              >
+                • Conter pelo menos uma letra
+              </Text>
+              <View
+                style={
+                  [
+                    {
+                      "flexDirection": "row",
+                    },
+                    {
+                      "alignItems": "center",
+                    },
+                    {
+                      "transform": [
+                        {
+                          "translateY": -4,
+                        },
+                        {
+                          "translateX": 0,
+                        },
+                      ],
+                    },
+                  ]
+                }
+              />
+            </View>
+          </View>
+          <View
             style={
               [
                 {
