@@ -109,48 +109,49 @@ export const refreshCourseList = async () => {
 
 // get all section for specific course
 export const getSectionList = async (course_id) => {
-  try {
-    return await refreshSectionList(course_id);
-  } catch (error) {
-    // Check if the course list already exists in AsyncStorage
-    let sectionList = JSON.parse(await AsyncStorage.getItem(SECTION_LIST));
-    if (sectionList !== null) {
-      return sectionList;
-    }
-    if (e?.response?.data != null) {
-      throw e.response.data;
-    } else {
-      throw e;
-    }
+    let sectionList;
+    try {
+        sectionList = await api.getAllSections(course_id);
+
+    } catch (unusedErrorMessage) {
+        // Use locally stored section if they exist and the DB cannot be reached
+      console.log('Unable to reach DB '+unusedErrorMessage);
+      console.log('Fetching from local storage instead');
+      try {
+        sectionList = JSON.parse(await AsyncStorage.getItem('S'+course_id));
+
+      } catch (e){
+          console.log('Error fetching from storage ' + e);
+          if (e?.response?.data != null) {
+              throw e.response.data;
+          } else {
+              throw e;
+          }
+      }
+  } finally {
+      return await refreshSectionList(sectionList);
   }
 };
-export const refreshSectionList = async (course_id) => {
-  return await api
-    .getAllSections(course_id)
-    .then(async (list) => {
-      let newSectionList = [];
-      for (const section of list) {
-        newSectionList.push({
-          title: section.title,
-          sectionId: section._id,
-          parentCourseId: section.parentCourse,
-          description: section.description,
-          components: section.components,
-          total: section.totalPoints,
-        });
-      }
-      // Save new courseList for this key and return it.
-      await AsyncStorage.setItem(SECTION_LIST, JSON.stringify(newSectionList));
 
-      return newSectionList;
-    })
-    .catch((e) => {
-      if (e?.response?.data != null) {
-        throw e.response.data;
-      } else {
-        throw e;
-      }
-    });
+// Fits section data to new object with relevant fields
+export const refreshSectionList = async (sectionList) => {
+        let newSectionList = [];
+        if (sectionList !== null) {
+            for (const section of sectionList) {
+                newSectionList.push({
+                    title: section.title,
+                    sectionId: section._id,
+                    parentCourseId: section.parentCourse,
+                    description: section.description,
+                    components: section.components,
+                    total: section.totalPoints,
+                });
+            }
+        } else {
+            console.log('No data to be read in DB or local storage');
+        }
+        //Returns new fitted section list, or empty list if there was no data fetched from DB or Storage,
+        return newSectionList;
 };
 
 /** SUBSCRIPTIONS **/
