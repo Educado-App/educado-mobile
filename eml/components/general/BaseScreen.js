@@ -1,5 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
+import { AlertNotificationRoot } from 'react-native-alert-notification';
 
 /**
  * Reusable screen component to provide consistent layout and styling.
@@ -8,8 +9,10 @@ import { View } from 'react-native';
  */
 export default function BaseScreen({ children }) {
     return (
-        <View className="flex-1 bg-secondary">
-            {children}
-        </View>
+        <AlertNotificationRoot>
+            <View className="flex-1 bg-secondary">
+                {children}
+            </View>
+        </AlertNotificationRoot>
     );
 }

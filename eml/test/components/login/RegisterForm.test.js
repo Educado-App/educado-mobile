@@ -4,10 +4,10 @@ import RegisterForm from "../../../components/login/RegisterForm";
 
 let registerForm;
 
-beforeEach(async () => {
-  await renderer.act(() => {
-    registerForm = renderer.create(<RegisterForm />);
-  });
+jest.mock('react-native-alert-notification', () => {
+  return {
+    AlertNotificationRoot: jest.fn().mockImplementation(({ children }) => children),
+  };
 });
 
 jest.mock('@react-navigation/native', () => ({
@@ -15,6 +15,12 @@ jest.mock('@react-navigation/native', () => ({
     navigate: jest.fn(),
   }),
 }))
+
+beforeEach(async () => {
+  await renderer.act(() => {
+    registerForm = renderer.create(<RegisterForm />);
+  });
+});
 
 test("Ensure that the RegisterForm component renders correctly", () => {
   const tree = registerForm.toJSON();
