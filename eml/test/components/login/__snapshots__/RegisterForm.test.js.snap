@@ -343,7 +343,7 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
           keyboardType="email-address"
           onChangeText={[Function]}
           passwordGuidelines={false}
-          placeholder="Insira sua e-mail"
+          placeholder="user@email.com"
           secureTextEntry={false}
           style={
             [
