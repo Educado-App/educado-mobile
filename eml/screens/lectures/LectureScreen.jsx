@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Alert, View, TouchableOpacity, Image, Text } from 'react-native';
+import { View, Text } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
 import VideoLectureScreen from './VideoLectureScreen';
@@ -8,7 +8,6 @@ import ProgressTopBar from './ProgressTopBar';
 
 export default function LectureScreen({ lectureObject, courseObject, currentIndex, indexCount }) {
 
-    const navigation = useNavigation();
     const [lecture, setLecture] = useState(lectureObject);
     const [progressPercent, setProgressPercent] = useState(null);
     useEffect(() => {

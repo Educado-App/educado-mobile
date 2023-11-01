@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text } from 'react-native';
 import { Image } from 'react-native';
-import ProgressTopBar from './ProgressTopBar';
 import { ScrollView } from 'react-native-gesture-handler';
 
 import tailwindConfig from '../../tailwind.config';
 import { getBucketImage } from '../../api/api';
 
-const TextImageLectureScreen = ({ lecture, course, progress }) => {
+const TextImageLectureScreen = ({ lecture, course }) => {
 
 
 
@@ -93,7 +92,7 @@ const TextImageLectureScreen = ({ lecture, course, progress }) => {
         {/* Content */}
         <Text className="text-center text-2xl pt-6 font-bold">BEM VINDO!</Text>
         <ScrollView className=" mt-2">
-            
+
 
             {
                 // Rendering all paragraphs above the image if the array has two or fewer elements

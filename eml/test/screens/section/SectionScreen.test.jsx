@@ -92,11 +92,11 @@ describe("SectionScreen", () => {
     const StorageService = require("../../../services/StorageService");
     jest.spyOn(StorageService, "getSectionList").mockResolvedValue(mockData.sectionData);
 
-    
+
     await renderer.act(async () => {
       return sectionScreen = renderer.create(<SectionScreen route={route} />);
     });
-    
+
 
     await new Promise((resolve) => setTimeout(resolve, 0));
 

@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useState } from 'react';
+import React, { forwardRef } from 'react';
 
 import { View, StyleSheet, Dimensions } from 'react-native';
 import { Video } from 'expo-av';

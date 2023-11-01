@@ -27,8 +27,8 @@ export default function SectionScreen({ route }) {
    * @param {string} id - The id of the course to load sections for.
    */
   async function loadSections(id) {
-      const sectionData = await StorageService.getSectionList(id);
-      setSections(sectionData);
+    const sectionData = await StorageService.getSectionList(id);
+    setSections(sectionData);
   }
 
   /**
@@ -36,8 +36,8 @@ export default function SectionScreen({ route }) {
    * @param {string} id - The id of the course to load.
    */
   async function getCourse(id) {
-      const courseData = await StorageService.getCourseId(id);
-      setCourse(courseData);
+    const courseData = await StorageService.getCourseId(id);
+    setCourse(courseData);
   }
 
   // Fetch courses from backend and replace dummy data!
@@ -69,7 +69,7 @@ export default function SectionScreen({ route }) {
         onPress: () => console.log("No Pressed"),
         style: "cancel",
       },
-      { text: "Sim", onPress: () => { unsubscribe(courseId); setTimeout(() =>  {navigation.goBack();}, 300 ); }},
+      { text: "Sim", onPress: () => { unsubscribe(courseId); setTimeout(() => { navigation.goBack(); }, 300); } },
     ]);
 
   return (
@@ -107,7 +107,7 @@ export default function SectionScreen({ route }) {
             </ScrollView>
 
           </View>
-          )
+        )
       ) : null}
 
     </BaseScreen>

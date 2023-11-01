@@ -17,27 +17,28 @@ export default function LectureSwipeScreen({ route }) {
     const [index, setIndex] = useState(0);
     const [course, setCourse] = useState(null);
 
-    useEffect(() => {
-        async function fetchData() {
-            try {
-                const sectionData = await getSectionAndLecturesBySectionId(sectionId);
-                const initialIndex = sectionData.components.findIndex(lecture => lecture._id === lectureId);
-                const courseData = await getCourse(courseId);
-                const progressPercentage = Math.round(((initialIndex + 1) / sectionData.components.length) * 100);
 
-                console.log("lectures", sectionData.components);
-                setAllLectures(sectionData.components);
-                setCurrentLectureType(sectionData.components[initialIndex]?.video ? "video" : "text");
-                setCourse(courseData);
-                setProgressPercent(progressPercentage);
-                setIndex(initialIndex);
-                setLoading(false);
-            } catch (error) {
-                console.error("Error fetching data:", error);
-                setLoading(false);
-            }
+    async function fetchData() {
+        try {
+            const sectionData = await getSectionAndLecturesBySectionId(sectionId);
+            const initialIndex = sectionData.components.findIndex(lecture => lecture._id === lectureId);
+            const courseData = await getCourse(courseId);
+            const progressPercentage = Math.round(((initialIndex + 1) / sectionData.components.length) * 100);
+
+            console.log("lectures", sectionData.components);
+            setAllLectures(sectionData.components);
+            setCurrentLectureType(sectionData.components[initialIndex]?.video ? "video" : "text");
+            setCourse(courseData);
+            setProgressPercent(progressPercentage);
+            setIndex(initialIndex);
+            setLoading(false);
+        } catch (error) {
+            console.error("Error fetching data:", error);
+            setLoading(false);
         }
+    }
 
+    useEffect(() => {
         fetchData();
     }, [sectionId, courseId, lectureId]);
 

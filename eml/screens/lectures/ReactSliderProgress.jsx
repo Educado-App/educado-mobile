@@ -4,7 +4,7 @@ import Slider from '@react-native-community/slider';
 
 
 
-const ReactSliderProgress = ({ elapsedMs = 10000, totalMs = 20000, color, height, videoRef }) => {
+const ReactSliderProgress = ({ elapsedMs = 10000, totalMs = 20000, videoRef }) => {
 
     const convertMsToTime = (ms) => {
         let seconds = Math.floor((ms / 1000) % 60);
