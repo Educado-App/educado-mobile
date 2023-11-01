@@ -13,7 +13,7 @@ import { getSectionAndLecturesBySectionId, getCourse } from '../../api/api';
  * @returns 
  */
 export default function LectureSwipeScreen({ route }) {
-    const { sectionId, courseId, lectureId } = route.params;
+    const { sectionId, courseId } = route.params;
     const navigation = useNavigation();
     const [loading, setLoading] = useState(true);
     const [progressPercent, setProgressPercent] = useState(0);
@@ -26,7 +26,8 @@ export default function LectureSwipeScreen({ route }) {
         async function fetchData() {
             try {
                 const sectionData = await getSectionAndLecturesBySectionId(sectionId);
-                const initialIndex = sectionData.components.findIndex(lecture => lecture._id === lectureId);
+                //const initialIndex = sectionData.components.findIndex(lecture => lecture._id === lectureId);
+                const initialIndex = 0;
                 const courseData = await getCourse(courseId);
                 const progressPercentage = Math.round(((initialIndex + 1) / sectionData.components.length) * 100);
 
@@ -44,7 +45,7 @@ export default function LectureSwipeScreen({ route }) {
         }
 
         fetchData();
-    }, [sectionId, courseId, lectureId]);
+    }, [sectionId, courseId]);
 
     const handleIndexChange = (_index) => {
         console.log("Index Changed:", _index);
