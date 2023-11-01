@@ -2,6 +2,11 @@ import React from 'react';
 import { View } from 'react-native';
 import { ALERT_TYPE, Dialog } from 'react-native-alert-notification';
 
+/**
+ * Component for showing a popup notification
+ * @param {string} status status of the notification (success, warning, error, other)
+ * @param {string} message message to be displayed in the notification
+ */
 export default DialogNotification = (status, message) => {
   return (
     <View className='z-1000'>

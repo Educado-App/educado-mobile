@@ -2,6 +2,11 @@ import React from 'react';
 import { View } from 'react-native';
 import { ALERT_TYPE, Toast } from 'react-native-alert-notification';
 
+/**
+ * Component for showing a toast notification
+ * @param {string} status status of the notification (success, warning, error, other)
+ * @param {string} message message to be displayed in the notification
+ */
 export default ToastNotification = (status, message) => {
   return (
     <View className='z-100'>
