@@ -149,7 +149,7 @@ export default function VideoLectureScreen({ lecture, course, progress }) {
                         <View className="w-full flex-row justify-between items-end">
 
                             <View className=" flex-col">
-                                <Text className=" text-projectGray"  >Course Name: {course.title}</Text>
+                                <Text className=" text-projectGray"  >Nome do curso: {course.title}</Text>
                                 <Text className="text-xl text-projectWhite" >{lecture.title && lecture.title}</Text>
                             </View>
                             <VideoActions isPlaying={isPlaying} isMuted={isMuted} onVolumeClick={handleMutepress} onPlayClick={handlePress} />

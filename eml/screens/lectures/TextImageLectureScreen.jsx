@@ -139,7 +139,7 @@ const TextImageLectureScreen = ({ lecture, course, progress }) => {
             <View className="w-full flex-row justify-between">
 
                 <View className=" flex-col mb-8">
-                    <Text className=" text-projectGray " >Course Name: {course.title}</Text>
+                    <Text className=" text-projectGray " >Nome do curso: {course.title}</Text>
                     <Text className=" text-xl font-bold text-black " >{lecture.title}</Text>
                 </View>
             </View>
