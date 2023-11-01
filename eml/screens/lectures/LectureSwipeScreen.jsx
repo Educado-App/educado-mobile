@@ -25,6 +25,7 @@ export default function LectureSwipeScreen({ route }) {
                 const courseData = await getCourse(courseId);
                 const progressPercentage = Math.round(((initialIndex + 1) / sectionData.components.length) * 100);
 
+                console.log("lectures", sectionData.components);
                 setAllLectures(sectionData.components);
                 setCurrentLectureType(sectionData.components[initialIndex]?.video ? "video" : "text");
                 setCourse(courseData);
@@ -41,11 +42,13 @@ export default function LectureSwipeScreen({ route }) {
     }, [sectionId, courseId, lectureId]);
 
     const handleIndexChange = (_index) => {
+        console.log("Index Changed:", _index);
         const currentLecture = allLectures[_index];
         const currentLectureType = currentLecture?.video ? "video" : "text";
         setCurrentLectureType(currentLectureType);
         const currentProgress = Math.round(((_index + 1) / allLectures.length) * 100);
         setProgressPercent(currentProgress);
+        setIndex(_index);
     };
 
     if (loading) {
@@ -61,7 +64,7 @@ export default function LectureSwipeScreen({ route }) {
         <View style={{ flex: 1 }}>
             {progressPercent && (
                 <View style={{ position: 'absolute', top: 0, zIndex: 10, width: '100%' }}>
-                    <ProgressTopBar progressPercent={progressPercent} lectureType={currentLectureType} style={{ backgroundColor: 'transparent' }} />
+                    <ProgressTopBar progressPercent={progressPercent} lectureType={currentLectureType} allLectures={allLectures} currentLectureIndex={index} style={{ backgroundColor: 'transparent' }} />
                 </View>
             )}
 

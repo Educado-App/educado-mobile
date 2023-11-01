@@ -3,7 +3,12 @@ import { View, Text, Pressable, Animated } from 'react-native';
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from '@react-navigation/native';
 
-const ProgressTopBar = ({ progressPercent = 0, lectureType, className = ""   }) => {
+import Icon from '@mdi/react';
+import { mdiCheckCircleOutline } from '@mdi/js';
+import { mdiCheckCircle } from '@mdi/js';
+import tailwindConfig from '../../tailwind.config';
+
+const ProgressTopBar = ({ progressPercent = 0, lectureType, allLectures, currentLectureIndex, className = ""   }) => {
 
     const navigator = useNavigation();
     const animatedWidth = useRef(new Animated.Value(progressPercent)).current;
@@ -11,42 +16,58 @@ const ProgressTopBar = ({ progressPercent = 0, lectureType, className = ""   }) 
 
     const color = lectureType === 'video' ? 'white' : 'black';
 
+
     useEffect(() => {
-        const listener = animatedWidth.addListener(({ value }) => {
-            setDisplayedPercent(Math.round(value));
-        });
+        console.log("currentLectureIndex", currentLectureIndex);
+    },[currentLectureIndex])
 
-        Animated.timing(animatedWidth, {
-            toValue: progressPercent,
-            duration: 500,
-            useNativeDriver: false
-        }).start();
+    const createCorrectIcon = (_index, _currentIndex) => {
 
-        return () => {
-            animatedWidth.removeListener(listener);
-        };
-    }, [progressPercent]);
+        // if lecture is completed show check
+        //if lecture is completed show check
+        if (_index < _currentIndex || allLectures[_index].completed) {
+            return (
+                <View key={_index} className=" mx-1  w-5 h-5 rounded-full bg-primary flex-col justify-center items-center">
+                <MaterialCommunityIcons name= "check-bold" size={12} color={tailwindConfig.theme.colors.projectWhite} />
+                </View> 
+            )
+        }
+        //if lecture is current indicate with circle
+        else if (_index === _currentIndex) {
+            return (
+                <View key={_index} className=" mx-1  w-5 h-5 rounded-full bg-primary flex-col justify-center items-center opacity-50">
+                {/* <MaterialCommunityIcons name={_index >= allLectures.length ? "check" : "check"} size={12} color={tailwindConfig.theme.colors.primary} /> */}
+                </View> 
+            )
+        }
+        //if lecture is not current or completed show empty circle
+        else if (_index > _currentIndex) {
+            return (
+                <View key={_index} className=" mx-1  w-5 h-5 rounded-full  bg-secondary flex-col justify-center items-center">
+                <MaterialCommunityIcons name={_index >= allLectures.length ? "check" : "check"} size={12} color={tailwindConfig.theme.colors.secondary} />
+                </View> 
+            )
+        }
+
+    }
 
     return (
-        <View className={"flex-row w-full justify-between  items-center pt-[15%] px-4"}>
-            <Pressable onPress={() => navigator.goBack()}>
-                <MaterialCommunityIcons name="chevron-left" size={28} color={color} />
-            </Pressable>
-            <View className="h-2 px-5 flex-grow rounded-full">
-                <View className="flex-grow relative">
-                    {/* Background Bar */}
-                    <View className={`w-full h-2 top-0 absolute rounded-full bg-disabled `} />
+        <View className="flex-row w-full items-center pt-[15%] relative px-4">
+            <View className="relative flex-grow justify-center items-center flex-row">
+                <Pressable onPress={() => navigator.goBack()} className="">
+                        <MaterialCommunityIcons name="chevron-left" size={28} />
+                </Pressable>
+                <View className=" flex-grow  flex-row justify-center items-center py-2">
+                    {allLectures.map((_lecture, _index) => (
+                        /* if lecture is completed show check, otherwise empty  */
+                        createCorrectIcon(_index, currentLectureIndex)
 
-                    {/* Active Progress Bar */}
-                    <Animated.View className={`absolute h-2 top-0 bg-primary rounded-full`}
-                        style={{ width: animatedWidth.interpolate({
-                                    inputRange: [0, 100],
-                                    outputRange: ['0%', '100%']
-                                }) }}
-                    />
+                    ))}
+                </View>
+                <View className="opacity-0" >
+                        <MaterialCommunityIcons name="chevron-left" size={28} />
                 </View>
             </View>
-            <Text className="font-bold" style={{ color: color }}>{displayedPercent}%</Text>
         </View>
     );
 }
