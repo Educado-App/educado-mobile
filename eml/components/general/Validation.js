@@ -8,7 +8,7 @@ import patterns from '../../assets/validation/patterns';
    */
 
 const removeEmojis = (passwordInput) => {
-	return passwordInput.replace(patterns.emoji, '');
+  return passwordInput.replace(patterns.emoji, '');
 };
 
 /**
@@ -17,8 +17,8 @@ const removeEmojis = (passwordInput) => {
   * @returns {Boolean} true if password contains at least one letter, false otherwise
   */
 const validatePasswordContainsLetter = (password) => {
-	const regex = /.*\p{L}.*$/u;
-	return regex.test(password);
+  const regex = /.*\p{L}.*$/u;
+  return regex.test(password);
 };
 
 /**
@@ -27,7 +27,7 @@ const validatePasswordContainsLetter = (password) => {
   * @returns {Boolean} true if password is longer than 7 characters, false otherwise
   */
 const validatePasswordLength = (password) => {
-	return password.length > 7;
+  return password.length > 7;
 };
 
 /**
@@ -37,14 +37,14 @@ const validatePasswordLength = (password) => {
  * @returns {String} error message if email is invalid, empty string otherwise
  */
 const validateEmail = (email) => {
-	const emailPattern = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+  const emailPattern = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 
-	if (!emailPattern.test(email)) {
-		return 'E-mail inválido'; // Email invalid
-	}
+  if (!emailPattern.test(email)) {
+    return 'E-mail inválido'; // Email invalid
+  }
 
-	// Passed all checks, email is valid
-	return '';
+  // Passed all checks, email is valid
+  return '';
 };
 
 /**
@@ -55,26 +55,26 @@ const validateEmail = (email) => {
  * @returns {String} error message if name is invalid, empty string otherwise
  */
 const validateName = (name, wordForName='Nome') => {
-	const namePattern = /^(\p{L}+[- '])*\p{L}+$/u;
+  const namePattern = /^(\p{L}+[- '])*\p{L}+$/u;
 
-	if (name.length > 50) { // Check this number
-		return `${wordForName} muito longo`; // Name too long
-	}
-	if(name.length < 1) {
-		return `${wordForName} obrigatório`; // Name required
-	}
-	if(!namePattern.test(name)) {
-		return `${wordForName} inválido`; // Invalid name
-	}
+  if (name.length > 50) { // Check this number
+    return `${wordForName} muito longo`; // Name too long
+  }
+  if(name.length < 1) {
+    return `${wordForName} obrigatório`; // Name required
+  }
+  if(!namePattern.test(name)) {
+    return `${wordForName} inválido`; // Invalid name
+  }
   
-	return '';
+  return '';
 };
 
 module.exports = Object.freeze({
-	removeEmojis,
-	validatePasswordContainsLetter,
-	validatePasswordLength,
-	validateEmail,
-	validateName
+  removeEmojis,
+  validatePasswordContainsLetter,
+  validatePasswordLength,
+  validateEmail,
+  validateName
 });
 

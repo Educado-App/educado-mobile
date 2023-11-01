@@ -9,21 +9,21 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
  * @returns {JSX.Element} - The rendered component.
  */
 const SubscriptionCancel = ({ onPress }) => {
-	SubscriptionCancel.propTypes = {
-		onPress: PropTypes.func.isRequired,
-	};
+  SubscriptionCancel.propTypes = {
+    onPress: PropTypes.func.isRequired,
+  };
 
-	return (
-		<View>
-			<TouchableOpacity
-				testID="subscriptionCancelButton"
-				className="px-5 py-4"
-				onPress={onPress}
-			>
-				<MaterialCommunityIcons name="bookmark" size={25} color="black" />
-			</TouchableOpacity>
-		</View>
-	);
+  return (
+    <View>
+      <TouchableOpacity
+        testID="subscriptionCancelButton"
+        className="px-5 py-4"
+        onPress={onPress}
+      >
+        <MaterialCommunityIcons name="bookmark" size={25} color="black" />
+      </TouchableOpacity>
+    </View>
+  );
 };
 
 export default SubscriptionCancel;

@@ -10,16 +10,16 @@ import PropTypes from 'prop-types';
  * @returns {React.Element} JSX element for showing alerts
  */
 export default function FormFieldAlert(props) {
-	return (
-		<View className="flex-row items-center">
-			{props.success ? 
-				<Text className="text-xs text-success mx-2">{props.label}</Text> 
-				: <Text className="text-xs text-error mx-2">{props.label}</Text>}
-		</View >
-	);
+  return (
+    <View className="flex-row items-center">
+      {props.success ? 
+        <Text className="text-xs text-success mx-2">{props.label}</Text> 
+        : <Text className="text-xs text-error mx-2">{props.label}</Text>}
+    </View >
+  );
 }
 
 FormFieldAlert.propTypes = {
-	label: PropTypes.string,
-	success: PropTypes.bool,
+  label: PropTypes.string,
+  success: PropTypes.bool,
 };

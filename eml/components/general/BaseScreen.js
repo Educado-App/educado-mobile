@@ -8,16 +8,16 @@ import PropTypes from 'prop-types';
  * @returns {JSX.Element} The BaseScreen component.
  */
 export default function BaseScreen({ children }) {
-	BaseScreen.propTypes = {
-		children: PropTypes.oneOfType([
-			PropTypes.object,
-			PropTypes.array,
-		]).isRequired,
-	};
+  BaseScreen.propTypes = {
+    children: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.array,
+    ]).isRequired,
+  };
 
-	return (
-		<View className="flex-1 bg-secondary">
-			{children}
-		</View>
-	);
+  return (
+    <View className="flex-1 bg-secondary">
+      {children}
+    </View>
+  );
 }

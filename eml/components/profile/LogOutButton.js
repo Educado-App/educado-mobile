@@ -10,39 +10,39 @@ const USER_INFO = '@userInfo';
 export default function LogOutButton() {
 	
 
-	const navigation = useNavigation();
+  const navigation = useNavigation();
 
-	async function logOut() {
+  async function logOut() {
 
-		await AsyncStorage.removeItem(LOGIN_TOKEN);
-		await AsyncStorage.removeItem(USER_INFO);
+    await AsyncStorage.removeItem(LOGIN_TOKEN);
+    await AsyncStorage.removeItem(USER_INFO);
 
-		navigation.navigate('Login');
+    navigation.navigate('Login');
 
-	}
+  }
 
-	const logoutAlert = () =>
-		Alert.alert('Sair', 'Tem certeza que deseja sair?', [
-			{
-				text: 'Não',
-				onPress: () => console.log('No Pressed'),
-				style: 'cancel'
-			},
-			{ text: 'Sim', onPress: logOut }
-		]);
+  const logoutAlert = () =>
+    Alert.alert('Sair', 'Tem certeza que deseja sair?', [
+      {
+        text: 'Não',
+        onPress: () => console.log('No Pressed'),
+        style: 'cancel'
+      },
+      { text: 'Sim', onPress: logOut }
+    ]);
 
-	return (
-		<View className="flex-row items-center justify-end px-6 mt-[-40%] mb-[20%]">
-			<TouchableOpacity className="bg-[#dc2626] items-center py-2 pl-1 rounded-medium w-[15%]" onPress={logoutAlert}>
-				<View>
-					<MaterialCommunityIcons
-						name="logout"
-						size={40}
-						color="white"
+  return (
+    <View className="flex-row items-center justify-end px-6 mt-[-40%] mb-[20%]">
+      <TouchableOpacity className="bg-[#dc2626] items-center py-2 pl-1 rounded-medium w-[15%]" onPress={logoutAlert}>
+        <View>
+          <MaterialCommunityIcons
+            name="logout"
+            size={40}
+            color="white"
 
-					/>
-				</View>
-			</TouchableOpacity>
-		</View>
-	);
+          />
+        </View>
+      </TouchableOpacity>
+    </View>
+  );
 }

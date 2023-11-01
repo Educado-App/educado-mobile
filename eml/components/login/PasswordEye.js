@@ -10,19 +10,19 @@ import PropTypes from 'prop-types';
  * - toggleShowPassword: Function
  */
 export default function PasswordEye(props) {
-	return (
-		<View className="absolute right-2 top-2 mt-3">
-			<MaterialCommunityIcons
-				name={props.showPasswordIcon ? 'eye-off' : 'eye'}
-				size={24}
-				color="gray"
-				onPress={props.toggleShowPassword}
-			/>
-		</View>
-	);
+  return (
+    <View className="absolute right-2 top-2 mt-3">
+      <MaterialCommunityIcons
+        name={props.showPasswordIcon ? 'eye-off' : 'eye'}
+        size={24}
+        color="gray"
+        onPress={props.toggleShowPassword}
+      />
+    </View>
+  );
 }
 
 PasswordEye.propTypes = {
-	showPasswordIcon: PropTypes.bool,
-	toggleShowPassword: PropTypes.func,
+  showPasswordIcon: PropTypes.bool,
+  toggleShowPassword: PropTypes.func,
 };

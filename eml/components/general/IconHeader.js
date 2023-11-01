@@ -11,18 +11,18 @@ import singleIcon from '../../assets/singleIcon.png';
  */
 export default function IconHeader({ title }) {
 	
-	IconHeader.propTypes = {
-		title: PropTypes.string.isRequired
-	};
+  IconHeader.propTypes = {
+    title: PropTypes.string.isRequired
+  };
 
-	return (
-		<View className="flex flex-row items-center pl-6 pt-[20%] pb-[10%]">
-			<Image
-				source={singleIcon} 
-				alt="Icon"
-				className="w-8 h-8 mr-2"
-			/>
-			<Text className="text-xl font-bold">{title}</Text>
-		</View>
-	);
+  return (
+    <View className="flex flex-row items-center pl-6 pt-[20%] pb-[10%]">
+      <Image
+        source={singleIcon} 
+        alt="Icon"
+        className="w-8 h-8 mr-2"
+      />
+      <Text className="text-xl font-bold">{title}</Text>
+    </View>
+  );
 }

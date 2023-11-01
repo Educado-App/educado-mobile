@@ -14,10 +14,10 @@ const url = 'http://192.168.0.224:8888'; // Change this to your LOCAL IP address
  * This is the client that will be used to make requests to the backend.
  */
 export const client = axios.create({
-	baseURL: url,
-	withCredentials: true,
-	responseType: 'json',
-	timeout: 30000,
+  baseURL: url,
+  withCredentials: true,
+  responseType: 'json',
+  timeout: 30000,
 });
 
 /**
@@ -29,22 +29,22 @@ export const client = axios.create({
  * - password
  */
 export const registerUser = async (obj) => {
-	console.log(`User trying to register:
+  console.log(`User trying to register:
     firstName: ${obj.firstName ?? 'undefined'}
     lastName: ${obj.lastName ?? 'undefined'}
     email: ${obj.email ?? 'undefined'}`);
 
-	try {
-		const res = await client.post('/api/signup/users', obj);
-		console.log('User successfully registered');
-		return res.data;
-	} catch (e) {
-		if (e.response.data != null) {
-			throw e.response.data;
-		} else {
-			throw e;
-		}
-	}
+  try {
+    const res = await client.post('/api/signup/users', obj);
+    console.log('User successfully registered');
+    return res.data;
+  } catch (e) {
+    if (e.response.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
 };
 
 /**
@@ -54,119 +54,119 @@ export const registerUser = async (obj) => {
  * - password
  */
 export const loginUser = async (obj) => {
-	try {
-		const res = await client.post('/api/auth/login', obj);
-		console.log('User successfully registered');
-		return res.data;
-	} catch (e) {
-		if (e.response.data != null) {
-			throw e.response.data;
-		} else {
-			throw e;
-		}
-	}
+  try {
+    const res = await client.post('/api/auth/login', obj);
+    console.log('User successfully registered');
+    return res.data;
+  } catch (e) {
+    if (e.response.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
 };
 
 export const deleteUser = async (user_id, token) => {
-	try {
-		const res = await axios.delete(url + '/api/users/' + user_id, {
-			headers: {
-				'Content-Type': 'application/json',
-				'token': token, // Include the token in the headers
-			},
-		});
-		return res.data;
-	} catch (e) {
-		if (e.response.data != null) {
-			throw e.response.data;
-		} else {
-			throw e;
-		}
-	}
+  try {
+    const res = await axios.delete(url + '/api/users/' + user_id, {
+      headers: {
+        'Content-Type': 'application/json',
+        'token': token, // Include the token in the headers
+      },
+    });
+    return res.data;
+  } catch (e) {
+    if (e.response.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
 };
 
 export const updateUserFields = async (user_id, updateFields, token) => {
-	try {
-		const res = await axios.patch(url + `/api/users/${user_id}`, updateFields, {
-			headers: {
-				'Content-Type': 'application/json',
-				'token': token, // Include the token in the headers
-			},
-		});
+  try {
+    const res = await axios.patch(url + `/api/users/${user_id}`, updateFields, {
+      headers: {
+        'Content-Type': 'application/json',
+        'token': token, // Include the token in the headers
+      },
+    });
 
-		return res.data;
-	} catch (e) {
-		if (e.response.data != null) {
-			throw e.response.data;
-		} else {
-			throw e;
-		}
-	}
+    return res.data;
+  } catch (e) {
+    if (e.response.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
 };
 
 
 export const enrollInCourse = async (user_Id, course_Id) => {
-	try {
-		// When user enrolls in a course it sends the course id to the database,
-		// and then stores the course and completion status in the user document.
-		const res = await axios.post(
-			url + '/api/eml/' + user_Id + '/enroll/' + course_Id
-		);
+  try {
+    // When user enrolls in a course it sends the course id to the database,
+    // and then stores the course and completion status in the user document.
+    const res = await axios.post(
+      url + '/api/eml/' + user_Id + '/enroll/' + course_Id
+    );
 
-		// First time user enrolls in course
-		if (!res.data.course) {
-			return res.data;
-		}
+    // First time user enrolls in course
+    if (!res.data.course) {
+      return res.data;
+    }
 
-		// if the course already exists, return the completion status of the course, sections, and exercises
-		return {
-			courseCompletion: res.data.course.isComplete,
-			sectionCompletion: res.data.course.sections.map(
-				(section) => section.isComplete
-			),
-			exerciseCompletion: res.data.course.sections.map((section) =>
-				section.exercises.map((exercise) => exercise.isComplete)
-			),
-		};
-	} catch (err) {
-		return err.message;
-	}
+    // if the course already exists, return the completion status of the course, sections, and exercises
+    return {
+      courseCompletion: res.data.course.isComplete,
+      sectionCompletion: res.data.course.sections.map(
+        (section) => section.isComplete
+      ),
+      exerciseCompletion: res.data.course.sections.map((section) =>
+        section.exercises.map((exercise) => exercise.isComplete)
+      ),
+    };
+  } catch (err) {
+    return err.message;
+  }
 };
 
 export const updateCourseStatus = async (user_id, course_id) => {
-	// When user completes course it should update the user document from
-	// isComplete: false, to isComplete: true for that course
-	const res = await axios.put(
-		url + '/api/eml/' + user_id + '/updateCourse/' + course_id
-	);
-	return res.data;
+  // When user completes course it should update the user document from
+  // isComplete: false, to isComplete: true for that course
+  const res = await axios.put(
+    url + '/api/eml/' + user_id + '/updateCourse/' + course_id
+  );
+  return res.data;
 };
 
 export const updateSectionStatus = async (user_id, course_id, section_id) => {
-	// When user completes section it should update the user document from
-	// isComplete: false, to isComplete: true for that section
-	const res = await axios.put(
-		url +
+  // When user completes section it should update the user document from
+  // isComplete: false, to isComplete: true for that section
+  const res = await axios.put(
+    url +
       '/api/eml/' +
       user_id +
       '/updateSection/' +
       course_id +
       '/' +
       section_id
-	);
-	return res.data;
+  );
+  return res.data;
 };
 
 export const updateExerciseStatus = async (
-	user_id,
-	course_id,
-	section_id,
-	exercise_id
+  user_id,
+  course_id,
+  section_id,
+  exercise_id
 ) => {
-	// When user completes an exercise it should update the user document from
-	// isComplete: false, to isComplete: true for that exercise
-	const res = await axios.put(
-		url +
+  // When user completes an exercise it should update the user document from
+  // isComplete: false, to isComplete: true for that exercise
+  const res = await axios.put(
+    url +
       '/api/eml/' +
       user_id +
       '/updateExercise/' +
@@ -175,8 +175,8 @@ export const updateExerciseStatus = async (
       section_id +
       '/' +
       exercise_id
-	);
-	return res.data;
+  );
+  return res.data;
 };
 
 /**
@@ -184,16 +184,16 @@ export const updateExerciseStatus = async (
  * @param {Object} email should contain an email, to receive a reset password message
 */
 export const sendResetPasswordEmail = async (email) => {
-	try {
-		const res = await axios.post(url + '/api/auth/reset-password-request', email);
-		return res.data;
-	} catch (e) {
-		if (e.response.data != null) {
-			throw e.response.data;
-		} else {
-			throw e;
-		}
-	}
+  try {
+    const res = await axios.post(url + '/api/auth/reset-password-request', email);
+    return res.data;
+  } catch (e) {
+    if (e.response.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
 };
 
 
@@ -204,16 +204,16 @@ export const sendResetPasswordEmail = async (email) => {
  * - token
 */
 export const validateResetPasswordCode = async (obj) => {
-	try {
-		const res = await axios.post(url + '/api/auth/reset-password-code', obj);
-		return res.data;
-	} catch (e) {
-		if (e.response.data != null) {
-			throw e.response.data;
-		} else {
-			throw e;
-		}
-	}
+  try {
+    const res = await axios.post(url + '/api/auth/reset-password-code', obj);
+    return res.data;
+  } catch (e) {
+    if (e.response.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
 
 };
 
@@ -225,14 +225,14 @@ export const validateResetPasswordCode = async (obj) => {
  * - newPassword
 */
 export const enterNewPassword = async (obj) => {
-	try {
-		const res = await axios.patch(url + '/api/auth/reset-password', obj);
-		return res.data;
-	} catch (e) {
-		if (e.response.data != null) {
-			throw e.response.data;
-		} else {
-			throw e;
-		}
-	}
+  try {
+    const res = await axios.patch(url + '/api/auth/reset-password', obj);
+    return res.data;
+  } catch (e) {
+    if (e.response.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
 };

@@ -5,14 +5,14 @@ import PropTypes from 'prop-types';
 
 
 export default function EducadoLogo(props) {
-	return (
-		<Image
-			source={logo}
-			style={props.style}
-			className={'h-12'}
-			resizeMode='contain'
-		/>
-	);
+  return (
+    <Image
+      source={logo}
+      style={props.style}
+      className={'h-12'}
+      resizeMode='contain'
+    />
+  );
 }
 
 // THE CODE BELOW DOES NOT WORK. THE SVG NEVER SHOWS AFTER MERGING TO DEV. 
@@ -119,5 +119,5 @@ const StyledPath = styled(Path, { classProps: ["fill", "stroke"] });
 }*/
 
 EducadoLogo.propTypes = {
-	style: PropTypes.object,
+  style: PropTypes.object,
 };

@@ -11,15 +11,15 @@ const USER_INFO = '@userInfo';
 
 export const getUserInfo = async () => {
 
-	const fetchedUserInfo = JSON.parse(await AsyncStorage.getItem(USER_INFO));
-	// I had to format the error handling as this,
-	// beacuse AsyncStorage.getItem() does not throw error itself 
+  const fetchedUserInfo = JSON.parse(await AsyncStorage.getItem(USER_INFO));
+  // I had to format the error handling as this,
+  // beacuse AsyncStorage.getItem() does not throw error itself 
 
-	if (fetchedUserInfo === null) {
-		throw new Error('Cannot fetch user info from async storage');
-	}
+  if (fetchedUserInfo === null) {
+    throw new Error('Cannot fetch user info from async storage');
+  }
 
-	return fetchedUserInfo;
+  return fetchedUserInfo;
 
 };
 
@@ -27,133 +27,133 @@ export const getUserInfo = async () => {
 
 // get specific course
 export const getCourseId = async (id) => {
-	try {
-		return await refreshCourse(id);
-	} catch (error) {
-		// Check if the course already exists in AsyncStorage
-		let course = JSON.parse(await AsyncStorage.getItem(COURSE));
-		if (course !== null) {
-			return course;
-		}
-		if (error?.response?.data != null) {
-			throw error.response.data;
-		} else {
-			throw error;
-		}
-	}
+  try {
+    return await refreshCourse(id);
+  } catch (error) {
+    // Check if the course already exists in AsyncStorage
+    let course = JSON.parse(await AsyncStorage.getItem(COURSE));
+    if (course !== null) {
+      return course;
+    }
+    if (error?.response?.data != null) {
+      throw error.response.data;
+    } else {
+      throw error;
+    }
+  }
 };
 export const refreshCourse = async (id) => {
-	return await api
-		.getCourse(id)
-		.then(async (course) => {
-			return course;
-		})
-		.catch((error) => {
-			if (error?.response?.data != null) {
-				throw error.response.data;
-			} else {
-				throw error;
-			}
-		});
+  return await api
+    .getCourse(id)
+    .then(async (course) => {
+      return course;
+    })
+    .catch((error) => {
+      if (error?.response?.data != null) {
+        throw error.response.data;
+      } else {
+        throw error;
+      }
+    });
 };
 
 // get all courses
 export const getCourseList = async () => {
-	try {
-		return await refreshCourseList();
-	} catch (error) {
-		// Check if the course list already exists in AsyncStorage
-		let courseList = JSON.parse(await AsyncStorage.getItem(COURSE_LIST));
-		if (courseList !== null) {
-			return courseList;
-		}
-		if (error?.response?.data != null) {
-			throw error.response.data;
-		} else {
-			throw error;
-		}
-	}
+  try {
+    return await refreshCourseList();
+  } catch (error) {
+    // Check if the course list already exists in AsyncStorage
+    let courseList = JSON.parse(await AsyncStorage.getItem(COURSE_LIST));
+    if (courseList !== null) {
+      return courseList;
+    }
+    if (error?.response?.data != null) {
+      throw error.response.data;
+    } else {
+      throw error;
+    }
+  }
 };
 
 export const refreshCourseList = async () => {
-	return await api
-		.getCourses()
-		.then(async (list) => {
-			let newCourseList = [];
-			for (const course of list) {
-				// Make new list with required members
-				newCourseList.push({
-					title: course.title,
-					courseId: course._id,
-					description: course.description,
-					category: course.category,
-					estimatedHours: course.estimatedHours,
-					dateUpdated: course.dateUpdated,
-					difficulty: course.difficulty,
-					published: course.published,
-					status: course.status,
-					rating: course.rating,
-				});
-			}
-			// Save new courseList for this key and return it.
-			await AsyncStorage.setItem(COURSE_LIST, JSON.stringify(newCourseList));
-			return newCourseList;
-		})
-		.catch((error) => {
-			if (error?.response?.data != null) {
-				throw error.response.data;
-			} else {
-				throw error;
-			}
-		});
+  return await api
+    .getCourses()
+    .then(async (list) => {
+      let newCourseList = [];
+      for (const course of list) {
+        // Make new list with required members
+        newCourseList.push({
+          title: course.title,
+          courseId: course._id,
+          description: course.description,
+          category: course.category,
+          estimatedHours: course.estimatedHours,
+          dateUpdated: course.dateUpdated,
+          difficulty: course.difficulty,
+          published: course.published,
+          status: course.status,
+          rating: course.rating,
+        });
+      }
+      // Save new courseList for this key and return it.
+      await AsyncStorage.setItem(COURSE_LIST, JSON.stringify(newCourseList));
+      return newCourseList;
+    })
+    .catch((error) => {
+      if (error?.response?.data != null) {
+        throw error.response.data;
+      } else {
+        throw error;
+      }
+    });
 };
 
 /** SECTIONS **/
 
 // get all section for specific course
 export const getSectionList = async (course_id) => {
-	try {
-		return await refreshSectionList(course_id);
-	} catch (error) {
-		// Check if the course list already exists in AsyncStorage
-		let sectionList = JSON.parse(await AsyncStorage.getItem(SECTION_LIST));
-		if (sectionList !== null) {
-			return sectionList;
-		}
-		if (error?.response?.data != null) {
-			throw error.response.data;
-		} else {
-			throw error;
-		}
-	}
+  try {
+    return await refreshSectionList(course_id);
+  } catch (error) {
+    // Check if the course list already exists in AsyncStorage
+    let sectionList = JSON.parse(await AsyncStorage.getItem(SECTION_LIST));
+    if (sectionList !== null) {
+      return sectionList;
+    }
+    if (error?.response?.data != null) {
+      throw error.response.data;
+    } else {
+      throw error;
+    }
+  }
 };
 export const refreshSectionList = async (course_id) => {
-	return await api
-		.getAllSections(course_id)
-		.then(async (list) => {
-			let newSectionList = [];
-			for (const section of list) {
-				newSectionList.push({
-					title: section.title,
-					sectionId: section._id,
-					parentCourseId: section.parentCourse,
-					description: section.description,
-					components: section.components,
-					total: section.totalPoints,
-				});
-			}
-			// Save new courseList for this key and return it.
-			await AsyncStorage.setItem(SECTION_LIST, JSON.stringify(newSectionList));
+  return await api
+    .getAllSections(course_id)
+    .then(async (list) => {
+      let newSectionList = [];
+      for (const section of list) {
+        newSectionList.push({
+          title: section.title,
+          sectionId: section._id,
+          parentCourseId: section.parentCourse,
+          description: section.description,
+          components: section.components,
+          total: section.totalPoints,
+        });
+      }
+      // Save new courseList for this key and return it.
+      await AsyncStorage.setItem(SECTION_LIST, JSON.stringify(newSectionList));
 
-			return newSectionList;
-		})
-		.catch((error) => {
-			if (error?.response?.data != null) {
-				throw error.response.data;
-			} else {
-				throw error;
-			}
-		});
+      return newSectionList;
+    })
+    .catch((error) => {
+      if (error?.response?.data != null) {
+        throw error.response.data;
+      } else {
+        throw error;
+      }
+    });
 };
 
 /** SUBSCRIPTIONS **/
@@ -161,135 +161,135 @@ export const refreshSectionList = async (course_id) => {
 // get all subscribed courses from a user
 export const getSubCourseList = async () => {
 
-	// get the logged-in user id from async storage
-	const userId = await AsyncStorage.getItem(USER_ID); 
+  // get the logged-in user id from async storage
+  const userId = await AsyncStorage.getItem(USER_ID); 
 
-	if(userId === null) {
-		throw new Error('Cannot fetch user id from async storage');
-	}
+  if(userId === null) {
+    throw new Error('Cannot fetch user id from async storage');
+  }
 
-	try {
-		return await refreshSubCourseList(userId);
+  try {
+    return await refreshSubCourseList(userId);
 
-	} catch (error) {
-		// Check if the course list already exists in AsyncStorage
-		let courseList = JSON.parse(await AsyncStorage.getItem(SUB_COURSE_LIST));
-		if (courseList !== null) {
-			return courseList;
-		}
-		if (error?.response?.data != null) {
-			throw error.response.data;
-		} else {
-			throw error;
-		}
-	}
+  } catch (error) {
+    // Check if the course list already exists in AsyncStorage
+    let courseList = JSON.parse(await AsyncStorage.getItem(SUB_COURSE_LIST));
+    if (courseList !== null) {
+      return courseList;
+    }
+    if (error?.response?.data != null) {
+      throw error.response.data;
+    } else {
+      throw error;
+    }
+  }
 };
 export const refreshSubCourseList = async (userId) => {
-	return await api
-		.getSubscriptions(userId)
-		.then(async (list) => {
-			let newCourseList = [];
-			for (const course of list) {
+  return await api
+    .getSubscriptions(userId)
+    .then(async (list) => {
+      let newCourseList = [];
+      for (const course of list) {
 
-				// Make new list with required members
-				newCourseList.push({
-					title: course.title,
-					courseId: course._id,
-					description: course.description,
-					category: course.category,
-					estimatedHours: course.estimatedHours,
-					dateUpdated: course.dateUpdated,
-					difficulty: course.difficulty,
-					published: course.published,
-					status: course.status,
-					rating: course.rating,
-				});
-			}
-			// Save new courseList for this key and return it.
-			await AsyncStorage.setItem(SUB_COURSE_LIST, JSON.stringify(newCourseList));
-			return newCourseList;
-		})
-		.catch((error) => {
-			if (error?.response?.data != null) {
-				throw error.response.data;
-			} else {
-				throw error;
-			}
-		});
+        // Make new list with required members
+        newCourseList.push({
+          title: course.title,
+          courseId: course._id,
+          description: course.description,
+          category: course.category,
+          estimatedHours: course.estimatedHours,
+          dateUpdated: course.dateUpdated,
+          difficulty: course.difficulty,
+          published: course.published,
+          status: course.status,
+          rating: course.rating,
+        });
+      }
+      // Save new courseList for this key and return it.
+      await AsyncStorage.setItem(SUB_COURSE_LIST, JSON.stringify(newCourseList));
+      return newCourseList;
+    })
+    .catch((error) => {
+      if (error?.response?.data != null) {
+        throw error.response.data;
+      } else {
+        throw error;
+      }
+    });
 };
 
 
 // subscribe to a course
 export const subscribe = async (courseId) => {
 
-	// get the logged-in user id from async storage
-	const userId = await AsyncStorage.getItem(USER_ID);
+  // get the logged-in user id from async storage
+  const userId = await AsyncStorage.getItem(USER_ID);
 
-	if (userId === null) {
-		throw new Error('Cannot fetch user id from async storage');
-	}
+  if (userId === null) {
+    throw new Error('Cannot fetch user id from async storage');
+  }
 
-	try {
-		return await api.subscribeToCourse(userId, courseId);
+  try {
+    return await api.subscribeToCourse(userId, courseId);
 
-	} catch (error) {
-		if (error?.response?.data != null) {
-			throw error.response.data;
-		} else {
-			throw error;
-		}
-	}
+  } catch (error) {
+    if (error?.response?.data != null) {
+      throw error.response.data;
+    } else {
+      throw error;
+    }
+  }
 };
 
 // unsubscribe to a course
 export const unsubscribe = async (courseId) => {
 
-	// get the logged-in user id from async storage
-	const userId = await AsyncStorage.getItem(USER_ID);
+  // get the logged-in user id from async storage
+  const userId = await AsyncStorage.getItem(USER_ID);
 
-	if (userId === null) {
-		throw new Error('Cannot fetch user id from async storage');
-	}
+  if (userId === null) {
+    throw new Error('Cannot fetch user id from async storage');
+  }
 
-	try {
-		return await api.unSubscribeToCourse(userId, courseId);
+  try {
+    return await api.unSubscribeToCourse(userId, courseId);
 
-	} catch (error) {
-		if (error?.response?.data != null) {
-			throw error.response.data;
-		} else {
-			throw error;
-		}
-	}
+  } catch (error) {
+    if (error?.response?.data != null) {
+      throw error.response.data;
+    } else {
+      throw error;
+    }
+  }
 };
 
 
 // check if user is subscribed to a course
 export const checkSubscriptions = async (courseId) => {
 
-	// get the logged-in user id from async storage
-	const userId = await AsyncStorage.getItem(USER_ID);
+  // get the logged-in user id from async storage
+  const userId = await AsyncStorage.getItem(USER_ID);
 
-	if (userId === null) {
-		throw new Error('Cannot fetch user id from async storage');
-	}
+  if (userId === null) {
+    throw new Error('Cannot fetch user id from async storage');
+  }
 
-	try {
-		return await api.ifSubscribed(userId, courseId);
+  try {
+    return await api.ifSubscribed(userId, courseId);
 
-	} catch (error) {
-		if (error?.response?.data != null) {
-			throw error.response.data;
-		} else {
-			throw error;
-		}
-	}
+  } catch (error) {
+    if (error?.response?.data != null) {
+      throw error.response.data;
+    } else {
+      throw error;
+    }
+  }
 };
 
 
 
 export const clearAsyncStorage = async () => {
-	console.log(await AsyncStorage.getAllKeys());
-	await AsyncStorage.clear();
-	console.log(await AsyncStorage.getAllKeys());
+  console.log(await AsyncStorage.getAllKeys());
+  await AsyncStorage.clear();
+  console.log(await AsyncStorage.getAllKeys());
 };
