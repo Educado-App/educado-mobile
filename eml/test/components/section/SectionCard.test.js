@@ -23,6 +23,12 @@ jest.mock('@react-navigation/native', () => ({
     }),
 }));
 
+jest.mock('react-native-alert-notification', () => {
+  return {
+    AlertNotificationRoot: jest.fn().mockImplementation(({ children }) => children),
+  };
+});
+
 let sectionCard;
 
 // Sample section data for testing

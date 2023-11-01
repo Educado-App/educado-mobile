@@ -38,6 +38,21 @@ jest.mock("@react-navigation/native", () => ({
   }),
 }));
 
+jest.mock('react-native-alert-notification', () => {
+  return {
+    AlertNotificationRoot: jest.fn().mockImplementation(({ children }) => children),
+  };
+});
+
+jest.mock('../../../components/general/BaseScreen', () => {
+  return jest.fn().mockImplementation(({ children }) => children);
+});
+
+// Mock the ToastNotification
+jest.mock("../../../components/general/ToastNotification", () => {
+  return jest.fn().mockImplementation(({ children }) => children);
+});
+
 /**
  * Flag indicating whether the navigate method was called.
  * @type {boolean}
@@ -92,11 +107,11 @@ describe("SectionScreen", () => {
     const StorageService = require("../../../services/StorageService");
     jest.spyOn(StorageService, "getSectionList").mockResolvedValue(mockData.sectionData);
 
-    
+
     await renderer.act(async () => {
       return sectionScreen = renderer.create(<SectionScreen route={route} />);
     });
-    
+
 
     await new Promise((resolve) => setTimeout(resolve, 0));
 
