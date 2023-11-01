@@ -1,4 +1,4 @@
-name: Run Tests on Pull Request and Branches
+name: Run Linting on Pull Request and Branches
 on:
   pull_request:
     types:
@@ -27,6 +27,6 @@ jobs:
 
       - name: Install dependencies
         run: cd eml && npm install
-        
-      - name: Run Tests
-        run: cd eml && npm run test  
+
+      - name: Run ESLint
+        run: cd eml && npm run lint 
