@@ -7,58 +7,58 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 let navigated = false;
 
 jest.mock('@react-navigation/native', () => ({
-	useNavigation: () => ({
-		navigate: jest.fn(() => { navigated = true; }),
-	}),
+  useNavigation: () => ({
+    navigate: jest.fn(() => { navigated = true; }),
+  }),
 }));
 
 jest.mock('react-native-keyboard-aware-scroll-view', () => {
-	return {
-		KeyboardAwareScrollView: jest.fn().mockImplementation(({ children }) => children),
-	};
+  return {
+    KeyboardAwareScrollView: jest.fn().mockImplementation(({ children }) => children),
+  };
 });
 
 describe('Login screen', () => {
 
-	let loginScreen;
+  let loginScreen;
 
-	beforeEach(() => {
-		navigated = false;
-		AsyncStorage.clear();
-		loginScreen = renderer.create(<Login />);
-	});
+  beforeEach(() => {
+    navigated = false;
+    AsyncStorage.clear();
+    loginScreen = renderer.create(<Login />);
+  });
 
-	it('Login screen renders', () => {
-		expect(loginScreen.toJSON()).toMatchSnapshot();
-	});
+  it('Login screen renders', () => {
+    expect(loginScreen.toJSON()).toMatchSnapshot();
+  });
 
-	it('Pressing register new user navigates to the register page', async () => {
-		const registerNav = loginScreen.root.findByProps({ testId: 'registerNav' });
-		await renderer.act(() => {
-			registerNav.props.onPress();
-		});
-		expect(navigated).toBe(true);
-	});
+  it('Pressing register new user navigates to the register page', async () => {
+    const registerNav = loginScreen.root.findByProps({ testId: 'registerNav' });
+    await renderer.act(() => {
+      registerNav.props.onPress();
+    });
+    expect(navigated).toBe(true);
+  });
 
-	it('Check login when no valid token is stored', async () => {
-		await renderer.act(() => {
-			renderer.create(<Login />);
-		});
-		expect(navigated).toBe(false);
-	});
+  it('Check login when no valid token is stored', async () => {
+    await renderer.act(() => {
+      renderer.create(<Login />);
+    });
+    expect(navigated).toBe(false);
+  });
 
-	it('Check login when valid token stored', async () => {
-		AsyncStorage.setItem('@loginToken', 'testToken');
-		await renderer.act(() => {
-			renderer.create(<Login />);
-		});
-		expect(navigated).toBe(true);
-	});
+  it('Check login when valid token stored', async () => {
+    AsyncStorage.setItem('@loginToken', 'testToken');
+    await renderer.act(() => {
+      renderer.create(<Login />);
+    });
+    expect(navigated).toBe(true);
+  });
 
-	it('Check screen is scrollable with keyboard active', async () => {
-		const scrollView = loginScreen.root.findByType(KeyboardAwareScrollView);
-		expect(scrollView.props.scrollEnabled).toBeTruthy();
-	});
+  it('Check screen is scrollable with keyboard active', async () => {
+    const scrollView = loginScreen.root.findByType(KeyboardAwareScrollView);
+    expect(scrollView.props.scrollEnabled).toBeTruthy();
+  });
 });
 
 /* TODO: Fix tests with AsyncStorage */ /*

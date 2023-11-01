@@ -7,56 +7,56 @@ let navigated = false;
 const mockToken = 'testToken';
 
 jest.mock('@react-navigation/native', () => ({
-	useNavigation: () => ({
-		navigate: jest.fn(() => { navigated = true; }),
-	}),
+  useNavigation: () => ({
+    navigate: jest.fn(() => { navigated = true; }),
+  }),
 }));
 
 jest.mock('react-native-keyboard-aware-scroll-view', () => {
-	return {
-		KeyboardAwareScrollView: jest.fn().mockImplementation(({ children }) => children),
-	};
+  return {
+    KeyboardAwareScrollView: jest.fn().mockImplementation(({ children }) => children),
+  };
 });
 
 describe('Register screen', () => {
 
-	let registerScreen;
+  let registerScreen;
 
-	beforeEach(() => {
-		navigated = false;
-		AsyncStorage.clear();
-		registerScreen = renderer.create(<Register />);
-	});
+  beforeEach(() => {
+    navigated = false;
+    AsyncStorage.clear();
+    registerScreen = renderer.create(<Register />);
+  });
 
-	it('Login screen renders', () => {
-		expect(registerScreen.toJSON()).toMatchSnapshot();
-	});
+  it('Login screen renders', () => {
+    expect(registerScreen.toJSON()).toMatchSnapshot();
+  });
 
-	it('Pressing register new user navigates to the register page', async () => {
-		const loginNav = registerScreen.root.findByProps({ testId: 'loginNav' });
-		await renderer.act(() => {
-			loginNav.props.onPress();
-		});
-		expect(navigated).toBe(true);
-	});
-
-
-	it('Check register when no valid token is stored', async () => {
-		await renderer.act(() => {
-			renderer.create(<Register />);
-		});
-		expect(navigated).toBe(false);
-	});
+  it('Pressing register new user navigates to the register page', async () => {
+    const loginNav = registerScreen.root.findByProps({ testId: 'loginNav' });
+    await renderer.act(() => {
+      loginNav.props.onPress();
+    });
+    expect(navigated).toBe(true);
+  });
 
 
-	it('Check register when valid token stored', async () => {
-		AsyncStorage.setItem('@loginToken', mockToken).then(async () => {
-			await renderer.act(() => {
-				renderer.create(<Register />);
-			});
-			expect(navigated).toBe(true);
-		});
-	});
+  it('Check register when no valid token is stored', async () => {
+    await renderer.act(() => {
+      renderer.create(<Register />);
+    });
+    expect(navigated).toBe(false);
+  });
+
+
+  it('Check register when valid token stored', async () => {
+    AsyncStorage.setItem('@loginToken', mockToken).then(async () => {
+      await renderer.act(() => {
+        renderer.create(<Register />);
+      });
+      expect(navigated).toBe(true);
+    });
+  });
 });
 
 
