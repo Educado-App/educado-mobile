@@ -201,6 +201,7 @@ export const refreshSubCourseList = async (userId) => {
           published: course.published,
           status: course.status,
           rating: course.rating,
+            downloaded: !!(await AsyncStorage.getItem(course._id)),
         });
       }
       // Save new courseList for this key and return it.

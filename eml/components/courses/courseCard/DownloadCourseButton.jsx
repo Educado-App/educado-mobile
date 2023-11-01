@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import LottieView from "lottie-react-native";
 import {Alert, TouchableWithoutFeedback} from "react-native";
-import {deleteLocallyStoredCourse, storeCourseLocally} from "../../../services/StorageService";
+import * as StorageService from "../../../services/StorageService";
 
 const ANIMATION_STATES = {
     INITIAL: "initial",
@@ -13,12 +13,12 @@ const ANIMATION_STATES = {
 
 /**
  * DownloadCourseButton component displays a button that downloads a course
+ * @param {object} course - The course the button is on
  * @returns {JSX.Element} - The DownloadCourseButton component
  */
-export default function DownloadCourseButton(courseID) {
+export default function DownloadCourseButton(course) {
     const animationRef = useRef(null);
-    const [animationState, setAnimationState] = useState(ANIMATION_STATES.INITIAL);
-
+    const [animationState, setAnimationState] = useState(course.course.downloaded ? ANIMATION_STATES.COMPLETED : ANIMATION_STATES.INITIAL);
     // Play animation based on animation state
     // Hardcoded frame numbers are based on the animation
     // https://lottiefiles.com/animations/download-ZdWE0VoaZW
@@ -58,7 +58,7 @@ export default function DownloadCourseButton(courseID) {
                 text: "Baixar",
                 onPress: () => {
                     setAnimationState(ANIMATION_STATES.DOWNLOADING);
-                    if (storeCourseLocally(courseID.courseID)){
+                    if (StorageService.storeCourseLocally(course.course.courseId)){
                         setAnimationState(ANIMATION_STATES.FINISHING);
                     } else {
                         alert("Não foi possível baixar o curso. Certifique-se de estar conectado à Internet."); //Could not download course. Make sure you are connected to the internet
@@ -79,7 +79,7 @@ export default function DownloadCourseButton(courseID) {
             {
                 text: "Remover",
                 onPress: () => {
-                    if(deleteLocallyStoredCourse(courseID.courseID)){
+                    if(StorageService.deleteLocallyStoredCourse(course.course.courseId)){
                         setAnimationState(ANIMATION_STATES.DELETE);
                     } else {
                         alert("Algo deu errado. Não foi possível remover os dados armazenados do curso."); //Something went wrong. Could not remove stored course data.
@@ -91,7 +91,8 @@ export default function DownloadCourseButton(courseID) {
             },
         ]);
 
-    // TODO: Implement download functionality
+    // TODO: Implement download functionality - DONE
+    // TODO: Change initial state based on if it have already been stored - DONE
     const handlePress = () => {
         // For testing purposes - (simulate downloading a course)
         if (animationState === ANIMATION_STATES.INITIAL) {
