@@ -179,3 +179,24 @@ export const ifSubscribed = async (userId, courseId) => {
     }
   }
 };
+
+//CREATED BY VIDEO STREAMING TEAM
+export const getSectionAndLecturesBySectionId = async (sectionId) => {
+  try {
+    const res = await axios.get(url + "/api/sections/" + sectionId);
+    return res.data;
+  } catch (err) {
+    return null;
+  }
+};
+
+//CREATED BY VIDEO STREAMING TEAM
+export const getLectureById = async (lectureId) => {
+  try {
+    const res = await axios.get(url + "/api/lectures/" + lectureId);
+    return res.data;
+  } catch (err) {
+    return null;
+  }
+    
+};

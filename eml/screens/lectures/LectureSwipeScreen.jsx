@@ -7,6 +7,11 @@ import ProgressTopBar from './ProgressTopBar';
 import LectureScreen from './LectureScreen';
 import { getSectionAndLecturesBySectionId, getCourse } from '../../api/api';
 
+/**
+ * when navigating to this page sectionId, courseId, lectureId must be passed as parameters
+ * @param {} param0 
+ * @returns 
+ */
 export default function LectureSwipeScreen({ route }) {
     const { sectionId, courseId, lectureId } = route.params;
     const navigation = useNavigation();
