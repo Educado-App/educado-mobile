@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const testUrl = "http://localhost:8888";
-const testExpo = "http://172.30.210.200:8888"; //Change to local expo ip
+const testExpo = "http://172.30.213.228:8888"; //Change to local expo ip
 const digitalOcean = "http://207.154.213.68:8888";
 
 const url = testUrl;
@@ -178,6 +178,36 @@ export const ifSubscribed = async (userId, courseId) => {
       throw e;
     }
   }
+};
+
+//CREATED BY VIDEOSTREAM TEAM
+/**
+ *
+ * @param {* name of video in bucketRoute, should be the same as lecture id} fileId
+ * @param {* use 360p, 720p or 1080p - standard is 360p} resolution
+ */
+export const getVideoDownloadUrl = (fileName, resolution) => {
+  let usableResolution = "360x640";
+
+  switch (resolution) {
+    case "180p":
+      usableResolution = "180x320";
+      break;
+    case "360p":
+      usableResolution = "360x640";
+      break;
+    case "720p":
+      usableResolution = "720x1280";
+      break;
+    case "1080p":
+      usableResolution = "1080x1920";
+      break;
+    default:
+      usableResolution = "360x640";
+      break;
+  }
+  const _vidUrl = `${url}/api/bucket/stream/${fileName}_transcoded${usableResolution}.mp4`;
+  return _vidUrl;
 };
 
 //CREATED BY VIDEO STREAMING TEAM
