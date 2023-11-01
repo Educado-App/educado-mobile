@@ -37,7 +37,15 @@ export default function SectionCard({ section }) {
      * Handles the image press event.
      */
     const handleImagePress = () => {
-        navigation.navigate('Exercise'); // Replace with the name of the target screen
+        //TODO: FIX THIS TO OPEN THE NEXT LECTURE TO COMPLETE
+        const _lectureId = lectures[0]._id;
+        console.log("lectureId: " + _lectureId);
+
+        navigation.navigate('Lecture', {
+            sectionId: section.sectionId,
+            lectureId: _lectureId,
+            courseId: section.parentCourseId,
+        })
     }
 
     useEffect(() => {
@@ -60,20 +68,6 @@ export default function SectionCard({ section }) {
         }
         setLectures(res.components);
     }
-
-    const handleLecturePress = () => {
-
-
-        //TODO: FIX THIS TO OPEN THE NEXT LECTURE TO COMPLETE
-        const _lectureId = lectures[0]._id;
-        console.log("lectureId: " + _lectureId);
-
-        navigation.navigate('Lecture', {
-            sectionId: section.sectionId,
-            lectureId: _lectureId,
-            courseId: section.parentCourseId,
-        })
-    };
 
 
     return (
@@ -102,7 +96,7 @@ export default function SectionCard({ section }) {
                         {/* Lectures */}
 
                         <TouchableOpacity className="w-[100%] h-[300] items-center justify-center relative"
-                            onPress={handleLecturePress}>
+                            onPress={handleImagePress}>
                             <Image source={require('../../assets/images/sectionThumbnail.png')} className="w-[100%] h-[300] object-cover" />
                             <View className="absolute z-[1]">
                                 <MaterialCommunityIcons name="play-circle-outline" size={100} color="lightblue" />
