@@ -34,7 +34,14 @@ export default function SectionCard({ section }) {
      * Handles the image press event.
      */
     const handleImagePress = () => {
-        navigation.navigate('Exercise'); // Replace with the name of the target screen
+        const _lectureId = lectures[0]._id;
+        console.log("lectureId: " + _lectureId);
+
+        navigation.navigate('Lecture', {
+            sectionId: section.sectionId,
+            lectureId: _lectureId,
+            courseId: section.parentCourseId,
+        })
     }
 
 
