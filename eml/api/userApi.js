@@ -104,8 +104,18 @@ export const completeExercise = async (user_id, exercise_id, isComplete, points,
         'token': token, // Include the token in the headers
       },
     });
+    
+    // Extract the required fields from the response data
+    const { _id, firstName, lastName, email, completedCourses } = res.data;
 
-    return res.data;
+    // Return the specific fields
+    return {
+      id: _id,
+      firstName,
+      lastName,
+      email,
+      completedCourses
+    };
   } catch(error) {
     throw error;
   }

@@ -18,7 +18,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const USER_INFO = '@userInfo';
 const LOGIN_TOKEN = '@loginToken';
-const xp = 10; // Replace with intricate point system
+let xp = 10;
 
 // givenId is used for testing purposes, in the future an exercise object should be passed by the previous screen
 export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7'}) {
@@ -54,22 +54,21 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7'}) 
     }
   }
 
-  function handleReviewAnswer(selectedAnswer) {
+  async function handleReviewAnswer(selectedAnswer) {
     const continueText = "Continuar";
+    const { userInfo, loginToken } = await retrieveUserInfoAndLoginToken();
+
     setIsCorrectAnswer(selectedAnswer);
 
     setButtonClassName(
       `bg-project${selectedAnswer ? 'Green' : 'Red'}`
     );
 
+
     if (selectedAnswer) {
-      retrieveUserInfoAndLoginToken().then(({ userInfo, loginToken }) => {
-        givePoints(userInfo, exerciseData._id, true, xp, loginToken);
-      });
+      xp = await givePoints(userInfo, exerciseData._id, true, 10, loginToken);
     } else {
-      retrieveUserInfoAndLoginToken().then(({ userInfo, loginToken }) => {
-        givePoints(userInfo, exerciseData._id, false, xp, loginToken);
-      });
+      xp = await givePoints(userInfo, exerciseData._id, false, 0, loginToken);
     }
 
     setShowFeedback(true);

@@ -1,5 +1,7 @@
 /** Utility functions used in Explore and Course screens **/
 import { completeExercise, updateUserFields } from "../api/userApi.js"
+import AsyncStorage from "@react-native-async-storage/async-storage";
+const USER_INFO = '@userInfo';
 
 export function getDifficultyLabel(lvl) {
   switch (lvl) {
@@ -83,8 +85,9 @@ export function shouldUpdate(courses1, courses2) {
   return false;
 }
 
-export function givePoints(user, exercise_id, isComplete, points, token) {
+export async function givePoints(user, exercise_id, isComplete, points, token) {
   try {
+    let obj;
     let exerciseExists = isExerciseCompleted(user, exercise_id);
 
     let exerciseIsComplete = exerciseIsCompleteStatus(user, exercise_id)
@@ -94,18 +97,11 @@ export function givePoints(user, exercise_id, isComplete, points, token) {
       points = 5;
     }
 
-    const updateFields = {
-      points: points,
-    };
+    // Updates the user with the new points, and adds the exercise to the completedExercises array
+    obj = await completeExercise(user.id, exercise_id, isComplete, points, token);
 
-    // Call the updateUserFields function to send points as a field in JSON format
-    if (!exerciseExists) {
-      completeExercise(user.id, exercise_id, isComplete, points, token);
-    } else {
-      completeExercise(user.id, exercise_id, isComplete, points, token);
-    }
-
-    //updateUserFields(user.id, updateFields, token);
+    // Updates the Async Storage with the new user info
+    await AsyncStorage.setItem(USER_INFO, JSON.stringify(obj));
 
     return points;
 
@@ -125,7 +121,7 @@ function isExerciseCompleted(user, exerciseIdToCheck) {
     return user.completedCourses.some(course =>
       course.completedSections.some(section =>
         section.completedExercises.some(exercise =>
-          exercise.exerciseId == exerciseId
+          exercise.exerciseId == exerciseIdToCheck
         )
       )
     );
@@ -146,7 +142,7 @@ function exerciseIsCompleteStatus(user, exerciseIdToCheck) {
     return user.completedCourses.forEach(course => {
       course.completedSections.forEach(section => {
         section.completedExercises.forEach(exercise => {
-          if (exercise.exerciseId == exerciseId) {
+          if (exercise.exerciseId == exerciseIdToCheck) {
             // Found the matching exerciseId, set exerciseIsComplete to the associated isComplete value
             exerciseIsComplete = exercise.isComplete;
           }
