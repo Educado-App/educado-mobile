@@ -61,10 +61,16 @@ export default function SectionCard({ section }) {
         setLectures(res.components);
     }
 
-    const handleLecturePress = (lectureId) => {
+    const handleLecturePress = () => {
+
+
+        //TODO: FIX THIS TO OPEN THE NEXT LECTURE TO COMPLETE
+        const _lectureId = lectures[0]._id;
+        console.log("lectureId: " + _lectureId);
+
         navigation.navigate('Lecture', {
             sectionId: section.sectionId,
-            lectureId: lectureId,
+            lectureId: _lectureId,
             courseId: section.parentCourseId,
         })
     };
@@ -94,28 +100,9 @@ export default function SectionCard({ section }) {
                     <Text className="mx-[20] my-[10]">{section.description}</Text>
                     <View className="w-[100%]">
                         {/* Lectures */}
-                        {lectures && lectures.map((lecture) => {
 
-                            return (
-                                <Pressable key={lecture._id} onPress={() => {
-                                    handleLecturePress(lecture._id);
-                                }} >
-                                    <View key={lecture.lectureId} className={`flex-row items-center justify-between px-[25] py-[15]
-                            ${lecture.completed ? "bg-[#87eb8e]" : "bg-[#fff]"}
-                            ` }>
-                                        <Text className="text-[16px] font-bold text-black flex-[1]">
-                                            {lecture.title}
-                                        </Text>
-                                        <Text className="mr-[10] text-black">
-                                            {lecture.completed ? "Completed" : "Not completed"}
-                                        </Text>
-                                    </View>
-                                </Pressable>
-                            )
-
-                        })}
                         <TouchableOpacity className="w-[100%] h-[300] items-center justify-center relative"
-                            onPress={handleImagePress}>
+                            onPress={handleLecturePress}>
                             <Image source={require('../../assets/images/sectionThumbnail.png')} className="w-[100%] h-[300] object-cover" />
                             <View className="absolute z-[1]">
                                 <MaterialCommunityIcons name="play-circle-outline" size={100} color="lightblue" />
