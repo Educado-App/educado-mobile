@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Alert } from 'react-native';
+import { View } from 'react-native';
 import FormTextField from '../../components/login/FormTextField';
 import FormButton from '../../components/login/FormButton';
 import PasswordEye from '../../components/login/PasswordEye';
@@ -88,7 +88,7 @@ export default function EnterNewPasswordScreen(props) {
 
     try {
       await enterNewPassword(obj);
-      DialogNotification('success', 'Alterada password.')
+      DialogNotification('success', 'A senha foi alterada.');
       setTimeout(() => {
         props.hideModal();
         props.resetState();

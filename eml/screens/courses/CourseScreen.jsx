@@ -15,7 +15,7 @@ import ToastNotification from '../../components/general/ToastNotification';
  * @returns {JSX.Element} The course screen component.
  */
 
-export default function CourseScreen(props) {
+export default function CourseScreen() {
 
     /**
     * React hook that declares a state variable for courses and a function to update it.
