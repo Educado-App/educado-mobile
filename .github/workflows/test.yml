@@ -10,7 +10,7 @@ on:
       - main
       - stage_withLintingFix
 jobs:
-  eslint:
+  test:
     runs-on: ubuntu-latest
 
     steps:
