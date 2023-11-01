@@ -334,6 +334,10 @@ export const deleteLocallyStoredCourse = async (courseID) => {
     }
 }
 
+/** TO DO:
+ * Function to update stored content when app opens  
+ */
+
 
 export const clearAsyncStorage = async () => {
   console.log(await AsyncStorage.getAllKeys());
