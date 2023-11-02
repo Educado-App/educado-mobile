@@ -4,12 +4,6 @@ import RegisterForm from "../../../components/login/RegisterForm";
 
 let registerForm;
 
-jest.mock('react-native-alert-notification', () => {
-  return {
-    AlertNotificationRoot: jest.fn().mockImplementation(({ children }) => children),
-  };
-});
-
 jest.mock('@react-navigation/native', () => ({
   useNavigation: () => ({
     navigate: jest.fn(),

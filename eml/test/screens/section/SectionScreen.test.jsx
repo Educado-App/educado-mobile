@@ -38,12 +38,6 @@ jest.mock("@react-navigation/native", () => ({
   }),
 }));
 
-jest.mock('react-native-alert-notification', () => {
-  return {
-    AlertNotificationRoot: jest.fn().mockImplementation(({ children }) => children),
-  };
-});
-
 jest.mock('../../../components/general/BaseScreen', () => {
   return jest.fn().mockImplementation(({ children }) => children);
 });
