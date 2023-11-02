@@ -115,11 +115,8 @@ export const getSectionList = async (course_id) => {
 
     } catch (unusedErrorMessage) {
         // Use locally stored section if they exist and the DB cannot be reached
-      console.log('Unable to reach DB '+unusedErrorMessage);
-      console.log('Fetching from local storage instead');
       try {
         sectionList = JSON.parse(await AsyncStorage.getItem('S'+course_id));
-
       } catch (e){
           console.log('Error fetching from storage ' + e);
           if (e?.response?.data != null) {

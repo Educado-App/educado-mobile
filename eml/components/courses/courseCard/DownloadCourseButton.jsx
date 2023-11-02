@@ -58,12 +58,15 @@ export default function DownloadCourseButton(course) {
                 text: "Baixar",
                 onPress: () => {
                     setAnimationState(ANIMATION_STATES.DOWNLOADING);
-                    if (StorageService.storeCourseLocally(course.course.courseId)){
-                        setAnimationState(ANIMATION_STATES.FINISHING);
-                    } else {
-                        alert("Não foi possível baixar o curso. Certifique-se de estar conectado à Internet."); //Could not download course. Make sure you are connected to the internet
-                        setAnimationState(ANIMATION_STATES.INITIAL);
-                    }
+                    StorageService.storeCourseLocally(course.course.courseId).then(result => {
+                        if (result){
+                            setAnimationState(ANIMATION_STATES.FINISHING);
+                        } else {
+                            alert("Não foi possível baixar o curso. Certifique-se de estar conectado à Internet."); //Could not download course. Make sure you are connected to the internet
+                            setAnimationState(ANIMATION_STATES.INITIAL);
+                        }
+                    });
+
                     // Hardcoded timeout to simulate download
                     //setTimeout(() => setAnimationState(ANIMATION_STATES.FINISHING), Math.floor(Math.random() * 5001));
                 },
@@ -79,12 +82,14 @@ export default function DownloadCourseButton(course) {
             {
                 text: "Remover",
                 onPress: () => {
-                    if(StorageService.deleteLocallyStoredCourse(course.course.courseId)){
-                        setAnimationState(ANIMATION_STATES.DELETE);
-                    } else {
-                        alert("Algo deu errado. Não foi possível remover os dados armazenados do curso."); //Something went wrong. Could not remove stored course data.
-                        setAnimationState(ANIMATION_STATES.COMPLETED)
-                    }
+                    StorageService.deleteLocallyStoredCourse(course.course.courseId).then(result => {
+                        if(result){
+                            setAnimationState(ANIMATION_STATES.DELETE);
+                        } else {
+                            alert("Algo deu errado. Não foi possível remover os dados armazenados do curso."); //Something went wrong. Could not remove stored course data.
+                            setAnimationState(ANIMATION_STATES.COMPLETED);
+                        }
+                    });
 
                 },
                 style: "destructive",
