@@ -25,6 +25,24 @@ export function getDifficultyLabel(lvl) {
  * @returns {string} The translated category label in Portuguese.
  */
 
+
+export const convertMsToTime = (ms) => {
+
+  if (ms < 0){
+    return "00:00";
+  }
+
+  let seconds = Math.floor((ms / 1000) % 60);
+  let minutes = Math.floor(ms / (1000 * 60));
+ 
+  seconds = seconds < 10 ? '0' + seconds : seconds;
+  minutes = minutes < 10 ? '0' + minutes : minutes;
+
+  return `${minutes}:${seconds}`;
+}
+
+
+
 export function determineCategory(category) {
   switch (category) {
     case "personal finance":
