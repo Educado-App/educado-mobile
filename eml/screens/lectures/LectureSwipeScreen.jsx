@@ -9,7 +9,7 @@ import { getSectionAndLecturesBySectionId, getCourse } from '../../api/api';
 import tailwindConfig from '../../tailwind.config';
 
 /**
- * when navigating to this page sectionId, courseId, lectureId must be passed as parameters
+ * when navigating to this page sectionId, courseId must be passed as parameters
  * @param {} param0 
  * @returns 
  */
