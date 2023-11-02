@@ -336,9 +336,24 @@ export const deleteLocallyStoredCourse = async (courseID) => {
     }
 }
 
-/** TO DO:
- * Function to update stored content when app opens  
+/**
+ * Update all locally stored courses
  */
+export const updateStoredCourses = async () => {
+    try {
+        const subList = await getSubCourseList();
+        for (const e of subList) {
+            let course;
+            if ((course = JSON.parse(await AsyncStorage.getItem(e.courseId))) !== null && course.dateUpdated !== e.dateUpdated) {
+                storeCourseLocally(e.courseId);
+            }
+        }
+    }catch (e) {
+        console.log("Something went wrong in updateStoredCourses " + e);
+    }
+
+
+}
 
 
 export const clearAsyncStorage = async () => {
