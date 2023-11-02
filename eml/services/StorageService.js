@@ -1,7 +1,5 @@
 import * as api from '../api/api.js';
-import * as userApi from '../api/userApi.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {getAllSections, getExercisesInSection} from "../api/api.js";
 
 
 const COURSE_LIST = '@courseList';
