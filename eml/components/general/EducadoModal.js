@@ -28,16 +28,16 @@ export default function EducadoModal(props) {
           <KeyboardAwareScrollView>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
               <View>
-                <View className="flex justify-center pt-[40px]">
-                  <View className="flex flex-row justify-end px-10">
+                <View className="flex justify-center pt-[10%]">
+                  <View className="flex flex-row justify-end px-[10%]">
                     <Pressable onPress={props.closeModal}>
                       <Entypo name="chevron-down" size={24} />
                     </Pressable>
                   </View>
-                  <View className="flex flex-row justify-center my-10">
+                  <View className="flex flex-row justify-center my-[10%]">
                     <EducadoLogo fill='fill-black' />
                   </View>
-                  <View className="flex flex-row justify-start px-10">
+                  <View className="flex flex-row justify-start px-[10%]">
                     <Text className="text-center text-[24px]">{props.title ? props.title : ""}</Text>
                   </View>
                 </View>
