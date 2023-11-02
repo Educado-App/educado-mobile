@@ -27,7 +27,7 @@ export default function LectureSwipeScreen({ route }) {
         async function fetchData() {
             try {
                 const sectionData = await getSectionAndLecturesBySectionId(sectionId);
-                //const initialIndex = sectionData.components.findIndex(lecture => lecture._id === lectureId);
+                //TODO: get the first uncompleted lecture - set the initial index to that
                 const initialIndex = 0;
                 const courseData = await getCourse(courseId);
                 const progressPercentage = Math.round(((initialIndex + 1) / sectionData.components.length) * 100);
