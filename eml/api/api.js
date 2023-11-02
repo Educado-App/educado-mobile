@@ -217,7 +217,11 @@ export const getSectionAndLecturesBySectionId = async (sectionId) => {
     const res = await axios.get(url + "/api/sections/" + sectionId);
     return res.data;
   } catch (err) {
-    return null;
+    if (err?.response?.data != null) {
+      throw err.response.data;
+    } else {
+      throw err;
+    }
   }
 };
 
@@ -227,7 +231,11 @@ export const getLectureById = async (lectureId) => {
     const res = await axios.get(url + "/api/lectures/" + lectureId);
     return res.data;
   } catch (err) {
-    return null;
+    if (err?.response?.data != null) {
+      throw err.response.data;
+    } else {
+      throw err;
+    }
   }
     
 };
@@ -241,6 +249,10 @@ export const getBucketImage = async (fileName) => {
     const workingUrl = `data:image/png;base64,${res.data}`;
     return workingUrl;
   } catch (err) {
-    return null;
+    if (err?.response?.data != null) {
+      throw err.response.data;
+    } else {
+      throw err;
+    }
   }
 };
