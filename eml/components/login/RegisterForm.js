@@ -14,6 +14,7 @@ import errorSwitch from "../general/errorSwitch";
 import { useNavigation } from "@react-navigation/native";
 import DialogNotification from "../general/DialogNotification";
 import { AlertNotificationRoot } from "react-native-alert-notification";
+import tailwindConfig from "../../tailwind.config";
 
 const LOGIN_TOKEN = "@loginToken";
 const USER_INFO = "@userInfo";
@@ -24,6 +25,8 @@ const USER_INFO = "@userInfo";
  */
 
 export default function RegisterForm() {
+
+  const tailwindColors = tailwindConfig.theme.colors;
 
   const navigation = useNavigation();
   const [firstName, setFirstName] = useState("");
@@ -273,7 +276,7 @@ export default function RegisterForm() {
               testId="passwordInput"
               value={password}
               placeholder="Insira sua senha" // Enter your password
-              placeholderTextColor="grey"
+              placeholderTextColor={tailwindColors.projectGray}
               secureTextEntry={!showPassword}
               required={true}
               onChangeText={(inputPassword) => {
@@ -289,24 +292,24 @@ export default function RegisterForm() {
           </View>
 
           <View className="flex-row justify-start mt-1 h-6">
-            <Text testId="passwordLengthAlert" className={"text-xs" + ((passwordLengthValid || !password) ? " text-gray" : " text-error")}>
+            <Text testId="passwordLengthAlert" className={"text-xs" + ((passwordLengthValid || !password) ? " text-projectGray" : " text-error")}>
               {/* Minimum 8 characters */}
               • Mínimo 8 caracteres
             </Text>
             <View className="flex-row items-center -translate-y-1">
               {passwordLengthValid ? (
-                <MaterialCommunityIcons name="check" size={20} color="#4AA04A" />
+                <MaterialCommunityIcons name="check" size={20} color={tailwindColors.success} />
               ) : null}
             </View>
           </View>
           <View className="flex-row justify-start h-6">
-            <Text testId="passwordLetterAlert" className={"text-xs font-sans" + ((passwordContainsLetter || !password) ? " text-gray" : " text-error")}>
+            <Text testId="passwordLetterAlert" className={"text-xs font-sans" + ((passwordContainsLetter || !password) ? " text-projectGray" : " text-error")}>
               {/* Must contain at least one letter */}
               • Conter pelo menos uma letra
             </Text>
             <View className="flex-row items-center -translate-y-1">
               {passwordContainsLetter ? (
-                <MaterialCommunityIcons name="check" size={20} color="#4AA04A" />
+                <MaterialCommunityIcons name="check" size={20} color={tailwindColors.success} />
               ) : null}
             </View>
           </View>
