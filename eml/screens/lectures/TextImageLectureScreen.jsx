@@ -93,7 +93,7 @@ const TextImageLectureScreen = ({ lecture, course, progress }) => {
         {/* Content */}
         <Text className="text-center text-2xl pt-6 font-bold">BEM VINDO!</Text>
         <ScrollView className=" mt-2">
-            
+
 
             {
                 // Rendering all paragraphs above the image if the array has two or fewer elements
@@ -101,36 +101,27 @@ const TextImageLectureScreen = ({ lecture, course, progress }) => {
                 paragraphs && paragraphs.map((paragraph, index) => {
                     if (paragraphs.length <= 2 || index !== paragraphs.length - 1) {
                         return (
-                            <Text className="text-[18px] pt-4 px-4 " style={{ color: index == 0 ? tailwindConfig.theme.colors.primary : tailwindConfig.theme.colors.projectGray }} >{paragraph}</Text>
+                            index == 0 ?
+                                <Text className="text-[18px] pt-4 px-4 text-primary">{paragraph}</Text>
+                                :
+                                <Text className="text-[18px] pt-4 px-4 text-projectGray">{paragraph}</Text>
                         );
                     }
                     return null;
                 })
             }
 
-
-            {/* {paragraphs && paragraphs.length == 1 &&
-                <Text className=" text-[18px] pt-4 text-gray ">{paragraphs[0]}</Text>
-            } */}
-
-
             {/* Image */}
             {imageUrl && <View className="w-full h-[25vh] px-4 pt-8" >
                 <Image
                     source={{ uri: imageUrl }}
-                    style={{ width: '100%', height: '100%' }}
+                    className="w-full h-full"
                 />
             </View>}
-            {/* {!imageUrl && <View className="w-full h-[25vh] pt-8" >
-                <Image
-                    source={{ uri: imageUrl }}
-                    style={{ width: '100%', height: '100%' }}
-                />
-            </View>} */}
             {
                 // Rendering the last paragraph below the image if the array has more than two elements
                 paragraphs && paragraphs.length > 2 &&
-                <Text className=" text-[18px] pt-4 " style={{ color: tailwindConfig.theme.colors.projectGray }} >{paragraphs[paragraphs.length - 1]}</Text>
+                <Text className="text-[18px] px-4 text-projectGray">{paragraphs[paragraphs.length - 1]}</Text>
             }
         </ScrollView>
 

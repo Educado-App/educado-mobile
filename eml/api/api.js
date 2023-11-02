@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const testUrl = "http://localhost:8888";
-const testExpo = "http://172.30.213.228:8888"; //Change to local expo ip
+const testExpo = "http://172.30.212.239:8888"; //Change to local expo ip
 const digitalOcean = "http://207.154.213.68:8888";
 
 const url = testUrl;
@@ -230,4 +230,17 @@ export const getLectureById = async (lectureId) => {
     return null;
   }
     
+};
+
+//CREATED BY VIDEOSTREAM TEAM
+export const getBucketImage = async (fileName) => {
+  try {
+    const res = await axios.get(
+      `${url}/api/bucket/${fileName}`
+    );
+    const workingUrl = `data:image/png;base64,${res.data}`;
+    return workingUrl;
+  } catch (err) {
+    return null;
+  }
 };

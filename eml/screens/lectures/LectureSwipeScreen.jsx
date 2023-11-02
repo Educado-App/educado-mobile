@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import ProgressTopBar from './ProgressTopBar';
 import LectureScreen from './LectureScreen';
 import { getSectionAndLecturesBySectionId, getCourse } from '../../api/api';
+import tailwindConfig from '../../tailwind.config';
 
 /**
  * when navigating to this page sectionId, courseId, lectureId must be passed as parameters
@@ -31,7 +32,7 @@ export default function LectureSwipeScreen({ route }) {
                 const courseData = await getCourse(courseId);
                 const progressPercentage = Math.round(((initialIndex + 1) / sectionData.components.length) * 100);
 
-                console.log("lectures", sectionData.components);
+
                 setAllLectures(sectionData.components);
                 setCurrentLectureType(sectionData.components[initialIndex]?.video ? "video" : "text");
                 setCourse(courseData);
@@ -39,7 +40,6 @@ export default function LectureSwipeScreen({ route }) {
                 setIndex(initialIndex);
                 setLoading(false);
             } catch (error) {
-                console.error("Error fetching data:", error);
                 setLoading(false);
             }
         }
@@ -48,7 +48,6 @@ export default function LectureSwipeScreen({ route }) {
     }, [sectionId, courseId]);
 
     const handleIndexChange = (_index) => {
-        console.log("Index Changed:", _index);
         const currentLecture = allLectures[_index];
         const currentLectureType = currentLecture?.video ? "video" : "text";
         setCurrentLectureType(currentLectureType);
@@ -59,18 +58,18 @@ export default function LectureSwipeScreen({ route }) {
 
     if (loading) {
         return (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <ActivityIndicator size="large" color="#0000ff" />
+            <View className="flex-col justify-center items-center" >
+                <ActivityIndicator size="large" color={tailwindConfig.theme.colors.primary} />
                 <Text>Loading...</Text>
             </View>
         );
     }
 
     return (
-        <View style={{ flex: 1 }}>
-            {progressPercent && (
+        <View className="flex-1">
+            {allLectures && (
                 <View style={{ position: 'absolute', top: 0, zIndex: 10, width: '100%' }}>
-                    <ProgressTopBar progressPercent={progressPercent} lectureType={currentLectureType} allLectures={allLectures} currentLectureIndex={index} style={{ backgroundColor: 'transparent' }} />
+                    <ProgressTopBar lectureType={currentLectureType} allLectures={allLectures} currentLectureIndex={index} />
                 </View>
             )}
 

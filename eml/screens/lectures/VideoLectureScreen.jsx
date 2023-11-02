@@ -2,24 +2,19 @@ import React, { useState, useEffect, useRef } from 'react';
 
 // For animating play button
 
-import { Alert, View, TouchableOpacity, Pressable } from 'react-native';
+import { View, Pressable } from 'react-native';
 
-import tailwindConfig from '../../tailwind.config';
 import Text from '../../components/general/Text';
 
 import VideoActions from '../../components/lectures/VideoActions';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 import CustomExpoVideoPlayer from '../../components/lectures/VideoPlayer';
 import ReactSliderProgress from './ReactSliderProgress';
 import { getVideoDownloadUrl } from '../../api/api';
 
 import { useNavigation } from '@react-navigation/native';
-import ProgressTopBar from './ProgressTopBar';
-
-import { Platform } from 'react-native';
 
 
 export default function VideoLectureScreen({ lecture, course, progress }) {
@@ -80,21 +75,22 @@ export default function VideoLectureScreen({ lecture, course, progress }) {
     useEffect(() => {
         const _videoUrl = getVideoDownloadUrl(lecture._id, "180p");
 
-        fetch(_videoUrl, {
-            method: 'HEAD'
-        })
-            .then(response => {
-                if (response.ok) {
-                    // HTTP status between 200-299 or equals 304.
-                    setVideoUrl(_videoUrl);
-                } else {
-                    console.error('Video URL is not valid');
-                    Alert.alert("Error", "The video is corrupted. Please try again later", "OK");
-                }
-            })
-            .catch(error => {
-                Alert.alert("Error", "The video is corrupted. Please try again later", "OK");
-            });
+        //check for video url validity maybe not needed
+        // fetch(_videoUrl, {
+        //     method: 'HEAD'
+        // })
+        //     .then(response => {
+        //         if (response.ok) {
+        //             // HTTP status between 200-299 or equals 304.
+        //             setVideoUrl(_videoUrl);
+        //         } else {
+        //             console.error('Video URL is not valid');
+        //             Alert.alert("Error", "The video is corrupted. Please try again later", "OK");
+        //         }
+        //     })
+        //     .catch(error => {
+        //         Alert.alert("Error", "The video is corrupted. Please try again later", "OK");
+        //     });
     }, []);
 
 

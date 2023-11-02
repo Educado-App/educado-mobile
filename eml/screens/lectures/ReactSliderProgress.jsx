@@ -1,6 +1,7 @@
 import React, { useState, useEffect, StyleSheet } from 'react';
 import { View, Text } from 'react-native';
 import Slider from '@react-native-community/slider';
+import tailwindConfig from '../../tailwind.config';
 
 
 
@@ -51,9 +52,9 @@ const ReactSliderProgress = ({ elapsedMs = 10000, totalMs = 20000, color, height
                 value={sliderValue}
                 onValueChange={value => setSliderValue(value)}
                 onSlidingComplete={onSlidingComplete}
-                minimumTrackTintColor="#5ECCE9"
-                maximumTrackTintColor="#d3d3d3"
-                thumbTintColor="#5ECCE9"
+                minimumTrackTintColor={tailwindConfig.theme.colors.primary}
+                maximumTrackTintColor={tailwindConfig.theme.colors.projectGray}
+                thumbTintColor={tailwindConfig.theme.colors.primary}
 
 
             />

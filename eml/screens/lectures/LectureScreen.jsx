@@ -16,7 +16,6 @@ export default function LectureScreen({ lectureObject, courseObject, currentInde
         setCourse(courseObject);
         const _progressPercent = calculateProgressInPercent();
         setProgressPercent(_progressPercent);
-        console.log("progressPercent", progressPercent)
 
     }, [])
 
