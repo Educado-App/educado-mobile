@@ -1,18 +1,20 @@
 import axios from 'axios';
 
+/* Commented out to avoid linting errors 
+ * TODO: move IP address to .env file !!!
 const prod = 'http://educado.somethingnew.dk';
-const test = 'http://192.168.0.224:8888'; // Change this to your LOCAL IP address when testing.
+const test = 'http://172.30.210.66:8888'; 
 const local = 'http://localhost:8888';
 const digitalOcean = 'http://207.154.213.68:8888';
+*/ 
 
-
-const url = test;
+const url = 'http://192.168.0.224:8888'; // Change this to your LOCAL IP address when testing.
 
 /**
  * This is the client that will be used to make requests to the backend.
  */
 export const client = axios.create({
-  baseURL: test,
+  baseURL: url,
   withCredentials: true,
   responseType: 'json',
   timeout: 30000,
@@ -67,16 +69,19 @@ export const loginUser = async (obj) => {
 
 export const deleteUser = async (user_id, token) => {
   try {
-    const res = await axios.delete(url + `/api/users/` + user_id, {
+    const res = await axios.delete(url + '/api/users/' + user_id, {
       headers: {
         'Content-Type': 'application/json',
         'token': token, // Include the token in the headers
       },
     });
     return res.data;
-  } catch (error) {
-    // Handle errors here
-    throw error; // You may want to handle the error or log it
+  } catch (e) {
+    if (e.response.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
   }
 };
 
@@ -90,9 +95,12 @@ export const updateUserFields = async (user_id, updateFields, token) => {
     });
 
     return res.data;
-  } catch (error) {
-    // Handle errors here
-    throw error; // You may want to handle the error or log it
+  } catch (e) {
+    if (e.response.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
   }
 };
 
@@ -218,8 +226,8 @@ export const validateResetPasswordCode = async (obj) => {
 */
 export const enterNewPassword = async (obj) => {
   try {
-  const res = await axios.patch(url + '/api/auth/reset-password', obj);
-  return res.data;
+    const res = await axios.patch(url + '/api/auth/reset-password', obj);
+    return res.data;
   } catch (e) {
     if (e.response.data != null) {
       throw e.response.data;

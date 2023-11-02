@@ -1,32 +1,35 @@
-import axios from "axios";
+import axios from 'axios';
 
-const testUrl = "http://localhost:8888";
-const testExpo = "http://172.30.211.57:8888"; //Change to local expo ip
-const digitalOcean = "http://207.154.213.68:8888";
+/* Commented out for avoiding linting errors
+ * TODO: move IP address to .env file !!!
+const testUrl = 'http://localhost:8888';
+const testExpo = 'http://172.30.211.57:8888'; 
+const digitalOcean = 'http://207.154.213.68:8888';
+*/
 
-const url = testUrl;
+const url = 'http://localhost:8888'; // change to lcd ip when testing
 
 /*** COURS, SECTIONS AND EXERCISES ***/
 
 export const getCourseByid = async (courseId) => {
   try {
-    const res = await axios.get(url + "/api/courses/" + courseId);
+    const res = await axios.get(url + '/api/courses/' + courseId);
     return res.data;
   } catch (e) {
     if (e?.response?.data != null) {
-    throw e.response.data;
-  } else {
-    throw e;
-  }
+      throw e.response.data;
+    } else {
+      throw e;
+    }
   }
 };
 
 export const getSectionByid = async (sectionId) => {
   try {
-    const res = await axios.get(url + "/api/sections/" + sectionId);
+    const res = await axios.get(url + '/api/sections/' + sectionId);
     return res.data;
   } catch (e) {
-      if (e?.response?.data != null) {
+    if (e?.response?.data != null) {
       throw e.response.data;
     } else {
       throw e;
@@ -37,14 +40,14 @@ export const getSectionByid = async (sectionId) => {
 
 export const getExerciseByid = async (exerciseId) => {
   try {
-    const res = await axios.get(url + "/api/exercises/" + exerciseId);
+    const res = await axios.get(url + '/api/exercises/' + exerciseId);
     return res.data;
   } catch (e) {
     if (e?.response?.data != null) {
-    throw e.response.data;
-  } else {
-    throw e;
-  }
+      throw e.response.data;
+    } else {
+      throw e;
+    }
   }
 };
 
@@ -52,7 +55,7 @@ export const getExerciseByid = async (exerciseId) => {
 
 export const getCourse = async (courseId) => {
   try {
-    const res = await axios.get(url + "/api/courses/" + courseId);
+    const res = await axios.get(url + '/api/courses/' + courseId);
     return res.data;
   } catch (e) {
     if (e?.response?.data != null) {
@@ -66,7 +69,7 @@ export const getCourse = async (courseId) => {
 // Get all courses
 export const getCourses = async () => {
   try {
-    const res = await axios.get(url + "/api/courses");
+    const res = await axios.get(url + '/api/courses');
     return res.data;
   } catch (e) {
     if (e?.response?.data != null) {
@@ -80,7 +83,7 @@ export const getCourses = async () => {
 // Get all sections for a specific course
 export const getAllSections = async (courseId) => {
   try {
-    const res = await axios.get(url + "/api/courses/" + courseId + "/sections");
+    const res = await axios.get(url + '/api/courses/' + courseId + '/sections');
     return res.data;
   } catch (e) {
     if (e?.response?.data != null) {
@@ -95,7 +98,7 @@ export const getAllSections = async (courseId) => {
 export const getSection = async (courseId, sectionId) => {
   try {
     const res = await axios.get(
-      url + "/api/courses/" + courseId + "/sections/" + sectionId
+      url + '/api/courses/' + courseId + '/sections/' + sectionId
     );
     return res.data;
   } catch (e) {
@@ -111,7 +114,7 @@ export const getSection = async (courseId, sectionId) => {
 export const getExercisesInSection = async (courseId, sectionId) => {
   try {
     const res = await axios.get(
-      url + "/api/courses/" + courseId + "/sections/" + sectionId + "/exercises"
+      url + '/api/courses/' + courseId + '/sections/' + sectionId + '/exercises'
     );
     return res.data;
   } catch (e) {
@@ -132,7 +135,7 @@ export const getSubscriptions = async (userId) => {
     // but this is the only format where it works
     // passing user ID as request body for get request gives error
     const res = await axios.get(
-      url + "/api/users/" + userId + "/subscriptions"
+      url + '/api/users/' + userId + '/subscriptions'
     );
 
     return res.data;
@@ -148,8 +151,8 @@ export const getSubscriptions = async (userId) => {
 // Subscribe to course
 export const subscribeToCourse = async (userId, courseId) => {
   try {
-    const res = await axios.post(
-      url + "/api/courses/" + courseId + "/subscribe",
+    await axios.post(
+      url + '/api/courses/' + courseId + '/subscribe',
       {
         user_id: userId,
       }
@@ -166,8 +169,8 @@ export const subscribeToCourse = async (userId, courseId) => {
 // Unubscribe to course
 export const unSubscribeToCourse = async (userId, courseId) => {
   try {
-    const res = await axios.post(
-      url + "/api/courses/" + courseId + "/unsubscribe",
+    await axios.post(
+      url + '/api/courses/' + courseId + '/unsubscribe',
       {
         user_id: userId,
       }
@@ -188,10 +191,10 @@ export const ifSubscribed = async (userId, courseId) => {
     // passing user ID as request body for get request gives error
     const res = await axios.get(
       url +
-        "/api/users/subscriptions?user_id=" +
+        '/api/users/subscriptions?user_id=' +
         userId +
-        "&" +
-        "course_id=" +
+        '&' +
+        'course_id=' +
         courseId
     );
 

@@ -1,44 +1,37 @@
-import { TouchableOpacity, Alert, View } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import { deleteUser } from '../../api/userApi'
-import {clearAsyncStorage} from "../../services/StorageService";
+import { TouchableOpacity, Alert, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { deleteUser } from '../../api/userApi';
+import {clearAsyncStorage} from '../../services/StorageService';
 import React from 'react';
 import Text from '../general/Text';
+import { getUserInfo } from '../../services/StorageService';
 
 let LOGIN_TOKEN;
-const USER_INFO = '@userInfo'
+const USER_INFO = '@userInfo';
 
 export default function DeleteAccount() {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
 
   async function Delete() {
-    try {
-      const obj = JSON.parse(await AsyncStorage.getItem(USER_INFO))
-      LOGIN_TOKEN = await AsyncStorage.getItem('@loginToken')
+
+    const obj = getUserInfo();	
+    LOGIN_TOKEN = await AsyncStorage.getItem('@loginToken');
+				
       
-      if (obj !== null) {
-        try {
-          await deleteUser(obj.id, LOGIN_TOKEN) // skift obj.id til users actual id to test this function
-            .then(function (response) {
-              console.log(response)
-              AsyncStorage.multiRemove([LOGIN_TOKEN, USER_INFO]).then((r) => {
-                console.log('User account deleted successfully!')
-                navigation.navigate('LoginStack')
-              })
-            })
-            .catch((error) => {
-              console.log(error)
-            })
-          await clearAsyncStorage();
-        } catch (e) {
-          console.log(e)
-        }
-      } else {
-        Alert.alert('Error', 'User not found')
-      }
-    } catch (e) {
-      console.log(e)
+    if (obj !== null && LOGIN_TOKEN !== null) {
+      await deleteUser(obj.id, LOGIN_TOKEN) 
+        .then(function () {
+          AsyncStorage.multiRemove([LOGIN_TOKEN, USER_INFO]).then(() => {
+            navigation.navigate('LoginStack');
+          });
+        })
+        .catch((error) => {
+          throw error;
+        });
+      await clearAsyncStorage();
+    } else {
+      Alert.alert('Error', 'User not found');
     }
   }
 
@@ -50,7 +43,7 @@ export default function DeleteAccount() {
         style: 'cancel'
       },
       { text: 'Sim', onPress: Delete }
-    ])
+    ]);
 
   return (
     <View>
@@ -62,5 +55,5 @@ export default function DeleteAccount() {
         <Text className="text-center font-sans-bold text-body text-projectWhite">Deletar conta</Text>
       </TouchableOpacity>
     </View>
-  )
+  );
 }

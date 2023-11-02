@@ -3,14 +3,14 @@ import { StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Icon, Button } from '@rneui/base';
 import PropTypes from 'prop-types';
+import tailwindConfig from '../../tailwind.config';
 
-const LeaveButton = ({ navigationPlace, courseId }) => {
+const projectColors = tailwindConfig.theme.colors;
 
-  const tailwindConfig = require('../../tailwind.config.js');
-  const projectColors = tailwindConfig.theme.colors;
-
+const LeaveButton = ({ navigationPlace, courseID }) => {
   LeaveButton.propTypes = {
     navigationPlace: PropTypes.string.isRequired,
+    courseID: PropTypes.string,
   };
   const navigation = useNavigation();
   return (
@@ -20,7 +20,7 @@ const LeaveButton = ({ navigationPlace, courseId }) => {
       radius='20'
       size='sm'
       onPress={() =>
-        navigation.navigate(navigationPlace, { courseId: courseId })
+        navigation.navigate(navigationPlace, { courseId: courseID })
       }
       icon={
         <Icon

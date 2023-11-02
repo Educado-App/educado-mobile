@@ -1,8 +1,14 @@
-import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
 import Text from '../general/Text';
+import PropTypes from 'prop-types';
 
 const ProfileName = ({ Name, PhoneNumber }) => {
+  ProfileName.propTypes = {
+    Name: PropTypes.string.isRequired, 
+    PhoneNumber: PropTypes.string,
+  };
+
   return (
     <View className="items-center">
       <View
@@ -25,8 +31,8 @@ const ProfileName = ({ Name, PhoneNumber }) => {
         </Text>
       </View>
     </View>
-  )
-}
+  );
+};
 const styles = StyleSheet.create({
   profileInfo: {
     backgroundColor: 'hsl(0, 0%, 92%)',
@@ -40,6 +46,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center'
   }
-})
+});
 
-export default ProfileName
+export default ProfileName;

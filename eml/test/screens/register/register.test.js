@@ -1,16 +1,16 @@
-import React from "react";
+import React from 'react';
 import renderer from 'react-test-renderer';
-import Register from "../../../screens/register/Register";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import Register from '../../../screens/register/Register';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 let navigated = false;
-const mockToken = "testToken";
+const mockToken = 'testToken';
 
 jest.mock('@react-navigation/native', () => ({
   useNavigation: () => ({
-    navigate: jest.fn(() => { navigated = true }),
+    navigate: jest.fn(() => { navigated = true; }),
   }),
-}))
+}));
 
 jest.mock('react-native-keyboard-aware-scroll-view', () => {
   return {
@@ -33,7 +33,7 @@ describe('Register screen', () => {
   });
 
   it('Pressing register new user navigates to the register page', async () => {
-    const loginNav = registerScreen.root.findByProps({ testId: "loginNav" });
+    const loginNav = registerScreen.root.findByProps({ testId: 'loginNav' });
     await renderer.act(() => {
       loginNav.props.onPress();
     });
@@ -46,17 +46,17 @@ describe('Register screen', () => {
       renderer.create(<Register />);
     });
     expect(navigated).toBe(false);
-  })
+  });
 
 
   it('Check register when valid token stored', async () => {
-    AsyncStorage.setItem("@loginToken", mockToken).then(async () => {
+    AsyncStorage.setItem('@loginToken', mockToken).then(async () => {
       await renderer.act(() => {
         renderer.create(<Register />);
       });
       expect(navigated).toBe(true);
     });
-  })
+  });
 });
 
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
   View,
   SafeAreaView,
@@ -6,41 +6,16 @@ import {
   Image,
 } from 'react-native';
 import ProfileImage from '../../components/profile/profileImage';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { BgLinearGradient } from "../../constants/BgLinearGradient";
-import { getCourses } from '../../api/api';
-import ReturnButton from '../../components/profileSettings/returnButton'
-import DeleteAccountButton from '../../components/profileSettings/deleteAccountButton'
-import ChangeFirstNameButton from '../../components/profileSettings/changeFirstNameButton'
-import ChangeLastNameButton from '../../components/profileSettings/changeLastNameButton'
-import ChangeEmailButton from '../../components/profileSettings/changeEmailButton'
-
-const USER_INFO = '@userInfo';
+import { BgLinearGradient } from '../../constants/BgLinearGradient';
+import ReturnButton from '../../components/profileSettings/returnButton';
+import DeleteAccountButton from '../../components/profileSettings/deleteAccountButton';
+import ChangeFirstNameButton from '../../components/profileSettings/changeFirstNameButton';
+import ChangeLastNameButton from '../../components/profileSettings/changeLastNameButton';
+import ChangeEmailButton from '../../components/profileSettings/changeEmailButton';
+import logo from '../../assets/images/logo.png';
 
 export default function ProfileComponent() {
-  const [id, setId] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
   
-  const getProfile = async () => {
-    try {
-      const fetchedProfile = JSON.parse(await AsyncStorage.getItem(USER_INFO));
-
-      if (fetchedProfile !== null) {
-        setId(fetchedProfile.id);
-        setFirstName(fetchedProfile.firstName);
-        setLastName(fetchedProfile.lastName);
-        setEmail(fetchedProfile.email);
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  }
-
-  useEffect(() => {
-    getProfile();
-  }, []);
 
   return (
     <BgLinearGradient>
@@ -52,7 +27,7 @@ export default function ProfileComponent() {
               <ReturnButton/>
               <Image
                 className = "h-[25.54] w-[175.88]"
-                source={require("../../assets/images/logo.png")}
+                source={logo}
               />
             </View>
           </View>

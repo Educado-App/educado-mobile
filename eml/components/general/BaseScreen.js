@@ -1,5 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
+import PropTypes from 'prop-types';
 
 /**
  * Reusable screen component to provide consistent layout and styling.
@@ -7,9 +8,16 @@ import { View } from 'react-native';
  * @returns {JSX.Element} The BaseScreen component.
  */
 export default function BaseScreen({ children }) {
-    return (
-        <View className="flex-1 bg-secondary">
-            {children}
-        </View>
-    );
+  BaseScreen.propTypes = {
+    children: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.array,
+    ]).isRequired,
+  };
+
+  return (
+    <View className="flex-1 bg-secondary">
+      {children}
+    </View>
+  );
 }
