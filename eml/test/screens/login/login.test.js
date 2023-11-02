@@ -25,7 +25,7 @@ describe('Login screen', () => {
   beforeEach(async () => {
     navigated = false;
     await AsyncStorage.clear();
-    renderer.act(() => {
+    await renderer.act(async () => {
       loginScreen = renderer.create(<Login />);
     });
   });
@@ -43,7 +43,7 @@ describe('Login screen', () => {
   });
 
   it('Check login when no valid token is stored', async () => {
-    await renderer.act(() => {
+    await renderer.act(async () => {
       renderer.create(<Login />);
     });
     expect(navigated).toBe(false);
@@ -51,7 +51,7 @@ describe('Login screen', () => {
 
   it('Check login when valid token stored', async () => {
     AsyncStorage.setItem('@loginToken', 'testToken');
-    await renderer.act(() => {
+    await renderer.act(async () => {
       renderer.create(<Login />);
     });
     expect(navigated).toBe(true);
@@ -62,6 +62,7 @@ describe('Login screen', () => {
     expect(scrollView.props.scrollEnabled).toBeTruthy();
   });
 });
+
 
 /* TODO: Fix tests with AsyncStorage */ /*
 test('Check login when valid token stored', async () => {

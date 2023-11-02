@@ -39,11 +39,18 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed8' })
   const [buttonText, setButtonText] = useState("Confirmar Resposta"); // Used to change the text of a button
   const [isPopUpVisible, setIsPopUpVisible] = useState(false); // Used to render the pop up
   const [isCorrectAnswer, setIsCorrectAnswer] = useState(false);
+  const [buttonClicked, setButtonClicked] = useState(false);
 
   const handleAnswerSelect = (answerIndex) => {
     setSelectedAnswer(answerIndex);
   };
 
+  function handleSecondOnclick() {
+    navigation.navigate('Lecture', {
+      sectionId: '6540ffe3536b2b37a494582a', // hardcoded for testing
+      courseId: '6540ffd7536b2b37a494581c', // hardcoded for testing
+    });
+  }
   function handleReviewAnswer(selectedAnswer) {
     const continueText = "Continuar";
     setIsCorrectAnswer(selectedAnswer);
@@ -54,8 +61,12 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed8' })
 
     setShowFeedback(true);
     setButtonText(continueText);
-    if (buttonText !== continueText) {
-      setIsPopUpVisible(true);
+
+    if (!buttonClicked) {
+      setButtonClicked(true);
+      setIsPopUpVisible(true);  
+    } else {
+      handleSecondOnclick();
     }
   }
   const fetchData = async () => {

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Keyboard } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
@@ -8,6 +8,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { TouchableWithoutFeedback } from 'react-native';
 import Text from '../../components/general/Text';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import LoadingScreen from '../../components/loading/Loading';
 
 const LOGIN_TOKEN = '@loginToken';
 
@@ -30,7 +31,7 @@ export default function Login() {
       }
       setLoading(false);
     } catch (error) {
-      console.log("Failed to fetch the login token from storage");
+      console.log('Failed to fetch the login token from storage');
       setLoading(false);
     }
   };
@@ -64,8 +65,8 @@ export default function Login() {
                   </Text>
                   <Text
                     testId="registerNav"
-                    className={"text-base text-black underline"}
-                    onPress={() => navigation.navigate("Register")}
+                    className={'text-base text-black underline'}
+                    onPress={() => navigation.navigate('Register')}
                   >
                     {/* Sign up now */}
                     Cadastre-se agora

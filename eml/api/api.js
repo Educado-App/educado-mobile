@@ -215,24 +215,24 @@ export const ifSubscribed = async (userId, courseId) => {
  * @param {* use 360p, 720p or 1080p - standard is 360p} resolution
  */
 export const getVideoDownloadUrl = (fileName, resolution) => {
-  let usableResolution = "360x640";
+  let usableResolution = '360x640';
 
   switch (resolution) {
-    case "180p":
-      usableResolution = "180x320";
-      break;
-    case "360p":
-      usableResolution = "360x640";
-      break;
-    case "720p":
-      usableResolution = "720x1280";
-      break;
-    case "1080p":
-      usableResolution = "1080x1920";
-      break;
-    default:
-      usableResolution = "360x640";
-      break;
+  case '180p':
+    usableResolution = '180x320';
+    break;
+  case '360p':
+    usableResolution = '360x640';
+    break;
+  case '720p':
+    usableResolution = '720x1280';
+    break;
+  case '1080p':
+    usableResolution = '1080x1920';
+    break;
+  default:
+    usableResolution = '360x640';
+    break;
   }
   const _vidUrl = `${url}/api/bucket/stream/${fileName}_transcoded${usableResolution}.mp4`;
   console.log(_vidUrl);
@@ -242,7 +242,7 @@ export const getVideoDownloadUrl = (fileName, resolution) => {
 //CREATED BY VIDEO STREAMING TEAM
 export const getSectionAndLecturesBySectionId = async (sectionId) => {
   try {
-    const res = await axios.get(url + "/api/sections/" + sectionId);
+    const res = await axios.get(url + '/api/sections/' + sectionId);
     return res.data;
   } catch (err) {
     if (err?.response?.data != null) {
@@ -256,7 +256,7 @@ export const getSectionAndLecturesBySectionId = async (sectionId) => {
 //CREATED BY VIDEO STREAMING TEAM
 export const getLectureById = async (lectureId) => {
   try {
-    const res = await axios.get(url + "/api/lectures/" + lectureId);
+    const res = await axios.get(url + '/api/lectures/' + lectureId);
     return res.data;
   } catch (err) {
     if (err?.response?.data != null) {

@@ -35,10 +35,7 @@ export default function SectionCard({ section }) {
      */
     const handleImagePress = () => {
 
-        navigation.navigate('Lecture', {
-            sectionId: section.sectionId,
-            courseId: section.parentCourseId,
-        })
+        navigation.navigate('Exercise')
     }
 
 
