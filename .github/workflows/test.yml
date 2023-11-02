@@ -9,6 +9,7 @@ on:
       - staging
       - main
       - cert-success_messages_mergeToDev
+      - video_pr_01_11
 
 jobs:
   test:
