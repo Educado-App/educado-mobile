@@ -261,7 +261,7 @@ export default function RegisterForm() {
             name={"E-mail"}
             testId="emailInput"
             value={email}
-            placeholder="user@email.com"
+            placeholder="Insira sua e-mail"
             keyboardType="email-address"
             required={true}
             onChangeText={async (email) => { setEmail(email); validateEmail(email); }}
