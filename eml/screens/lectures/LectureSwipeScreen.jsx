@@ -68,7 +68,7 @@ export default function LectureSwipeScreen({ route }) {
     return (
         <View className="flex-1">
             {allLectures && (
-                <View style={{ position: 'absolute', top: 0, zIndex: 10, width: '100%' }}>
+                <View className=" absolute top-0 z-10 w-[100%]">
                     <ProgressTopBar lectureType={currentLectureType} allLectures={allLectures} currentLectureIndex={index} />
                 </View>
             )}
