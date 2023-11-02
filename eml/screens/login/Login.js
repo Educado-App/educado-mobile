@@ -13,6 +13,7 @@ const LOGIN_TOKEN = '@loginToken';
 
 export default function Login() {
 
+  const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
 
   /**
@@ -27,8 +28,10 @@ export default function Login() {
       if (fetchedToken !== null) {
         navigation.navigate('HomeStack');
       }
+      setLoading(false);
     } catch (error) {
-      console.log('Failed to fetch the login token from storage');
+      console.log("Failed to fetch the login token from storage");
+      setLoading(false);
     }
   };
 
@@ -38,39 +41,40 @@ export default function Login() {
 
   return (
     <SafeAreaView className="justify-start bg-secondary flex-1">
-      <KeyboardAwareScrollView
-        className="flex-1"
-        resetScrollToCoords={{ x: 0, y: 0 }}
-        scrollEnabled={true}>
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View>
-            <View className="mt-10">
-              <LogoBackButton navigationPlace="Login" />
-            </View>
-            <View className="mx-6">
-              {/* Login form */}
-              <View className="my-8">
-                <LoginForm />
+      {loading ? (<LoadingScreen />) :
+        (<KeyboardAwareScrollView
+          className="flex-1"
+          resetScrollToCoords={{ x: 0, y: 0 }}
+          scrollEnabled={true}>
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View>
+              <View className="mt-10">
+                <LogoBackButton navigationPlace="WelcomeStack" />
               </View>
-              {/* Register button */}
-              <View className="flex-row justify-center">
-                <Text className="text-base text-gray mr-1">
-                  {/* Dont have an account yet? */}
-                  Ainda não tem conta?
-                </Text>
-                <Text
-                  testId="registerNav"
-                  className={'text-base text-black underline'}
-                  onPress={() => navigation.navigate('Register')}
-                >
-                  {/* Sign up now */}
-                  Cadastre-se agora
-                </Text>
+              <View className="mx-6">
+                {/* Login form */}
+                <View className="my-8">
+                  <LoginForm />
+                </View>
+                {/* Register button */}
+                <View className="flex-row justify-center">
+                  <Text className="text-base text-gray mr-1">
+                    {/* Dont have an account yet? */}
+                    Ainda não tem conta?
+                  </Text>
+                  <Text
+                    testId="registerNav"
+                    className={"text-base text-black underline"}
+                    onPress={() => navigation.navigate("Register")}
+                  >
+                    {/* Sign up now */}
+                    Cadastre-se agora
+                  </Text>
+                </View>
               </View>
             </View>
-          </View>
-        </TouchableWithoutFeedback>
-      </KeyboardAwareScrollView>
+          </TouchableWithoutFeedback>
+        </KeyboardAwareScrollView>)}
     </SafeAreaView >
   );
 }

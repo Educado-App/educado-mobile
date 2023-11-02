@@ -8,7 +8,7 @@ on:
       - dev
       - staging
       - main
-      - stage_withLintingFix
+      - dev_toStageMerge0211
 jobs:
   test:
     runs-on: ubuntu-latest
