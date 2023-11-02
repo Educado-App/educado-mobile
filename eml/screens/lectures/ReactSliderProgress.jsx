@@ -3,19 +3,13 @@ import { View, Text } from 'react-native';
 import Slider from '@react-native-community/slider';
 import tailwindConfig from '../../tailwind.config';
 
+import { convertMsToTime } from '../../services/utilityFunctions';
+
 
 
 const ReactSliderProgress = ({ elapsedMs = 10000, totalMs = 20000, color, height, videoRef }) => {
 
-    const convertMsToTime = (ms) => {
-        let seconds = Math.floor((ms / 1000) % 60);
-        let minutes = Math.floor((ms / (1000 * 60)) % 60);
 
-        seconds = seconds < 10 ? '0' + seconds : seconds;
-        minutes = minutes < 10 ? '0' + minutes : minutes;
-
-        return `${minutes}:${seconds}`;
-    }
 
     const [sliderValue, setSliderValue] = useState(elapsedMs);
 
