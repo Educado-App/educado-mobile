@@ -81,8 +81,8 @@ export default function LectureSwipeScreen({ route }) {
                     loop={false}
                     showsPagination={false}
                 >
-                    {allLectures.map((lect) => (
-                        <LectureScreen key={lect.id} currentIndex={index} indexCount={allLectures.length} lectureObject={lect} courseObject={course} />
+                    {allLectures.map((lecture) => (
+                        <LectureScreen key={index} currentIndex={index} indexCount={allLectures.length} lectureObject={lecture} courseObject={course} />
                     ))}
                 </Swiper>
             )}

@@ -47,8 +47,8 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed8' })
 
   function handleSecondOnclick() {
     navigation.navigate('Lecture', {
-      sectionId: '6540ffe3536b2b37a494582a', // hardcoded for testing
-      courseId: '6540ffd7536b2b37a494581c', // hardcoded for testing
+      sectionId: '6540f6b3536b2b37a49457e0', // hardcoded for testing
+      courseId: '6540f668536b2b37a49457dc', // hardcoded for testing
     });
   }
   function handleReviewAnswer(selectedAnswer) {
