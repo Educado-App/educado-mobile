@@ -12,20 +12,16 @@ jest.mock('@react-navigation/native', () => ({
   }),
 }))
 
-jest.mock('react-native-keyboard-aware-scroll-view', () => {
-  return {
-    KeyboardAwareScrollView: jest.fn().mockImplementation(({ children }) => children),
-  };
-});
-
 describe('Login screen', () => {
 
   let loginScreen;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     navigated = false;
-    AsyncStorage.clear();
-    loginScreen = renderer.create(<Login />);
+    await AsyncStorage.clear();
+    renderer.act(() => {
+      loginScreen = renderer.create(<Login />);
+    });
   });
 
   it('Login screen renders', () => {

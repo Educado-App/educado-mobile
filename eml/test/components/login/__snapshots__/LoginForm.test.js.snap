@@ -86,7 +86,7 @@ exports[`login Check LoginForm renders correctly 1`] = `
           keyboardType="email-address"
           onChangeText={[Function]}
           passwordGuidelines={false}
-          placeholder="user@email.com"
+          placeholder="Insira sua e-mail"
           secureTextEntry={false}
           style={
             [
@@ -237,7 +237,7 @@ exports[`login Check LoginForm renders correctly 1`] = `
           keyboardType="default"
           onChangeText={[Function]}
           passwordGuidelines={false}
-          placeholder="Digite sua senha"
+          placeholder="Insira sua senha"
           secureTextEntry={true}
           style={
             [
