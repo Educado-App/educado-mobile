@@ -8,7 +8,7 @@ on:
       - dev
       - staging
       - main
-      - dev_toStageMerge0211
+      - merge-dev-to-staging
 jobs:
   test:
     runs-on: ubuntu-latest

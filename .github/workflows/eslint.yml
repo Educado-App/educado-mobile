@@ -8,7 +8,7 @@ on:
       - dev
       - staging
       - main
-      - dev_toStageMerge0211
+      - merge-dev-to-staging
 jobs:
   eslint:
     runs-on: ubuntu-latest

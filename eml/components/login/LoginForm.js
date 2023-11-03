@@ -44,6 +44,7 @@ export default function LoginForm() {
         firstName: userInfo.firstName,
         lastName: userInfo.lastName,
         email: userInfo.email,
+        completedCourses: userInfo.completedCourses,
       };
       await AsyncStorage.setItem(USER_INFO, JSON.stringify(obj));
       await AsyncStorage.setItem(USER_ID, userInfo.id); // needs to be seperate
