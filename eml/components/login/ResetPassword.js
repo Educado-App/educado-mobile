@@ -152,7 +152,7 @@ export default function ResetPassword(props) {
           <View>
             <FormTextField
               bordered={true}
-              placeholder="Insira sua senha"
+              placeholder="Insira sua e-mail"
               label="E-mail"
               required={true}
               onChangeText={(email) => setEmail(email)}
