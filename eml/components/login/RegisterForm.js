@@ -241,10 +241,10 @@ export default function RegisterForm() {
             }}
           />
         </View>
-        <View className="mb-6">
+        <View className="relative">
           <FormTextField
             label="Sobrenome" // Last name
-            name={'Sobrenome'}
+            name={"Sobrenome"}
             value={lastName}
             testId="lastNameInput"
             placeholder="Sobrenome"
@@ -260,10 +260,10 @@ export default function RegisterForm() {
           <FormTextField
             className="mb-6"
             label="E-mail"
-            name={'E-mail'}
+            name={"E-mail"}
             testId="emailInput"
             value={email}
-            placeholder="user@email.com"
+            placeholder="Insira sua e-mail"
             keyboardType="email-address"
             required={true}
             onChangeText={async (email) => { setEmail(email); validateEmail(email); }}
@@ -274,72 +274,78 @@ export default function RegisterForm() {
           <View className="relative">
             <FormTextField
               label="Senha" //Password
-              name={'Senha'}
+              name={"Senha"}
               testId="passwordInput"
               value={password}
               placeholder="Insira sua senha" // Enter your password
-              placeholderTextColor="grey"
+              placeholderTextColor={tailwindColors.projectGray}
               secureTextEntry={!showPassword}
               required={true}
-              onChangeText={(firstName) => {
-                setFirstName(firstName);
+              onChangeText={(inputPassword) => {
+                setPassword(removeEmojis(inputPassword, password));
+
               }}
+            />
+            <PasswordEye
+              testId="passwordEye"
+              showPasswordIcon={showPassword}
+              toggleShowPassword={toggleShowPassword}
             />
           </View>
 
           <View className="flex-row justify-start mt-1 h-6">
-            <Text testId="passwordLengthAlert" className={'text-xs' + ((passwordLengthValid || !password) ? ' text-gray' : ' text-error')}>
+            <Text testId="passwordLengthAlert" className={"text-xs" + ((passwordLengthValid || !password) ? " text-projectGray" : " text-error")}>
               {/* Minimum 8 characters */}
               • Mínimo 8 caracteres
             </Text>
             <View className="flex-row items-center -translate-y-1">
               {passwordLengthValid ? (
-                <MaterialCommunityIcons name="check" size={20} color="#4AA04A" />
+                <MaterialCommunityIcons name="check" size={20} color={tailwindColors.success} />
               ) : null}
             </View>
           </View>
           <View className="flex-row justify-start h-6">
-            <Text testId="passwordLetterAlert" className={'text-xs font-sans' + ((passwordContainsLetter || !password) ? ' text-gray' : ' text-error')}>
+            <Text testId="passwordLetterAlert" className={"text-xs font-sans" + ((passwordContainsLetter || !password) ? " text-projectGray" : " text-error")}>
               {/* Must contain at least one letter */}
               • Conter pelo menos uma letra
             </Text>
             <View className="flex-row items-center -translate-y-1">
               {passwordContainsLetter ? (
-                <MaterialCommunityIcons name="check" size={20} color="#4AA04A" />
+                <MaterialCommunityIcons name="check" size={20} color={tailwindColors.success} />
               ) : null}
             </View>
           </View>
         </View>
-          <View className="mb-2">
-            <View className="relative">
-              <FormTextField
-                label="Confirmar senha" // Confirm password
-                value={confirmPassword}
-                testId="confirmPasswordInput"
-                onChangeText={(inputConfirmPassword) => {
-                  setConfirmPassword(removeEmojis(inputConfirmPassword, confirmPassword));
-                }}
+        <View className="mb-2">
+          <View className="relative">
+            <FormTextField
+              label="Confirmar senha" // Confirm password
+              value={confirmPassword}
+              testId="confirmPasswordInput"
+              onChangeText={(inputConfirmPassword) => {
+                setConfirmPassword(removeEmojis(inputConfirmPassword, confirmPassword));
+              }}
 
-                placeholder="Confirme sua senha" // Confirm your password
-                secureTextEntry={!showConfirmPassword}
-                required={true}
-              />
-              <PasswordEye
-                testId="confirmPasswordEye"
-                showPasswordIcon={showConfirmPassword}
-                toggleShowPassword={toggleShowConfirmPassword}
-              />
-            </View>
-            <FormFieldAlert label={confirmPasswordAlert} />
-          </View>
-          <View className="my-2">
-            <FormButton
-              onPress={() => register(firstName, lastName, email, password)}
-              label="Cadastrar" // Register
-              testId="registerButton"
-              disabled={!isAllInputValid}
+              placeholder="Confirme sua senha" // Confirm your password
+              secureTextEntry={!showConfirmPassword}
+              required={true}
+            />
+            <PasswordEye
+              testId="confirmPasswordEye"
+              showPasswordIcon={showConfirmPassword}
+              toggleShowPassword={toggleShowConfirmPassword}
             />
           </View>
+          <FormFieldAlert label={confirmPasswordAlert} />
+        </View>
+        <View className="my-2">
+          <FormButton
+            onPress={() => register(firstName, lastName, email, password)}
+            label="Cadastrar" // Register
+            testId="registerButton"
+            disabled={!isAllInputValid}
+          />
+        </View>
       </AlertNotificationRoot>
     </View>
   );
