@@ -310,6 +310,36 @@ export default function RegisterForm() {
             </View>
           </View>
         </View>
+          <View className="mb-2">
+            <View className="relative">
+              <FormTextField
+                label="Confirmar senha" // Confirm password
+                value={confirmPassword}
+                testId="confirmPasswordInput"
+                onChangeText={(inputConfirmPassword) => {
+                  setConfirmPassword(removeEmojis(inputConfirmPassword, confirmPassword));
+                }}
+
+                placeholder="Confirme sua senha" // Confirm your password
+                secureTextEntry={!showConfirmPassword}
+                required={true}
+              />
+              <PasswordEye
+                testId="confirmPasswordEye"
+                showPasswordIcon={showConfirmPassword}
+                toggleShowPassword={toggleShowConfirmPassword}
+              />
+            </View>
+            <FormFieldAlert label={confirmPasswordAlert} />
+          </View>
+          <View className="my-2">
+            <FormButton
+              onPress={() => register(firstName, lastName, email, password)}
+              label="Cadastrar" // Register
+              testId="registerButton"
+              disabled={!isAllInputValid}
+            />
+          </View>
       </AlertNotificationRoot>
     </View>
   );
