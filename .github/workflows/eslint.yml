@@ -9,6 +9,7 @@ on:
       - staging
       - main
       - stage_withLintingFix
+      - merge-dev-to-staging
 jobs:
   eslint:
     runs-on: ubuntu-latest
