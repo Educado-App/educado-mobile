@@ -8,7 +8,6 @@ on:
       - dev
       - staging
       - main
-      - stage_withLintingFix
       - merge-dev-to-staging
 jobs:
   eslint:

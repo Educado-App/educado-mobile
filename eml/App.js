@@ -15,6 +15,7 @@ import LoadingScreen from './components/loading/Loading';
 import WelcomeScreen from './screens/welcome/Welcome';
 import ProfileSettingsScreen from './screens/profile/ProfileSettings';
 import NavBar from './components/navBar/NavBar';
+import LectureSwipeScreen from './screens/lectures/LectureSwipeScreen';
 import ErrorScreen from './screens/errors/ErrorScreen';
 
 const Stack = createNativeStackNavigator();
@@ -154,6 +155,13 @@ export default function App() {
               <Stack.Screen
                 name="Exercise"
                 component={ExerciseScreen}
+                options={{
+                  headerShown: false,
+                }}
+              />
+              <Stack.Screen
+                name="Lecture"
+                component={LectureSwipeScreen}
                 options={{
                   headerShown: false,
                 }}

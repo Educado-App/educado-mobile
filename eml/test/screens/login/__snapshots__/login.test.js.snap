@@ -168,7 +168,30 @@ exports[`Login screen Login screen renders 1`] = `
                       }
                       testID="RNE__ICON"
                     >
-                      <Text />
+                      <Text
+                        allowFontScaling={false}
+                        selectable={false}
+                        style={
+                          [
+                            {
+                              "color": "#383838",
+                              "fontSize": 25,
+                            },
+                            {
+                              "backgroundColor": "transparent",
+                            },
+                            {
+                              "fontFamily": "material-community",
+                              "fontStyle": "normal",
+                              "fontWeight": "normal",
+                            },
+                            {},
+                          ]
+                        }
+                        testID="RNE__ICON__Component"
+                      >
+                        󰅁
+                      </Text>
                     </View>
                   </View>
                 </View>
@@ -502,7 +525,28 @@ exports[`Login screen Login screen renders 1`] = `
                 ]
               }
             >
-              <Text />
+              <Text
+                allowFontScaling={false}
+                onPress={[Function]}
+                selectable={false}
+                style={
+                  [
+                    {
+                      "color": "gray",
+                      "fontSize": 24,
+                    },
+                    undefined,
+                    {
+                      "fontFamily": "material-community",
+                      "fontStyle": "normal",
+                      "fontWeight": "normal",
+                    },
+                    {},
+                  ]
+                }
+              >
+                󰈈
+              </Text>
             </View>
             <View
               style={

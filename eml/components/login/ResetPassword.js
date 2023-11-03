@@ -86,6 +86,7 @@ export default function ResetPassword(props) {
           // Errors not currently handled with specific alerts
           displayErrorAlert('Erro desconhecido!', false);
         }
+        setButtonLoading(false);
       });
     setButtonLoading(false);
   }
@@ -135,9 +136,9 @@ export default function ResetPassword(props) {
   const resetState = () => {
     setEmailSent(false);
     setCodeEntered(false);
-    displayErrorAlert("", false);
-    setTokenAlert("");
-    setToken("");
+    displayErrorAlert('', false);
+    setTokenAlert('');
+    setToken('');
   };
 
   //checks if the 4-digit code entered is valid
