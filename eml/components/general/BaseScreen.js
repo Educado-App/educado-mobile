@@ -1,6 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import PropTypes from 'prop-types';
+import { AlertNotificationRoot } from 'react-native-alert-notification';
 
 /**
  * Reusable screen component to provide consistent layout and styling.
@@ -14,10 +15,11 @@ export default function BaseScreen({ children }) {
       PropTypes.array,
     ]).isRequired,
   };
-
-  return (
-    <View className="flex-1 bg-secondary">
-      {children}
-    </View>
-  );
+    return (
+        <AlertNotificationRoot>
+            <View className="flex-1 bg-secondary">
+                {children}
+            </View>
+        </AlertNotificationRoot>
+    );
 }

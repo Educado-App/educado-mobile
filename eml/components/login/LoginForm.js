@@ -44,6 +44,7 @@ export default function LoginForm() {
         firstName: userInfo.firstName,
         lastName: userInfo.lastName,
         email: userInfo.email,
+        completedCourses: userInfo.completedCourses,
       };
       await AsyncStorage.setItem(USER_INFO, JSON.stringify(obj));
       await AsyncStorage.setItem(USER_ID, userInfo.id); // needs to be seperate
@@ -120,7 +121,7 @@ export default function LoginForm() {
       <View className="mb-6">
         <FormTextField
           testId="emailInput"
-          placeholder="user@email.com"
+          placeholder="Insira sua e-mail"
           onChangeText={(email) => setEmail(email)}
           label="E-mail"
           required={true}
@@ -133,7 +134,7 @@ export default function LoginForm() {
       <View className="relative mb-6">
         <FormTextField
           testId="passwordInput"
-          placeholder="Digite sua senha" // Type your password
+          placeholder="Insira sua senha" // Type your password
           value={password}
           onChangeText={(inputPassword) => {
             setPassword(removeEmojis(inputPassword, password));

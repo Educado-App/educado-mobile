@@ -1,17 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { View } from 'react-native';
-import { loginUser, registerUser } from '../../api/userApi';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import FormTextField from './FormTextField';
-import FormButton from './FormButton';
-import PasswordEye from './PasswordEye';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import ShowAlert from '../general/ShowAlert';
-import FormFieldAlert from './FormFieldAlert';
-import { removeEmojis, validatePasswordContainsLetter, validatePasswordLength, validateEmail, validateName } from '../general/Validation';
-import Text from '../general/Text';
-import errorSwitch from '../general/errorSwitch';
-import { useNavigation } from '@react-navigation/native';
+import React, { useEffect, useState } from "react";
+import { View } from "react-native";
+import { loginUser, registerUser } from "../../api/userApi";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import FormTextField from "./FormTextField";
+import FormButton from "./FormButton";
+import PasswordEye from "./PasswordEye";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import ShowAlert from "../general/ShowAlert";
+import FormFieldAlert from "./FormFieldAlert";
+import { removeEmojis, validatePasswordContainsLetter, validatePasswordLength, validateEmail, validateName } from "../general/Validation";
+import Text from "../general/Text";
+import errorSwitch from "../general/errorSwitch";
+import { useNavigation } from "@react-navigation/native";
+import DialogNotification from "../general/DialogNotification";
+import { AlertNotificationRoot } from "react-native-alert-notification";
+import tailwindConfig from "../../tailwind.config";
 
 const LOGIN_TOKEN = '@loginToken';
 const USER_INFO = '@userInfo';
@@ -23,6 +26,8 @@ const USER_ID = '@userId';
  */
 
 export default function RegisterForm() {
+
+  const tailwindColors = tailwindConfig.theme.colors;
 
   const navigation = useNavigation();
   const [firstName, setFirstName] = useState('');
@@ -207,7 +212,10 @@ export default function RegisterForm() {
     try {
       await loginUser(obj).then((response) => {
         AsyncStorage.setItem(LOGIN_TOKEN, response.accessToken);
-        navigation.navigate('HomeStack');
+        DialogNotification('success', 'Usuário cadastrado! Cantando em...');
+        setTimeout(() => {
+          navigation.navigate("HomeStack");
+        }, 2500);
       }).catch((error) => {
         console.log(error);
       });
@@ -219,124 +227,196 @@ export default function RegisterForm() {
 
   return (
     <View>
-      <View className="mb-6">
-        <FormTextField
-          label="Nome" // first name
-          name={'Nome'}
-          value={firstName}
-          testId="firstNameInput"
-          placeholder="Nome"
-          required={true}
-          onChangeText={(firstName) => {
-            setFirstName(firstName);
-          }}
-        />
-      </View>
-      <View className="mb-6">
-        <FormTextField
-          label="Sobrenome" // Last name
-          name={'Sobrenome'}
-          value={lastName}
-          testId="lastNameInput"
-          placeholder="Sobrenome"
-
-          required={true}
-          onChangeText={(lastName) => {
-            setLastName(lastName);
-          }}
-        />
-        <FormFieldAlert label={nameAlert} />
-      </View>
-      <View className="mb-6">
-        <FormTextField
-          className="mb-6"
-          label="E-mail"
-          name={'E-mail'}
-          testId="emailInput"
-          value={email}
-          placeholder="user@email.com"
-          keyboardType="email-address"
-          required={true}
-          onChangeText={async (email) => { setEmail(email); validateEmail(email); }}
-        />
-        <FormFieldAlert label={emailAlert} testId="emailAlert" />
-      </View>
-      <View className="mb-6">
-        <View className="relative">
+      <AlertNotificationRoot>
+        <View className="mb-6">
           <FormTextField
-            label="Senha" //Password
-            name={'Senha'}
-            testId="passwordInput"
-            value={password}
-            placeholder="Insira sua senha" // Enter your password
-            placeholderTextColor="grey"
-            secureTextEntry={!showPassword}
+            label="Nome" // first name
+            name={'Nome'}
+            value={firstName}
+            testId="firstNameInput"
+            placeholder="Nome"
             required={true}
-            onChangeText={(inputPassword) => {
-              setPassword(removeEmojis(inputPassword, password));
-
+            onChangeText={(firstName) => {
+              setFirstName(firstName);
             }}
           />
-          <PasswordEye
-            testId="passwordEye"
-            showPasswordIcon={showPassword}
-            toggleShowPassword={toggleShowPassword}
-          />
         </View>
-
-        <View className="flex-row justify-start mt-1 h-6">
-          <Text testId="passwordLengthAlert" className={'text-xs' + ((passwordLengthValid || !password) ? ' text-gray' : ' text-error')}>
-            {/* Minimum 8 characters */}
-            • Mínimo 8 caracteres
-          </Text>
-          <View className="flex-row items-center -translate-y-1">
-            {passwordLengthValid ? (
-              <MaterialCommunityIcons name="check" size={20} color="#4AA04A" />
-            ) : null}
-          </View>
-        </View>
-        <View className="flex-row justify-start h-6">
-          <Text testId="passwordLetterAlert" className={'text-xs font-sans' + ((passwordContainsLetter || !password) ? ' text-gray' : ' text-error')}>
-            {/* Must contain at least one letter */}
-            • Conter pelo menos uma letra
-          </Text>
-          <View className="flex-row items-center -translate-y-1">
-            {passwordContainsLetter ? (
-              <MaterialCommunityIcons name="check" size={20} color="#4AA04A" />
-            ) : null}
-          </View>
-        </View>
-      </View>
-      <View className="mb-2">
-        <View className="relative">
+        <View className="mb-6">
           <FormTextField
-            label="Confirmar senha" // Confirm password
-            value={confirmPassword}
-            testId="confirmPasswordInput"
-            onChangeText={(inputConfirmPassword) => {
-              setConfirmPassword(removeEmojis(inputConfirmPassword, confirmPassword));
-            }}
+            label="Sobrenome" // Last name
+            name={'Sobrenome'}
+            value={lastName}
+            testId="lastNameInput"
+            placeholder="Sobrenome"
 
-            placeholder="Confirme sua senha" // Confirm your password
-            secureTextEntry={!showConfirmPassword}
             required={true}
+            onChangeText={(lastName) => {
+              setLastName(lastName);
+            }}
           />
-          <PasswordEye
-            testId="confirmPasswordEye"
-            showPasswordIcon={showConfirmPassword}
-            toggleShowPassword={toggleShowConfirmPassword}
-          />
+          <FormFieldAlert label={nameAlert} />
         </View>
-        <FormFieldAlert label={confirmPasswordAlert} />
-      </View>
-      <View className="my-2">
-        <FormButton
-          onPress={() => register(firstName, lastName, email, password)}
-          label="Cadastrar" // Register
-          testId="registerButton"
-          disabled={!isAllInputValid}
-        />
-      </View>
+        <View className="mb-6">
+          <FormTextField
+            className="mb-6"
+            label="E-mail"
+            name={'E-mail'}
+            testId="emailInput"
+            value={email}
+            placeholder="user@email.com"
+            keyboardType="email-address"
+            required={true}
+            onChangeText={async (email) => { setEmail(email); validateEmail(email); }}
+          />
+          <FormFieldAlert label={emailAlert} testId="emailAlert" />
+        </View>
+        <View className="mb-6">
+          <View className="relative">
+            <FormTextField
+              label="Senha" //Password
+              name={'Senha'}
+              testId="passwordInput"
+              value={password}
+              placeholder="Insira sua senha" // Enter your password
+              placeholderTextColor="grey"
+              secureTextEntry={!showPassword}
+              required={true}
+              onChangeText={(firstName) => {
+                setFirstName(firstName);
+              }}
+            />
+          </View>
+
+          <View className="flex-row justify-start mt-1 h-6">
+            <Text testId="passwordLengthAlert" className={'text-xs' + ((passwordLengthValid || !password) ? ' text-gray' : ' text-error')}>
+              {/* Minimum 8 characters */}
+              • Mínimo 8 caracteres
+            </Text>
+            <View className="flex-row items-center -translate-y-1">
+              {passwordLengthValid ? (
+                <MaterialCommunityIcons name="check" size={20} color="#4AA04A" />
+              ) : null}
+            </View>
+          </View>
+          <View className="flex-row justify-start h-6">
+            <Text testId="passwordLetterAlert" className={'text-xs font-sans' + ((passwordContainsLetter || !password) ? ' text-gray' : ' text-error')}>
+              {/* Must contain at least one letter */}
+              • Conter pelo menos uma letra
+            </Text>
+            <View className="flex-row items-center -translate-y-1">
+              {passwordContainsLetter ? (
+                <MaterialCommunityIcons name="check" size={20} color="#4AA04A" />
+              ) : null}
+            </View>
+          </View>
+        </View>
+        <View className="mb-2">
+          <View className="relative">
+            <FormTextField
+              label="Sobrenome" // Last name
+              name={"Sobrenome"}
+              value={lastName}
+              testId="lastNameInput"
+              placeholder="Sobrenome"
+
+              required={true}
+              onChangeText={(lastName) => {
+                setLastName(lastName);
+              }}
+            />
+            <FormFieldAlert label={nameAlert} />
+          </View>
+          <View className="mb-6">
+            <FormTextField
+              className="mb-6"
+              label="E-mail"
+              name={"E-mail"}
+              testId="emailInput"
+              value={email}
+              placeholder="Insira sua e-mail"
+              keyboardType="email-address"
+              required={true}
+              onChangeText={async (email) => { setEmail(email); validateEmail(email); }}
+            />
+            <FormFieldAlert label={emailAlert} testId="emailAlert" />
+          </View>
+          <View className="mb-6">
+            <View className="relative">
+              <FormTextField
+                label="Senha" //Password
+                name={"Senha"}
+                testId="passwordInput"
+                value={password}
+                placeholder="Insira sua senha" // Enter your password
+                placeholderTextColor={tailwindColors.projectGray}
+                secureTextEntry={!showPassword}
+                required={true}
+                onChangeText={(inputPassword) => {
+                  setPassword(removeEmojis(inputPassword, password));
+
+                }}
+              />
+              <PasswordEye
+                testId="passwordEye"
+                showPasswordIcon={showPassword}
+                toggleShowPassword={toggleShowPassword}
+              />
+            </View>
+
+            <View className="flex-row justify-start mt-1 h-6">
+              <Text testId="passwordLengthAlert" className={"text-xs" + ((passwordLengthValid || !password) ? " text-projectGray" : " text-error")}>
+                {/* Minimum 8 characters */}
+                • Mínimo 8 caracteres
+              </Text>
+              <View className="flex-row items-center -translate-y-1">
+                {passwordLengthValid ? (
+                  <MaterialCommunityIcons name="check" size={20} color={tailwindColors.success} />
+                ) : null}
+              </View>
+            </View>
+            <View className="flex-row justify-start h-6">
+              <Text testId="passwordLetterAlert" className={"text-xs font-sans" + ((passwordContainsLetter || !password) ? " text-projectGray" : " text-error")}>
+                {/* Must contain at least one letter */}
+                • Conter pelo menos uma letra
+              </Text>
+              <View className="flex-row items-center -translate-y-1">
+                {passwordContainsLetter ? (
+                  <MaterialCommunityIcons name="check" size={20} color={tailwindColors.success} />
+                ) : null}
+              </View>
+            </View>
+          </View>
+          <View className="mb-2">
+            <View className="relative">
+              <FormTextField
+                label="Confirmar senha" // Confirm password
+                value={confirmPassword}
+                testId="confirmPasswordInput"
+                onChangeText={(inputConfirmPassword) => {
+                  setConfirmPassword(removeEmojis(inputConfirmPassword, confirmPassword));
+                }}
+
+                placeholder="Confirme sua senha" // Confirm your password
+                secureTextEntry={!showConfirmPassword}
+                required={true}
+              />
+              <PasswordEye
+                testId="confirmPasswordEye"
+                showPasswordIcon={showConfirmPassword}
+                toggleShowPassword={toggleShowConfirmPassword}
+              />
+            </View>
+            <FormFieldAlert label={confirmPasswordAlert} />
+          </View>
+          <View className="my-2">
+            <FormButton
+              onPress={() => register(firstName, lastName, email, password)}
+              label="Cadastrar" // Register
+              testId="registerButton"
+              disabled={!isAllInputValid}
+            />
+          </View>
+      </AlertNotificationRoot>
     </View>
   );
 }

@@ -10,6 +10,7 @@ import FormFieldAlert from './FormFieldAlert';
 import { validateEmail } from '../general/Validation';
 import PropTypes from 'prop-types';
 import { showAlert } from '../general/ShowAlert';
+import ToastNotification from "../general/ToastNotification";
 
 /**
  * Component to create modal (popup) that prompts user for
@@ -62,8 +63,7 @@ export default function ResetPassword(props) {
     await sendResetPasswordEmail(obj)
       .then(async () => {
         setEmailSent(true);
-        setButtonLoading(false);
-        displayErrorAlert('E-mail enviado com sucesso!', true);
+        ToastNotification('success', 'E-mail enviado!'); //email sent!
       }).catch((error) => {
         switch (error?.error?.code) {
         case 'E0401':
@@ -87,6 +87,7 @@ export default function ResetPassword(props) {
           displayErrorAlert('Erro desconhecido!', false);
         }
       });
+    setButtonLoading(false);
   }
 
 
@@ -134,8 +135,9 @@ export default function ResetPassword(props) {
   const resetState = () => {
     setEmailSent(false);
     setCodeEntered(false);
-    displayErrorAlert('', false);
-    setTokenAlert('');
+    displayErrorAlert("", false);
+    setTokenAlert("");
+    setToken("");
   };
 
   //checks if the 4-digit code entered is valid
@@ -150,7 +152,7 @@ export default function ResetPassword(props) {
           <View>
             <FormTextField
               bordered={true}
-              placeholder="user@email.com"
+              placeholder="Insira sua senha"
               label="E-mail"
               required={true}
               onChangeText={(email) => setEmail(email)}
