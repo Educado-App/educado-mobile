@@ -8,6 +8,7 @@ on:
       - dev
       - staging
       - main
+      - video_pr_01_11
 
 jobs:
   test:
