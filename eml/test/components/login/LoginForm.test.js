@@ -27,10 +27,11 @@ const errorCodesJSON = JSON.parse(errorCodesStr);
 
 jest.mock("../../../api/userApi", () => ({
   loginUser: jest.fn(async ({ email, password }) => {
+
     if (email === testUserInfo.email && password === "password123") {
       return Promise.resolve({ accessToken: testJwt, userInfo: testUserInfo });
     } else if (email !== testUserInfo.email) {
-      return Promise.reject({ error: { code: 'E0101' } });
+      return Promise.reject({ error: { code: 'E0004' } });
     } else if (password !== "password123") {
       return Promise.reject({ error: { code: 'E0105' } });
     }

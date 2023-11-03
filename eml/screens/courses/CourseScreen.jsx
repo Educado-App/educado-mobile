@@ -6,6 +6,8 @@ import * as StorageService from "../../services/StorageService";
 import CourseCard from '../../components/courses/courseCard/CourseCard';
 import BaseScreen from '../../components/general/BaseScreen';
 import IconHeader from '../../components/general/IconHeader';
+import { shouldUpdate } from '../../services/utilityFunctions';
+import ToastNotification from '../../components/general/ToastNotification';
 
 /**
  * Course screen component that displays a list of courses.
@@ -31,25 +33,6 @@ export default function CourseScreen() {
      * @param {Array} courses2 - The second array of courses, typically representing the new fetched data.
      * @returns {boolean} - Returns true if the two arrays are different and an update is required, otherwise false.
      */
-    function shouldUpdate(courses1, courses2) {
-        // If both arrays are empty, they are equal, but should still update
-        if (courses1.length === 0 && courses2.length === 0) {
-            return true;
-        }
-
-        // If the lengths are different, they are not equal
-        if (courses1.length !== courses2.length) {
-            return true;
-        }
-
-        // If the IDs are different, they are not equal
-        for (let i = 0; i < courses1.length; i++) {
-            if (courses1[i].id !== courses2[i].id) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     /**
     * Asynchronous function that loads the courses from storage and updates the state.
@@ -83,6 +66,10 @@ export default function CourseScreen() {
         });
         return update;
     }, [navigation]);
+
+    useEffect(() => {
+      ToastNotification('success', 'Logado!')
+    }, []);
 
     return (
         <BaseScreen>

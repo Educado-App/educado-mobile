@@ -41,7 +41,7 @@
             ]
           }
         ],
-        "createdAt": "Thu Oct 27 2022 10:14:37 GMT+0200"
+        "dateCreated": "Thu Oct 27 2022 10:14:37 GMT+0200"
       },
       {
         "sectionNumber": 2,
@@ -72,7 +72,7 @@
             ]
           }
         ],
-        "createdAt": "Thu Oct 27 2022 10:14:37 GMT+0200"
+        "dateCreated": "Thu Oct 27 2022 10:14:37 GMT+0200"
       },
       {
         "sectionNumber": 3,
@@ -103,7 +103,7 @@
             ]
           }
         ],
-        "createdAt": "Thu Oct 27 2022 10:14:37 GMT+0200"
+        "dateCreated": "Thu Oct 27 2022 10:14:37 GMT+0200"
       },
       {
         "sectionNumber": 4,
@@ -134,7 +134,7 @@
             ]
           }
         ],
-        "createdAt": "Thu Oct 27 2022 10:14:37 GMT+0200"
+        "dateCreated": "Thu Oct 27 2022 10:14:37 GMT+0200"
       },
       {
         "sectionNumber": 5,
@@ -165,7 +165,7 @@
             ]
           }
         ],
-        "createdAt": "Thu Oct 27 2022 10:14:37 GMT+0200"
+        "dateCreated": "Thu Oct 27 2022 10:14:37 GMT+0200"
       },
       {
         "sectionNumber": 6,
@@ -196,7 +196,7 @@
             ]
           }
         ],
-        "createdAt": "Thu Oct 27 2022 10:14:37 GMT+0200"
+        "dateCreated": "Thu Oct 27 2022 10:14:37 GMT+0200"
       },
       {
         "sectionNumber": 7,
@@ -227,7 +227,7 @@
             ]
           }
         ],
-        "createdAt": "Thu Oct 27 2022 10:14:37 GMT+0200"
+        "dateCreated": "Thu Oct 27 2022 10:14:37 GMT+0200"
       },
       {
         "sectionNumber": 8,
@@ -258,7 +258,7 @@
             ]
           }
         ],
-        "createdAt": "Thu Oct 27 2022 10:14:37 GMT+0200"
+        "dateCreated": "Thu Oct 27 2022 10:14:37 GMT+0200"
       },
       {
         "sectionNumber": 9,
@@ -289,7 +289,7 @@
             ]
           }
         ],
-        "createdAt": "Thu Oct 27 2022 10:14:37 GMT+0200"
+        "dateCreated": "Thu Oct 27 2022 10:14:37 GMT+0200"
       },
       {
         "sectionNumber": 10,
@@ -320,10 +320,10 @@
             ]
           }
         ],
-        "createdAt": "Thu Oct 27 2022 10:14:37 GMT+0200"
+        "dateCreated": "Thu Oct 27 2022 10:14:37 GMT+0200"
       }
     ],
-    "createdAt": "Thu Oct 27 2022 10:14:37 GMT+0200"
+    "dateCreated": "Thu Oct 27 2022 10:14:37 GMT+0200"
   },
   {
     "title": "Health",
@@ -367,10 +367,10 @@
             ]
           }
         ],
-        "createdAt": "Thu Oct 27 2022 10:14:37 GMT+0200"
+        "dateCreated": "Thu Oct 27 2022 10:14:37 GMT+0200"
       }
     ],
-    "createdAt": "Thu Oct 27 2022 10:14:37 GMT+0200"
+    "dateCreated": "Thu Oct 27 2022 10:14:37 GMT+0200"
   },
   {
     "title": "Personal Finance",
@@ -414,10 +414,10 @@
             ]
           }
         ],
-        "createdAt": "Thu Oct 27 2022 10:14:37 GMT+0200"
+        "dateCreated": "Thu Oct 27 2022 10:14:37 GMT+0200"
       }
     ],
-    "createdAt": "Thu Oct 27 2022 10:14:37 GMT+0200"
+    "dateCreated": "Thu Oct 27 2022 10:14:37 GMT+0200"
   },
   {
     "title": "Test course 10",
@@ -461,9 +461,9 @@
             ]
           }
         ],
-        "createdAt": "Thu Oct 27 2022 10:14:37 GMT+0200"
+        "dateCreated": "Thu Oct 27 2022 10:14:37 GMT+0200"
       }
     ],
-    "createdAt": "Thu Oct 27 2022 10:14:37 GMT+0200"
+    "dateCreated": "Thu Oct 27 2022 10:14:37 GMT+0200"
   }
 ]

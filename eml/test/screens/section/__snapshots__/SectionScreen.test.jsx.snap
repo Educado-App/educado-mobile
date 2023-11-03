@@ -1,20 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SectionScreen Renders section screen with sections loaded 1`] = `
-<View
-  style={
-    [
-      {
-        "flexBasis": "0%",
-        "flexGrow": 1,
-        "flexShrink": 1,
-      },
-      {
-        "backgroundColor": "#F1F9FB",
-      },
-    ]
-  }
->
+[
   <View
     style={
       [
@@ -83,6 +70,12 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
           {
             "fontFamily": "Montserrat-Regular",
           },
+          {
+            "color": "#383838",
+          },
+          {
+            "fontSize": 16,
+          },
           [
             {
               "fontSize": 25,
@@ -147,7 +140,7 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
         </Text>
       </View>
     </View>
-  </View>
+  </View>,
   <View
     style={
       [
@@ -351,6 +344,12 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
                     {
                       "fontFamily": "Montserrat-Regular",
                     },
+                    {
+                      "color": "#383838",
+                    },
+                    {
+                      "fontSize": 16,
+                    },
                     [
                       {
                         "fontSize": 16,
@@ -374,6 +373,12 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
                   [
                     {
                       "fontFamily": "Montserrat-Regular",
+                    },
+                    {
+                      "color": "#383838",
+                    },
+                    {
+                      "fontSize": 16,
                     },
                     [
                       {
@@ -444,6 +449,12 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
                     [
                       {
                         "fontFamily": "Montserrat-Regular",
+                      },
+                      {
+                        "color": "#383838",
+                      },
+                      {
+                        "fontSize": 16,
                       },
                       [
                         {
@@ -624,6 +635,12 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
                     {
                       "fontFamily": "Montserrat-Regular",
                     },
+                    {
+                      "color": "#383838",
+                    },
+                    {
+                      "fontSize": 16,
+                    },
                     [
                       {
                         "fontSize": 16,
@@ -647,6 +664,12 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
                   [
                     {
                       "fontFamily": "Montserrat-Regular",
+                    },
+                    {
+                      "color": "#383838",
+                    },
+                    {
+                      "fontSize": 16,
                     },
                     [
                       {
@@ -717,6 +740,12 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
                     [
                       {
                         "fontFamily": "Montserrat-Regular",
+                      },
+                      {
+                        "color": "#383838",
+                      },
+                      {
+                        "fontSize": 16,
                       },
                       [
                         {
@@ -819,6 +848,6 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
         </View>
       </View>
     </RCTScrollView>
-  </View>
-</View>
+  </View>,
+]
 `;

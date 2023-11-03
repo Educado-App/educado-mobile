@@ -1,4 +1,5 @@
 import * as api from '../api/api.js';
+import * as userApi from '../api/userApi.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import errorCodes from '../components/general/errorCodes';
 
@@ -7,18 +8,17 @@ const COURSE_LIST = '@courseList';
 const SUB_COURSE_LIST = '@subCourseList';
 const SECTION_LIST = '@sectionList';
 const COURSE = '@course';
+const USER_ID = '@userId';
 const USER_INFO = '@userInfo';
 
-/** USER **/
-export const getUserId = async () => {
+export const getUserInfo = async () => {
   try {
     const fetchedUserInfo = JSON.parse(await AsyncStorage.getItem(USER_INFO));
-    return fetchedUserInfo.id;
+    return fetchedUserInfo;
   } catch (e) {
-    throw errorCodes.E0004.code + ": " + errorCodes.E0004.message;
+    throw e;
   }
 };
-
 
 /** COURSE AND COURSE LIST **/
 
@@ -71,6 +71,7 @@ export const getCourseList = async () => {
     }
   }
 };
+
 export const refreshCourseList = async () => {
   return await api
     .getCourses()

@@ -30,6 +30,12 @@ exports[`login Check LoginForm renders correctly 1`] = `
               {
                 "fontFamily": "Montserrat-Regular",
               },
+              {
+                "color": "#383838",
+              },
+              {
+                "fontSize": 16,
+              },
               [
                 {
                   "marginLeft": 8,
@@ -42,13 +48,19 @@ exports[`login Check LoginForm renders correctly 1`] = `
             ]
           }
         >
-          Email
+          E-mail
         </Text>
         <Text
           style={
             [
               {
                 "fontFamily": "Montserrat-Regular",
+              },
+              {
+                "color": "#383838",
+              },
+              {
+                "fontSize": 16,
               },
               [
                 {
@@ -74,7 +86,7 @@ exports[`login Check LoginForm renders correctly 1`] = `
           keyboardType="email-address"
           onChangeText={[Function]}
           passwordGuidelines={false}
-          placeholder="user@email.com"
+          placeholder="Insira sua e-mail"
           secureTextEntry={false}
           style={
             [
@@ -113,6 +125,12 @@ exports[`login Check LoginForm renders correctly 1`] = `
           [
             {
               "fontFamily": "Montserrat-Regular",
+            },
+            {
+              "color": "#383838",
+            },
+            {
+              "fontSize": 16,
             },
             [
               {
@@ -163,6 +181,12 @@ exports[`login Check LoginForm renders correctly 1`] = `
               {
                 "fontFamily": "Montserrat-Regular",
               },
+              {
+                "color": "#383838",
+              },
+              {
+                "fontSize": 16,
+              },
               [
                 {
                   "marginLeft": 8,
@@ -182,6 +206,12 @@ exports[`login Check LoginForm renders correctly 1`] = `
             [
               {
                 "fontFamily": "Montserrat-Regular",
+              },
+              {
+                "color": "#383838",
+              },
+              {
+                "fontSize": 16,
               },
               [
                 {
@@ -207,7 +237,7 @@ exports[`login Check LoginForm renders correctly 1`] = `
           keyboardType="default"
           onChangeText={[Function]}
           passwordGuidelines={false}
-          placeholder="Digite sua senha"
+          placeholder="Insira sua senha"
           secureTextEntry={true}
           style={
             [
@@ -289,6 +319,12 @@ exports[`login Check LoginForm renders correctly 1`] = `
             {
               "fontFamily": "Montserrat-Regular",
             },
+            {
+              "color": "#383838",
+            },
+            {
+              "fontSize": 16,
+            },
             [
               {
                 "fontSize": 12,
@@ -315,6 +351,12 @@ exports[`login Check LoginForm renders correctly 1`] = `
           {
             "fontFamily": "Montserrat-Regular",
           },
+          {
+            "color": "#383838",
+          },
+          {
+            "fontSize": 16,
+          },
           [
             {
               "textAlign": "right",
@@ -325,9 +367,6 @@ exports[`login Check LoginForm renders correctly 1`] = `
             {
               "fontSize": 16,
               "lineHeight": 24,
-            },
-            {
-              "marginLeft": 205,
             },
           ],
         ]
@@ -404,6 +443,12 @@ exports[`login Check LoginForm renders correctly 1`] = `
           [
             {
               "fontFamily": "Montserrat-Regular",
+            },
+            {
+              "color": "#383838",
+            },
+            {
+              "fontSize": 16,
             },
             [
               {

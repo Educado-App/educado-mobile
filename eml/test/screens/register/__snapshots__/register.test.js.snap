@@ -253,6 +253,12 @@ exports[`Register screen Login screen renders 1`] = `
                       {
                         "fontFamily": "Montserrat-Regular",
                       },
+                      {
+                        "color": "#383838",
+                      },
+                      {
+                        "fontSize": 16,
+                      },
                       [
                         {
                           "marginLeft": 8,
@@ -265,13 +271,19 @@ exports[`Register screen Login screen renders 1`] = `
                     ]
                   }
                 >
-                  Primeiro nome
+                  Nome
                 </Text>
                 <Text
                   style={
                     [
                       {
                         "fontFamily": "Montserrat-Regular",
+                      },
+                      {
+                        "color": "#383838",
+                      },
+                      {
+                        "fontSize": 16,
                       },
                       [
                         {
@@ -297,7 +309,7 @@ exports[`Register screen Login screen renders 1`] = `
                   keyboardType="default"
                   onChangeText={[Function]}
                   passwordGuidelines={false}
-                  placeholder="Primeiro nome"
+                  placeholder="Nome"
                   secureTextEntry={false}
                   style={
                     [
@@ -349,6 +361,12 @@ exports[`Register screen Login screen renders 1`] = `
                       {
                         "fontFamily": "Montserrat-Regular",
                       },
+                      {
+                        "color": "#383838",
+                      },
+                      {
+                        "fontSize": 16,
+                      },
                       [
                         {
                           "marginLeft": 8,
@@ -368,6 +386,12 @@ exports[`Register screen Login screen renders 1`] = `
                     [
                       {
                         "fontFamily": "Montserrat-Regular",
+                      },
+                      {
+                        "color": "#383838",
+                      },
+                      {
+                        "fontSize": 16,
                       },
                       [
                         {
@@ -434,6 +458,12 @@ exports[`Register screen Login screen renders 1`] = `
                     {
                       "fontFamily": "Montserrat-Regular",
                     },
+                    {
+                      "color": "#383838",
+                    },
+                    {
+                      "fontSize": 16,
+                    },
                     [
                       {
                         "fontSize": 12,
@@ -480,6 +510,12 @@ exports[`Register screen Login screen renders 1`] = `
                       {
                         "fontFamily": "Montserrat-Regular",
                       },
+                      {
+                        "color": "#383838",
+                      },
+                      {
+                        "fontSize": 16,
+                      },
                       [
                         {
                           "marginLeft": 8,
@@ -492,13 +528,19 @@ exports[`Register screen Login screen renders 1`] = `
                     ]
                   }
                 >
-                  Email
+                  E-mail
                 </Text>
                 <Text
                   style={
                     [
                       {
                         "fontFamily": "Montserrat-Regular",
+                      },
+                      {
+                        "color": "#383838",
+                      },
+                      {
+                        "fontSize": 16,
                       },
                       [
                         {
@@ -524,7 +566,7 @@ exports[`Register screen Login screen renders 1`] = `
                   keyboardType="email-address"
                   onChangeText={[Function]}
                   passwordGuidelines={false}
-                  placeholder="user@email.com"
+                  placeholder="Insira sua e-mail"
                   secureTextEntry={false}
                   style={
                     [
@@ -564,6 +606,12 @@ exports[`Register screen Login screen renders 1`] = `
                   [
                     {
                       "fontFamily": "Montserrat-Regular",
+                    },
+                    {
+                      "color": "#383838",
+                    },
+                    {
+                      "fontSize": 16,
                     },
                     [
                       {
@@ -620,6 +668,12 @@ exports[`Register screen Login screen renders 1`] = `
                         {
                           "fontFamily": "Montserrat-Regular",
                         },
+                        {
+                          "color": "#383838",
+                        },
+                        {
+                          "fontSize": 16,
+                        },
                         [
                           {
                             "marginLeft": 8,
@@ -639,6 +693,12 @@ exports[`Register screen Login screen renders 1`] = `
                       [
                         {
                           "fontFamily": "Montserrat-Regular",
+                        },
+                        {
+                          "color": "#383838",
+                        },
+                        {
+                          "fontSize": 16,
                         },
                         [
                           {
@@ -664,7 +724,7 @@ exports[`Register screen Login screen renders 1`] = `
                     keyboardType="default"
                     onChangeText={[Function]}
                     passwordGuidelines={false}
-                    placeholder="Entre sua senha"
+                    placeholder="Insira sua senha"
                     secureTextEntry={true}
                     style={
                       [
@@ -732,10 +792,19 @@ exports[`Register screen Login screen renders 1`] = `
                     {
                       "fontFamily": "Montserrat-Regular",
                     },
+                    {
+                      "color": "#383838",
+                    },
+                    {
+                      "fontSize": 16,
+                    },
                     [
                       {
                         "fontSize": 12,
                         "lineHeight": 16,
+                      },
+                      {
+                        "color": "#A1ACB2",
                       },
                     ],
                   ]
@@ -788,6 +857,12 @@ exports[`Register screen Login screen renders 1`] = `
                     {
                       "fontFamily": "Montserrat-Regular",
                     },
+                    {
+                      "color": "#383838",
+                    },
+                    {
+                      "fontSize": 16,
+                    },
                     [
                       {
                         "fontSize": 12,
@@ -795,6 +870,9 @@ exports[`Register screen Login screen renders 1`] = `
                       },
                       {
                         "fontFamily": "Montserrat-Regular",
+                      },
+                      {
+                        "color": "#A1ACB2",
                       },
                     ],
                   ]
@@ -864,6 +942,12 @@ exports[`Register screen Login screen renders 1`] = `
                         {
                           "fontFamily": "Montserrat-Regular",
                         },
+                        {
+                          "color": "#383838",
+                        },
+                        {
+                          "fontSize": 16,
+                        },
                         [
                           {
                             "marginLeft": 8,
@@ -876,13 +960,19 @@ exports[`Register screen Login screen renders 1`] = `
                       ]
                     }
                   >
-                    Confirmar Senha
+                    Confirmar senha
                   </Text>
                   <Text
                     style={
                       [
                         {
                           "fontFamily": "Montserrat-Regular",
+                        },
+                        {
+                          "color": "#383838",
+                        },
+                        {
+                          "fontSize": 16,
                         },
                         [
                           {
@@ -969,6 +1059,12 @@ exports[`Register screen Login screen renders 1`] = `
                   [
                     {
                       "fontFamily": "Montserrat-Regular",
+                    },
+                    {
+                      "color": "#383838",
+                    },
+                    {
+                      "fontSize": 16,
                     },
                     [
                       {
@@ -1067,6 +1163,12 @@ exports[`Register screen Login screen renders 1`] = `
                       {
                         "fontFamily": "Montserrat-Regular",
                       },
+                      {
+                        "color": "#383838",
+                      },
+                      {
+                        "fontSize": 16,
+                      },
                       [
                         {
                           "fontSize": 16,
@@ -1106,6 +1208,12 @@ exports[`Register screen Login screen renders 1`] = `
               {
                 "fontFamily": "Montserrat-Regular",
               },
+              {
+                "color": "#383838",
+              },
+              {
+                "fontSize": 16,
+              },
               [
                 {
                   "lineHeight": 20,
@@ -1126,6 +1234,12 @@ exports[`Register screen Login screen renders 1`] = `
             [
               {
                 "fontFamily": "Montserrat-Regular",
+              },
+              {
+                "color": "#383838",
+              },
+              {
+                "fontSize": 16,
               },
               [
                 {

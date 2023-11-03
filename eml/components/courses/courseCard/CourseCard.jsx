@@ -1,10 +1,12 @@
-import { View, Image, Pressable, Dimensions } from 'react-native';
+import { View, Pressable } from 'react-native';
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import Text from '../../../components/general/Text';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import CustomProgressBar from "../../exercise/Progressbar";
 import tailwindConfig from "../../../tailwind.config";
+import { determineIcon, determineCategory } from '../../../services/utilityFunctions';
+
 
 /**
  * CourseCard component displays a card for a course with its details
@@ -29,19 +31,23 @@ export default function CourseCard({ course }) {
                     <MaterialCommunityIcons size={28}
                         name={course.image ? course.image : 'school'}> </MaterialCommunityIcons>
                     <Text className="text-[18px] text-black flex-1 self-center">
-                        {course.title ? course.title : 'Course Title'}
+                        {course.title ? course.title : 'Título do curso'}
                     </Text>
                 </View>
                 <View className="h-[1] bg-disable m-[2%]" />
-                <View className="flex-row items-center justify-start overflow-hidden">
-                    <MaterialCommunityIcons size={18} name="school" color={'gray'}></MaterialCommunityIcons>
-                    <Text className="mx-[2.5%] my-[3%]">{course.category ? course.category : 'category'}</Text>
-                    <MaterialCommunityIcons size={18} name="clock" color={'gray'}></MaterialCommunityIcons>
-                    <Text className="mx-[2.5%] my-[3%]">{course.estimatedHours ? course.estimatedHours + ' hora(s)' : 'duration'}</Text>
+                <View className="flex-row flex-wrap items-center justify-start">
+                    <View className="flex-row items-center">
+                        <MaterialCommunityIcons size={18} name={determineIcon(course.category)} color={'gray'}></MaterialCommunityIcons>
+                        <Text className="mx-[2.5%] my-[3%]">{determineCategory(course.category)}</Text>
+                    </View>
+                    <View className="flex-row items-center">
+                        <MaterialCommunityIcons size={18} name="clock" color={'gray'}></MaterialCommunityIcons>
+                        <Text className="mx-[2.5%] my-[3%]">{course.estimatedHours ? course.estimatedHours + ' hora(s)' : 'duração'}</Text>
+                    </View>
                 </View>
                 <View className="flex-row items-center">
                     {/* TODO: Implement progress dynamically */}
-                    <CustomProgressBar width={60} progress={50} height={1} />
+                    <CustomProgressBar width={56} progress={50} height={1} />
                     <Pressable className="z-[1]"
                         onPress={() => {
                             navigation.navigate('Section', {
