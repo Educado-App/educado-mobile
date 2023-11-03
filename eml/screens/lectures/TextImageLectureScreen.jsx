@@ -102,9 +102,9 @@ const TextImageLectureScreen = ({ lecture, course, progress }) => {
                     if (paragraphs.length <= 2 || index !== paragraphs.length - 1) {
                         return (
                             index == 0 ?
-                                <Text className="text-[18px] pt-4 px-4 text-primary">{paragraph}</Text>
+                                <Text key={index} className="text-[18px] pt-4 px-4 text-primary">{paragraph}</Text>
                                 :
-                                <Text className="text-[18px] pt-4 px-4 text-projectGray">{paragraph}</Text>
+                                <Text key={index} className="text-[18px] pt-4 px-4 text-projectGray">{paragraph}</Text>
                         );
                     }
                     return null;
