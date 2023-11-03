@@ -129,20 +129,6 @@ export default function EnterNewPasswordScreen(props) {
     return (!isPasswordsEmpty && passwordRequirements && confirmPasswordAlert === '');
   }
 
-  const showPasswordChangedSuccess = () => {
-    Alert.alert(
-      'Sucesso!', // Success!
-      'A senha foi alterada.', // Password has been changed
-      [{
-        text: 'OK',
-        style: 'cancel',
-      }],
-      {
-        cancelable: true,
-      }
-    );
-  };
-
   return (
     <View>
       <View>
