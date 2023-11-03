@@ -9,14 +9,11 @@ import RegisterScreen from './screens/register/Register';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
-import RightAnswerScreen from './screens/excercise/RightAnswerScreen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ExerciseScreen from './screens/excercise/ExerciseScreen';
-import WrongAnswerComponent from './screens/excercise/WrongAnswerScreen';
 import Explore from './screens/explore/Explore';
 import { TailwindProvider } from 'tailwindcss-react-native';
 import ErrorScreen from './screens/errors/ErrorScreen';
-import SectionCompleteScreen from './screens/excercise/SectionCompleteScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SectionScreen from './screens/section/SectionScreen';
 import { isFontsLoaded } from './constants/Fonts';
@@ -98,25 +95,10 @@ function CourseStack() {
         }}
       />
       <Stack.Screen
-        name="WrongAnswer"
-        component={WrongAnswerComponent}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="RightAnswer"
-        component={RightAnswerScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="SectionComplete"
-        component={SectionCompleteScreen}
-        options={{
-          headerShown: false,
-        }}
+        name="Section"
+        component={SectionScreen}
+        initialParams={{ course_id: '' }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="ErrorScreen"

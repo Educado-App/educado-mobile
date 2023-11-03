@@ -8,6 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 import { generateSectionCompletePhrases } from '../../constants/Phrases';
 
 export default function CompleteSectionScreen() {
+	const navigation = useNavigation();
 	const [randomPhrase, setRandomPhrase] = useState('');
 	const getRandomPhrase = () => {
 		let randomIndex = 0;
@@ -71,8 +72,8 @@ export default function CompleteSectionScreen() {
 					<View className="w-full mb-24"> 
 						<StandardButton
 							props={{
-							buttonText: "Continuar",
-							onPress: () => {useNavigation().navigate('Section')}
+								buttonText: "Continuar",
+								onPress: () => {navigation.navigate('Section')}
 							}}
 						/>
 					</View>
