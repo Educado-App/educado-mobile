@@ -39,7 +39,7 @@ export const registerUser = async (obj) => {
     console.log('User successfully registered');
     return res.data;
   } catch (e) {
-    if (e.response.data != null) {
+    if (e?.response?.data != null) {
       throw e.response.data;
     } else {
       throw e;
@@ -59,7 +59,7 @@ export const loginUser = async (obj) => {
     console.log('User successfully registered');
     return res.data;
   } catch (e) {
-    if (e.response.data != null) {
+    if (e?.response?.data != null) {
       throw e.response.data;
     } else {
       throw e;
@@ -185,10 +185,10 @@ export const updateExerciseStatus = async (
 */
 export const sendResetPasswordEmail = async (email) => {
   try {
-    const res = await axios.post(url + '/api/auth/reset-password-request', email);
+    const res = await client.post('/api/auth/reset-password-request', email);
     return res.data;
   } catch (e) {
-    if (e.response.data != null) {
+    if (e?.response?.data != null) {
       throw e.response.data;
     } else {
       throw e;
@@ -205,10 +205,10 @@ export const sendResetPasswordEmail = async (email) => {
 */
 export const validateResetPasswordCode = async (obj) => {
   try {
-    const res = await axios.post(url + '/api/auth/reset-password-code', obj);
+    const res = await client.post('/api/auth/reset-password-code', obj);
     return res.data;
   } catch (e) {
-    if (e.response.data != null) {
+    if (e?.response?.data != null) {
       throw e.response.data;
     } else {
       throw e;
@@ -226,10 +226,10 @@ export const validateResetPasswordCode = async (obj) => {
 */
 export const enterNewPassword = async (obj) => {
   try {
-    const res = await axios.patch(url + '/api/auth/reset-password', obj);
-    return res.data;
+  const res = await client.patch('/api/auth/reset-password', obj);
+  return res.data;
   } catch (e) {
-    if (e.response.data != null) {
+    if (e?.response?.data != null) {
       throw e.response.data;
     } else {
       throw e;
