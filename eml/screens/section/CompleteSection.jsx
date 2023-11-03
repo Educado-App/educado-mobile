@@ -1,12 +1,28 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { View } from 'react-native';
 import Text from '../../components/general/Text';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import LottieView from 'lottie-react-native';
 import StandardButton from '../../components/general/StandardButton';
 import { useNavigation } from '@react-navigation/native';
+import { generateSectionCompletePhrases } from '../../constants/Phrases';
 
 export default function CompleteSectionScreen() {
+	const [randomPhrase, setRandomPhrase] = useState('');
+	const getRandomPhrase = () => {
+		let randomIndex = 0;
+		const phrases = generateSectionCompletePhrases();
+	
+		randomIndex = Math.floor(Math.random() * phrases.length);
+		let randomPhrase = phrases[randomIndex];
+		
+		return randomPhrase;
+	  };
+	
+	useEffect(() => {
+		setRandomPhrase(getRandomPhrase());
+	}, []);
+
   return (
     <SafeAreaView className="flex flex-col justify-center items-center bg-bgPrimary h-screen w-screen">
 				<LottieView 
@@ -18,7 +34,7 @@ export default function CompleteSectionScreen() {
 					<View className="w-fit h-40 justify-center mb-8">
 						<Text className="text-center text-3xl font-sans-bold text-primary bg-bgPrimary">
 						{/* This should be made to give different messages */}
-						Você está progredindo! Próxima seção, aqui vamos nós!
+						{randomPhrase}
 						</Text>
 					</View>
 
