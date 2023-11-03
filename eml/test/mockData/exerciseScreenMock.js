@@ -44,8 +44,6 @@ export function exerciseScreenMock() {
       dateUpdated: '2023-10-11T07:45:19.135Z',
       __v: 37,
       lectures: [],
-      dateCreated: "2023-10-20T10:57:20.437Z",
-      dateUpdated: "2023-10-20T10:57:20.437Z",
     },
     courseData: {
       rating: 2,
