@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const prod = 'http://educado.somethingnew.dk';
-const test = 'http://172.30.212.239:8888'; // Change this to your LOCAL IP address when testing.
+const test = 'http://172.30.254.243:8888'; // Change this to your LOCAL IP address when testing.
 const local = 'http://localhost:8888';
 const digitalOcean = 'http://207.154.213.68:8888';
 
@@ -95,6 +95,31 @@ export const updateUserFields = async (user_id, updateFields, token) => {
     throw error; // You may want to handle the error or log it
   }
 };
+
+export const completeExercise = async (user_id, exercise_id, isComplete, points, token) => {
+  try {
+    const res = await axios.patch(url + '/api/users/' + user_id + '/completed', {exerciseId: exercise_id, isComplete: isComplete, points: points}, {
+      headers: {
+        'Content-Type': 'application/json',
+        'token': token, // Include the token in the headers
+      },
+    });
+    
+    // Extract the required fields from the response data
+    const { _id, firstName, lastName, email, completedCourses } = res.data;
+
+    // Return the specific fields
+    return {
+      id: _id,
+      firstName,
+      lastName,
+      email,
+      completedCourses
+    };
+  } catch(error) {
+    throw error;
+  }
+}
 
 export const enrollInCourse = async (user_Id, course_Id) => {
   try {
