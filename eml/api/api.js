@@ -99,6 +99,22 @@ export const getExercisesInSection = async (courseId, sectionId) => {
   }
 };
 
+// Get all lectures in a specific section:
+export const getLecturesInSection = async (sectionId) => {
+  try {
+    const res = await axios.get(
+        url + "/api/lectures/section/" + sectionId
+    );
+    return res.data;
+  } catch (e) {
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
+};
+
 /*** SUBSCRIPTION ***/
 
 // Get user subsribtions

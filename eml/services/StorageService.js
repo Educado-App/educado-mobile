@@ -149,6 +149,89 @@ export const refreshSectionList = async (sectionList) => {
         return newSectionList;
 };
 
+/** LECTURES **/
+
+// get all Lectures for specific section
+export const getLectureList = async (sectionID) => {
+    let lectureList;
+    try {
+        lectureList = await api.getLecturesInSection(sectionID);
+
+    } catch (unusedErrorMessage) {
+        // Use locally stored lectures if they exist and the DB cannot be reached
+        try {
+            lectureList = JSON.parse(await AsyncStorage.getItem('L'+sectionID));
+        } catch (e){
+            console.log('Error fetching from storage ' + e);
+            if (e?.response?.data != null) {
+                throw e.response.data;
+            } else {
+                throw e;
+            }
+        }
+    } finally {
+        return await lectureFittingModel(lectureList);
+    }
+};
+
+// Fits lecture data to new object with relevant fields
+const lectureFittingModel = async (lectureList) => {
+    let newLectureList = [];
+    if (lectureList !== null) {
+        for (const lecture of lectureList) {
+            newLectureList.push(
+                lecture  // Replace with object model if needed (Se sections for reference)
+            );
+        }
+    } else {
+        console.log('No data to be read in DB or local storage');
+    }
+    //Returns new fitted lecture list, or empty list if there was no data fetched from DB or Storage,
+    return newLectureList;
+};
+
+/** EXERCISES **/
+
+// get all Exercises for specific section
+export const getExerciseList = async (sectionID) => {
+    let exerciseList;
+    try {
+        exerciseList = await api.getExercisesInSection(sectionID);
+
+    } catch (unusedErrorMessage) {
+        // Use locally stored exercises if they exist and the DB cannot be reached
+        try {
+            exerciseList = JSON.parse(await AsyncStorage.getItem('E'+sectionID));
+        } catch (e){
+            console.log('Error fetching from storage ' + e);
+            if (e?.response?.data != null) {
+                throw e.response.data;
+            } else {
+                throw e;
+            }
+        }
+    } finally {
+        return await exerciseFittingModel(exerciseList);
+    }
+};
+
+// Fits exercise data to new object with relevant fields
+const exerciseFittingModel = async (exerciseList) => {
+    let newExerciseList = [];
+    if (exerciseList !== null) {
+        for (const exercise of exerciseList) {
+            newExerciseList.push(
+                exercise  // Replace with object model if needed (Se sections for reference)
+            );
+        }
+    } else {
+        console.log('No data to be read in DB or local storage');
+    }
+    //Returns new fitted exercise list, or empty list if there was no data fetched from DB or Storage,
+    return newExerciseList;
+};
+
+
 /** SUBSCRIPTIONS **/
 
 // get all subscribed courses from a user
@@ -280,7 +363,7 @@ export const checkSubscriptions = async (courseId) => {
   }
 };
 
-
+/** Downloading course **/
 
 /**
  * Stores a course locally
@@ -296,8 +379,10 @@ export const storeCourseLocally = async (courseID) => {
         await AsyncStorage.setItem("S" + courseID, JSON.stringify(sectionList));
 
         for (let section of sectionList) {
+            let lectureList = await api.getLecturesInSection(section._id);
+            await AsyncStorage.setItem("L" + section._id, JSON.stringify(lectureList));
             let exerciseList = await api.getExercisesInSection(courseID, section._id);
-            await AsyncStorage.setItem("" + section._id + courseID, JSON.stringify(exerciseList));
+            await AsyncStorage.setItem("E" + section._id, JSON.stringify(exerciseList));
         }
 
         return true;
@@ -321,7 +406,8 @@ export const deleteLocallyStoredCourse = async (courseID) => {
         await AsyncStorage.removeItem("S" + courseID);
 
         for (let section of sectionList) {
-            await AsyncStorage.removeItem("" + section._id + courseID);
+            await AsyncStorage.removeItem("L" + section._id);
+            await AsyncStorage.removeItem("E" + section._id);
         }
 
         return true;
@@ -350,6 +436,7 @@ export const updateStoredCourses = async () => {
 
 }
 
+/** Other **/
 
 export const clearAsyncStorage = async () => {
   console.log(await AsyncStorage.getAllKeys());
