@@ -235,7 +235,6 @@ export const getVideoDownloadUrl = (fileName, resolution) => {
     break;
   }
   const _vidUrl = `${url}/api/bucket/stream/${fileName}_transcoded${usableResolution}.mp4`;
-  console.log(_vidUrl);
   return _vidUrl;
 };
 
