@@ -12,12 +12,6 @@ jest.mock('@react-navigation/native', () => ({
   }),
 }))
 
-jest.mock('react-native-keyboard-aware-scroll-view', () => {
-  return {
-    KeyboardAwareScrollView: jest.fn().mockImplementation(({ children }) => children),
-  };
-});
-
 describe('Register screen', () => {
 
   let registerScreen;

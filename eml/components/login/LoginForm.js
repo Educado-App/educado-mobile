@@ -23,7 +23,7 @@ const USER_ID = "@userId";
  * @returns {React.Element} Component for logging in (login screen)
  */
 export default function LoginForm() {
-  
+
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

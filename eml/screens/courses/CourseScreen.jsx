@@ -7,6 +7,7 @@ import CourseCard from '../../components/courses/courseCard/CourseCard';
 import BaseScreen from '../../components/general/BaseScreen';
 import IconHeader from '../../components/general/IconHeader';
 import { shouldUpdate } from '../../services/utilityFunctions';
+import ToastNotification from '../../components/general/ToastNotification';
 
 /**
  * Course screen component that displays a list of courses.
@@ -65,6 +66,10 @@ export default function CourseScreen() {
         });
         return update;
     }, [navigation]);
+
+    useEffect(() => {
+      ToastNotification('success', 'Logado!')
+    }, []);
 
     return (
         <BaseScreen>
