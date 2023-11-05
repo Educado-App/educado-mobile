@@ -3,10 +3,9 @@ import { View, Text } from 'react-native';
 import { Image } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { getBucketImage } from '../../api/api';
+import PropTypes from 'prop-types';
 
 const TextImageLectureScreen = ({ lecture, course }) => {
-
-
 
   const [imageUrl, setImageUrl] = useState(null);
 
@@ -130,6 +129,11 @@ const TextImageLectureScreen = ({ lecture, course }) => {
       </View>
     </View>
   </View>);
+};
+
+TextImageLectureScreen.propTypes = {
+  lecture: PropTypes.object,
+  course: PropTypes.object,
 };
 
 export default TextImageLectureScreen;

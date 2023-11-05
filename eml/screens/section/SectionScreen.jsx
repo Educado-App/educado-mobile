@@ -19,7 +19,7 @@ import PropTypes from 'prop-types';
  */
 export default function SectionScreen({ route }) {
   SectionScreen.propTypes = {
-    route: PropTypes.string.isRequired,
+    route: PropTypes.object,
   };
   const { courseId } = route.params;
   const navigation = useNavigation();

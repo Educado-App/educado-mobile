@@ -8,6 +8,7 @@ import CustomRating from './CustomRating';
 import SubscriptionButton from './SubscriptionButton';
 import AccessCourseButton from './AccessCourseButton';
 import { determineCategory, determineIcon, getDifficultyLabel, getUpdatedDate } from '../../services/utilityFunctions';
+import PropTypes from 'prop-types';
 
 /**
  * This component is used to display a course card.
@@ -43,19 +44,16 @@ export default function ExploreCard({ course, isPublished, subscribed }) {
             <View className="flex-row items-center justify-start pb-2 flex-wrap">
               <CardLabel
                 title={determineCategory(course.category)}
-                time={false}
                 icon={determineIcon(course.category)}
               />
               <View className="w-2.5" />
               <CardLabel
-                title={course.estimatedHours}
-                time={true}
+                title={course.estimatedHours.toString() + ' Horas'}
                 icon={'clock-outline'}
               />
               <View className="w-2.5" />
               <CardLabel
                 title={getDifficultyLabel(course.difficulty)}
-                time={false}
                 icon={'book-multiple-outline'}
               />
             </View>
@@ -98,3 +96,9 @@ export default function ExploreCard({ course, isPublished, subscribed }) {
     </Pressable>
   ) : null;
 }
+
+ExploreCard.propTypes = {
+  course: PropTypes.object,
+  isPublished: PropTypes.bool,
+  subscribed: PropTypes.bool,
+};

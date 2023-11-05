@@ -11,6 +11,7 @@ import PopUp from '../../components/gamification/PopUp';
 import { StatusBar } from 'expo-status-bar';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { getExerciseByid } from '../../api/api';
+import PropTypes from 'prop-types';
 
 /**
  * Exercise screen component for displaying and handling exercises in a course.
@@ -220,6 +221,10 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed8' })
     </SafeAreaView>
   );
 }
+
+ExerciseScreen.propTypes = {
+  givenId: PropTypes.string,
+};
 
 /*
 async function getExercise() {

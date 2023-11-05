@@ -8,10 +8,7 @@ import tailwindConfig from '../../tailwind.config';
 const projectColors = tailwindConfig.theme.colors;
 
 const LeaveButton = ({ navigationPlace, courseID }) => {
-  LeaveButton.propTypes = {
-    navigationPlace: PropTypes.string.isRequired,
-    courseID: PropTypes.string,
-  };
+
   const navigation = useNavigation();
   return (
     <Button
@@ -36,5 +33,10 @@ const LeaveButton = ({ navigationPlace, courseID }) => {
 const styles = StyleSheet.create({
   buttons: { width: 50, height: 50 },
 });
+
+LeaveButton.propTypes = {
+  navigationPlace: PropTypes.string,
+  courseID: PropTypes.string,
+};
 
 export default LeaveButton;

@@ -1,14 +1,11 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { View, Text, Pressable, Animated } from 'react-native';
+import React from 'react';
+import { View, Pressable} from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-
-import Icon from '@mdi/react';
-import { mdiCheckCircleOutline } from '@mdi/js';
-import { mdiCheckCircle } from '@mdi/js';
 import tailwindConfig from '../../tailwind.config';
+import PropTypes from 'prop-types';
 
-const ProgressTopBar = ({ lectureType, allLectures, currentLectureIndex, className = '' }) => {
+const ProgressTopBar = ({ lectureType, allLectures, currentLectureIndex }) => {
 
   const navigator = useNavigation();
 
@@ -64,6 +61,13 @@ const ProgressTopBar = ({ lectureType, allLectures, currentLectureIndex, classNa
       </View>
     </View>
   );
+};
+
+ProgressTopBar.propTypes = {
+  lectureType: PropTypes.string,
+  allLectures: PropTypes.array,
+  currentLectureIndex: PropTypes.number,
+  className: PropTypes.string,
 };
 
 export default ProgressTopBar;

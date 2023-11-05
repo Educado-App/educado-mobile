@@ -3,13 +3,13 @@ import { View, Animated, Easing } from 'react-native';
 import Text from '../general/Text';
 import { generateSuccessPhrases, generateEncouragementPhrases } from '../../constants/PopUpPhrases';
 import { getUserInfo } from '../../services/StorageService';
+import PropTypes from 'prop-types';
 
 export default function PopUp({ xpAmount, isCorrectAnswer }) {
 
   const animatedPopUpValue = new Animated.Value(0);
   const animatedXpValue = new Animated.Value(0);
   const opacityValue = new Animated.Value(1);
-  const randomVariation = Math.random() * 150; // Adjust the range as needed
   const [randomPhrase, setRandomPhrase] = useState('');
 
   const getRandomPhrase = (firstName) => {
@@ -159,3 +159,8 @@ export default function PopUp({ xpAmount, isCorrectAnswer }) {
       </Animated.View></>
   );
 }
+
+PopUp.propTypes = {
+  xpAmount: PropTypes.number,
+  isCorrectAnswer: PropTypes.bool,
+};

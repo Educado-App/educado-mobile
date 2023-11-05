@@ -6,9 +6,8 @@ on:
   push:
     branches:
       - dev
-      - staging
+      - stage
       - main
-      - dev_toStageMerge0211
 jobs:
   eslint:
     runs-on: ubuntu-latest

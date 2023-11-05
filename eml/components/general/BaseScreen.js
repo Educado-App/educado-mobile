@@ -12,7 +12,7 @@ export default function BaseScreen({ children }) {
     children: PropTypes.oneOfType([
       PropTypes.object,
       PropTypes.array,
-    ]).isRequired,
+    ])
   };
 
   return (

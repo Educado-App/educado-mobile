@@ -4,6 +4,7 @@ import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/dev';
 import { useNavigation } from '@react-navigation/native';
 import { AppLoading } from 'expo-app-loading';
 import Text from '../general/Text';
+import PropTypes from 'prop-types';
 
 
 export default function ActiveExploreCard({ title, courseId, iconPath }) {
@@ -33,3 +34,9 @@ export default function ActiveExploreCard({ title, courseId, iconPath }) {
     );
   }
 }
+
+ActiveExploreCard.propTypes = {
+  title: PropTypes.string,
+  courseId: PropTypes.string,
+  iconPath: PropTypes.string,
+};

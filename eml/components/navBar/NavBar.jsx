@@ -2,7 +2,6 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CourseScreen from '../../screens/courses/CourseScreen';
 import Explore from '../../screens/explore/Explore';
-import TestScreen from '../../screens/test/TestScreen';
 import ProfileComponent from '../../screens/profile/Profile';
 import { Icon } from '@rneui/themed';
 import { Platform } from 'react-native';

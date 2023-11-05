@@ -1,13 +1,13 @@
-import React, { useState, useEffect, StyleSheet } from 'react';
+import React, { useState, useEffect} from 'react';
 import { View, Text } from 'react-native';
 import Slider from '@react-native-community/slider';
 import tailwindConfig from '../../tailwind.config';
-
+import PropTypes from 'prop-types';
 import { convertMsToTime } from '../../services/utilityFunctions';
 
 
 
-const ReactSliderProgress = ({ elapsedMs = 10000, totalMs = 20000, color, height, videoRef }) => {
+const ReactSliderProgress = ({ elapsedMs = 10000, totalMs = 20000, videoRef }) => {
 
 
 
@@ -60,6 +60,12 @@ const ReactSliderProgress = ({ elapsedMs = 10000, totalMs = 20000, color, height
   );
 
 
+};
+
+ReactSliderProgress.propTypes = {
+  elapsedMs: PropTypes.number,
+  totalMs: PropTypes.number,
+  videoRef: PropTypes.object,
 };
 
 export default ReactSliderProgress;

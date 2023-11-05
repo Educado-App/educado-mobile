@@ -16,11 +16,6 @@ const projectColors = tailwindConfig.theme.colors;
  * @returns {JSX.Element} - A JSX element representing the custom progress bar.
  */
 const CustomProgressBar = ({ progress, width, height }) => {
-  CustomProgressBar.propTypes = {
-    progress: PropTypes.number.isRequired,
-    width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired,
-  };
 
   // Insure progress is between 0 and 100
   progress = Math.min(100, Math.max(0, progress));
@@ -41,6 +36,12 @@ const CustomProgressBar = ({ progress, width, height }) => {
       </Text>
     </View>
   );
+};
+
+CustomProgressBar.propTypes = {
+  progress: PropTypes.number,
+  width: PropTypes.number,
+  height: PropTypes.number,
 };
 
 export default CustomProgressBar;

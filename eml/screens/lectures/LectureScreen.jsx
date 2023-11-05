@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Alert, View, TouchableOpacity, Image, Text } from 'react-native';
-
-import { useNavigation } from '@react-navigation/native';
+import { View, Text } from 'react-native';
 import VideoLectureScreen from './VideoLectureScreen';
 import TextImageLectureScreen from './TextImageLectureScreen';
-import ProgressTopBar from './ProgressTopBar';
+import PropTypes from 'prop-types';
 
 export default function LectureScreen({ lectureObject, courseObject, currentIndex, indexCount }) {
 
-  const navigation = useNavigation();
   const [lecture, setLecture] = useState(lectureObject);
   const [progressPercent, setProgressPercent] = useState(null);
   useEffect(() => {
@@ -47,4 +44,11 @@ export default function LectureScreen({ lectureObject, courseObject, currentInde
     </View>
   );
 }
+
+LectureScreen.propTypes = {
+  lectureObject: PropTypes.object,
+  courseObject: PropTypes.object,
+  currentIndex: PropTypes.number,
+  indexCount: PropTypes.number,
+};
 

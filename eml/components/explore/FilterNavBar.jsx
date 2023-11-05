@@ -3,6 +3,7 @@ import SearchBar from './SearchBar';
 import { View, Text, Pressable } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { categories } from './Categories';
+import PropTypes from 'prop-types';
 
 /**
  * FilterNavBar component displays a search bar and a list of categories.
@@ -63,5 +64,10 @@ function FilterNavBar({ onChangeText, onCategoryChange }) {
     </View>
   );
 }
+
+FilterNavBar.propTypes = {
+  onChangeText: PropTypes.func,
+  onCategoryChange: PropTypes.func,
+};
 
 export default FilterNavBar;

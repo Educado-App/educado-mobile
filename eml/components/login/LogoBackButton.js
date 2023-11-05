@@ -9,7 +9,6 @@ import PropTypes from 'prop-types';
  * @param {Object} props Should contain the following properties:
  * - navigationPlace: String
  * @returns {React.Element} Header/logo/back button component
-
  */
 export default function LogoBackButton(props) {
 

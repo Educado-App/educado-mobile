@@ -1,24 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
-
-// For animating play button
-
 import { View, Pressable } from 'react-native';
-
 import Text from '../../components/general/Text';
-
 import VideoActions from '../../components/lectures/VideoActions';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-
-
 import CustomExpoVideoPlayer from '../../components/lectures/VideoPlayer';
 import ReactSliderProgress from './ReactSliderProgress';
 import { getVideoDownloadUrl } from '../../api/api';
+import PropTypes from 'prop-types';
 
-import { useNavigation } from '@react-navigation/native';
 
-
-export default function VideoLectureScreen({ lecture, course, progress }) {
-
+export default function VideoLectureScreen({ lecture, course }) {
 
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false); // Keep track of playback status
@@ -32,8 +23,6 @@ export default function VideoLectureScreen({ lecture, course, progress }) {
     setDurationMillis(status.durationMillis || 0);
 
   };
-
-
 
   const [videoUrl, setVideoUrl] = useState(null);
 
@@ -181,4 +170,9 @@ export default function VideoLectureScreen({ lecture, course, progress }) {
     </View>
   );
 }
+
+VideoLectureScreen.propTypes = {
+  lecture: PropTypes.object,
+  course: PropTypes.object
+};
 
