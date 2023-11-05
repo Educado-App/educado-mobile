@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Text from '../general/Text';
-import tailwindConfig from "../../tailwind.config";
+import tailwindConfig from '../../tailwind.config';
 
 /**
  * CustomRating component displays a star rating based on a number

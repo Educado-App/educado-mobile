@@ -5,8 +5,8 @@ import FilterNavBar from '../../components/explore/FilterNavBar';
 import ExploreCard from '../../components/explore/ExploreCard';
 import * as StorageService from '../../services/StorageService';
 import { useNavigation } from '@react-navigation/native';
-import BaseScreen from "../../components/general/BaseScreen";
-import IconHeader from "../../components/general/IconHeader";
+import BaseScreen from '../../components/general/BaseScreen';
+import IconHeader from '../../components/general/IconHeader';
 import { shouldUpdate, determineCategory } from '../../services/utilityFunctions';
 
 /**
@@ -26,7 +26,7 @@ export default function Explore() {
   const [isSubscribed, setIsSubscribed] = useState([]);
 
   const [refreshing, setRefreshing] = useState(false);
-  const navigation = useNavigation()
+  const navigation = useNavigation();
 
 
   /**
@@ -117,11 +117,11 @@ export default function Explore() {
   const handleFilter = (text) => {
     setSearchText(text);
     // console.log("handleFilter", searchText);
-  }
+  };
 
   const handleCategoryFilter = (category) => {
     //if category label is "all" it will display all courses, otherwise it will display courses with the selected category
-    if (category === "Todos") {
+    if (category === 'Todos') {
       setSelectedCategory(null); // Set selectedCategory to null to show all items
     } else {
       setSelectedCategory(category); // Set selectedCategory to the selected category label
@@ -130,7 +130,7 @@ export default function Explore() {
 
   return (
     <BaseScreen>
-      <IconHeader title={"Explorar cursos"}/>
+      <IconHeader title={'Explorar cursos'}/>
 
       <FilterNavBar
         onChangeText={(text) => handleFilter(text)}

@@ -17,7 +17,7 @@ const SubscriptionButton = ({ course })  => {
     
     navigation.navigate('Section', {
       courseId: course.courseId,
-    })
+    });
   };
 
   return (

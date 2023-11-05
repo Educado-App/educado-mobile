@@ -1,19 +1,19 @@
-import { View, Image, Pressable } from 'react-native'
-import React from 'react'
-import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/dev'
-import { useNavigation } from '@react-navigation/native'
-import { AppLoading } from 'expo-app-loading'
+import { View, Image, Pressable } from 'react-native';
+import React from 'react';
+import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/dev';
+import { useNavigation } from '@react-navigation/native';
+import { AppLoading } from 'expo-app-loading';
 import Text from '../general/Text';
 
 
 export default function ActiveExploreCard({ title, courseId, iconPath }) {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
   let [fontsLoaded] = useFonts({
     VarelaRound_400Regular
-  })
+  });
 
   if (!fontsLoaded) {
-    return AppLoading
+    return AppLoading;
   } else {
     return (
       <Pressable
@@ -27,9 +27,9 @@ export default function ActiveExploreCard({ title, courseId, iconPath }) {
           </Text>
         </View>
         <View className="pt-2">
-          {iconPath === "" ? <Image className="w-10 h-10" source={require('../../assets/images/favicon.png')}></Image> : <Image className="w-10 h-10" source={{ uri: iconPath }}></Image>}
+          {iconPath === '' ? <Image className="w-10 h-10" source={require('../../assets/images/favicon.png')}></Image> : <Image className="w-10 h-10" source={{ uri: iconPath }}></Image>}
         </View>
       </Pressable>
-    )
+    );
   }
 }

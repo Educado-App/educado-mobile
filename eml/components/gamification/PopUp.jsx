@@ -22,7 +22,7 @@ export default function PopUp({ xpAmount, isCorrectAnswer }) {
     randomIndex = Math.floor(Math.random() * phrases.length);
     let randomPhrase = phrases[randomIndex];
     if (randomPhrase.length > 69) {
-      randomPhrase = randomPhrase.substring(0, 69) + "...";
+      randomPhrase = randomPhrase.substring(0, 69) + '...';
     }
 
     return randomPhrase;

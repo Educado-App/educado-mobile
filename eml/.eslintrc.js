@@ -10,31 +10,35 @@ module.exports = {
   ],
   'overrides': [
     {
-      'env': {
-        'node': true,
-        'es6': true
-      },
       'files': [
-        '.eslintrc.{js,cjs}'
+        '**/*.js', // Include .js files
+        '.eslintrc.{js,cjs}',
       ],
       'parserOptions': {
-        'sourceType': 'script'
+        'sourceType': 'module'
+      }
+    },
+    {
+      'files': [
+        '**/*.jsx', // Include .jsx files
+      ],
+      'parser': '@babel/eslint-parser', // Specify the parser
+      'parserOptions': {
+        'ecmaFeatures': {
+          'jsx': true,
+        },
+        'sourceType': 'module'
       }
     }
   ],
-  'parserOptions': {
-    'ecmaVersion': 'latest',
-    'sourceType': 'module'
-  },
   'plugins': [
     'react'
   ],
   'ignorePatterns': [
-    '**/*.test.js', '**/*.spec.js', '**/*.config.js', 'jestSetup.js'
-
+    '**/*.test.js', '**/*.test.jsX', '**/*.spec.js', '**/*.spec.jsx',  '**/*.config.js', 'jestSetup.js',
   ],
   'rules': {
-    'indent': [ 'error', 2 ],
+    'indent': ['error', 2],
   },
   'settings': {
     'react': {

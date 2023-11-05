@@ -1,53 +1,53 @@
-import React, { useState } from 'react'
-import { View, Alert, StyleSheet } from 'react-native'
-import { Icon } from '@rneui/themed'
-import { useNavigation } from '@react-navigation/native'
-import { Audio } from 'expo-av'
-import PropTypes from 'prop-types'
+import React, { useState } from 'react';
+import { View, Alert, StyleSheet } from 'react-native';
+import { Icon } from '@rneui/themed';
+import { useNavigation } from '@react-navigation/native';
+import { Audio } from 'expo-av';
+import PropTypes from 'prop-types';
 
 const voiceOvers = [
   require('../../assets/questionExample1.mp3'),
   require('../../assets/questionExample2.mp3'),
   require('../../assets/voiceOverTest.mp3')
-]
+];
 
 export default function FourButtons2({ correctAnswer, sendDataToParent }) {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
 
   FourButtons2.propTypes = {
     correctAnswer: PropTypes.string.isRequired,
     sendDataToParent: PropTypes.func.isRequired
-  }
+  };
 
   const [selected, setSelected] = useState({
     btn1: false,
     btn2: false,
     btn3: false,
     btn4: false
-  })
-  const [choice, setChoice] = useState('')
+  });
+  const [choice, setChoice] = useState('');
 
   // eslint-disable-next-line no-undef
   handlePlaySound = async () => {
-    const soundObj = new Audio.Sound()
+    const soundObj = new Audio.Sound();
 
     try {
-      const source = voiceOvers[Math.floor(Math.random() * (3 - 0) + 0)]
-      await soundObj.loadAsync(source)
+      const source = voiceOvers[Math.floor(Math.random() * (3 - 0) + 0)];
+      await soundObj.loadAsync(source);
       await soundObj
         .playAsync()
         .then(async (playbackStatus) => {
           setTimeout(() => {
-            soundObj.unloadAsync()
-          }, playbackStatus.playableDurationMillis)
+            soundObj.unloadAsync();
+          }, playbackStatus.playableDurationMillis);
         })
         .catch((error) => {
-          console.log(error)
-        })
+          console.log(error);
+        });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
   function handleChange(evt) {
     if (evt === 'triangle') {
       setSelected({
@@ -56,7 +56,7 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
         btn2: false,
         btn3: false,
         btn4: false
-      })
+      });
     } else if (evt === 'circle') {
       setSelected({
         ...selected,
@@ -64,7 +64,7 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
         btn2: true,
         btn3: false,
         btn4: false
-      })
+      });
     } else if (evt === 'star') {
       setSelected({
         ...selected,
@@ -72,7 +72,7 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
         btn2: false,
         btn3: true,
         btn4: false
-      })
+      });
     } else if (evt === 'square') {
       setSelected({
         ...selected,
@@ -80,10 +80,10 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
         btn2: false,
         btn3: false,
         btn4: true
-      })
+      });
     }
-    console.log(evt)
-    setChoice(evt)
+    console.log(evt);
+    setChoice(evt);
   }
 
   function setButtonState(b1, b2, b3, b4) {
@@ -93,7 +93,7 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
       btn2: b2,
       btn3: b3,
       btn4: b4
-    })
+    });
   }
 
   function checkChoice(choice) {
@@ -102,14 +102,14 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
         {
           text: 'Next question!',
           onPress: () => {
-            sendDataToParent()
+            sendDataToParent();
           }
         }
-      ])
-      setButtonState(false, false, false, false)
+      ]);
+      setButtonState(false, false, false, false);
     } else {
-      navigation.navigate('WrongAnswer')
-      setButtonState(false, false, false, false)
+      navigation.navigate('WrongAnswer');
+      setButtonState(false, false, false, false);
     }
   }
 
@@ -133,8 +133,8 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
             type="material-community"
             color="white"
             onPress={() => {
-              handleChange('triangle')
-              this.handlePlaySound()
+              handleChange('triangle');
+              this.handlePlaySound();
             }}
           />
         </View>
@@ -155,8 +155,8 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
             type="material-community"
             color="white"
             onPress={() => {
-              handleChange('circle')
-              this.handlePlaySound()
+              handleChange('circle');
+              this.handlePlaySound();
             }}
           />
         </View>
@@ -179,8 +179,8 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
             type="material-community"
             color="white"
             onPress={() => {
-              handleChange('star')
-              this.handlePlaySound()
+              handleChange('star');
+              this.handlePlaySound();
             }}
           />
         </View>
@@ -201,8 +201,8 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
             type="material-community"
             color="white"
             onPress={() => {
-              handleChange('square')
-              this.handlePlaySound()
+              handleChange('square');
+              this.handlePlaySound();
             }}
           />
         </View>
@@ -221,13 +221,13 @@ export default function FourButtons2({ correctAnswer, sendDataToParent }) {
             type="material-community"
             color="white"
             onPress={() => {
-              checkChoice(choice)
+              checkChoice(choice);
             }}
           />
         </View>
       </View>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -262,4 +262,4 @@ const styles = StyleSheet.create({
   paddingButtons: {
     padding: 10
   }
-})
+});

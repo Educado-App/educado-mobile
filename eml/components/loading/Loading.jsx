@@ -1,12 +1,12 @@
-import React from "react";
-import { ActivityIndicator, Image } from "react-native";
-import { BgLinearGradient } from "../../constants/BgLinearGradient";
-import { SafeAreaView } from "react-native-safe-area-context";
-import Text from "../../components/general/Text";
-import tailwindConfig from "../../tailwind.config";
+import React from 'react';
+import { ActivityIndicator, Image } from 'react-native';
+import { BgLinearGradient } from '../../constants/BgLinearGradient';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import Text from '../../components/general/Text';
+import tailwindConfig from '../../tailwind.config';
 
 const LoadingScreen = () => {
-  const logo = require("../../assets/images/logo.png");
+  const logo = require('../../assets/images/logo.png');
 
   return (
     <BgLinearGradient>
@@ -22,6 +22,6 @@ const LoadingScreen = () => {
       </SafeAreaView>
     </BgLinearGradient>
   );
-}
+};
 
 export default LoadingScreen;

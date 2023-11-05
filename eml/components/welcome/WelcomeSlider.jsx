@@ -1,6 +1,6 @@
-import React, { useRef } from "react";
-import { View } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import React, { useRef } from 'react';
+import { View } from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Sections from '../../constants/PreviewSections';
 import Slick from 'react-native-slick';
 import Text from '../general/Text';
@@ -26,17 +26,17 @@ export default function WelcomeSlider() {
       autoplay={true}
       nextButton={
         <MaterialCommunityIcons
-        name="chevron-right"
-        size={24}
-        color="projectBlack"
-      />
+          name="chevron-right"
+          size={24}
+          color="projectBlack"
+        />
       }
       prevButton={
         <MaterialCommunityIcons
-        name="chevron-left"
-        size={24}
-        color="projectBlack"
-      />
+          name="chevron-left"
+          size={24}
+          color="projectBlack"
+        />
       }
     >
       {Sections.map((sections, index) => (
@@ -54,4 +54,4 @@ export default function WelcomeSlider() {
       ))}
     </Slick>
   );
-};
+}

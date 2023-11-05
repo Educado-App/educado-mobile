@@ -9,12 +9,12 @@ import { useNavigation } from '@react-navigation/native';
  */
 const AccessCourseButton = ({ course }) => {
 
-const navigation = useNavigation();
+  const navigation = useNavigation();
 
   const handlePress = () => {
     navigation.navigate('Section', {
-    courseId: course.courseId,
-    })
+      courseId: course.courseId,
+    });
   };
 
   return (
