@@ -3,7 +3,7 @@ import { ScrollView, View, TouchableOpacity, Dimensions } from "react-native";
 import { useNavigation, useRoute } from '@react-navigation/native';
 import LeaveButton from '../../components/exercise/LeaveButton';
 import Text from '../../components/general/Text';
-import CustomProgressBar from "../../components/exercise/Progressbar";
+import CoursePoints from "../../components/exercise/CoursePoints";
 import { RadioButton } from "react-native-paper";
 import ExerciseInfo from "../../components/exercise/ExerciseInfo";
 import { ScreenWidth } from "@rneui/base";
@@ -76,8 +76,8 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7'}) 
         <TouchableOpacity className="pr-3" onPress={() => navigation.goBack()}>
           <MaterialCommunityIcons name="chevron-left" size={25} color="black" />
         </TouchableOpacity>
-          <CustomProgressBar progress={50} width={65} height={1.2}></CustomProgressBar>
-        </View>
+        <CoursePoints></CoursePoints>
+      </View>
 
         {hasData === false ? (
           // No data
@@ -161,7 +161,6 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7'}) 
         {isPopUpVisible ? (
           <PopUp xpAmount={xp} isCorrectAnswer={isCorrectAnswer} />
         ) : null}
-
         <ExerciseInfo courseId={courseData.title} sectionId={sectionData.title} />
         <StatusBar style='auto' />
       </SafeAreaView>
