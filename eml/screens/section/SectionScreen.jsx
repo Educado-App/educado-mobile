@@ -86,8 +86,6 @@ export default function SectionScreen({ route }) {
         {/* Spacer to push the Unsubscribe Button to the right */}
         <View style={{ flex: 1 }}></View>
 
-        {/* Unsubscribe Button */}
-        <SubscriptionCancel onPress={unsubAlert} />
       </View>
 
       {/* Conditionally render the sections if they exist */}
@@ -105,7 +103,8 @@ export default function SectionScreen({ route }) {
                 return <SectionCard key={i} section={section}></SectionCard>;
               })}
             </ScrollView>
-
+            {/* Unsubscribe Button */}
+            <SubscriptionCancel onPress={unsubAlert} />
           </View>
           )
       ) : null}
