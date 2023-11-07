@@ -4,11 +4,12 @@ import {
   SafeAreaView,
   ScrollView,
 } from 'react-native'
-import ProfileName from '../../components/profile/profileName'
 import LogOutButton from '../../components/profile/LogOutButton'
-import SettingsButton from '../../components/profile/settingsButton.js'
+import ProfileNavigationButton from '../../components/profile/ProfileNavigationButton.js'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { BgLinearGradient } from "../../constants/BgLinearGradient";
+import UserInfo from '../../components/profile/UserInfo'
+import { useNavigation } from '@react-navigation/native'
 
 const USER_INFO = '@userInfo'
 
@@ -17,6 +18,10 @@ export default function ProfileComponent() {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
+
+  const navigation = useNavigation();
+
+  const points = 87; // placeholder for the points that will be fetched eventually
 
   const getProfile = async () => {
     try {
@@ -36,15 +41,19 @@ export default function ProfileComponent() {
   useEffect(() => {
     getProfile()
   }, [])
-  
+
   return (
     <BgLinearGradient>
       <SafeAreaView>
-        <ScrollView>
-          <View className="flex-1 flex-col justify-center h-screen">
-            <ProfileName Name={`${firstName} ${lastName}`}></ProfileName>
-            <SettingsButton></SettingsButton>
-            <LogOutButton testID='logoutBtn'></LogOutButton>
+        <ScrollView className='flex flex-col'>
+          <View className="flex-1 justify-start pt-[20%] h-screen">
+            <UserInfo firstName={firstName} lastName={lastName} email={email} points={points}></UserInfo>
+            <ProfileNavigationButton label='Editar perfil' onPress={() => navigation.navigate('ProfileSettings')}></ProfileNavigationButton>
+            <ProfileNavigationButton label='Certificados'></ProfileNavigationButton>
+            <ProfileNavigationButton label='Download'></ProfileNavigationButton>
+            <View className='flex flex-row'>
+              <LogOutButton testID='logoutBtn'></LogOutButton>
+            </View>
           </View>
         </ScrollView>
       </SafeAreaView>
