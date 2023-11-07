@@ -5,6 +5,7 @@ import { sub } from 'react-native-reanimated';
 import { mockDataAPI } from '../mockData/mockDataAPI.js';
 import { mockDataAsyncStorage } from '../mockData/mockDataAsyncStorage.js';
 
+
 jest.mock('@react-native-async-storage/async-storage');
 
 // Mock the API functions
@@ -479,6 +480,115 @@ describe('Async Storage Functions', () => {
 
       // Assert that api.ifSubscribed was called with the correct arguments
       expect(api.ifSubscribed).toHaveBeenCalledWith(mockData.userData._id, mockData.courseData._id);
+    });
+  });
+
+
+  /** Downloading course **/
+
+
+
+  /*jest.mock('api', () => ({
+    getCourse: jest.fn(),
+    getAllSections: jest.fn(),
+    getLecturesInSection: jest.fn(),
+    getExercisesInSection: jest.fn(),
+  })); */
+
+  describe('storeCourseLocally', () => {
+    it('stores course locally', async () => {
+      // Mock API responses
+      api.getCourse.mockResolvedValue({ courseId: '123', /* other course properties */ });
+      api.getAllSections.mockResolvedValue([{ _id: 'section1' }, { _id: 'section2' }]);
+      api.getLecturesInSection.mockResolvedValue([]);
+      api.getExercisesInSection.mockResolvedValue([]);
+
+      // Mock AsyncStorage functions
+      AsyncStorage.setItem = jest.fn();
+      AsyncStorage.removeItem = jest.fn();
+
+      const result = await StorageService.storeCourseLocally('123');
+      expect(result).toBe(true);
+
+      // Assert AsyncStorage calls
+      expect(await AsyncStorage.setItem).toHaveBeenCalledTimes(6);
+      expect(await AsyncStorage.removeItem).toHaveBeenCalledTimes(3);
+    });
+
+    it('handles errors during storage', async () => {
+      // Mock API function to throw an error
+      api.getCourse.mockRejectedValue(new Error('API error'));
+
+      // Mock AsyncStorage functions
+      AsyncStorage.setItem = jest.fn();
+      AsyncStorage.removeItem = jest.fn();
+
+      const result = await StorageService.storeCourseLocally('123');
+      expect(result).toBe(false);
+
+      // Assert AsyncStorage calls
+      expect(await AsyncStorage.setItem).not.toHaveBeenCalled();
+      expect(await AsyncStorage.removeItem).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('deleteLocallyStoredCourse', () => {
+    it('deletes locally stored course', async () => {
+      // Mock AsyncStorage functions
+      AsyncStorage.removeItem = jest.fn();
+
+      const sectionList = [{ _id: 'section1' }, { _id: 'section2' }];
+
+      const result = await StorageService.deleteLocallyStoredCourse('123');
+      expect(result).toBe(true);
+
+      // Assert AsyncStorage calls
+      expect(await AsyncStorage.removeItem).toHaveBeenCalledTimes(3);
+    });
+
+    it('handles errors during deletion', async () => {
+      // Mock AsyncStorage function to throw an error
+      AsyncStorage.removeItem = jest.fn().mockRejectedValue(new Error('AsyncStorage error'));
+
+      const sectionList = [{ _id: 'section1' }, { _id: 'section2' }];
+
+      const result = await StorageService.deleteLocallyStoredCourse('123', sectionList);
+      expect(result).toBe(false);
+
+      // Assert AsyncStorage calls
+      expect(await AsyncStorage.removeItem).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('updateStoredCourses', () => {
+    it('updates locally stored courses', async () => {
+      // Mock functions and responses
+      const subList = [{ courseId: '123', dateUpdated: '2023-11-03' }];
+      api.getCourse.mockResolvedValue({ courseId: '123', /* other course properties */ });
+      AsyncStorage.getItem = jest.fn().mockResolvedValue(JSON.stringify({ dateUpdated: '2023-11-02' }));
+      AsyncStorage.setItem = jest.fn();
+
+      await StorageService.updateStoredCourses(subList);
+
+      // Assert AsyncStorage calls
+      expect(api.getCourse).toHaveBeenCalledTimes(3);
+      expect(AsyncStorage.getItem).toHaveBeenCalledTimes(3);
+      expect(AsyncStorage.setItem).toHaveBeenCalledTimes(2);
+    });
+
+    it('handles errors during update', async () => {
+      // Mock functions to throw errors
+      const subList = [{ courseId: '123', dateUpdated: '2023-11-03' }];
+      api.getCourse.mockRejectedValue(new Error('API error'));
+      AsyncStorage.getItem = jest.fn().mockRejectedValue(new Error('AsyncStorage error'));
+      AsyncStorage.setItem = jest.fn();
+
+      await StorageService.updateStoredCourses(subList);
+
+      // Assert AsyncStorage calls
+      expect(api.getCourse).toHaveBeenCalledTimes(3);
+      expect(AsyncStorage.getItem).toHaveBeenCalledTimes(1);
+      expect(AsyncStorage.setItem).not.toHaveBeenCalled();
     });
   });
 
