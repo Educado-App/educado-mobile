@@ -40,6 +40,22 @@ export function mockDataAsyncStorage() {
         published: true,
         status: 'published',
         rating: 3,
+        downloaded: false,
+      }
+    ],
+    subscribedCourses2: [
+      {
+        title: 'Just a test course',
+        courseId: '651d596a26cd9875d86a12b7',
+        description: 'Test description',
+        category: 'Costura',
+        estimatedHours: 20,
+        dateUpdated: '2023-10-04T12:24:10.740Z',
+        difficulty: 3,
+        published: true,
+        status: 'published',
+        rating: 3,
+        downloaded: true,
       }
     ],
     sectionData: [

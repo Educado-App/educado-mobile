@@ -130,6 +130,7 @@ export const getSectionList = async (course_id) => {
 
 // Fits section data to new object with relevant fields
 export const refreshSectionList = async (sectionList) => {
+    try {
         let newSectionList = [];
         if (sectionList !== null) {
             for (const section of sectionList) {
@@ -147,6 +148,9 @@ export const refreshSectionList = async (sectionList) => {
         }
         //Returns new fitted section list, or empty list if there was no data fetched from DB or Storage,
         return newSectionList;
+    }catch (e) {
+        throw e;
+    }
 };
 
 /** LECTURES **/
@@ -329,6 +333,9 @@ export const unsubscribe = async (courseId) => {
   }
 
   try {
+      if(await AsyncStorage.getItem(courseId) !== null){
+          deleteLocallyStoredCourse(courseId);
+      }
     return await api.unSubscribeToCourse(userId, courseId);
 
   } catch (e) {

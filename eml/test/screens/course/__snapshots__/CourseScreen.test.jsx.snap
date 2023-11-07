@@ -16,6 +16,45 @@ exports[`CourseScreen renders CourseScreen correctly when there are no courses 1
   }
 >
   <View
+    collapsable={false}
+    style={
+      {
+        "alignItems": "flex-end",
+        "backgroundColor": "#FF4949",
+        "flexDirection": "row",
+        "height": "10%",
+        "justifyContent": "center",
+        "paddingBottom": 8,
+        "position": "absolute",
+        "top": 0,
+        "transform": [
+          {
+            "translateY": -100,
+          },
+        ],
+        "width": "100%",
+        "zIndex": 10,
+      }
+    }
+  >
+    <Text />
+    <Text
+      style={
+        [
+          {
+            "color": "#FFFFFF",
+          },
+          {
+            "paddingLeft": 8,
+            "paddingRight": 8,
+          },
+        ]
+      }
+    >
+      Sem conexão com a internet!
+    </Text>
+  </View>
+  <View
     style={
       [
         {
@@ -289,6 +328,65 @@ exports[`CourseScreen renders CourseScreen with courses loaded 1`] = `
     ]
   }
 >
+  <View
+    collapsable={false}
+    style={
+      {
+        "alignItems": "flex-end",
+        "backgroundColor": "#FF4949",
+        "flexDirection": "row",
+        "height": "10%",
+        "justifyContent": "center",
+        "paddingBottom": 8,
+        "position": "absolute",
+        "top": 0,
+        "transform": [
+          {
+            "translateY": -100,
+          },
+        ],
+        "width": "100%",
+        "zIndex": 10,
+      }
+    }
+  >
+    <Text
+      allowFontScaling={false}
+      selectable={false}
+      style={
+        [
+          {
+            "color": "white",
+            "fontSize": 20,
+          },
+          undefined,
+          {
+            "fontFamily": "material-community",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          {},
+        ]
+      }
+    >
+      󱘖
+    </Text>
+    <Text
+      style={
+        [
+          {
+            "color": "#FFFFFF",
+          },
+          {
+            "paddingLeft": 8,
+            "paddingRight": 8,
+          },
+        ]
+      }
+    >
+      Sem conexão com a internet!
+    </Text>
+  </View>
   <View
     style={
       [
