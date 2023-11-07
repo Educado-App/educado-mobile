@@ -55,9 +55,9 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7'}) 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setExerciseData(exercise = await getExerciseByid(givenId));
-        setSectionData(section = await getSectionByid(exercise.parentSection));
-        setCourseData(course = await getCourse(section.parentCourse));
+        setExerciseData(await getExerciseByid(givenId));
+        setSectionData(await getSectionByid(exercise.parentSection));
+        setCourseData(await getCourse(section.parentCourse));
         setHasData(true);
       } catch (error) {
         console.log('Error fetching data:', error);

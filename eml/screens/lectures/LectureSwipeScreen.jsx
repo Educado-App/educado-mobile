@@ -7,6 +7,8 @@ import ProgressTopBar from './ProgressTopBar';
 import LectureScreen from './LectureScreen';
 import { getSectionAndLecturesBySectionId, getCourse } from '../../api/api';
 import tailwindConfig from '../../tailwind.config';
+import {getLectureList} from "../../services/StorageService";
+import * as StorageService from "../../services/StorageService";
 
 /**
  * when navigating to this page sectionId, courseId must be passed as parameters
@@ -26,15 +28,15 @@ export default function LectureSwipeScreen({ route }) {
     useEffect(() => {
         async function fetchData() {
             try {
-                const sectionData = await getSectionAndLecturesBySectionId(sectionId);
+                const sectionData = await StorageService.getLectureList(sectionId);//getSectionAndLecturesBySectionId(sectionId);
                 //TODO: get the first uncompleted lecture - set the initial index to that
                 const initialIndex = 0;
                 const courseData = await getCourse(courseId);
-                const progressPercentage = Math.round(((initialIndex + 1) / sectionData.components.length) * 100);
+                const progressPercentage = Math.round(((initialIndex + 1) / sectionData.length) * 100);
 
 
-                setAllLectures(sectionData.components);
-                setCurrentLectureType(sectionData.components[initialIndex]?.video ? "video" : "text");
+                setAllLectures(sectionData);
+                setCurrentLectureType(sectionData[initialIndex]?.video ? "video" : "text");
                 setCourse(courseData);
                 setProgressPercent(progressPercentage);
                 setIndex(initialIndex);
