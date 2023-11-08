@@ -1,12 +1,12 @@
 import axios from 'axios';
 
 const prod = 'http://educado.somethingnew.dk';
-const test = 'http://172.30.254.243:8888'; // Change this to your LOCAL IP address when testing.
+const test = 'http://192.168.166.156:8888'; // Change this to your LOCAL IP address when testing.
 const local = 'http://localhost:8888';
 const digitalOcean = 'http://207.154.213.68:8888';
 
 
-const url = local;
+const url = test;
 
 /**
  * This is the client that will be used to make requests to the backend.
