@@ -13,7 +13,7 @@ import DeleteAccountButton from '../../components/profileSettings/deleteAccountB
 import ChangeFirstNameButton from '../../components/profileSettings/changeFirstNameButton'
 import ChangeLastNameButton from '../../components/profileSettings/changeLastNameButton'
 import ChangeEmailButton from '../../components/profileSettings/changeEmailButton'
-import ChangePassword from '../../components/profileSettings/ChangePassword';
+import ChangePasswordModal from '../../components/profileSettings/ChangePasswordModal';
 
 const USER_INFO = '@userInfo';
 
@@ -75,7 +75,7 @@ export default function ProfileComponent() {
         <View className="flex flex-col gap-6 items-center px-6 w-screen mr-3">
 
           {/* Change password */}
-          <ChangePassword />
+          <ChangePasswordModal />
 
           <View className="flex justify-center w-full">
             <ChangeFirstNameButton></ChangeFirstNameButton>
