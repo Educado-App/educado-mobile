@@ -96,7 +96,7 @@ export default function CourseScreen() {
                     <View className=" justify-center items-center pb-24 pt-24 gap-10 ">
                         <View className=" justify-center items-center w-[342] h-[308.02] ">
                             {/* No active courses */}
-                            <Image source={require('../../assets/no-courses.png')} />
+                            <Image source={require('../../assets/images/no-courses.png')} />
                             <Text className=" leading-[29.26] text-projectBlack pb-4 pt-4 font-sans-bold text-subheading text-center " >Comece agora</Text>
                             <Text className=" text-projectBlack leading-[19.5] font-montserrat text-center text-body " > Você ainda não se increveu em nenhum curso. Acesse a página Explore e use a busca para encontrar cursos do seu intresse.</Text>
                         </View>
