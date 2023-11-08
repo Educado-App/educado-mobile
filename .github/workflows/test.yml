@@ -10,7 +10,7 @@ on:
       - main
       - cert-success_messages_mergeToDev
       - video_pr_01_11
-      - offline-5-subscribe-rework
+      - offline-5-subscription-rework
 
 jobs:
   test:
