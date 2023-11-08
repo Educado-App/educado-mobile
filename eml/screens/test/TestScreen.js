@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { Alert, StyleSheet, View, Text } from 'react-native';
+
+
+import React, { useEffect } from 'react';
+import { StyleSheet, View } from 'react-native';
 import TestComponent from '../../components/test/TestComponent';
-import * as StorageService from '../../services/StorageService';
 import * as DirectoryService from '../../services/DirectoryService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 

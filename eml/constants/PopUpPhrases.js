@@ -3,12 +3,12 @@ export function generateSuccessPhrases(name) {
     `Bom trabalho, ${name}! 👍`,
     `Legal, ${name}! 🙌`,
     `Ótimo trabalho, ${name}! 🤙`,
-    `Maravilhoso 😊`,
-    `Uau! 😁`,
-    `Uhuuuu! 🤩`,
-    `Excelente! ✨`,
-    `Arrasou! 🎉`,
-    `Você está arrasando! 🔥`,
+    'Maravilhoso 😊',
+    'Uau! 😁',
+    'Uhuuuu! 🤩',
+    'Excelente! ✨',
+    'Arrasou! 🎉',
+    'Você está arrasando! 🔥',
   ];
 
   return successPhrases;
@@ -20,10 +20,10 @@ export function generateEncouragementPhrases(name) {
     `Quase lá, ${name}! 🙌`,
     `Continue tentando, ${name}! 🤙`,
     `Não se preocupe, ${name}, você conseguirá na próxima vez! 😊`,
-    `Momento de aprendizado! 😁`,
+    'Momento de aprendizado! 😁',
     `Ainda não, mas ${name} vai acertar! 🤩`,
-    `Erros acontecem, continua! ✨`,
-    `Você está progredindo! 🎉`,
+    'Erros acontecem, continua! ✨',
+    'Você está progredindo! 🎉',
     `Mantenha a energia alta, você está indo muito bem, ${name}! 🔥`,
   ];
 

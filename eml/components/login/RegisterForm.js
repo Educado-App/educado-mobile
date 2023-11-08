@@ -18,6 +18,7 @@ import tailwindConfig from "../../tailwind.config";
 
 const LOGIN_TOKEN = "@loginToken";
 const USER_INFO = "@userInfo";
+const USER_ID = '@userId';
 
 /**
  * Component for registering a new account in the system, used in the register screen
@@ -29,16 +30,16 @@ export default function RegisterForm() {
   const tailwindColors = tailwindConfig.theme.colors;
 
   const navigation = useNavigation();
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
-  const [emailAlert, setEmailAlert] = useState("");
-  const [nameAlert, setNameAlert] = useState("");
+  const [emailAlert, setEmailAlert] = useState('');
+  const [nameAlert, setNameAlert] = useState('');
   const [isAllInputValid, setIsAllInputValid] = useState(false);
-  const [confirmPasswordAlert, setConfirmPasswordAlert] = useState("");
+  const [confirmPasswordAlert, setConfirmPasswordAlert] = useState('');
 
   // State variable to track password visibility
   const [showPassword, setShowPassword] = useState(false);
@@ -50,16 +51,16 @@ export default function RegisterForm() {
 
   useEffect(() => {
     // Clear input and alerts on first render
-    setFirstName("");
-    setLastName("");
-    setEmail("");
-    setPassword("");
-    setConfirmPassword("");
+    setFirstName('');
+    setLastName('');
+    setEmail('');
+    setPassword('');
+    setConfirmPassword('');
 
-    setNameAlert("");
-    setEmailAlert("");
+    setNameAlert('');
+    setEmailAlert('');
     setIsAllInputValid(false);
-    setConfirmPasswordAlert("");
+    setConfirmPasswordAlert('');
   }, []);
 
   useEffect(() => {
@@ -103,20 +104,20 @@ export default function RegisterForm() {
   // Functions to toggle password visibility states
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
-  }
+  };
 
   const toggleShowConfirmPassword = () => {
     setShowConfirmPassword(!showConfirmPassword);
-  }
+  };
 
   const checkIfPasswordsMatch = (password, confirmPassword) => {
     if (password === confirmPassword) {
-      setConfirmPasswordAlert("");
+      setConfirmPasswordAlert('');
     } else {
       // The passwords do not match
-      setConfirmPasswordAlert("Os campos de senha precisam ser iguais");
+      setConfirmPasswordAlert('Os campos de senha precisam ser iguais');
     }
-  }
+  };
 
   // TODO: This function should take into consideration
   // that alerts might be empty when input is yet to be given
@@ -125,14 +126,14 @@ export default function RegisterForm() {
    */
   function validateInput() {
     const validationPassed = (
-      nameAlert === "" &&
-      emailAlert === "" &&
-      firstName != "" &&
-      lastName != "" &&
-      email != "" &&
+      nameAlert === '' &&
+      emailAlert === '' &&
+      firstName != '' &&
+      lastName != '' &&
+      email != '' &&
       passwordLengthValid &&
       passwordContainsLetter &&
-      confirmPasswordAlert === ""
+      confirmPasswordAlert === ''
     );
 
     setIsAllInputValid(validationPassed);
@@ -165,6 +166,7 @@ export default function RegisterForm() {
         .then(async function (response) {
           // saves input information locally
           await saveUserInfoLocally(response._id, firstName, lastName, email);
+          await AsyncStorage.setItem(USER_ID, response._id);
         }).then(async function () {
           // logs in the user, if no errors occur, navigates to home screen and sets token
           await loginFromRegister(obj);
@@ -290,7 +292,6 @@ export default function RegisterForm() {
               toggleShowPassword={toggleShowPassword}
             />
           </View>
-
           <View className="flex-row justify-start mt-1 h-6">
             <Text testId="passwordLengthAlert" className={"text-xs" + ((passwordLengthValid || !password) ? " text-projectGray" : " text-error")}>
               {/* Minimum 8 characters */}

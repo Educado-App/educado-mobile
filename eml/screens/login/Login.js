@@ -1,22 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { View, Keyboard } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useNavigation } from "@react-navigation/native";
-import LoginForm from "../../components/login/LoginForm";
-import LogoBackButton from "../../components/login/LogoBackButton";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { TouchableWithoutFeedback } from "react-native";
-import Text from "../../components/general/Text";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import LoadingScreen from "../../components/loading/Loading";
+import React, { useEffect, useState } from 'react';
+import { View, Keyboard } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
+import LoginForm from '../../components/login/LoginForm';
+import LogoBackButton from '../../components/login/LogoBackButton';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { TouchableWithoutFeedback } from 'react-native';
+import Text from '../../components/general/Text';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import LoadingScreen from '../../components/loading/Loading';
 
-const LOGIN_TOKEN = "@loginToken";
+const LOGIN_TOKEN = '@loginToken';
 
-/**
- * Login screen component containing a login form and possibilities of resetting password or registering a new user.
- * @param {Object} props not used in this component as of now
- */
-export default function Login(props) {
+export default function Login() {
 
   const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
@@ -31,11 +27,11 @@ export default function Login(props) {
     try {
       const fetchedToken = await AsyncStorage.getItem(LOGIN_TOKEN);
       if (fetchedToken !== null) {
-        navigation.navigate("HomeStack");
+        navigation.navigate('HomeStack');
       }
       setLoading(false);
     } catch (error) {
-      console.log("Failed to fetch the login token from storage");
+      console.log('Failed to fetch the login token from storage');
       setLoading(false);
     }
   };
@@ -69,8 +65,8 @@ export default function Login(props) {
                   </Text>
                   <Text
                     testId="registerNav"
-                    className={"text-base text-black underline"}
-                    onPress={() => navigation.navigate("Register")}
+                    className={'text-base text-black underline'}
+                    onPress={() => navigation.navigate('Register')}
                   >
                     {/* Sign up now */}
                     Cadastre-se agora

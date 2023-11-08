@@ -3,11 +3,12 @@ import { StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Icon, Button } from '@rneui/base';
 import PropTypes from 'prop-types';
+import tailwindConfig from '../../tailwind.config';
 
-const LeaveButton = ({ navigationPlace, courseId }) => {
-  LeaveButton.propTypes = {
-    navigationPlace: PropTypes.string.isRequired,
-  };
+const projectColors = tailwindConfig.theme.colors;
+
+const LeaveButton = ({ navigationPlace, courseID }) => {
+
   const navigation = useNavigation();
   return (
     <Button
@@ -16,14 +17,14 @@ const LeaveButton = ({ navigationPlace, courseId }) => {
       radius='20'
       size='sm'
       onPress={() =>
-        navigation.navigate(navigationPlace, { courseId: courseId })
+        navigation.navigate(navigationPlace, { courseId: courseID })
       }
       icon={
         <Icon
           size={25}
           name='chevron-left'
           type='material-community'
-          color='#383838'
+          color={projectColors.projectBlack}
         />
       }
     ></Button>
@@ -32,5 +33,10 @@ const LeaveButton = ({ navigationPlace, courseId }) => {
 const styles = StyleSheet.create({
   buttons: { width: 50, height: 50 },
 });
+
+LeaveButton.propTypes = {
+  navigationPlace: PropTypes.string,
+  courseID: PropTypes.string,
+};
 
 export default LeaveButton;

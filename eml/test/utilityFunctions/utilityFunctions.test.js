@@ -7,6 +7,7 @@ import {
   determineCategory,
   determineIcon,
   getUpdatedDate,
+  convertMsToTime,
 } from '../../services/utilityFunctions';
 
 describe('ExploreCard', () => {
@@ -116,6 +117,22 @@ describe('ExploreCard', () => {
       expect(result).toBe(expectedOutput);
     });
   });
+
+  describe('convertMsToTime', () => {
+    it('should convert milliseconds to time format (mm:ss)', () => {
+      expect(convertMsToTime(0)).toBe('00:00');
+      expect(convertMsToTime(5000)).toBe('00:05');
+      expect(convertMsToTime(60000)).toBe('01:00');
+      expect(convertMsToTime(120000)).toBe('02:00');
+      expect(convertMsToTime(3600000)).toBe('60:00');
+    });
+
+    it('should handle negative input gracefully', () => {
+      expect(convertMsToTime(-1000)).toBe('00:00');
+      expect(convertMsToTime(-50000)).toBe('00:00');
+    });
+  });
+
 
 
 });

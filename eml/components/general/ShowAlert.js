@@ -7,10 +7,10 @@ import { Alert } from 'react-native';
 export default function ShowAlert(error) {
   Alert.alert(
     error,
-    "Tente novamente", // Try again
+    'Tente novamente', // Try again
     [{
-      text: "Certo", // OK
-      style: "cancel",
+      text: 'Certo', // OK
+      style: 'cancel',
     }],
     {
       cancelable: true,
