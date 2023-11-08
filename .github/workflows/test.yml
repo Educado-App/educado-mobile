@@ -1,4 +1,4 @@
-name: Run Tests on Pull Request and Branches
+name: Run Linting and Tests on Pull Request and Branches
 on:
   pull_request:
     types:
@@ -8,11 +8,10 @@ on:
       - dev
       - staging
       - main
-      - cert-success_messages_mergeToDev
-      - video_pr_01_11
+      - dev_linting
 
 jobs:
-  test:
+  eslint:
     runs-on: ubuntu-latest
 
     steps:
@@ -28,7 +27,28 @@ jobs:
         run: ls -al
 
       - name: Install dependencies
-        run: cd eml && npm i
+        run: cd eml && npm install
+
+      - name: Run ESLint
+        run: cd eml && npx eslint .
+
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16" # Change to the Node.js version you need
+
+      - name: List directories and files
+        run: ls -al
+
+      - name: Install dependencies
+        run: cd eml && npm install
 
       - name: Run tests
         run: cd eml && npm run test
