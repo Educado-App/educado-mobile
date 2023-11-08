@@ -96,6 +96,24 @@ export const updateUserFields = async (user_id, updateFields, token) => {
   }
 };
 
+export const updateUserPassword = async (user_id, oldPassword, newPassword, token) => {
+  try {
+    const res = await axios.patch(url + `/api/users/${user_id}/password`, {
+      oldPassword: oldPassword,
+      newPassword: newPassword,
+    }, {
+      headers: {
+        'Content-Type': 'application/json',
+        'token': token, // Include the token in the headers
+      },
+    });
+
+    return res.data;
+  } catch (error) {
+    throw error.response;
+  }
+};
+
 export const completeExercise = async (user_id, exercise_id, isComplete, points, token) => {
   try {
     const res = await axios.patch(url + '/api/users/' + user_id + '/completed', {exerciseId: exercise_id, isComplete: isComplete, points: points}, {

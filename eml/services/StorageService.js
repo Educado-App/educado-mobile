@@ -2,18 +2,56 @@ import * as api from '../api/api.js';
 import * as userApi from '../api/userApi.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
 const COURSE_LIST = '@courseList';
 const SUB_COURSE_LIST = '@subCourseList';
 const SECTION_LIST = '@sectionList';
 const COURSE = '@course';
 const USER_ID = '@userId';
 const USER_INFO = '@userInfo';
+const LOGIN_TOKEN = "@loginToken";
 
+// Get user info from storage
 export const getUserInfo = async () => {
   try {
     const fetchedUserInfo = JSON.parse(await AsyncStorage.getItem(USER_INFO));
     return fetchedUserInfo;
+  } catch (e) {
+    throw e;
+  }
+};
+
+// Set user info in storage
+export const setUserInfo = async (userInfo) => {
+  try {
+    const obj = {
+      id: userInfo.id,
+      firstName: userInfo.firstName,
+      lastName: userInfo.lastName,
+      email: userInfo.email,
+      completedCourses: userInfo.completedCourses,
+    };
+
+    await AsyncStorage.setItem(USER_INFO, JSON.stringify(obj));
+    await AsyncStorage.setItem(USER_ID, userInfo.id); // needs to be seperate
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Get JWT from storage
+export const getJWT = async () => {
+  try {
+    const fetchedJWT = await AsyncStorage.getItem(LOGIN_TOKEN);
+    return fetchedJWT;
+  } catch (e) {
+    throw e;
+  }
+};
+
+// Set JWT in storage
+export const setJWT = async (jwt) => {
+  try {
+    return await AsyncStorage.setItem(LOGIN_TOKEN, jwt);
   } catch (e) {
     throw e;
   }
