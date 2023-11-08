@@ -9,14 +9,13 @@ import FormFieldAlert from "./FormFieldAlert";
 const PasswordField = (props) => {
 
 	const [showPassword, setShowPassword] = useState(false);
-	const [passwordAlert, setPasswordAlert] = useState('');
 
 	const toggleShowPassword = () => {	
 		setShowPassword(!showPassword);
 	}
 
 	return <>
-		<View className="relative">
+		<View className="relative" style={props.style}>
 			<FormTextField
 				testId="passwordInput"
 				placeholder={props.placeholder ?? "Insira sua senha"} // Type your password
@@ -25,12 +24,12 @@ const PasswordField = (props) => {
 				label={props.label ?? "Senha"} // Password
 				required={props.required ?? true} // Default to true
 				secureTextEntry={!showPassword}
+				error={props.error ?? false} // Shows red border if true
 			/>
 			<PasswordEye
 				showPasswordIcon={showPassword}
 				toggleShowPassword={toggleShowPassword}
 			/>
-			<FormFieldAlert label={passwordAlert} />
 		</View>
 	</>
 }

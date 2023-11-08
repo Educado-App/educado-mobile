@@ -1,5 +1,5 @@
 import React from "react";
-import { View } from "react-native";
+import { Pressable } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 /**
@@ -10,13 +10,15 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
  */
 export default function PasswordEye(props) {
   return (
-    <View className="absolute right-2 top-2 mt-3">
+    <Pressable
+      className="absolute right-0 top-2 p-3"
+      onPress={props.toggleShowPassword}
+    >
       <MaterialCommunityIcons
         name={props.showPasswordIcon ? "eye-off" : "eye"}
         size={24}
         color="gray"
-        onPress={props.toggleShowPassword}
       />
-    </View>
+    </Pressable>
   );
 }
