@@ -9,6 +9,7 @@ on:
       - staging
       - main
       - dev_linting
+      - dev_test
 
 jobs:
   eslint:
