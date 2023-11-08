@@ -10,9 +10,9 @@ import ToastNotification from '../../components/general/ToastNotification';
 // Services
 import { updateUserPassword } from '../../api/userApi';
 import { getUserInfo, getJWT } from "../../services/StorageService";
-import ShowAlert from "../general/ShowAlert";
 import FormFieldAlert from "../general/forms/FormFieldAlert";
 import { validatePasswordContainsLetter, validatePasswordLength } from '../general/Validation';
+import { alertErrorCode } from "../../services/ErrorAlertService";
 
 const ChangePasswordModal = (props) => {
 
@@ -82,36 +82,7 @@ const ChangePasswordModal = (props) => {
 		} catch(error) {
 			// Handle errors
 			console.log('Error updating password:',error?.data?.error ?? error);
-			switch (error?.data?.error?.code) {
-				case 'E0001':
-					// User not found!
-					ShowAlert("Usuário não encontrado!");
-					break;
-
-        case 'E0105':
-          // Password is incorrect!
-          ShowAlert("Senha incorreta!");
-          break;
-
-        case 'E0003':
-          // Error connecting to server!
-          ShowAlert("Erro de conexão com o servidor!");
-          break;
-
-				case 'E0805':
-					// Old and new password required. TODO: Get confirmation from Luiza
-					ShowAlert("Senha atual e nova senha são obrigatórias!");
-					break;
-
-				case 'E0806':
-					// Old password is incorrect. TODO: Get confirmation from Luiza
-					ShowAlert("Senha atual incorreta!");
-					break;
-
-        // TODO: What error should we give here instead? Unknown error? 
-        default: // Errors not currently handled with specific alerts
-          ShowAlert("Erro desconhecido!");
-      }
+			alertErrorCode(error?.data?.error?.code);
 		}
 	}
 
