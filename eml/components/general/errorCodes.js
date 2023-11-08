@@ -131,4 +131,4 @@ module.exports = {
     code: 'E0503',
     message: 'Verification link is invalid or has already been used.'
   }
-};
+}

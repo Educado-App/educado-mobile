@@ -10,7 +10,6 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { updateUserFields } from '../../api/userApi.js';
 import Text from '../general/Text';
-import { getUserInfo } from '../../services/StorageService.js';
 
 let LOGIN_TOKEN;
 const USER_INFO = '@userInfo';
@@ -26,7 +25,7 @@ export default function ProfileComponent() {
 
   const getProfile = async () => {
     try {
-      const fetchedProfile = await getUserInfo();	
+      const fetchedProfile = JSON.parse(await AsyncStorage.getItem(USER_INFO));
 
       if (fetchedProfile !== null) {
         setId(fetchedProfile.id);
@@ -38,7 +37,7 @@ export default function ProfileComponent() {
     } catch (e) {
       console.log(e);
     }
-  };
+  }
 
   useEffect(() => {
     getProfile();
@@ -74,7 +73,7 @@ export default function ProfileComponent() {
       Alert.alert('Alerta', 'Nome não foi alterado');
     }
     setIsLoading(false);
-  };
+  }
 
   return (
     <View>
@@ -82,52 +81,52 @@ export default function ProfileComponent() {
       <TouchableOpacity
         className="bg-projectWhite px-5 py-4 rounded-medium w-full"
         onPress={() => setFirstNameModalVisible(true)}
-      >
+        >
         <Text 
           className="text-left text-body text-gray">
           {firstName}
         </Text>
       </TouchableOpacity>
 
-      {/* Editable Username Modal */}
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={firstNameModalVisible}
-        onRequestClose={() => setFirstNameModalVisible(false)}
-      >
+        {/* Editable Username Modal */}
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={firstNameModalVisible}
+          onRequestClose={() => setFirstNameModalVisible(false)}
+        >
         <View className="flex justify-center items-center h-full bg-opacity-50 bg-black">
           <View className="bg-projectLightGray p-4 rounded-lg w-11/12 max-w-md">
-            <View className="flex flex-col items-center">
-              <TextInput
-                value={newFirstName}
-                onChangeText={setNewFirstName}
-                placeholder="Digite o novo nome"
-                className="w-full p-4 mb-4 bg-projectWhite rounded"
-              />
-              {isLoading ? ( // Conditional rendering based on loading state
-                <ActivityIndicator size="large" color="#0000ff" /> // Loading spinner
-              ) : (
-                <TouchableOpacity
-                  className="bg-primary px-10 py-4 rounded-medium w-full"
-                  onPress={() => saveFirstNameChanges()}
-                >
-                  <Text
-                    className="text-center font-sans-bold text-body text-projectWhite">
+              <View className="flex flex-col items-center">
+                <TextInput
+                  value={newFirstName}
+                  onChangeText={setNewFirstName}
+                  placeholder="Digite o novo nome"
+                  className="w-full p-4 mb-4 bg-projectWhite rounded"
+                />
+                {isLoading ? ( // Conditional rendering based on loading state
+                  <ActivityIndicator size="large" color="#0000ff" /> // Loading spinner
+                ) : (
+                  <TouchableOpacity
+                    className="bg-primary px-10 py-4 rounded-medium w-full"
+                    onPress={() => saveFirstNameChanges()}
+                  >
+                    <Text
+                      className="text-center font-sans-bold text-body text-projectWhite">
                         Salvar alterações
-                  </Text>
+                    </Text>
+                  </TouchableOpacity>
+                )}
+                <TouchableOpacity
+                  className="px-10 py-4 rounded-medium w-full mt-2 border-0 border-opacity-0"
+                  onPress={() => setFirstNameModalVisible(false)}
+                >
+                  <Text className="text-black text-center font-sans-bold">Cancelar</Text>
                 </TouchableOpacity>
-              )}
-              <TouchableOpacity
-                className="px-10 py-4 rounded-medium w-full mt-2 border-0 border-opacity-0"
-                onPress={() => setFirstNameModalVisible(false)}
-              >
-                <Text className="text-black text-center font-sans-bold">Cancelar</Text>
-              </TouchableOpacity>
+              </View>
             </View>
           </View>
-        </View>
-      </Modal>
+        </Modal>
     </View>
   );
 }  

@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Pressable, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import PropTypes from 'prop-types';
 
 /**
  * AccessCourseButton component displays a button to access a course
@@ -10,12 +9,12 @@ import PropTypes from 'prop-types';
  */
 const AccessCourseButton = ({ course }) => {
 
-  const navigation = useNavigation();
+const navigation = useNavigation();
 
   const handlePress = () => {
     navigation.navigate('Section', {
-      courseId: course.courseId,
-    });
+    courseId: course.courseId,
+    })
   };
 
   return (
@@ -30,10 +29,6 @@ const AccessCourseButton = ({ course }) => {
       </Pressable>
     </View>
   );
-};
-
-AccessCourseButton.propTypes = {
-  course: PropTypes.object,
 };
 
 export default AccessCourseButton;

@@ -3,14 +3,14 @@ import { View } from 'react-native';
 import FormTextField from '../../components/login/FormTextField';
 import FormButton from '../../components/login/FormButton';
 import PasswordEye from '../../components/login/PasswordEye';
-import { enterNewPassword } from '../../api/userApi';
-import FormFieldAlert from './FormFieldAlert';
-import { removeEmojis, validatePasswordContainsLetter, validatePasswordLength } from '../general/Validation';
+import { enterNewPassword } from "../../api/userApi";
+import FormFieldAlert from "./FormFieldAlert";
+import { removeEmojis, validatePasswordContainsLetter, validatePasswordLength } from "../general/Validation";
 import Text from '../general/Text';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import ShowAlert from '../general/ShowAlert';
 import DialogNotification from '../general/DialogNotification';
-import PropTypes from 'prop-types';
+
 
 /**
  * Component for entering a new password in the resetPassword modal
@@ -21,19 +21,19 @@ export default function EnterNewPasswordScreen(props) {
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   // Password constraint variables
   const [passwordContainsLetter, setPasswordContainsLetter] = useState(false);
   const [passwordLengthValid, setPasswordLengthValid] = useState(false);
 
   // password input alerts
-  const [confirmPasswordAlert, setConfirmPasswordAlert] = useState('');
-  const [passwordAlert, setPasswordAlert] = useState('');
+  const [confirmPasswordAlert, setConfirmPasswordAlert] = useState("");
+  const [passwordAlert, setPasswordAlert] = useState("");
 
-  let isPasswordsEmpty;
-  let passwordRequirements;
+  let isPasswordsEmpty
+  let passwordRequirements
 
   /**
    * Function to toggle the password visibility state
@@ -42,16 +42,16 @@ export default function EnterNewPasswordScreen(props) {
    */
   const toggleShowPassword = (setShowPasswordFunction, shouldShowPassword) => {
     setShowPasswordFunction(!shouldShowPassword);
-  };
+  }
 
   const checkIfPasswordsMatch = (password, confirmPassword) => {
     if (password === confirmPassword) {
-      setConfirmPasswordAlert('');
+      setConfirmPasswordAlert("");
     } else {
       // The passwords do not match
-      setConfirmPasswordAlert('Os campos de senha precisam ser iguais');
+      setConfirmPasswordAlert("Os campos de senha precisam ser iguais");
     }
-  };
+  }
 
   // password input alerts
   useEffect(() => {
@@ -95,26 +95,26 @@ export default function EnterNewPasswordScreen(props) {
       }, 2500);
     } catch (error) {
       switch (error?.error?.code) {
-      case 'E0401':
-        // No user exists with this email!
-        setPasswordAlert('Não existe nenhum usuário com este email!');
-        break;
+        case 'E0401':
+          // No user exists with this email!
+          setPasswordAlert("Não existe nenhum usuário com este email!");
+          break;
 
-      case 'E0404':
-        // Code expired!
-        setPasswordAlert('Código expirado!');
-        break;
+        case 'E0404':
+          // Code expired!
+          setPasswordAlert("Código expirado!");
+          break;
 
-      case 'E0405':
-        // Incorrect code!
-        setPasswordAlert('Código incorreto!');
-        break;
+        case 'E0405':
+          // Incorrect code!
+          setPasswordAlert("Código incorreto!");
+          break;
 
-      default:
-        // Errors not currently handled with specific alerts
-        ShowAlert('Erro desconhecido!');
-        console.log(error);
-        break;
+        default:
+          // Errors not currently handled with specific alerts
+          ShowAlert("Erro desconhecido!");
+          console.log(error);
+          break;
       }
     }
   }
@@ -122,7 +122,7 @@ export default function EnterNewPasswordScreen(props) {
   // Function to validate the input
   function validateInput() {
     // Check if passwords are empty
-    isPasswordsEmpty = newPassword === '' && confirmPassword === '';
+    isPasswordsEmpty = newPassword === "" && confirmPassword === "";
     // Check if password contains a letter and is at least 8 characters long
     passwordRequirements = passwordContainsLetter && passwordLengthValid;
     // Check if passwords match
@@ -147,7 +147,7 @@ export default function EnterNewPasswordScreen(props) {
         <PasswordEye id="showPasswordEye" showPasswordIcon={showPassword} toggleShowPassword={() => toggleShowPassword(setShowPassword, showPassword)} />
       </View>
       <View className="flex-row justify-start mt-1 h-6">
-        <Text testId="passwordLengthAlert" className={'text-xs' + ((passwordLengthValid || !newPassword) ? ' text-gray' : ' text-error')}>
+        <Text testId="passwordLengthAlert" className={"text-xs" + ((passwordLengthValid || !newPassword) ? " text-gray" : " text-error")}>
           {/* Minimum 8 characters */}
           • Mínimo 8 caracteres
         </Text>
@@ -158,7 +158,7 @@ export default function EnterNewPasswordScreen(props) {
         </View>
       </View>
       <View className="flex-row justify-start h-6">
-        <Text testId="passwordLetterAlert" className={'text-xs font-sans' + ((passwordContainsLetter || !newPassword) ? ' text-gray' : ' text-error')}>
+        <Text testId="passwordLetterAlert" className={"text-xs font-sans" + ((passwordContainsLetter || !newPassword) ? " text-gray" : " text-error")}>
           {/* Must contain at least one letter */}
           • Conter pelo menos uma letra
         </Text>
@@ -205,10 +205,3 @@ export default function EnterNewPasswordScreen(props) {
     </View>
   );
 }
-
-EnterNewPasswordScreen.propTypes = {
-  email: PropTypes.string,
-  hideModal: PropTypes.func,
-  resetState: PropTypes.func,
-  token: PropTypes.string,
-};

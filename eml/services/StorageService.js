@@ -1,4 +1,5 @@
 import * as api from '../api/api.js';
+import * as userApi from '../api/userApi.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
@@ -10,17 +11,12 @@ const USER_ID = '@userId';
 const USER_INFO = '@userInfo';
 
 export const getUserInfo = async () => {
-
-  const fetchedUserInfo = JSON.parse(await AsyncStorage.getItem(USER_INFO));
-  // I had to format the error handling as this,
-  // beacuse AsyncStorage.getItem() does not throw error itself 
-
-  if (fetchedUserInfo === null) {
-    throw new Error('Cannot fetch user info from async storage');
+  try {
+    const fetchedUserInfo = JSON.parse(await AsyncStorage.getItem(USER_INFO));
+    return fetchedUserInfo;
+  } catch (e) {
+    throw e;
   }
-
-  return fetchedUserInfo;
-
 };
 
 /** COURSE AND COURSE LIST **/
@@ -35,10 +31,10 @@ export const getCourseId = async (id) => {
     if (course !== null) {
       return course;
     }
-    if (error?.response?.data != null) {
-      throw error.response.data;
+    if (e?.response?.data != null) {
+      throw e.response.data;
     } else {
-      throw error;
+      throw e;
     }
   }
 };
@@ -48,11 +44,11 @@ export const refreshCourse = async (id) => {
     .then(async (course) => {
       return course;
     })
-    .catch((error) => {
-      if (error?.response?.data != null) {
-        throw error.response.data;
+    .catch((e) => {
+      if (e?.response?.data != null) {
+        throw e.response.data;
       } else {
-        throw error;
+        throw e;
       }
     });
 };
@@ -67,10 +63,10 @@ export const getCourseList = async () => {
     if (courseList !== null) {
       return courseList;
     }
-    if (error?.response?.data != null) {
-      throw error.response.data;
+    if (e?.response?.data != null) {
+      throw e.response.data;
     } else {
-      throw error;
+      throw e;
     }
   }
 };
@@ -99,11 +95,11 @@ export const refreshCourseList = async () => {
       await AsyncStorage.setItem(COURSE_LIST, JSON.stringify(newCourseList));
       return newCourseList;
     })
-    .catch((error) => {
-      if (error?.response?.data != null) {
-        throw error.response.data;
+    .catch((e) => {
+      if (e?.response?.data != null) {
+        throw e.response.data;
       } else {
-        throw error;
+        throw e;
       }
     });
 };
@@ -120,10 +116,10 @@ export const getSectionList = async (course_id) => {
     if (sectionList !== null) {
       return sectionList;
     }
-    if (error?.response?.data != null) {
-      throw error.response.data;
+    if (e?.response?.data != null) {
+      throw e.response.data;
     } else {
-      throw error;
+      throw e;
     }
   }
 };
@@ -147,11 +143,11 @@ export const refreshSectionList = async (course_id) => {
 
       return newSectionList;
     })
-    .catch((error) => {
-      if (error?.response?.data != null) {
-        throw error.response.data;
+    .catch((e) => {
+      if (e?.response?.data != null) {
+        throw e.response.data;
       } else {
-        throw error;
+        throw e;
       }
     });
 };
@@ -165,22 +161,22 @@ export const getSubCourseList = async () => {
   const userId = await AsyncStorage.getItem(USER_ID); 
 
   if(userId === null) {
-    throw new Error('Cannot fetch user id from async storage');
+    throw new Error("Cannot fetch user id from async storage");
   }
 
   try {
     return await refreshSubCourseList(userId);
 
-  } catch (error) {
+  } catch (e) {
     // Check if the course list already exists in AsyncStorage
     let courseList = JSON.parse(await AsyncStorage.getItem(SUB_COURSE_LIST));
     if (courseList !== null) {
       return courseList;
     }
-    if (error?.response?.data != null) {
-      throw error.response.data;
+    if (e?.response?.data != null) {
+      throw e.response.data;
     } else {
-      throw error;
+      throw e;
     }
   }
 };
@@ -209,11 +205,11 @@ export const refreshSubCourseList = async (userId) => {
       await AsyncStorage.setItem(SUB_COURSE_LIST, JSON.stringify(newCourseList));
       return newCourseList;
     })
-    .catch((error) => {
-      if (error?.response?.data != null) {
-        throw error.response.data;
+    .catch((e) => {
+      if (e?.response?.data != null) {
+        throw e.response.data;
       } else {
-        throw error;
+        throw e;
       }
     });
 };
@@ -226,17 +222,17 @@ export const subscribe = async (courseId) => {
   const userId = await AsyncStorage.getItem(USER_ID);
 
   if (userId === null) {
-    throw new Error('Cannot fetch user id from async storage');
+    throw new Error("Cannot fetch user id from async storage");
   }
 
   try {
     return await api.subscribeToCourse(userId, courseId);
 
-  } catch (error) {
-    if (error?.response?.data != null) {
-      throw error.response.data;
+  } catch (e) {
+    if (e?.response?.data != null) {
+      throw e.response.data;
     } else {
-      throw error;
+      throw e;
     }
   }
 };
@@ -248,17 +244,17 @@ export const unsubscribe = async (courseId) => {
   const userId = await AsyncStorage.getItem(USER_ID);
 
   if (userId === null) {
-    throw new Error('Cannot fetch user id from async storage');
+    throw new Error("Cannot fetch user id from async storage");
   }
 
   try {
     return await api.unSubscribeToCourse(userId, courseId);
 
-  } catch (error) {
-    if (error?.response?.data != null) {
-      throw error.response.data;
+  } catch (e) {
+    if (e?.response?.data != null) {
+      throw e.response.data;
     } else {
-      throw error;
+      throw e;
     }
   }
 };
@@ -271,17 +267,17 @@ export const checkSubscriptions = async (courseId) => {
   const userId = await AsyncStorage.getItem(USER_ID);
 
   if (userId === null) {
-    throw new Error('Cannot fetch user id from async storage');
+    throw new Error("Cannot fetch user id from async storage");
   }
 
   try {
     return await api.ifSubscribed(userId, courseId);
 
-  } catch (error) {
-    if (error?.response?.data != null) {
-      throw error.response.data;
+  } catch (e) {
+    if (e?.response?.data != null) {
+      throw e.response.data;
     } else {
-      throw error;
+      throw e;
     }
   }
 };

@@ -1,21 +1,21 @@
-import { Video } from 'expo-av';
-import { StyleSheet } from 'react-native';
-import React, { useEffect, useRef} from 'react';
-import PropTypes from 'prop-types';
+import { Video } from 'expo-av'
+import { StyleSheet } from 'react-native'
+import React, { useEffect, useRef} from 'react'
+import PropTypes from 'prop-types'
 
 function LaerningInputVideoExample1(uri, signal) {
   LaerningInputVideoExample1.propTypes = {
     uri: PropTypes.string.isRequired,
     signal: PropTypes.string.isRequired
-  };
+  }
 
-  const video = useRef(0);
+  const video = useRef(0)
 
   useEffect(()=>{
-    video.current.pauseAsync();
-  }, [signal]);
+    video.current.pauseAsync()
+  }, [signal])
 
-  console.log('signal from video: ' + signal);
+  console.log("signal from video: " + signal)
   return (
     <Video
       source={uri}
@@ -29,13 +29,13 @@ function LaerningInputVideoExample1(uri, signal) {
       ref={video}
       style={styles.backgroundVideo}
     />
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   backgroundVideo: {
     height: '100%'
   }
-});
+})
 
-export default LaerningInputVideoExample1;
+export default LaerningInputVideoExample1

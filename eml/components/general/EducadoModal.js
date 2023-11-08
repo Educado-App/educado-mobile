@@ -6,7 +6,6 @@ import Text from './Text';
 import { BgLinearGradient } from '../../constants/BgLinearGradient';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { AlertNotificationRoot } from 'react-native-alert-notification';
-import PropTypes from 'prop-types';
 
 /**
  * 
@@ -51,10 +50,3 @@ export default function EducadoModal(props) {
     </Modal>
   )
 }
-
-EducadoModal.propTypes = {
-  children: PropTypes.object,
-  closeModal: PropTypes.func,
-  modalVisible: PropTypes.bool,
-  title: PropTypes.string,
-};
