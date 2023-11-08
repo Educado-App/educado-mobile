@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Alert } from 'react-native';
+import { View } from 'react-native';
 import FormTextField from '../../components/login/FormTextField';
 import FormButton from '../../components/login/FormButton';
 import PasswordEye from '../../components/login/PasswordEye';
@@ -9,6 +9,7 @@ import { removeEmojis, validatePasswordContainsLetter, validatePasswordLength } 
 import Text from '../general/Text';
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import ShowAlert from '../general/ShowAlert';
+import DialogNotification from '../general/DialogNotification';
 
 
 /**
@@ -87,9 +88,11 @@ export default function EnterNewPasswordScreen(props) {
 
     try {
       await enterNewPassword(obj);
-      props.hideModal();
-      props.resetState();
-      showPasswordChangedSuccess();
+      DialogNotification('success', 'A senha foi alterada.');
+      setTimeout(() => {
+        props.hideModal();
+        props.resetState();
+      }, 2500);
     } catch (error) {
       switch (error?.error?.code) {
         case 'E0401':
@@ -122,25 +125,8 @@ export default function EnterNewPasswordScreen(props) {
     isPasswordsEmpty = newPassword === "" && confirmPassword === "";
     // Check if password contains a letter and is at least 8 characters long
     passwordRequirements = passwordContainsLetter && passwordLengthValid;
-    if (!isPasswordsEmpty && passwordRequirements) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  const showPasswordChangedSuccess = () => {
-    Alert.alert(
-      "Sucesso!", // Success!
-      "A senha foi alterada.", // Password has been changed
-      [{
-        text: "OK",
-        style: "cancel",
-      }],
-      {
-        cancelable: true,
-      }
-    );
+    // Check if passwords match
+    return (!isPasswordsEmpty && passwordRequirements && confirmPasswordAlert === "");
   }
 
   return (

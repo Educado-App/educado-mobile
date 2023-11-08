@@ -8,6 +8,7 @@ import Text from '../general/Text';
 import { sendResetPasswordEmail, validateResetPasswordCode } from "../../api/userApi";
 import FormFieldAlert from "./FormFieldAlert";
 import { validateEmail } from "../general/Validation";
+import ToastNotification from "../general/ToastNotification";
 
 /**
  * Component to create modal (popup) that prompts user for
@@ -17,6 +18,7 @@ import { validateEmail } from "../general/Validation";
  * - onModalClose: Function to do when modal closes
  */
 export default function ResetPassword(props) {
+
   const emailAlertMessage = "Não existe nenhum usuário com este email!";
   const [email, setEmail] = useState("");
   const [token, setToken] = useState("");
@@ -60,8 +62,7 @@ export default function ResetPassword(props) {
     await sendResetPasswordEmail(obj)
       .then(async () => {
         setEmailSent(true);
-        setButtonLoading(false);
-        displayErrorAlert("E-mail enviado com sucesso!", true);
+        ToastNotification('success', 'E-mail enviado!'); //email sent!
       }).catch((error) => {
         switch (error?.error?.code) {
           case 'E0401':
@@ -84,8 +85,8 @@ export default function ResetPassword(props) {
             // Errors not currently handled with specific alerts
             displayErrorAlert("Erro desconhecido!", false);
         }
-        setButtonLoading(false);
       });
+    setButtonLoading(false);
   }
 
 
@@ -150,7 +151,7 @@ export default function ResetPassword(props) {
           <View>
             <FormTextField
               bordered={true}
-              placeholder="Insira sua senha"
+              placeholder="Insira sua e-mail"
               label="E-mail"
               required={true}
               onChangeText={(email) => setEmail(email)}

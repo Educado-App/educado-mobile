@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const prod = 'http://educado.somethingnew.dk';
-const test = 'http://172.30.212.239:8888'; // Change this to your LOCAL IP address when testing.
+const test = 'http://172.30.254.243:8888'; // Change this to your LOCAL IP address when testing.
 const local = 'http://localhost:8888';
 const digitalOcean = 'http://207.154.213.68:8888';
 
@@ -37,7 +37,7 @@ export const registerUser = async (obj) => {
     console.log('User successfully registered');
     return res.data;
   } catch (e) {
-    if (e.response.data != null) {
+    if (e?.response?.data != null) {
       throw e.response.data;
     } else {
       throw e;
@@ -57,7 +57,7 @@ export const loginUser = async (obj) => {
     console.log('User successfully registered');
     return res.data;
   } catch (e) {
-    if (e.response.data != null) {
+    if (e?.response?.data != null) {
       throw e.response.data;
     } else {
       throw e;
@@ -96,6 +96,30 @@ export const updateUserFields = async (user_id, updateFields, token) => {
   }
 };
 
+export const completeExercise = async (user_id, exercise_id, isComplete, points, token) => {
+  try {
+    const res = await axios.patch(url + '/api/users/' + user_id + '/completed', {exerciseId: exercise_id, isComplete: isComplete, points: points}, {
+      headers: {
+        'Content-Type': 'application/json',
+        'token': token, // Include the token in the headers
+      },
+    });
+    
+    // Extract the required fields from the response data
+    const { _id, firstName, lastName, email, completedCourses } = res.data;
+
+    // Return the specific fields
+    return {
+      id: _id,
+      firstName,
+      lastName,
+      email,
+      completedCourses
+    };
+  } catch(error) {
+    throw error;
+  }
+}
 
 export const enrollInCourse = async (user_Id, course_Id) => {
   try {
@@ -177,10 +201,10 @@ export const updateExerciseStatus = async (
 */
 export const sendResetPasswordEmail = async (email) => {
   try {
-    const res = await axios.post(url + '/api/auth/reset-password-request', email);
+    const res = await client.post('/api/auth/reset-password-request', email);
     return res.data;
   } catch (e) {
-    if (e.response.data != null) {
+    if (e?.response?.data != null) {
       throw e.response.data;
     } else {
       throw e;
@@ -197,10 +221,10 @@ export const sendResetPasswordEmail = async (email) => {
 */
 export const validateResetPasswordCode = async (obj) => {
   try {
-    const res = await axios.post(url + '/api/auth/reset-password-code', obj);
+    const res = await client.post('/api/auth/reset-password-code', obj);
     return res.data;
   } catch (e) {
-    if (e.response.data != null) {
+    if (e?.response?.data != null) {
       throw e.response.data;
     } else {
       throw e;
@@ -218,10 +242,10 @@ export const validateResetPasswordCode = async (obj) => {
 */
 export const enterNewPassword = async (obj) => {
   try {
-  const res = await axios.patch(url + '/api/auth/reset-password', obj);
+  const res = await client.patch('/api/auth/reset-password', obj);
   return res.data;
   } catch (e) {
-    if (e.response.data != null) {
+    if (e?.response?.data != null) {
       throw e.response.data;
     } else {
       throw e;

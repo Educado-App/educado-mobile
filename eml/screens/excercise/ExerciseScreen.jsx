@@ -13,12 +13,15 @@ import PopUp from '../../components/gamification/PopUp';
 import { StatusBar } from 'expo-status-bar';
 import { getExerciseByid, getSectionByid, getCourse } from '../../api/api';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { givePoints } from '../../services/utilityFunctions';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+const USER_INFO = '@userInfo';
+const LOGIN_TOKEN = '@loginToken';
+let xp = 10;
 
 // givenId is used for testing purposes, in the future an exercise object should be passed by the previous screen
 export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7'}) {
-
-  const xp = Math.floor(Math.random() * (10 - 5 + 1)) + 5; // Replace with intricate point system
-
   const navigation = useNavigation();
   const route = useRoute();
 
@@ -37,13 +40,36 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7'}) 
     setSelectedAnswer(answerIndex);
   };
 
-  function handleReviewAnswer(selectedAnswer) {
+  async function retrieveUserInfoAndLoginToken() {
+    try {
+      // Retrieve the user info object and parse it from JSON
+      const userInfoString = await AsyncStorage.getItem(USER_INFO);
+      const userInfo = JSON.parse(userInfoString);
+      const loginToken = await AsyncStorage.getItem(LOGIN_TOKEN);
+  
+      return { userInfo, loginToken };
+    } catch (error) {
+      // Handle errors here
+      console.error('Error retrieving data:', error);
+    }
+  }
+
+  async function handleReviewAnswer(selectedAnswer) {
     const continueText = "Continuar";
+    const { userInfo, loginToken } = await retrieveUserInfoAndLoginToken();
+
     setIsCorrectAnswer(selectedAnswer);
 
     setButtonClassName(
       `bg-project${selectedAnswer ? 'Green' : 'Red'}`
     );
+
+
+    if (selectedAnswer) {
+      xp = await givePoints(userInfo, exerciseData._id, true, 10, loginToken);
+    } else {
+      xp = await givePoints(userInfo, exerciseData._id, false, 0, loginToken);
+    }
 
     setShowFeedback(true);
     setButtonText(continueText);
