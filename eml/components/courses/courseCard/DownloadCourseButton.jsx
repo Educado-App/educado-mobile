@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import LottieView from "lottie-react-native";
 import {Alert, TouchableWithoutFeedback} from "react-native";
 import * as StorageService from "../../../services/StorageService";
+import { useNavigation } from '@react-navigation/native';
 
 const ANIMATION_STATES = {
     INITIAL: "initial",
@@ -19,9 +20,17 @@ const ANIMATION_STATES = {
 export default function DownloadCourseButton(course) {
     const animationRef = useRef(null);
     const [animationState, setAnimationState] = useState(course.course.downloaded ? ANIMATION_STATES.COMPLETED : ANIMATION_STATES.INITIAL);
+    // setAnimationState(course.course.downloaded ? ANIMATION_STATES.COMPLETED : ANIMATION_STATES.INITIAL);
+    console.log(course.course.downloaded);
+    const navigation = useNavigation();
+    //course.course.downloaded ? animationRef.current.play(149, 149) : animationRef.current.play(17, 17);
+    
     // Play animation based on animation state
     // Hardcoded frame numbers are based on the animation
     // https://lottiefiles.com/animations/download-ZdWE0VoaZW
+    //
+  
+
     useEffect(() => {
         switch (animationState) {
             case ANIMATION_STATES.INITIAL:
@@ -47,6 +56,16 @@ export default function DownloadCourseButton(course) {
                 break;
         }
     }, [animationState]);
+
+    useEffect(() => {
+        const update = navigation.addListener('focus', () => {
+            setAnimationState(course.course.downloaded ? ANIMATION_STATES.COMPLETED : ANIMATION_STATES.INITIAL);
+            console.log(animationState);
+        });
+        return update;
+        
+    }, [navigation]);
+
 
     const downloadConfirmation = () =>
         Alert.alert("Baixar curso", "Deseja baixar este curso para acesso offline?", [
