@@ -27,6 +27,9 @@ module.exports = {
       limeGreenDarker: '#8DD08C',
       correctAnswer: '#00897B',
       wrongAnswer: '#CF6679',
+      profileCircle: '#166276',
+      pointsText: '#C1A146',
+      pointsCoin: '#AD872D',
     },
     fontFamily: {
       montserrat: ['Montserrat-Regular'],
