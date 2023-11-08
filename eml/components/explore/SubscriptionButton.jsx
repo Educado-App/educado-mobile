@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Pressable, Text } from 'react-native';
 import { subscribe } from '../../services/StorageService';
 import { useNavigation } from '@react-navigation/native';
+import PropTypes from 'prop-types';
 
 /**
  * SubscriptionButton provides an interface for users to subscribe to a course.
@@ -17,7 +18,7 @@ const SubscriptionButton = ({ course })  => {
     
     navigation.navigate('Section', {
       courseId: course.courseId,
-    })
+    });
   };
 
   return (
@@ -32,6 +33,10 @@ const SubscriptionButton = ({ course })  => {
       </Pressable>
     </View>
   );
+};
+
+SubscriptionButton.propTypes = {
+  course: PropTypes.object,
 };
 
 export default SubscriptionButton;

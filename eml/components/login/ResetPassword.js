@@ -1,13 +1,15 @@
-import { View } from "react-native";
-import React, { useState, useEffect } from "react";
-import FormTextField from "./FormTextField";
-import FormButton from "./FormButton";
-import EducadoModal from "../general/EducadoModal";
-import EnterNewPasswordScreen from "./EnterNewPasswordScreen";
+import { View } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import FormTextField from './FormTextField';
+import FormButton from './FormButton';
+import EducadoModal from '../general/EducadoModal';
+import EnterNewPasswordScreen from './EnterNewPasswordScreen';
 import Text from '../general/Text';
-import { sendResetPasswordEmail, validateResetPasswordCode } from "../../api/userApi";
-import FormFieldAlert from "./FormFieldAlert";
-import { validateEmail } from "../general/Validation";
+import { sendResetPasswordEmail, validateResetPasswordCode } from '../../api/userApi';
+import FormFieldAlert from './FormFieldAlert';
+import { validateEmail } from '../general/Validation';
+import PropTypes from 'prop-types';
+import { showAlert } from '../general/ShowAlert';
 import ToastNotification from "../general/ToastNotification";
 
 /**
@@ -18,14 +20,13 @@ import ToastNotification from "../general/ToastNotification";
  * - onModalClose: Function to do when modal closes
  */
 export default function ResetPassword(props) {
-
-  const emailAlertMessage = "Não existe nenhum usuário com este email!";
-  const [email, setEmail] = useState("");
-  const [token, setToken] = useState("");
+  const emailAlertMessage = 'Não existe nenhum usuário com este email!';
+  const [email, setEmail] = useState('');
+  const [token, setToken] = useState('');
   const [emailSent, setEmailSent] = useState(false);
   const [codeEntered, setCodeEntered] = useState(false);
-  const [passwordResetAlert, setPasswordResetAlert] = useState("");
-  const [tokenAlert, setTokenAlert] = useState("");
+  const [passwordResetAlert, setPasswordResetAlert] = useState('');
+  const [tokenAlert, setTokenAlert] = useState('');
   const [isSuccess, setIsSuccess] = useState(false);
   const [buttonLoading, setButtonLoading] = useState(false);
 
@@ -65,25 +66,25 @@ export default function ResetPassword(props) {
         ToastNotification('success', 'E-mail enviado!'); //email sent!
       }).catch((error) => {
         switch (error?.error?.code) {
-          case 'E0401':
-            // No user exists with this email!
-            displayErrorAlert(emailAlertMessage, false);
-            break;
+        case 'E0401':
+          // No user exists with this email!
+          displayErrorAlert(emailAlertMessage, false);
+          break;
 
-          case 'E0406':
-            // Too many resend attempts!
-            displayErrorAlert("Muitas tentativas de reenvio! Espere 5 minutos...", false);
-            break;
+        case 'E0406':
+          // Too many resend attempts!
+          displayErrorAlert('Muitas tentativas de reenvio! Espere 5 minutos...', false);
+          break;
 
-          case 'E0004':
-            // User not found!
-            displayErrorAlert("Usuário não encontrado!", false);
-            break;
+        case 'E0004':
+          // User not found!
+          displayErrorAlert('Usuário não encontrado!', false);
+          break;
 
           // TODO: What error should we give here instead? Unknown error? 
-          default:
-            // Errors not currently handled with specific alerts
-            displayErrorAlert("Erro desconhecido!", false);
+        default:
+          // Errors not currently handled with specific alerts
+          displayErrorAlert('Erro desconhecido!', false);
         }
       });
     setButtonLoading(false);
@@ -107,25 +108,25 @@ export default function ResetPassword(props) {
         setCodeEntered(true);
       }).catch((error) => {
         switch (error?.error?.code) {
-          case 'E0401':
-            // No user exists with this email!
-            displayErrorAlert(emailAlertMessage, false);
-            break;
+        case 'E0401':
+          // No user exists with this email!
+          displayErrorAlert(emailAlertMessage, false);
+          break;
 
-          case 'E0404':
-            // Code expired!
-            setTokenAlert("Código expirado!");
-            break;
+        case 'E0404':
+          // Code expired!
+          setTokenAlert('Código expirado!');
+          break;
 
-          case 'E0405':
-            // Incorrect code!
-            setTokenAlert("Código incorreto!");
-            break;
+        case 'E0405':
+          // Incorrect code!
+          setTokenAlert('Código incorreto!');
+          break;
 
-          default:
-            // Errors not currently handled with specific alerts
-            showAlert("Erro desconhecido!");
-            console.log(error);
+        default:
+          // Errors not currently handled with specific alerts
+          showAlert('Erro desconhecido!');
+          console.log(error);
         }
       });
   }
@@ -134,9 +135,9 @@ export default function ResetPassword(props) {
   const resetState = () => {
     setEmailSent(false);
     setCodeEntered(false);
-    displayErrorAlert("", false);
-    setTokenAlert("");
-    setToken("");
+    displayErrorAlert('', false);
+    setTokenAlert('');
+    setToken('');
   };
 
   //checks if the 4-digit code entered is valid
@@ -179,7 +180,7 @@ export default function ResetPassword(props) {
                   <View className="mt-[40px] mb-[24px]">
                     <FormButton
                       // Continue 
-                      label={buttonLoading ? "Validando código..." : "Continuar"}
+                      label={buttonLoading ? 'Validando código...' : 'Continuar'}
                       onPress={() => validateCode(email, token)}
                       testId="validateCodeBtn"
                       disabled={!codeInputValid(token)}
@@ -195,10 +196,10 @@ export default function ResetPassword(props) {
               ) : (
                 <FormButton
                   // Send code
-                  label={buttonLoading ? "Enviando e-mail..." : "Enviar código"}
+                  label={buttonLoading ? 'Enviando e-mail...' : 'Enviar código'}
                   onPress={() => sendEmail(email)}
                   testId="resetPasswordButton"
-                  disabled={passwordResetAlert !== "" || email === "" || buttonLoading}
+                  disabled={passwordResetAlert !== '' || email === '' || buttonLoading}
                 />
               )}
             </View>
@@ -216,3 +217,7 @@ export default function ResetPassword(props) {
   );
 }
 
+ResetPassword.propTypes = {
+  modalVisible: PropTypes.bool,
+  onModalClose: PropTypes.func,
+};

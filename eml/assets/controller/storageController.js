@@ -1,28 +1,28 @@
-import getCourseListData from './data/getCourseList.json'
-import getCourseByIdData from './data/getCourseByID.json'
-import getNextExerciseBySectionIdData from './data/getNextExerciseBySectionId.json'
-import getFeedBackByExerciseIdData from './data/getFeedbackByExerciseId.json'
+import getCourseListData from './data/getCourseList.json';
+import getCourseByIdData from './data/getCourseByID.json';
+import getNextExerciseBySectionIdData from './data/getNextExerciseBySectionId.json';
+import getFeedBackByExerciseIdData from './data/getFeedbackByExerciseId.json';
 
 function getCourseList() {
-  return getCourseListData
+  return getCourseListData;
 }
 
 function getCourseById(id) {
-  return getCourseByIdData[id - 1]
+  return getCourseByIdData[id - 1];
 }
 
-function getNextExerciseBySectionId(sectionId) {
-  return getNextExerciseBySectionIdData
+function getNextExerciseBySectionId() {
+  return getNextExerciseBySectionIdData;
 }
 
-function getFeedBackByExerciseId(exerciseId) {
-  return getFeedBackByExerciseIdData
+function getFeedBackByExerciseId() {
+  return getFeedBackByExerciseIdData;
 }
 
-function updateExerciseBySectionId(exerciseId) { }
+function updateExerciseBySectionId() { }
 
 function isCourseActive(courseId) {
-  return getCourseListData[courseId - 1].isDownloaded
+  return getCourseListData[courseId - 1].isDownloaded;
 }
 
 export default {
@@ -32,4 +32,4 @@ export default {
   getFeedBackByExerciseId,
   updateExerciseBySectionId,
   isCourseActive
-}
+};

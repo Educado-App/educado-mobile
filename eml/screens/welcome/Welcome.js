@@ -1,10 +1,15 @@
-import React from "react";
-import { View, TouchableOpacity, Image, SafeAreaView } from "react-native";
-import { BgLinearGradient } from "../../constants/BgLinearGradient";
-import WelcomeSlider from "../../components/welcome/WelcomeSlider";
+import React from 'react';
+import { View, TouchableOpacity, Image, SafeAreaView } from 'react-native';
+import { BgLinearGradient } from '../../constants/BgLinearGradient';
+import WelcomeSlider from '../../components/welcome/WelcomeSlider';
 import Text from '../../components/general/Text.js';
+import { useNavigation } from '@react-navigation/native';
+import logo from '../../assets/images/logo.png';
 
-export default function WelcomeScreen({ navigation }) {
+
+export default function WelcomeScreen() {
+
+  const navigation = useNavigation();
 
   return (
     <BgLinearGradient>
@@ -13,7 +18,7 @@ export default function WelcomeScreen({ navigation }) {
           
           <View className="flex mb-[20%] pt-[30%]">
             <Image 
-              source={require("../../assets/images/logo.png")}
+              source={logo}
               className="w-[175.88] h-[25.54]"
             />
           </View>        
@@ -34,9 +39,9 @@ export default function WelcomeScreen({ navigation }) {
 
             <View className="mt-6">
               <TouchableOpacity 
-                onPress={() => { navigation.navigate('LoginStack', { initialRoute: 'Register' }); }}
+                onPress={() => { navigation.navigate('LoginStack', { screen: 'Register' }); }}
               >
-                <Text className="text-center font-sans-bold text-body underline">Cadastrer</Text>
+                <Text className="text-center font-sans-bold text-body underline">Cadastrar</Text>
               </TouchableOpacity>
             </View>
 
@@ -46,5 +51,4 @@ export default function WelcomeScreen({ navigation }) {
       </SafeAreaView>
     </BgLinearGradient>
   );
-};
-
+}

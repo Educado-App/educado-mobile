@@ -5,22 +5,22 @@ const USER_INFO = '@userInfo';
 
 export function getDifficultyLabel(lvl) {
   switch (lvl) {
-    case 1:
-      return "Iniciante";
-    case 2:
-      return "Intermediário";
-    case 3:
-      return "Avançado";
-    default:
-      return "Iniciante";
+  case 1:
+    return 'Iniciante';
+  case 2:
+    return 'Intermediário';
+  case 3:
+    return 'Avançado';
+  default:
+    return 'Iniciante';
   }
-};
+}
 
 
 export const convertMsToTime = (ms) => {
 
   if (ms < 0){
-    return "00:00";
+    return '00:00';
   }
 
   let seconds = Math.floor((ms / 1000) % 60);
@@ -30,36 +30,36 @@ export const convertMsToTime = (ms) => {
   minutes = minutes < 10 ? '0' + minutes : minutes;
 
   return `${minutes}:${seconds}`;
-}
+};
 
 
 
 export function determineCategory(category) {
   switch (category) {
-    case "personal finance":
-      return "Finanças pessoais";
-    case "health and workplace safety":
-      return "Saúde e segurança no trabalho";
-    case "sewing":
-      return "Costura";
-    case "electronics":
-      return "Eletrônica";
-    default: "other";
-      return "Outro";
+  case 'personal finance':
+    return 'Finanças pessoais';
+  case 'health and workplace safety':
+    return 'Saúde e segurança no trabalho';
+  case 'sewing':
+    return 'Costura';
+  case 'electronics':
+    return 'Eletrônica';
+  default: 'other';
+    return 'Outro';
   }
 }
 export function determineIcon(category) {
   switch (category) {
-    case "personal finance":
-      return "finance"
-    case "health and workplace safety":
-      return "medical-bag"
-    case "sewing":
-      return "scissors-cutting"
-    case "electronics":
-      return "laptop"
-    default:
-      return "bookshelf"
+  case 'personal finance':
+    return 'finance';
+  case 'health and workplace safety':
+    return 'medical-bag';
+  case 'sewing':
+    return 'scissors-cutting';
+  case 'electronics':
+    return 'laptop';
+  default:
+    return 'bookshelf';
   }
 }
 
@@ -74,7 +74,7 @@ export function getUpdatedDate(courseDate){
 
   // Format the date and time in the desired format
   return `${year}/${month}/${day}`;
-};
+}
 
 /**
 * Determines if the two arrays of courses are different and require an update.

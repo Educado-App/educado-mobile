@@ -126,7 +126,7 @@ describe('API Functions', () => {
       const result = await getSubscriptions(userId);
 
       // Check that axios.get was called with the correct URL
-      expect(axios.get).toHaveBeenCalledWith(`${port}/api/users/${userId}/subscriptions`);
+      expect(axios.get).toHaveBeenCalledWith(`${port}/api/students/${userId}/subscriptions`);
       expect(result).toEqual(mockData.subscriptionData);
     });
 
@@ -199,7 +199,7 @@ describe('API Functions', () => {
 
       const result = await ifSubscribed(userId, courseId);
 
-      expect(axios.get).toHaveBeenCalledWith(`${port}/api/users/subscriptions?user_id=${userId}&course_id=${courseId}`);
+      expect(axios.get).toHaveBeenCalledWith(`${port}/api/students/subscriptions?user_id=${userId}&course_id=${courseId}`);
       expect(result).toEqual(subscribedData.isSubscribed);
     });
 

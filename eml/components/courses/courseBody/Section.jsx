@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
-import { View, Text, Pressable } from 'react-native'
-import { Icon } from '@rneui/base'
+import React, { useState } from 'react';
+import { View, Pressable } from 'react-native';
+import { Icon } from '@rneui/base';
 import { useNavigation } from '@react-navigation/native';
 import Text from '../../components/general/Text';
+import PropTypes from 'prop-types';
 export default function Section({
   SectionIcon,
   SectionText,
@@ -12,8 +13,8 @@ export default function Section({
 }) {
   const [selected, setSelected] = useState({
     pressed: 'lightgrey'
-  })
-  const navigation = useNavigation()
+  });
+  const navigation = useNavigation();
   return (
     // Needs to have State To update Width of the view with background color which is now green
     <Pressable
@@ -28,8 +29,8 @@ export default function Section({
         }
       ]}
       onPressIn={() => {
-        setSelected({ pressed: 'grey' })
-        navigation.navigate('Exercise')
+        setSelected({ pressed: 'grey' });
+        navigation.navigate('Exercise');
       }}
       onPressOut={() => setSelected({ pressed: 'lightgrey' })}
     >
@@ -122,5 +123,13 @@ export default function Section({
         ></View>
       </View>
     </Pressable>
-  )
+  );
 }
+
+Section.propTypes = {
+  SectionIcon: PropTypes.element,
+  SectionText: PropTypes.string,
+  SectionProgressText: PropTypes.string,
+  SectionProgressBarWidth: PropTypes.number,
+  SectionOpacity: PropTypes.number
+};

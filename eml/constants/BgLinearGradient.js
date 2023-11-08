@@ -1,8 +1,13 @@
 import React from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
+import PropTypes from 'prop-types';
+import tailwindConfig from '../tailwind.config.js';
 
 export function BgLinearGradient({ children }) {
-  const tailwindConfig = require('../tailwind.config.js');
+
+  BgLinearGradient.propTypes = {
+    children: PropTypes.object.isRequired, 
+  };
 
   const projectColors = tailwindConfig.theme.colors;
 
