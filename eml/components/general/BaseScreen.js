@@ -8,11 +8,11 @@ import { AlertNotificationRoot } from 'react-native-alert-notification';
  * @returns {JSX.Element} The BaseScreen component.
  */
 export default function BaseScreen({ children }) {
-    return (
-        <AlertNotificationRoot>
-            <View className="flex-1 bg-secondary">
-                {children}
-            </View>
-        </AlertNotificationRoot>
-    );
+  return (
+    <AlertNotificationRoot>
+      <View className="flex-1 bg-secondary">
+        {children}
+      </View>
+    </AlertNotificationRoot>
+  );
 }

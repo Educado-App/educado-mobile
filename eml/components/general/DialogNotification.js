@@ -16,21 +16,21 @@ export default DialogNotification = (status, message) => {
           title: 'Sucesso!',
           textBody: message,
         }) : status === 'warning' ? 
-        Dialog.show({
-          type: ALERT_TYPE.WARNING,
-          title: 'Aviso!',
-          textBody: message,
-        }) : status === 'error' ? 
-        Dialog.show({
-          type: ALERT_TYPE.DANGER,
-          title: 'Erro!',
-          textBody: message,
-        }) : 
-        Dialog.show({
-          type: ALERT_TYPE.INFO,
-          title: 'Notificação!',
-          textBody: message,
-        })},
+          Dialog.show({
+            type: ALERT_TYPE.WARNING,
+            title: 'Aviso!',
+            textBody: message,
+          }) : status === 'error' ? 
+            Dialog.show({
+              type: ALERT_TYPE.DANGER,
+              title: 'Erro!',
+              textBody: message,
+            }) : 
+            Dialog.show({
+              type: ALERT_TYPE.INFO,
+              title: 'Notificação!',
+              textBody: message,
+            })},
     </View>
   )
 }

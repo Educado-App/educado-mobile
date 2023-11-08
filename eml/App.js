@@ -1,9 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import CourseScreen from './screens/courses/CourseScreen';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Icon } from '@rneui/themed';
-import ProfileComponent from './screens/profile/Profile';
 import LoginScreen from './screens/login/Login';
 import RegisterScreen from './screens/register/Register';
 import * as eva from '@eva-design/eva';
@@ -13,7 +10,6 @@ import RightAnswerScreen from './screens/excercise/RightAnswerScreen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ExerciseScreen from './screens/excercise/ExerciseScreen';
 import WrongAnswerComponent from './screens/excercise/WrongAnswerScreen';
-import Explore from './screens/explore/Explore';
 import { TailwindProvider } from 'tailwindcss-react-native';
 import ErrorScreen from './screens/errors/ErrorScreen';
 import SectionCompleteScreen from './screens/excercise/SectionCompleteScreen';

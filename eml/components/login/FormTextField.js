@@ -33,13 +33,13 @@ export default function FormTextField(props) {
       <View className=''>
         <TextInput className={'h-50 br-25 py-1 pl-[10px] bg-white rounded-lg' +
                                   (props.bordered ? ' border-2 border-gray' : '') + (props.error ? ' border-2 border-error' : '')}
-          placeholder={props.placeholder ?? ""} // Placeholder text to be displayed
-          keyboardType={props.keyboardType ?? "default"} // Keyboard type (e.g. numeric, email-address, etc.)
-          autoComplete={props.autoComplete ?? "off"} // Whether to enable auto-completion
-          secureTextEntry={props.secureTextEntry ?? false} // Whether to mask the input (for passwords, etc.)
-          passwordGuidelines={props.passwordGuidelines ?? false} // Whether to display password guidelines
-          onChangeText={props.onChangeText ? value => props.onChangeText(value) : null} // Callback function to be called when the text changes
-          value={props.value} // Value of the input
+        placeholder={props.placeholder ?? ""} // Placeholder text to be displayed
+        keyboardType={props.keyboardType ?? "default"} // Keyboard type (e.g. numeric, email-address, etc.)
+        autoComplete={props.autoComplete ?? "off"} // Whether to enable auto-completion
+        secureTextEntry={props.secureTextEntry ?? false} // Whether to mask the input (for passwords, etc.)
+        passwordGuidelines={props.passwordGuidelines ?? false} // Whether to display password guidelines
+        onChangeText={props.onChangeText ? value => props.onChangeText(value) : null} // Callback function to be called when the text changes
+        value={props.value} // Value of the input
         />
       </View>
     </View>

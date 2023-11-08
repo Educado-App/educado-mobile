@@ -22,7 +22,7 @@ export default function ProfileComponent() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
-  
+
   const getProfile = async () => {
     try {
       const fetchedProfile = JSON.parse(await AsyncStorage.getItem(USER_INFO));
@@ -61,7 +61,7 @@ export default function ProfileComponent() {
             <View className="flex-row">
               <ReturnButton></ReturnButton>
               <Image
-                className = "h-[25.54] w-[175.88] right-5"
+                className="h-[25.54] w-[175.88] right-5"
                 source={require("../../assets/images/logo.png")}
               />
             </View>
@@ -69,7 +69,7 @@ export default function ProfileComponent() {
 
           <View>
             <TouchableOpacity>
-              <ProfileImage/>
+              <ProfileImage />
             </TouchableOpacity>
           </View>
 

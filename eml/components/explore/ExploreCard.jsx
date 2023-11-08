@@ -71,17 +71,17 @@ export default function ExploreCard({ course, isPublished, subscribed }) {
 
       <Collapsible className="w-full" collapsed={isCollapsed}>
         <View className="py-7 flex-row items-center justify-between px-1">
-            <Text className="text-black text-m">{course.description}</Text>
+          <Text className="text-black text-m">{course.description}</Text>
         </View>
 
         <View>
-            {
-              subscribed ? (
-                <AccessCourseButton course={course} />
-              ) : (
-                <SubscriptionButton course={course} />
-              )
-            }
+          {
+            subscribed ? (
+              <AccessCourseButton course={course} />
+            ) : (
+              <SubscriptionButton course={course} />
+            )
+          }
           <UpdateDate dateUpdated={getUpdatedDate(course.dateUpdated)} />
         </View>
 

@@ -65,25 +65,25 @@ export default function ResetPassword(props) {
         ToastNotification('success', 'E-mail enviado!'); //email sent!
       }).catch((error) => {
         switch (error?.error?.code) {
-          case 'E0401':
-            // No user exists with this email!
-            displayErrorAlert(emailAlertMessage, false);
-            break;
+        case 'E0401':
+          // No user exists with this email!
+          displayErrorAlert(emailAlertMessage, false);
+          break;
 
-          case 'E0406':
-            // Too many resend attempts!
-            displayErrorAlert("Muitas tentativas de reenvio! Espere 5 minutos...", false);
-            break;
+        case 'E0406':
+          // Too many resend attempts!
+          displayErrorAlert("Muitas tentativas de reenvio! Espere 5 minutos...", false);
+          break;
 
-          case 'E0004':
-            // User not found!
-            displayErrorAlert("Usuário não encontrado!", false);
-            break;
+        case 'E0004':
+          // User not found!
+          displayErrorAlert("Usuário não encontrado!", false);
+          break;
 
           // TODO: What error should we give here instead? Unknown error? 
-          default:
-            // Errors not currently handled with specific alerts
-            displayErrorAlert("Erro desconhecido!", false);
+        default:
+          // Errors not currently handled with specific alerts
+          displayErrorAlert("Erro desconhecido!", false);
         }
       });
     setButtonLoading(false);
@@ -107,25 +107,25 @@ export default function ResetPassword(props) {
         setCodeEntered(true);
       }).catch((error) => {
         switch (error?.error?.code) {
-          case 'E0401':
-            // No user exists with this email!
-            displayErrorAlert(emailAlertMessage, false);
-            break;
+        case 'E0401':
+          // No user exists with this email!
+          displayErrorAlert(emailAlertMessage, false);
+          break;
 
-          case 'E0404':
-            // Code expired!
-            setTokenAlert("Código expirado!");
-            break;
+        case 'E0404':
+          // Code expired!
+          setTokenAlert("Código expirado!");
+          break;
 
-          case 'E0405':
-            // Incorrect code!
-            setTokenAlert("Código incorreto!");
-            break;
+        case 'E0405':
+          // Incorrect code!
+          setTokenAlert("Código incorreto!");
+          break;
 
-          default:
-            // Errors not currently handled with specific alerts
-            showAlert("Erro desconhecido!");
-            console.log(error);
+        default:
+          // Errors not currently handled with specific alerts
+          showAlert("Erro desconhecido!");
+          console.log(error);
         }
       });
   }

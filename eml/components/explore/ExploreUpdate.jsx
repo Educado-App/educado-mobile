@@ -7,11 +7,11 @@ import { View, Text } from 'react-native'; // Assuming this is for React Native 
  * @returns {JSX.Element} - Returns a JSX element.
  */
 const UpdateDate = ({ dateUpdated }) => (
-    <View>
-        <Text className="text-xs opacity-40 pt-3">
+  <View>
+    <Text className="text-xs opacity-40 pt-3">
             ATUALIZADO: {dateUpdated}
-        </Text>
-    </View>
+    </Text>
+  </View>
 );
 
 export default UpdateDate;

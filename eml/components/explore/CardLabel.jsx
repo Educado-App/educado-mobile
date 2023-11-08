@@ -11,14 +11,14 @@ import { View, Text } from 'react-native';
  * @returns {JSX.Element} - Returns a JSX element.
  */
 const CardLabel = ({title, icon, color = "gray", time = false}) => {
-    const displayTitle = time ? `${title} Horas` : title;
+  const displayTitle = time ? `${title} Horas` : title;
 
-    return ( 
-        <View className="flex-row items-center justify-start">
-            <MaterialCommunityIcons name={icon} size={13} color={color} />
-            <Text className="pl-1 text-xs" style={{color: color}}>{displayTitle}</Text>
-        </View>
-    );
+  return ( 
+    <View className="flex-row items-center justify-start">
+      <MaterialCommunityIcons name={icon} size={13} color={color} />
+      <Text className="pl-1 text-xs" style={{color: color}}>{displayTitle}</Text>
+    </View>
+  );
 }
  
 export default CardLabel;

@@ -16,21 +16,21 @@ export default ToastNotification = (status, message) => {
           title: 'Sucesso!',
           textBody: message,
         }) : status === 'warning' ? 
-        Toast.show({
-          type: ALERT_TYPE.WARNING,
-          title: 'Aviso!',
-          textBody: message,
-        }) : status === 'error' ? 
-        Toast.show({
-          type: ALERT_TYPE.DANGER,
-          title: 'Erro!',
-          textBody: message,
-        }) : 
-        Toast.show({
-          type: ALERT_TYPE.INFO,
-          title: 'Notificação!',
-          textBody: message,
-        })},
+          Toast.show({
+            type: ALERT_TYPE.WARNING,
+            title: 'Aviso!',
+            textBody: message,
+          }) : status === 'error' ? 
+            Toast.show({
+              type: ALERT_TYPE.DANGER,
+              title: 'Erro!',
+              textBody: message,
+            }) : 
+            Toast.show({
+              type: ALERT_TYPE.INFO,
+              title: 'Notificação!',
+              textBody: message,
+            })},
     </View>
   )
 }
