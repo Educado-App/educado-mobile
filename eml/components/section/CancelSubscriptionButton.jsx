@@ -1,7 +1,7 @@
-import React from "react";
-import { View } from "react-native";
+import React from 'react';
+import { View } from 'react-native';
 import { Button } from 'react-native-paper';
-import tailwindConfig from "../../tailwind.config";
+import tailwindConfig from '../../tailwind.config';
 
 /**
  * Renders a button component for cancelling a subscription.
