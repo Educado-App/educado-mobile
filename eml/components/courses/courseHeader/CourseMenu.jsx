@@ -4,13 +4,13 @@ import CourseProgress from './CourseProgress';
 import CourseTitleIcon from './CourseTitleIcon';
 import Text from '../../general/Text';
 
-import { Icon } from '@rneui/themed'; // Checkout all supported icons https://oblador.github.io/react-native-vector-icons/
-const color = '#006622';
-const type = 'material-community';
-const name = 'cash';
+import { Icon } from '@rneui/themed' // Checkout all supported icons https://oblador.github.io/react-native-vector-icons/
+const color = '#006622'
+const type = 'material-community'
+const name = 'cash'
 
 export default function CourseMenu() {
-  const drawer = useRef(null);
+  const drawer = useRef(null)
 
   const navigationView = () => (
     <View style={[styles.navigationContainer, styles.container]}>
@@ -41,7 +41,7 @@ export default function CourseMenu() {
         </View>
       </View>
     </View>
-  );
+  )
 
   return (
     <View style={styles.container3}>
@@ -75,7 +75,7 @@ export default function CourseMenu() {
         <CourseProgress fracTop={45} fracBot={100}></CourseProgress>
       </DrawerLayoutAndroid>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -111,4 +111,4 @@ const styles = StyleSheet.create({
   menuText: {
     fontSize: 35
   }
-});
+})

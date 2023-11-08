@@ -1,14 +1,15 @@
-import React from 'react';
-import { View } from 'react-native';
-import LeaveButton from '../exercise/LeaveButton';
-import EducadoLogo from '../images/EducadoLogo';
-import PropTypes from 'prop-types';
+import React from "react";
+import { View } from "react-native";
+import LeaveButton from "../exercise/LeaveButton";
+import EducadoLogo from "../images/EducadoLogo";
+
 
 /**
  * Component that includes, logo, title and backbutton, used in login and register screens
  * @param {Object} props Should contain the following properties:
  * - navigationPlace: String
  * @returns {React.Element} Header/logo/back button component
+
  */
 export default function LogoBackButton(props) {
 
@@ -25,9 +26,5 @@ export default function LogoBackButton(props) {
         <EducadoLogo />
       </View>
     </View>
-  );
+  )
 }
-
-LogoBackButton.propTypes = {
-  navigationPlace: PropTypes.string,
-};

@@ -1,39 +1,29 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, View, TouchableOpacity } from 'react-native';
+import { ScrollView, View, TouchableOpacity, Dimensions } from "react-native";
 import { useNavigation, useRoute } from '@react-navigation/native';
+import LeaveButton from '../../components/exercise/LeaveButton';
 import Text from '../../components/general/Text';
-import CustomProgressBar from '../../components/exercise/Progressbar';
-import { RadioButton } from 'react-native-paper';
-import ExerciseInfo from '../../components/exercise/ExerciseInfo';
+import CustomProgressBar from "../../components/exercise/Progressbar";
+import { RadioButton } from "react-native-paper";
+import ExerciseInfo from "../../components/exercise/ExerciseInfo";
+import { ScreenWidth } from "@rneui/base";
 import { Icon } from '@rneui/themed';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import PopUp from '../../components/gamification/PopUp';
 import { StatusBar } from 'expo-status-bar';
+import { getExerciseByid, getSectionByid, getCourse } from '../../api/api';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { givePoints } from '../../services/utilityFunctions';
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { getExerciseByid } from '../../api/api';
-import PropTypes from 'prop-types';
 
 const USER_INFO = '@userInfo';
 const LOGIN_TOKEN = '@loginToken';
 let xp = 10;
 
-/**
- * Exercise screen component for displaying and handling exercises in a course.
- * @module ExerciseScreen
- * @param {string} givenId - The ID of the exercise (default: '65181a4f4c78b45368126ed7').
- * @returns {JSX.Element} React component for the exercise screen.
- */
 // givenId is used for testing purposes, in the future an exercise object should be passed by the previous screen
-
-export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed8' }) {
-
-  const xp = Math.floor(Math.random() * (10 - 5 + 1)) + 5; // Replace with intricate point system
+export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7'}) {
   const navigation = useNavigation();
   const route = useRoute();
-  const tailwindConfig = require('../../tailwind.config.js');
-  const projectColors = tailwindConfig.theme.colors;
 
   const [hasData, setHasData] = useState(false);
   const [exerciseData, setExerciseData] = useState({});
@@ -42,10 +32,9 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed8' })
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [buttonClassName, setButtonClassName] = useState('');
   const [showFeedback, setShowFeedback] = useState(false);
-  const [buttonText, setButtonText] = useState('Confirmar Resposta'); // Used to change the text of a button
+  const [buttonText, setButtonText] = useState("Confirmar Resposta"); // Used to change the text of a button
   const [isPopUpVisible, setIsPopUpVisible] = useState(false); // Used to render the pop up
   const [isCorrectAnswer, setIsCorrectAnswer] = useState(false);
-  const [buttonClicked, setButtonClicked] = useState(false);
 
   const handleAnswerSelect = (answerIndex) => {
     setSelectedAnswer(answerIndex);
@@ -68,6 +57,7 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed8' })
   async function handleReviewAnswer(selectedAnswer) {
     const continueText = "Continuar";
     const { userInfo, loginToken } = await retrieveUserInfoAndLoginToken();
+
     setIsCorrectAnswer(selectedAnswer);
 
     setButtonClassName(
@@ -83,66 +73,27 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed8' })
 
     setShowFeedback(true);
     setButtonText(continueText);
-
-    if (!buttonClicked) {
-      setButtonClicked(true);
-      setIsPopUpVisible(true);  
-    } else {
-      handleSecondOnclick();
+    if (buttonText !== continueText) {
+      setIsPopUpVisible(true);
     }
   }
-  const fetchData = async () => {
-    /* This is how the fetch data should look like,
-     * however, it is commented out as the API functions are not correctly implemented yet.
-     * They should be called through storage service, not directly.
-     * Title and other data should be set in storage service as well.
-     * For now, dummy data is used instead.
-     */
-
-    const exercise = await getExerciseByid(givenId);
-    setExerciseData(exercise);
-
-    setSectionData.title = 'Section 1 test';
-    setCourseData.title = 'Course 1 test';
-    setHasData(true);
-
-    /*
-    const exercise = await getExerciseByid(givenId);
-    if (exercise !== null) {
-      setExerciseData(exercise);
-      setHasData(true);
-    } else {
-
-      setHasData(false);
-      navigation.navigate('ErrorScreen');
-    }
-
-    const section = await getSectionByid(exercise.parentSection);
-    if (section !== null) {
-      setSectionData(section);
-      setHasData(true);
-    } else {
-      setHasData(false);
-      navigation.navigate('ErrorScreen');
-    }
-
-    const course = await getCourse(section.parentCourse);
-    if (course !== null) {
-      setCourseData(course);
-      setHasData(true);
-    } else {
-      setHasData(false);
-      navigation.navigate('ErrorScreen');
-    }
-
-    */
-
-  };
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setExerciseData(exercise = await getExerciseByid(givenId));
+        setSectionData(section = await getSectionByid(exercise.parentSection));
+        setCourseData(course = await getCourse(section.parentCourse));
+        setHasData(true);
+      } catch (error) {
+        console.log('Error fetching data:', error);
+        navigation.navigate('ErrorScreen');
+      }
+    };
+  
     fetchData();
   }, [route.params]);
-
+    
 
   return (
     <SafeAreaView className="h-screen bg-secondary">
@@ -151,101 +102,97 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed8' })
         <TouchableOpacity className="pr-3" onPress={() => navigation.goBack()}>
           <MaterialCommunityIcons name="chevron-left" size={25} color="black" />
         </TouchableOpacity>
-        <CustomProgressBar progress={50} width={65} height={1.2}></CustomProgressBar>
-      </View>
-
-      {hasData === false ? (
-        // No data
-        <Text>Sem dados</Text>
-      ) : (
-        <View className='items-center'>
-          <Text testID='exerciseQuestion'
-            className='pt-6 pb-10 text-center text-body font-sans-bold text-projectBlack w-11/12'>
-            {exerciseData.description}
-          </Text>
-
-          <View className={`${buttonClassName} items-center justify-center h-96 w-full`}>
-            <ScrollView className="py-2">
-              {/* Map through the answers and render each one */}
-              {exerciseData.answers.map((answer, index) => (
-                <View
-                  key={index}
-                  className='flex-row w-96 pb-6 pl-2'
-                >
-                  <View>
-                    <RadioButton.Android
-                      disabled={showFeedback}
-                      value={index}
-                      status={
-                        selectedAnswer === index ? 'checked' : 'unchecked'
-                      }
-                      onPress={() => handleAnswerSelect(index)}
-                      color={projectColors.primary}
-                      uncheckedColor={projectColors.primary}
-                    />
-                  </View>
-
-                  <View>
-                    <TouchableOpacity onPress={() => handleAnswerSelect(index)} disabled={showFeedback}>
-                      <Text className='pt-2 pb-1 w-72 font-montserrat text-body text-projectBlack'>{answer.text}</Text>
-                    </TouchableOpacity>
-
-                    {showFeedback ? (
-                      <View className={`flex-row pb-2 w-fit rounded-medium ${answer.isCorrect ? 'bg-projectGreen' : 'bg-projectRed'}`}>
-                        <View className='pl-2 pt-1'>
-                          <View className='pt-1.5'>
-                            {answer.isCorrect === true ? (
-                              <Icon
-                                size={10}
-                                name='check'
-                                type='material'
-                                color={projectColors.success}
-                              />
-                            ) : (
-                              <Icon
-                                size={10}
-                                name='close'
-                                type='material'
-                                color={projectColors.error}
-                              />
-                            )}
-                          </View>
-                        </View>
-                        <Text className={`w-72 pl-1 pt-2 pr-2 text-caption-medium ${answer.isCorrect ? 'text-success' : 'text-error'}`}>{answer.feedback}</Text>
-                      </View>
-                    ) : null}
-                  </View>
-                </View>
-              ))}
-
-            </ScrollView>
-          </View>
-
-          <View className='px-6 pt-10 w-screen'>
-            <TouchableOpacity
-              disabled={selectedAnswer === null ? true : false}
-              className={`${selectedAnswer !== null ? 'opacity-100' : 'opacity-30'} bg-primary px-10 py-4 rounded-medium`}
-              onPress={() => handleReviewAnswer(exerciseData.answers[selectedAnswer].isCorrect)}
-            >
-              <Text className='text-center font-sans-bold text-body text-projectWhite'>{buttonText}</Text>
-            </TouchableOpacity>
-          </View>
+          <CustomProgressBar progress={50} width={65} height={1.2}></CustomProgressBar>
         </View>
-      )}
 
-      {isPopUpVisible ? (
-        <PopUp xpAmount={xp} isCorrectAnswer={isCorrectAnswer} />
-      ) : null}
+        {hasData === false ? (
+          // No data
+          <Text>Sem dados</Text>
+        ) : (
+          <View className='items-center'>
+            <Text testID='exerciseQuestion' 
+              className='pt-6 pb-10 text-center text-body font-sans-bold text-projectBlack w-11/12'>
+              {exerciseData.description}
+            </Text>
 
-      <ExerciseInfo courseId={courseData.title} sectionId={sectionData.title} />
-      <StatusBar style='auto' />
-    </SafeAreaView>
+            <View className={`${buttonClassName} items-center justify-center h-96 w-full`}>
+              <ScrollView className="py-2">
+                {/* Map through the answers and render each one */}
+                {exerciseData.answers.map((answer, index) => (
+                  <View
+                    key={index}
+                    className='flex-row w-96 pb-6 pl-2'
+                  >
+                    <View>
+                      <RadioButton.Android
+                        disabled={showFeedback}
+                        value={index}
+                        status={
+                          selectedAnswer === index ? 'checked' : 'unchecked'
+                        }
+                        onPress={() => handleAnswerSelect(index)}
+                        color='#5ECCE9'
+                        uncheckedColor='#5ECCE9'
+                      />
+                    </View>
+
+                    <View>
+                      <TouchableOpacity onPress={() => handleAnswerSelect(index)} disabled={showFeedback}>
+                        <Text className='pt-2 pb-1 w-72 font-montserrat text-body text-projectBlack'>{answer.text}</Text>
+                      </TouchableOpacity>
+
+                      {showFeedback ? (
+                        <View className={`flex-row pb-2 w-fit rounded-medium ${answer.isCorrect ? 'bg-projectGreen' : 'bg-projectRed'}`}>
+                          <View className='pl-2 pt-1'>
+                            <View className='pt-1.5'>
+                              {answer.isCorrect === true ? ( 
+                                <Icon
+                                  size={10}
+                                  name='check'
+                                  type='material'
+                                  color='#4AA04A'
+                                />
+                              ) : (
+                                <Icon
+                                  size={10}
+                                  name='close'
+                                  type='material'
+                                  color='#FF4949'
+                                />
+                              )}  
+                            </View>                        
+                          </View>
+                          <Text className={`w-72 pl-1 pt-2 pr-2 text-caption-medium ${answer.isCorrect ? 'text-success' : 'text-error'}`}>{answer.feedback}</Text>
+                        </View>
+                      ) : null}
+                    </View>
+                  </View>
+                ))}
+
+              </ScrollView>
+            </View>
+
+            <View className='px-6 pt-10 w-screen'>
+              <TouchableOpacity
+                disabled={selectedAnswer === null ? true : false}
+                className={`${selectedAnswer !== null ? 'opacity-100' : 'opacity-30'} bg-primary px-10 py-4 rounded-medium`}
+                onPress={() => handleReviewAnswer(exerciseData.answers[selectedAnswer].isCorrect)}
+              >
+                <Text className='text-center font-sans-bold text-body text-projectWhite'>{buttonText}</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        )}
+
+        {isPopUpVisible ? (
+          <PopUp xpAmount={xp} isCorrectAnswer={isCorrectAnswer} />
+        ) : null}
+
+        <ExerciseInfo courseId={courseData.title} sectionId={sectionData.title} />
+        <StatusBar style='auto' />
+      </SafeAreaView>
   );
 }
-
-ExerciseScreen.propTypes = {
-  givenId: PropTypes.string,
-};
 
 /*
 async function getExercise() {

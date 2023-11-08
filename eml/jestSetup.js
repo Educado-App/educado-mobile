@@ -13,3 +13,5 @@ jest.mock('react-native-alert-notification', () => {
         AlertNotificationRoot: jest.fn().mockImplementation(({ children }) => children),
     };
 });
+
+jest.useRealTimers();

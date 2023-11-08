@@ -1,38 +1,41 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
 import {
   View,
   SafeAreaView,
   ScrollView,
-} from 'react-native';
-import ProfileName from '../../components/profile/profileName';
-import LogOutButton from '../../components/profile/LogOutButton';
-import SettingsButton from '../../components/profile/settingsButton.js';
-import { BgLinearGradient } from '../../constants/BgLinearGradient';
-import { getUserInfo } from '../../services/StorageService';
+} from 'react-native'
+import ProfileName from '../../components/profile/profileName'
+import LogOutButton from '../../components/profile/LogOutButton'
+import SettingsButton from '../../components/profile/settingsButton.js'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { BgLinearGradient } from "../../constants/BgLinearGradient";
 
+const USER_INFO = '@userInfo'
 
 export default function ProfileComponent() {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-
+  const [id, setId] = useState('')
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [email, setEmail] = useState('')
 
   const getProfile = async () => {
     try {
-      const fetchedProfile = await getUserInfo();
+      const fetchedProfile = JSON.parse(await AsyncStorage.getItem(USER_INFO))
 
       if (fetchedProfile !== null) {
-        setFirstName(fetchedProfile.firstName); 
-        setLastName(fetchedProfile.lastName);
-
+        setId(fetchedProfile.id)
+        setFirstName(fetchedProfile.firstName)
+        setLastName(fetchedProfile.lastName)
+        setEmail(fetchedProfile.email)
       }
     } catch (e) {
-      console.log(e);
+      console.log(e)
     }
-  };
+  }
 
   useEffect(() => {
-    getProfile();
-  }, []);
+    getProfile()
+  }, [])
   
   return (
     <BgLinearGradient>
@@ -46,5 +49,5 @@ export default function ProfileComponent() {
         </ScrollView>
       </SafeAreaView>
     </BgLinearGradient>
-  );
+  )
 }

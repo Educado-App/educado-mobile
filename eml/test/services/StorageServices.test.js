@@ -66,7 +66,7 @@ describe('Async Storage Functions', () => {
 
     it('should handle errors getting from async storage', async () => {
 
-      const errorMessage = 'Error getting course from async storage: ' + mockData.errorResponse;
+      const errorMessage = "Error getting course from async storage: " + mockData.errorResponse;
 
       // Mock AsyncStorage to simulate an error
       AsyncStorage.getItem.mockRejectedValue(new Error(errorMessage));
@@ -87,7 +87,7 @@ describe('Async Storage Functions', () => {
 
     it('should handle errors in refreshCourse', async () => {
 
-      const errorMessage = 'Error getting course from database: ' + mockData.errorResponse;
+      const errorMessage = "Error getting course from database: " + mockData.errorResponse;
 
       // Mock AsyncStorage to simulate an error
       AsyncStorage.getItem.mockResolvedValue(null);
@@ -149,7 +149,7 @@ describe('Async Storage Functions', () => {
 
     it('should handle errors getting from async storage', async () => {
 
-      const errorMessage = 'Error getting course list from async storage: ' + mockData.errorResponse;
+      const errorMessage = "Error getting course list from async storage: " + mockData.errorResponse;
 
       // Mock AsyncStorage to simulate an error
       AsyncStorage.getItem.mockRejectedValue(new Error(errorMessage));
@@ -170,7 +170,7 @@ describe('Async Storage Functions', () => {
 
     it('should handle errors in refreshCourseList', async () => {
 
-      const errorMessage = 'Error getting course list from database: ' + mockData.errorResponse;
+      const errorMessage = "Error getting course list from database: " + mockData.errorResponse;
 
       // Mock AsyncStorage to simulate an error
       AsyncStorage.getItem.mockResolvedValue(null);
@@ -230,7 +230,7 @@ describe('Async Storage Functions', () => {
 
     });
     it('should handle errors getting from async storage', async () => {
-      const errorMessage = 'Error getting section list from async storage: ' + mockData.errorResponse;
+      const errorMessage = "Error getting section list from async storage: " + mockData.errorResponse;
 
       // Mock AsyncStorage to simulate an error
       AsyncStorage.getItem.mockRejectedValue(new Error(errorMessage));
@@ -249,7 +249,7 @@ describe('Async Storage Functions', () => {
       jest.restoreAllMocks();
     });
     it('should handle errors in refreshSectionList', async () => {
-      const errorMessage = 'Error getting section list from database: ' + mockData.errorResponse;
+      const errorMessage = "Error getting section list from database: " + mockData.errorResponse;
 
       // Mock AsyncStorage to simulate an error
       AsyncStorage.getItem.mockResolvedValue(null);
@@ -314,7 +314,7 @@ describe('Async Storage Functions', () => {
 
     it('should throw an error if AsyncStorage getItem fails', async () => {
       // Mock AsyncStorage to simulate a failure
-      AsyncStorage.getItem.mockRejectedValue(new Error('Cannot fetch user id from async storage'));
+      AsyncStorage.getItem.mockRejectedValue(new Error("Cannot fetch user id from async storage"));
 
       await expect(StorageService.getSubCourseList()).rejects.toThrow('Cannot fetch user id from async storage');
     });

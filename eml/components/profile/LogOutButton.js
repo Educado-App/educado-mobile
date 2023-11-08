@@ -1,24 +1,24 @@
-import { View, TouchableOpacity, Alert } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { View, TouchableOpacity, Alert } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import React from 'react';
 
-const LOGIN_TOKEN = '@loginToken';
-const USER_INFO = '@userInfo';
+const LOGIN_TOKEN = '@loginToken'
+const USER_INFO = '@userInfo'
 
-export default function LogOutButton() {
-	
-
-  const navigation = useNavigation();
+export default function LogOutButton(props) {
+  const navigation = useNavigation()
 
   async function logOut() {
+    try {
+      await AsyncStorage.removeItem(LOGIN_TOKEN);
+      await AsyncStorage.removeItem(USER_INFO);
 
-    await AsyncStorage.removeItem(LOGIN_TOKEN);
-    await AsyncStorage.removeItem(USER_INFO);
-
-    navigation.navigate('Login');
-
+      navigation.navigate('Login');
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   const logoutAlert = () =>
@@ -29,7 +29,7 @@ export default function LogOutButton() {
         style: 'cancel'
       },
       { text: 'Sim', onPress: logOut }
-    ]);
+    ])
 
   return (
     <View className="flex-row items-center justify-end px-6 mt-[-40%] mb-[20%]">
@@ -39,10 +39,10 @@ export default function LogOutButton() {
             name="logout"
             size={40}
             color="white"
-
+            testID={props.testID}
           />
         </View>
       </TouchableOpacity>
     </View>
-  );
+  )
 }

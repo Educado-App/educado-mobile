@@ -1,16 +1,16 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import WelcomeScreen from '../../../screens/welcome/Welcome';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useWelcomeScreenLogic } from '../../../App'; // Update the import path as needed
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useWelcomeScreenLogic } from "../../../App"; // Update the import path as needed
 
 let navigated = false;
 
 jest.mock('@react-navigation/native', () => ({
-  useNavigation: () => ({
-    navigate: jest.fn(() => { navigated = true; }),
-  }),
-}));
+    useNavigation: () => ({
+      navigate: jest.fn(() => { navigated = true }),
+    }),
+  }));
 
 jest.mock('@react-navigation/bottom-tabs', () => ({
   createBottomTabNavigator: jest.fn(),

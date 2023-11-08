@@ -1,20 +1,20 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native';
-import { Icon } from '@rneui/themed';
-import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/dev';
-import { AppLoading } from 'expo-app-loading';
-import Text from '../../components/general/Text';
+import React from 'react'
+import { View, StyleSheet } from 'react-native'
+import { useNavigation, useRoute } from '@react-navigation/native'
+import { Icon } from '@rneui/themed'
+import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/dev'
+import { AppLoading } from 'expo-app-loading'
+import Text from '../../components/general/Text'
 
 export default function RightAnswerScreen() {
-  const navigation = useNavigation();
-  const route = useRoute();
-  const { courseId, sectionId } = route.params;
+  const navigation = useNavigation()
+  const route = useRoute()
+  const { courseId, sectionId } = route.params
   const [fontsLoaded] = useFonts({
     VarelaRound_400Regular
-  });
+  })
   if (!fontsLoaded) {
-    return AppLoading;
+    return AppLoading
   } else {
     return (
       <View
@@ -74,7 +74,7 @@ export default function RightAnswerScreen() {
           </View>
         </View>
       </View>
-    );
+    )
   }
 }
 
@@ -108,4 +108,4 @@ const styles = StyleSheet.create({
   // paddingButtons: {
   //   padding: 10
   // }
-});
+})

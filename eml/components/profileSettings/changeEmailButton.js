@@ -11,7 +11,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { updateUserFields } from '../../api/userApi.js';
 import patterns from '../../assets/validation/patterns.js';
 import Text from '../general/Text';
-import { getUserInfo } from '../../services/StorageService.js';
 
 let LOGIN_TOKEN;
 const USER_INFO = '@userInfo';
@@ -28,7 +27,7 @@ export default function ProfileComponent() {
 
   const getProfile = async () => {
     try {
-      const fetchedProfile = await getUserInfo();	
+      const fetchedProfile = JSON.parse(await AsyncStorage.getItem(USER_INFO));
 
       if (fetchedProfile !== null) {
         setId(fetchedProfile.id);
@@ -40,7 +39,7 @@ export default function ProfileComponent() {
     } catch (e) {
       console.log(e);
     }
-  };
+  }
 
   useEffect(() => {
     getProfile();
@@ -54,24 +53,24 @@ export default function ProfileComponent() {
       if (emailRegex.test(newEmail)) {
         // Call the updateUserFields function to update the email on the server
         try {
-          setIsLoading(true); // Set loading state to true
+        setIsLoading(true); // Set loading state to true
 
-          await updateUserFields(id, { email: newEmail }, LOGIN_TOKEN);
+        await updateUserFields(id, { email: newEmail }, LOGIN_TOKEN);
 
 
-          // Update the state with the new username and close modal
-          setEmail(newEmail);
+        // Update the state with the new username and close modal
+        setEmail(newEmail);
 
-          // Save changes to AsyncStorage or your API
-          const updatedProfile = {
-            id,
-            firstName: firstName,
-            lastName: lastName,
-            email: newEmail,
-          };
+        // Save changes to AsyncStorage or your API
+        const updatedProfile = {
+          id,
+          firstName: firstName,
+          lastName: lastName,
+          email: newEmail,
+        };
 
-          await AsyncStorage.setItem(USER_INFO, JSON.stringify(updatedProfile));
-          setEmailModalVisible(false);
+        await AsyncStorage.setItem(USER_INFO, JSON.stringify(updatedProfile));
+        setEmailModalVisible(false);
         } catch (error) {
           // Error updating email, try again:
           Alert.alert('Alerta', 'Erro ao atualizar o e-mail, tente novamente: ', error.message);
@@ -82,10 +81,10 @@ export default function ProfileComponent() {
       }
     } else {
       // The emails do not match or are the same as your current email. Try again.
-      Alert.alert('Alerta','Os e-mails não correspondem ou são iguais ao seu e-mail atual. Tente novamente.');
+      Alert.alert('Alerta','Os e-mails não correspondem ou são iguais ao seu e-mail atual. Tente novamente.')
     }
     setIsLoading(false);
-  };
+  }
   
 
   const openEmailModal = () => {
@@ -93,7 +92,7 @@ export default function ProfileComponent() {
     setNewEmail('');
     setTempEmail('');
     setEmailModalVisible(true);
-  };
+  }
 
   return (
     <View>

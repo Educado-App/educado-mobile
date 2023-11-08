@@ -1,17 +1,15 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import CourseTitleIcon from './courseHeader/CourseTitleIcon';
-import PropTypes from 'prop-types';
-import DownloadCourseButton from './DownloadCourseButton';
+import React from 'react'
+import { View, StyleSheet } from 'react-native'
+import CourseTitleIcon from './courseHeader/CourseTitleIcon'
+import PropTypes from 'prop-types'
+import DownloadCourseButton from "./DownloadCourseButton";
 
 export default function CourseHeader({ courseTitle, courseIcon, courseId, downloadState }) {
 
   CourseHeader.propTypes = {
-    courseTitle: PropTypes.string,
+    courseTitle: PropTypes.string.isRequired,
     courseIcon: PropTypes.string,
-    courseId: PropTypes.string,
-    downloadState: PropTypes.object
-  };
+  }
 
   return (
     <View className="items-center pt-8" >
@@ -21,7 +19,7 @@ export default function CourseHeader({ courseTitle, courseIcon, courseId, downlo
       ></CourseTitleIcon>
       <DownloadCourseButton downloadStateSignal={downloadState} courseId={courseId} style={styles.downloadButton}></DownloadCourseButton>
     </View>
-  );
+  )
 }
 
 
@@ -29,4 +27,4 @@ const styles = StyleSheet.create({
   downloadButton: {
     marginLeft: '75%'
   }
-});
+})

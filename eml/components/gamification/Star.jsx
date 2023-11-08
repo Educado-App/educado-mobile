@@ -1,7 +1,7 @@
-import React from 'react';
-import { Icon } from '@rneui/themed';
+import React from 'react'
+import { Icon } from '@rneui/themed'
 
-export default function star() {
+export default function star(params) {
   return (
     <Icon
       style={{
@@ -15,5 +15,5 @@ export default function star() {
       type="material-community"
       color="#ffd633"
     />
-  );
+  )
 }

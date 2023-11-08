@@ -1,7 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
 import Text from '../general/Text';
-import PropTypes from 'prop-types';
 
 /**
  * Component for showing an alert below a form field
@@ -16,10 +15,5 @@ export default function FormFieldAlert(props) {
         <Text className="text-xs text-success mx-2">{props.label}</Text> 
         : <Text className="text-xs text-error mx-2">{props.label}</Text>}
     </View >
-  );
+  )
 }
-
-FormFieldAlert.propTypes = {
-  label: PropTypes.string,
-  success: PropTypes.bool,
-};

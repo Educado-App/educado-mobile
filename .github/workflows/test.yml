@@ -8,25 +8,28 @@ on:
       - dev
       - staging
       - main
+      - cert-success_messages_mergeToDev
+      - video_pr_01_11
       - offline-5-subscribe-rework
+
 jobs:
   test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out code
+      - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Setup Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: 20 
-      
+          node-version: "16" # Change to the Node.js version you need
+
       - name: List directories and files
         run: ls -al
 
       - name: Install dependencies
-        run: cd eml && npm install
-        
-      - name: Run Tests
-        run: cd eml && npm run test  
+        run: cd eml && npm i
+
+      - name: Run tests
+        run: cd eml && npm run test

@@ -1,6 +1,6 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Icon } from '@rneui/themed';
+import React from 'react'
+import { StyleSheet, View } from 'react-native'
+import { Icon } from '@rneui/themed'
 import Text from '../general/Text';
 
 const AddFriendButton = () => {
@@ -23,8 +23,8 @@ const AddFriendButton = () => {
         </View>
       </View>
     </View>
-  );
-};
+  )
+}
 const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
@@ -63,6 +63,6 @@ const styles = StyleSheet.create({
     height: 50,
     marginRight: 10
   }
-});
+})
 
-export default AddFriendButton;
+export default AddFriendButton

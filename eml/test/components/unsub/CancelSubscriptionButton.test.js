@@ -3,9 +3,9 @@
  * The component is tested for rendering and onPress function call.
  * @module CancelSubscriptionButtonTest
  */
-import React from 'react';
+import React from "react";
 import renderer from 'react-test-renderer';
-import SubscriptionCancel from '../../../components/section/CancelSubscriptionButton';
+import SubscriptionCancel from "../../../components/section/CancelSubscriptionButton";
 
 /**
  * Describes the test suite for the SubscriptionCancel component.
@@ -50,7 +50,7 @@ describe('<SubscriptionCancel />', () => {
    * Tests if the onPress function is called when the SubscriptionCancel button is pressed.
    */
   it('Pressing SubscriptionCancel button calls onPress function', async () => {
-    const subscriptionCancelButton = await subscriptionCancel.root.findByProps({ testID: 'subscriptionCancelButton' });
+    const subscriptionCancelButton = await subscriptionCancel.root.findByProps({ testID: "subscriptionCancelButton" });
     await renderer.act(() => {
       return subscriptionCancelButton.props.onPress();
     });

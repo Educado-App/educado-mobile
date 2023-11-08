@@ -1,18 +1,16 @@
-import * as React from 'react';
+import * as React from "react"
 import { Image } from 'react-native';
-import logo from '../../assets/images/logo_educado.png';
-import PropTypes from 'prop-types';
 
 
 export default function EducadoLogo(props) {
   return (
     <Image
-      source={logo}
+      source={require('../../assets/logo_educado.png')}
       style={props.style}
       className={'h-12'}
       resizeMode='contain'
     />
-  );
+  )
 }
 
 // THE CODE BELOW DOES NOT WORK. THE SVG NEVER SHOWS AFTER MERGING TO DEV. 
@@ -117,7 +115,3 @@ const StyledPath = styled(Path, { classProps: ["fill", "stroke"] });
     </Svg>
   );
 }*/
-
-EducadoLogo.propTypes = {
-  style: PropTypes.object,
-};
