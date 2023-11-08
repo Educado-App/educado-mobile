@@ -14,4 +14,4 @@ jest.mock('react-native-alert-notification', () => {
     };
 });
 
-jest.useRealTimers();
+jest.useFakeTimers();
