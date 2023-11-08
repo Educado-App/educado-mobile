@@ -1,6 +1,6 @@
 import renderer from "react-test-renderer";
 import React from "react";
-import FormTextField from "../../../components/login/FormTextField";
+import FormTextField from "../../../components/general/forms/FormTextField";
 
 test("Ensure that the text field is rendered correctly", async () => {
   let textField;

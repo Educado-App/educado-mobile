@@ -7,7 +7,6 @@ import {
 } from 'react-native';
 import ProfileImage from '../../components/profile/profileImage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { BgLinearGradient } from "../../constants/BgLinearGradient";
 import { getCourses } from '../../api/api';
 import ReturnButton from '../../components/profileSettings/returnButton'
 import DeleteAccountButton from '../../components/profileSettings/deleteAccountButton'
@@ -16,7 +15,8 @@ import ChangeLastNameButton from '../../components/profileSettings/changeLastNam
 import ChangeEmailButton from '../../components/profileSettings/changeEmailButton'
 import Text from '../../components/general/Text';
 import ProfileNameCircle from '../../components/profile/ProfileNameCircle';
-import FormButton from '../../components/login/FormButton';
+import FormButton from '../../components/general/forms/FormButton';
+import ChangePassword from '../../components/profileSettings/ChangePassword';
 
 const USER_INFO = '@userInfo';
 
@@ -56,8 +56,8 @@ export default function ProfileComponent() {
   }, []);
 
   return (
-    <BgLinearGradient>
-      <SafeAreaView>
+    <SafeAreaView className='bg-secondary'>
+      <View>
         <View className="justify-center items-center flex flex-col">
           <View className="flex p-10">
             <View className="flex-row">
@@ -80,25 +80,36 @@ export default function ProfileComponent() {
             </View>
           </View>
 
-          <View className="flex flex-col gap-6 items-center px-6 w-screen mr-3">
-            <View className="flex justify-center w-full">
-              <ChangeFirstNameButton></ChangeFirstNameButton>
-            </View>
+        </View>
 
-            <View className="flex justify-center w-full">
-              <ChangeLastNameButton></ChangeLastNameButton>
-            </View>
+        <View>
+          <TouchableOpacity>
+            <ProfileImage />
+          </TouchableOpacity>
+        </View>
 
-            <View className="flex justify-center w-full">
-              <ChangeEmailButton></ChangeEmailButton>
-            </View>
+        <View className="flex flex-col gap-6 items-center px-6 w-screen mr-3">
 
-            <View className="flex justify-center w-full">
-              <DeleteAccountButton></DeleteAccountButton>
-            </View>
+          {/* Change password */}
+          <ChangePassword />
+
+          <View className="flex justify-center w-full">
+            <ChangeFirstNameButton></ChangeFirstNameButton>
+          </View>
+
+          <View className="flex justify-center w-full">
+            <ChangeLastNameButton></ChangeLastNameButton>
+          </View>
+
+          <View className="flex justify-center w-full">
+            <ChangeEmailButton></ChangeEmailButton>
+          </View>
+
+          <View className="flex justify-center w-full">
+            <DeleteAccountButton></DeleteAccountButton>
           </View>
         </View>
-      </SafeAreaView>
-    </BgLinearGradient>
+      </View>
+    </SafeAreaView>
   );
 }  

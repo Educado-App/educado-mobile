@@ -1,6 +1,6 @@
 import React from "react";
 import { View, TextInput } from "react-native";
-import Text from "../general/Text";
+import Text from "../Text";
 
 /**
  * Text field component for forms (e.g. login, register, etc.). 
@@ -17,22 +17,22 @@ import Text from "../general/Text";
  * - bordered: Whether to display a border
  * - error: Whether to display an error border
  * @returns {React.Element} Text component for entering data
-
  */
 export default function FormTextField(props) {
   return (
     <View>
       <View className="flex flex-row">
         <Text className={"ml-2 text-xs"}>
-          {props.label ? props.label : ""}
+          {props.label ?? ''}
         </Text>
         <Text className={"ml-1 text-xs text-error"}>
           {props.required ? "*" : ""}
         </Text>
       </View>
       <View className=''>
-        <TextInput className={'h-50 br-25 py-1 pl-[10px] bg-white rounded-lg' +
-                                  (props.bordered ? ' border-2 border-gray' : '') + (props.error ? ' border-2 border-error' : '')}
+        <TextInput className={'h-50 br-25 py-1 pl-[10px] bg-projectWhite rounded-lg' +
+                                  (props.bordered ? ' border-2 border-gray' : '') +
+                                  (props.error ? ' border-2 border-error' : '')}
           placeholder={props.placeholder ?? ""} // Placeholder text to be displayed
           keyboardType={props.keyboardType ?? "default"} // Keyboard type (e.g. numeric, email-address, etc.)
           autoComplete={props.autoComplete ?? "off"} // Whether to enable auto-completion

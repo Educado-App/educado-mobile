@@ -7,7 +7,6 @@ import {
 import LogOutButton from '../../components/profile/LogOutButton'
 import ProfileNavigationButton from '../../components/profile/ProfileNavigationButton.js'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { BgLinearGradient } from "../../constants/BgLinearGradient";
 import UserInfo from '../../components/profile/UserInfo'
 import { useNavigation } from '@react-navigation/native'
 
@@ -43,20 +42,18 @@ export default function ProfileComponent() {
   }, [])
 
   return (
-    <BgLinearGradient>
-      <SafeAreaView>
-        <ScrollView className='flex flex-col'>
-          <View className="flex-1 justify-start pt-[20%] h-screen">
-            <UserInfo firstName={firstName} lastName={lastName} email={email} points={points}></UserInfo>
-            <ProfileNavigationButton label='Editar perfil' onPress={() => navigation.navigate('ProfileSettings')}></ProfileNavigationButton>
-            <ProfileNavigationButton label='Certificados'></ProfileNavigationButton>
-            <ProfileNavigationButton label='Download'></ProfileNavigationButton>
-            <View className='flex flex-row'>
-              <LogOutButton testID='logoutBtn'></LogOutButton>
-            </View>
+    <SafeAreaView className='bg-secondary'>
+      <ScrollView className='flex flex-col'>
+        <View className="flex-1 justify-start pt-[20%] h-screen">
+          <UserInfo firstName={firstName} lastName={lastName} email={email} points={points}></UserInfo>
+          <ProfileNavigationButton label='Editar perfil' onPress={() => navigation.navigate('ProfileSettings')}></ProfileNavigationButton>
+          <ProfileNavigationButton label='Certificados'></ProfileNavigationButton>
+          <ProfileNavigationButton label='Download'></ProfileNavigationButton>
+          <View className='flex flex-row'>
+            <LogOutButton testID='logoutBtn'></LogOutButton>
           </View>
-        </ScrollView>
-      </SafeAreaView>
-    </BgLinearGradient>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   )
 }

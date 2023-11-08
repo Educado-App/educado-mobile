@@ -3,11 +3,11 @@ import { View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { loginUser } from "../../api/userApi";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import FormTextField from "./FormTextField";
-import FormButton from "./FormButton";
-import PasswordEye from "./PasswordEye";
+import FormTextField from "../general/forms/FormTextField";
+import FormButton from "../general/forms/FormButton";
+import PasswordEye from "../general/forms/PasswordEye";
 import ResetPassword from "./ResetPassword";
-import FormFieldAlert from "./FormFieldAlert";
+import FormFieldAlert from "../general/forms/FormFieldAlert";
 import { removeEmojis } from "../general/Validation";
 import Text from "../general/Text";
 import ShowAlert from "../general/ShowAlert";
@@ -164,10 +164,12 @@ export default function LoginForm() {
       {/* Enter */}
       <FormButton
         testId="loginButton"
-        label="Entrar"
         onPress={() => login(email, password)}
         disabled={!(password.length > 0 && email.length > 0)}
-      />
+        className='mt-4'
+      >
+        Entrar
+      </FormButton>
       <View className="pt-10">
         <ResetPassword
           className={(!modalVisible ? "hidden" : "")}
