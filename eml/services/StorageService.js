@@ -20,6 +20,16 @@ export const getUserInfo = async () => {
   }
 };
 
+export const getUserId = async () => {
+  try {
+    const fetchedUserInfo = JSON.parse(await AsyncStorage.getItem(USER_INFO));
+    return fetchedUserInfo.id;
+  } catch (e) {
+    throw e;
+  }
+};
+
+
 /** COURSE AND COURSE LIST **/
 
 // get specific course

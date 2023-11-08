@@ -53,31 +53,30 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7'}) 
       console.error('Error retrieving data:', error);
     }
   }
-
-  async function handleReviewAnswer(selectedAnswer) {
-    const continueText = "Continuar";
-    const { userInfo, loginToken } = await retrieveUserInfoAndLoginToken();
-
+  function handleSecondOnclick() {
+    navigation.navigate('Lecture', {
+      sectionId: '6540f6b3536b2b37a49457e0', // hardcoded for testing
+      courseId: '6540f668536b2b37a49457dc', // hardcoded for testing
+    });
+  }
+  function handleReviewAnswer(selectedAnswer) {
+    const continueText = 'Continuar';
     setIsCorrectAnswer(selectedAnswer);
 
     setButtonClassName(
       `bg-project${selectedAnswer ? 'Green' : 'Red'}`
     );
 
-
-    if (selectedAnswer) {
-      xp = await givePoints(userInfo, exerciseData._id, true, 10, loginToken);
-    } else {
-      xp = await givePoints(userInfo, exerciseData._id, false, 0, loginToken);
-    }
-
     setShowFeedback(true);
     setButtonText(continueText);
-    if (buttonText !== continueText) {
-      setIsPopUpVisible(true);
+
+    if (!buttonClicked) {
+      setButtonClicked(true);
+      setIsPopUpVisible(true);  
+    } else {
+      handleSecondOnclick();
     }
   }
-
   useEffect(() => {
     const fetchData = async () => {
       try {

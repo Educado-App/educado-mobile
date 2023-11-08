@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import VideoLectureScreen from './VideoLectureScreen';
 import TextImageLectureScreen from './TextImageLectureScreen';
 import ProgressTopBar from './ProgressTopBar';
+import StandardButton from '../../components/general/StandardButton';
 
 export default function LectureScreen({ lectureObject, courseObject, currentIndex, indexCount }) {
 
@@ -37,6 +38,16 @@ export default function LectureScreen({ lectureObject, courseObject, currentInde
                         :
                         <TextImageLectureScreen lecture={lecture} course={course} progress={progressPercent} />
                     }
+
+                    {currentIndex === indexCount - 1 ?
+                    /* need to send course (courseObject._id) and section (lecture.parentSection) id to completeSection screen */
+                    <StandardButton
+                        props={{
+                            buttonText: "Continuar",
+                            onPress: () => {navigation.navigate('CompleteSection')}
+                        }}
+                    />
+                    : null}
                 </View>
                 :
                 <View className="w-full h-full items-center justify-center align-middle">
@@ -44,6 +55,9 @@ export default function LectureScreen({ lectureObject, courseObject, currentInde
                 </View>
 
             }
+
+               
+
         </View>
     );
 }

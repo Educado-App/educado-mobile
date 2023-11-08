@@ -19,7 +19,7 @@ export default function NavBar() {
   return (
     <Tab.Navigator
       testID="navBar" // Make sure you set the testID on the correct element
-      initialRouteName={'Home'}
+      initialRouteName={'Central'}
       screenOptions={{
         tabBarActiveTintColor: 'black',
         tabBarActiveBackgroundColor: tailwindConfig.theme.colors.cyanBlue,

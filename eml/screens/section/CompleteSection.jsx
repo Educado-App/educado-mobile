@@ -126,7 +126,11 @@ export default function CompleteSectionScreen() {
 						<StandardButton
 							props={{
 								buttonText: "Continuar",
-								onPress: () => {navigation.navigate('Section')}
+								onPress: () => {
+								navigation.reset({
+									index: 0,
+									routes: [{ name: 'Section', params: { courseId: ''} }],
+								  });}
 							}}
 						/>
 					</View>

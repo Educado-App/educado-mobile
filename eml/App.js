@@ -75,15 +75,15 @@ function CourseStack() {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="CompleteSection"
-        component={CompleteSectionScreen}
+        name="Course"
+        component={CourseScreen}
         options={{
           headerShown: false,
         }}
       />
       <Stack.Screen
-        name="Course"
-        component={CourseScreen}
+        name="CompleteSection"
+        component={CompleteSectionScreen}
         options={{
           headerShown: false,
         }}
@@ -171,7 +171,7 @@ export default function App() {
         <IconRegistry icons={EvaIconsPack} />
         <ApplicationProvider {...eva} theme={eva.light}>
           <NavigationContainer>
-            <Stack.Navigator initialRouteName={"CourseStack"}>
+            <Stack.Navigator initialRouteName={initialRoute}>
               <Stack.Screen
                 name="WelcomeStack"
                 component={WelcomeStack}
@@ -190,6 +190,16 @@ export default function App() {
               <Stack.Screen
                 name={"CourseStack"}
                 component={CourseStack}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name={"Section"}
+                component={SectionScreen}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name={"CompleteSection"}
+                component={CompleteSectionScreen}
                 options={{ headerShown: false }}
               />
               <Stack.Screen
