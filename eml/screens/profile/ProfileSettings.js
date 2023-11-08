@@ -13,6 +13,9 @@ import DeleteAccountButton from '../../components/profileSettings/deleteAccountB
 import ChangeFirstNameButton from '../../components/profileSettings/changeFirstNameButton'
 import ChangeLastNameButton from '../../components/profileSettings/changeLastNameButton'
 import ChangeEmailButton from '../../components/profileSettings/changeEmailButton'
+import Text from '../../components/general/Text';
+import ProfileNameCircle from '../../components/profile/ProfileNameCircle';
+import FormButton from '../../components/general/forms/FormButton';
 import ChangePasswordModal from '../../components/profileSettings/ChangePasswordModal';
 
 const USER_INFO = '@userInfo';
@@ -54,16 +57,29 @@ export default function ProfileComponent() {
 
   return (
     <SafeAreaView className='bg-secondary'>
-      <View className="justify-center items-center flex flex-col">
-
-        <View className="flex p-10">
-          <View className="flex-row">
-            <ReturnButton></ReturnButton>
-            <Image
-              className="h-[25.54] w-[175.88] right-5"
-              source={require("../../assets/images/logo.png")}
-            />
+      <View>
+        <View className="justify-center items-center flex flex-col">
+          <View className="flex p-10">
+            <View className="flex-row">
+              <View className='pt-1'>
+                <ReturnButton></ReturnButton>
+              </View>
+              <Text className='font-sans-bold text-xl pr-[8%]'>
+                Editar perfil
+              </Text>
+            </View>
           </View>
+
+          <View className='flex flex-row'>
+            {/* Profile image */}
+            <ProfileNameCircle firstName={firstName} lastName={lastName} />
+            {/* Edit image */}
+            <View className='flex flex-col space-between pl-3 bg-error'>
+              <FormButton label='Trocar imagem' whiteText={true} />
+              <Text className=''>Remover imagem</Text>
+            </View>
+          </View>
+
         </View>
 
         <View>
