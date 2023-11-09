@@ -6,6 +6,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 import tailwindConfig from '../../tailwind.config';
 import { getBucketImage } from '../../api/api';
+import * as StorageService from "../../services/StorageService";
 
 const TextImageLectureScreen = ({ lecture, course, progress }) => {
 
@@ -31,7 +32,7 @@ const TextImageLectureScreen = ({ lecture, course, progress }) => {
     const getLectureImage = async () => {
 
         try {
-            const imageRes = await getBucketImage(lecture.image);
+            const imageRes = await StorageService.fetchLectureImage(lecture.image, lecture._id);
             setImageUrl(imageRes);
         }
         catch (err) {

@@ -192,6 +192,29 @@ const lectureFittingModel = async (lectureList) => {
     return newLectureList;
 };
 
+// get images for a Lecture
+export const fetchLectureImage = async (imageID, lectureID) => {
+    let image = null;
+    try {
+        image = await api.getBucketImage(imageID);
+
+    } catch (unusedErrorMessage) {
+        // Use locally stored lectures if they exist and the DB cannot be reached
+        try {
+            image = JSON.parse(await AsyncStorage.getItem('I'+lectureID));
+        } catch (e){
+            console.log('Error fetching from storage ' + e);
+            if (e?.response?.data != null) {
+                throw e.response.data;
+            } else {
+                throw e;
+            }
+        }
+    } finally {
+        return image;
+    }
+};
+
 /** EXERCISES **/
 
 // get all Exercises for specific section
@@ -387,6 +410,14 @@ export const storeCourseLocally = async (courseID) => {
         for (let section of sectionList) {
             let lectureList = await api.getLecturesInSection(section._id);
             await AsyncStorage.setItem("L" + section._id, JSON.stringify(lectureList));
+            for (let lecture of lectureList) {
+                if (lecture.image) {
+                    let image = await getBucketImage(lecture.image);
+                    await AsyncStorage.setItem("I" + lecture._id, JSON.stringify(image));
+                } else if (lecture.video){
+
+                }
+            }
             let exerciseList = await api.getExercisesInSection(courseID, section._id);
             await AsyncStorage.setItem("E" + section._id, JSON.stringify(exerciseList));
         }
@@ -415,6 +446,10 @@ export const deleteLocallyStoredCourse = async (courseID) => {
         for (let section of sectionList) {
             await AsyncStorage.removeItem("L" + section._id);
             await AsyncStorage.removeItem("E" + section._id);
+            for (let lecture of section.lectures) {
+                await AsyncStorage.removeItem("I" + lecture._id);
+                //delete video here
+            }
         }
 
         return true;
