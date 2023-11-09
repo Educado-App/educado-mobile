@@ -283,7 +283,7 @@ export const refreshSubCourseList = async (userId) => {
           published: course.published,
           status: course.status,
           rating: course.rating,
-            downloaded: !!(await AsyncStorage.getItem(course._id)),
+            downloaded: !!(await AsyncStorage.getItem(course._id + await AsyncStorage.getItem(USER_ID))),
         });
       }
       // Save new courseList for this key and return it.
@@ -380,7 +380,7 @@ export const checkSubscriptions = async (courseId) => {
 export const storeCourseLocally = async (courseID) => {
     try {
         const course = await api.getCourse(courseID);
-        await AsyncStorage.setItem(courseID, JSON.stringify(course));
+        await AsyncStorage.setItem(courseID + await AsyncStorage.getItem(USER_ID), JSON.stringify(course));
 
         const sectionList = await api.getAllSections(courseID);
         await AsyncStorage.setItem("S" + courseID, JSON.stringify(sectionList));
@@ -395,6 +395,7 @@ export const storeCourseLocally = async (courseID) => {
         return true;
     } catch (e) {
         console.log("Error in storeCourseLocally " + e);
+        await AsyncStorage.removeItem(courseID + await AsyncStorage.getItem(USER_ID));
         return false;
     }
 }
@@ -407,7 +408,7 @@ export const storeCourseLocally = async (courseID) => {
  */
 export const deleteLocallyStoredCourse = async (courseID) => {
     try {
-        await AsyncStorage.removeItem(courseID);
+        await AsyncStorage.removeItem(courseID + await AsyncStorage.getItem(USER_ID));
 
         const sectionList = JSON.parse(await AsyncStorage.getItem("S" + courseID));
         await AsyncStorage.removeItem("S" + courseID);
@@ -432,7 +433,7 @@ export const updateStoredCourses = async () => {
         const subList = await getSubCourseList();
         for (const e of subList) {
             let course;
-            if ((course = JSON.parse(await AsyncStorage.getItem(e.courseId))) !== null && course.dateUpdated !== e.dateUpdated) {
+            if ((course = JSON.parse(await AsyncStorage.getItem(e.courseId + await AsyncStorage.getItem(USER_ID)))) !== null && course.dateUpdated !== e.dateUpdated) {
                 storeCourseLocally(e.courseId);
             }
         }

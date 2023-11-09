@@ -20,10 +20,11 @@ const ANIMATION_STATES = {
 export default function DownloadCourseButton(course) {
     const animationRef = useRef(null);
     const [animationState, setAnimationState] = useState(course.course.downloaded ? ANIMATION_STATES.COMPLETED : ANIMATION_STATES.INITIAL);
-    // setAnimationState(course.course.downloaded ? ANIMATION_STATES.COMPLETED : ANIMATION_STATES.INITIAL);
+    //setAnimationState(course.course.downloaded ? ANIMATION_STATES.COMPLETED : ANIMATION_STATES.INITIAL);
     console.log(course.course.downloaded);
+    console.log(animationState);
     const navigation = useNavigation();
-    //course.course.downloaded ? animationRef.current.play(149, 149) : animationRef.current.play(17, 17);
+
     
     // Play animation based on animation state
     // Hardcoded frame numbers are based on the animation
