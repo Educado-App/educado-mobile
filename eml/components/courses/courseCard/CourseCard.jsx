@@ -23,6 +23,7 @@ export default function CourseCard({ course }) {
             onPress={() => {
                 navigation.navigate('Section', {
                     courseId: course.courseId,
+                    courseTitle: course.title,
                 });
             }}
         >

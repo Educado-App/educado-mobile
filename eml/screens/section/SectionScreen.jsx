@@ -17,10 +17,9 @@ import { unsubscribe } from '../../services/StorageService';
  * @returns {JSX.Element} - The SectionScreen component.
  */
 export default function SectionScreen({ route }) {
-  const { courseId } = route.params;
+  const { courseId, courseTitle} = route.params;
   const navigation = useNavigation();
   const [sections, setSections] = useState(null);
-  const [course, setCourse] = useState([]);
 
   /**
    * Loads the sections for the given course from the backend.
@@ -29,15 +28,6 @@ export default function SectionScreen({ route }) {
   async function loadSections(id) {
       const sectionData = await StorageService.getSectionList(id);
       setSections(sectionData);
-  }
-
-  /**
-   * Loads the course data for the given courseId from the backend.
-   * @param {string} id - The id of the course to load.
-   */
-  async function getCourse(id) {
-      const courseData = await StorageService.getCourseId(id);
-      setCourse(courseData);
   }
 
   // Fetch courses from backend and replace dummy data!
@@ -49,7 +39,6 @@ export default function SectionScreen({ route }) {
      */
     async function loadData() {
       await loadSections(courseId);
-      await getCourse(courseId);
     }
 
     if (componentIsMounted) {
@@ -81,7 +70,7 @@ export default function SectionScreen({ route }) {
         </TouchableOpacity>
 
         {/* Course Title */}
-        <Text className="text-[25px] font-bold">{course.title}</Text>
+        <Text className="text-[25px] font-bold">{courseTitle}</Text>
 
         {/* Spacer to push the Unsubscribe Button to the right */}
         <View style={{ flex: 1 }}></View>
