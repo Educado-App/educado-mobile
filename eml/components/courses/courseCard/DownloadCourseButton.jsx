@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import LottieView from "lottie-react-native";
-import {Alert, TouchableWithoutFeedback} from "react-native";
+import {Alert, Pressable, View} from "react-native";
 import * as StorageService from "../../../services/StorageService";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -120,13 +120,15 @@ export default function DownloadCourseButton(course) {
     };
 
     return (
-        <TouchableWithoutFeedback onPress={handlePress}>
+        <Pressable
+            onPress={handlePress}
+            hitSlop={{ top: 30, bottom: 30, left: 30, right: 30 }}>
             <LottieView
                 ref={animationRef}
                 source={require('../../../assets/animations/downloadAnimation.json')}
                 height={32}
                 width={24}
             />
-        </TouchableWithoutFeedback>
+        </Pressable>
     );
 }
