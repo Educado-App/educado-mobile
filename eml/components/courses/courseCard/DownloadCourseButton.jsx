@@ -3,6 +3,7 @@ import LottieView from "lottie-react-native";
 import {Alert, TouchableWithoutFeedback} from "react-native";
 import * as StorageService from "../../../services/StorageService";
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ANIMATION_STATES = {
     INITIAL: "initial",
@@ -19,12 +20,19 @@ const ANIMATION_STATES = {
  */
 export default function DownloadCourseButton(course) {
     const animationRef = useRef(null);
-    const [animationState, setAnimationState] = useState(course.course.downloaded ? ANIMATION_STATES.COMPLETED : ANIMATION_STATES.INITIAL);
+    const [animationState, setAnimationState] = useState(ANIMATION_STATES.INITIAL);
     //setAnimationState(course.course.downloaded ? ANIMATION_STATES.COMPLETED : ANIMATION_STATES.INITIAL);
 
     const navigation = useNavigation();
+    const storageCheck = async () => {
+        if (animationState === ANIMATION_STATES.INITIAL || animationState === ANIMATION_STATES.COMPLETED) {
+            let result = !!(await AsyncStorage.getItem(course.course.courseId + await AsyncStorage.getItem('@userId')));
+            setAnimationState(result ? ANIMATION_STATES.COMPLETED : ANIMATION_STATES.INITIAL);
+        }
+    }
 
-    
+
+    storageCheck();
     // Play animation based on animation state
     // Hardcoded frame numbers are based on the animation
     // https://lottiefiles.com/animations/download-ZdWE0VoaZW
@@ -32,7 +40,6 @@ export default function DownloadCourseButton(course) {
   
 
     useEffect(() => {
-        console.log(animationState);
         switch (animationState) {
             case ANIMATION_STATES.INITIAL:
                 return animationRef.current.play(17, 17);
@@ -61,8 +68,6 @@ export default function DownloadCourseButton(course) {
     useEffect(() => {
         const update = navigation.addListener('focus', () => {
             setAnimationState(course.course.downloaded ? ANIMATION_STATES.COMPLETED : ANIMATION_STATES.INITIAL);
-            console.log(course.course.downloaded);
-            console.log(animationState);
         });
         return update;
         

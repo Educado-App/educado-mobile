@@ -381,6 +381,8 @@ export const storeCourseLocally = async (courseID) => {
     try {
         const course = await api.getCourse(courseID);
         await AsyncStorage.setItem(courseID + await AsyncStorage.getItem(USER_ID), JSON.stringify(course));
+        //console.log(courseID + await AsyncStorage.getItem(USER_ID));
+        //console.log(await AsyncStorage.getItem(courseID + await AsyncStorage.getItem(USER_ID)));
 
         const sectionList = await api.getAllSections(courseID);
         await AsyncStorage.setItem("S" + courseID, JSON.stringify(sectionList));
@@ -440,9 +442,8 @@ export const updateStoredCourses = async () => {
     }catch (e) {
         console.log("Something went wrong in updateStoredCourses " + e);
     }
-
-
 }
+
 
 /** Other **/
 
