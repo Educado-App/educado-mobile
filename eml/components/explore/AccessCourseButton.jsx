@@ -14,6 +14,7 @@ const navigation = useNavigation();
   const handlePress = () => {
     navigation.navigate('Section', {
     courseId: course.courseId,
+    courseTitle: course.title,
     })
   };
 
