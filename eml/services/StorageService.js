@@ -74,7 +74,7 @@ export const refreshCourseList = async (courseList) => {
     try {
         let newCourseList = [];
         if (courseList.length !== 0) {
-            for (const course of list) {
+            for (const course of courseList) {
                 // Make new list with required members
                 newCourseList.push({
                     title: course.title,
