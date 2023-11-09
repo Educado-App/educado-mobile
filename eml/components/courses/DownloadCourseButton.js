@@ -80,58 +80,58 @@ const downloadCourseButton = ({ courseId, downloadStateSignal }) => {
 
   const downloadStateIcon = (state) => {
     switch (state) {
-      case 0:
-        return <ActivityIndicator size="small" color="#55747E" />;
+    case 0:
+      return <ActivityIndicator size="small" color="#55747E" />;
 
-      case 1:
-        return (
-          <Icon
-            // make this disappear after a few seconds after download
-            style={styles.tinyLogo}
-            name="trash-can-outline"
-            type="material-community"
-            color="#55747E"
-            size={30}
-          />
-        );
+    case 1:
+      return (
+        <Icon
+          // make this disappear after a few seconds after download
+          style={styles.tinyLogo}
+          name="trash-can-outline"
+          type="material-community"
+          color="#55747E"
+          size={30}
+        />
+      );
 
-      case -1:
-        return (
-          <Icon
-            style={styles.tinyLogo}
-            name="alert-circle"
-            type="material-community"
-            color="#55747E"
-            size={25}
-          />
-        );
+    case -1:
+      return (
+        <Icon
+          style={styles.tinyLogo}
+          name="alert-circle"
+          type="material-community"
+          color="#55747E"
+          size={25}
+        />
+      );
 
-      case 2:
-        return (
-          <Icon
-            style={styles.tinyLogo}
-            name="download"
-            type="material-community"
-            color="#55747E"
-            size={30}
-          />
-        );
+    case 2:
+      return (
+        <Icon
+          style={styles.tinyLogo}
+          name="download"
+          type="material-community"
+          color="#55747E"
+          size={30}
+        />
+      );
     }
   };
   const downloadStateLabel = (state) => {
     //test state - change between values: null, 0 and 1 to see different states
 
     switch (state) {
-      case 0:
-        //downloading
-        return <Text>baixando...</Text>;
-      case 1:
-        return <Text></Text>;
-      case -1:
-        //Can't download
-        return <Text style={styles.alertMessage}> não consigo baixar </Text>;
-      case 2:
-        return <Text></Text>;
+    case 0:
+      //downloading
+      return <Text>baixando...</Text>;
+    case 1:
+      return <Text></Text>;
+    case -1:
+      //Can't download
+      return <Text style={styles.alertMessage}> não consigo baixar </Text>;
+    case 2:
+      return <Text></Text>;
     }
   };
 

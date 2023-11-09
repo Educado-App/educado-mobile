@@ -3,6 +3,8 @@ import { View, Pressable } from 'react-native'
 import { Icon } from '@rneui/base'
 import { useNavigation } from '@react-navigation/native';
 import Text from '../../components/general/Text';
+import PropTypes from 'prop-types';
+
 export default function Section({
   SectionIcon,
   SectionText,
@@ -124,3 +126,11 @@ export default function Section({
     </Pressable>
   )
 }
+
+Section.propTypes = {
+  SectionIcon: PropTypes.element,
+  SectionText: PropTypes.string,
+  SectionProgressText: PropTypes.string,
+  SectionProgressBarWidth: PropTypes.number,
+  SectionOpacity: PropTypes.number
+};
