@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import LottieView from "lottie-react-native";
 import {Alert, TouchableWithoutFeedback} from "react-native";
 import * as StorageService from "../../../services/StorageService";
-import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ANIMATION_STATES = {
@@ -23,7 +22,6 @@ export default function DownloadCourseButton(course) {
     const [animationState, setAnimationState] = useState(ANIMATION_STATES.INITIAL);
     //setAnimationState(course.course.downloaded ? ANIMATION_STATES.COMPLETED : ANIMATION_STATES.INITIAL);
 
-    const navigation = useNavigation();
     const storageCheck = async () => {
         if (animationState === ANIMATION_STATES.INITIAL || animationState === ANIMATION_STATES.COMPLETED) {
             let result = !!(await AsyncStorage.getItem(course.course.courseId + await AsyncStorage.getItem('@userId')));
@@ -31,13 +29,11 @@ export default function DownloadCourseButton(course) {
         }
     }
 
-
     storageCheck();
+
     // Play animation based on animation state
     // Hardcoded frame numbers are based on the animation
     // https://lottiefiles.com/animations/download-ZdWE0VoaZW
-    //
-  
 
     useEffect(() => {
         switch (animationState) {
@@ -65,15 +61,6 @@ export default function DownloadCourseButton(course) {
         }
     }, [animationState]);
 
-    useEffect(() => {
-        const update = navigation.addListener('focus', () => {
-            setAnimationState(course.course.downloaded ? ANIMATION_STATES.COMPLETED : ANIMATION_STATES.INITIAL);
-        });
-        return update;
-        
-    }, [navigation]);
-
-
     const downloadConfirmation = () =>
         Alert.alert("Baixar curso", "Deseja baixar este curso para acesso offline?", [
             {
@@ -92,9 +79,6 @@ export default function DownloadCourseButton(course) {
                             setAnimationState(ANIMATION_STATES.INITIAL);
                         }
                     });
-
-                    // Hardcoded timeout to simulate download
-                    //setTimeout(() => setAnimationState(ANIMATION_STATES.FINISHING), Math.floor(Math.random() * 5001));
                 },
             },
         ]);
