@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { View, ScrollView, RefreshControl } from 'react-native';
+import {View, ScrollView, RefreshControl } from 'react-native';
+import Text from '../../components/general/Text';
 import FilterNavBar from '../../components/explore/FilterNavBar';
 import ExploreCard from '../../components/explore/ExploreCard';
 import * as StorageService from '../../services/StorageService';
@@ -139,6 +140,7 @@ export default function Explore() {
       <ScrollView showsVerticalScrollIndicator={false} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
         <View className="overflow-y-auto">
           {courses.length !== 0 ?
+              // Display courses
               courses && filteredCourses && filteredCourses.map((course, index) => (
                   <ExploreCard
                       key={index}
@@ -148,7 +150,8 @@ export default function Explore() {
                   ></ExploreCard>
               ))
             :
-              <Text> No courses to be shown </Text>
+              // No courses to display
+              <Text className={"self-center align-middle text-2xl"}>Não há cursos a serem exibidos</Text>
           }
         </View>
       </ScrollView>
