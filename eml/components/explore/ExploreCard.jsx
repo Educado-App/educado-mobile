@@ -8,6 +8,7 @@ import CustomRating from "./CustomRating";
 import SubscriptionButton from "./SubscriptionButton";
 import AccessCourseButton from "./AccessCourseButton";
 import { determineCategory, determineIcon, getDifficultyLabel, getUpdatedDate } from "../../services/utilityFunctions";
+import PropTypes from 'prop-types';
 
 /**
  * This component is used to display a course card.
@@ -98,3 +99,9 @@ export default function ExploreCard({ course, isPublished, subscribed }) {
     </Pressable>
   ) : null;
 }
+
+ExploreCard.propTypes = {
+  course: PropTypes.object,
+  isPublished: PropTypes.bool,
+  subscribed: PropTypes.bool,
+};

@@ -1,6 +1,7 @@
 import React from "react";
-import { View, Image } from "react-native";
+import { View } from "react-native";
 import Text from '../general/Text';
+import PropTypes from "prop-types";
 
 const ExerciseInfo = ({ courseId, sectionId }) => {
   return (
@@ -11,6 +12,11 @@ const ExerciseInfo = ({ courseId, sectionId }) => {
       <Text className="font-sans-bold text-body text-projectBlack">{sectionId}</Text>
     </View>
   );
+};
+
+ExerciseInfo.propTypes = {
+  courseId: PropTypes.string,
+  sectionId: PropTypes.string,
 };
 
 export default ExerciseInfo;

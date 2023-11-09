@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, Pressable } from 'react-native'
+import { View, Pressable } from 'react-native'
 import { Icon } from '@rneui/base'
 import { useNavigation } from '@react-navigation/native';
 import Text from '../../components/general/Text';

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Icon } from '@rneui/themed'
 
-export default function star(params) {
+export default function star() {
   return (
     <Icon
       style={{

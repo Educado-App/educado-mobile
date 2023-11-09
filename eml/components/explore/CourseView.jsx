@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import { View, ScrollView, StyleSheet, Pressable } from 'react-native'
+import React from 'react'
+import { View, StyleSheet, Pressable } from 'react-native'
 import { Icon } from '@rneui/base'
 import Text from '../../components/general/Text';
+import PropTypes from 'prop-types';
 
 export default function CourseView({ title }) {
   return (
@@ -31,3 +32,7 @@ const styles = StyleSheet.create({
     fontSize: 20
   }
 })
+
+CourseView.propTypes = {
+  title: PropTypes.string
+};

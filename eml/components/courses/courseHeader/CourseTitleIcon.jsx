@@ -2,17 +2,12 @@ import React from 'react'
 import { StyleSheet, View, Image } from 'react-native'
 import Text from '../../general/Text';
 import PropTypes from 'prop-types'
-import { useFonts, VarelaRound_400Regular } from '@expo-google-fonts/dev'
 
 export default function CourseTitleIcon({ title, courseIcon }) {
   CourseTitleIcon.propTypes = {
     title: PropTypes.string.isRequired,
     courseIcon: PropTypes.string
   }
-
-  let [fontsLoaded] = useFonts({
-    VarelaRound_400Regular
-  })
 
   return (
     <View style={styles.container}>

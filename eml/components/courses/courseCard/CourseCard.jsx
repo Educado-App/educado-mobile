@@ -6,6 +6,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import CustomProgressBar from "../../exercise/Progressbar";
 import tailwindConfig from "../../../tailwind.config";
 import { determineIcon, determineCategory } from '../../../services/utilityFunctions';
+import PropTypes from 'prop-types';
 
 
 /**
@@ -62,3 +63,10 @@ export default function CourseCard({ course }) {
     </Pressable>
   )
 }
+
+CourseCard.propTypes = {
+  course: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.array,
+  ])
+};

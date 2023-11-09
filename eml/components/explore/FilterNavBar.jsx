@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import SearchBar from './SearchBar'; 
+import SearchBar from './SearchBar';
 import { View, Text, Pressable } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { categories } from "./Categories";
+import PropTypes from 'prop-types';
 
 /**
  * FilterNavBar component displays a search bar and a list of categories.
@@ -40,17 +41,15 @@ function FilterNavBar({ onChangeText, onCategoryChange }) {
                   <Pressable
                     key={category.label}
                     onPress={() => handleCategorySelect(category.label)}
-                    className={`${
-                      selectedCategory === category.label
-                        ? 'bg-primary border-primary text-projectWhite'
-                        : 'border-2 border-projectGray text-gray'
+                    className={`${selectedCategory === category.label
+                      ? 'bg-primary border-primary text-projectWhite'
+                      : 'border-2 border-projectGray text-gray'
                     } px-2 py-2 rounded-lg border-projectGray border-[1px] mr-2 items-center justify-center`}
                   >
                     <Text
-                      className={`${
-                        selectedCategory === category.label
-                          ? 'text-projectWhite font-bold'
-                          : 'text-projectGray'
+                      className={`${selectedCategory === category.label
+                        ? 'text-projectWhite font-bold'
+                        : 'text-projectGray'
                       }`}
                     >{category.label}</Text>
                   </Pressable>
@@ -59,9 +58,14 @@ function FilterNavBar({ onChangeText, onCategoryChange }) {
           </View>
         </ScrollView>
       </View>
-      
+
     </View>
   );
 }
+
+FilterNavBar.propTypes = {
+  onChangeText: PropTypes.func,
+  onCategoryChange: PropTypes.func,
+};
 
 export default FilterNavBar;

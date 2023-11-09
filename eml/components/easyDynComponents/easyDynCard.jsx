@@ -10,7 +10,7 @@ const Header = (props) => (
     <Text category='h6'>Finanças pessoais</Text>
   </View>
 );
-export default function EasyDynCard(params) {
+export default function EasyDynCard() {
 
   return (
     <>
