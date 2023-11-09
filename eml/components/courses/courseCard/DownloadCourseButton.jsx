@@ -20,7 +20,6 @@ const ANIMATION_STATES = {
 export default function DownloadCourseButton(course) {
     const animationRef = useRef(null);
     const [animationState, setAnimationState] = useState(ANIMATION_STATES.INITIAL);
-    //setAnimationState(course.course.downloaded ? ANIMATION_STATES.COMPLETED : ANIMATION_STATES.INITIAL);
 
     const storageCheck = async () => {
         if (animationState === ANIMATION_STATES.INITIAL || animationState === ANIMATION_STATES.COMPLETED) {

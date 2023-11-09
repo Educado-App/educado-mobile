@@ -20,7 +20,7 @@ export const getUserInfo = async () => {
 
 /** COURSE AND COURSE LIST **/
 
-// get specific course
+// get specific course  (This function is obsolete and is only used in test)
 export const getCourseId = async (id) => {
   try {
     return await refreshCourse(id);
@@ -37,6 +37,7 @@ export const getCourseId = async (id) => {
     }
   }
 };
+// (This function is obsolete and is only used in test)
 export const refreshCourse = async (id) => {
   return await api
     .getCourse(id)
@@ -54,53 +55,50 @@ export const refreshCourse = async (id) => {
 
 // get all courses
 export const getCourseList = async () => {
-  try {
-    return await refreshCourseList();
-  } catch (error) {
-    // Check if the course list already exists in AsyncStorage
-    let courseList = JSON.parse(await AsyncStorage.getItem(COURSE_LIST));
-    if (courseList !== null) {
-      return courseList;
+    let courseList = [];;
+    try {
+        courseList = await api.getCourses();
+    } catch (e) {
+        console.log('Error fetching from storage ' + e);
+        if (e?.response?.data != null) {
+            throw e.response.data;
+        } else {
+            throw e;
+        }
+    } finally {
+        return await refreshCourseList(courseList);
     }
-    if (e?.response?.data != null) {
-      throw e.response.data;
-    } else {
-      throw e;
-    }
-  }
 };
 
-export const refreshCourseList = async () => {
-  return await api
-    .getCourses()
-    .then(async (list) => {
-      let newCourseList = [];
-      for (const course of list) {
-        // Make new list with required members
-        newCourseList.push({
-          title: course.title,
-          courseId: course._id,
-          description: course.description,
-          category: course.category,
-          estimatedHours: course.estimatedHours,
-          dateUpdated: course.dateUpdated,
-          difficulty: course.difficulty,
-          published: course.published,
-          status: course.status,
-          rating: course.rating,
-        });
-      }
-      // Save new courseList for this key and return it.
-      await AsyncStorage.setItem(COURSE_LIST, JSON.stringify(newCourseList));
-      return newCourseList;
-    })
-    .catch((e) => {
+export const refreshCourseList = async (courseList) => {
+    try {
+        let newCourseList = [];
+        if (courseList.length !== 0) {
+            for (const course of list) {
+                // Make new list with required members
+                newCourseList.push({
+                    title: course.title,
+                    courseId: course._id,
+                    description: course.description,
+                    category: course.category,
+                    estimatedHours: course.estimatedHours,
+                    dateUpdated: course.dateUpdated,
+                    difficulty: course.difficulty,
+                    published: course.published,
+                    status: course.status,
+                    rating: course.rating,
+                });
+            }
+        }
+        // Save new courseList for this key and return it.
+        return newCourseList;
+    }catch(e){
       if (e?.response?.data != null) {
         throw e.response.data;
       } else {
         throw e;
       }
-    });
+    }
 };
 
 /** SECTIONS **/
@@ -283,7 +281,6 @@ export const refreshSubCourseList = async (userId) => {
           published: course.published,
           status: course.status,
           rating: course.rating,
-            downloaded: !!(await AsyncStorage.getItem(course._id + await AsyncStorage.getItem(USER_ID))),
         });
       }
       // Save new courseList for this key and return it.
