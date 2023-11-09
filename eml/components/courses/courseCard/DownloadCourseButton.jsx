@@ -21,8 +21,7 @@ export default function DownloadCourseButton(course) {
     const animationRef = useRef(null);
     const [animationState, setAnimationState] = useState(course.course.downloaded ? ANIMATION_STATES.COMPLETED : ANIMATION_STATES.INITIAL);
     //setAnimationState(course.course.downloaded ? ANIMATION_STATES.COMPLETED : ANIMATION_STATES.INITIAL);
-    console.log(course.course.downloaded);
-    console.log(animationState);
+
     const navigation = useNavigation();
 
     
@@ -33,6 +32,7 @@ export default function DownloadCourseButton(course) {
   
 
     useEffect(() => {
+        console.log(animationState);
         switch (animationState) {
             case ANIMATION_STATES.INITIAL:
                 return animationRef.current.play(17, 17);
@@ -61,6 +61,7 @@ export default function DownloadCourseButton(course) {
     useEffect(() => {
         const update = navigation.addListener('focus', () => {
             setAnimationState(course.course.downloaded ? ANIMATION_STATES.COMPLETED : ANIMATION_STATES.INITIAL);
+            console.log(course.course.downloaded);
             console.log(animationState);
         });
         return update;
@@ -76,9 +77,9 @@ export default function DownloadCourseButton(course) {
             },
             {
                 text: "Baixar",
-                onPress: () => {
+                onPress: async () => {
                     setAnimationState(ANIMATION_STATES.DOWNLOADING);
-                    StorageService.storeCourseLocally(course.course.courseId).then(result => {
+                    await StorageService.storeCourseLocally(course.course.courseId).then(result => {
                         if (result){
                             setAnimationState(ANIMATION_STATES.FINISHING);
                         } else {
@@ -107,7 +108,7 @@ export default function DownloadCourseButton(course) {
                             setAnimationState(ANIMATION_STATES.DELETE);
                         } else {
                             alert("Algo deu errado. Não foi possível remover os dados armazenados do curso."); //Something went wrong. Could not remove stored course data.
-                            setAnimationState(ANIMATION_STATES.COMPLETED);
+                            setAnimationState(ANIMATION_STATES.DELETE);
                         }
                     });
 
