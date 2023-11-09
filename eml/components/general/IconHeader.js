@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Image } from 'react-native';
 import Text from './Text'
+import PropTypes from 'prop-types';
 
 /**
  * Custom header component with an icon and title.
@@ -19,3 +20,7 @@ export default function IconHeader({ title }) {
     </View>
   );
 }
+
+IconHeader.propTypes = {
+  title: PropTypes.string.isRequired
+};
