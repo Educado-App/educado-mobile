@@ -66,7 +66,6 @@ export default function SectionScreen({ route }) {
     Alert.alert("Cancelar subscrição", "Tem certeza?", [
       {
         text: "Não",
-        onPress: () => console.log("No Pressed"),
         style: "cancel",
       },
       { text: "Sim", onPress: () => { unsubscribe(courseId); setTimeout(() =>  {navigation.goBack();}, 300 ); }},
