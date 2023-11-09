@@ -44,7 +44,9 @@ export default function LectureScreen({ lectureObject, courseObject, currentInde
                     <StandardButton
                         props={{
                             buttonText: "Continuar",
-                            onPress: () => {navigation.navigate('CompleteSection')}
+                            onPress: () => {navigation.navigate('CompleteSection', 
+                            { courseId: courseObject._id, sectionId: lectureObject.parentSection }
+                            )}
                         }}
                     />
                     : null}

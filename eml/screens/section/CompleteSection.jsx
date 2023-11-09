@@ -7,15 +7,18 @@ import StandardButton from '../../components/general/StandardButton';
 import { useNavigation } from '@react-navigation/native';
 import AnimatedNumbers from '../../components/gamification/AnimatedNumber';
 import { generateSectionCompletePhrases } from '../../constants/Phrases';
+import { useRoute } from '@react-navigation/native';
+import { getUserInfo } from '../../services/StorageService';;
 
 export default function CompleteSectionScreen() {
+	const route = useRoute();
+	const { courseId, sectionId } = route.params;
 	const [points, setPoints] = useState(0);
 	const [extraPoints, setExtraPoints] = useState(0);
 	//const [totalPointsText, setTotalPointsText] = useState('Pontos');
 	const navigation = useNavigation();
 	const [randomPhrase, setRandomPhrase] = useState('');
 
-  const pointsFinal = 50;
 	const extraPointsFinal = 20;
 
 	const getRandomPhrase = () => {
@@ -88,9 +91,39 @@ export default function CompleteSectionScreen() {
 		)
 	}
 
+	const findCompletedSection = (completedCourses, courseId, sectionId) => {
+		const completedCourse = completedCourses.find(course => course.courseId === courseId);
+
+		if (completedCourse) {
+			const completedSection = completedCourse.completedSections.find(
+				section => section.sectionId === sectionId
+			);
+
+			if (completedSection) {
+				return completedSection;
+			} else {
+				console.log(`No completed section found for sectionId: ${sectionId}`);
+			}
+		} else {
+			console.log(`No course found for courseId: ${courseId}`);
+		}
+
+		return null;
+	};
+
+	async function getPointsFromSection() {
+		const getUser = await getUserInfo();
+		const completedSection = findCompletedSection(getUser.completedCourses, courseId, sectionId);
+		if (completedSection === null) {
+			return 0;
+		}
+		return completedSection.totalPoints;
+	}
+
 	
   useEffect(() => {
 		async function animations() {
+			pointsFinal = await getPointsFromSection();
 			await animation(points, setPoints, pointsFinal);
 			
 			setTimeout(async () => {
@@ -98,7 +131,7 @@ export default function CompleteSectionScreen() {
 				// await totalPointsAnimation(points, pointsFinal + extraPointsFinal);
 			}, 750);
 		}
-
+		
 		setRandomPhrase(getRandomPhrase());
 		animations();
   }, []);
@@ -127,10 +160,16 @@ export default function CompleteSectionScreen() {
 							props={{
 								buttonText: "Continuar",
 								onPress: () => {
-								navigation.reset({
-									index: 0,
-									routes: [{ name: 'Section', params: { courseId: ''} }],
-								  });}
+									navigation.reset({
+										index: 1,
+										routes: [
+											{ name: 'HomeStack' },
+											{ name: 'Section',
+													params: { courseId: courseId },
+											},
+										],
+									});
+								}
 							}}
 						/>
 					</View>

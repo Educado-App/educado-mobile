@@ -88,8 +88,6 @@ const AnimatedNumber = ({
 		return animations[index];
 	};
 
-  console.log(animateToNumbersArr);
-
 	return (
 		<>
 			{numberHeight !== 0 && (

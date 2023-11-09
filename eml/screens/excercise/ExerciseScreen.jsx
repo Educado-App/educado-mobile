@@ -35,6 +35,7 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7'}) 
   const [buttonText, setButtonText] = useState("Confirmar Resposta"); // Used to change the text of a button
   const [isPopUpVisible, setIsPopUpVisible] = useState(false); // Used to render the pop up
   const [isCorrectAnswer, setIsCorrectAnswer] = useState(false);
+  const [buttonClicked, setButtonClicked] = useState(false);
 
   const handleAnswerSelect = (answerIndex) => {
     setSelectedAnswer(answerIndex);
