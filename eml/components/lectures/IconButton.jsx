@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import tailwindConfig from '../../tailwind.config';
-
+import PropTypes from 'prop-types';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-
 import { Pressable, View } from 'react-native';
 
 
@@ -17,3 +16,10 @@ export default function IconButton({ size = 24, icon = "menu", onClick, pressed 
     </Pressable>
   )
 }
+
+IconButton.propTypes = {
+  size: PropTypes.number,
+  icon: PropTypes.string,
+  onClick: PropTypes.func,
+  pressed: PropTypes.bool,
+};

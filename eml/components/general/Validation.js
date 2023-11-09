@@ -7,7 +7,7 @@ import patterns from "../../assets/validation/patterns";
    * @returns either the password state variable or the confirm password state variable depending on the confirm parameter
    */
 
-const removeEmojis = (passwordInput, currentPasword) => {
+const removeEmojis = (passwordInput) => {
   return passwordInput.replace(patterns.emoji, "");
 }
 
@@ -37,7 +37,7 @@ const validatePasswordLength = (password) => {
  * @returns {String} error message if email is invalid, empty string otherwise
  */
 const validateEmail = (email) => {
-  const emailPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  const emailPattern = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 
   if (!emailPattern.test(email)) {
     return 'E-mail inválido'; // Email invalid
@@ -54,19 +54,19 @@ const validateEmail = (email) => {
  * @param {String} wordForName (e.g. 'Nome' or 'Sobrenome')
  * @returns {String} error message if name is invalid, empty string otherwise
  */
-const validateName = (name, wordForName='Nome') => {
+const validateName = (name, wordForName = 'Nome') => {
   const namePattern = /^(\p{L}+[- '])*\p{L}+$/u;
 
   if (name.length > 50) { // Check this number
     return `${wordForName} muito longo`; // Name too long
   }
-  if(name.length < 1) {
+  if (name.length < 1) {
     return `${wordForName} obrigatório`; // Name required
   }
-  if(!namePattern.test(name)) {
+  if (!namePattern.test(name)) {
     return `${wordForName} inválido`; // Invalid name
   }
-  
+
   return '';
 }
 

@@ -1,5 +1,5 @@
-import React, { forwardRef, useEffect, useState } from 'react';
-
+import React, { forwardRef } from 'react';
+import PropTypes from 'prop-types';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import { Video } from 'expo-av';
 
@@ -47,5 +47,14 @@ const CustomExpoVideoPlayer = forwardRef(({ onStatusUpdate, videoUrl, isMuted = 
     </View>
   );
 });
+
+CustomExpoVideoPlayer.displayName = 'CustomExpoVideoPlayer';
+
+CustomExpoVideoPlayer.propTypes = {
+  onStatusUpdate: PropTypes.func,
+  videoUrl: PropTypes.string,
+  isMuted: PropTypes.bool,
+  isPlaying: PropTypes.bool,
+};
 
 export default CustomExpoVideoPlayer;

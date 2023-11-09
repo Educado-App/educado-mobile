@@ -1,16 +1,12 @@
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useState } from 'react';
-import { View, TouchableOpacity, Pressable } from 'react-native';
-import Text from '../general/Text';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-
+import { View } from 'react-native';
 import IconButton from './IconButton';
+import PropTypes from 'prop-types';
 
 
-import tailwindConfig from '../../tailwind.config';
-
-export default function VideoActions({ isPlaying, isMuted, onPlayClick, onMenuClick, onCommentClick, onVolumeClick }) {
+export default function VideoActions({ isPlaying, isMuted, onPlayClick, onVolumeClick }) {
 
   const toggleExpanded = () => {
 
@@ -33,3 +29,10 @@ export default function VideoActions({ isPlaying, isMuted, onPlayClick, onMenuCl
     </View >
   )
 }
+
+VideoActions.propTypes = {
+  isPlaying: PropTypes.bool,
+  isMuted: PropTypes.bool,
+  onPlayClick: PropTypes.func,
+  onVolumeClick: PropTypes.func,
+};

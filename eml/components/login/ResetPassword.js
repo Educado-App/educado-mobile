@@ -9,6 +9,8 @@ import { sendResetPasswordEmail, validateResetPasswordCode } from "../../api/use
 import FormFieldAlert from "./FormFieldAlert";
 import { validateEmail } from "../general/Validation";
 import ToastNotification from "../general/ToastNotification";
+import ShowAlert from "../general/ShowAlert";
+import PropTypes from "prop-types";
 
 /**
  * Component to create modal (popup) that prompts user for
@@ -124,7 +126,7 @@ export default function ResetPassword(props) {
 
         default:
           // Errors not currently handled with specific alerts
-          showAlert("Erro desconhecido!");
+          ShowAlert("Erro desconhecido!");
           console.log(error);
         }
       });
@@ -216,3 +218,7 @@ export default function ResetPassword(props) {
   );
 }
 
+ResetPassword.propTypes = {
+  modalVisible: PropTypes.bool,
+  onModalClose: PropTypes.func,
+};

@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Pressable } from "react-native";
 import Text from "../general/Text";
+import PropTypes from "prop-types";
 
 /**
  * Button component for eg. login and register screens.
@@ -13,7 +14,7 @@ export default function FormButton(props) {
 
   return (
     <View className='mt-12'>
-      <Pressable 
+      <Pressable
         className={'flex-auto items-center bg-primary px-[40px] py-4 rounded-[8px] opacity-100 active:opacity-70 active:shadow-inner' +
           (props.disabled ? ' opacity-50 bg-gray' : '')}
         onPress={props.onPress}
@@ -24,3 +25,9 @@ export default function FormButton(props) {
     </View>
   )
 }
+
+FormButton.propTypes = {
+  disabled: PropTypes.bool,
+  label: PropTypes.string,
+  onPress: PropTypes.func,
+};

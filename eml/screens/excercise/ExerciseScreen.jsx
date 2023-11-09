@@ -13,13 +13,14 @@ import { getExerciseByid, getSectionByid, getCourse } from '../../api/api';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { givePoints } from '../../services/utilityFunctions';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import PropTypes from 'prop-types';
 
 const USER_INFO = '@userInfo';
 const LOGIN_TOKEN = '@loginToken';
 let xp = 10;
 
 // givenId is used for testing purposes, in the future an exercise object should be passed by the previous screen
-export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7'}) {
+export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7' }) {
   const navigation = useNavigation();
   const route = useRoute();
 
@@ -44,7 +45,7 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7'}) 
       const userInfoString = await AsyncStorage.getItem(USER_INFO);
       const userInfo = JSON.parse(userInfoString);
       const loginToken = await AsyncStorage.getItem(LOGIN_TOKEN);
-  
+
       return { userInfo, loginToken };
     } catch (error) {
       // Handle errors here
@@ -88,10 +89,10 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7'}) 
         navigation.navigate('ErrorScreen');
       }
     };
-  
+
     fetchData();
   }, [route.params]);
-    
+
 
   return (
     <SafeAreaView className="h-screen bg-secondary">
@@ -104,11 +105,11 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7'}) 
       </View>
 
       {hasData === false ? (
-      // No data
+        // No data
         <Text>Sem dados</Text>
       ) : (
         <View className='items-center'>
-          <Text testID='exerciseQuestion' 
+          <Text testID='exerciseQuestion'
             className='pt-6 pb-10 text-center text-body font-sans-bold text-projectBlack w-11/12'>
             {exerciseData.description}
           </Text>
@@ -143,7 +144,7 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7'}) 
                       <View className={`flex-row pb-2 w-fit rounded-medium ${answer.isCorrect ? 'bg-projectGreen' : 'bg-projectRed'}`}>
                         <View className='pl-2 pt-1'>
                           <View className='pt-1.5'>
-                            {answer.isCorrect === true ? ( 
+                            {answer.isCorrect === true ? (
                               <Icon
                                 size={10}
                                 name='check'
@@ -157,8 +158,8 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7'}) 
                                 type='material'
                                 color='#FF4949'
                               />
-                            )}  
-                          </View>                        
+                            )}
+                          </View>
                         </View>
                         <Text className={`w-72 pl-1 pt-2 pr-2 text-caption-medium ${answer.isCorrect ? 'text-success' : 'text-error'}`}>{answer.feedback}</Text>
                       </View>

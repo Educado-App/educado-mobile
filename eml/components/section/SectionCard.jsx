@@ -4,6 +4,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Text from '../general/Text';
 import Collapsible from "react-native-collapsible";
 import { useNavigation } from '@react-navigation/native';
+import PropTypes from 'prop-types';
 
 /**
  * A component that displays a section card with collapsible content.
@@ -79,3 +80,6 @@ export default function SectionCard({ section }) {
   );
 }
 
+SectionCard.propTypes = {
+  section: PropTypes.object
+};

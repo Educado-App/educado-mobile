@@ -10,6 +10,7 @@ import Text from '../general/Text';
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import ShowAlert from '../general/ShowAlert';
 import DialogNotification from '../general/DialogNotification';
+import PropTypes from 'prop-types';
 
 
 /**
@@ -205,3 +206,10 @@ export default function EnterNewPasswordScreen(props) {
     </View>
   );
 }
+
+EnterNewPasswordScreen.propTypes = {
+  email: PropTypes.string,
+  hideModal: PropTypes.func,
+  resetState: PropTypes.func,
+  token: PropTypes.string,
+};
