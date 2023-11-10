@@ -12,7 +12,7 @@ export default function IconHeader({ title }) {
   return (
     <View className="flex flex-row items-center pl-6 pt-[20%] pb-[10%]">
       <Image
-        source={require('../../assets/singleIcon.png')}
+        source={require('../../assets/images/singleIcon.png')}
         alt="Icon"
         className="w-8 h-8 mr-2"
       />
