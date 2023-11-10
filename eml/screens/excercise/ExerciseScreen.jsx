@@ -67,7 +67,6 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7'}) 
   
     fetchData();
   }, [route.params]);
-    
 
   return (
     <SafeAreaView className="h-screen bg-secondary">
@@ -76,7 +75,7 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7'}) 
         <TouchableOpacity className="pr-3" onPress={() => navigation.goBack()}>
           <MaterialCommunityIcons name="chevron-left" size={25} color="black" />
         </TouchableOpacity>
-        <CoursePoints></CoursePoints>
+        <CoursePoints courseId={sectionData.parentCourse}/>
       </View>
 
         {hasData === false ? (

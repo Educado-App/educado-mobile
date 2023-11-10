@@ -8,62 +8,53 @@ import fetchedProfile from '../../test/mockData/test.users.json';
 import { getExerciseByid, getSectionByid, getCourse } from '../../api/api';
 import AnimatedNumbers from '../gamification/AnimatedNumber';
 
-const CoursePoints = () => {
-    const [coursePoints, setCoursePoints] = useState(0);
+const CoursePoints = (courseId) => {
+  const [coursePoints, setCoursePoints] = useState(0);
+  const updatedCoursePoints = 100;
 
-    const updatedCoursePoints = 50;
+  const getProfile = async () => {
+      // USE THIS TO FETCH USER FROM STORAGE WHEN DONE
+      //const fetchedProfile = JSON.parse(await AsyncStorage.getItem(USER_INFO));
+      console.log(courseId.courseId)
+      console.log(fetchedProfile[0].completedCourses[0].courseId.$oid);
+  }
 
-    /*
-    const getProfile = async () => {
-        
-        // USE THIS TO FETCH USER FROM STORAGE WHEN DONE
-        //const fetchedProfile = JSON.parse(await AsyncStorage.getItem(USER_INFO));
-        console.log(fetchedProfile[0].email);
-        setCoursePoints(10);
-        console.log(coursePoints);
-    }
-    */
-
-    function animation(state, finalValue) {
-        if (state < finalValue) {
-          const interval = setInterval(() => {
-            setCoursePoints((prevNumber) => {
-              const nextNumber = prevNumber + 1;
-              if (nextNumber >= finalValue) {
-                clearInterval(interval);
-                return finalValue;
-              }
-              return nextNumber;
-            });
+  function animation(state, finalValue) {
+      if (state < finalValue) {
+        const interval = setInterval(() => {
+          setCoursePoints((prevNumber) => {
+            const nextNumber = prevNumber + 1;
+            if (nextNumber >= finalValue) {
+              clearInterval(interval);
+              return finalValue;
+            }
+            return nextNumber;
           });
-        }
-      };
+        });
+      }
+    };
 
-    /*
-    useEffect(() => {
-        const fetchData = async () => {
-          try {
-            setExerciseData(exercise = await getExerciseByid(givenId));
-            setSectionData(section = await getSectionByid(exercise.parentSection));
-            setCourseData(course = await getCourse(section.parentCourse));
-            setHasData(true);
-          } catch (error) {
-            console.log('Error fetching data:', error);
-            navigation.navigate('ErrorScreen');
+    const findCourseByCourseId = (profile, courseId) => {
+      if (profile && profile[0] && profile[0].completedCourses) {
+        for (let i = 0; i < profile[0].completedCourses.length; i++) {
+          if (profile[0].completedCourses[i].courseId?.$oid === courseId.courseId) {
+            return profile[0].completedCourses[i].points;
           }
-        };
-      
-        fetchData();
-      }, [route.params]);
-      */
-    /*
-    useEffect(() => {
-        getProfile();
-    }, []);
-    */
+        }
+      }
+      return null; // Course not found
+    };
+  
+    const course = findCourseByCourseId(fetchedProfile, courseId);
+    if (course) {
+      console.log('Found course:', course.courseId);
+    } else {
+      console.log('Course not found');
+    }
 
     useEffect(() => {
       animation(coursePoints, updatedCoursePoints);
+      getProfile();
     }, []);
 
     return (
