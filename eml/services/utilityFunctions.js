@@ -162,7 +162,7 @@ function exerciseIsCompleteStatus(user, exerciseIdToCheck) {
         section.completedExercises.forEach(exercise => {
           if (exercise.exerciseId == exerciseIdToCheck) {
             // Found the matching exerciseId, set exerciseIsComplete to the associated isComplete value
-            exerciseIsComplete = exercise.isComplete;
+            exercise.isComplete;
           }
         });
       });
