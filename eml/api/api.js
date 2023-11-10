@@ -181,7 +181,7 @@ export const ifSubscribed = async (userId, courseId) => {
 };
 
 //CREATED BY VIDEOSTREAM TEAM
-export const getVideoDownloadUrl = (fileName, resolution) => {
+export const getVideoDownloadUrl = (fileName) => {
   
   const _vidUrl = `${url}/api/bucket/stream/${fileName}`;
   return _vidUrl;
