@@ -1,182 +1,159 @@
 import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
-import Text from '../../components/general/Text';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import LottieView from 'lottie-react-native';
+import Text from '../../components/general/Text';
 import StandardButton from '../../components/general/StandardButton';
-import { useNavigation } from '@react-navigation/native';
 import AnimatedNumbers from '../../components/gamification/AnimatedNumber';
 import { generateSectionCompletePhrases } from '../../constants/Phrases';
-import { useRoute } from '@react-navigation/native';
-import { getUserInfo } from '../../services/StorageService';;
+import { getUserInfo } from '../../services/StorageService';
 
 export default function CompleteSectionScreen() {
-	const route = useRoute();
-	const { courseId, sectionId } = route.params;
-	const [points, setPoints] = useState(0);
-	const [extraPoints, setExtraPoints] = useState(0);
-	//const [totalPointsText, setTotalPointsText] = useState('Pontos');
-	const navigation = useNavigation();
-	const [randomPhrase, setRandomPhrase] = useState('');
+    const route = useRoute();
+    const { courseId, sectionId } = route.params;
+    const [points, setPoints] = useState(0);
+    const [extraPoints, setExtraPoints] = useState(0);
+    // const [totalPointsText, setTotalPointsText] = useState('Pontos');
+    const navigation = useNavigation();
+    const [randomPhrase, setRandomPhrase] = useState('');
 
-	const extraPointsFinal = 20;
+    const extraPointsFinal = 20;
 
-	const getRandomPhrase = () => {
-		let randomIndex = 0;
-		const phrases = generateSectionCompletePhrases();
-	
-		randomIndex = Math.floor(Math.random() * phrases.length);
-		let randomPhrase = phrases[randomIndex];
-		
-		return randomPhrase;
-	};
+    const getRandomPhrase = () => {
+        let randomIndex = 0;
+        const phrases = generateSectionCompletePhrases();
 
-	function animation(state, setState, finalValue) {
-		return new Promise((resolve) => {
-			if (state < finalValue) {
-				const interval = setInterval(() => {
-					setState((prevNumber) => {
-						const nextNumber = prevNumber + 1;
-						if (nextNumber >= finalValue) {
-							clearInterval(interval);
-							resolve(finalValue);
-							return finalValue;
-						}
-						return nextNumber;
-					});
-				});
-			} else {
-				resolve(finalValue);
-			}
-		});
-	}
+        randomIndex = Math.floor(Math.random() * phrases.length);
 
-	// function totalPointsAnimation(points, pointsFinal) {
-	// 	setTotalPointsText('Pontos na seção');
-	// 	return new Promise((resolve) => {
-	// 		if (points < pointsFinal) {
-	// 			const interval = setInterval(() => {
-	// 				setPoints((prevNumber) => {
-	// 					const nextNumber = prevNumber + 5;
-	// 					if (nextNumber >= pointsFinal) {
-	// 						clearInterval(interval);
-	// 						resolve(pointsFinal); // Resolve the promise when the animation is finished
-	// 						return pointsFinal;
-	// 					}
-	// 					return nextNumber;
-	// 				});
-	// 			}, 50); // Adjust the interval for the desired animation speed
-	// 		} else {
-	// 			resolve(pointsFinal); // If points >= pointsFinal, resolve the promise immediately
-	// 		}
-	// 	});
-	// }
+        return phrases[randomIndex];
+    };
 
-	function pointBox(text, points, color, duration) {
-		return (
-			<View className={`h-24 w-40 ${'green' === color ? 'bg-success' : 'bg-yellow'} rounded-lg items-center justify-between px-2 pb-2 shadow shadow-projectGray`}>
-				<View className="w-full h-2/5 justify-center">
-					<Text className="text-projectWhite text-base font-sans-bold text-center capitalize">		
-						{text}
-					</Text>
-				</View>
-				<View className="bg-projectWhite w-full h-3/5 rounded justify-center items-center">
-					<AnimatedNumbers
-						animateToNumber={points}
-						animationDuration={duration}
-						fontStyle={`text-2xl font-sans-bold ${'green' === color ? 'text-success' : 'text-yellow'} text-center`}
-					/>
-				</View>
-			</View>
-		)
-	}
+    function animation(state, setState, finalValue) {
+        return new Promise((resolve) => {
+            if (state < finalValue) {
+                const interval = setInterval(() => {
+                    setState((prevNumber) => {
+                        const nextNumber = prevNumber + 1;
+                        if (nextNumber >= finalValue) {
+                            clearInterval(interval);
+                            resolve(finalValue);
+                            return finalValue;
+                        }
+                        return nextNumber;
+                    });
+                });
+            } else {
+                resolve(finalValue);
+            }
+        });
+    }
 
-	const findCompletedSection = (completedCourses, courseId, sectionId) => {
-		const completedCourse = completedCourses.find(course => course.courseId === courseId);
+    function pointBox(text, pointsText, color, duration) {
+        return (
+            <View className={`h-24 w-40 ${color === 'green' ? 'bg-success' : 'bg-yellow'} rounded-lg items-center justify-between px-2 pb-2 shadow shadow-projectGray`}>
+                <View className="w-full h-2/5 justify-center">
+                    <Text className="text-projectWhite text-base font-sans-bold text-center capitalize">
+                        {text}
+                    </Text>
+                </View>
+                <View className="bg-projectWhite w-full h-3/5 rounded justify-center items-center">
+                    <AnimatedNumbers
+                      animateToNumber={pointsText}
+                      animationDuration={duration}
+                      fontStyle={`text-2xl font-sans-bold ${color === 'green' ? 'text-success' : 'text-yellow'} text-center`}
+                    />
+                </View>
+            </View>
+        );
+    }
 
-		if (completedCourse) {
-			const completedSection = completedCourse.completedSections.find(
-				section => section.sectionId === sectionId
-			);
+    const findCompletedSection = (completedCourses) => {
+        const completedCourse = completedCourses.find((course) => course.courseId === courseId);
 
-			if (completedSection) {
-				return completedSection;
-			} else {
-				console.log(`No completed section found for sectionId: ${sectionId}`);
-			}
-		} else {
-			console.log(`No course found for courseId: ${courseId}`);
-		}
+        if (completedCourse) {
+            const completedSection = completedCourse.completedSections.find(
+                (section) => section.sectionId === sectionId,
+            );
 
-		return null;
-	};
+            if (completedSection) {
+                return completedSection;
+            }
+            return null;
+        }
 
-	async function getPointsFromSection() {
-		const getUser = await getUserInfo();
-		const completedSection = findCompletedSection(getUser.completedCourses, courseId, sectionId);
-		if (completedSection === null) {
-			return 0;
-		}
-		return completedSection.totalPoints;
-	}
+        return null;
+    };
 
-	
-  useEffect(() => {
-		async function animations() {
-			pointsFinal = await getPointsFromSection();
-			await animation(points, setPoints, pointsFinal);
-			
-			setTimeout(async () => {
-				await animation(extraPoints, setExtraPoints, extraPointsFinal);
-				// await totalPointsAnimation(points, pointsFinal + extraPointsFinal);
-			}, 750);
-		}
-		
-		setRandomPhrase(getRandomPhrase());
-		animations();
-  }, []);
+    async function getPointsFromSection() {
+        const getUser = await getUserInfo();
+        const completedSection = findCompletedSection(
+            getUser.completedCourses,
+            courseId,
+            sectionId,
+        );
+        if (completedSection === null) {
+            return 0;
+        }
+        return completedSection.totalPoints;
+    }
 
-  return (
-    <SafeAreaView className="flex flex-col justify-center items-center bg-secondary h-screen w-screen">
-				<LottieView 
-					className="z-10 absolute top-0 w-full"
-					source={require('../../assets/animations/completeSection.json')} 
-					autoPlay
-				/>
-				<View className="absolute bottom-0 px-6 w-full z-20 items-center justify-end h-3/4">
-					<View className="w-fit h-40 justify-center mb-8">
-						<Text className="text-center text-3xl font-sans-bold text-primary bg-secondary">
-						{randomPhrase}
-						</Text>
-					</View>
+    useEffect(() => {
+        async function animations() {
+            const pointsFinal = await getPointsFromSection();
+            await animation(points, setPoints, pointsFinal);
 
-					<View className="flex flex-row justify-between w-full mb-20">
-						{pointBox('Pontos', points, 'yellow', 750)}
-						{pointBox('Pontos Extras', extraPoints, 'green', 750)}
-					</View>
+            setTimeout(async () => {
+                await animation(extraPoints, setExtraPoints, extraPointsFinal);
+                // await totalPointsAnimation(points, pointsFinal + extraPointsFinal);
+            }, 750);
+        }
 
-					<View className="w-full mb-20"> 
-						<StandardButton
-							props={{
-								buttonText: "Continuar",
-								onPress: () => {
-									navigation.reset({
-										index: 1,
-										routes: [
-											{ name: 'HomeStack' },
-											{ name: 'Section',
-													params: { courseId: courseId },
-											},
-										],
-									});
-								}
-							}}
-						/>
-					</View>
-				</View>
+        setRandomPhrase(getRandomPhrase());
+        animations();
+    }, []);
 
+    return (
+        <SafeAreaView className="flex flex-col justify-center items-center bg-secondary h-screen w-screen">
+            <LottieView
+                className="z-10 absolute top-0 w-full"
+                source={require('../../assets/animations/completeSection.json')}
+                autoPlay
+            />
 
-			
-    </SafeAreaView>
-  );
-};
+            <View className="absolute bottom-0 px-6 w-full z-20 items-center justify-end h-3/4">
+                <View className="w-fit h-40 justify-center mb-8">
+                    <Text className="text-center text-3xl font-sans-bold text-primary bg-secondary">
+                        {randomPhrase}
+                    </Text>
+                </View>
+
+                <View className="flex flex-row justify-between w-full mb-20">
+                    {pointBox('Pontos', points, 'yellow', 750)}
+                    {pointBox('Pontos Extras', extraPoints, 'green', 750)}
+                </View>
+
+                <View className="w-full mb-20">
+                    <StandardButton
+                        props={{
+                            buttonText: 'Continuar',
+                            onPress: () => {
+                                navigation.reset({
+                                    index: 1,
+                                    routes: [
+                                        { name: 'HomeStack' },
+                                        {
+                                            name: 'Section',
+                                            params: { courseId },
+                                        },
+                                    ],
+                                });
+                            },
+                        }}
+                  />
+                </View>
+            </View>
+
+        </SafeAreaView>
+    );
+}
