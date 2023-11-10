@@ -34,9 +34,9 @@ export default function WelcomeScreen({ navigation }) {
 
             <View className="mt-6">
               <TouchableOpacity 
-                onPress={() => { navigation.navigate('LoginStack', { screen: 'Register' }); }}
+                onPress={() => { navigation.navigate('LoginStack', { initialRoute: 'Register' }); }}
               >
-                <Text className="text-center font-sans-bold text-body underline">Cadastrar</Text>
+                <Text className="text-center font-sans-bold text-body underline">Cadastrer</Text>
               </TouchableOpacity>
             </View>
 
@@ -47,3 +47,4 @@ export default function WelcomeScreen({ navigation }) {
     </BgLinearGradient>
   );
 };
+

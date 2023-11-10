@@ -18,7 +18,6 @@ import tailwindConfig from "../../tailwind.config";
 
 const LOGIN_TOKEN = "@loginToken";
 const USER_INFO = "@userInfo";
-const USER_ID = "@userId";
 
 /**
  * Component for registering a new account in the system, used in the register screen
@@ -166,7 +165,6 @@ export default function RegisterForm() {
         .then(async function (response) {
           // saves input information locally
           await saveUserInfoLocally(response._id, firstName, lastName, email);
-          await AsyncStorage.setItem(USER_ID, response._id);
         }).then(async function () {
           // logs in the user, if no errors occur, navigates to home screen and sets token
           await loginFromRegister(obj);

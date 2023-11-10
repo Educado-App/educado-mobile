@@ -38,8 +38,18 @@ export default function ProfileComponent() {
     }
   }
 
+  const fetchCourses = async () => {
+    try {
+      const courseData = await getCourses();
+      setCourses(courseData);
+    } catch (error) {
+      console.error('Error fetching courses:', error);
+    }
+  }
+
   useEffect(() => {
     getProfile();
+    //fetchCourses();
   }, []);
 
   return (
@@ -48,10 +58,10 @@ export default function ProfileComponent() {
         <View className="justify-center items-center flex flex-col">
 
           <View className="flex p-10">
-            <View className="flex-row items-start justify-start w-screen pl-6">
-              <ReturnButton/>
+            <View className="flex-row">
+              <ReturnButton></ReturnButton>
               <Image
-                className = "h-[25.54] w-[175.88]"
+                className = "h-[25.54] w-[175.88] right-5"
                 source={require("../../assets/images/logo.png")}
               />
             </View>
