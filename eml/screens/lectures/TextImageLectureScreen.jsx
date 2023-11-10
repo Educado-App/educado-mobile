@@ -14,10 +14,7 @@ const TextImageLectureScreen = ({ lecture, course }) => {
   useEffect(() => {
 
     if (lecture.image) {
-
       getLectureImage();
-    } else {
-
     }
     splitText(lecture.description);
 
@@ -117,7 +114,7 @@ const TextImageLectureScreen = ({ lecture, course }) => {
       {
         // Rendering the last paragraph below the image if the array has more than two elements
         paragraphs && paragraphs.length > 2 &&
-                <Text className="text-[18px] px-4 text-projectGray">{paragraphs[paragraphs.length - 1]}</Text>
+        <Text className="text-[18px] px-4 text-projectGray">{paragraphs[paragraphs.length - 1]}</Text>
       }
     </ScrollView>
 

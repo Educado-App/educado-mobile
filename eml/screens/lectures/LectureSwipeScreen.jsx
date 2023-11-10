@@ -15,7 +15,6 @@ import tailwindConfig from '../../tailwind.config';
 export default function LectureSwipeScreen({ route }) {
   const { sectionId, courseId } = route.params;
   const [loading, setLoading] = useState(true);
-  const [progressPercent, setProgressPercent] = useState(0);
   const [allLectures, setAllLectures] = useState([]);
   const [currentLectureType, setCurrentLectureType] = useState("text");
   const [index, setIndex] = useState(0);
@@ -28,13 +27,10 @@ export default function LectureSwipeScreen({ route }) {
         //TODO: get the first uncompleted lecture - set the initial index to that
         const initialIndex = 0;
         const courseData = await getCourse(courseId);
-        const progressPercentage = Math.round(((initialIndex + 1) / sectionData.components.length) * 100);
-
 
         setAllLectures(sectionData.components);
         setCurrentLectureType(sectionData.components[initialIndex]?.video ? "video" : "text");
         setCourse(courseData);
-        setProgressPercent(progressPercentage);
         setIndex(initialIndex);
         setLoading(false);
       } catch (error) {
@@ -49,8 +45,6 @@ export default function LectureSwipeScreen({ route }) {
     const currentLecture = allLectures[_index];
     const currentLectureType = currentLecture?.video ? "video" : "text";
     setCurrentLectureType(currentLectureType);
-    const currentProgress = Math.round(((_index + 1) / allLectures.length) * 100);
-    setProgressPercent(currentProgress);
     setIndex(_index);
   };
 

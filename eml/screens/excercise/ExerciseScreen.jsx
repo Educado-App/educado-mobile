@@ -18,6 +18,8 @@ import PropTypes from 'prop-types';
 const USER_INFO = '@userInfo';
 const LOGIN_TOKEN = '@loginToken';
 let xp = 10;
+let exercise;
+let section;
 
 // givenId is used for testing purposes, in the future an exercise object should be passed by the previous screen
 export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7' }) {
@@ -82,7 +84,7 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7' })
       try {
         setExerciseData(exercise = await getExerciseByid(givenId));
         setSectionData(section = await getSectionByid(exercise.parentSection));
-        setCourseData(course = await getCourse(section.parentCourse));
+        setCourseData(await getCourse(section.parentCourse));
         setHasData(true);
       } catch (error) {
         console.log('Error fetching data:', error);

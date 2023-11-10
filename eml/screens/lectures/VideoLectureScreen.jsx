@@ -42,11 +42,12 @@ export default function VideoLectureScreen({ lecture, course }) {
     setVideoUrl(_videoUrl)
   }, [])
 
-
-  useEffect(() => {
-    if (videoRef.current) {
-    }
-  }, [videoRef]);
+  /* This block does nothing?
+    useEffect(() => {
+      if (videoRef.current) {
+      }
+    }, [videoRef]);
+  */
 
   const handlePress = () => {
 
@@ -64,7 +65,7 @@ export default function VideoLectureScreen({ lecture, course }) {
     setIsMuted(!isMuted);
   }
 
-  //check if video url is valid
+  /* check if video url is valid
   useEffect(() => {
     const _videoUrl = getVideoDownloadUrl(lecture._id, "180p");
 
@@ -85,7 +86,7 @@ export default function VideoLectureScreen({ lecture, course }) {
     //         Alert.alert("Error", "The video is corrupted. Please try again later", "OK");
     //     });
   }, []);
-
+  */
 
 
 
