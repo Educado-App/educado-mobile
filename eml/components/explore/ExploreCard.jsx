@@ -49,7 +49,7 @@ export default function ExploreCard({ course, isPublished, subscribed }) {
               />
               <View className="w-2.5" />
               <CardLabel
-                title={course.estimatedHours}
+                title={course.estimatedHours.toString() + ' Horas'}
                 time={true}
                 icon={"clock-outline"}
               />
