@@ -1,5 +1,7 @@
 import * as api from '../api/api.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {unlink} from "node/fs";
+import RNBackgroundDownloader from '@kesha-antonov/react-native-background-downloader'
 
 
 const COURSE_LIST = '@courseList';
@@ -412,10 +414,10 @@ export const storeCourseLocally = async (courseID) => {
             await AsyncStorage.setItem("L" + section._id, JSON.stringify(lectureList));
             for (let lecture of lectureList) {
                 if (lecture.image) {
-                    let image = await getBucketImage(lecture.image);
+                    let image = await api.getBucketImage(lecture.image);
                     await AsyncStorage.setItem("I" + lecture._id, JSON.stringify(image));
                 } else if (lecture.video){
-
+                    await api.downloadVideo(lecture.video);
                 }
             }
             let exerciseList = await api.getExercisesInSection(courseID, section._id);
@@ -449,6 +451,8 @@ export const deleteLocallyStoredCourse = async (courseID) => {
             for (let lecture of section.lectures) {
                 await AsyncStorage.removeItem("I" + lecture._id);
                 //delete video here
+                await unlink(RNBackgroundDownloader.directories.documents + '/' + lecture.video);
+                console.log('FILE DELETED');
             }
         }
 

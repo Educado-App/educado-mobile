@@ -1,4 +1,6 @@
 import axios from "axios";
+import { Platform } from 'react-native'
+import RNBackgroundDownloader from '@kesha-antonov/react-native-background-downloader'
 
 const testUrl = "http://localhost:8888";
 const testExpo = "http://172.30.254.222:8888"; //Change to local expo ip
@@ -278,3 +280,33 @@ export const getBucketImage = async (fileName) => {
     }
   }
 };
+
+
+
+//Download video
+
+export const downloadVideo = async (fileName) => {
+  let storedLocation = RNBackgroundDownloader.directories.documents + '/' + fileName;
+  RNBackgroundDownloader.download({
+    id: fileName,
+    url: url +'/api/bucket/' + fileName,
+    destination: storedLocation,
+    metadata: {}
+  }).begin(({expectedBytes, headers}) => {
+    console.log(`Going to download ${expectedBytes} bytes!`)
+  }).progress(percent => {
+    console.log(`Downloaded: ${percent * 100}%`)
+  }).done(() => {
+    console.log('Download is done!')
+
+    // PROCESS YOUR STUFF
+
+    // FINISH DOWNLOAD JOB ON IOS
+    if (Platform.OS === 'ios') {
+      RNBackgroundDownloader.completeHandler(fileName)
+    }
+    return storedLocation;
+  }).error(error => {
+    console.log('Download canceled due to error: ', error);
+  })
+}
