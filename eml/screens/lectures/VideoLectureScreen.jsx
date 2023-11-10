@@ -38,12 +38,7 @@ export default function VideoLectureScreen({ lecture, course, progress }) {
     const [videoUrl, setVideoUrl] = useState(null);
 
     useEffect(() => {
-        const _videoUrl = getVideoDownloadUrl(lecture.video, "180p")
-
-
-
-        //test if video is available for download from internet
-
+        const _videoUrl = getVideoDownloadUrl(lecture.video)
         setVideoUrl(_videoUrl)
     }, [])
 
@@ -73,7 +68,7 @@ export default function VideoLectureScreen({ lecture, course, progress }) {
 
     //check if video url is valid
     useEffect(() => {
-        const _videoUrl = getVideoDownloadUrl(lecture._id, "180p");
+        const _videoUrl = getVideoDownloadUrl(lecture._id);
 
         //check for video url validity maybe not needed
         // fetch(_videoUrl, {
