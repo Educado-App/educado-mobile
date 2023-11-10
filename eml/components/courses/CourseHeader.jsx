@@ -7,9 +7,11 @@ import DownloadCourseButton from "./DownloadCourseButton";
 export default function CourseHeader({ courseTitle, courseIcon, courseId, downloadState }) {
 
   CourseHeader.propTypes = {
-    courseTitle: PropTypes.string.isRequired,
+    courseTitle: PropTypes.string,
     courseIcon: PropTypes.string,
-  }
+    courseId: PropTypes.string,
+    downloadState: PropTypes.object
+  };
 
   return (
     <View className="items-center pt-8" >

@@ -1,11 +1,17 @@
 import * as React from "react"
 import { Image } from 'react-native';
+import PropTypes from 'prop-types';
 
 
 export default function EducadoLogo(props) {
+
+  EducadoLogo.propTypes = {
+    style: PropTypes.object,
+  };
+
   return (
     <Image
-      source={require('../../assets/logo_educado.png')}
+      source={require('../../assets/images/logo_educado.png')}
       style={props.style}
       className={'h-12'}
       resizeMode='contain'
@@ -13,7 +19,7 @@ export default function EducadoLogo(props) {
   )
 }
 
-// THE CODE BELOW DOES NOT WORK. THE SVG NEVER SHOWS AFTER MERGING TO DEV. 
+// THE CODE BELOW DOES NOT WORK. THE SVG NEVER SHOWS AFTER MERGING TO DEV.
 // I SUSPECT IT IS BECAUSE OF THE REACT-NATIVE-SVG PACKAGE CLASHING WITH OTHER PACKAGES
 // I WILL LEAVE IT HERE FOR FUTURE REFERENCE, AS IT MAY ASSIST IN A FURTHER IMPLEMENTATION OF SVG'S
 

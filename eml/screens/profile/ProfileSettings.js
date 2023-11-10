@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
   View,
   SafeAreaView,
@@ -6,27 +6,28 @@ import {
   Image,
 } from 'react-native';
 import ProfileImage from '../../components/profile/profileImage';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { BgLinearGradient } from "../../constants/BgLinearGradient";
-import { getCourses } from '../../api/api';
 import ReturnButton from '../../components/profileSettings/returnButton'
 import DeleteAccountButton from '../../components/profileSettings/deleteAccountButton'
 import ChangeFirstNameButton from '../../components/profileSettings/changeFirstNameButton'
 import ChangeLastNameButton from '../../components/profileSettings/changeLastNameButton'
 import ChangeEmailButton from '../../components/profileSettings/changeEmailButton'
 
-const USER_INFO = '@userInfo';
+// const USER_INFO = '@userInfo';
 
 export default function ProfileComponent() {
+  /*
   const [id, setId] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   
+
   const getProfile = async () => {
     try {
       const fetchedProfile = JSON.parse(await AsyncStorage.getItem(USER_INFO));
 
+      /*
       if (fetchedProfile !== null) {
         setId(fetchedProfile.id);
         setFirstName(fetchedProfile.firstName);
@@ -46,11 +47,13 @@ export default function ProfileComponent() {
       console.error('Error fetching courses:', error);
     }
   }
+  
 
   useEffect(() => {
     getProfile();
     //fetchCourses();
   }, []);
+  */
 
   return (
     <BgLinearGradient>
@@ -61,7 +64,7 @@ export default function ProfileComponent() {
             <View className="flex-row">
               <ReturnButton></ReturnButton>
               <Image
-                className = "h-[25.54] w-[175.88] right-5"
+                className="h-[25.54] w-[175.88] right-5"
                 source={require("../../assets/images/logo.png")}
               />
             </View>
@@ -69,7 +72,7 @@ export default function ProfileComponent() {
 
           <View>
             <TouchableOpacity>
-              <ProfileImage/>
+              <ProfileImage />
             </TouchableOpacity>
           </View>
 

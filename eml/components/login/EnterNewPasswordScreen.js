@@ -10,6 +10,7 @@ import Text from '../general/Text';
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import ShowAlert from '../general/ShowAlert';
 import DialogNotification from '../general/DialogNotification';
+import PropTypes from 'prop-types';
 
 
 /**
@@ -95,26 +96,26 @@ export default function EnterNewPasswordScreen(props) {
       }, 2500);
     } catch (error) {
       switch (error?.error?.code) {
-        case 'E0401':
-          // No user exists with this email!
-          setPasswordAlert("Não existe nenhum usuário com este email!");
-          break;
+      case 'E0401':
+        // No user exists with this email!
+        setPasswordAlert("Não existe nenhum usuário com este email!");
+        break;
 
-        case 'E0404':
-          // Code expired!
-          setPasswordAlert("Código expirado!");
-          break;
+      case 'E0404':
+        // Code expired!
+        setPasswordAlert("Código expirado!");
+        break;
 
-        case 'E0405':
-          // Incorrect code!
-          setPasswordAlert("Código incorreto!");
-          break;
+      case 'E0405':
+        // Incorrect code!
+        setPasswordAlert("Código incorreto!");
+        break;
 
-        default:
-          // Errors not currently handled with specific alerts
-          ShowAlert("Erro desconhecido!");
-          console.log(error);
-          break;
+      default:
+        // Errors not currently handled with specific alerts
+        ShowAlert("Erro desconhecido!");
+        console.log(error);
+        break;
       }
     }
   }
@@ -205,3 +206,10 @@ export default function EnterNewPasswordScreen(props) {
     </View>
   );
 }
+
+EnterNewPasswordScreen.propTypes = {
+  email: PropTypes.string,
+  hideModal: PropTypes.func,
+  resetState: PropTypes.func,
+  token: PropTypes.string,
+};

@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import { Pressable, View, Alert } from 'react-native'
 import PropTypes from 'prop-types'
-import { useIsFocused, useNavigation } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
 import { getNextExercise } from "../../../services/StorageService";
 import Text from '../../general/Text';
 

@@ -11,15 +11,15 @@ function getCourseById(id) {
   return getCourseByIdData[id - 1]
 }
 
-function getNextExerciseBySectionId(sectionId) {
+function getNextExerciseBySectionId() {
   return getNextExerciseBySectionIdData
 }
 
-function getFeedBackByExerciseId(exerciseId) {
+function getFeedBackByExerciseId() {
   return getFeedBackByExerciseIdData
 }
 
-function updateExerciseBySectionId(exerciseId) { }
+function updateExerciseBySectionId() { }
 
 function isCourseActive(courseId) {
   return getCourseListData[courseId - 1].isDownloaded

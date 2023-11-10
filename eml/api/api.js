@@ -1,8 +1,10 @@
 import axios from "axios";
 
 const testUrl = "http://localhost:8888";
+/* COMMENTED OUT FOR LINTING
 const testExpo = "http://172.30.254.222:8888"; //Change to local expo ip
 const digitalOcean = "http://207.154.213.68:8888";
+*/
 
 const url = testUrl;
 
@@ -123,7 +125,7 @@ export const getSubscriptions = async (userId) => {
 // Subscribe to course
 export const subscribeToCourse = async (userId, courseId) => {
   try {
-    const res = await axios.post(
+    await axios.post(
       url + "/api/courses/" + courseId + "/subscribe",
       {
         user_id: userId,
@@ -141,7 +143,7 @@ export const subscribeToCourse = async (userId, courseId) => {
 // Unubscribe to course
 export const unSubscribeToCourse = async (userId, courseId) => {
   try {
-    const res = await axios.post(
+    await axios.post(
       url + "/api/courses/" + courseId + "/unsubscribe",
       {
         user_id: userId,
@@ -163,11 +165,11 @@ export const ifSubscribed = async (userId, courseId) => {
     // passing user ID as request body for get request gives error
     const res = await axios.get(
       url +
-        "/api/students/subscriptions?user_id=" +
-        userId +
-        "&" +
-        "course_id=" +
-        courseId
+      "/api/students/subscriptions?user_id=" +
+      userId +
+      "&" +
+      "course_id=" +
+      courseId
     );
 
     return res.data;
@@ -190,21 +192,21 @@ export const getVideoDownloadUrl = (fileName, resolution) => {
   let usableResolution = "360x640";
 
   switch (resolution) {
-    case "180p":
-      usableResolution = "180x320";
-      break;
-    case "360p":
-      usableResolution = "360x640";
-      break;
-    case "720p":
-      usableResolution = "720x1280";
-      break;
-    case "1080p":
-      usableResolution = "1080x1920";
-      break;
-    default:
-      usableResolution = "360x640";
-      break;
+  case "180p":
+    usableResolution = "180x320";
+    break;
+  case "360p":
+    usableResolution = "360x640";
+    break;
+  case "720p":
+    usableResolution = "720x1280";
+    break;
+  case "1080p":
+    usableResolution = "1080x1920";
+    break;
+  default:
+    usableResolution = "360x640";
+    break;
   }
   const _vidUrl = `${url}/api/bucket/stream/${fileName}_transcoded${usableResolution}.mp4`;
   console.log(_vidUrl);
@@ -237,7 +239,7 @@ export const getLectureById = async (lectureId) => {
       throw err;
     }
   }
-    
+
 };
 
 //CREATED BY VIDEOSTREAM TEAM
