@@ -17,21 +17,27 @@ import Text from '../../components/general/Text';
 import ProfileNameCircle from '../../components/profile/ProfileNameCircle';
 import FormButton from '../../components/general/forms/FormButton';
 import ChangePasswordModal from '../../components/profileSettings/ChangePasswordModal';
+import FormTextField from '../../components/general/forms/FormTextField';
+import { updateUserFields } from '../../api/userApi';
 
-const USER_INFO = '@userInfo';
-
-export default function ProfileComponent() {
+export default function ProfileSettings() {
   const [id, setId] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
+  const [fetchedFirstName, setFetchedFirstName] = useState('');
+  const [fetchedLastName, setFetchedLastName] = useState('');
+  const [fetchedEmail, setFetchedEmail] = useState('');
 
   const getProfile = async () => {
     try {
-      const fetchedProfile = JSON.parse(await AsyncStorage.getItem(USER_INFO));
+      const fetchedProfile = JSON.parse(await AsyncStorage.getItem('@userInfo'));
 
       if (fetchedProfile !== null) {
         setId(fetchedProfile.id);
+        setFetchedFirstName(fetchedProfile.firstName);
+        setFetchedLastName(fetchedProfile.lastName);
+        setFetchedEmail(fetchedProfile.email);
         setFirstName(fetchedProfile.firstName);
         setLastName(fetchedProfile.lastName);
         setEmail(fetchedProfile.email);
@@ -50,14 +56,43 @@ export default function ProfileComponent() {
     }
   }
 
+  const validateInput = () => {
+    return (firstName !== fetchedFirstName) || (lastName !== fetchedLastName) || (email !== fetchedEmail);
+  }
+
   useEffect(() => {
     getProfile();
     //fetchCourses();
   }, []);
 
+  const saveUserInfo = async () => {
+
+    const obj = {
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+    }
+
+    try {
+      const LOGIN_TOKEN = await AsyncStorage.getItem('@loginToken');
+      await updateUserFields(id, obj, LOGIN_TOKEN);
+      await AsyncStorage.setItem('@userInfo', JSON.stringify(obj));
+      getProfile();
+    } catch (error) {
+      switch (error?.error?.code) {
+        case 'E0003':
+          // Error connecting to server!
+          ShowAlert("Erro de conexão com o servidor!");
+          break;
+        default:
+          console.log('ERROR: ' + error?.error?.code)
+      }
+    }
+  };
+
   return (
     <SafeAreaView className='bg-secondary'>
-      <View>
+      <View className='h-screen'>
         <View className="justify-center items-center flex flex-col">
           <View className="flex p-10">
             <View className="flex-row">
@@ -70,29 +105,50 @@ export default function ProfileComponent() {
             </View>
           </View>
 
-          <View className='flex flex-row'>
+          <View className='flex flex-row w-screen px-6 justify-evenly'>
             {/* Profile image */}
-            <ProfileNameCircle firstName={firstName} lastName={lastName} />
+            <ProfileNameCircle firstName={fetchedFirstName} lastName={fetchedLastName} />
             {/* Edit image */}
-            <View className='flex flex-col space-between pl-3 bg-error'>
-              <FormButton label='Trocar imagem' whiteText={true} />
-              <Text className=''>Remover imagem</Text>
+            <View className='flex flex-col justify-evenly items-center'>
+              <FormButton className='py-2'>
+                Trocar imagem
+              </FormButton>
+              <Text className='text-primary underline'>Remover imagem</Text>
             </View>
           </View>
-
         </View>
 
-        <View>
-          <TouchableOpacity>
-            <ProfileImage />
-          </TouchableOpacity>
-        </View>
+        <View className="flex flex-col px-8 pt-8 w-screen">
 
-        <View className="flex flex-col gap-6 items-center px-6 w-screen mr-3">
+          <View className='mb-8'>
+            <FormTextField
+              label='Nome'
+              required={true}
+              placeholder='Insira sua nome'
+              value={firstName}
+              onChangeText={(firstName) => setFirstName(firstName)}
+            ></FormTextField>
+          </View>
+          <View className='mb-8'>
+            <FormTextField
+              label='Sobrenome'
+              required={true}
+              placeholder='Insira sua sobrenome'
+              value={lastName}
+              onChangeText={(lastName) => setLastName(lastName)}
+            ></FormTextField>
+          </View>
+          <View className='mb-12'>
+            <FormTextField
+              label='E-mail'
+              required={true}
+              placeholder='Insira sua e-mail'
+              value={email}
+              onChangeText={(email) => setEmail(email)}
+            ></FormTextField>
+          </View>
 
-          {/* Change password */}
-          <ChangePasswordModal />
-
+          {/*
           <View className="flex justify-center w-full">
             <ChangeFirstNameButton></ChangeFirstNameButton>
           </View>
@@ -108,8 +164,19 @@ export default function ProfileComponent() {
           <View className="flex justify-center w-full">
             <DeleteAccountButton></DeleteAccountButton>
           </View>
+        */}
+          {/* Change password */}
+          <ChangePasswordModal />
+
+          <View className='flex flex-row justify-between items-center pt-12'>
+            <Text className='text-primary text-sm underline'>Excluir minha conta</Text>
+            <FormButton
+              onPress={() => saveUserInfo()}
+              disabled={!validateInput()}
+            >Salvar</FormButton>
+          </View>
         </View>
       </View>
     </SafeAreaView>
   );
-}  
+}

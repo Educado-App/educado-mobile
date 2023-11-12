@@ -18,6 +18,7 @@ export default function FormButton(props) {
 	const typeStyles = {
 		primary: "bg-primary",
 		error: "bg-error",
+		warning: "bg-yellow",
 	}
 
 	return <>

@@ -89,7 +89,7 @@ const ChangePasswordModal = (props) => {
 	return <>
 		{/* Button for opening modal */}
 		<FormButton
-			type='error'
+			type='warning'
 			onPress={() => setModalVisible(true)}
 		>
 			Alterar senha

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const prod = 'http://educado.somethingnew.dk';
-const test = 'http://192.168.166.156:8888'; // Change this to your LOCAL IP address when testing.
+const test = 'http://192.168.1.33:8888'; // Change this to your LOCAL IP address when testing.
 const local = 'http://localhost:8888';
 const digitalOcean = 'http://207.154.213.68:8888';
 
@@ -80,19 +80,21 @@ export const deleteUser = async (user_id, token) => {
   }
 };
 
-export const updateUserFields = async (user_id, updateFields, token) => {
+export const updateUserFields = async (user_id, obj, token) => {
   try {
-    const res = await axios.patch(url + `/api/users/${user_id}`, updateFields, {
+    const res = await client.patch(`/api/users/${user_id}`, obj, {
       headers: {
         'Content-Type': 'application/json',
         'token': token, // Include the token in the headers
       },
     });
-
     return res.data;
-  } catch (error) {
-    // Handle errors here
-    throw error; // You may want to handle the error or log it
+  } catch (e) {
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
   }
 };
 
