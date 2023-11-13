@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, TouchableOpacity } from 'react-native';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { View } from 'react-native';
+import { Button } from 'react-native-paper';
+import tailwindConfig from '../../tailwind.config';
 import PropTypes from 'prop-types';
 
 /**
@@ -14,14 +15,15 @@ const SubscriptionCancel = ({ onPress }) => {
   };
 
   return (
-    <View>
-      <TouchableOpacity
+    <View className="py-4 self-center justify-end">
+      <Button
+        mode={'contained'}
+        color={tailwindConfig.theme.colors.error}
         testID="subscriptionCancelButton"
-        className="px-5 py-4"
         onPress={onPress}
       >
-        <MaterialCommunityIcons name="bookmark" size={25} color="black" />
-      </TouchableOpacity>
+              Cancelar inscrição
+      </Button>
     </View>
   );
 };

@@ -291,6 +291,7 @@ exports[`CourseCard renders CourseCard correctly 1`] = `
         >
           duração
         </Text>
+                  
       </View>
     </View>
     <View
