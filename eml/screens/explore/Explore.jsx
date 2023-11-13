@@ -8,6 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 import BaseScreen from "../../components/general/BaseScreen";
 import IconHeader from "../../components/general/IconHeader";
 import { shouldUpdate, determineCategory } from '../../services/utilityFunctions';
+import Text from '../../components/general/Text';
 
 /**
  * Explore screen displays all courses and allows the user to filter them by category or search text.
@@ -24,10 +25,19 @@ export default function Explore() {
   const [courses, setCourses] = useState([]);
   const [subCourses, setSubCourses] = useState([]);
   const [isSubscribed, setIsSubscribed] = useState([]);
-
+  const [isOnline, setIsOnline] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const navigation = useNavigation()
 
+
+  const checkBackendConnection = async () => {
+    try {
+      setIsOnline(await StorageService.checkIfOnline());
+    } catch (error) {
+      throw error;
+    }
+  }
+  checkBackendConnection();
 
   /**
   * Asynchronous function that loads the subscribed courses from storage and updates the state.
@@ -90,6 +100,7 @@ export default function Explore() {
   useEffect(() => {
     // this makes sure loadcourses is called when the screen is focused
     const update = navigation.addListener('focus', () => {
+      checkBackendConnection();
       loadCourses();
       loadSubscriptions();
     });
@@ -130,25 +141,36 @@ export default function Explore() {
 
   return (
     <BaseScreen>
-      <IconHeader title={"Explorar cursos"}/>
-
-      <FilterNavBar
-        onChangeText={(text) => handleFilter(text)}
-        onCategoryChange={handleCategoryFilter}
-      />
-      <ScrollView showsVerticalScrollIndicator={false} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
-        <View className="overflow-y-auto">
-          {courses && filteredCourses && filteredCourses.map((course, index) => (
-            <ExploreCard
-              key={index}
-              isPublished={course.status === 'published'}
-              subscribed={isSubscribed[index]}
-              course={course}
-            ></ExploreCard>
-          ))}
+      {isOnline ?
+        <View height="100%">
+          <IconHeader title={"Explorar cursos"} />
+          <FilterNavBar
+            onChangeText={(text) => handleFilter(text)}
+            onCategoryChange={handleCategoryFilter}
+          />
+          <ScrollView showsVerticalScrollIndicator={false} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
+            <View className="overflow-y-auto">
+              {courses && filteredCourses && filteredCourses.map((course, index) => (
+                <ExploreCard
+                  key={index}
+                  isPublished={course.status === 'published'}
+                  subscribed={isSubscribed[index]}
+                  course={course}
+                ></ExploreCard>
+              ))}
+            </View>
+          </ScrollView>
         </View>
-      </ScrollView>
-
+        :
+        <View>
+          <IconHeader title={"Explorar cursos"} />
+          <View className="justify-center items-center bg-secondary">
+            <Text className="text-error text-center font-montserrat-bold text-[24px]">
+              Você está offline.{"\n"}Conecte-se à internet para explorar os cursos.
+            </Text>
+          </View>
+        </View>
+        }
     </BaseScreen>
   );
 }
