@@ -19,7 +19,7 @@ let exercise;
 let section;
 
 // givenId is used for testing purposes, in the future an exercise object should be passed by the previous screen
-export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7', onContinue = () => { } }) {
+export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7', onContinue }) {
   const navigation = useNavigation();
   const route = useRoute();
 
@@ -198,6 +198,7 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7', o
 
 ExerciseScreen.propTypes = {
   givenId: PropTypes.string,
+  onContinue: PropTypes.func,
 };
 
 /*
@@ -253,3 +254,4 @@ async function getExercise() {
   }
 }
 */
+

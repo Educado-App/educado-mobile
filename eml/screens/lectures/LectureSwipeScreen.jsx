@@ -11,12 +11,14 @@ import tailwindConfig from '../../tailwind.config';
 import { getExerciseBySectionId } from '../../api/api';
 import ExerciseScreen from '../excercise/ExerciseScreen';
 
+import PropTypes from 'prop-types';
+
 /**
  * when navigating to this page sectionId, courseId must be passed as parameters
  * @param {} param0 
  * @returns 
  */
-export default function LectureSwipeScreen({ route = { params: { sectionId: null, courseId: null } } }) {
+export default function LectureSwipeScreen({ route }) {
     const { sectionId, courseId } = route.params;
     const navigation = useNavigation();
     const [loading, setLoading] = useState(true);
@@ -157,3 +159,12 @@ export default function LectureSwipeScreen({ route = { params: { sectionId: null
         </View>
     );
 }
+
+LectureSwipeScreen.propTypes = {
+    route: PropTypes.shape({
+        params: PropTypes.shape({
+            sectionId: PropTypes.string,
+            courseId: PropTypes.string
+        }).isRequired,
+    }).isRequired,
+};
