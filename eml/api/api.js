@@ -182,8 +182,15 @@ export const ifSubscribed = async (userId, courseId) => {
 
 // Call to backend to see if online
 export const checkBackendOnline = async () => {
-  const res = await axios.get(url + '/api/utility/online/');
-  return res.data;
+  let response;
+  try {
+    const res = await axios.get(url + '/api/utility/online/');
+    response = res.data;
+  } catch {
+    response = false;
+  } finally {
+    return response;
+  }
 };
 
 //CREATED BY VIDEOSTREAM TEAM

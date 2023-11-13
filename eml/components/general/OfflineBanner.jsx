@@ -1,8 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Animated, Text } from 'react-native';
-//import axios from "axios";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import {checkBackendOnline} from "../../api/api";
+import {checkIfOnline} from "../../services/StorageService";
 
 export default function OfflineBanner() {
     const [isBackendReachable, setIsBackendReachable] = useState(false);
@@ -11,9 +10,9 @@ export default function OfflineBanner() {
 
     const checkBackendConnection = async () => {
         try {
-            setIsBackendReachable(await checkBackendOnline());
+            setIsBackendReachable(await checkIfOnline());
         } catch (error) {
-            setIsBackendReachable(false);
+            throw error;
         }
     };
 
