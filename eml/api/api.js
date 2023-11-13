@@ -107,7 +107,7 @@ export const getSubscriptions = async (userId) => {
     // but this is the only format where it works
     // passing user ID as request body for get request gives error
     const res = await axios.get(
-      url + "/api/users/" + userId + "/subscriptions"
+      url + "/api/students/" + userId + "/subscriptions"
     );
 
     return res.data;
@@ -163,7 +163,7 @@ export const ifSubscribed = async (userId, courseId) => {
     // passing user ID as request body for get request gives error
     const res = await axios.get(
       url +
-        "/api/users/subscriptions?user_id=" +
+        "/api/students/subscriptions?user_id=" +
         userId +
         "&" +
         "course_id=" +

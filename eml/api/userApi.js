@@ -33,7 +33,7 @@ export const registerUser = async (obj) => {
     email: ${obj.email ?? 'undefined'}`);
 
   try {
-    const res = await client.post('/api/signup/users', obj);
+    const res = await client.post('/api/auth/signup', obj);
     console.log('User successfully registered');
     return res.data;
   } catch (e) {
