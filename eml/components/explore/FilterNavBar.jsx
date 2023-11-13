@@ -33,7 +33,7 @@ function FilterNavBar({ onChangeText, onCategoryChange }) {
       <View className=" z-10 pl-2 pr-2 pb-4">
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <View className="flex items-center p-2 ">
-          <View className="flex-row overflow-x-auto">
+          <View className="flex-row overflow-x-auto ">
             {categories
               .filter((category) => category.label.toLowerCase().includes(searchText.toLowerCase()))
               .map((category) => (
@@ -44,7 +44,7 @@ function FilterNavBar({ onChangeText, onCategoryChange }) {
                     selectedCategory === category.label
                       ? 'bg-primary border-primary text-projectWhite'
                       : 'border-2 border-projectGray text-gray'
-                    } px-2 py-2 rounded-lg border-projectGray border-[1px] mr-2 items-center justify-center`}
+                    } px-2 py-2 rounded-lg border-[1px] mr-2 items-center justify-center`}
                 >
                   <Text
                     className={`${
