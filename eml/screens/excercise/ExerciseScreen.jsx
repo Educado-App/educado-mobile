@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { ScrollView, View, TouchableOpacity } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Text from '../../components/general/Text';
-import CustomProgressBar from '../../components/exercise/Progressbar';
 import { RadioButton } from 'react-native-paper';
 import ExerciseInfo from '../../components/exercise/ExerciseInfo';
 import { Icon } from '@rneui/themed';
@@ -10,7 +9,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import PopUp from '../../components/gamification/PopUp';
 import { StatusBar } from 'expo-status-bar';
 import { getExerciseByid, getSectionByid, getCourse } from '../../api/api';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { givePoints } from '../../services/utilityFunctions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import PropTypes from 'prop-types';
@@ -21,7 +19,7 @@ let exercise;
 let section;
 
 // givenId is used for testing purposes, in the future an exercise object should be passed by the previous screen
-export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7', onContinue }) {
+export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7', onContinue = () => { } }) {
   const navigation = useNavigation();
   const route = useRoute();
 
@@ -35,7 +33,7 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7', o
   const [buttonText, setButtonText] = useState('Confirmar Resposta'); // Used to change the text of a button
   const [isPopUpVisible, setIsPopUpVisible] = useState(false); // Used to render the pop up
   const [isCorrectAnswer, setIsCorrectAnswer] = useState(false);
-  const [points, setPoints] = useState(10); 
+  const [points, setPoints] = useState(10);
   console.log(points);
 
   const handleAnswerSelect = (answerIndex) => {

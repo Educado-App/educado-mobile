@@ -16,7 +16,7 @@ import ExerciseScreen from '../excercise/ExerciseScreen';
  * @param {} param0 
  * @returns 
  */
-export default function LectureSwipeScreen({ route }) {
+export default function LectureSwipeScreen({ route = { params: { sectionId: null, courseId: null } } }) {
     const { sectionId, courseId } = route.params;
     const navigation = useNavigation();
     const [loading, setLoading] = useState(true);
@@ -150,7 +150,7 @@ export default function LectureSwipeScreen({ route }) {
                              * the exercise components are can be accessed via:
                              * comp.component
                              */
-                            <ExerciseScreen givenId={comp.component._id} onContinue={() => handleExerciseContinue(_index)} />
+                            <ExerciseScreen key={_index} givenId={comp.component._id} onContinue={() => handleExerciseContinue(_index)} />
                     ))}
                 </Swiper>
             )}
