@@ -79,7 +79,10 @@ export default function CourseScreen() {
              */}
             {courseLoaded ?
                 <View height="100%">
-                    <IconHeader title={"Bem Vindo!"} />
+                    <IconHeader 
+                        title={"Bem Vindo!"} 
+                        description={"Aqui você encontra todos os cursos em que você está inscrito!"}    
+                    />
                     <ScrollView showsVerticalScrollIndicator={false} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
                         {courses.map((course, index) => (
                             <CourseCard key={index} course={course}></CourseCard>

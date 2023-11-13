@@ -16,9 +16,7 @@ function SearchBar({ searchText, onSearchChange }) {
         onChangeText={onSearchChange}
         className="flex-1 px-2.5 py-3 pr-35"
       />
-
       <MaterialCommunityIcons name="magnify" size={20} color="gray" />
-
     </View>
   );
 }
