@@ -3,8 +3,11 @@ import { View, TouchableOpacity, Image, SafeAreaView } from "react-native";
 import { BgLinearGradient } from "../../constants/BgLinearGradient";
 import WelcomeSlider from "../../components/welcome/WelcomeSlider";
 import Text from '../../components/general/Text.js';
+import { useNavigation } from '@react-navigation/native';
 
-export default function WelcomeScreen({ navigation }) {
+export default function WelcomeScreen() {
+
+  const navigation = useNavigation();
 
   return (
     <BgLinearGradient>
@@ -46,5 +49,5 @@ export default function WelcomeScreen({ navigation }) {
       </SafeAreaView>
     </BgLinearGradient>
   );
-};
+}
 

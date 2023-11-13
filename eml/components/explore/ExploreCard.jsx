@@ -8,6 +8,7 @@ import CustomRating from "./CustomRating";
 import SubscriptionButton from "./SubscriptionButton";
 import AccessCourseButton from "./AccessCourseButton";
 import { determineCategory, determineIcon, getDifficultyLabel, getUpdatedDate } from "../../services/utilityFunctions";
+import PropTypes from 'prop-types';
 
 /**
  * This component is used to display a course card.
@@ -48,7 +49,7 @@ export default function ExploreCard({ course, isPublished, subscribed }) {
               />
               <View className="w-2.5" />
               <CardLabel
-                title={course.estimatedHours}
+                title={course.estimatedHours.toString() + ' Horas'}
                 time={true}
                 icon={"clock-outline"}
               />
@@ -71,17 +72,17 @@ export default function ExploreCard({ course, isPublished, subscribed }) {
 
       <Collapsible className="w-full" collapsed={isCollapsed}>
         <View className="py-7 flex-row items-center justify-between px-1">
-            <Text className="text-black text-m">{course.description}</Text>
+          <Text className="text-black text-m">{course.description}</Text>
         </View>
 
         <View>
-            {
-              subscribed ? (
-                <AccessCourseButton course={course} />
-              ) : (
-                <SubscriptionButton course={course} />
-              )
-            }
+          {
+            subscribed ? (
+              <AccessCourseButton course={course} />
+            ) : (
+              <SubscriptionButton course={course} />
+            )
+          }
           <UpdateDate dateUpdated={getUpdatedDate(course.dateUpdated)} />
         </View>
 
@@ -98,3 +99,9 @@ export default function ExploreCard({ course, isPublished, subscribed }) {
     </Pressable>
   ) : null;
 }
+
+ExploreCard.propTypes = {
+  course: PropTypes.object,
+  isPublished: PropTypes.bool,
+  subscribed: PropTypes.bool,
+};

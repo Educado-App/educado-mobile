@@ -1,6 +1,7 @@
 import React from "react";
 import { View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import PropTypes from "prop-types";
 
 /**
  * Icon component for the eye besides passwords to toggle if text can be seen by user
@@ -20,3 +21,8 @@ export default function PasswordEye(props) {
     </View>
   );
 }
+
+PasswordEye.propTypes = {
+  showPasswordIcon: PropTypes.bool,
+  toggleShowPassword: PropTypes.func,
+};

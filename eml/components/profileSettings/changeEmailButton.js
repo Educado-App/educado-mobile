@@ -53,24 +53,24 @@ export default function ProfileComponent() {
       if (emailRegex.test(newEmail)) {
         // Call the updateUserFields function to update the email on the server
         try {
-        setIsLoading(true); // Set loading state to true
+          setIsLoading(true); // Set loading state to true
 
-        await updateUserFields(id, { email: newEmail }, LOGIN_TOKEN);
+          await updateUserFields(id, { email: newEmail }, LOGIN_TOKEN);
 
 
-        // Update the state with the new username and close modal
-        setEmail(newEmail);
+          // Update the state with the new username and close modal
+          setEmail(newEmail);
 
-        // Save changes to AsyncStorage or your API
-        const updatedProfile = {
-          id,
-          firstName: firstName,
-          lastName: lastName,
-          email: newEmail,
-        };
+          // Save changes to AsyncStorage or your API
+          const updatedProfile = {
+            id,
+            firstName: firstName,
+            lastName: lastName,
+            email: newEmail,
+          };
 
-        await AsyncStorage.setItem(USER_INFO, JSON.stringify(updatedProfile));
-        setEmailModalVisible(false);
+          await AsyncStorage.setItem(USER_INFO, JSON.stringify(updatedProfile));
+          setEmailModalVisible(false);
         } catch (error) {
           // Error updating email, try again:
           Alert.alert('Alerta', 'Erro ao atualizar o e-mail, tente novamente: ', error.message);

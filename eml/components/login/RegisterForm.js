@@ -18,6 +18,7 @@ import tailwindConfig from "../../tailwind.config";
 
 const LOGIN_TOKEN = "@loginToken";
 const USER_INFO = "@userInfo";
+const USER_ID = "@userId";
 
 /**
  * Component for registering a new account in the system, used in the register screen
@@ -162,10 +163,7 @@ export default function RegisterForm() {
 
     try {
       await registerUser(obj)
-        .then(async function (response) {
-          // saves input information locally
-          await saveUserInfoLocally(response._id, firstName, lastName, email);
-        }).then(async function () {
+        .then(async function () {
           // logs in the user, if no errors occur, navigates to home screen and sets token
           await loginFromRegister(obj);
         })
@@ -178,22 +176,21 @@ export default function RegisterForm() {
   }
 
   /**
-   * Stores the user info in async storage (locally)
-   * @param {String} id this is the user id trying to register
-   * @param {String} firstName first name of the user trying to register
-   * @param {String} lastName last name of the user trying to register
-   * @param {String} email email of the user trying to register
+   * Stores the user info in async storage
+   * @param {*} userInfo: {id, firstName, lastName, email, completed courses}
    */
-  async function saveUserInfoLocally(id, firstName, lastName, email) {
+  async function saveUserInfoLocally(userInfo) {
     try {
       const obj = {
-        id: id,
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
+        id: userInfo.id,
+        firstName: userInfo.firstName,
+        lastName: userInfo.lastName,
+        email: userInfo.email,
+        completedCourses: userInfo.completedCourses,
       };
 
       await AsyncStorage.setItem(USER_INFO, JSON.stringify(obj));
+      await AsyncStorage.setItem(USER_ID, userInfo.id); // needs to be seperate
     } catch (e) {
       console.log(e);
     }
@@ -210,6 +207,7 @@ export default function RegisterForm() {
     try {
       await loginUser(obj).then((response) => {
         AsyncStorage.setItem(LOGIN_TOKEN, response.accessToken);
+        saveUserInfoLocally(response.userInfo);
         DialogNotification('success', 'Usuário cadastrado! Cantando em...');
         setTimeout(() => {
           navigation.navigate("HomeStack");

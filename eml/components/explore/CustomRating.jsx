@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Text from '../general/Text';
 import tailwindConfig from "../../tailwind.config";
+import PropTypes from 'prop-types';
 
 /**
  * CustomRating component displays a star rating based on a number
@@ -48,6 +49,10 @@ const CustomRating = ({ rating = 0 }) => {
         ))}
       </View>
   );
+};
+
+CustomRating.propTypes = {
+  rating: PropTypes.number,
 };
 
 export default CustomRating;

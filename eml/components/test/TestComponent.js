@@ -1,3 +1,5 @@
+/* COMMENTED OUT AS IT IS NOT USED
+
 import React, { useEffect, useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import * as StorageService from '../../services/StorageService'
@@ -122,3 +124,5 @@ export default function TestComponent() {
     })
   }
 }
+
+*/

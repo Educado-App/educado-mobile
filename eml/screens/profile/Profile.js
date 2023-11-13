@@ -13,20 +13,16 @@ import { BgLinearGradient } from "../../constants/BgLinearGradient";
 const USER_INFO = '@userInfo'
 
 export default function ProfileComponent() {
-  const [id, setId] = useState('')
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
-  const [email, setEmail] = useState('')
 
   const getProfile = async () => {
     try {
       const fetchedProfile = JSON.parse(await AsyncStorage.getItem(USER_INFO))
 
       if (fetchedProfile !== null) {
-        setId(fetchedProfile.id)
         setFirstName(fetchedProfile.firstName)
         setLastName(fetchedProfile.lastName)
-        setEmail(fetchedProfile.email)
       }
     } catch (e) {
       console.log(e)

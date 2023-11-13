@@ -1,8 +1,14 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import Text from '../general/Text';
+import PropTypes from 'prop-types';
 
 const ProfileName = ({ Name, PhoneNumber }) => {
+  ProfileName.propTypes = {
+    Name: PropTypes.string.isRequired,
+    PhoneNumber: PropTypes.string,
+  };
+
   return (
     <View className="items-center">
       <View
