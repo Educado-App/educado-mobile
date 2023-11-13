@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, ActivityIndicator } from 'react-native';
 import Swiper from 'react-native-swiper';
 import { useNavigation } from '@react-navigation/native';
@@ -20,11 +20,10 @@ export default function LectureSwipeScreen({ route }) {
     const { sectionId, courseId } = route.params;
     const navigation = useNavigation();
     const [loading, setLoading] = useState(true);
-    const [allLectures, setAllLectures] = useState([]);
     const [currentLectureType, setCurrentLectureType] = useState("text");
     const [index, setIndex] = useState(0);
     const [course, setCourse] = useState(null);
-    const [exercises, setExercises] = useState([]);
+
 
     const [combinedLecturesAndExercises, setCombinedLecturesAndExercises] = useState([]);
 
@@ -46,21 +45,19 @@ export default function LectureSwipeScreen({ route }) {
                 _lectures.forEach(lecture => {
                     _combinedLecturesAndExercises.push({
                         component: lecture,
-                        type: "lecture"
+                        type: "lecture",
+                        done: true
                     });
 
                 });
 
                 if (_exercisesInSection.length > 0) {
-
-                    console.log("exercises", _exercisesInSection)
-                    setExercises(_exercisesInSection);
-
                     //then add all exercises
                     _exercisesInSection.forEach(exercise => {
                         _combinedLecturesAndExercises.push({
                             component: exercise,
-                            type: "exercise"
+                            type: "exercise",
+                            done: false
                         });
                     });
 
@@ -68,7 +65,6 @@ export default function LectureSwipeScreen({ route }) {
 
 
                 setCombinedLecturesAndExercises(_combinedLecturesAndExercises);
-                setAllLectures(sectionData.components);
                 setCurrentLectureType(sectionData.components[initialIndex]?.video ? "video" : "text");
                 setCourse(courseData);
                 setIndex(initialIndex);
@@ -82,9 +78,37 @@ export default function LectureSwipeScreen({ route }) {
     }, [sectionId, courseId]);
 
 
-    const handleIndexChange = (_index) => {
+    const swiperRef = useRef(null);
 
+    const handleExerciseContinue = (_index) => {
+
+        //update the exercise to be marked as done
+        const _combinedLecturesAndExercises = [...combinedLecturesAndExercises];
+        _combinedLecturesAndExercises[_index].done = true;
+        setCombinedLecturesAndExercises(_combinedLecturesAndExercises);
+        //scroll to next if not last index
+        if (_index < combinedLecturesAndExercises.length - 1) {
+            swiperRef.current.scrollTo(_index + 1, true);
+        }
+        else {
+            navigation.goBack();
+        }
+    }
+
+    const handleIndexChange = (_index) => {
         const currentLecture = combinedLecturesAndExercises[_index];
+
+
+        if (_index > 0) {
+            const previousLecture = combinedLecturesAndExercises[_index - 1];
+
+            // Check if the current component is not marked as done
+            if (!previousLecture.done) {
+                // Disable scrolling to the next slide
+                swiperRef.current.scrollBy(0);
+            }
+        }
+
         const currentLectureType = currentLecture?.component?.video ? "video" : "text";
         setCurrentLectureType(currentLectureType);
         setIndex(_index);
@@ -109,6 +133,7 @@ export default function LectureSwipeScreen({ route }) {
 
             {combinedLecturesAndExercises.length > 0 && course && index !== null && (
                 <Swiper
+                    ref={swiperRef}
                     index={index}
                     onIndexChanged={(_index) => handleIndexChange(_index)}
                     showsButtons={false}
@@ -125,10 +150,7 @@ export default function LectureSwipeScreen({ route }) {
                              * the exercise components are can be accessed via:
                              * comp.component
                              */
-                            <View className="flex-1 flex-col justify-center items-center">
-                                <Text>Exercise team,</Text>
-                                <Text>Add you exercise screen here</Text>
-                            </View>
+                            <ExerciseScreen givenId={comp.component._id} onContinue={() => handleExerciseContinue(_index)} />
                     ))}
                 </Swiper>
             )}

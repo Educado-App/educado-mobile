@@ -37,8 +37,8 @@ const ProgressTopBar = ({ lectureType, allLectures, currentLectureIndex, classNa
         //if lecture is not current or completed show empty circle
         else if (_index > _currentIndex) {
             return (
-                <View key={_index} className=" mx-1  w-3 h-3 rounded-full  bg-secondary flex-col justify-center items-center">
-                    <MaterialCommunityIcons name={_index >= allLectures.length ? "check" : "check"} size={12} color={tailwindConfig.theme.colors.secondary} />
+                <View key={_index} className=" mx-1  w-3 h-3 rounded-full bg-projectGray first-line:opacity-50 flex-col justify-center items-center">
+                    {/* <MaterialCommunityIcons name={_index >= allLectures.length ? "check" : "check"} size={12} color={tailwindConfig.theme.colors.secondary} /> */}
                 </View>
             )
         }

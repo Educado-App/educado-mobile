@@ -88,7 +88,7 @@ const TextImageLectureScreen = ({ lecture, course, progress }) => {
         setParagraphs(_paragraphs);
     };
 
-    return (<View className={"absolute w-full h-full px-4 pt-20"}>
+    return (<View className={"relative w-full h-full px-4 pt-20 bg-secondary "}>
         {/* <ProgressTopBar progressPercent={progress} color='black' /> */}
         {/* Content */}
         <Text className="text-center text-2xl pt-6 font-bold">BEM VINDO!</Text>
