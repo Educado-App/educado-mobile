@@ -188,9 +188,8 @@ export const checkBackendOnline = async () => {
     response = res.data;
   } catch {
     response = false;
-  } finally {
-    return response;
   }
+  return response;
 };
 
 //CREATED BY VIDEOSTREAM TEAM
