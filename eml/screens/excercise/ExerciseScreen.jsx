@@ -17,7 +17,6 @@ import PropTypes from 'prop-types';
 
 const USER_INFO = '@userInfo';
 const LOGIN_TOKEN = '@loginToken';
-let xp = 10;
 let exercise;
 let section;
 
@@ -36,6 +35,8 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7' })
   const [buttonText, setButtonText] = useState("Confirmar Resposta"); // Used to change the text of a button
   const [isPopUpVisible, setIsPopUpVisible] = useState(false); // Used to render the pop up
   const [isCorrectAnswer, setIsCorrectAnswer] = useState(false);
+  const [points, setPoints] = useState(10); 
+  console.log(points);
 
   const handleAnswerSelect = (answerIndex) => {
     setSelectedAnswer(answerIndex);
@@ -67,9 +68,9 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7' })
 
 
     if (selectedAnswer) {
-      xp = await givePoints(userInfo, exerciseData._id, true, 10, loginToken);
+      setPoints(await givePoints(userInfo, exerciseData._id, true, 10, loginToken));
     } else {
-      xp = await givePoints(userInfo, exerciseData._id, false, 0, loginToken);
+      setPoints(await givePoints(userInfo, exerciseData._id, false, 0, loginToken));
     }
 
     setShowFeedback(true);
@@ -186,7 +187,7 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7' })
       )}
 
       {isPopUpVisible ? (
-        <PopUp xpAmount={xp} isCorrectAnswer={isCorrectAnswer} />
+        <PopUp xpAmount={points} isCorrectAnswer={isCorrectAnswer} />
       ) : null}
 
       <ExerciseInfo courseId={courseData.title} sectionId={sectionData.title} />
