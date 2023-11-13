@@ -6,7 +6,6 @@ import {checkIfOnline} from "../../services/StorageService";
 export default function OfflineBanner() {
     const [isBackendReachable, setIsBackendReachable] = useState(false);
     const translateY = useRef(new Animated.Value(-100)).current;
-    //const BACKEND_URL = 'http://localhost:8888/api';
 
     const checkBackendConnection = async () => {
         try {
@@ -17,6 +16,7 @@ export default function OfflineBanner() {
     };
 
     useEffect(() => {
+        // Check once on mount
         checkBackendConnection();
 
         const intervalId = setInterval(checkBackendConnection, 10000);
