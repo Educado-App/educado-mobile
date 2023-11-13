@@ -7,7 +7,7 @@ import CardLabel from './CardLabel';
 import CustomRating from './CustomRating';
 import SubscriptionButton from './SubscriptionButton';
 import AccessCourseButton from './AccessCourseButton';
-import { determineCategory, determineIcon, getDifficultyLabel, getUpdatedDate } from '../../services/utilityFunctions';
+import * as Utility from '../../services/utilityFunctions';
 import PropTypes from 'prop-types';
 
 /**
@@ -20,10 +20,9 @@ import PropTypes from 'prop-types';
 export default function ExploreCard({ course, isPublished, subscribed }) {
   const [isCollapsed, setIsCollapsed] = useState(true);
 
-
   return isPublished ? (
     <Pressable
-      className=" bg-projectWhite rounded-lg shadow-2xl mb-4 mx-4 p-6 overflow-hidden"
+      className="bg-projectWhite rounded-lg shadow-2xl mb-4 mx-4 p-6 overflow-hidden"
       onPress={() => setIsCollapsed(!isCollapsed)}
     >
       <View className="flex-col items-center">
@@ -43,20 +42,17 @@ export default function ExploreCard({ course, isPublished, subscribed }) {
           <View className="flex-col items-start justify-between">
             <View className="flex-row items-center justify-start pb-2 flex-wrap">
               <CardLabel
-                title={determineCategory(course.category)}
-                time={false}
-                icon={determineIcon(course.category)}
+                title={Utility.determineCategory(course.category)}
+                icon={Utility.determineIcon(course.category)}
               />
               <View className="w-2.5" />
               <CardLabel
-                title={course.estimatedHours.toString() + ' Horas'}
-                time={true}
+                title={Utility.formatHours(course.estimatedHours)}
                 icon={'clock-outline'}
               />
               <View className="w-2.5" />
               <CardLabel
-                title={getDifficultyLabel(course.difficulty)}
-                time={false}
+                title={Utility.getDifficultyLabel(course.difficulty)}
                 icon={'book-multiple-outline'}
               />
             </View>
@@ -83,17 +79,19 @@ export default function ExploreCard({ course, isPublished, subscribed }) {
               <SubscriptionButton course={course} />
             )
           }
-          <UpdateDate dateUpdated={getUpdatedDate(course.dateUpdated)} />
+          <UpdateDate dateUpdated={Utility.getUpdatedDate(course.dateUpdated)} />
         </View>
 
       </Collapsible>
-      <View className=" items-start absolute">
-        <View className=" rotate-[315deg] items-center">
-          {subscribed ? (
-            <Text className=" bg-yellow text-xs text-projectWhite font-bold px-8 -left-8 -top-4 drop-shadow-sm">
+      <View className="items-start absolute">
+        <View className="rotate-[315deg] items-center">
+          {
+            subscribed ? (
+              <Text className="bg-yellow text-xs text-projectWhite font-bold px-8 -left-8 -top-4 drop-shadow-sm">
               Inscrito
-            </Text>
-          ) : null}
+              </Text>
+            ) : null
+          }
         </View>
       </View>
     </Pressable>

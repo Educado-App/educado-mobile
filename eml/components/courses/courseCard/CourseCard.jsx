@@ -5,9 +5,8 @@ import Text from '../../../components/general/Text';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import CustomProgressBar from '../../exercise/Progressbar';
 import tailwindConfig from '../../../tailwind.config';
-import { determineIcon, determineCategory } from '../../../services/utilityFunctions';
+import { determineIcon, determineCategory, formatHours } from '../../../services/utilityFunctions';
 import PropTypes from 'prop-types';
-
 
 /**
  * CourseCard component displays a card for a course with its details
@@ -43,8 +42,7 @@ export default function CourseCard({ course }) {
           </View>
           <View className="flex-row items-center">
             <MaterialCommunityIcons size={18} name="clock" color={'gray'}></MaterialCommunityIcons>
-            <Text className="mx-[2.5%] my-[3%]">{course.estimatedHours ? course.estimatedHours + ' hora(s)' : 'duração'}</Text>
-          </View>
+            <Text className="mx-[2.5%] my-[3%]">{course.estimatedHours ? formatHours(course.estimatedHours) : 'duração'}</Text>          </View>
         </View>
         <View className="flex-row items-center">
           {/* TODO: Implement progress dynamically */}
@@ -63,6 +61,8 @@ export default function CourseCard({ course }) {
     </Pressable>
   );
 }
+
+
 
 CourseCard.propTypes = {
   course: PropTypes.oneOfType([
