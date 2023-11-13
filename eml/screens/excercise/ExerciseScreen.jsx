@@ -22,6 +22,8 @@ let section;
 export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7', onContinue }) {
   const navigation = useNavigation();
   const route = useRoute();
+  const tailwindConfig = require('../../tailwind.config.js');
+  const projectColors = tailwindConfig.theme.colors;
 
   const [hasData, setHasData] = useState(false);
   const [exerciseData, setExerciseData] = useState({});
@@ -34,7 +36,6 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7', o
   const [isPopUpVisible, setIsPopUpVisible] = useState(false); // Used to render the pop up
   const [isCorrectAnswer, setIsCorrectAnswer] = useState(false);
   const [points, setPoints] = useState(10);
-  console.log(points);
 
   const handleAnswerSelect = (answerIndex) => {
     setSelectedAnswer(answerIndex);
@@ -133,8 +134,8 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7', o
                         selectedAnswer === index ? 'checked' : 'unchecked'
                       }
                       onPress={() => handleAnswerSelect(index)}
-                      color='#5ECCE9'
-                      uncheckedColor='#5ECCE9'
+                      color={projectColors.primary}
+                      uncheckedColor={projectColors.primary}
                     />
                   </View>
 
@@ -152,14 +153,14 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7', o
                                 size={10}
                                 name='check'
                                 type='material'
-                                color='#4AA04A'
+                                color={projectColors.success}
                               />
                             ) : (
                               <Icon
                                 size={10}
                                 name='close'
                                 type='material'
-                                color='#FF4949'
+                                color={projectColors.error}
                               />
                             )}
                           </View>
