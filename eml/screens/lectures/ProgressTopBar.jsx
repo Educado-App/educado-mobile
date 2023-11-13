@@ -19,9 +19,9 @@ const ProgressTopBar = ({ lectureType, allLectures, currentLectureIndex, classNa
 
         // if lecture is completed show check
         //if lecture is completed show check
-        if (_index < _currentIndex || allLectures[_index].completed) {
+        if (_index < _currentIndex || allLectures[_index].component?.completed ? true : false) {
             return (
-                <View key={_index} className=" mx-1  w-5 h-5 rounded-full bg-primary flex-col justify-center items-center">
+                <View key={_index} className=" mx-1  w-4 h-4 rounded-full bg-primary flex-col justify-center items-center">
                     <MaterialCommunityIcons name="check-bold" size={12} color={tailwindConfig.theme.colors.projectWhite} />
                 </View>
             )
@@ -29,7 +29,7 @@ const ProgressTopBar = ({ lectureType, allLectures, currentLectureIndex, classNa
         //if lecture is current indicate with circle
         else if (_index === _currentIndex) {
             return (
-                <View key={_index} className=" mx-1  w-5 h-5 rounded-full bg-primary flex-col justify-center items-center opacity-50">
+                <View key={_index} className=" mx-1  w-4 h-4 rounded-full bg-primary flex-col justify-center items-center opacity-50">
                     {/* <MaterialCommunityIcons name={_index >= allLectures.length ? "check" : "check"} size={12} color={tailwindConfig.theme.colors.primary} /> */}
                 </View>
             )
@@ -37,7 +37,7 @@ const ProgressTopBar = ({ lectureType, allLectures, currentLectureIndex, classNa
         //if lecture is not current or completed show empty circle
         else if (_index > _currentIndex) {
             return (
-                <View key={_index} className=" mx-1  w-5 h-5 rounded-full  bg-secondary flex-col justify-center items-center">
+                <View key={_index} className=" mx-1  w-3 h-3 rounded-full  bg-secondary flex-col justify-center items-center">
                     <MaterialCommunityIcons name={_index >= allLectures.length ? "check" : "check"} size={12} color={tailwindConfig.theme.colors.secondary} />
                 </View>
             )

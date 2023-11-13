@@ -8,6 +8,9 @@ import LectureScreen from './LectureScreen';
 import { getSectionAndLecturesBySectionId, getCourse } from '../../api/api';
 import tailwindConfig from '../../tailwind.config';
 
+import { getExerciseBySectionId } from '../../api/api';
+import ExerciseScreen from '../excercise/ExerciseScreen';
+
 /**
  * when navigating to this page sectionId, courseId must be passed as parameters
  * @param {} param0 
@@ -17,26 +20,57 @@ export default function LectureSwipeScreen({ route }) {
     const { sectionId, courseId } = route.params;
     const navigation = useNavigation();
     const [loading, setLoading] = useState(true);
-    const [progressPercent, setProgressPercent] = useState(0);
     const [allLectures, setAllLectures] = useState([]);
     const [currentLectureType, setCurrentLectureType] = useState("text");
     const [index, setIndex] = useState(0);
     const [course, setCourse] = useState(null);
+    const [exercises, setExercises] = useState([]);
+
+    const [combinedLecturesAndExercises, setCombinedLecturesAndExercises] = useState([]);
 
     useEffect(() => {
         async function fetchData() {
             try {
                 const sectionData = await getSectionAndLecturesBySectionId(sectionId);
                 //TODO: get the first uncompleted lecture - set the initial index to that
+
                 const initialIndex = 0;
                 const courseData = await getCourse(courseId);
-                const progressPercentage = Math.round(((initialIndex + 1) / sectionData.components.length) * 100);
+
+                //get exercises
+                const _exercisesInSection = await getExerciseBySectionId(sectionId);
+                const _lectures = sectionData.components;
+                let _combinedLecturesAndExercises = [];
+
+                //first add all lectures
+                _lectures.forEach(lecture => {
+                    _combinedLecturesAndExercises.push({
+                        component: lecture,
+                        type: "lecture"
+                    });
+
+                });
+
+                if (_exercisesInSection.length > 0) {
+
+                    console.log("exercises", _exercisesInSection)
+                    setExercises(_exercisesInSection);
+
+                    //then add all exercises
+                    _exercisesInSection.forEach(exercise => {
+                        _combinedLecturesAndExercises.push({
+                            component: exercise,
+                            type: "exercise"
+                        });
+                    });
+
+                }
 
 
+                setCombinedLecturesAndExercises(_combinedLecturesAndExercises);
                 setAllLectures(sectionData.components);
                 setCurrentLectureType(sectionData.components[initialIndex]?.video ? "video" : "text");
                 setCourse(courseData);
-                setProgressPercent(progressPercentage);
                 setIndex(initialIndex);
                 setLoading(false);
             } catch (error) {
@@ -47,12 +81,12 @@ export default function LectureSwipeScreen({ route }) {
         fetchData();
     }, [sectionId, courseId]);
 
+
     const handleIndexChange = (_index) => {
-        const currentLecture = allLectures[_index];
-        const currentLectureType = currentLecture?.video ? "video" : "text";
+
+        const currentLecture = combinedLecturesAndExercises[_index];
+        const currentLectureType = currentLecture?.component?.video ? "video" : "text";
         setCurrentLectureType(currentLectureType);
-        const currentProgress = Math.round(((_index + 1) / allLectures.length) * 100);
-        setProgressPercent(currentProgress);
         setIndex(_index);
     };
 
@@ -67,13 +101,13 @@ export default function LectureSwipeScreen({ route }) {
 
     return (
         <View className="flex-1">
-            {allLectures && (
+            {combinedLecturesAndExercises && (
                 <View className=" absolute top-0 z-10 w-[100%]">
-                    <ProgressTopBar lectureType={currentLectureType} allLectures={allLectures} currentLectureIndex={index} />
+                    <ProgressTopBar lectureType={currentLectureType} allLectures={combinedLecturesAndExercises} currentLectureIndex={index} />
                 </View>
             )}
 
-            {allLectures.length > 0 && course && index !== null && (
+            {combinedLecturesAndExercises.length > 0 && course && index !== null && (
                 <Swiper
                     index={index}
                     onIndexChanged={(_index) => handleIndexChange(_index)}
@@ -81,8 +115,20 @@ export default function LectureSwipeScreen({ route }) {
                     loop={false}
                     showsPagination={false}
                 >
-                    {allLectures.map((lect, _index) => (
-                        <LectureScreen key={_index} currentIndex={index} indexCount={allLectures.length} lectureObject={lect} courseObject={course} />
+                    {combinedLecturesAndExercises.map((comp, _index) => (
+                        comp.type === "lecture" ?
+                            <LectureScreen key={_index} currentIndex={index} indexCount={combinedLecturesAndExercises.length} lectureObject={comp.component} courseObject={course} />
+                            :
+                            /**
+                             * The exercise screen is not yet implemented because it didnt work in this branch
+                             * I made a function for fecthing the exercises
+                             * the exercise components are can be accessed via:
+                             * comp.component
+                             */
+                            <View className="flex-1 flex-col justify-center items-center">
+                                <Text>Exercise team,</Text>
+                                <Text>Add you exercise screen here</Text>
+                            </View>
                     ))}
                 </Swiper>
             )}

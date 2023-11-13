@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const testUrl = "http://localhost:8888";
-const testExpo = "http://172.30.254.222:8888"; //Change to local expo ip
+const testExpo = "http://172.30.213.42:8888"; //Change to local expo ip
 const digitalOcean = "http://207.154.213.68:8888";
 
 const url = testUrl;
@@ -98,6 +98,23 @@ export const getExercisesInSection = async (courseId, sectionId) => {
   }
 };
 
+//CREATED BY VIDEOSTREAM TEAM
+//: get exercises in section by section id
+export const getExerciseBySectionId = async (sectionId) => {
+  try {
+    const res = await axios.get(
+      url + "/api/courses/" + sectionId + "/exercises"
+    );
+    return res.data;
+  } catch (e) {
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
+};
+
 /*** SUBSCRIPTION ***/
 
 // Get user subsribtions
@@ -181,32 +198,13 @@ export const ifSubscribed = async (userId, courseId) => {
 };
 
 //CREATED BY VIDEOSTREAM TEAM
-/**
- *
- * @param {* name of video in bucketRoute, should be the same as lecture id} fileId
- * @param {* use 360p, 720p or 1080p - standard is 360p} resolution
- */
-export const getVideoDownloadUrl = (fileName, resolution) => {
-  let usableResolution = "360x640";
+/*This will be improved in next pull request to handle getting different resolutions properly 
+with our new video streaming service in go.
+*/
 
-  switch (resolution) {
-    case "180p":
-      usableResolution = "180x320";
-      break;
-    case "360p":
-      usableResolution = "360x640";
-      break;
-    case "720p":
-      usableResolution = "720x1280";
-      break;
-    case "1080p":
-      usableResolution = "1080x1920";
-      break;
-    default:
-      usableResolution = "360x640";
-      break;
-  }
-  const _vidUrl = `${url}/api/bucket/stream/${fileName}_transcoded${usableResolution}.mp4`;
+export const getVideoDownloadUrl = (fileName) => {
+  
+  const _vidUrl = `${url}/api/bucket/stream/${fileName}`;
   console.log(_vidUrl);
   return _vidUrl;
 };

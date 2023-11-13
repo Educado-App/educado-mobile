@@ -38,12 +38,7 @@ export default function VideoLectureScreen({ lecture, course, progress }) {
     const [videoUrl, setVideoUrl] = useState(null);
 
     useEffect(() => {
-        const _videoUrl = getVideoDownloadUrl(lecture.video, "180p")
-
-
-
-        //test if video is available for download from internet
-
+        const _videoUrl = getVideoDownloadUrl(lecture.video)
         setVideoUrl(_videoUrl)
     }, [])
 
@@ -70,28 +65,6 @@ export default function VideoLectureScreen({ lecture, course, progress }) {
     }
 
     const navigation = useNavigation();
-
-    //check if video url is valid
-    useEffect(() => {
-        const _videoUrl = getVideoDownloadUrl(lecture._id, "180p");
-
-        //check for video url validity maybe not needed
-        // fetch(_videoUrl, {
-        //     method: 'HEAD'
-        // })
-        //     .then(response => {
-        //         if (response.ok) {
-        //             // HTTP status between 200-299 or equals 304.
-        //             setVideoUrl(_videoUrl);
-        //         } else {
-        //             console.error('Video URL is not valid');
-        //             Alert.alert("Error", "The video is corrupted. Please try again later", "OK");
-        //         }
-        //     })
-        //     .catch(error => {
-        //         Alert.alert("Error", "The video is corrupted. Please try again later", "OK");
-        //     });
-    }, []);
 
 
 
@@ -145,7 +118,7 @@ export default function VideoLectureScreen({ lecture, course, progress }) {
                         <View className="w-full flex-row justify-between items-end">
 
                             <View className=" flex-col">
-                                <Text className=" text-projectGray"  >Nome do curso: {course.title}</Text>
+                                <Text className=" text-projectWhite opacity-80"  >Nome do curso: {course.title}</Text>
                                 <Text className="text-xl text-projectWhite" >{lecture.title && lecture.title}</Text>
                             </View>
                             <VideoActions isPlaying={isPlaying} isMuted={isMuted} onVolumeClick={handleMutepress} onPlayClick={handlePress} />
