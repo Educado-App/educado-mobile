@@ -36,7 +36,7 @@ module.exports = {
     'react'
   ],
   'ignorePatterns': [
-    '**/*.test.js', '**/*.test.jsX', '**/*.spec.js', '**/*.spec.jsx',  '**/*.config.js', 'jestSetup.js',
+    '**/*.test.js', '**/*.test.jsX', '**/*.spec.js', '**/*.spec.jsx', '**/*.config.js', 'jestSetup.js',
   ],
   'rules': {
     'indent': ['error', 2],
