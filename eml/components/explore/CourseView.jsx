@@ -1,6 +1,6 @@
-import React from 'react'
-import { View, StyleSheet, Pressable } from 'react-native'
-import { Icon } from '@rneui/base'
+import React from 'react';
+import { View, StyleSheet, Pressable } from 'react-native';
+import { Icon } from '@rneui/base';
 import Text from '../../components/general/Text';
 import PropTypes from 'prop-types';
 
@@ -17,7 +17,7 @@ export default function CourseView({ title }) {
       </Pressable>
       <Text style={styles.coursesTitle}>{title}</Text>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontSize: 20
   }
-})
+});
 
 CourseView.propTypes = {
   title: PropTypes.string

@@ -18,7 +18,7 @@ const TextImageLectureScreen = ({ lecture, course }) => {
     }
     splitText(lecture.description);
 
-  }, [])
+  }, []);
 
 
   const getLectureImage = async () => {
@@ -33,7 +33,7 @@ const TextImageLectureScreen = ({ lecture, course }) => {
     }
 
 
-  }
+  };
 
   //split text into paragraphs and dont cut words
   const splitText = (text) => {
@@ -81,7 +81,7 @@ const TextImageLectureScreen = ({ lecture, course }) => {
     setParagraphs(_paragraphs);
   };
 
-  return (<View className={"absolute w-full h-full px-4 pt-20"}>
+  return (<View className={'absolute w-full h-full px-4 pt-20'}>
     {/* <ProgressTopBar progressPercent={progress} color='black' /> */}
     {/* Content */}
     <Text className="text-center text-2xl pt-6 font-bold">BEM VINDO!</Text>
@@ -129,7 +129,7 @@ const TextImageLectureScreen = ({ lecture, course }) => {
       </View>
     </View>
   </View>);
-}
+};
 
 TextImageLectureScreen.propTypes = {
   lecture: PropTypes.object,

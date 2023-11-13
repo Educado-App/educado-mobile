@@ -1,7 +1,7 @@
-import React from 'react'
-import { ScrollView, View } from 'react-native'
+import React from 'react';
+import { ScrollView, View } from 'react-native';
 
-import SectionItem from '../courses/courseBody/SectionItem'
+import SectionItem from '../courses/courseBody/SectionItem';
 
 export default function easyDynamicList({ course }) {
 
@@ -20,9 +20,9 @@ export default function easyDynamicList({ course }) {
               title={item.title}
               index={index + 1}
             />
-          )
+          );
         })}
       </ScrollView>
     </View>
-  )
+  );
 }

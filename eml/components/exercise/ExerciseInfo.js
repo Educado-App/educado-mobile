@@ -1,7 +1,7 @@
-import React from "react";
-import { View } from "react-native";
+import React from 'react';
+import { View } from 'react-native';
 import Text from '../general/Text';
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
 const ExerciseInfo = ({ courseId, sectionId }) => {
   return (

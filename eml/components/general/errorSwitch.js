@@ -12,7 +12,7 @@ export default function errorSwitch(error) {
 
   case 'E0208':
     // Email is required
-    return 'E-mail obrigatório'
+    return 'E-mail obrigatório';
 
   case 'E0207': 
     // Email must be atleast 6 characters

@@ -1,14 +1,14 @@
 import {
   View,
   TouchableOpacity
-} from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import Text from '../general/Text';
-import React from 'react'
+import React from 'react';
   
 export default function settingsButton() {
   
-  const navigation = useNavigation()
+  const navigation = useNavigation();
   
   const handleGearIconPress = () => {
     navigation.navigate('ProfileSettings');
@@ -22,5 +22,5 @@ export default function settingsButton() {
         </View>
       </TouchableOpacity>
     </View>
-  )
+  );
 }

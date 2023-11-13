@@ -20,8 +20,8 @@ const items = [
 function GetContent(){
   return (
     items
-  )
+  );
 }
 
-export default GetContent
+export default GetContent;
 

@@ -16,7 +16,7 @@ export default function LectureSwipeScreen({ route }) {
   const { sectionId, courseId } = route.params;
   const [loading, setLoading] = useState(true);
   const [allLectures, setAllLectures] = useState([]);
-  const [currentLectureType, setCurrentLectureType] = useState("text");
+  const [currentLectureType, setCurrentLectureType] = useState('text');
   const [index, setIndex] = useState(0);
   const [course, setCourse] = useState(null);
 
@@ -29,7 +29,7 @@ export default function LectureSwipeScreen({ route }) {
         const courseData = await getCourse(courseId);
 
         setAllLectures(sectionData.components);
-        setCurrentLectureType(sectionData.components[initialIndex]?.video ? "video" : "text");
+        setCurrentLectureType(sectionData.components[initialIndex]?.video ? 'video' : 'text');
         setCourse(courseData);
         setIndex(initialIndex);
         setLoading(false);
@@ -43,7 +43,7 @@ export default function LectureSwipeScreen({ route }) {
 
   const handleIndexChange = (_index) => {
     const currentLecture = allLectures[_index];
-    const currentLectureType = currentLecture?.video ? "video" : "text";
+    const currentLectureType = currentLecture?.video ? 'video' : 'text';
     setCurrentLectureType(currentLectureType);
     setIndex(_index);
   };

@@ -66,7 +66,7 @@ export const loginUser = async (obj) => {
 };
 
 export const deleteUser = async (user_id, token) => {
-  const res = await client.delete(`/api/users/` + user_id, {
+  const res = await client.delete('/api/users/' + user_id, {
     headers: {
       'Content-Type': 'application/json',
       'token': token, // Include the token in the headers
@@ -105,7 +105,7 @@ export const completeExercise = async (user_id, exercise_id, isComplete, points,
     email,
     completedCourses
   };
-}
+};
 
 export const enrollInCourse = async (user_Id, course_Id) => {
   try {

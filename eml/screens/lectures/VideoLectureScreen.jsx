@@ -33,14 +33,14 @@ export default function VideoLectureScreen({ lecture, course }) {
   const [videoUrl, setVideoUrl] = useState(null);
 
   useEffect(() => {
-    const _videoUrl = getVideoDownloadUrl(lecture.video, "180p")
+    const _videoUrl = getVideoDownloadUrl(lecture.video, '180p');
 
 
 
     //test if video is available for download from internet
 
-    setVideoUrl(_videoUrl)
-  }, [])
+    setVideoUrl(_videoUrl);
+  }, []);
 
   /* This block does nothing?
     useEffect(() => {
@@ -63,7 +63,7 @@ export default function VideoLectureScreen({ lecture, course }) {
   const handleMutepress = () => {
 
     setIsMuted(!isMuted);
-  }
+  };
 
   /* check if video url is valid
   useEffect(() => {
@@ -169,7 +169,7 @@ export default function VideoLectureScreen({ lecture, course }) {
         >
           <View>
             <MaterialCommunityIcons
-              name={isPlaying ? "play" : "pause"}
+              name={isPlaying ? 'play' : 'pause'}
               size={50}
               color="white"
             />

@@ -1,5 +1,5 @@
-import React from 'react'
-import { Icon } from '@rneui/themed'
+import React from 'react';
+import { Icon } from '@rneui/themed';
 
 export default function star() {
   return (
@@ -15,5 +15,5 @@ export default function star() {
       type="material-community"
       color="#ffd633"
     />
-  )
+  );
 }

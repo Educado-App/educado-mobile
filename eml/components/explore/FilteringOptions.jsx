@@ -1,5 +1,5 @@
-import React from 'react'
-import { View, Pressable } from 'react-native'
+import React from 'react';
+import { View, Pressable } from 'react-native';
 import Text from '../general/Text';
 
 export default function FilteringOptions() {

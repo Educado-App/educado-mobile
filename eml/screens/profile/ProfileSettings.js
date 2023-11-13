@@ -6,12 +6,12 @@ import {
   Image,
 } from 'react-native';
 import ProfileImage from '../../components/profile/profileImage';
-import { BgLinearGradient } from "../../constants/BgLinearGradient";
-import ReturnButton from '../../components/profileSettings/returnButton'
-import DeleteAccountButton from '../../components/profileSettings/deleteAccountButton'
-import ChangeFirstNameButton from '../../components/profileSettings/changeFirstNameButton'
-import ChangeLastNameButton from '../../components/profileSettings/changeLastNameButton'
-import ChangeEmailButton from '../../components/profileSettings/changeEmailButton'
+import { BgLinearGradient } from '../../constants/BgLinearGradient';
+import ReturnButton from '../../components/profileSettings/returnButton';
+import DeleteAccountButton from '../../components/profileSettings/deleteAccountButton';
+import ChangeFirstNameButton from '../../components/profileSettings/changeFirstNameButton';
+import ChangeLastNameButton from '../../components/profileSettings/changeLastNameButton';
+import ChangeEmailButton from '../../components/profileSettings/changeEmailButton';
 
 // const USER_INFO = '@userInfo';
 
@@ -65,7 +65,7 @@ export default function ProfileComponent() {
               <ReturnButton></ReturnButton>
               <Image
                 className="h-[25.54] w-[175.88] right-5"
-                source={require("../../assets/images/logo.png")}
+                source={require('../../assets/images/logo.png')}
               />
             </View>
           </View>

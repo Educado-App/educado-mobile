@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { View, Pressable, Image, ScrollView, RefreshControl } from 'react-native';
 import Text from '../../components/general/Text';
-import * as StorageService from "../../services/StorageService";
+import * as StorageService from '../../services/StorageService';
 import CourseCard from '../../components/courses/courseCard/CourseCard';
 import BaseScreen from '../../components/general/BaseScreen';
 import IconHeader from '../../components/general/IconHeader';
@@ -25,7 +25,7 @@ export default function CourseScreen() {
   const [courses, setCourses] = useState([]);
   const [courseLoaded, setCourseLoaded] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
-  const navigation = useNavigation()
+  const navigation = useNavigation();
 
   /**
      * Determines if the two arrays of courses are different and require an update.
@@ -68,7 +68,7 @@ export default function CourseScreen() {
   }, [navigation]);
 
   useEffect(() => {
-    ToastNotification('success', 'Logado!')
+    ToastNotification('success', 'Logado!');
   }, []);
 
   return (
@@ -79,7 +79,7 @@ export default function CourseScreen() {
              */}
       {courseLoaded ?
         <View height="100%">
-          <IconHeader title={"Bem Vindo!"} />
+          <IconHeader title={'Bem Vindo!'} />
           <ScrollView showsVerticalScrollIndicator={false} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
             {courses.map((course, index) => (
               <CourseCard key={index} course={course}></CourseCard>
@@ -102,7 +102,7 @@ export default function CourseScreen() {
             </View>
             <View>
               <Pressable
-                testID={"exploreButton"}
+                testID={'exploreButton'}
                 className=" rounded-r-8 rounded-md bg-primary justify-center items-center p-2 h-[52] w-[342] "
                 onPress={() => navigation.navigate('Explorar')}>
                 {/* Click to explore courses */}
@@ -112,5 +112,5 @@ export default function CourseScreen() {
           </View>
         </View>}
     </BaseScreen>
-  )
+  );
 }

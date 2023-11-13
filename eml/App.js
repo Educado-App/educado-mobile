@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import LoginScreen from './screens/login/Login';
 import RegisterScreen from './screens/register/Register';
@@ -11,17 +11,17 @@ import { TailwindProvider } from 'tailwindcss-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SectionScreen from './screens/section/SectionScreen';
 import { isFontsLoaded } from './constants/Fonts';
-import LoadingScreen from "./components/loading/Loading";
-import WelcomeScreen from "./screens/welcome/Welcome";
-import ProfileSettingsScreen from "./screens/profile/ProfileSettings";
-import NavBar from "./components/navBar/NavBar";
-import LectureSwipeScreen from "./screens/lectures/LectureSwipeScreen";
+import LoadingScreen from './components/loading/Loading';
+import WelcomeScreen from './screens/welcome/Welcome';
+import ProfileSettingsScreen from './screens/profile/ProfileSettings';
+import NavBar from './components/navBar/NavBar';
+import LectureSwipeScreen from './screens/lectures/LectureSwipeScreen';
 
 const Stack = createNativeStackNavigator();
 
 function WelcomeStack() {
   return (
-    <Stack.Navigator initialRouteName={"Welcome"}>
+    <Stack.Navigator initialRouteName={'Welcome'}>
       <Stack.Screen
         name="Welcome"
         component={WelcomeScreen}
@@ -35,7 +35,7 @@ function WelcomeStack() {
 
 function LoginStack() {
   return (
-    <Stack.Navigator initialRouteName={"Login"}>
+    <Stack.Navigator initialRouteName={'Login'}>
       <Stack.Screen
         name="Login"
         component={LoginScreen}
@@ -59,21 +59,21 @@ export function useWelcomeScreenLogic(loadingTime, onResult) {
   setTimeout(() => {
     const fetchData = async () => {
       try {
-        const value = await AsyncStorage.getItem("hasShownWelcome");
-        let initialRoute = "WelcomeStack";
+        const value = await AsyncStorage.getItem('hasShownWelcome');
+        let initialRoute = 'WelcomeStack';
         let isLoading = true;
 
-        if (value === "true") {
-          initialRoute = "LoginStack";
+        if (value === 'true') {
+          initialRoute = 'LoginStack';
         } else {
-          await AsyncStorage.setItem("hasShownWelcome", "true");
+          await AsyncStorage.setItem('hasShownWelcome', 'true');
         }
 
         // Pass the results to the callback
         isLoading = false;
         onResult(initialRoute, isLoading);
       } catch (error) {
-        console.error("Error retrieving or setting AsyncStorage data:", error);
+        console.error('Error retrieving or setting AsyncStorage data:', error);
       }
     };
 

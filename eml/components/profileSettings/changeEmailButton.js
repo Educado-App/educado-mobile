@@ -39,7 +39,7 @@ export default function ProfileComponent() {
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
   useEffect(() => {
     getProfile();
@@ -81,10 +81,10 @@ export default function ProfileComponent() {
       }
     } else {
       // The emails do not match or are the same as your current email. Try again.
-      Alert.alert('Alerta','Os e-mails não correspondem ou são iguais ao seu e-mail atual. Tente novamente.')
+      Alert.alert('Alerta','Os e-mails não correspondem ou são iguais ao seu e-mail atual. Tente novamente.');
     }
     setIsLoading(false);
-  }
+  };
   
 
   const openEmailModal = () => {
@@ -92,7 +92,7 @@ export default function ProfileComponent() {
     setNewEmail('');
     setTempEmail('');
     setEmailModalVisible(true);
-  }
+  };
 
   return (
     <View>

@@ -37,7 +37,7 @@ export default function ProfileComponent() {
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
   useEffect(() => {
     getProfile();
@@ -73,7 +73,7 @@ export default function ProfileComponent() {
       Alert.alert('Alerta', 'Nome não foi alterado');
     }
     setIsLoading(false);
-  }
+  };
 
   return (
     <View>

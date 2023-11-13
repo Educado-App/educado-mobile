@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, Pressable } from 'react-native';
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import tailwindConfig from '../../tailwind.config';
 import PropTypes from 'prop-types';
 
-const ProgressTopBar = ({ lectureType, allLectures, currentLectureIndex = "" }) => {
+const ProgressTopBar = ({ lectureType, allLectures, currentLectureIndex = '' }) => {
 
   const navigator = useNavigation();
 
@@ -21,7 +21,7 @@ const ProgressTopBar = ({ lectureType, allLectures, currentLectureIndex = "" }) 
         <View key={_index} className=" mx-1  w-5 h-5 rounded-full bg-primary flex-col justify-center items-center">
           <MaterialCommunityIcons name="check-bold" size={12} color={tailwindConfig.theme.colors.projectWhite} />
         </View>
-      )
+      );
     }
     //if lecture is current indicate with circle
     else if (_index === _currentIndex) {
@@ -29,18 +29,18 @@ const ProgressTopBar = ({ lectureType, allLectures, currentLectureIndex = "" }) 
         <View key={_index} className=" mx-1  w-5 h-5 rounded-full bg-primary flex-col justify-center items-center opacity-50">
           {/* <MaterialCommunityIcons name={_index >= allLectures.length ? "check" : "check"} size={12} color={tailwindConfig.theme.colors.primary} /> */}
         </View>
-      )
+      );
     }
     //if lecture is not current or completed show empty circle
     else if (_index > _currentIndex) {
       return (
         <View key={_index} className=" mx-1  w-5 h-5 rounded-full  bg-secondary flex-col justify-center items-center">
-          <MaterialCommunityIcons name={_index >= allLectures.length ? "check" : "check"} size={12} color={tailwindConfig.theme.colors.secondary} />
+          <MaterialCommunityIcons name={_index >= allLectures.length ? 'check' : 'check'} size={12} color={tailwindConfig.theme.colors.secondary} />
         </View>
-      )
+      );
     }
 
-  }
+  };
 
   return (
     <View className="flex-row w-full items-center pt-[15%] relative px-4">
@@ -61,7 +61,7 @@ const ProgressTopBar = ({ lectureType, allLectures, currentLectureIndex = "" }) 
       </View>
     </View>
   );
-}
+};
 
 ProgressTopBar.propTypes = {
   lectureType: PropTypes.string,

@@ -16,7 +16,7 @@ export default function FormFieldAlert(props) {
         <Text className="text-xs text-success mx-2">{props.label}</Text>
         : <Text className="text-xs text-error mx-2">{props.label}</Text>}
     </View >
-  )
+  );
 }
 
 FormFieldAlert.propTypes = {

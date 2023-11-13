@@ -32,5 +32,5 @@ export default function DialogNotification(status, message) {
               textBody: message,
             })},
     </View>
-  )
+  );
 }

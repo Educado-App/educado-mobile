@@ -3,8 +3,8 @@ import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import Text from '../../../components/general/Text';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import CustomProgressBar from "../../exercise/Progressbar";
-import tailwindConfig from "../../../tailwind.config";
+import CustomProgressBar from '../../exercise/Progressbar';
+import tailwindConfig from '../../../tailwind.config';
 import { determineIcon, determineCategory } from '../../../services/utilityFunctions';
 import PropTypes from 'prop-types';
 
@@ -61,7 +61,7 @@ export default function CourseCard({ course }) {
         </View>
       </View>
     </Pressable>
-  )
+  );
 }
 
 CourseCard.propTypes = {

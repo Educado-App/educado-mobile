@@ -1,18 +1,18 @@
 /** Utility functions used in Explore and Course screens **/
-import { completeExercise } from "../api/userApi.js"
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { completeExercise } from '../api/userApi.js';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const USER_INFO = '@userInfo';
 
 export function getDifficultyLabel(lvl) {
   switch (lvl) {
   case 1:
-    return "Iniciante";
+    return 'Iniciante';
   case 2:
-    return "Intermediário";
+    return 'Intermediário';
   case 3:
-    return "Avançado";
+    return 'Avançado';
   default:
-    return "Iniciante";
+    return 'Iniciante';
   }
 }
 
@@ -20,7 +20,7 @@ export function getDifficultyLabel(lvl) {
 export const convertMsToTime = (ms) => {
 
   if (ms < 0){
-    return "00:00";
+    return '00:00';
   }
 
   let seconds = Math.floor((ms / 1000) % 60);
@@ -30,36 +30,36 @@ export const convertMsToTime = (ms) => {
   minutes = minutes < 10 ? '0' + minutes : minutes;
 
   return `${minutes}:${seconds}`;
-}
+};
 
 
 
 export function determineCategory(category) {
   switch (category) {
-  case "personal finance":
-    return "Finanças pessoais";
-  case "health and workplace safety":
-    return "Saúde e segurança no trabalho";
-  case "sewing":
-    return "Costura";
-  case "electronics":
-    return "Eletrônica";
-  default: "other";
-    return "Outro";
+  case 'personal finance':
+    return 'Finanças pessoais';
+  case 'health and workplace safety':
+    return 'Saúde e segurança no trabalho';
+  case 'sewing':
+    return 'Costura';
+  case 'electronics':
+    return 'Eletrônica';
+  default: 'other';
+    return 'Outro';
   }
 }
 export function determineIcon(category) {
   switch (category) {
-  case "personal finance":
-    return "finance"
-  case "health and workplace safety":
-    return "medical-bag"
-  case "sewing":
-    return "scissors-cutting"
-  case "electronics":
-    return "laptop"
+  case 'personal finance':
+    return 'finance';
+  case 'health and workplace safety':
+    return 'medical-bag';
+  case 'sewing':
+    return 'scissors-cutting';
+  case 'electronics':
+    return 'laptop';
   default:
-    return "bookshelf"
+    return 'bookshelf';
   }
 }
 
@@ -108,7 +108,7 @@ export async function givePoints(user, exercise_id, isComplete, points, token) {
     let obj;
     let exerciseExists = isExerciseCompleted(user, exercise_id);
 
-    let exerciseIsComplete = exerciseIsCompleteStatus(user, exercise_id)
+    let exerciseIsComplete = exerciseIsCompleteStatus(user, exercise_id);
     
     // If the exercise is present but it's field "isComplete" is false, it means the user has answered wrong before and only gets 5 points.
     if (exerciseExists && !exerciseIsComplete) {
@@ -124,7 +124,7 @@ export async function givePoints(user, exercise_id, isComplete, points, token) {
     return points;
 
   } catch(error) {
-    console.log(error)
+    console.log(error);
   }
 }
 
@@ -145,7 +145,7 @@ function isExerciseCompleted(user, exerciseIdToCheck) {
     );
     
   } catch(error) {
-    console.log(error)
+    console.log(error);
     throw error;
   }
 }
@@ -168,7 +168,7 @@ function exerciseIsCompleteStatus(user, exerciseIdToCheck) {
       });
     });
   } catch(error) {
-    console.log(error)
+    console.log(error);
     throw error;
   }
 }

@@ -39,7 +39,7 @@ export default function EducadoModal(props) {
                     <EducadoLogo fill='fill-black' />
                   </View>
                   <View className="flex flex-row justify-start px-[10%]">
-                    <Text className="text-center text-[24px]">{props.title ? props.title : ""}</Text>
+                    <Text className="text-center text-[24px]">{props.title ? props.title : ''}</Text>
                   </View>
                 </View>
                 {props.children}
@@ -49,7 +49,7 @@ export default function EducadoModal(props) {
         </BgLinearGradient>
       </AlertNotificationRoot>
     </Modal>
-  )
+  );
 }
 
 EducadoModal.propTypes = {

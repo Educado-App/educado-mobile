@@ -30,18 +30,18 @@ export default function DrawerView() {
                   <MaterialCommunityIcons
                     name={drawer.iconName}
                     size={24}
-                    color={focused ? "#0FE501" : "black"}/>
+                    color={focused ? '#0FE501' : 'black'}/>
                   :
                   drawer.iconType==='Feather' ?
                     <Feather
                       name={drawer.iconName}
                       size={24}
-                      color={focused ? "#0FE501" : "black"}/>
+                      color={focused ? '#0FE501' : 'black'}/>
                     :
                     <FontAwesome5
                       name={drawer.iconName}
                       size={24}
-                      color={focused ? "#0FE501" : "black"}/>
+                      color={focused ? '#0FE501' : 'black'}/>
             }}
           />)
       }

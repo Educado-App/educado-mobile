@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { View, Pressable, Image, TouchableOpacity } from 'react-native';
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Text from '../general/Text';
-import Collapsible from "react-native-collapsible";
+import Collapsible from 'react-native-collapsible';
 import { useNavigation } from '@react-navigation/native';
 import PropTypes from 'prop-types';
 
@@ -22,14 +22,14 @@ export default function SectionCard({ section }) {
   const inProgress = 0 < completed && completed < section.total;
   const notPossible = completed > section.total;
   const [isOpen, setIsOpen] = useState(false);
-  const backgroundColor = isComplete ? "bg-limeGreenDarker" : inProgress ? "bg-cyanBlue" : notPossible ? "bg-error" : {};
+  const backgroundColor = isComplete ? 'bg-limeGreenDarker' : inProgress ? 'bg-cyanBlue' : notPossible ? 'bg-error' : {};
 
   /**
      * Toggles the dropdown state.
      */
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
-  }
+  };
 
   /**
      * Handles the image press event.
@@ -39,14 +39,14 @@ export default function SectionCard({ section }) {
     navigation.navigate('Lecture', {
       sectionId: section.sectionId,
       courseId: section.parentCourseId,
-    })
-  }
+    });
+  };
 
 
   return (
     <View>
       <Pressable testID="collapsible" onPress={toggleDropdown} className="bg-projectWhite rounded-lg shadow-lg shadow-opacity-[0.3] mb-[15] mx-[18] overflow-hidden elevation-[8]">
-        <View className={"flex-row items-center justify-between px-[25] py-[15] " + backgroundColor}>
+        <View className={'flex-row items-center justify-between px-[25] py-[15] ' + backgroundColor}>
           <Text className="text-[16px] font-bold text-black flex-[1]">
             {section.title}
           </Text>
@@ -55,8 +55,8 @@ export default function SectionCard({ section }) {
             {completed}/{section.total} concluídos
           </Text>
           <MaterialCommunityIcons
-            testID={isOpen ? "chevron-up" : "chevron-down"}
-            name={isOpen ? "chevron-up" : "chevron-down"}
+            testID={isOpen ? 'chevron-up' : 'chevron-down'}
+            name={isOpen ? 'chevron-up' : 'chevron-down'}
             size={25}
             color="gray"
           />

@@ -1,7 +1,7 @@
-import ProfileScreen from "../screens/drawer/Profile";
-import SettingsScreen from "../screens/drawer/Settings";
-import SavedScreen from "../screens/drawer/Saved";
-import ReferScreen from "../screens/test/TestScreen";
+import ProfileScreen from '../screens/drawer/Profile';
+import SettingsScreen from '../screens/drawer/Settings';
+import SavedScreen from '../screens/drawer/Saved';
+import ReferScreen from '../screens/test/TestScreen';
 
 export default [
   {
@@ -29,4 +29,4 @@ export default [
     iconName:'user-friends',
     screen: ReferScreen
   }
-]
+];

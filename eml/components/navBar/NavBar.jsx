@@ -5,7 +5,7 @@ import Explore from '../../screens/explore/Explore';
 import ProfileComponent from '../../screens/profile/Profile';
 import { Icon } from '@rneui/themed';
 import { Platform } from 'react-native';
-import tailwindConfig from "../../tailwind.config";
+import tailwindConfig from '../../tailwind.config';
 
 const Tab = createBottomTabNavigator();
 

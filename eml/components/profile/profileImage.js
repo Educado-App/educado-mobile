@@ -1,5 +1,5 @@
-import React from 'react'
-import { StyleSheet, View } from "react-native"
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
 import { Icon } from '@rneui/themed';
 
 const ProfileImage = () => {
@@ -14,15 +14,15 @@ const ProfileImage = () => {
         size={200}/> 
     </View>
   );
-}
+};
 const styles = StyleSheet.create({
   icon: {
 
   },
   container: {
-    justifyContent: "center",
+    justifyContent: 'center',
     marginBottom: 20
   }
 });
 
-export default ProfileImage
+export default ProfileImage;

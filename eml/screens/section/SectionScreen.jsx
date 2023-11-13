@@ -3,10 +3,10 @@ import { Alert, View, TouchableOpacity } from 'react-native';
 import Text from '../../components/general/Text';
 import * as StorageService from '../../services/StorageService';
 import SectionCard from '../../components/section/SectionCard';
-import { ScrollView } from "react-native-gesture-handler";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { ScrollView } from 'react-native-gesture-handler';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import CustomProgressBar from "../../components/exercise/Progressbar";
+import CustomProgressBar from '../../components/exercise/Progressbar';
 import BaseScreen from '../../components/general/BaseScreen';
 import SubscriptionCancel from '../../components/section/CancelSubscriptionButton';
 import { unsubscribe } from '../../services/StorageService';
@@ -68,13 +68,13 @@ export default function SectionScreen({ route }) {
    * Displays an alert to confirm unsubscribing from the course.
    */
   const unsubAlert = () =>
-    Alert.alert("Cancelar subscrição", "Tem certeza?", [
+    Alert.alert('Cancelar subscrição', 'Tem certeza?', [
       {
-        text: "Não",
-        onPress: () => console.log("No Pressed"),
-        style: "cancel",
+        text: 'Não',
+        onPress: () => console.log('No Pressed'),
+        style: 'cancel',
       },
-      { text: "Sim", onPress: () => { unsubscribe(courseId); setTimeout(() =>  {navigation.goBack();}, 300 ); }},
+      { text: 'Sim', onPress: () => { unsubscribe(courseId); setTimeout(() =>  {navigation.goBack();}, 300 ); }},
     ]);
 
   return (

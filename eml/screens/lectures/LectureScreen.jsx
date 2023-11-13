@@ -14,13 +14,13 @@ export default function LectureScreen({ lectureObject, courseObject, currentInde
     const _progressPercent = calculateProgressInPercent();
     setProgressPercent(_progressPercent);
 
-  }, [])
+  }, []);
 
   const [course, setCourse] = useState(courseObject);
 
   const calculateProgressInPercent = () => {
     return Math.round((currentIndex / indexCount) * 100);
-  }
+  };
 
   //Safe area should not be used if we want to use the full screen
   return (

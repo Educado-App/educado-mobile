@@ -32,5 +32,5 @@ export default function ToastNotification(status, message) {
               textBody: message,
             })},
     </View>
-  )
+  );
 }

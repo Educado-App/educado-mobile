@@ -1,7 +1,7 @@
-import React from "react";
-import { View, TouchableOpacity } from "react-native";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import PropTypes from "prop-types";
+import React from 'react';
+import { View, TouchableOpacity } from 'react-native';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import PropTypes from 'prop-types';
 
 /**
  * Renders a button component for cancelling a subscription.

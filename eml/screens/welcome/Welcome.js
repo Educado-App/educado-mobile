@@ -1,7 +1,7 @@
-import React from "react";
-import { View, TouchableOpacity, Image, SafeAreaView } from "react-native";
-import { BgLinearGradient } from "../../constants/BgLinearGradient";
-import WelcomeSlider from "../../components/welcome/WelcomeSlider";
+import React from 'react';
+import { View, TouchableOpacity, Image, SafeAreaView } from 'react-native';
+import { BgLinearGradient } from '../../constants/BgLinearGradient';
+import WelcomeSlider from '../../components/welcome/WelcomeSlider';
 import Text from '../../components/general/Text.js';
 import { useNavigation } from '@react-navigation/native';
 
@@ -16,7 +16,7 @@ export default function WelcomeScreen() {
           
           <View className="flex mb-[20%] pt-[30%]">
             <Image 
-              source={require("../../assets/images/logo.png")}
+              source={require('../../assets/images/logo.png')}
               className="w-[175.88] h-[25.54]"
             />
           </View>        

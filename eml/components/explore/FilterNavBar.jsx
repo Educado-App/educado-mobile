@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import SearchBar from './SearchBar';
 import { View, Text, Pressable } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { categories } from "./Categories";
+import { categories } from './Categories';
 import PropTypes from 'prop-types';
 
 /**

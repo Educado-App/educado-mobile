@@ -1,4 +1,4 @@
-import patterns from "../../assets/validation/patterns";
+import patterns from '../../assets/validation/patterns';
 
 /**
    * Function for validating the password input. It checks if the password contains any emojis and if so it does not change the password state variable.
@@ -8,8 +8,8 @@ import patterns from "../../assets/validation/patterns";
    */
 
 const removeEmojis = (passwordInput) => {
-  return passwordInput.replace(patterns.emoji, "");
-}
+  return passwordInput.replace(patterns.emoji, '');
+};
 
 /**
   * Checks if the password contains at least one letter
@@ -19,7 +19,7 @@ const removeEmojis = (passwordInput) => {
 const validatePasswordContainsLetter = (password) => {
   const regex = /.*\p{L}.*$/u;
   return regex.test(password);
-}
+};
 
 /**
   * Checks if the password lives up to the length requirements
@@ -28,7 +28,7 @@ const validatePasswordContainsLetter = (password) => {
   */
 const validatePasswordLength = (password) => {
   return password.length > 7;
-}
+};
 
 /**
  * Validates the email according to the email pattern and 
@@ -44,8 +44,8 @@ const validateEmail = (email) => {
   }
 
   // Passed all checks, email is valid
-  return ''
-}
+  return '';
+};
 
 /**
  * Validates the real name according to the real name pattern.
@@ -68,7 +68,7 @@ const validateName = (name, wordForName = 'Nome') => {
   }
 
   return '';
-}
+};
 
 module.exports = Object.freeze({
   removeEmojis,

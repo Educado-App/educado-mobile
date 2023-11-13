@@ -1,7 +1,7 @@
-import React from "react";
-import { View, Pressable } from "react-native";
-import Text from "../general/Text";
-import PropTypes from "prop-types";
+import React from 'react';
+import { View, Pressable } from 'react-native';
+import Text from '../general/Text';
+import PropTypes from 'prop-types';
 
 /**
  * Button component for eg. login and register screens.
@@ -23,7 +23,7 @@ export default function FormButton(props) {
         <Text className='text-white text-[16px] font-bold'>{props.label}</Text>
       </Pressable>
     </View>
-  )
+  );
 }
 
 FormButton.propTypes = {

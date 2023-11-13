@@ -40,6 +40,8 @@ module.exports = {
   ],
   'rules': {
     'indent': ['error', 2],
+    'quotes': ['error', 'single'], // Specify single quotes
+    'semi': ['error', 'always'], // Require semicolons
   },
   'settings': {
     'react': {

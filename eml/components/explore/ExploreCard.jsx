@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import { View, Text, Pressable } from "react-native";
-import Collapsible from "react-native-collapsible";
-import UpdateDate from "./ExploreUpdate";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import CardLabel from "./CardLabel";
-import CustomRating from "./CustomRating";
-import SubscriptionButton from "./SubscriptionButton";
-import AccessCourseButton from "./AccessCourseButton";
-import { determineCategory, determineIcon, getDifficultyLabel, getUpdatedDate } from "../../services/utilityFunctions";
+import React, { useState } from 'react';
+import { View, Text, Pressable } from 'react-native';
+import Collapsible from 'react-native-collapsible';
+import UpdateDate from './ExploreUpdate';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import CardLabel from './CardLabel';
+import CustomRating from './CustomRating';
+import SubscriptionButton from './SubscriptionButton';
+import AccessCourseButton from './AccessCourseButton';
+import { determineCategory, determineIcon, getDifficultyLabel, getUpdatedDate } from '../../services/utilityFunctions';
 import PropTypes from 'prop-types';
 
 /**
@@ -30,7 +30,7 @@ export default function ExploreCard({ course, isPublished, subscribed }) {
         <View className="flex-row justify-between w-full items-center">
           <Text className="text-black font-medium text-lg">{course.title}</Text>
           <MaterialCommunityIcons
-            name={isCollapsed ? "chevron-down" : "chevron-up"}
+            name={isCollapsed ? 'chevron-down' : 'chevron-up'}
             size={25}
             color="gray"
           />
@@ -51,13 +51,13 @@ export default function ExploreCard({ course, isPublished, subscribed }) {
               <CardLabel
                 title={course.estimatedHours.toString() + ' Horas'}
                 time={true}
-                icon={"clock-outline"}
+                icon={'clock-outline'}
               />
               <View className="w-2.5" />
               <CardLabel
                 title={getDifficultyLabel(course.difficulty)}
                 time={false}
-                icon={"book-multiple-outline"}
+                icon={'book-multiple-outline'}
               />
             </View>
             <View className="h-1.25 opacity-50" />

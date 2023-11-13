@@ -1,5 +1,5 @@
 import React from 'react';
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { View, Text } from 'react-native';
 import PropTypes from 'prop-types';
 
@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
  * @param time - Boolean value to determine to render the time label.
  * @returns {JSX.Element} - Returns a JSX element.
  */
-const CardLabel = ({ title, icon, color = "gray" }) => {
+const CardLabel = ({ title, icon, color = 'gray' }) => {
 
   return (
     <View className="flex-row items-center justify-start">
@@ -19,7 +19,7 @@ const CardLabel = ({ title, icon, color = "gray" }) => {
       <Text className="pl-1 text-xs" style={{ color: color }}>{title}</Text>
     </View>
   );
-}
+};
 
 CardLabel.propTypes = {
   title: PropTypes.string,
