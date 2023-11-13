@@ -1,14 +1,15 @@
 import axios from 'axios';
 
+/* Commented out for avoiding linting errors
+ * TODO: move IP address to .env file !!!
 const testUrl = 'http://localhost:8888';
-/* COMMENTED OUT FOR LINTING
-const testExpo = "http://172.30.254.222:8888"; //Change to local expo ip
-const digitalOcean = "http://207.154.213.68:8888";
+const testExpo = 'http://172.30.211.57:8888'; 
+const digitalOcean = 'http://207.154.213.68:8888';
 */
 
-const url = testUrl;
+const url = 'http://localhost:8888'; // change to lcd ip when testing
 
-/*** COURS, SECTIONS AND EXERCISES ***/
+/*** COURSE, SECTIONS AND EXERCISES ***/
 
 export const getCourseByid = async (courseId) => {
   const res = await axios.get(url + '/api/courses/' + courseId);
