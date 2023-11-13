@@ -163,10 +163,7 @@ export default function RegisterForm() {
 
     try {
       await registerUser(obj)
-        .then(async function (response) {
-          // saves input information locally
-          await saveUserInfoLocally(response._id, firstName, lastName, email);
-        }).then(async function () {
+        .then(async function () {
           // logs in the user, if no errors occur, navigates to home screen and sets token
           await loginFromRegister(obj);
         })
@@ -210,6 +207,7 @@ export default function RegisterForm() {
     try {
       await loginUser(obj).then((response) => {
         AsyncStorage.setItem(LOGIN_TOKEN, response.accessToken);
+        saveUserInfoLocally(response.userInfo);
         DialogNotification('success', 'Usuário cadastrado! Cantando em...');
         setTimeout(() => {
           navigation.navigate("HomeStack");
