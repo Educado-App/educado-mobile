@@ -18,16 +18,14 @@ export default function ProfileComponent() {
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
 
-  // this file is modified only for the review on Thursday the 26/10/23
-
   const getProfile = async () => {
     try {
       const fetchedProfile = JSON.parse(await AsyncStorage.getItem(USER_INFO))
 
       if (fetchedProfile !== null) {
         setId(fetchedProfile.id)
-        setFirstName("") // refer to fetched profile when backend is ready
-        setLastName("") // refer to fetched profile when backend is ready
+        setFirstName(fetchedProfile.firstName)
+        setLastName(fetchedProfile.lastName)
         setEmail(fetchedProfile.email)
       }
     } catch (e) {

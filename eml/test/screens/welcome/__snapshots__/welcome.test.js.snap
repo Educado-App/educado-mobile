@@ -154,12 +154,15 @@ exports[`WelcomeScreen renders welcomeScreen correctly 1`] = `
             loadMinimalSize={1}
             loop={false}
             nextButton={
-              <Icon
-                allowFontScaling={false}
-                color="projectBlack"
-                name="chevron-right"
-                size={24}
-              />
+              <ForwardRef
+                className="h-[25px] w-[25px] mr-4"
+                component={[Function]}
+              >
+                <Path
+                  d="M8.59003 17.1239L13.17 12.5439L8.59003 7.95385L10 6.54385L16 12.5439L10 18.5439L8.59003 17.1239Z"
+                  fill="#383838"
+                />
+              </ForwardRef>
             }
             onIndexChanged={[Function]}
             onMomentumScrollEnd={[Function]}
@@ -167,12 +170,15 @@ exports[`WelcomeScreen renders welcomeScreen correctly 1`] = `
             onScrollEndDrag={[Function]}
             pagingEnabled={true}
             prevButton={
-              <Icon
-                allowFontScaling={false}
-                color="projectBlack"
-                name="chevron-left"
-                size={24}
-              />
+              <ForwardRef
+                className="h-[25px] w-[25px] ml-4"
+                component={[Function]}
+              >
+                <Path
+                  d="M15.41 17.1239L10.83 12.5439L15.41 7.95385L14 6.54385L8 12.5439L14 18.5439L15.41 17.1239Z"
+                  fill="#383838"
+                />
+              </ForwardRef>
             }
             removeClippedSubviews={true}
             scrollEnabled={true}
@@ -699,7 +705,47 @@ exports[`WelcomeScreen renders welcomeScreen correctly 1`] = `
               }
             >
               <View>
-                <Text />
+                <RNSVGSvgView
+                  bbHeight={25}
+                  bbWidth={25}
+                  focusable={false}
+                  style={
+                    [
+                      {
+                        "backgroundColor": "transparent",
+                        "borderWidth": 0,
+                      },
+                      [
+                        {
+                          "height": 25,
+                        },
+                        {
+                          "width": 25,
+                        },
+                        {
+                          "marginRight": 16,
+                        },
+                      ],
+                      {
+                        "flex": 0,
+                        "height": 25,
+                        "width": 25,
+                      },
+                    ]
+                  }
+                >
+                  <RNSVGGroup>
+                    <RNSVGPath
+                      d="M8.59003 17.1239L13.17 12.5439L8.59003 7.95385L10 6.54385L16 12.5439L10 18.5439L8.59003 17.1239Z"
+                      fill={4281874488}
+                      propList={
+                        [
+                          "fill",
+                        ]
+                      }
+                    />
+                  </RNSVGGroup>
+                </RNSVGSvgView>
               </View>
             </View>
           </View>
@@ -841,7 +887,7 @@ exports[`WelcomeScreen renders welcomeScreen correctly 1`] = `
                 ]
               }
             >
-              Cadastrar
+              Cadastrer
             </Text>
           </View>
         </View>
