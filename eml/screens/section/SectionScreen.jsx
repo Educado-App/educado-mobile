@@ -70,8 +70,8 @@ export default function SectionScreen({ route }) {
   const unsubAlert = () =>
     Alert.alert('Cancelar subscrição', 'Tem certeza?', [
       {
-        text: "Não",
-        style: "cancel",
+        text: 'Não',
+        style: 'cancel',
       },
       { text: 'Sim', onPress: () => { unsubscribe(courseId); setTimeout(() =>  {navigation.goBack();}, 300 ); }},
     ]);

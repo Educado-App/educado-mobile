@@ -132,8 +132,8 @@ export function shouldUpdate(courses1, courses2) {
  */
 export function formatHours(number) {
   // Checking if it is not a number and if it is negative
-  if (typeof number !== "number" || isNaN(number) || number <= 0) {
-    return "- Hora";
+  if (typeof number !== 'number' || isNaN(number) || number <= 0) {
+    return '- Hora';
   }
 
   if (number <= 1) {

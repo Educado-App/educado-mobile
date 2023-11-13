@@ -7,7 +7,7 @@ import CardLabel from './CardLabel';
 import CustomRating from './CustomRating';
 import SubscriptionButton from './SubscriptionButton';
 import AccessCourseButton from './AccessCourseButton';
-import * as Utility from "../../services/utilityFunctions";
+import * as Utility from '../../services/utilityFunctions';
 import PropTypes from 'prop-types';
 
 /**
@@ -48,12 +48,12 @@ export default function ExploreCard({ course, isPublished, subscribed }) {
               <View className="w-2.5" />
               <CardLabel
                 title={Utility.formatHours(course.estimatedHours)}
-                icon={"clock-outline"}
+                icon={'clock-outline'}
               />
               <View className="w-2.5" />
               <CardLabel
                 title={Utility.getDifficultyLabel(course.difficulty)}
-                icon={"book-multiple-outline"}
+                icon={'book-multiple-outline'}
               />
             </View>
             <View className="h-1.25 opacity-50" />
@@ -87,9 +87,9 @@ export default function ExploreCard({ course, isPublished, subscribed }) {
         <View className="rotate-[315deg] items-center">
           {
             subscribed ? (
-            <Text className="bg-yellow text-xs text-projectWhite font-bold px-8 -left-8 -top-4 drop-shadow-sm">
+              <Text className="bg-yellow text-xs text-projectWhite font-bold px-8 -left-8 -top-4 drop-shadow-sm">
               Inscrito
-            </Text>
+              </Text>
             ) : null
           }
         </View>
