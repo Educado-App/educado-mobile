@@ -40,7 +40,7 @@ const CustomRating = ({ rating = 0 }) => {
   return (
     noRating ? (
       <View className="w-full flex-row items-start justify-start">
-        <Text className="pl-1 text-xs" style={{ color: 'gray' }}>no ratings yet</Text>
+        <Text className="pl-1 text-xs" style={{ color: tailwindConfig.theme.colors.projectGray }}>no ratings yet</Text>
       </View>
     ) :
       <View className="w-full flex-row items-start justify-start">
