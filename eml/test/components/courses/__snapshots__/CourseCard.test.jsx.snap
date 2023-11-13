@@ -291,7 +291,6 @@ exports[`CourseCard renders CourseCard correctly 1`] = `
         >
           duração
         </Text>
-                  
       </View>
     </View>
     <View
@@ -336,8 +335,8 @@ exports[`CourseCard renders CourseCard correctly 1`] = `
           style={
             [
               {
-                "backgroundColor": "rgba(228, 242, 245, 1)",
-                "borderColor": "rgba(94, 204, 233, 1)",
+                "backgroundColor": "#E4F2F5",
+                "borderColor": "#5ECCDD",
                 "borderRadius": 8,
                 "borderWidth": 0,
                 "overflow": "hidden",
@@ -352,7 +351,7 @@ exports[`CourseCard renders CourseCard correctly 1`] = `
             collapsable={false}
             style={
               {
-                "backgroundColor": "rgba(94, 204, 233, 1)",
+                "backgroundColor": "#5ECCDD",
                 "height": 13.34,
                 "transform": [
                   {
