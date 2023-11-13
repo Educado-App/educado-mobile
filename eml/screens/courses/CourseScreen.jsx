@@ -9,6 +9,7 @@ import IconHeader from '../../components/general/IconHeader';
 import { shouldUpdate } from '../../services/utilityFunctions';
 import OfflineBanner from "../../components/general/OfflineBanner";
 import ToastNotification from '../../components/general/ToastNotification';
+import LoadingScreen from '../../components/loading/Loading';
 
 /**
  * Course screen component that displays a list of courses.
@@ -26,6 +27,7 @@ export default function CourseScreen() {
     const [courses, setCourses] = useState([]);
     const [courseLoaded, setCourseLoaded] = useState(false);
     const [refreshing, setRefreshing] = useState(false);
+    const [loading, setLoading] = useState(true);
     const navigation = useNavigation()
 
     /**
@@ -45,12 +47,14 @@ export default function CourseScreen() {
             if (courseData.length !== 0 && Array.isArray(courseData)) {
                 setCourses(courseData);
                 setCourseLoaded(true);
+                setLoading(false);
             }
             else {
                 setCourses([]);
                 setCourseLoaded(false);
+                setLoading(false);
             }
-        } 
+        } setLoading(false);
     }
 
     // When refreshing the loadCourses function is called
@@ -73,6 +77,7 @@ export default function CourseScreen() {
     }, []);
 
     return (
+        loading ? <LoadingScreen /> :
         <BaseScreen>
             <OfflineBanner />
             {/** Checks if the course(s) has been loaded
