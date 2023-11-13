@@ -7,7 +7,6 @@ import ProgressTopBar from './ProgressTopBar';
 import LectureScreen from './LectureScreen';
 import { getSectionAndLecturesBySectionId, getCourse } from '../../api/api';
 import tailwindConfig from '../../tailwind.config';
-import {getLectureList} from "../../services/StorageService";
 import * as StorageService from "../../services/StorageService";
 
 /**

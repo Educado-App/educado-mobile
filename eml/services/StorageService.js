@@ -161,7 +161,7 @@ export const getLectureList = async (sectionID) => {
     try {
         lectureList = await api.getLecturesInSection(sectionID);
 
-    } catch (unusedErrorMessage) {
+    } catch {
         // Use locally stored lectures if they exist and the DB cannot be reached
         try {
             lectureList = JSON.parse(await AsyncStorage.getItem('L'+sectionID));
