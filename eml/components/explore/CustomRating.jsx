@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
  * @returns {JSX.Element} - Rendered component
  */
 const CustomRating = ({ rating = 0 }) => {
-  const [ratingIcons, setRatingIcons] = useState(Array(5).fill({ icon: 'star-outline', color: 'gray' }));
+  const [ratingIcons, setRatingIcons] = useState(Array(5).fill({ icon: 'star-outline', color: tailwindConfig.theme.colors.projectGray }));
   const [noRating, setNoRating] = useState(false);
 
   useEffect(() => {
