@@ -1,53 +1,46 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CourseScreen renders CourseScreen correctly when there are no courses 1`] = `
-<View
-  style={
-    [
-      {
-        "justifyContent": "center",
-      },
-      {
-        "alignItems": "center",
-      },
-      {
-        "backgroundColor": "#F1F9FB",
-      },
-    ]
-  }
->
+[
   <View
+    collapsable={false}
     style={
-      [
-        {
-          "paddingTop": 96,
-        },
-        {
-          "paddingBottom": 64,
-        },
-      ]
+      {
+        "alignItems": "flex-end",
+        "backgroundColor": "#FF4949",
+        "flexDirection": "row",
+        "height": "10%",
+        "justifyContent": "center",
+        "paddingBottom": 8,
+        "position": "absolute",
+        "top": 0,
+        "transform": [
+          {
+            "translateY": -100,
+          },
+        ],
+        "width": "100%",
+        "zIndex": 10,
+      }
     }
   >
-    <Image
-      source={1}
+    <Text />
+    <Text
       style={
         [
           {
-            "justifyContent": "center",
+            "color": "#FFFFFF",
           },
           {
-            "alignItems": "center",
-          },
-          {
-            "width": 175.88,
-          },
-          {
-            "height": 25.54,
+            "paddingLeft": 8,
+            "paddingRight": 8,
           },
         ]
       }
-    />
-  </View>
+    >
+      Sem conexão com a internet!
+    </Text>
+  </View>,
   <View
     style={
       [
@@ -58,18 +51,43 @@ exports[`CourseScreen renders CourseScreen correctly when there are no courses 1
           "alignItems": "center",
         },
         {
-          "paddingBottom": 96,
-        },
-        {
-          "paddingTop": 96,
-        },
-        {
-          "marginLeft": -40,
-          "marginTop": -40,
+          "backgroundColor": "#F1F9FB",
         },
       ]
     }
   >
+    <View
+      style={
+        [
+          {
+            "paddingTop": 96,
+          },
+          {
+            "paddingBottom": 64,
+          },
+        ]
+      }
+    >
+      <Image
+        source={1}
+        style={
+          [
+            {
+              "justifyContent": "center",
+            },
+            {
+              "alignItems": "center",
+            },
+            {
+              "width": 175.88,
+            },
+            {
+              "height": 25.54,
+            },
+          ]
+        }
+      />
+    </View>
     <View
       style={
         [
@@ -80,126 +98,21 @@ exports[`CourseScreen renders CourseScreen correctly when there are no courses 1
             "alignItems": "center",
           },
           {
-            "width": 342,
+            "paddingBottom": 96,
           },
           {
-            "height": 308.02,
+            "paddingTop": 96,
           },
-          [
-            {
-              "marginLeft": 40,
-              "marginTop": 40,
-            },
-          ],
-        ]
-      }
-    >
-      <Image
-        source={1}
-      />
-      <Text
-        style={
-          [
-            {
-              "fontFamily": "Montserrat-Regular",
-            },
-            {
-              "color": "#383838",
-            },
-            {
-              "fontSize": 16,
-            },
-            [
-              {
-                "color": "#383838",
-              },
-              {
-                "paddingBottom": 16,
-              },
-              {
-                "paddingTop": 16,
-              },
-              {
-                "fontFamily": "Montserrat-Bold",
-              },
-              {
-                "fontSize": 24,
-              },
-              {
-                "textAlign": "center",
-              },
-            ],
-          ]
-        }
-      >
-        Comece agora
-      </Text>
-      <Text
-        style={
-          [
-            {
-              "fontFamily": "Montserrat-Regular",
-            },
-            {
-              "color": "#383838",
-            },
-            {
-              "fontSize": 16,
-            },
-            [
-              {
-                "color": "#383838",
-              },
-              {
-                "fontFamily": "Montserrat-Regular",
-              },
-              {
-                "textAlign": "center",
-              },
-              {
-                "fontSize": 16,
-              },
-            ],
-          ]
-        }
-      >
-         Você ainda não se increveu em nenhum curso. Acesse a página Explore e use a busca para encontrar cursos do seu intresse.
-      </Text>
-    </View>
-    <View
-      style={
-        [
           {
-            "marginLeft": 40,
-            "marginTop": 40,
+            "marginLeft": -40,
+            "marginTop": -40,
           },
         ]
       }
     >
       <View
-        accessible={true}
-        collapsable={false}
-        focusable={true}
-        onBlur={[Function]}
-        onClick={[Function]}
-        onFocus={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
         style={
           [
-            {
-              "borderBottomLeftRadius": 6,
-              "borderBottomRightRadius": 6,
-              "borderTopLeftRadius": 6,
-              "borderTopRightRadius": 6,
-            },
-            {
-              "backgroundColor": "#5ECCE9",
-            },
             {
               "justifyContent": "center",
             },
@@ -207,21 +120,23 @@ exports[`CourseScreen renders CourseScreen correctly when there are no courses 1
               "alignItems": "center",
             },
             {
-              "paddingBottom": 8,
-              "paddingLeft": 8,
-              "paddingRight": 8,
-              "paddingTop": 8,
-            },
-            {
-              "height": 52,
-            },
-            {
               "width": 342,
             },
+            {
+              "height": 308.02,
+            },
+            [
+              {
+                "marginLeft": 40,
+                "marginTop": 40,
+              },
+            ],
           ]
         }
-        testID="exploreButton"
       >
+        <Image
+          source={1}
+        />
         <Text
           style={
             [
@@ -236,10 +151,47 @@ exports[`CourseScreen renders CourseScreen correctly when there are no courses 1
               },
               [
                 {
-                  "color": "#FFFFFF",
+                  "color": "#383838",
+                },
+                {
+                  "paddingBottom": 16,
+                },
+                {
+                  "paddingTop": 16,
                 },
                 {
                   "fontFamily": "Montserrat-Bold",
+                },
+                {
+                  "fontSize": 24,
+                },
+                {
+                  "textAlign": "center",
+                },
+              ],
+            ]
+          }
+        >
+          Comece agora
+        </Text>
+        <Text
+          style={
+            [
+              {
+                "fontFamily": "Montserrat-Regular",
+              },
+              {
+                "color": "#383838",
+              },
+              {
+                "fontSize": 16,
+              },
+              [
+                {
+                  "color": "#383838",
+                },
+                {
+                  "fontFamily": "Montserrat-Regular",
                 },
                 {
                   "textAlign": "center",
@@ -251,62 +203,164 @@ exports[`CourseScreen renders CourseScreen correctly when there are no courses 1
             ]
           }
         >
-           Explore courses
+           Você ainda não se increveu em nenhum curso. Acesse a página Explore e use a busca para encontrar cursos do seu intresse.
         </Text>
       </View>
+      <View
+        style={
+          [
+            {
+              "marginLeft": 40,
+              "marginTop": 40,
+            },
+          ]
+        }
+      >
+        <View
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            [
+              {
+                "borderBottomLeftRadius": 6,
+                "borderBottomRightRadius": 6,
+                "borderTopLeftRadius": 6,
+                "borderTopRightRadius": 6,
+              },
+              {
+                "backgroundColor": "#5ECCE9",
+              },
+              {
+                "justifyContent": "center",
+              },
+              {
+                "alignItems": "center",
+              },
+              {
+                "paddingBottom": 8,
+                "paddingLeft": 8,
+                "paddingRight": 8,
+                "paddingTop": 8,
+              },
+              {
+                "height": 52,
+              },
+              {
+                "width": 342,
+              },
+            ]
+          }
+          testID="exploreButton"
+        >
+          <Text
+            style={
+              [
+                {
+                  "fontFamily": "Montserrat-Regular",
+                },
+                {
+                  "color": "#383838",
+                },
+                {
+                  "fontSize": 16,
+                },
+                [
+                  {
+                    "color": "#FFFFFF",
+                  },
+                  {
+                    "fontFamily": "Montserrat-Bold",
+                  },
+                  {
+                    "textAlign": "center",
+                  },
+                  {
+                    "fontSize": 16,
+                  },
+                ],
+              ]
+            }
+          >
+             Explore courses
+          </Text>
+        </View>
+      </View>
     </View>
-  </View>
-</View>
+  </View>,
+]
 `;
 
 exports[`CourseScreen renders CourseScreen with courses loaded 1`] = `
-<View
-  style={
-    [
-      {
-        "justifyContent": "center",
-      },
-      {
-        "alignItems": "center",
-      },
-      {
-        "backgroundColor": "#F1F9FB",
-      },
-    ]
-  }
->
+[
   <View
+    collapsable={false}
     style={
-      [
-        {
-          "paddingTop": 96,
-        },
-        {
-          "paddingBottom": 64,
-        },
-      ]
+      {
+        "alignItems": "flex-end",
+        "backgroundColor": "#FF4949",
+        "flexDirection": "row",
+        "height": "10%",
+        "justifyContent": "center",
+        "paddingBottom": 8,
+        "position": "absolute",
+        "top": 0,
+        "transform": [
+          {
+            "translateY": -100,
+          },
+        ],
+        "width": "100%",
+        "zIndex": 10,
+      }
     }
   >
-    <Image
-      source={1}
+    <Text
+      allowFontScaling={false}
+      selectable={false}
       style={
         [
           {
-            "justifyContent": "center",
+            "color": "white",
+            "fontSize": 20,
+          },
+          undefined,
+          {
+            "fontFamily": "material-community",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          {},
+        ]
+      }
+    >
+      󰖪
+    </Text>
+    <Text
+      style={
+        [
+          {
+            "color": "#FFFFFF",
           },
           {
-            "alignItems": "center",
-          },
-          {
-            "width": 175.88,
-          },
-          {
-            "height": 25.54,
+            "paddingLeft": 8,
+            "paddingRight": 8,
           },
         ]
       }
-    />
-  </View>
+    >
+      Sem conexão com a internet!
+    </Text>
+  </View>,
   <View
     style={
       [
@@ -317,18 +371,43 @@ exports[`CourseScreen renders CourseScreen with courses loaded 1`] = `
           "alignItems": "center",
         },
         {
-          "paddingBottom": 96,
-        },
-        {
-          "paddingTop": 96,
-        },
-        {
-          "marginLeft": -40,
-          "marginTop": -40,
+          "backgroundColor": "#F1F9FB",
         },
       ]
     }
   >
+    <View
+      style={
+        [
+          {
+            "paddingTop": 96,
+          },
+          {
+            "paddingBottom": 64,
+          },
+        ]
+      }
+    >
+      <Image
+        source={1}
+        style={
+          [
+            {
+              "justifyContent": "center",
+            },
+            {
+              "alignItems": "center",
+            },
+            {
+              "width": 175.88,
+            },
+            {
+              "height": 25.54,
+            },
+          ]
+        }
+      />
+    </View>
     <View
       style={
         [
@@ -339,126 +418,21 @@ exports[`CourseScreen renders CourseScreen with courses loaded 1`] = `
             "alignItems": "center",
           },
           {
-            "width": 342,
+            "paddingBottom": 96,
           },
           {
-            "height": 308.02,
+            "paddingTop": 96,
           },
-          [
-            {
-              "marginLeft": 40,
-              "marginTop": 40,
-            },
-          ],
-        ]
-      }
-    >
-      <Image
-        source={1}
-      />
-      <Text
-        style={
-          [
-            {
-              "fontFamily": "Montserrat-Regular",
-            },
-            {
-              "color": "#383838",
-            },
-            {
-              "fontSize": 16,
-            },
-            [
-              {
-                "color": "#383838",
-              },
-              {
-                "paddingBottom": 16,
-              },
-              {
-                "paddingTop": 16,
-              },
-              {
-                "fontFamily": "Montserrat-Bold",
-              },
-              {
-                "fontSize": 24,
-              },
-              {
-                "textAlign": "center",
-              },
-            ],
-          ]
-        }
-      >
-        Comece agora
-      </Text>
-      <Text
-        style={
-          [
-            {
-              "fontFamily": "Montserrat-Regular",
-            },
-            {
-              "color": "#383838",
-            },
-            {
-              "fontSize": 16,
-            },
-            [
-              {
-                "color": "#383838",
-              },
-              {
-                "fontFamily": "Montserrat-Regular",
-              },
-              {
-                "textAlign": "center",
-              },
-              {
-                "fontSize": 16,
-              },
-            ],
-          ]
-        }
-      >
-         Você ainda não se increveu em nenhum curso. Acesse a página Explore e use a busca para encontrar cursos do seu intresse.
-      </Text>
-    </View>
-    <View
-      style={
-        [
           {
-            "marginLeft": 40,
-            "marginTop": 40,
+            "marginLeft": -40,
+            "marginTop": -40,
           },
         ]
       }
     >
       <View
-        accessible={true}
-        collapsable={false}
-        focusable={true}
-        onBlur={[Function]}
-        onClick={[Function]}
-        onFocus={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
         style={
           [
-            {
-              "borderBottomLeftRadius": 6,
-              "borderBottomRightRadius": 6,
-              "borderTopLeftRadius": 6,
-              "borderTopRightRadius": 6,
-            },
-            {
-              "backgroundColor": "#5ECCE9",
-            },
             {
               "justifyContent": "center",
             },
@@ -466,21 +440,23 @@ exports[`CourseScreen renders CourseScreen with courses loaded 1`] = `
               "alignItems": "center",
             },
             {
-              "paddingBottom": 8,
-              "paddingLeft": 8,
-              "paddingRight": 8,
-              "paddingTop": 8,
-            },
-            {
-              "height": 52,
-            },
-            {
               "width": 342,
             },
+            {
+              "height": 308.02,
+            },
+            [
+              {
+                "marginLeft": 40,
+                "marginTop": 40,
+              },
+            ],
           ]
         }
-        testID="exploreButton"
       >
+        <Image
+          source={1}
+        />
         <Text
           style={
             [
@@ -495,10 +471,47 @@ exports[`CourseScreen renders CourseScreen with courses loaded 1`] = `
               },
               [
                 {
-                  "color": "#FFFFFF",
+                  "color": "#383838",
+                },
+                {
+                  "paddingBottom": 16,
+                },
+                {
+                  "paddingTop": 16,
                 },
                 {
                   "fontFamily": "Montserrat-Bold",
+                },
+                {
+                  "fontSize": 24,
+                },
+                {
+                  "textAlign": "center",
+                },
+              ],
+            ]
+          }
+        >
+          Comece agora
+        </Text>
+        <Text
+          style={
+            [
+              {
+                "fontFamily": "Montserrat-Regular",
+              },
+              {
+                "color": "#383838",
+              },
+              {
+                "fontSize": 16,
+              },
+              [
+                {
+                  "color": "#383838",
+                },
+                {
+                  "fontFamily": "Montserrat-Regular",
                 },
                 {
                   "textAlign": "center",
@@ -510,10 +523,99 @@ exports[`CourseScreen renders CourseScreen with courses loaded 1`] = `
             ]
           }
         >
-           Explore courses
+           Você ainda não se increveu em nenhum curso. Acesse a página Explore e use a busca para encontrar cursos do seu intresse.
         </Text>
       </View>
+      <View
+        style={
+          [
+            {
+              "marginLeft": 40,
+              "marginTop": 40,
+            },
+          ]
+        }
+      >
+        <View
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            [
+              {
+                "borderBottomLeftRadius": 6,
+                "borderBottomRightRadius": 6,
+                "borderTopLeftRadius": 6,
+                "borderTopRightRadius": 6,
+              },
+              {
+                "backgroundColor": "#5ECCE9",
+              },
+              {
+                "justifyContent": "center",
+              },
+              {
+                "alignItems": "center",
+              },
+              {
+                "paddingBottom": 8,
+                "paddingLeft": 8,
+                "paddingRight": 8,
+                "paddingTop": 8,
+              },
+              {
+                "height": 52,
+              },
+              {
+                "width": 342,
+              },
+            ]
+          }
+          testID="exploreButton"
+        >
+          <Text
+            style={
+              [
+                {
+                  "fontFamily": "Montserrat-Regular",
+                },
+                {
+                  "color": "#383838",
+                },
+                {
+                  "fontSize": 16,
+                },
+                [
+                  {
+                    "color": "#FFFFFF",
+                  },
+                  {
+                    "fontFamily": "Montserrat-Bold",
+                  },
+                  {
+                    "textAlign": "center",
+                  },
+                  {
+                    "fontSize": 16,
+                  },
+                ],
+              ]
+            }
+          >
+             Explore courses
+          </Text>
+        </View>
+      </View>
     </View>
-  </View>
-</View>
+  </View>,
+]
 `;

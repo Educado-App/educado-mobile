@@ -41,7 +41,7 @@ export default function OfflineBanner() {
             width: '100%',
             zIndex: 10,
         }]} className='bg-error flex-row pb-2 justify-center items-end h-[10%]'>
-            <MaterialCommunityIcons name={'connection'} color='white' size={20}/>
+            <MaterialCommunityIcons name={'wifi-off'} color='white' size={20}/>
             <Text className={"text-projectWhite px-2"}>
                 Sem conexão com a internet!
             </Text>
