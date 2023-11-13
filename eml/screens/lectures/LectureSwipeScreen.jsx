@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, ActivityIndicator } from 'react-native';
 import Swiper from 'react-native-swiper';
-import PropTypes from 'prop-types';
+import { useNavigation } from '@react-navigation/native';
+
 import ProgressTopBar from './ProgressTopBar';
 import LectureScreen from './LectureScreen';
 import { getSectionAndLecturesBySectionId, getCourse } from '../../api/api';
@@ -155,33 +156,4 @@ export default function LectureSwipeScreen({ route }) {
             )}
         </View>
     );
-  }
-
-  return (
-    <View className="flex-1">
-      {allLectures && (
-        <View className=" absolute top-0 z-10 w-[100%]">
-          <ProgressTopBar lectureType={currentLectureType} allLectures={allLectures} currentLectureIndex={index} />
-        </View>
-      )}
-
-      {allLectures.length > 0 && course && index !== null && (
-        <Swiper
-          index={index}
-          onIndexChanged={(_index) => handleIndexChange(_index)}
-          showsButtons={false}
-          loop={false}
-          showsPagination={false}
-        >
-          {allLectures.map((lect, _index) => (
-            <LectureScreen key={_index} currentIndex={index} indexCount={allLectures.length} lectureObject={lect} courseObject={course} />
-          ))}
-        </Swiper>
-      )}
-    </View>
-  );
 }
-
-LectureSwipeScreen.propTypes = {
-  route: PropTypes.object,
-};
