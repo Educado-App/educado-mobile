@@ -10,7 +10,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
  */
 function SearchBar({ searchText, onSearchChange }) {
   return (
-    <View className="flex-row items-center relative bg-projectWhite rounded-md pr-2.5 mb-2.5 mx-2.5">
+    <View className="flex-row items-center relative bg-projectWhite border-projectGray rounded-md pr-2.5 mb-2.5 mx-2.5">
       <TextInput
         placeholder="Buscar cursos"
         onChangeText={onSearchChange}

@@ -47,7 +47,7 @@ export default function NavBar() {
               shadowRadius: 8,
             },
             android: {
-              paddingVertical: '2%',
+              paddingVertical: '4%',
               paddingHorizontal: '4%',
               paddingBottom: '2%',
               elevation: 4, // Add elevation for the shadow (Android-specific)
@@ -63,7 +63,7 @@ export default function NavBar() {
       }}
     >
       <Tab.Screen
-        name="Central"
+        name="Meus cursos"
         component={CourseScreen}
         options={{
           tabBarActiveBackgroundColor: tailwindConfig.theme.colors.cyanBlue,
