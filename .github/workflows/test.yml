@@ -3,12 +3,8 @@ on:
   pull_request:
     types:
       - opened
-  push:
-    branches:
-      - dev
-      - staging
-      - main
-      - dev_toStageMerge0211
+      - synchronize
+      - reopened
 jobs:
   test:
     runs-on: ubuntu-latest
