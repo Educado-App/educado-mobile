@@ -82,6 +82,28 @@ exports[`CourseCard renders CourseCard correctly 1`] = `
       }
     >
       <Text
+        allowFontScaling={false}
+        selectable={false}
+        style={
+          [
+            {
+              "color": undefined,
+              "fontSize": 28,
+            },
+            undefined,
+            {
+              "fontFamily": "material-community",
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+            },
+            {},
+          ]
+        }
+      >
+        󰑴
+         
+      </Text>
+      <Text
         style={
           [
             {
@@ -104,9 +126,6 @@ exports[`CourseCard renders CourseCard correctly 1`] = `
               },
               {
                 "alignSelf": "center",
-              },
-              {
-                "fontFamily": "Montserrat-SemiBold",
               },
             ],
           ]
@@ -272,6 +291,7 @@ exports[`CourseCard renders CourseCard correctly 1`] = `
         >
           duração
         </Text>
+                  
       </View>
     </View>
     <View
