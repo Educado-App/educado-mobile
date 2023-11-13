@@ -42,7 +42,8 @@ export default function CourseCard({ course }) {
           </View>
           <View className="flex-row items-center">
             <MaterialCommunityIcons size={18} name="clock" color={'gray'}></MaterialCommunityIcons>
-            <Text className="mx-[2.5%] my-[3%]">{course.estimatedHours ? formatHours(course.estimatedHours) : 'duração'}</Text>          </View>
+            <Text className="mx-[2.5%] my-[3%]">{course.estimatedHours ? formatHours(course.estimatedHours) : 'duração'}</Text>
+          </View>
         </View>
         <View className="flex-row items-center">
           {/* TODO: Implement progress dynamically */}
