@@ -67,7 +67,7 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7'}) 
   
     fetchData();
   }, [route.params]);
-
+  
   return (
     <SafeAreaView className="h-screen bg-secondary">
       <View className='flex-row items-center justify-around top-0'>

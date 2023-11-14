@@ -9,6 +9,16 @@ const SECTION_LIST = '@sectionList';
 const COURSE = '@course';
 const USER_ID = '@userId';
 const USER_INFO = '@userInfo';
+const STUDENT_INFO = '@studentInfo';
+
+export const getStudentInfo = async () => {
+  try {
+    const fetchedStudentInfo = JSON.parse(await AsyncStorage.getItem(STUDENT_INFO));
+    return fetchedStudentInfo;
+  } catch (e) {
+    throw e;
+  }
+};
 
 export const getUserInfo = async () => {
   try {

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { loginUser } from "../../api/userApi";
+import { loginUser, getStudentInfo} from "../../api/userApi";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import FormTextField from "./FormTextField";
 import FormButton from "./FormButton";
@@ -15,6 +15,7 @@ import ShowAlert from "../general/ShowAlert";
 const LOGIN_TOKEN = "@loginToken";
 const USER_INFO = "@userInfo";
 const USER_ID = "@userId";
+const STUDENT_INFO = '@studentInfo';
 
 //When Logout: back button should be disabled!!!!
 
@@ -48,6 +49,7 @@ export default function LoginForm() {
 
       await AsyncStorage.setItem(USER_INFO, JSON.stringify(obj));
       await AsyncStorage.setItem(USER_ID, userInfo.id); // needs to be seperate
+      await AsyncStorage.setItem(STUDENT_INFO, JSON.stringify(await getStudentInfo(userInfo.id)));
     } catch (e) {
       console.log(e);
     }
