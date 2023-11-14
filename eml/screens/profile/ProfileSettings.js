@@ -2,23 +2,17 @@ import React, { useEffect, useState } from 'react';
 import {
   View,
   SafeAreaView,
-  TouchableOpacity,
-  Image,
 } from 'react-native';
-import ProfileImage from '../../components/profile/profileImage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getCourses } from '../../api/api';
-import ReturnButton from '../../components/profileSettings/returnButton'
-import DeleteAccountButton from '../../components/profileSettings/deleteAccountButton'
-import ChangeFirstNameButton from '../../components/profileSettings/changeFirstNameButton'
-import ChangeLastNameButton from '../../components/profileSettings/changeLastNameButton'
-import ChangeEmailButton from '../../components/profileSettings/changeEmailButton'
 import Text from '../../components/general/Text';
 import ProfileNameCircle from '../../components/profile/ProfileNameCircle';
 import FormButton from '../../components/general/forms/FormButton';
 import ChangePasswordModal from '../../components/profileSettings/ChangePasswordModal';
 import FormTextField from '../../components/general/forms/FormTextField';
 import { updateUserFields } from '../../api/userApi';
+import BackButton from '../../components/general/BackButton';
+import { useNavigation } from '@react-navigation/native'
 
 export default function ProfileSettings() {
   const [id, setId] = useState('');
@@ -28,6 +22,8 @@ export default function ProfileSettings() {
   const [fetchedFirstName, setFetchedFirstName] = useState('');
   const [fetchedLastName, setFetchedLastName] = useState('');
   const [fetchedEmail, setFetchedEmail] = useState('');
+
+  const navigation = useNavigation();
 
   const getProfile = async () => {
     try {
@@ -92,17 +88,16 @@ export default function ProfileSettings() {
 
   return (
     <SafeAreaView className='bg-secondary'>
-      <View className='h-screen'>
-        <View className="justify-center items-center flex flex-col">
-          <View className="flex p-10">
-            <View className="flex-row">
-              <View className='pt-1'>
-                <ReturnButton></ReturnButton>
-              </View>
-              <Text className='font-sans-bold text-xl pr-[8%]'>
-                Editar perfil
-              </Text>
-            </View>
+      <View className='h-full'>
+        <View>
+          <View className='relative mx-4 mt-12 mb-6'>
+            {/* Back button */}
+            <BackButton onPress={() => navigation.navigate('Perfil')} />
+
+            {/* Title */}
+            <Text className='w-full text-center text-xl font-sans-bold'>
+              Editar perfil
+            </Text>
           </View>
 
           <View className='flex flex-row w-screen px-6 justify-evenly'>
