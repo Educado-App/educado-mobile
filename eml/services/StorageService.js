@@ -163,7 +163,7 @@ export const refreshSectionList = async (course_id) => {
 export const getSubCourseList = async () => {
 
   // get the logged-in user id from async storage
-  const userId = await USER_ID(); 
+  const userId = await AsyncStorage.getItem(USER_ID); 
 
   if(userId === null) {
     throw new Error("Cannot fetch user id from async storage");
@@ -224,7 +224,7 @@ export const refreshSubCourseList = async (userId) => {
 export const subscribe = async (courseId) => {
 
   // get the logged-in user id from async storage
-  const userId = await USER_ID();
+  const userId = await AsyncStorage.getItem(USER_ID);
 
   if (userId === null) {
     throw new Error("Cannot fetch user id from async storage");
@@ -246,7 +246,7 @@ export const subscribe = async (courseId) => {
 export const unsubscribe = async (courseId) => {
 
   // get the logged-in user id from async storage
-  const userId = await USER_ID();
+  const userId = await AsyncStorage.getItem(USER_ID);
 
   if (userId === null) {
     throw new Error("Cannot fetch user id from async storage");
@@ -269,7 +269,7 @@ export const unsubscribe = async (courseId) => {
 export const checkSubscriptions = async (courseId) => {
 
   // get the logged-in user id from async storage
-  const userId = await USER_ID();
+  const userId = await AsyncStorage.getItem(USER_ID);
 
   if (userId === null) {
     throw new Error("Cannot fetch user id from async storage");
