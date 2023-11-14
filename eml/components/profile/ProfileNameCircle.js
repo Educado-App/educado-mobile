@@ -13,7 +13,7 @@ export default function ProfileNameCircle(props) {
   return (
     <View className="grid rounded-full bg-profileCircle h-24 w-24 aspect-square items-center justify-center">
       <Text className="text-projectWhite text-5xl font-bold text-center bg-white mt-2"> 
-        {props.firstName.charAt(0).toUpperCase()} {props.lastName.charAt(0).toUpperCase()}
+        {props.firstName.charAt(0).toUpperCase()}{props.lastName.charAt(0).toUpperCase()}
       </Text>
     </View>
   )

@@ -9,9 +9,14 @@ import ProfileNavigationButton from '../../components/profile/ProfileNavigationB
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import UserInfo from '../../components/profile/UserInfo'
 import { useNavigation } from '@react-navigation/native'
+import { getUserInfo } from '../../services/StorageService'
 
 const USER_INFO = '@userInfo'
 
+/**
+ * Profile screen
+ * @returns {React.Element} Component for the profile screen
+ */
 export default function ProfileComponent() {
   const [id, setId] = useState('')
   const [firstName, setFirstName] = useState('')
@@ -20,11 +25,14 @@ export default function ProfileComponent() {
 
   const navigation = useNavigation();
 
-  const points = 87; // placeholder for the points that will be fetched eventually
+  const points = 87; // placeholder for the points that will be fetched eventually @SocialGamified
 
+  /**
+  * Fetches the user's profile from the local storage
+  */ 
   const getProfile = async () => {
     try {
-      const fetchedProfile = JSON.parse(await AsyncStorage.getItem(USER_INFO))
+      const fetchedProfile = JSON.parse(await AsyncStorage.getItem(USER_INFO));
 
       if (fetchedProfile !== null) {
         setId(fetchedProfile.id)
@@ -46,7 +54,7 @@ export default function ProfileComponent() {
       <ScrollView className='flex flex-col'>
         <View className="flex-1 justify-start pt-[20%] h-screen">
           <UserInfo firstName={firstName} lastName={lastName} email={email} points={points}></UserInfo>
-          <ProfileNavigationButton label='Editar perfil' onPress={() => navigation.navigate('ProfileSettings')}></ProfileNavigationButton>
+          <ProfileNavigationButton label='Editar perfil' onPress={() => navigation.navigate('EditProfile')}></ProfileNavigationButton>
           <ProfileNavigationButton label='Certificados'></ProfileNavigationButton>
           <ProfileNavigationButton label='Download'></ProfileNavigationButton>
           <View className='flex flex-row'>

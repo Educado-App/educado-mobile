@@ -22,7 +22,7 @@ import SectionScreen from './screens/section/SectionScreen';
 import { isFontsLoaded } from './constants/Fonts';
 import LoadingScreen from "./components/loading/Loading";
 import WelcomeScreen from "./screens/welcome/Welcome";
-import ProfileSettingsScreen from "./screens/profile/ProfileSettings";
+import EditProfileScreen from "./screens/profile/EditProfile";
 import NavBar from "./components/navBar/NavBar";
 import LectureSwipeScreen from "./screens/lectures/LectureSwipeScreen";
 
@@ -204,8 +204,8 @@ export default function App() {
                 options={{ headerShown: false }}
               />
               <Stack.Screen
-                name="ProfileSettings"
-                component={ProfileSettingsScreen}
+                name="EditProfile"
+                component={EditProfileScreen}
                 options={{ headerShown: false }}
               />
               <Stack.Screen
