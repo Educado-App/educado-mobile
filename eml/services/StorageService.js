@@ -281,7 +281,7 @@ export const checkSubscriptions = async (courseId) => {
   }
 };
 
-
+// A function that calls the backed through the api just to test if it can be reached 
 export const checkIfOnline = async () => {
   isOnline = await api.checkBackendOnline();
   return isOnline;
