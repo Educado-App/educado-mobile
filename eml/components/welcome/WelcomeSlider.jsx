@@ -1,5 +1,5 @@
-import React, { useRef } from "react";
-import { View } from "react-native";
+import React, { useRef } from 'react';
+import { View } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 import Sections from '../../constants/PreviewSections';
 import Slick from 'react-native-slick';
@@ -56,4 +56,4 @@ export default function WelcomeSlider() {
       ))}
     </Slick>
   );
-};
+}

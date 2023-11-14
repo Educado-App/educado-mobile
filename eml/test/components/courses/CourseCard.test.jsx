@@ -6,23 +6,23 @@
  * @module CourseCardTest
  */
 
-import React from "react";
-import renderer from "react-test-renderer";
-import CourseCard from "../../../components/courses/courseCard/CourseCard";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { mockDataAsyncStorage } from "../../mockData/mockDataAsyncStorage";
+import React from 'react';
+import renderer from 'react-test-renderer';
+import CourseCard from '../../../components/courses/courseCard/CourseCard';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { mockDataAsyncStorage } from '../../mockData/mockDataAsyncStorage';
 
 let navigated = false;
 
 jest.mock('@react-navigation/native', () => ({
   useNavigation: () => ({
-    navigate: jest.fn(() => { navigated = true }),
+    navigate: jest.fn(() => { navigated = true; }),
   }),
 }));
 
 const mockData = mockDataAsyncStorage();
 
-describe("CourseCard", () => {
+describe('CourseCard', () => {
   let courseCard;
 
   /**
@@ -54,7 +54,7 @@ describe("CourseCard", () => {
   /**
    * Tests if the CourseCard component renders correctly.
    */
-  it("renders CourseCard correctly", async () => {
+  it('renders CourseCard correctly', async () => {
     expect(await courseCard.toJSON()).toMatchSnapshot();
   });
 

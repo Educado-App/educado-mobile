@@ -1,4 +1,4 @@
-name: Run Tests on Pull Request and Branches
+name: Run Linting on Pull Request and Branches
 on:
   pull_request:
     types:
@@ -6,7 +6,7 @@ on:
       - synchronize
       - reopened
 jobs:
-  test:
+  eslint:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,13 +16,13 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: 20 
+          node-version: 20
       
       - name: List directories and files
         run: ls -al
 
       - name: Install dependencies
         run: cd eml && npm install
-        
-      - name: Run Tests
-        run: cd eml && npm run test  
+
+      - name: Run ESLint
+        run: cd eml && npm run lint 

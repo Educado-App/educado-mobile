@@ -1,12 +1,12 @@
-import React from "react";
-import { render, fireEvent, waitFor } from "@testing-library/react-native";
-import CourseScreen from "../../../screens/courses/CourseScreen";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { mockDataAsyncStorage } from "../../mockData/mockDataAsyncStorage";
+import React from 'react';
+import { render, fireEvent, waitFor } from '@testing-library/react-native';
+import CourseScreen from '../../../screens/courses/CourseScreen';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { mockDataAsyncStorage } from '../../mockData/mockDataAsyncStorage';
 
 // Mock the useNavigation hook and the navigate function
 const mockNavigate = jest.fn();
-jest.mock("@react-navigation/native", () => ({
+jest.mock('@react-navigation/native', () => ({
   useNavigation: () => ({
     navigate: mockNavigate,
     addListener: jest.fn(), // Mock the addListener function as well
@@ -14,7 +14,7 @@ jest.mock("@react-navigation/native", () => ({
 }));
 
 // Mock the StorageService
-jest.mock("../../../services/StorageService", () => ({
+jest.mock('../../../services/StorageService', () => ({
   getSubCourseList: jest.fn(),
 }));
 
@@ -23,20 +23,20 @@ jest.mock('../../../components/general/BaseScreen', () => {
 });
 
 // Mock the ToastNotification
-jest.mock("../../../components/general/ToastNotification", () => {
+jest.mock('../../../components/general/ToastNotification', () => {
   return jest.fn().mockImplementation(({ children }) => children);
 });
 
 const mockData = mockDataAsyncStorage();
 
-describe("CourseScreen", () => {
+describe('CourseScreen', () => {
   afterEach(() => {
     AsyncStorage.clear();
   });
 
-  it("renders CourseScreen correctly when there are no courses", async () => {
+  it('renders CourseScreen correctly when there are no courses', async () => {
     // Mock that there are no courses
-    require("../../../services/StorageService").getSubCourseList.mockResolvedValue([]);
+    require('../../../services/StorageService').getSubCourseList.mockResolvedValue([]);
 
     const { toJSON } = render(<CourseScreen />);
     await waitFor(() => {
@@ -44,10 +44,10 @@ describe("CourseScreen", () => {
     });
   });
 
-  it("renders CourseScreen with courses loaded", async () => {
+  it('renders CourseScreen with courses loaded', async () => {
 
     // Mock that courses are loaded
-    require("../../../services/StorageService").getSubCourseList.mockResolvedValue(mockData.allCourses);
+    require('../../../services/StorageService').getSubCourseList.mockResolvedValue(mockData.allCourses);
 
     const { toJSON } = render(<CourseScreen />);
     await waitFor(() => {
@@ -55,12 +55,12 @@ describe("CourseScreen", () => {
     });
   });
 
-  it("navigates to the explorer screen when explore button is pressed", async () => {
+  it('navigates to the explorer screen when explore button is pressed', async () => {
     const { getByTestId } = render(<CourseScreen />);
-    const exploreButton = getByTestId("exploreButton");
+    const exploreButton = getByTestId('exploreButton');
 
     fireEvent.press(exploreButton);
 
-    expect(mockNavigate).toHaveBeenCalledWith("Explorar");
+    expect(mockNavigate).toHaveBeenCalledWith('Explorar');
   });
 });
