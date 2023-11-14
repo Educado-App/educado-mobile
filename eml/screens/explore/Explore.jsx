@@ -34,6 +34,10 @@ export default function Explore() {
   const navigation = useNavigation()
 
 
+  /**
+   * Checks the backend connection.
+   * @returns {Promise<void>}
+   */
   const checkBackendConnection = async () => {
     try {
       setIsOnline(await StorageService.checkIfOnline());
