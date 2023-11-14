@@ -116,7 +116,7 @@ export default function Explore() {
     });
     return update;
 
-  }, [navigation, subCourses]);
+  }, [navigation, subCourses, selectedCategory, searchText]);
 
   ///---------------------------------------------///
 
@@ -145,8 +145,6 @@ export default function Explore() {
     }
   };
 
-
-
   return (
     loading ? (<LoadingScreen />) :
       <BaseScreen>
@@ -154,7 +152,7 @@ export default function Explore() {
         {!isOnline ?
           <View>
             <IconHeader title={"Explorar cursos"} />
-            <View className="justify-center h-[80%]">
+            <View className="justify-center p-2 pt-10">
               <MaterialCommunityIcons name="wifi-off" size={200} color="rgb(255,50,90)" style={{ alignSelf: 'center' }} />
               <Text className="text-error text-center font-montserrat-bold text-[24px]">
                 {"\n"} Você está offline.{"\n"}Conecte-se à internet para explorar os cursos.
