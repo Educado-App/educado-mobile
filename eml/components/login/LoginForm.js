@@ -14,8 +14,6 @@ import ShowAlert from "../general/ShowAlert";
 // Services
 import { setUserInfo, setJWT } from "../../services/StorageService";
 
-//When Logout: back button should be disabled!!!!
-
 /**
  * Login form component for login screen containing email and password input fields and a login button.
  * @returns {React.Element} Component for logging in (login screen)

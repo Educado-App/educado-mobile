@@ -2,25 +2,28 @@ import React, { useEffect, useState } from 'react';
 import {
   View,
   SafeAreaView,
-  TouchableOpacity,
-  Image,
 } from 'react-native';
-import ProfileImage from '../../components/profile/profileImage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getCourses } from '../../api/api';
 import ReturnButton from '../../components/profileSettings/returnButton'
-import DeleteAccountButton from '../../components/profileSettings/deleteAccountButton'
-import ChangeFirstNameButton from '../../components/profileSettings/changeFirstNameButton'
-import ChangeLastNameButton from '../../components/profileSettings/changeLastNameButton'
-import ChangeEmailButton from '../../components/profileSettings/changeEmailButton'
 import Text from '../../components/general/Text';
 import ProfileNameCircle from '../../components/profile/ProfileNameCircle';
 import FormButton from '../../components/general/forms/FormButton';
 import ChangePasswordModal from '../../components/profileSettings/ChangePasswordModal';
 import FormTextField from '../../components/general/forms/FormTextField';
 import { updateUserFields } from '../../api/userApi';
+import { validateEmail, validateName } from '../../components/general/Validation';
+import FormFieldAlert from '../../components/general/forms/FormFieldAlert';
+import { getUserInfo, setUserInfo, getJWT } from '../../services/StorageService';
+import ShowAlert from '../../components/general/ShowAlert';
+import errorSwitch from '../../components/general/errorSwitch';
 
-export default function ProfileSettings() {
+
+/**
+ * Edit profile screen
+ * @returns {React.Element} Component for the edit profile screen
+ */
+export default function EditProfile() {
   const [id, setId] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -28,11 +31,51 @@ export default function ProfileSettings() {
   const [fetchedFirstName, setFetchedFirstName] = useState('');
   const [fetchedLastName, setFetchedLastName] = useState('');
   const [fetchedEmail, setFetchedEmail] = useState('');
+  const [changedFields, setChangedFields] = useState({});
+  const [emailAlert, setEmailAlert] = useState('');
+  const [firstNameAlert, setFirstNameAlert] = useState('');
+  const [lastNameAlert, setLastNameAlert] = useState('');
 
+  useEffect(() => {
+    setChangedFields({
+      firstName: firstName !== fetchedFirstName ? firstName : undefined,
+      lastName: lastName !== fetchedLastName ? lastName : undefined,
+      email: email !== fetchedEmail ? email : undefined,
+    });
+  }, [firstName, lastName, email, fetchedFirstName, fetchedLastName, fetchedEmail]);
+
+  useEffect(() => {
+    let validationError = '';
+    validationError = validateName(firstName, 'Nome'); // First name
+    setFirstNameAlert(validationError);
+  }, [firstName]);
+
+  useEffect(() => {
+    let validationError = '';
+    validationError = validateName(lastName, 'Sobrenome'); // Last name
+    setLastNameAlert(validationError);
+  }, [lastName]);
+
+  useEffect(() => {
+    const validationError = validateEmail(email);
+    setEmailAlert(validationError);
+  }, [email]);
+
+
+  /**
+   * Validates the input fields
+   */
+  function validateInput() {
+    return firstNameAlert === '' && lastNameAlert === '' && emailAlert === '' && 
+    (changedFields.firstName !== undefined || changedFields.lastName !== undefined || changedFields.email !== undefined);
+  }
+
+  /**
+   * Fetches the user profile
+   */
   const getProfile = async () => {
     try {
-      const fetchedProfile = JSON.parse(await AsyncStorage.getItem('@userInfo'));
-
+      const fetchedProfile = await getUserInfo();
       if (fetchedProfile !== null) {
         setId(fetchedProfile.id);
         setFetchedFirstName(fetchedProfile.firstName);
@@ -52,41 +95,46 @@ export default function ProfileSettings() {
       const courseData = await getCourses();
       setCourses(courseData);
     } catch (error) {
-      console.error('Error fetching courses:', error);
+      ShowAlert(errorSwitch(error));
     }
-  }
-
-  const validateInput = () => {
-    return (firstName !== fetchedFirstName) || (lastName !== fetchedLastName) || (email !== fetchedEmail);
   }
 
   useEffect(() => {
     getProfile();
+    // Looked cute, might delete later
     //fetchCourses();
   }, []);
 
+  /**
+   * persists the changed user info
+   */
   const saveUserInfo = async () => {
 
-    const obj = {
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
+    if (!validateInput()) {
+      return;
     }
 
+    const fetchedProfile = {
+      id: id,
+      firstName: fetchedFirstName,
+      lastName: fetchedLastName,
+      email: fetchedEmail,
+    }
+    // Change the updated profile, based on what fields has been changed to ensure we do not send unnecessary data
+    const updatedProfile = {
+      ...fetchedProfile,
+      ...(changedFields.firstName !== undefined ? { firstName: changedFields.firstName } : {}),
+      ...(changedFields.lastName !== undefined ? { lastName: changedFields.lastName } : {}),
+      ...(changedFields.email !== undefined ? { email: changedFields.email } : {}),
+    };
+
     try {
-      const LOGIN_TOKEN = await AsyncStorage.getItem('@loginToken');
-      await updateUserFields(id, obj, LOGIN_TOKEN);
-      await AsyncStorage.setItem('@userInfo', JSON.stringify(obj));
+      const LOGIN_TOKEN = await getJWT();
+      await updateUserFields(id, changedFields, LOGIN_TOKEN);
+      await setUserInfo(updatedProfile);
       getProfile();
     } catch (error) {
-      switch (error?.error?.code) {
-        case 'E0003':
-          // Error connecting to server!
-          ShowAlert("Erro de conexão com o servidor!");
-          break;
-        default:
-          console.log('ERROR: ' + error?.error?.code)
-      }
+      ShowAlert(errorSwitch(error));
     }
   };
 
@@ -126,8 +174,9 @@ export default function ProfileSettings() {
               required={true}
               placeholder='Insira sua nome'
               value={firstName}
-              onChangeText={(firstName) => setFirstName(firstName)}
+              onChangeText={(firstName) => {setFirstName(firstName); validateName(firstName);}}
             ></FormTextField>
+            <FormFieldAlert label={firstNameAlert}/>
           </View>
           <View className='mb-8'>
             <FormTextField
@@ -135,8 +184,9 @@ export default function ProfileSettings() {
               required={true}
               placeholder='Insira sua sobrenome'
               value={lastName}
-              onChangeText={(lastName) => setLastName(lastName)}
+              onChangeText={(lastName) => {setLastName(lastName); validateName(lastName);}}
             ></FormTextField>
+            <FormFieldAlert label={lastNameAlert}/>
           </View>
           <View className='mb-12'>
             <FormTextField
@@ -144,27 +194,12 @@ export default function ProfileSettings() {
               required={true}
               placeholder='Insira sua e-mail'
               value={email}
-              onChangeText={(email) => setEmail(email)}
+              keyboardType="email-address"
+              onChangeText={async (email) => {setEmail(email); validateEmail(email);}}
             ></FormTextField>
+            <FormFieldAlert label={emailAlert}/>
           </View>
 
-          {/*
-          <View className="flex justify-center w-full">
-            <ChangeFirstNameButton></ChangeFirstNameButton>
-          </View>
-
-          <View className="flex justify-center w-full">
-            <ChangeLastNameButton></ChangeLastNameButton>
-          </View>
-
-          <View className="flex justify-center w-full">
-            <ChangeEmailButton></ChangeEmailButton>
-          </View>
-
-          <View className="flex justify-center w-full">
-            <DeleteAccountButton></DeleteAccountButton>
-          </View>
-        */}
           {/* Change password */}
           <ChangePasswordModal />
 
