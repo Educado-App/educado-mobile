@@ -107,8 +107,8 @@ export const getSubscriptions = async (userId) => {
     // but this is the only format where it works
     // passing user ID as request body for get request gives error
     const res = await axios.get(
-      url + "/api/students/" + userId + "/subscriptions"
-    );
+      url + "/api/students/" + userId + "/subscriptions",
+      {timeout: 1200});
 
     return res.data;
   } catch (e) {
@@ -184,7 +184,7 @@ export const ifSubscribed = async (userId, courseId) => {
 export const checkBackendOnline = async () => {
   let response;
   try {
-    const res = await axios.get(url + '/api/utility/online/', {timeout: 2000});
+    const res = await axios.get(url + '/api/utility/online/', {timeout: 1000});
     response = res.data;
   } catch {
     response = false;

@@ -47,15 +47,15 @@ export default function CourseScreen() {
             if (courseData.length !== 0 && Array.isArray(courseData)) {
                 setCourses(courseData);
                 setCourseLoaded(true);
-                setLoading(false);
             }
             else {
                 setCourses([]);
                 setCourseLoaded(false);
-                setLoading(false);
             }
-        } setLoading(false);
+        } 
+        setLoading(false);
     }
+    loadCourses();
 
     // When refreshing the loadCourses function is called
     const onRefresh = () => {

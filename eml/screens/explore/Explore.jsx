@@ -116,7 +116,7 @@ export default function Explore() {
     });
     return update;
 
-  }, [navigation, subCourses, selectedCategory, searchText]);
+  }, [navigation, subCourses, selectedCategory, searchText, isOnline]);
 
   ///---------------------------------------------///
 
@@ -154,8 +154,9 @@ export default function Explore() {
             <IconHeader title={"Explorar cursos"} />
             <View className="justify-center p-2 pt-10">
               <MaterialCommunityIcons name="wifi-off" size={200} color="rgb(255,50,90)" style={{ alignSelf: 'center' }} />
-              <Text className="text-error text-center font-montserrat-bold text-[24px]">
-                {"\n"} Você está offline.{"\n"}Conecte-se à internet para explorar os cursos.
+              <Text className="text-error text-center font-montserrat-bold text-[26px]">
+                {/* You are offline. Connect to the internet to explore the courses. */}
+                {"\n"} Não é possível conectar ao servidor.{"\n"}Por favor, verifique sua conexão com a internet.
               </Text>
             </View>
           </View>
