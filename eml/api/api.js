@@ -7,7 +7,7 @@ const testExpo = 'http://172.30.211.57:8888';
 const digitalOcean = 'http://207.154.213.68:8888';
 */
 
-const url = 'http://localhost:8888'; // change to lcd ip when testing
+const url = 'http://172.30.252.171:8888'; // change to lcd ip when testing
 
 /*** COURSE, SECTIONS AND EXERCISES ***/
 

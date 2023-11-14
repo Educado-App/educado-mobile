@@ -16,6 +16,7 @@ import WelcomeScreen from './screens/welcome/Welcome';
 import ProfileSettingsScreen from './screens/profile/ProfileSettings';
 import NavBar from './components/navBar/NavBar';
 import LectureSwipeScreen from './screens/lectures/LectureSwipeScreen';
+import CompleteCourseScreen from './screens/courses/CompleteCourse';
 
 const Stack = createNativeStackNavigator();
 
@@ -113,7 +114,12 @@ export default function App() {
         <IconRegistry icons={EvaIconsPack} />
         <ApplicationProvider {...eva} theme={eva.light}>
           <NavigationContainer>
-            <Stack.Navigator initialRouteName={initialRoute}>
+            <Stack.Navigator initialRouteName={"CompleteCourseScreen"}>
+            <Stack.Screen
+                name="tempStack"
+                component={CompleteCourseScreen}
+                options={{ headerShown: false }}
+              />
               <Stack.Screen
                 name="WelcomeStack"
                 component={WelcomeStack}
