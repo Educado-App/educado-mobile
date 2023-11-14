@@ -8,8 +8,7 @@ on:
       - dev
       - staging
       - main
-      - cert-success_messages_mergeToDev
-      - video_pr_01_11
+      - gamified-section-points
 
 jobs:
   test:
