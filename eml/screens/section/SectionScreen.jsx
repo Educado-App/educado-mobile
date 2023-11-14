@@ -17,7 +17,7 @@ import { unsubscribe } from '../../services/StorageService';
  * @returns {JSX.Element} - The SectionScreen component.
  */
 export default function SectionScreen({ route }) {
-  const { courseId, courseTitle} = route.params;
+  const { course } = route.params;
   const navigation = useNavigation();
   const [sections, setSections] = useState(null);
 
@@ -38,7 +38,7 @@ export default function SectionScreen({ route }) {
      * Loads the sections and course data for the given courseId.
      */
     async function loadData() {
-      await loadSections(courseId);
+      await loadSections(course.courseId);
     }
 
     if (componentIsMounted) {
@@ -58,7 +58,7 @@ export default function SectionScreen({ route }) {
         onPress: () => console.log("No Pressed"),
         style: "cancel",
       },
-      { text: "Sim", onPress: () => { unsubscribe(courseId); setTimeout(() =>  {navigation.goBack();}, 300 ); }},
+      { text: "Sim", onPress: () => { unsubscribe(course.courseId); setTimeout(() =>  {navigation.goBack();}, 300 ); }},
     ]);
 
   return (
@@ -70,7 +70,7 @@ export default function SectionScreen({ route }) {
         </TouchableOpacity>
 
         {/* Course Title */}
-        <Text className="text-[25px] font-bold">{courseTitle}</Text>
+        <Text className="text-[25px] font-bold">{course.title}</Text>
 
         {/* Spacer to push the Unsubscribe Button to the right */}
         <View style={{ flex: 1 }}></View>
@@ -91,7 +91,7 @@ export default function SectionScreen({ route }) {
             {/* Section Cards */}
             <ScrollView className="mt-[5%]" showsVerticalScrollIndicator={false}>
               {sections.map((section, i) => {
-                return <SectionCard key={i} section={section}></SectionCard>;
+                return <SectionCard key={i} section={section} course={course}></SectionCard>;
               })}
             </ScrollView>
 

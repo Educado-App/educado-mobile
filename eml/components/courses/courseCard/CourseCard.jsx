@@ -22,8 +22,7 @@ export default function CourseCard({ course }) {
             className="bg-projectWhite m-[3%] rounded-lg shadow-sm shadow-opacity-[0.3] elevation-[8] mx-[5%] p-[5%]"
             onPress={() => {
                 navigation.navigate('Section', {
-                    courseId: course.courseId,
-                    courseTitle: course.title,
+                    course: course,
                 });
             }}
         >

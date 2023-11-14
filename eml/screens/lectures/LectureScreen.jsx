@@ -11,6 +11,8 @@ export default function LectureScreen({ lectureObject, courseObject, currentInde
     const navigation = useNavigation();
     const [lecture, setLecture] = useState(lectureObject);
     const [progressPercent, setProgressPercent] = useState(null);
+    const [course, setCourse] = useState(courseObject);
+
     useEffect(() => {
         setLecture(lectureObject);
         setCourse(courseObject);
@@ -19,7 +21,7 @@ export default function LectureScreen({ lectureObject, courseObject, currentInde
 
     }, [])
 
-    const [course, setCourse] = useState(courseObject);
+
 
     const calculateProgressInPercent = () => {
         return Math.round((currentIndex / indexCount) * 100);

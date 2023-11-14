@@ -10,12 +10,12 @@ import tailwindConfig from '../../tailwind.config';
 import * as StorageService from "../../services/StorageService";
 
 /**
- * when navigating to this page sectionId, courseId must be passed as parameters
+ * when navigating to this page sectionId, parsedCourse must be passed as parameters
  * @param {} param0 
  * @returns 
  */
 export default function LectureSwipeScreen({ route }) {
-    const { sectionId, courseId } = route.params;
+    const { sectionId, parsedCourse } = route.params;
     const navigation = useNavigation();
     const [loading, setLoading] = useState(true);
     const [progressPercent, setProgressPercent] = useState(0);
@@ -30,13 +30,12 @@ export default function LectureSwipeScreen({ route }) {
                 const sectionData = await StorageService.getLectureList(sectionId);//getSectionAndLecturesBySectionId(sectionId);
                 //TODO: get the first uncompleted lecture - set the initial index to that
                 const initialIndex = 0;
-                const courseData = await getCourse(courseId);
                 const progressPercentage = Math.round(((initialIndex + 1) / sectionData.length) * 100);
 
 
                 setAllLectures(sectionData);
                 setCurrentLectureType(sectionData[initialIndex]?.video ? "video" : "text");
-                setCourse(courseData);
+                setCourse(parsedCourse);
                 setProgressPercent(progressPercentage);
                 setIndex(initialIndex);
                 setLoading(false);
@@ -46,7 +45,7 @@ export default function LectureSwipeScreen({ route }) {
         }
 
         fetchData();
-    }, [sectionId, courseId]);
+    }, [sectionId, parsedCourse]);
 
     const handleIndexChange = (_index) => {
         const currentLecture = allLectures[_index];
