@@ -3,10 +3,18 @@ import { Animated, Text } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { checkIfOnline } from '../../services/StorageService';
 
+/**
+ * A banner component that shows an offline notification.
+ * It checks periodically for backend connectivity and displays a banner if the backend is not reachable.
+ * @returns {JSX.Element} - The rendered component.
+ */
 export default function OfflineBanner() {
   const [isBackendReachable, setIsBackendReachable] = useState(false);
   const translateY = useRef(new Animated.Value(-100)).current;
 
+  /**
+ * Checks the backend connection status and updates state.
+ */
   const checkBackendConnection = async () => {
     setIsBackendReachable(await checkIfOnline());
   };
@@ -36,10 +44,11 @@ export default function OfflineBanner() {
       top: 0,
       width: '100%',
       zIndex: 10,
-    }]} className='bg-warningBanner flex-row pb-2 justify-center items-end h-[10%]'>
-      <MaterialCommunityIcons name={'wifi-off'} color='white' size={20}/>
-      <Text className={'text-projectWhite px-2'}>
-                Sem conexão com a internet!
+    }]} className='bg-yellow flex-row pb-2 justify-center items-end h-[10%]'>
+      <MaterialCommunityIcons name={'wifi-off'} color='black' size={20}/>
+      <Text className={'px-2'}>
+        {/* No internet connection! */}
+          Sem conexão com a internet!
       </Text>
     </Animated.View>
   );

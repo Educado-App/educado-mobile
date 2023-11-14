@@ -16,7 +16,7 @@ export default function IconHeader({ title }) {
       <OfflineBanner/>
       <View className="flex flex-row items-center pl-6 pt-[22%] pb-[5%]">
         <Image
-          source={require('../../assets/singleIcon.png')}
+          source={require('../../assets/images/singleIcon.png')}
           alt="Icon"
           className="w-8 h-8 mr-2"
         />

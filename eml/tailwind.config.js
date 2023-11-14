@@ -29,7 +29,6 @@ module.exports = {
       wrongAnswer: '#CF6679',
       progressBar: '#5ECCDD',
       progressBarUnFilled: '#E4F2F5',
-      warningBanner: '#E9D502',
     },
     fontFamily: {
       montserrat: ['Montserrat-Regular'],
