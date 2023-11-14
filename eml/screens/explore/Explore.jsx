@@ -10,6 +10,8 @@ import IconHeader from "../../components/general/IconHeader";
 import { shouldUpdate, determineCategory } from '../../services/utilityFunctions';
 import Text from '../../components/general/Text';
 import LoadingScreen from '../../components/loading/Loading';
+import OfflineBanner from "../../components/general/OfflineBanner";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 /**
  * Explore screen displays all courses and allows the user to filter them by category or search text.
@@ -147,37 +149,39 @@ export default function Explore() {
 
   return (
     loading ? (<LoadingScreen />) :
-    <BaseScreen>
-      {!isOnline ?
-        <View>
-          <IconHeader title={"Explorar cursos"} />
-          <View className="justify-center items-center bg-secondary">
-            <Text className="text-error text-center font-montserrat-bold text-[24px]">
-              Você está offline.{"\n"}Conecte-se à internet para explorar os cursos.
-            </Text>
-          </View>
-        </View>
-        :
-        <View height="100%">
-          <IconHeader title={"Explorar cursos"} />
-          <FilterNavBar
-            onChangeText={(text) => handleFilter(text)}
-            onCategoryChange={handleCategoryFilter}
-          />
-          <ScrollView showsVerticalScrollIndicator={false} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
-            <View className="overflow-y-auto">
-              {courses && filteredCourses && filteredCourses.map((course, index) => (
-                <ExploreCard
-                  key={index}
-                  isPublished={course.status === 'published'}
-                  subscribed={isSubscribed[index]}
-                  course={course}
-                ></ExploreCard>
-              ))}
+      <BaseScreen>
+        <OfflineBanner />
+        {!isOnline ?
+          <View>
+            <IconHeader title={"Explorar cursos"} />
+            <View className="justify-center h-[80%]">
+              <MaterialCommunityIcons name="wifi-off" size={200} color="rgb(255,50,90)" style={{ alignSelf: 'center' }} />
+              <Text className="text-error text-center font-montserrat-bold text-[24px]">
+                {"\n"} Você está offline.{"\n"}Conecte-se à internet para explorar os cursos.
+              </Text>
             </View>
-          </ScrollView>
-        </View>
+          </View>
+          :
+          <View height="100%">
+            <IconHeader title={"Explorar cursos"} />
+            <FilterNavBar
+              onChangeText={(text) => handleFilter(text)}
+              onCategoryChange={handleCategoryFilter}
+            />
+            <ScrollView showsVerticalScrollIndicator={false} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
+              <View className="overflow-y-auto">
+                {courses && filteredCourses && filteredCourses.map((course, index) => (
+                  <ExploreCard
+                    key={index}
+                    isPublished={course.status === 'published'}
+                    subscribed={isSubscribed[index]}
+                    course={course}
+                  ></ExploreCard>
+                ))}
+              </View>
+            </ScrollView>
+          </View>
         }
-    </BaseScreen>
+      </BaseScreen>
   );
 }
