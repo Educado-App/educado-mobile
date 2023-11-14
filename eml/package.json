@@ -56,6 +56,7 @@
     "expo-video-player": "^2.2.0",
     "jest-expo": "^47.0.1",
     "lottie-react-native": "^5.1.3",
+    "mongoose": "^8.0.0",
     "nativewind": "^2.0.11",
     "react": "18.0.0",
     "react-bootstrap": "^2.5.0",

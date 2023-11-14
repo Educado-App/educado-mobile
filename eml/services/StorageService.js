@@ -4,12 +4,17 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import errorCodes from '../components/general/errorCodes';
 
 
+
 const COURSE_LIST = '@courseList';
 const SUB_COURSE_LIST = '@subCourseList';
 const SECTION_LIST = '@sectionList';
 const COURSE = '@course';
 const USER_ID = '@userId';
 const USER_INFO = '@userInfo';
+
+const mongoose = require('mongoose');
+const { ObjectId } = mongoose.Types;
+
 
 export const getUserInfo = async () => {
   try {
@@ -23,7 +28,7 @@ export const getUserInfo = async () => {
 export const getUserId = async () => {
   try {
     const fetchedUserInfo = JSON.parse(await AsyncStorage.getItem(USER_INFO));
-    return fetchedUserInfo.id;
+    return ObjectId(fetchedUserInfo.id);
   } catch (e) {
     throw e;
   }
