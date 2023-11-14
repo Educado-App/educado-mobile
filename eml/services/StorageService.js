@@ -12,9 +12,6 @@ const COURSE = '@course';
 const USER_ID = '@userId';
 const USER_INFO = '@userInfo';
 
-const mongoose = require('mongoose');
-const { ObjectId } = mongoose.Types;
-
 
 export const getUserInfo = async () => {
   try {
@@ -25,14 +22,6 @@ export const getUserInfo = async () => {
   }
 };
 
-export const getUserId = async () => {
-  try {
-    const fetchedUserInfo = JSON.parse(await AsyncStorage.getItem(USER_INFO));
-    return ObjectId(fetchedUserInfo.id);
-  } catch (e) {
-    throw e;
-  }
-};
 
 
 /** COURSE AND COURSE LIST **/
@@ -174,7 +163,7 @@ export const refreshSectionList = async (course_id) => {
 export const getSubCourseList = async () => {
 
   // get the logged-in user id from async storage
-  const userId = await getUserId(); 
+  const userId = await USER_ID(); 
 
   if(userId === null) {
     throw new Error("Cannot fetch user id from async storage");
@@ -235,7 +224,7 @@ export const refreshSubCourseList = async (userId) => {
 export const subscribe = async (courseId) => {
 
   // get the logged-in user id from async storage
-  const userId = await getUserId();
+  const userId = await USER_ID();
 
   if (userId === null) {
     throw new Error("Cannot fetch user id from async storage");
@@ -257,7 +246,7 @@ export const subscribe = async (courseId) => {
 export const unsubscribe = async (courseId) => {
 
   // get the logged-in user id from async storage
-  const userId = await getUserId();
+  const userId = await USER_ID();
 
   if (userId === null) {
     throw new Error("Cannot fetch user id from async storage");
@@ -280,7 +269,7 @@ export const unsubscribe = async (courseId) => {
 export const checkSubscriptions = async (courseId) => {
 
   // get the logged-in user id from async storage
-  const userId = await getUserId();
+  const userId = await USER_ID();
 
   if (userId === null) {
     throw new Error("Cannot fetch user id from async storage");
