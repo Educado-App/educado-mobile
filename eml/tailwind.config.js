@@ -27,6 +27,7 @@ module.exports = {
         limeGreenDarker: '#8DD08C',
         correctAnswer: '#00897B',
         wrongAnswer: '#CF6679',
+        warningBanner: '#E9D502',
       },
       fontFamily: {
         montserrat: ['Montserrat-Regular'],
