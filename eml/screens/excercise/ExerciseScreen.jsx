@@ -75,7 +75,9 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7'}) 
         <TouchableOpacity className="pr-3" onPress={() => navigation.goBack()}>
           <MaterialCommunityIcons name="chevron-left" size={25} color="black" />
         </TouchableOpacity>
+        {hasData !== false ? (
         <CoursePoints courseId={sectionData.parentCourse}/>
+        ) : null}
       </View>
 
         {hasData === false ? (
