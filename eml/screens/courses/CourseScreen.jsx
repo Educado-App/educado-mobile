@@ -8,7 +8,6 @@ import BaseScreen from '../../components/general/BaseScreen';
 import IconHeader from '../../components/general/IconHeader';
 import { shouldUpdate } from '../../services/utilityFunctions';
 import ToastNotification from '../../components/general/ToastNotification';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 /**
  * Course screen component that displays a list of courses.

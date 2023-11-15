@@ -9,6 +9,12 @@ import PropTypes from 'prop-types';
  * @returns {JSX.Element} The IconHeader component.
  */
 export default function IconHeader({ title, description }) {
+
+  IconHeader.propTypes = {
+    title: PropTypes.string,
+    description: PropTypes.string,
+  };
+
     return (
         <View>
         <View className="flex flex-row items-center pl-6 pb-2 pt-[20%]">
