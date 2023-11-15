@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import LottieView from "lottie-react-native";
 import {Alert, TouchableWithoutFeedback} from "react-native";
+import animationAsset from "../../../assets/animations/downloadAnimation.json";
 
 const ANIMATION_STATES = {
     INITIAL: "initial",
@@ -97,7 +98,7 @@ export default function ControllingAnimationProgress() {
         <TouchableWithoutFeedback onPress={handlePress}>
             <LottieView
                 ref={animationRef}
-                source={require('../../../assets/animations/downloadAnimation.json')}
+                source={animationAsset}
                 height={32}
                 width={24}
             />
