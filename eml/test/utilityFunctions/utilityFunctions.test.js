@@ -6,6 +6,7 @@ import {
   determineIcon,
   getUpdatedDate,
   formatHours,
+  convertMsToTime,
 } from '../../services/utilityFunctions';
 
 describe('Utility Functions', () => {
@@ -116,63 +117,78 @@ describe('Utility Functions', () => {
     });
   });
 
-    describe('formatHours', () => {
-      it('should format hours correctly', () => {
-        const inputHours = 1;
-        const expectedOutput = '1 Hora';
-
-        const result = formatHours(inputHours);
-
-        expect(result).toBe(expectedOutput);
-      });
-        it('should format hours correctly', () => {
-        const inputHours = 2;
-        const expectedOutput = '2 Horas';
-
-        const result = formatHours(inputHours);
-
-        expect(result).toBe(expectedOutput);
-        });
-      it('input of something else that is not a number', () => {
-        const inputHours = 'a';
-        const expectedOutput = '- Hora';
-
-        const result = formatHours(inputHours);
-
-        expect(result).toBe(expectedOutput);
-      });
-      it('negative input', () => {
-        const inputHours = -5;
-        const expectedOutput = '- Hora';
-
-        const result = formatHours(inputHours);
-
-        expect(result).toBe(expectedOutput);
-      });
-      it('float input', () => {
-        const inputHours = 1.5;
-        const expectedOutput = '1.5 Horas';
-
-        const result = formatHours(inputHours);
-
-        expect(result).toBe(expectedOutput);
-      });
-      it('float input under 1', () => {
-        const inputHours = 0.5;
-        const expectedOutput = '0.5 Hora';
-
-        const result = formatHours(inputHours);
-
-        expect(result).toBe(expectedOutput);
-      });
-      it('0 input', () => {
-        const inputHours = 0;
-        const expectedOutput = '- Hora';
-
-        const result = formatHours(inputHours);
-
-        expect(result).toBe(expectedOutput);
-      });
+  describe('convertMsToTime', () => {
+    it('should convert milliseconds to time format (mm:ss)', () => {
+      expect(convertMsToTime(0)).toBe('00:00');
+      expect(convertMsToTime(5000)).toBe('00:05');
+      expect(convertMsToTime(60000)).toBe('01:00');
+      expect(convertMsToTime(120000)).toBe('02:00');
+      expect(convertMsToTime(3600000)).toBe('60:00');
     });
+
+    it('should handle negative input gracefully', () => {
+      expect(convertMsToTime(-1000)).toBe('00:00');
+      expect(convertMsToTime(-50000)).toBe('00:00');
+    });
+  });
+
+  describe('formatHours', () => {
+    it('should format hours correctly', () => {
+      const inputHours = 1;
+      const expectedOutput = '1 Hora';
+
+      const result = formatHours(inputHours);
+
+      expect(result).toBe(expectedOutput);
+    });
+      it('should format hours correctly', () => {
+      const inputHours = 2;
+      const expectedOutput = '2 Horas';
+
+      const result = formatHours(inputHours);
+
+      expect(result).toBe(expectedOutput);
+      });
+    it('input of something else that is not a number', () => {
+      const inputHours = 'a';
+      const expectedOutput = '- Hora';
+
+      const result = formatHours(inputHours);
+
+      expect(result).toBe(expectedOutput);
+    });
+    it('negative input', () => {
+      const inputHours = -5;
+      const expectedOutput = '- Hora';
+
+      const result = formatHours(inputHours);
+
+      expect(result).toBe(expectedOutput);
+    });
+    it('float input', () => {
+      const inputHours = 1.5;
+      const expectedOutput = '1.5 Horas';
+
+      const result = formatHours(inputHours);
+
+      expect(result).toBe(expectedOutput);
+    });
+    it('float input under 1', () => {
+      const inputHours = 0.5;
+      const expectedOutput = '0.5 Hora';
+
+      const result = formatHours(inputHours);
+
+      expect(result).toBe(expectedOutput);
+    });
+    it('0 input', () => {
+      const inputHours = 0;
+      const expectedOutput = '- Hora';
+
+      const result = formatHours(inputHours);
+
+      expect(result).toBe(expectedOutput);
+    });
+  });
 
 });
