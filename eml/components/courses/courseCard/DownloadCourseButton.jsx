@@ -15,7 +15,7 @@ const ANIMATION_STATES = {
  * DownloadCourseButton component displays a button that downloads a course
  * @returns {JSX.Element} - The DownloadCourseButton component
  */
-export default function ControllingAnimationProgress() {
+export default function DownloadCourseButton() {
     const animationRef = useRef(null);
     const [animationState, setAnimationState] = useState(ANIMATION_STATES.INITIAL);
 
