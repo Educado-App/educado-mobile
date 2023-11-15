@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import LottieView from 'lottie-react-native';
 import {Alert, TouchableWithoutFeedback} from 'react-native';
 import animationAsset from '../../../assets/animations/downloadAnimation.json';
+import PropTypes from 'prop-types';
 
 const ANIMATION_STATES = {
   INITIAL: 'initial',
@@ -15,7 +16,7 @@ const ANIMATION_STATES = {
  * DownloadCourseButton component displays a button that downloads a course
  * @returns {JSX.Element} - The DownloadCourseButton component
  */
-export default function DownloadCourseButton() {
+export default function DownloadCourseButton({disabled = false}) {
   const animationRef = useRef(null);
   const [animationState, setAnimationState] = useState(ANIMATION_STATES.INITIAL);
 
@@ -84,6 +85,9 @@ export default function DownloadCourseButton() {
 
   // TODO: Implement download functionality
   const handlePress = () => {
+    // Disable button if disabled prop is true
+    if (disabled) return;
+
     // For testing purposes - (simulate downloading a course)
     if (animationState === ANIMATION_STATES.INITIAL) {
       downloadConfirmation();
@@ -95,7 +99,7 @@ export default function DownloadCourseButton() {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={handlePress}>
+    <TouchableWithoutFeedback onPress={handlePress} disabled={disabled}>
       <LottieView
         ref={animationRef}
         source={animationAsset}
@@ -105,3 +109,7 @@ export default function DownloadCourseButton() {
     </TouchableWithoutFeedback>
   );
 }
+
+DownloadCourseButton.propTypes = {
+  disabled: PropTypes.bool,
+};
