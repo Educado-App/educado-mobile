@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { View, ScrollView, RefreshControl } from 'react-native';
+import { View, ScrollView, RefreshControl, Pressable } from 'react-native';
 import FilterNavBar from '../../components/explore/FilterNavBar';
 import ExploreCard from '../../components/explore/ExploreCard';
 import * as StorageService from '../../services/StorageService';
@@ -160,8 +160,17 @@ export default function Explore() {
               <MaterialCommunityIcons name="wifi-off" size={200} color="rgb(255,50,90)" style={{ alignSelf: 'center' }} />
               <Text className="text-error text-center font-montserrat-bold text-[26px]">
                 {/* You are offline. Connect to the internet to explore the courses. */}
-                {"\n"} Não é possível conectar ao servidor.{"\n"}Por favor, verifique sua conexão com a internet.
+                {"\n"} Você está sem internet, vá para Meus cursos e acesse os seus cursos baixados. {"\n"}
               </Text>
+              <View className="items-center">
+                <Pressable
+                  testID={"offlineExploreButton"}
+                  className="rounded-r-8 rounded-md bg-primary justify-center items-center p-2 h-[52] w-[330] "
+                  onPress={() => navigation.navigate('Central')}>
+                  {/* Click to explore courses */}
+                  <Text className="text-projectWhite font-sans-bold text-center text-body" >Ir para Meus cursos</Text>
+                </Pressable>
+              </View>
             </View>
           </View>
           :
