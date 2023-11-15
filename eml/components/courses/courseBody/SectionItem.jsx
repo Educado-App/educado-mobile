@@ -1,9 +1,9 @@
 // @flow
-import React, { useState, useEffect } from 'react'
-import { Pressable, View, Alert } from 'react-native'
-import PropTypes from 'prop-types'
-import { useIsFocused, useNavigation } from '@react-navigation/native'
-import { getNextExercise } from "../../../services/StorageService";
+import React, { useState, useEffect } from 'react';
+import { Pressable, View, Alert } from 'react-native';
+import PropTypes from 'prop-types';
+import { useNavigation } from '@react-navigation/native';
+import { getNextExercise } from '../../../services/StorageService';
 import Text from '../../general/Text';
 
 export default function SectionItem({ active, title, index, sectionId, courseId }) {
@@ -14,7 +14,7 @@ export default function SectionItem({ active, title, index, sectionId, courseId 
     courseId: PropTypes.string.isRequired,
     sectionId: PropTypes.string.isRequired,
     active: PropTypes.bool.isRequired
-  }
+  };
 
   const [isComplete, setIsComplete] = useState(false);
   const navigation = useNavigation();
@@ -23,7 +23,7 @@ export default function SectionItem({ active, title, index, sectionId, courseId 
     if (active) {
       return await getNextExercise(sectionId);
     }
-  }
+  };
 
   useEffect(() => {
     setIsComplete(false);
@@ -45,11 +45,11 @@ export default function SectionItem({ active, title, index, sectionId, courseId 
             navigation.navigate('Exercise', {
               sectionId: sectionId,
               courseId: courseId
-            })
+            });
           } else {
             Alert.alert('Section already completed!', 'Delete and re-download the course to try again.', [{
               text: 'Close',
-            }])
+            }]);
           }
         }}
       >
@@ -82,7 +82,7 @@ export default function SectionItem({ active, title, index, sectionId, courseId 
 
         </View>
       </Pressable>
-    )
+    );
   } else { //This is the course style for when the course is not active
     return (
 
@@ -90,7 +90,7 @@ export default function SectionItem({ active, title, index, sectionId, courseId 
         style={{ shadowColor: 'black', elevation: 10 }}
         className="w-max h-12 rounded-xl bg-gray-500 m-1"
         onPress={() => {
-          Alert.alert("The Course is not downloaded")
+          Alert.alert('The Course is not downloaded');
         }}
       >
         <View className="flex-row pt-3">
@@ -110,7 +110,7 @@ export default function SectionItem({ active, title, index, sectionId, courseId 
           </Text>
         </View>
       </Pressable>
-    )
+    );
   }
 }
 

@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { View, Pressable, Image, ScrollView, RefreshControl } from 'react-native';
 import Text from '../../components/general/Text';
-import * as StorageService from "../../services/StorageService";
+import * as StorageService from '../../services/StorageService';
 import CourseCard from '../../components/courses/courseCard/CourseCard';
 import BaseScreen from '../../components/general/BaseScreen';
 import IconHeader from '../../components/general/IconHeader';
@@ -18,63 +18,63 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function CourseScreen() {
 
-    /**
+  /**
     * React hook that declares a state variable for courses and a function to update it.
     * @typedef {[Object[], function]} CourseState
     * @returns {CourseState} The state variable and its updater function.
     */
-    const [courses, setCourses] = useState([]);
-    const [courseLoaded, setCourseLoaded] = useState(false);
-    const [refreshing, setRefreshing] = useState(false);
-    const navigation = useNavigation()
+  const [courses, setCourses] = useState([]);
+  const [courseLoaded, setCourseLoaded] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+  const navigation = useNavigation();
 
-    /**
+  /**
      * Determines if the two arrays of courses are different and require an update.
      * @param {Array} courses1 - The first array of courses, typically representing the current state.
      * @param {Array} courses2 - The second array of courses, typically representing the new fetched data.
      * @returns {boolean} - Returns true if the two arrays are different and an update is required, otherwise false.
      */
 
-    /**
+  /**
     * Asynchronous function that loads the courses from storage and updates the state.
     * @returns {void}
     */
-    async function loadCourses() {
-        const courseData = await StorageService.getSubCourseList();
-        if (shouldUpdate(courses, courseData)) {
-            if (courseData.length !== 0 && Array.isArray(courseData)) {
-                setCourses(courseData);
-                setCourseLoaded(true);
-            }
-            else {
-                setCourses([]);
-                setCourseLoaded(false);
-            }
-        } 
+  async function loadCourses() {
+    const courseData = await StorageService.getSubCourseList();
+    if (shouldUpdate(courses, courseData)) {
+      if (courseData.length !== 0 && Array.isArray(courseData)) {
+        setCourses(courseData);
+        setCourseLoaded(true);
+      }
+      else {
+        setCourses([]);
+        setCourseLoaded(false);
+      }
     }
+  }
 
-    // When refreshing the loadCourses function is called
-    const onRefresh = () => {
-        setRefreshing(true);
-        loadCourses();
-        setRefreshing(false);
-    };
+  // When refreshing the loadCourses function is called
+  const onRefresh = () => {
+    setRefreshing(true);
+    loadCourses();
+    setRefreshing(false);
+  };
 
-    useEffect(() => {
-        // this makes sure loadcourses is called when the screen is focused
-        const update = navigation.addListener('focus', () => {
-            loadCourses();
-        });
-        return update;
-    }, [navigation]);
+  useEffect(() => {
+    // this makes sure loadcourses is called when the screen is focused
+    const update = navigation.addListener('focus', () => {
+      loadCourses();
+    });
+    return update;
+  }, [navigation]);
 
-    useEffect(() => {
-      ToastNotification('success', 'Logado!')
-    }, []);
+  useEffect(() => {
+    ToastNotification('success', 'Logado!');
+  }, []);
 
-    return (
-        <BaseScreen>
-            {/** Checks if the course(s) has been loaded
+  return (
+    <BaseScreen>
+      {/** Checks if the course(s) has been loaded
              * If it has, it will render and map the courses
              * If not, it will render a message saying that there are no active courses (in portugese)
              */}

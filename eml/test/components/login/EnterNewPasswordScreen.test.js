@@ -1,8 +1,8 @@
 import renderer from 'react-test-renderer';
-import React from "react";
-import EnterNewPasswordLayout from "../../../components/login/EnterNewPasswordScreen";
+import React from 'react';
+import EnterNewPasswordLayout from '../../../components/login/EnterNewPasswordScreen';
 
-test("Enter new password screen renders correctly", async () => {
+test('Enter new password screen renders correctly', async () => {
   let newPasswordLayout;
   await renderer.act(() => {
     newPasswordLayout = renderer.create(<EnterNewPasswordLayout />);
@@ -12,10 +12,10 @@ test("Enter new password screen renders correctly", async () => {
   expect(tree).toMatchSnapshot();
 });
 
-test("toggleShowPassword toggles password visibility correctly", async () => {
+test('toggleShowPassword toggles password visibility correctly', async () => {
   const newPasswordLayout = renderer.create(<EnterNewPasswordLayout />);
-  const textField = newPasswordLayout.root.findByProps({ label: "Nova senha" });
-  const button = newPasswordLayout.root.findByProps({ id: "showPasswordEye" });
+  const textField = newPasswordLayout.root.findByProps({ label: 'Nova senha' });
+  const button = newPasswordLayout.root.findByProps({ id: 'showPasswordEye' });
 
   expect(textField.props.secureTextEntry).toBeTruthy();
   await renderer.act(() => {
