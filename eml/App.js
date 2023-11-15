@@ -114,7 +114,7 @@ export default function App() {
         <IconRegistry icons={EvaIconsPack} />
         <ApplicationProvider {...eva} theme={eva.light}>
           <NavigationContainer>
-            <Stack.Navigator initialRouteName={"CompleteCourseScreen"}>
+            <Stack.Navigator initialRouteName={'CompleteCourseScreen'}>
             <Stack.Screen
                 name="tempStack"
                 component={CompleteCourseScreen}

@@ -1,14 +1,21 @@
 import React, { useRef } from 'react';
 import { View } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
-import CompleteSectionText from '../../constants/CompleteCourseText';
 import Slick from 'react-native-slick';
-import Text from '../general/Text';
+import Congratulation from './Congratulation';
+import StatsOverview from './StatsOverview';
+import Certification from './Certification';
 
 export default function CompleteCourseSlider() {
   const slick = useRef(null);
-  const tailwindConfig = require('../../tailwind.config.js');
+  const tailwindConfig = require('../../../tailwind.config.js');
   const projectColors = tailwindConfig.theme.colors;
+
+  const screens = [
+    <Congratulation />,
+    <StatsOverview />,
+    <Certification />,
+  ];
 
   return (
     <Slick
@@ -41,22 +48,9 @@ export default function CompleteCourseSlider() {
         </Svg>
       }
     >
-      {CompleteSectionText.map((sections, index) => (
-        <View key={index} className="relative h-full px-10 items-center">
-
-          <View className="top-0 px-4">
-            <Text className="text-center font-sans-bold text-subheading">{sections.title}</Text>
-          </View>
-
-          <View className="absolute top-0 w-full h-full">
-          </View>
-
-          <View className="bottom-0 absolute pb-[27.5%] px-6">
-            <Text className="text-center text-body">{sections.description}</Text>
-          </View>
-
-        </View>
-      ))}
+    {screens.map((screen, index) => (
+      <View key={index}>{screen}</View>
+    ))}
     </Slick>
   );
 }
