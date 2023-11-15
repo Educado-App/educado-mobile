@@ -10,8 +10,19 @@ const USER_ID = '@userId';
 const USER_INFO = '@userInfo';
 
 export const getUserInfo = async () => {
-  const fetchedUserInfo = JSON.parse(await AsyncStorage.getItem(USER_INFO));
-  return fetchedUserInfo;
+  try {
+    const fetchedUserInfo = JSON.parse(await AsyncStorage.getItem(USER_INFO));
+    if (fetchedUserInfo === null) {
+      throw new Error('Cannot fetch user info from async storage');
+    }
+    return fetchedUserInfo;
+  } catch (e) {
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
 };
 
 /** COURSE AND COURSE LIST **/
