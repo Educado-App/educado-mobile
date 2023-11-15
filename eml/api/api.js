@@ -11,19 +11,45 @@ const url = 'http://localhost:8888'; // change to lcd ip when testing
 
 /*** COURSE, SECTIONS AND EXERCISES ***/
 
+//This function is not used in this version of dev
 export const getCourseByid = async (courseId) => {
-  const res = await axios.get(url + '/api/courses/' + courseId);
-  return res.data;
+  try {
+    const res = await axios.get(url + '/api/courses/' + courseId);
+    return res.data;
+  } catch (e) {
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
 };
 
 export const getSectionByid = async (sectionId) => {
-  const res = await axios.get(url + '/api/sections/' + sectionId);
-  return res.data;
+  try {
+    const res = await axios.get(url + '/api/sections/' + sectionId);
+    return res.data;
+  } catch (e) {
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+
+  }
 };
 
 export const getExerciseByid = async (exerciseId) => {
-  const res = await axios.get(url + '/api/exercises/' + exerciseId);
-  return res.data;
+  try {
+    const res = await axios.get(url + '/api/exercises/' + exerciseId);
+    return res.data;
+  } catch (e) {
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
 };
 
 // Get specific course
