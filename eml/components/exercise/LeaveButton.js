@@ -7,7 +7,9 @@ import PropTypes from 'prop-types';
 const LeaveButton = ({ navigationPlace, courseId }) => {
   LeaveButton.propTypes = {
     navigationPlace: PropTypes.string.isRequired,
+    courseId: PropTypes.string,
   };
+  
   const navigation = useNavigation();
   return (
     <Button

@@ -1,15 +1,14 @@
 // Tests for utility functions used in ExploreCard.jsx, Explore.jsx and CourseCard.jsx
 
-
-
 import {
   getDifficultyLabel,
   determineCategory,
   determineIcon,
   getUpdatedDate,
+  formatHours,
 } from '../../services/utilityFunctions';
 
-describe('ExploreCard', () => {
+describe('Utility Functions', () => {
 
   describe('getDifficultyLabel', () => {
     it('should return "Iniciante" for level 1', () => {
@@ -117,5 +116,63 @@ describe('ExploreCard', () => {
     });
   });
 
+    describe('formatHours', () => {
+      it('should format hours correctly', () => {
+        const inputHours = 1;
+        const expectedOutput = '1 Hora';
+
+        const result = formatHours(inputHours);
+
+        expect(result).toBe(expectedOutput);
+      });
+        it('should format hours correctly', () => {
+        const inputHours = 2;
+        const expectedOutput = '2 Horas';
+
+        const result = formatHours(inputHours);
+
+        expect(result).toBe(expectedOutput);
+        });
+      it('input of something else that is not a number', () => {
+        const inputHours = 'a';
+        const expectedOutput = '- Hora';
+
+        const result = formatHours(inputHours);
+
+        expect(result).toBe(expectedOutput);
+      });
+      it('negative input', () => {
+        const inputHours = -5;
+        const expectedOutput = '- Hora';
+
+        const result = formatHours(inputHours);
+
+        expect(result).toBe(expectedOutput);
+      });
+      it('float input', () => {
+        const inputHours = 1.5;
+        const expectedOutput = '1.5 Horas';
+
+        const result = formatHours(inputHours);
+
+        expect(result).toBe(expectedOutput);
+      });
+      it('float input under 1', () => {
+        const inputHours = 0.5;
+        const expectedOutput = '0.5 Hora';
+
+        const result = formatHours(inputHours);
+
+        expect(result).toBe(expectedOutput);
+      });
+      it('0 input', () => {
+        const inputHours = 0;
+        const expectedOutput = '- Hora';
+
+        const result = formatHours(inputHours);
+
+        expect(result).toBe(expectedOutput);
+      });
+    });
 
 });

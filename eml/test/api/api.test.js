@@ -118,7 +118,7 @@ describe('API Functions', () => {
       const userId = mockData.userData._id;
 
       mock
-        .onGet(`/api/users/${userId}/subscriptions`)
+        .onGet(`/api/students/${userId}/subscriptions`)
         .reply(200, { data: mockData.subscriptionData });
 
       axios.get.mockResolvedValue({ data: mockData.subscribeData, data: mockData.subscriptionData });
