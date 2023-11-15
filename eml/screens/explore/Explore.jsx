@@ -156,7 +156,7 @@ export default function Explore() {
         {!isOnline ?
           <View>
             <IconHeader title={"Explorar cursos"} />
-            <View className="justify-center p-2 pt-10">
+            <View className="justify-center p-2">
               <MaterialCommunityIcons name="wifi-off" size={200} color="rgb(255,50,90)" style={{ alignSelf: 'center' }} />
               <Text className="text-error text-center font-montserrat-bold text-[26px]">
                 {/* You are offline. Connect to the internet to explore the courses. */}
@@ -165,7 +165,7 @@ export default function Explore() {
               <View className="items-center">
                 <Pressable
                   testID={"offlineExploreButton"}
-                  className="rounded-r-8 rounded-md bg-primary justify-center items-center p-2 h-[52] w-[330] "
+                  className="rounded-r-8 rounded-md bg-primary justify-center items-center p-2 h-14 w-80"
                   onPress={() => navigation.navigate('Central')}>
                   {/* Click to explore courses */}
                   <Text className="text-projectWhite font-sans-bold text-center text-body" >Ir para Meus cursos</Text>
