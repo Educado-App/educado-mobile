@@ -71,7 +71,7 @@ export default function CourseScreen() {
     useEffect(() => {
       ToastNotification('success', 'Logado!')
     }, []);
-
+    
     return (
         <BaseScreen>
             <OfflineBanner />
@@ -84,7 +84,7 @@ export default function CourseScreen() {
                     <IconHeader title={"Bem Vindo!"} />
                     <ScrollView showsVerticalScrollIndicator={false} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
                         {courses.map((course, index) => (
-                            <CourseCard key={index} course={course}></CourseCard>
+                           <CourseCard key={index} course={course}></CourseCard>
                         )
                         )
                         }
