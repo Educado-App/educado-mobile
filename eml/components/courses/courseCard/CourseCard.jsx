@@ -6,7 +6,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import CustomProgressBar from '../../exercise/Progressbar';
 import tailwindConfig from '../../../tailwind.config';
 import { determineIcon, determineCategory, formatHours } from '../../../services/utilityFunctions';
-import DownloadCourseButton from "./DownloadCourseButton";
+import DownloadCourseButton from './DownloadCourseButton';
 import PropTypes from 'prop-types';
 
 /**
