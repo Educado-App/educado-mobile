@@ -94,7 +94,7 @@ export default function CourseScreen() {
                 :
                 <View className="bg-secondary justify-center items-center ">
                     <View className="pt-24 pb-16">
-                        <Image source={require('../../assets/logo.png')} className=" justify-center items-center" />
+                        <Image source={require('../../assets/images/logo.png')} className=" justify-center items-center" />
                     </View>
                     <View className=" justify-center items-center py-10 gap-10 ">
                         <View className=" justify-center items-center w-full h-auto  px-10">
