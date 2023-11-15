@@ -126,7 +126,7 @@ describe('API Functions', () => {
       const result = await getSubscriptions(userId);
 
       // Check that axios.get was called with the correct URL
-      expect(axios.get).toHaveBeenCalledWith(`${port}/api/students/${userId}/subscriptions`);
+      expect(axios.get).toHaveBeenCalledWith(`${port}/api/students/${userId}/subscriptions`, {"timeout": 1200});
       expect(result).toEqual(mockData.subscriptionData);
     });
 
