@@ -158,7 +158,7 @@ export default function EditProfile() {
       await deleteUser(id, LOGIN_TOKEN);
       navigation.navigate('LoginStack');
     } catch (error) {
-      console.log(error);
+      ShowAlert(errorSwitch(error));
     }
   };
 
