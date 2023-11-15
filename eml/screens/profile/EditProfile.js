@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {
   View,
   SafeAreaView,
+  Alert
 } from 'react-native';
 import { getCourses } from '../../api/api';
 import Text from '../../components/general/Text';
@@ -9,7 +10,7 @@ import ProfileNameCircle from '../../components/profile/ProfileNameCircle';
 import FormButton from '../../components/general/forms/FormButton';
 import ChangePasswordModal from '../../components/profileSettings/ChangePasswordModal';
 import FormTextField from '../../components/general/forms/FormTextField';
-import { updateUserFields } from '../../api/userApi';
+import { deleteUser, updateUserFields } from '../../api/userApi';
 import BackButton from '../../components/general/BackButton';
 import { useNavigation } from '@react-navigation/native'
 import { validateEmail, validateName } from '../../components/general/Validation';
@@ -17,7 +18,7 @@ import FormFieldAlert from '../../components/general/forms/FormFieldAlert';
 import { getUserInfo, setUserInfo, getJWT } from '../../services/StorageService';
 import ShowAlert from '../../components/general/ShowAlert';
 import errorSwitch from '../../components/general/errorSwitch';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 /**
  * Edit profile screen
@@ -122,7 +123,7 @@ export default function EditProfile() {
       lastName: fetchedLastName,
       email: fetchedEmail,
     }
-    // Change the updated profile, based on what fields has been changed to ensure we do not send unnecessary data
+    
     const updatedProfile = {
       ...fetchedProfile,
       ...(changedFields.firstName !== undefined ? { firstName: changedFields.firstName } : {}),
@@ -137,6 +138,27 @@ export default function EditProfile() {
       getProfile();
     } catch (error) {
       ShowAlert(errorSwitch(error));
+    }
+  };
+
+  const deleteAccountAlert = () =>
+  Alert.alert('Deletar conta', 'Tem certeza de que deseja excluir sua conta?', [
+    {
+      text: 'Não',
+      style: 'cancel'
+    },
+    { text: 'Sim', onPress: deleteAccount}
+  ])
+
+  const deleteAccount = async () => {
+    try {
+      const LOGIN_TOKEN = await getJWT();
+      const USER_INFO = '@userInfo';
+      await AsyncStorage.multiRemove([LOGIN_TOKEN, USER_INFO]);
+      await deleteUser(id, LOGIN_TOKEN);
+      navigation.navigate('LoginStack');
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -205,7 +227,10 @@ export default function EditProfile() {
           <ChangePasswordModal />
 
           <View className='flex flex-row justify-between items-center pt-12'>
-            <Text className='text-primary text-sm underline'>Excluir minha conta</Text>
+            <Text 
+              className='text-primary text-sm underline'
+              onPress={() => deleteAccountAlert()}  
+            >Excluir minha conta</Text>
             <FormButton
               onPress={() => saveUserInfo()}
               disabled={!validateInput()}
