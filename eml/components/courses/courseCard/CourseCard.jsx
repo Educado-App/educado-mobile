@@ -67,9 +67,9 @@ const checkDownload = async () => {
             </View>
         </Pressable>
         :
-        <View className="bg-projectGray">
+        <View>
         <Pressable testID="courseCard"
-            className="bg-projectWhite m-[3%] rounded-lg shadow-sm shadow-opacity-[0.3] elevation-[8] mx-[5%] p-[5%]"
+            className="opacity-50 bg-projectWhite m-[3%] rounded-lg shadow-sm shadow-opacity-[0.3] elevation-[8] mx-[5%] p-[5%]"
             onPress={() => {
              console.log('not downloaded')
             }}
