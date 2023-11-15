@@ -25,6 +25,13 @@ export default function ProfileComponent() {
 
   const navigation = useNavigation();
 
+  useEffect(() => {
+    const getInfo = navigation.addListener('focus', () => {
+      getProfile();
+    });
+    return getInfo;
+  }, [navigation]);
+
   const points = 87; // placeholder for the points that will be fetched eventually @SocialGamified
 
   /**
