@@ -2,6 +2,8 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Icon, Button } from '@rneui/base';
+import tailwindConfig from '../../tailwind.config';
+const projectColors = tailwindConfig.theme.colors;
 import PropTypes from 'prop-types';
 
 const LeaveButton = ({ navigationPlace, courseId }) => {
@@ -25,7 +27,7 @@ const LeaveButton = ({ navigationPlace, courseId }) => {
           size={25}
           name='chevron-left'
           type='material-community'
-          color='#383838'
+          color={projectColors.projectBlack}
         />
       }
     ></Button>
