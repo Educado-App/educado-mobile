@@ -27,7 +27,7 @@ export default function CompleteCourseScreen() {
 
           {/* Testing lottiefiles and Circle Progress Bar here */}
           <View className="flex flex-row w-screen justify-center items-center mb-[15%]">
-            <CircleProgressBar progress={50} radius={50} strokeWidth={10} color={'#383838'} />
+            <CircleProgressBar progress={50}/>
             <LottieView
                 className="z-10 absolute top-0 w-full"
                 source={require('../../assets/animations/CompleteCourse.json')}

@@ -1,8 +1,12 @@
 import React, { useEffect, useRef } from 'react';
-import { View, StyleSheet, Animated } from 'react-native';
+import { View, StyleSheet, Animated, Text } from 'react-native';
 import Svg, { Circle } from 'react-native-svg';
 
-const CircleProgressBar = ({ progress, radius, strokeWidth, color }) => {
+const CircleProgressBar = ({ progress }) => {
+  const radius = 70;
+  const strokeWidth = 10;
+  const color = '#383838';
+
   const animatedValue = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -11,7 +15,7 @@ const CircleProgressBar = ({ progress, radius, strokeWidth, color }) => {
       duration: 1000,
       useNativeDriver: false,
     }).start();
-  }, [progress]);
+  }, [progress, animatedValue]);
 
   const circumference = 2 * Math.PI * (radius - strokeWidth / 2);
 
@@ -36,13 +40,16 @@ const CircleProgressBar = ({ progress, radius, strokeWidth, color }) => {
           cx={radius}
           cy={radius}
           r={radius - strokeWidth / 2}
-          stroke="white" // Change this to match your background color
+          stroke="white"
           strokeWidth={strokeWidth}
           strokeDasharray={`${circumference} ${circumference}`}
           strokeLinecap="round"
           strokeDashoffset={animatedStrokeDashoffset}
         />
       </Svg>
+      <View style={styles.textContainer}>
+        <Text style={styles.text}>{`${Math.round(progress)}%`}</Text>
+      </View>
     </View>
   );
 };
@@ -51,6 +58,16 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  textContainer: {
+    ...StyleSheet.absoluteFillObject,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  text: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#383838',
   },
 });
 
