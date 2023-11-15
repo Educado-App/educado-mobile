@@ -187,7 +187,7 @@ export const ifSubscribed = async (userId, courseId) => {
 export const checkBackendOnline = async () => {
   let response;
   try {
-    const res = await axios.get(url + '/api/utility/online/');
+    const res = await axios.get(url + '/api/utility/online/', {timeout: 1200});
     response = res.data;
   } catch {
     response = false;
