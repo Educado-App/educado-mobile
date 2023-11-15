@@ -9,25 +9,22 @@ import { Icon } from '@rneui/themed';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import PopUp from '../../components/gamification/PopUp';
 import { StatusBar } from 'expo-status-bar';
+import { getExerciseByid, getSectionByid, getCourse } from '../../api/api';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { getExerciseByid } from '../../api/api';
+import { givePoints } from '../../services/utilityFunctions';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import PropTypes from 'prop-types';
 
-/**
- * Exercise screen component for displaying and handling exercises in a course.
- * @module ExerciseScreen
- * @param {string} givenId - The ID of the exercise (default: '65181a4f4c78b45368126ed7').
- * @returns {JSX.Element} React component for the exercise screen.
- */
+const USER_INFO = '@userInfo';
+const LOGIN_TOKEN = '@loginToken';
+let exercise;
+let section;
+
 // givenId is used for testing purposes, in the future an exercise object should be passed by the previous screen
-
-export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed8' }) {
-
-  const xp = Math.floor(Math.random() * (10 - 5 + 1)) + 5; // Replace with intricate point system
-
+export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7' }) {
   const navigation = useNavigation();
   const route = useRoute();
-  const tailwindConfig = require('../../tailwind.config.js');
+  const tailwindConfig = require('../../tailwind.config.js');	
   const projectColors = tailwindConfig.theme.colors;
 
   const [hasData, setHasData] = useState(false);
@@ -40,85 +37,63 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed8' })
   const [buttonText, setButtonText] = useState('Confirmar Resposta'); // Used to change the text of a button
   const [isPopUpVisible, setIsPopUpVisible] = useState(false); // Used to render the pop up
   const [isCorrectAnswer, setIsCorrectAnswer] = useState(false);
-  const [buttonClicked, setButtonClicked] = useState(false);
+  const [points, setPoints] = useState(10); 
 
   const handleAnswerSelect = (answerIndex) => {
     setSelectedAnswer(answerIndex);
   };
 
-  function handleSecondOnclick() {
-    navigation.navigate('Lecture', {
-      sectionId: '6540f6b3536b2b37a49457e0', // hardcoded for testing
-      courseId: '6540f668536b2b37a49457dc', // hardcoded for testing
-    });
+  async function retrieveUserInfoAndLoginToken() {
+    try {
+      // Retrieve the user info object and parse it from JSON
+      const userInfoString = await AsyncStorage.getItem(USER_INFO);
+      const userInfo = JSON.parse(userInfoString);
+      const loginToken = await AsyncStorage.getItem(LOGIN_TOKEN);
+
+      return { userInfo, loginToken };
+    } catch (error) {
+      // Handle errors here
+      console.error('Error retrieving data:', error);
+    }
   }
-  function handleReviewAnswer(selectedAnswer) {
+
+  async function handleReviewAnswer(selectedAnswer) {
     const continueText = 'Continuar';
+    const { userInfo, loginToken } = await retrieveUserInfoAndLoginToken();
+
     setIsCorrectAnswer(selectedAnswer);
 
     setButtonClassName(
       `bg-project${selectedAnswer ? 'Green' : 'Red'}`
     );
 
+
+    if (selectedAnswer) {
+      setPoints(await givePoints(userInfo, exerciseData._id, true, 10, loginToken));
+    } else {
+      setPoints(await givePoints(userInfo, exerciseData._id, false, 0, loginToken));
+    }
+
     setShowFeedback(true);
     setButtonText(continueText);
-
-    if (!buttonClicked) {
-      setButtonClicked(true);
-      setIsPopUpVisible(true);  
-    } else {
-      handleSecondOnclick();
+    if (buttonText !== continueText) {
+      setIsPopUpVisible(true);
     }
   }
-  const fetchData = async () => {
-    /* This is how the fetch data should look like,
-     * however, it is commented out as the API functions are not correctly implemented yet.
-     * They should be called through storage service, not directly.
-     * Title and other data should be set in storage service as well.
-     * For now, dummy data is used instead.
-     */
-
-    const exercise = await getExerciseByid(givenId);
-    setExerciseData(exercise);
-
-    setSectionData.title = 'Section 1 test';
-    setCourseData.title = 'Course 1 test';
-    setHasData(true);
-
-    /*
-    const exercise = await getExerciseByid(givenId);
-    if (exercise !== null) {
-      setExerciseData(exercise);
-      setHasData(true);
-    } else {
-
-      setHasData(false);
-      navigation.navigate('ErrorScreen');
-    }
-
-    const section = await getSectionByid(exercise.parentSection);
-    if (section !== null) {
-      setSectionData(section);
-      setHasData(true);
-    } else {
-      setHasData(false);
-      navigation.navigate('ErrorScreen');
-    }
-
-    const course = await getCourse(section.parentCourse);
-    if (course !== null) {
-      setCourseData(course);
-      setHasData(true);
-    } else {
-      setHasData(false);
-      navigation.navigate('ErrorScreen');
-    }
-
-    */
-
-  };
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setExerciseData(exercise = await getExerciseByid(givenId));
+        setSectionData(section = await getSectionByid(exercise.parentSection));
+        setCourseData(await getCourse(section.parentCourse));
+        setHasData(true);
+      } catch (error) {
+        console.log('Error fetching data:', error);
+        navigation.navigate('ErrorScreen');
+      }
+    };
+
     fetchData();
   }, [route.params]);
 
@@ -213,7 +188,7 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed8' })
       )}
 
       {isPopUpVisible ? (
-        <PopUp xpAmount={xp} isCorrectAnswer={isCorrectAnswer} />
+        <PopUp xpAmount={points} isCorrectAnswer={isCorrectAnswer} />
       ) : null}
 
       <ExerciseInfo courseId={courseData.title} sectionId={sectionData.title} />

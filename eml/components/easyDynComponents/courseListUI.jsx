@@ -23,4 +23,3 @@ CourseListUI.propTypes = {
   course: PropTypes.object,
   downloadState: PropTypes.object,
 };
-

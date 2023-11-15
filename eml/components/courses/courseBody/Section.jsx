@@ -4,6 +4,7 @@ import { Icon } from '@rneui/base';
 import { useNavigation } from '@react-navigation/native';
 import Text from '../../components/general/Text';
 import PropTypes from 'prop-types';
+
 export default function Section({
   SectionIcon,
   SectionText,

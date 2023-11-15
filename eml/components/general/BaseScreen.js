@@ -1,5 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
+import { AlertNotificationRoot } from 'react-native-alert-notification';
 import PropTypes from 'prop-types';
 
 /**
@@ -16,8 +17,10 @@ export default function BaseScreen({ children }) {
   };
 
   return (
-    <View className="flex-1 bg-secondary">
-      {children}
-    </View>
+    <AlertNotificationRoot>
+      <View className="flex-1 bg-secondary">
+        {children}
+      </View>
+    </AlertNotificationRoot>
   );
 }

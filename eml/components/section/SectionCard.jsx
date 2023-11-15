@@ -36,8 +36,12 @@ export default function SectionCard({ section }) {
      */
   const handleImagePress = () => {
 
-    navigation.navigate('Exercise');
+    navigation.navigate('Lecture', {
+      sectionId: section.sectionId,
+      courseId: section.parentCourseId,
+    });
   };
+
 
   return (
     <View>
@@ -79,4 +83,3 @@ export default function SectionCard({ section }) {
 SectionCard.propTypes = {
   section: PropTypes.object
 };
-

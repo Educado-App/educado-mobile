@@ -1,8 +1,8 @@
 import React from 'react';
 import tailwindConfig from '../../tailwind.config';
+import PropTypes from 'prop-types';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Pressable, View } from 'react-native';
-import PropTypes from 'prop-types';
 
 
 export default function IconButton({ size = 24, icon = 'menu', onClick, pressed = false }) {

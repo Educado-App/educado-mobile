@@ -4,7 +4,6 @@ import Text from '../general/Text';
 import PropTypes from 'prop-types';
 
 const ExerciseInfo = ({ courseId, sectionId }) => {
-
   return (
     <View className="items-start px-6 absolute bottom-10 z-10">
       <Text className="font-sans text-caption-small text-projectGray">

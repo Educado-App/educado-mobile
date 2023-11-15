@@ -9,7 +9,6 @@ export default function CourseTitleIcon({ title, courseIcon }) {
     courseIcon: PropTypes.string
   };
 
-
   return (
     <View style={styles.container}>
       <View>

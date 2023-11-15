@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ActivityIndicator } from 'react-native';
 import Swiper from 'react-native-swiper';
+import PropTypes from 'prop-types';
 import ProgressTopBar from './ProgressTopBar';
 import LectureScreen from './LectureScreen';
 import { getSectionAndLecturesBySectionId, getCourse } from '../../api/api';
 import tailwindConfig from '../../tailwind.config';
-import PropTypes from 'prop-types';
 
-/* progressPercentis commented out as it is not fully implemented yet and gives linting errors */
-
+/**
+ * when navigating to this page sectionId, courseId must be passed as parameters
+ * @param {} param0 
+ * @returns 
+ */
 export default function LectureSwipeScreen({ route }) {
   const { sectionId, courseId } = route.params;
   const [loading, setLoading] = useState(true);
-  //const [progressPercent, setProgressPercent] = useState(0);
   const [allLectures, setAllLectures] = useState([]);
   const [currentLectureType, setCurrentLectureType] = useState('text');
   const [index, setIndex] = useState(0);
@@ -25,13 +27,10 @@ export default function LectureSwipeScreen({ route }) {
         //TODO: get the first uncompleted lecture - set the initial index to that
         const initialIndex = 0;
         const courseData = await getCourse(courseId);
-        //const progressPercentage = Math.round(((initialIndex + 1) / sectionData.components.length) * 100);
-
 
         setAllLectures(sectionData.components);
         setCurrentLectureType(sectionData.components[initialIndex]?.video ? 'video' : 'text');
         setCourse(courseData);
-        //setProgressPercent(progressPercentage);
         setIndex(initialIndex);
         setLoading(false);
       } catch (error) {
@@ -46,8 +45,6 @@ export default function LectureSwipeScreen({ route }) {
     const currentLecture = allLectures[_index];
     const currentLectureType = currentLecture?.video ? 'video' : 'text';
     setCurrentLectureType(currentLectureType);
-    //const currentProgress = Math.round(((_index + 1) / allLectures.length) * 100);
-    //setProgressPercent(currentProgress);
     setIndex(_index);
   };
 
@@ -76,8 +73,8 @@ export default function LectureSwipeScreen({ route }) {
           loop={false}
           showsPagination={false}
         >
-          {allLectures.map((lecture) => (
-            <LectureScreen key={index} currentIndex={index} indexCount={allLectures.length} lectureObject={lecture} courseObject={course} />
+          {allLectures.map((lect, _index) => (
+            <LectureScreen key={_index} currentIndex={index} indexCount={allLectures.length} lectureObject={lect} courseObject={course} />
           ))}
         </Swiper>
       )}

@@ -95,9 +95,9 @@ const TextImageLectureScreen = ({ lecture, course }) => {
           if (paragraphs.length <= 2 || index !== paragraphs.length - 1) {
             return (
               index == 0 ?
-                <Text key={index} className="text-[18px] pt-4 px-4 text-primary">{paragraph}</Text>
+                <Text className="text-[18px] pt-4 px-4 text-primary">{paragraph}</Text>
                 :
-                <Text key={index} className="text-[18px] pt-4 px-4 text-projectGray">{paragraph}</Text>
+                <Text className="text-[18px] pt-4 px-4 text-projectGray">{paragraph}</Text>
             );
           }
           return null;
@@ -114,7 +114,7 @@ const TextImageLectureScreen = ({ lecture, course }) => {
       {
         // Rendering the last paragraph below the image if the array has more than two elements
         paragraphs && paragraphs.length > 2 &&
-                <Text className="text-[18px] px-4 text-projectGray">{paragraphs[paragraphs.length - 1]}</Text>
+        <Text className="text-[18px] px-4 text-projectGray">{paragraphs[paragraphs.length - 1]}</Text>
       }
     </ScrollView>
 

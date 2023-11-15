@@ -54,19 +54,19 @@ const validateEmail = (email) => {
  * @param {String} wordForName (e.g. 'Nome' or 'Sobrenome')
  * @returns {String} error message if name is invalid, empty string otherwise
  */
-const validateName = (name, wordForName='Nome') => {
+const validateName = (name, wordForName = 'Nome') => {
   const namePattern = /^(\p{L}+[- '])*\p{L}+$/u;
 
   if (name.length > 50) { // Check this number
     return `${wordForName} muito longo`; // Name too long
   }
-  if(name.length < 1) {
+  if (name.length < 1) {
     return `${wordForName} obrigatório`; // Name required
   }
-  if(!namePattern.test(name)) {
+  if (!namePattern.test(name)) {
     return `${wordForName} inválido`; // Invalid name
   }
-  
+
   return '';
 };
 

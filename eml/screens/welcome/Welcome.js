@@ -4,8 +4,6 @@ import { BgLinearGradient } from '../../constants/BgLinearGradient';
 import WelcomeSlider from '../../components/welcome/WelcomeSlider';
 import Text from '../../components/general/Text.js';
 import { useNavigation } from '@react-navigation/native';
-import logo from '../../assets/images/logo.png';
-
 
 export default function WelcomeScreen() {
 
@@ -18,7 +16,7 @@ export default function WelcomeScreen() {
           
           <View className="flex mb-[20%] pt-[30%]">
             <Image 
-              source={logo}
+              source={require('../../assets/images/logo.png')}
               className="w-[175.88] h-[25.54]"
             />
           </View>        
@@ -39,9 +37,9 @@ export default function WelcomeScreen() {
 
             <View className="mt-6">
               <TouchableOpacity 
-                onPress={() => { navigation.navigate('LoginStack', { screen: 'Register' }); }}
+                onPress={() => { navigation.navigate('LoginStack', { initialRoute: 'Register' }); }}
               >
-                <Text className="text-center font-sans-bold text-body underline">Cadastrar</Text>
+                <Text className="text-center font-sans-bold text-body underline">Cadastrer</Text>
               </TouchableOpacity>
             </View>
 
@@ -52,3 +50,4 @@ export default function WelcomeScreen() {
     </BgLinearGradient>
   );
 }
+

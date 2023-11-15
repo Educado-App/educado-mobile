@@ -9,8 +9,9 @@ const digitalOcean = 'http://207.154.213.68:8888';
 
 const url = 'http://localhost:8888'; // change to lcd ip when testing
 
-/*** COURS, SECTIONS AND EXERCISES ***/
+/*** COURSE, SECTIONS AND EXERCISES ***/
 
+//This function is not used in this version of dev
 export const getCourseByid = async (courseId) => {
   try {
     const res = await axios.get(url + '/api/courses/' + courseId);
@@ -135,7 +136,7 @@ export const getSubscriptions = async (userId) => {
     // but this is the only format where it works
     // passing user ID as request body for get request gives error
     const res = await axios.get(
-      url + '/api/users/' + userId + '/subscriptions'
+      url + '/api/students/' + userId + '/subscriptions'
     );
 
     return res.data;
@@ -191,11 +192,11 @@ export const ifSubscribed = async (userId, courseId) => {
     // passing user ID as request body for get request gives error
     const res = await axios.get(
       url +
-        '/api/users/subscriptions?user_id=' +
-        userId +
-        '&' +
-        'course_id=' +
-        courseId
+      '/api/students/subscriptions?user_id=' +
+      userId +
+      '&' +
+      'course_id=' +
+      courseId
     );
 
     return res.data;
@@ -264,7 +265,7 @@ export const getLectureById = async (lectureId) => {
       throw err;
     }
   }
-    
+
 };
 
 //CREATED BY VIDEOSTREAM TEAM

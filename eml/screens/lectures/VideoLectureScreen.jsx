@@ -1,4 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
+
+// For animating play button
+
 import { View, Pressable } from 'react-native';
 import Text from '../../components/general/Text';
 import VideoActions from '../../components/lectures/VideoActions';
@@ -10,6 +13,7 @@ import PropTypes from 'prop-types';
 
 
 export default function VideoLectureScreen({ lecture, course }) {
+
 
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false); // Keep track of playback status
@@ -24,6 +28,8 @@ export default function VideoLectureScreen({ lecture, course }) {
 
   };
 
+
+
   const [videoUrl, setVideoUrl] = useState(null);
 
   useEffect(() => {
@@ -36,10 +42,12 @@ export default function VideoLectureScreen({ lecture, course }) {
     setVideoUrl(_videoUrl);
   }, []);
 
-
-  useEffect(() => {
-
-  }, [videoRef]);
+  /* This block does nothing?
+    useEffect(() => {
+      if (videoRef.current) {
+      }
+    }, [videoRef]);
+  */
 
   const handlePress = () => {
 
@@ -57,8 +65,9 @@ export default function VideoLectureScreen({ lecture, course }) {
     setIsMuted(!isMuted);
   };
 
-  //check if video url is valid
+  /* check if video url is valid
   useEffect(() => {
+    const _videoUrl = getVideoDownloadUrl(lecture._id, "180p");
 
     //check for video url validity maybe not needed
     // fetch(_videoUrl, {
@@ -77,7 +86,7 @@ export default function VideoLectureScreen({ lecture, course }) {
     //         Alert.alert("Error", "The video is corrupted. Please try again later", "OK");
     //     });
   }, []);
-
+  */
 
 
 
@@ -175,4 +184,3 @@ VideoLectureScreen.propTypes = {
   lecture: PropTypes.object,
   course: PropTypes.object
 };
-

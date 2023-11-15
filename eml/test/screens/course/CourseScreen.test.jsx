@@ -18,6 +18,15 @@ jest.mock('../../../services/StorageService', () => ({
   getSubCourseList: jest.fn(),
 }));
 
+jest.mock('../../../components/general/BaseScreen', () => {
+  return jest.fn().mockImplementation(({ children }) => children);
+});
+
+// Mock the ToastNotification
+jest.mock('../../../components/general/ToastNotification', () => {
+  return jest.fn().mockImplementation(({ children }) => children);
+});
+
 const mockData = mockDataAsyncStorage();
 
 describe('CourseScreen', () => {

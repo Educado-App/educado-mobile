@@ -11,12 +11,12 @@ import PropTypes from 'prop-types';
  * @param time - Boolean value to determine to render the time label.
  * @returns {JSX.Element} - Returns a JSX element.
  */
-const CardLabel = ({title, icon, color = 'gray'}) => {
+const CardLabel = ({ title, icon, color = 'gray' }) => {
 
-  return ( 
+  return (
     <View className="flex-row items-center justify-start">
       <MaterialCommunityIcons name={icon} size={13} color={color} />
-      <Text className="pl-1 text-xs" style={{color: color}}>{title}</Text>
+      <Text className="pl-1 text-xs" style={{ color: color }}>{title}</Text>
     </View>
   );
 };
@@ -25,7 +25,6 @@ CardLabel.propTypes = {
   title: PropTypes.string,
   icon: PropTypes.string,
   color: PropTypes.string,
-  time: PropTypes.bool,
 };
- 
+
 export default CardLabel;

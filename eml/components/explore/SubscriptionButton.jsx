@@ -10,12 +10,12 @@ import PropTypes from 'prop-types';
  * @param course - The course object containing details of the course.
  * @returns {JSX.Element} - Returns a JSX element.
  */
-const SubscriptionButton = ({ course })  => {
+const SubscriptionButton = ({ course }) => {
   const navigation = useNavigation();
 
   const handlePress = () => {
     subscribe(course.courseId);
-    
+
     navigation.navigate('Section', {
       courseId: course.courseId,
     });
@@ -24,7 +24,7 @@ const SubscriptionButton = ({ course })  => {
   return (
     <View className="">
       <Pressable
-        onPress={handlePress} 
+        onPress={handlePress}
         className="w-full flex items-center justify-center rounded-lg bg-primary p-2"
       >
         <Text className="text-white p-1 font-bold">

@@ -40,7 +40,7 @@ const CustomRating = ({ rating = 0 }) => {
   return (
     noRating ? (
       <View className="w-full flex-row items-start justify-start">
-        <Text className="pl-1 text-xs text-projectGray">no ratings yet</Text>
+        <Text className="pl-1 text-xs text-projectGray">ainda sem avaliações</Text>
       </View>
     ) :
       <View className="w-full flex-row items-start justify-start">
@@ -53,6 +53,6 @@ const CustomRating = ({ rating = 0 }) => {
 
 CustomRating.propTypes = {
   rating: PropTypes.number,
-};  
+};
 
 export default CustomRating;

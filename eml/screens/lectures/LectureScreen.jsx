@@ -51,4 +51,3 @@ LectureScreen.propTypes = {
   currentIndex: PropTypes.number,
   indexCount: PropTypes.number,
 };
-

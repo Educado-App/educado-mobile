@@ -16,20 +16,8 @@ import WelcomeScreen from './screens/welcome/Welcome';
 import ProfileSettingsScreen from './screens/profile/ProfileSettings';
 import NavBar from './components/navBar/NavBar';
 import LectureSwipeScreen from './screens/lectures/LectureSwipeScreen';
-import ErrorScreen from './screens/errors/ErrorScreen';
 
 const Stack = createNativeStackNavigator();
-
-/**
- * Check if user is logged in, if not redirect to login screen
- * Commented out since it is not used ?
-
-const checkLogin = () => {
-	if (AsyncStorage.getItem('@login_token') === null) {
-		useNavigation().navigate('Login');
-	}
-};
- */
 
 function WelcomeStack() {
   return (
@@ -162,13 +150,6 @@ export default function App() {
               <Stack.Screen
                 name="Lecture"
                 component={LectureSwipeScreen}
-                options={{
-                  headerShown: false,
-                }}
-              />
-              <Stack.Screen
-                name="ErrorScreen"
-                component={ErrorScreen}
                 options={{
                   headerShown: false,
                 }}

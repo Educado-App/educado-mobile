@@ -12,10 +12,48 @@ import DeleteAccountButton from '../../components/profileSettings/deleteAccountB
 import ChangeFirstNameButton from '../../components/profileSettings/changeFirstNameButton';
 import ChangeLastNameButton from '../../components/profileSettings/changeLastNameButton';
 import ChangeEmailButton from '../../components/profileSettings/changeEmailButton';
-import logo from '../../assets/images/logo.png';
+
+// const USER_INFO = '@userInfo';
 
 export default function ProfileComponent() {
+  /*
+  const [id, setId] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
   
+
+  const getProfile = async () => {
+    try {
+      const fetchedProfile = JSON.parse(await AsyncStorage.getItem(USER_INFO));
+
+      /*
+      if (fetchedProfile !== null) {
+        setId(fetchedProfile.id);
+        setFirstName(fetchedProfile.firstName);
+        setLastName(fetchedProfile.lastName);
+        setEmail(fetchedProfile.email);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  const fetchCourses = async () => {
+    try {
+      const courseData = await getCourses();
+      setCourses(courseData);
+    } catch (error) {
+      console.error('Error fetching courses:', error);
+    }
+  }
+  
+
+  useEffect(() => {
+    getProfile();
+    //fetchCourses();
+  }, []);
+  */
 
   return (
     <BgLinearGradient>
@@ -23,18 +61,18 @@ export default function ProfileComponent() {
         <View className="justify-center items-center flex flex-col">
 
           <View className="flex p-10">
-            <View className="flex-row items-start justify-start w-screen pl-6">
-              <ReturnButton/>
+            <View className="flex-row">
+              <ReturnButton></ReturnButton>
               <Image
-                className = "h-[25.54] w-[175.88]"
-                source={logo}
+                className="h-[25.54] w-[175.88] right-5"
+                source={require('../../assets/images/logo.png')}
               />
             </View>
           </View>
 
           <View>
             <TouchableOpacity>
-              <ProfileImage/>
+              <ProfileImage />
             </TouchableOpacity>
           </View>
 

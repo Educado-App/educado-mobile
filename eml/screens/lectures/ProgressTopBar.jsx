@@ -1,11 +1,11 @@
 import React from 'react';
-import { View, Pressable} from 'react-native';
+import { View, Pressable } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import tailwindConfig from '../../tailwind.config';
 import PropTypes from 'prop-types';
 
-const ProgressTopBar = ({ lectureType, allLectures, currentLectureIndex }) => {
+const ProgressTopBar = ({ lectureType, allLectures, currentLectureIndex = '' }) => {
 
   const navigator = useNavigation();
 

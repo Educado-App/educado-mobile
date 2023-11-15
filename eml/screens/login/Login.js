@@ -12,6 +12,10 @@ import LoadingScreen from '../../components/loading/Loading';
 
 const LOGIN_TOKEN = '@loginToken';
 
+/**
+ * Login screen component containing a login form and possibilities of resetting password or registering a new user.
+ * @param {Object} props not used in this component as of now
+ */
 export default function Login() {
 
   const [loading, setLoading] = useState(true);

@@ -1,8 +1,11 @@
 import React, { forwardRef } from 'react';
+import PropTypes from 'prop-types';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import { Video } from 'expo-av';
+
+
+
 import tailwindConfig from '../../tailwind.config';
-import PropTypes from 'prop-types';
 
 const CustomExpoVideoPlayer = forwardRef(({ onStatusUpdate, videoUrl, isMuted = false, isPlaying = true }, ref) => {
   const screenWidth = Dimensions.get('window').width;
@@ -52,6 +55,6 @@ CustomExpoVideoPlayer.propTypes = {
   videoUrl: PropTypes.string,
   isMuted: PropTypes.bool,
   isPlaying: PropTypes.bool,
-};  
+};
 
 export default CustomExpoVideoPlayer;

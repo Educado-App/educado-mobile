@@ -7,23 +7,22 @@ import {
 import ProfileName from '../../components/profile/profileName';
 import LogOutButton from '../../components/profile/LogOutButton';
 import SettingsButton from '../../components/profile/settingsButton.js';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { BgLinearGradient } from '../../constants/BgLinearGradient';
-import { getUserInfo } from '../../services/StorageService';
 
+const USER_INFO = '@userInfo';
 
 export default function ProfileComponent() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
 
-
   const getProfile = async () => {
     try {
-      const fetchedProfile = await getUserInfo();
+      const fetchedProfile = JSON.parse(await AsyncStorage.getItem(USER_INFO));
 
       if (fetchedProfile !== null) {
-        setFirstName(fetchedProfile.firstName); 
+        setFirstName(fetchedProfile.firstName);
         setLastName(fetchedProfile.lastName);
-
       }
     } catch (e) {
       console.log(e);

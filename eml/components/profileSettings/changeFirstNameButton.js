@@ -10,7 +10,6 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { updateUserFields } from '../../api/userApi.js';
 import Text from '../general/Text';
-import { getUserInfo } from '../../services/StorageService.js';
 
 let LOGIN_TOKEN;
 const USER_INFO = '@userInfo';
@@ -26,7 +25,7 @@ export default function ProfileComponent() {
 
   const getProfile = async () => {
     try {
-      const fetchedProfile = await getUserInfo();	
+      const fetchedProfile = JSON.parse(await AsyncStorage.getItem(USER_INFO));
 
       if (fetchedProfile !== null) {
         setId(fetchedProfile.id);

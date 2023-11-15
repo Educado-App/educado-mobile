@@ -5,6 +5,7 @@ import { View } from 'react-native';
 import IconButton from './IconButton';
 import PropTypes from 'prop-types';
 
+
 export default function VideoActions({ isPlaying, isMuted, onPlayClick, onVolumeClick }) {
 
   const toggleExpanded = () => {

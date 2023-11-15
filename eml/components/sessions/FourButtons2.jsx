@@ -6,9 +6,9 @@ import { Audio } from 'expo-av';
 import PropTypes from 'prop-types';
 
 const voiceOvers = [
-  require('../../assets/questionExample1.mp3'),
-  require('../../assets/questionExample2.mp3'),
-  require('../../assets/voiceOverTest.mp3')
+  require('../../assets/sound/questionExample1.mp3'),
+  require('../../assets/sound/questionExample2.mp3'),
+  require('../../assets/sound/voiceOverTest.mp3')
 ];
 
 export default function FourButtons2({ correctAnswer, sendDataToParent }) {

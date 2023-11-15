@@ -5,7 +5,7 @@ import Text from '../../../components/general/Text';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import CustomProgressBar from '../../exercise/Progressbar';
 import tailwindConfig from '../../../tailwind.config';
-import { determineIcon, determineCategory } from '../../../services/utilityFunctions';
+import { determineIcon, determineCategory, formatHours } from '../../../services/utilityFunctions';
 import PropTypes from 'prop-types';
 
 /**
@@ -28,9 +28,7 @@ export default function CourseCard({ course }) {
     >
       <View>
         <View className="flex-row items-start justify-between px-[1%] py-[1%]">
-          <MaterialCommunityIcons size={28}
-            name={course.image ? course.image : 'school'}> </MaterialCommunityIcons>
-          <Text className="text-[18px] text-black flex-1 self-center">
+          <Text className="text-[18px] text-black flex-1 self-center font-montserrat-semi-bold">
             {course.title ? course.title : 'Título do curso'}
           </Text>
         </View>
@@ -42,7 +40,7 @@ export default function CourseCard({ course }) {
           </View>
           <View className="flex-row items-center">
             <MaterialCommunityIcons size={18} name="clock" color={'gray'}></MaterialCommunityIcons>
-            <Text className="mx-[2.5%] my-[3%]">{course.estimatedHours ? course.estimatedHours + ' hora(s)' : 'duração'}</Text>
+            <Text className="mx-[2.5%] my-[3%]">{course.estimatedHours ? formatHours(course.estimatedHours) : 'duração'}</Text>
           </View>
         </View>
         <View className="flex-row items-center">
@@ -62,6 +60,8 @@ export default function CourseCard({ course }) {
     </Pressable>
   );
 }
+
+
 
 CourseCard.propTypes = {
   course: PropTypes.oneOfType([

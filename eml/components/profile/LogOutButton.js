@@ -3,22 +3,27 @@ import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const LOGIN_TOKEN = '@loginToken';
 const USER_INFO = '@userInfo';
 
-export default function LogOutButton() {
-	
+export default function LogOutButton(props) {
+  LogOutButton.propTypes = {
+    testID: PropTypes.string,
+  };
 
   const navigation = useNavigation();
 
   async function logOut() {
+    try {
+      await AsyncStorage.removeItem(LOGIN_TOKEN);
+      await AsyncStorage.removeItem(USER_INFO);
 
-    await AsyncStorage.removeItem(LOGIN_TOKEN);
-    await AsyncStorage.removeItem(USER_INFO);
-
-    navigation.navigate('Login');
-
+      navigation.navigate('Login');
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   const logoutAlert = () =>
@@ -39,7 +44,7 @@ export default function LogOutButton() {
             name="logout"
             size={40}
             color="white"
-
+            testID={props.testID}
           />
         </View>
       </TouchableOpacity>

@@ -1,5 +1,3 @@
-
-
 import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import TestComponent from '../../components/test/TestComponent';

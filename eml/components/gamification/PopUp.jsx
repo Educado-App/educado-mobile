@@ -11,6 +11,7 @@ export default function PopUp({ xpAmount, isCorrectAnswer }) {
   const animatedXpValue = new Animated.Value(0);
   const opacityValue = new Animated.Value(1);
   const [randomPhrase, setRandomPhrase] = useState('');
+  console.log(xpAmount);
 
   const getRandomPhrase = (firstName) => {
     let randomIndex = 0;
@@ -92,13 +93,13 @@ export default function PopUp({ xpAmount, isCorrectAnswer }) {
 
   useEffect(() => {
     fetchUserFirstName().then((firstName) => {
-      setRandomPhrase( getRandomPhrase(firstName));
+      setRandomPhrase(getRandomPhrase(firstName));
     });
   }, []);
 
   startPopUpAnimation();
   startXpAnimation();
-  
+
   return (
     <>
       {/* Pop Up */}
@@ -122,7 +123,7 @@ export default function PopUp({ xpAmount, isCorrectAnswer }) {
         </View>
 
         {isCorrectAnswer === true ?
-          <Text testID={'Xp'} className='font-sans-bold text-sm text-correctAnswer'>{xpAmount}xp</Text>
+          <Text testID={'Xp'} className='font-sans-bold text-sm text-correctAnswer'>{xpAmount}pts</Text>
           : null}
 
       </Animated.View>
@@ -153,7 +154,7 @@ export default function PopUp({ xpAmount, isCorrectAnswer }) {
             }}
             className="font-sans-bold text-lg text-correctAnswer text-center"
           >
-            {xpAmount}xp
+            {xpAmount}pts
           </Animated.Text>
         ) : null}
       </Animated.View></>

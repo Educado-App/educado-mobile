@@ -12,6 +12,7 @@ import SubscriptionCancel from '../../components/section/CancelSubscriptionButto
 import { unsubscribe } from '../../services/StorageService';
 import PropTypes from 'prop-types';
 
+
 /**
  * Section screen component that displays a list of sections for a given course.
  * @param {object} route - The route object containing the courseId parameter.
@@ -70,7 +71,6 @@ export default function SectionScreen({ route }) {
     Alert.alert('Cancelar subscrição', 'Tem certeza?', [
       {
         text: 'Não',
-        onPress: () => console.log('No Pressed'),
         style: 'cancel',
       },
       { text: 'Sim', onPress: () => { unsubscribe(courseId); setTimeout(() =>  {navigation.goBack();}, 300 ); }},
@@ -90,8 +90,6 @@ export default function SectionScreen({ route }) {
         {/* Spacer to push the Unsubscribe Button to the right */}
         <View style={{ flex: 1 }}></View>
 
-        {/* Unsubscribe Button */}
-        <SubscriptionCancel onPress={unsubAlert} />
       </View>
 
       {/* Conditionally render the sections if they exist */}
@@ -109,7 +107,8 @@ export default function SectionScreen({ route }) {
                 return <SectionCard key={i} section={section}></SectionCard>;
               })}
             </ScrollView>
-
+            {/* Unsubscribe Button */}
+            <SubscriptionCancel onPress={unsubAlert} />
           </View>
         )
       ) : null}

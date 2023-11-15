@@ -36,10 +36,12 @@ module.exports = {
     'react'
   ],
   'ignorePatterns': [
-    '**/*.test.js', '**/*.test.jsX', '**/*.spec.js', '**/*.spec.jsx',  '**/*.config.js', 'jestSetup.js',
+    '**/*.test.js', '**/*.test.jsX', '**/*.spec.js', '**/*.spec.jsx', '**/*.config.js', 'jestSetup.js',
   ],
   'rules': {
     'indent': ['error', 2],
+    'quotes': ['error', 'single'], // Specify single quotes
+    'semi': ['error', 'always'], // Require semicolons
   },
   'settings': {
     'react': {
