@@ -54,7 +54,7 @@ export default function ProfileComponent() {
       <ScrollView className='flex flex-col'>
         <View className="flex-1 justify-start pt-[20%] h-screen">
           <UserInfo firstName={firstName} lastName={lastName} email={email} points={points}></UserInfo>
-          <ProfileNavigationButton label='Editar perfil' onPress={() => navigation.navigate('EditProfile')}></ProfileNavigationButton>
+          <ProfileNavigationButton label='Editar perfil' testId={"editProfileNav"} onPress={() => navigation.navigate('EditProfile')}></ProfileNavigationButton>
           <ProfileNavigationButton label='Certificados'></ProfileNavigationButton>
           <ProfileNavigationButton label='Download'></ProfileNavigationButton>
           <View className='flex flex-row'>

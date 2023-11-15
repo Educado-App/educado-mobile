@@ -6,6 +6,16 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { FontAwesome5 } from '@expo/vector-icons';
 import tailwindConfig from '../../tailwind.config';
 
+
+/**
+ * Component for showing user information
+ * @param {Object} props should contain the following properties:
+ * - firstName: string
+ * - lastName: string
+ * - email: string
+ * - points: number
+ * @returns {React.Element} React component
+ */
 export default function UserInfo(props) {
   const tailwindColors = tailwindConfig.theme.colors;
 

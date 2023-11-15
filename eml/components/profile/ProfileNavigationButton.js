@@ -7,6 +7,13 @@ import React from 'react'
 import { Icon } from '@rneui/base';
 import tailwindConfig from "../../tailwind.config";
 
+/**
+ * Component for profile navigation buttons on profile page
+ * @param {Object} props should contain the following properties:
+ * - label: String
+ * - onPress: Function
+ * @returns {React.Element} JSX element
+ */
 export default function ProfileNavigationButton(props) {
 
   const tailwindColors = tailwindConfig.theme.colors;
