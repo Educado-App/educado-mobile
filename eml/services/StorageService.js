@@ -21,10 +21,11 @@ export const getUserInfo = async () => {
 /** COURSE AND COURSE LIST **/
 
 // get specific course  (This function is obsolete and is only used in test)
+    /*
 export const getCourseId = async (id) => {
   try {
     return await refreshCourse(id);
-  } catch (error) {
+  } catch (e) {
     // Check if the course already exists in AsyncStorage
     let course = JSON.parse(await AsyncStorage.getItem(COURSE));
     if (course !== null) {
@@ -37,6 +38,7 @@ export const getCourseId = async (id) => {
     }
   }
 };
+*/
 // (This function is obsolete and is only used in test)
 export const refreshCourse = async (id) => {
   return await api
@@ -59,7 +61,6 @@ export const getCourseList = async () => {
     try {
         courseList = await api.getCourses();
     } catch (e) {
-        console.log('Error fetching from storage ' + e);
         if (e?.response?.data != null) {
             throw e.response.data;
         } else {
@@ -105,7 +106,7 @@ export const refreshCourseList = async (courseList) => {
 
 // get all section for specific course
 export const getSectionList = async (course_id) => {
-    let sectionList;
+    let sectionList = null;
     try {
         sectionList = await api.getAllSections(course_id);
 
@@ -113,8 +114,8 @@ export const getSectionList = async (course_id) => {
         // Use locally stored section if they exist and the DB cannot be reached
       try {
         sectionList = JSON.parse(await AsyncStorage.getItem('S'+course_id));
+        throw unusedErrorMessage;
       } catch (e){
-          console.log('Error fetching from storage ' + e);
           if (e?.response?.data != null) {
               throw e.response.data;
           } else {
@@ -128,8 +129,8 @@ export const getSectionList = async (course_id) => {
 
 // Fits section data to new object with relevant fields
 export const refreshSectionList = async (sectionList) => {
+    let newSectionList = [];
     try {
-        let newSectionList = [];
         if (sectionList !== null) {
             for (const section of sectionList) {
                 newSectionList.push({
@@ -142,12 +143,17 @@ export const refreshSectionList = async (sectionList) => {
                 });
             }
         } else {
-            console.log('No data to be read in DB or local storage');
+            throw new error('No data to be read in DB or local storage');
         }
+    } catch (e) {
+        if (e?.response?.data != null) {
+            throw e.response.data;
+        } else {
+            throw e;
+        }
+    } finally {
         //Returns new fitted section list, or empty list if there was no data fetched from DB or Storage,
         return newSectionList;
-    }catch (e) {
-        throw e;
     }
 };
 
@@ -155,16 +161,16 @@ export const refreshSectionList = async (sectionList) => {
 
 // get all Lectures for specific section
 export const getLectureList = async (sectionID) => {
-    let lectureList;
+    let lectureList = null;
     try {
         lectureList = await api.getLecturesInSection(sectionID);
-
     } catch {
         // Use locally stored lectures if they exist and the DB cannot be reached
         try {
-            lectureList = JSON.parse(await AsyncStorage.getItem('L'+sectionID));
+            if ((lectureList = JSON.parse(await AsyncStorage.getItem('L'+sectionID))) === null){
+                throw new error('No data to be read in DB or local storage');
+            }
         } catch (e){
-            console.log('Error fetching from storage ' + e);
             if (e?.response?.data != null) {
                 throw e.response.data;
             } else {
@@ -179,17 +185,26 @@ export const getLectureList = async (sectionID) => {
 // Fits lecture data to new object with relevant fields
 const lectureFittingModel = async (lectureList) => {
     let newLectureList = [];
-    if (lectureList !== null) {
-        for (const lecture of lectureList) {
-            newLectureList.push(
-                lecture  // Replace with object model if needed (Se sections for reference)
-            );
+    try {
+        if (lectureList !== null) {
+            for (const lecture of lectureList) {
+                newLectureList.push(
+                    lecture  // Replace with object model if needed (Se sections for reference)
+                );
+            }
+        } else {
+            throw new error('No data to be read in DB or local storage');
         }
-    } else {
-        console.log('No data to be read in DB or local storage');
+    } catch (e){
+        if (e?.response?.data != null) {
+            throw e.response.data;
+        } else {
+            throw e;
+        }
+    } finally {
+        //Returns new fitted lecture list, or empty list if there was no data fetched from DB or Storage,
+        return newLectureList;
     }
-    //Returns new fitted lecture list, or empty list if there was no data fetched from DB or Storage,
-    return newLectureList;
 };
 
 // get images for a Lecture
@@ -201,9 +216,10 @@ export const fetchLectureImage = async (imageID, lectureID) => {
     } catch (unusedErrorMessage) {
         // Use locally stored lectures if they exist and the DB cannot be reached
         try {
-            image = JSON.parse(await AsyncStorage.getItem('I'+lectureID));
+            if((image = JSON.parse(await AsyncStorage.getItem('I'+lectureID))) === null){
+                throw unusedErrorMessage;
+            }
         } catch (e){
-            console.log('Error fetching from storage ' + e);
             if (e?.response?.data != null) {
                 throw e.response.data;
             } else {
@@ -219,16 +235,17 @@ export const fetchLectureImage = async (imageID, lectureID) => {
 
 // get all Exercises for specific section
 export const getExerciseList = async (sectionID) => {
-    let exerciseList;
+    let exerciseList = null;
     try {
         exerciseList = await api.getExercisesInSection(sectionID);
 
     } catch (unusedErrorMessage) {
         // Use locally stored exercises if they exist and the DB cannot be reached
         try {
-            exerciseList = JSON.parse(await AsyncStorage.getItem('E'+sectionID));
+            if((exerciseList = JSON.parse(await AsyncStorage.getItem('E'+sectionID))) === null){
+                throw unusedErrorMessage;
+            }
         } catch (e){
-            console.log('Error fetching from storage ' + e);
             if (e?.response?.data != null) {
                 throw e.response.data;
             } else {
@@ -243,17 +260,26 @@ export const getExerciseList = async (sectionID) => {
 // Fits exercise data to new object with relevant fields
 const exerciseFittingModel = async (exerciseList) => {
     let newExerciseList = [];
-    if (exerciseList !== null) {
-        for (const exercise of exerciseList) {
-            newExerciseList.push(
-                exercise  // Replace with object model if needed (Se sections for reference)
-            );
+    try {
+        if (exerciseList !== null) {
+            for (const exercise of exerciseList) {
+                newExerciseList.push(
+                    exercise  // Replace with object model if needed (Se sections for reference)
+                );
+            }
+        } else {
+            throw new error('No data to be read in DB or local storage');
         }
-    } else {
-        console.log('No data to be read in DB or local storage');
+    } catch (e){
+        if (e?.response?.data != null) {
+            throw e.response.data;
+        } else {
+            throw e;
+        }
+    } finally {
+        //Returns new fitted exercise list, or empty list if there was no data fetched from DB or Storage,
+        return newExerciseList;
     }
-    //Returns new fitted exercise list, or empty list if there was no data fetched from DB or Storage,
-    return newExerciseList;
 };
 
 
@@ -398,6 +424,7 @@ export const checkSubscriptions = async (courseId) => {
  * @returns {boolean} - Returns true if no errors was thrown during the storage and false if there was
  */
 export const storeCourseLocally = async (courseID) => {
+    let success = true;
     try {
         const course = await api.getCourse(courseID);
         await AsyncStorage.setItem(courseID + await AsyncStorage.getItem(USER_ID), JSON.stringify(course));
@@ -421,12 +448,16 @@ export const storeCourseLocally = async (courseID) => {
             let exerciseList = await api.getExercisesInSection(courseID, section._id);
             await AsyncStorage.setItem("E" + section._id, JSON.stringify(exerciseList));
         }
-
-        return true;
     } catch (e) {
-        console.log("Error in storeCourseLocally " + e);
-        await AsyncStorage.removeItem(courseID + await AsyncStorage.getItem(USER_ID));
-        return false;
+      success = false;
+      deleteLocallyStoredCourse(courseID);
+      if (e?.response?.data != null) {
+        throw e.response.data;
+      } else {
+        throw e;
+      }
+    } finally {
+      return success;
     }
 }
 
@@ -437,6 +468,7 @@ export const storeCourseLocally = async (courseID) => {
  * @returns {boolean} - Returns true if no errors was thrown during the deletion and false if there was
  */
 export const deleteLocallyStoredCourse = async (courseID) => {
+    let success = true;
     try {
         await AsyncStorage.removeItem(courseID + await AsyncStorage.getItem(USER_ID));
 
@@ -453,12 +485,17 @@ export const deleteLocallyStoredCourse = async (courseID) => {
                 //console.log('FILE DELETED');
             }
         }
-
-        return true;
     } catch (e) {
-        console.log("Error in deleteLocallyStoredCourse " + e);
-        return false;
+        success = false;
+        if (e?.response?.data != null) {
+            throw e.response.data;
+        } else {
+            throw e;
+        }
+    } finally {
+        return success;
     }
+
 }
 
 /**
@@ -467,14 +504,18 @@ export const deleteLocallyStoredCourse = async (courseID) => {
 export const updateStoredCourses = async () => {
     try {
         const subList = await getSubCourseList();
-        for (const e of subList) {
+        for (const subListElement of subList) {
             let course;
-            if ((course = JSON.parse(await AsyncStorage.getItem(e.courseId + await AsyncStorage.getItem(USER_ID)))) !== null && course.dateUpdated !== e.dateUpdated) {
-                storeCourseLocally(e.courseId);
+            if ((course = JSON.parse(await AsyncStorage.getItem(subListElement.courseId + await AsyncStorage.getItem(USER_ID)))) !== null && course.dateUpdated !== subListElement.dateUpdated) {
+                storeCourseLocally(subListElement.courseId);
             }
         }
-    }catch (e) {
-        console.log("Something went wrong in updateStoredCourses " + e);
+    } catch (e) {
+        if (e?.response?.data != null) {
+            throw e.response.data;
+        } else {
+            throw e;
+        }
     }
 }
 
