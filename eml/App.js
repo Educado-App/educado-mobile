@@ -14,9 +14,11 @@ import { isFontsLoaded } from './constants/Fonts';
 import LoadingScreen from './components/loading/Loading';
 import WelcomeScreen from './screens/welcome/Welcome';
 import ProfileSettingsScreen from './screens/profile/ProfileSettings';
-import CompleteSectionScreen from "./screens/section/CompleteSection";
+import CompleteSectionScreen from './screens/section/CompleteSection';
 import NavBar from './components/navBar/NavBar';
 import LectureSwipeScreen from './screens/lectures/LectureSwipeScreen';
+import CourseScreen from './screens/course/CourseScreen';
+import ErrorScreen from './screens/error/ErrorScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -56,7 +58,6 @@ function LoginStack() {
 }
 
 function CourseStack() {
-  checkLogin();
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -173,17 +174,17 @@ export default function App() {
                 options={{ headerShown: false }}
               />
               <Stack.Screen
-                name={"CourseStack"}
+                name={'CourseStack'}
                 component={CourseStack}
                 options={{ headerShown: false }}
               />
               <Stack.Screen
-                name={"Section"}
+                name={'Section'}
                 component={SectionScreen}
                 options={{ headerShown: false }}
               />
               <Stack.Screen
-                name={"CompleteSection"}
+                name={'CompleteSection'}
                 component={CompleteSectionScreen}
                 options={{ headerShown: false }}
               />

@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Image } from 'react-native';
-import Text from './Text'
-import OfflineBanner from "./OfflineBanner";
+import Text from './Text';
+import OfflineBanner from './OfflineBanner';
 import PropTypes from 'prop-types';
 
 /**

@@ -1,7 +1,5 @@
 import * as api from '../api/api.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import errorCodes from '../components/general/errorCodes';
-
 
 
 const COURSE_LIST = '@courseList';

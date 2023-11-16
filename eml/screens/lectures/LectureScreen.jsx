@@ -4,9 +4,11 @@ import VideoLectureScreen from './VideoLectureScreen';
 import TextImageLectureScreen from './TextImageLectureScreen';
 import StandardButton from '../../components/general/StandardButton';
 import PropTypes from 'prop-types';
+import { useNavigation } from '@react-navigation/native';
 
 export default function LectureScreen({ lectureObject, courseObject, currentIndex, indexCount }) {
 
+  const navigation = useNavigation();
   const [lecture, setLecture] = useState(lectureObject);
   const [progressPercent, setProgressPercent] = useState(null);
   useEffect(() => {
@@ -30,31 +32,31 @@ export default function LectureScreen({ lectureObject, courseObject, currentInde
       {lecture && course ?
         <View className="w-full h-full flex-col justify-center items-center">
 
-                    {lecture.video ?
-                        <VideoLectureScreen lecture={lecture} progress={progressPercent} course={course} />
-                        :
-                        <TextImageLectureScreen lecture={lecture} course={course} progress={progressPercent} />
-                    }
+          {lecture.video ?
+            <VideoLectureScreen lecture={lecture} progress={progressPercent} course={course} />
+            :
+            <TextImageLectureScreen lecture={lecture} course={course} progress={progressPercent} />
+          }
 
-                    {currentIndex === indexCount - 1 ?
-                    /* need to send course (courseObject._id) and section (lecture.parentSection) id to completeSection screen */
-                    <StandardButton
-                        props={{
-                            buttonText: "Continuar",
-                            onPress: () => {navigation.navigate('CompleteSection', 
-                            { courseId: courseObject._id, sectionId: lectureObject.parentSection }
-                            )}
-                        }}
-                    />
-                    : null
-                    }
+          {currentIndex === indexCount - 1 ?
+          /* need to send course (courseObject._id) and section (lecture.parentSection) id to completeSection screen */
+            <StandardButton
+              props={{
+                buttonText: 'Continuar',
+                onPress: () => {navigation.navigate('CompleteSection', 
+                  { courseId: courseObject._id, sectionId: lectureObject.parentSection }
+                );}
+              }}
+            />
+            : null
+          }
         </View>
-                :
-                <View className="w-full h-full items-center justify-center align-middle">
-                    <Text className="text-[25px] font-bold ml-[10]">loading...</Text>
-                </View>
+        :
+        <View className="w-full h-full items-center justify-center align-middle">
+          <Text className="text-[25px] font-bold ml-[10]">loading...</Text>
+        </View>
 
-            }
+      }
     </View>
   );
 }
