@@ -10,7 +10,6 @@ import IconHeader from '../../components/general/IconHeader';
 import { shouldUpdate, determineCategory } from '../../services/utilityFunctions';
 import Text from '../../components/general/Text';
 import LoadingScreen from '../../components/loading/Loading';
-import OfflineBanner from "../../components/general/OfflineBanner";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 /**
@@ -43,10 +42,10 @@ export default function Explore() {
       setIsOnline(await StorageService.checkIfOnline());
       setLoading(false);
     } catch (error) {
-      setLoading(false)
+      setLoading(false);
       throw error;
     }
-  }
+  };
   checkBackendConnection();
 
   /**
@@ -153,33 +152,33 @@ export default function Explore() {
     loading ? (<LoadingScreen />) : (
       <BaseScreen>
         <IconHeader
-          title={"Explorar cursos"}
-          description={"Inscreva-se nos cursos do seu interesse e comece sua jornada"}
+          title={'Explorar cursos'}
+          description={'Inscreva-se nos cursos do seu interesse e comece sua jornada'}
         />
         {!isOnline ?
           <View>
             <View className="justify-center px-1 pt-6">
               <MaterialCommunityIcons name="wifi-off" size={160} color="black" style={{ alignSelf: 'center' }} />
               <Text className="text-center font-montserrat-semi-bold text-[24px]">
-                {"\n"}Sem conexão com internet.
+                {'\n'}Sem conexão com internet.
               </Text>
               <View className="flex-row flex-wrap justify-center">
                 <Text className="text-center text-body">
                   {/* You are offline. Connect to the internet to explore the courses. */}
-                  {"\n"}Você está sem acesso a internet. Vá para
+                  {'\n'}Você está sem acesso a internet. Vá para
                 </Text>
                 <View className="flex-row flex-wrap justify-center">
                   <Text className="text-center text-body font-montserrat-bold">
                     meus cursos
                   </Text>
                   <Text className="text-center text-body">
-                    e acesse os cursos baixados.{"\n"}
+                    e acesse os cursos baixados.{'\n'}
                   </Text>
                 </View>
               </View>
               <View className="items-center pt-6">
                 <Pressable
-                  testID={"offlineExploreButton"}
+                  testID={'offlineExploreButton'}
                   className="rounded-r-8 rounded-md bg-primary justify-center items-center p-2 h-14 w-80"
                   onPress={() => navigation.navigate('Central')}>
                   {/* Click to explore courses */}

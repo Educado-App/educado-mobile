@@ -132,7 +132,7 @@ export const getExercisesInSection = async (courseId, sectionId) => {
 export const getExerciseBySectionId = async (sectionId) => {
   try {
     const res = await axios.get(
-      url + "/api/courses/" + sectionId + "/exercises"
+      url + '/api/courses/' + sectionId + '/exercises'
     );
     return res.data;
   } catch (e) {
@@ -153,7 +153,7 @@ export const getSubscriptions = async (userId) => {
     // but this is the only format where it works
     // passing user ID as request body for get request gives error
     const res = await axios.get(
-      url + "/api/students/" + userId + "/subscriptions",
+      url + '/api/students/' + userId + '/subscriptions',
       {timeout: 1200});
 
     return res.data;

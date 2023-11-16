@@ -27,7 +27,7 @@ export default function CourseScreen() {
   const [courseLoaded, setCourseLoaded] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [loading, setLoading] = useState(true);
-  const navigation = useNavigation()
+  const navigation = useNavigation();
 
   /**
      * Determines if the two arrays of courses are different and require an update.
@@ -85,8 +85,8 @@ export default function CourseScreen() {
         {courseLoaded ?
           <View height="100%">
             <IconHeader
-              title={"Bem Vindo!"}
-              description={"Aqui você encontra todos os cursos em que você está inscrito!"}
+              title={'Bem Vindo!'}
+              description={'Aqui você encontra todos os cursos em que você está inscrito!'}
             />
             <ScrollView showsVerticalScrollIndicator={false} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
               {courses.map((course, index) => (
@@ -110,7 +110,7 @@ export default function CourseScreen() {
               </View>
               <View>
                 <Pressable
-                  testID={"exploreButton"}
+                  testID={'exploreButton'}
                   className=" rounded-r-8 rounded-md bg-primary justify-center items-center py-4 w-full h-auto px-20 "
                   onPress={() => navigation.navigate('Explorar')}>
                   {/* Click to explore courses */}
@@ -121,5 +121,5 @@ export default function CourseScreen() {
           </View>
         }
       </BaseScreen>
-  )
+  );
 }

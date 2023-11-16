@@ -16,20 +16,20 @@ export default function IconHeader({ title, description }) {
     description: PropTypes.string,
   };
 
-    return (
-      <>
-        <OfflineBanner />
-        <View className="flex flex-row items-center pl-6 pb-2 pt-[20%]">
+  return (
+    <>
+      <OfflineBanner />
+      <View className="flex flex-row items-center pl-6 pb-2 pt-[20%]">
             
-            <Image
-                source={require('../../assets/images/singleIcon.png')}
-                alt="Icon"
-                className="w-8 h-8 mr-2"
-            />
-            <Text className="text-xl font-bold">{title}</Text>
+        <Image
+          source={require('../../assets/images/singleIcon.png')}
+          alt="Icon"
+          className="w-8 h-8 mr-2"
+        />
+        <Text className="text-xl font-bold">{title}</Text>
             
-        </View>
-        <Text className="text-xs font-montserrat px-6 pl-6 pb-4">{description}</Text>
-        </>
-    );
+      </View>
+      <Text className="text-xs font-montserrat px-6 pl-6 pb-4">{description}</Text>
+    </>
+  );
 }
