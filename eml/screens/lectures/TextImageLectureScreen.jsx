@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { View, Text } from 'react-native';
 import { Image } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { getBucketImage } from '../../api/api';
-import tailwindConfig from '../../tailwind.config';
 import PropTypes from 'prop-types';
 import * as StorageService from "../../services/StorageService";
 

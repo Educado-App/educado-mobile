@@ -19,8 +19,7 @@ const ANIMATION_STATES = {
  * @param {object} course - The course the button is on
  * @returns {JSX.Element} - The DownloadCourseButton component
  */
-export default function DownloadCourseButton(course) {
-    let disabled = false;
+export default function DownloadCourseButton(course, {disabled = false}) {
     const animationRef = useRef(null);
     const [animationState, setAnimationState] = useState(ANIMATION_STATES.INITIAL);
 
@@ -108,17 +107,14 @@ export default function DownloadCourseButton(course) {
       },
     ]);
 
-    const handlePress = () => {
-    // Disable button if disabled prop is true
-    if (disabled) return;
-
-    if (animationState === ANIMATION_STATES.INITIAL) {
-      downloadConfirmation();
-    }
-    if (animationState === ANIMATION_STATES.COMPLETED) {
-      removeDownloadConfirmation();
-    }
-  };
+  const handlePress = () => {
+      if (animationState === ANIMATION_STATES.INITIAL) {
+        downloadConfirmation();
+      }
+      if (animationState === ANIMATION_STATES.COMPLETED) {
+        removeDownloadConfirmation();
+      }
+    };
 
   return (
     <TouchableWithoutFeedback onPress={handlePress} disabled={disabled}>

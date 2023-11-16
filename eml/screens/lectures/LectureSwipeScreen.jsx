@@ -5,14 +5,11 @@ import { useNavigation } from '@react-navigation/native';
 
 import ProgressTopBar from './ProgressTopBar';
 import LectureScreen from './LectureScreen';
-import { getSectionAndLecturesBySectionId, getCourse } from '../../api/api';
 import tailwindConfig from '../../tailwind.config';
 import * as StorageService from "../../services/StorageService";
-
-import { getExerciseBySectionId } from '../../api/api';
 import ExerciseScreen from '../excercise/ExerciseScreen';
-
 import PropTypes from 'prop-types';
+
 
 /**
  * when navigating to this page sectionId, parsedCourse must be passed as parameters
@@ -22,7 +19,6 @@ import PropTypes from 'prop-types';
 export default function LectureSwipeScreen({ route }) {
     const { sectionId, parsedCourse } = route.params;
   const [loading, setLoading] = useState(true);
-  const [allLectures, setAllLectures] = useState([]);
   const [currentLectureType, setCurrentLectureType] = useState('text');
   const [index, setIndex] = useState(0);
   const [combinedLecturesAndExercises, setCombinedLecturesAndExercises] = useState([]);
@@ -36,7 +32,7 @@ export default function LectureSwipeScreen({ route }) {
                 const initialIndex = 0;
 
                 //get exercises
-                const _exercisesInSection = await getExerciseBySectionId(sectionId);
+                const _exercisesInSection = await StorageService.getExerciseList(sectionId);
                 const _lectures = sectionData;
                 let _combinedLecturesAndExercises = [];
 

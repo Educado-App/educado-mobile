@@ -112,7 +112,7 @@ export const getSection = async (courseId, sectionId) => {
 };
 
 // Get all exercises in a specific section:
-export const getExercisesInSection = async (courseId, sectionId) => {
+export const getExercisesInSection = async (sectionId) => {
   try {
     const res = await axios.get(
       //url + "/api/courses/" + courseId + "/sections/" + sectionId + "/exercises"
