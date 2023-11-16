@@ -68,45 +68,69 @@ export const loginUser = async (obj) => {
 };
 
 export const deleteUser = async (user_id, token) => {
-  const res = await client.delete('/api/users/' + user_id, {
-    headers: {
-      'Content-Type': 'application/json',
-      'token': token, // Include the token in the headers
-    },
-  });
-  return res.data;
+  try {
+    const res = await client.delete('/api/users/' + user_id, {
+      headers: {
+        'Content-Type': 'application/json',
+        'token': token, // Include the token in the headers
+        },
+    });
+    return res.data;
+  } catch (e) {
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
 };
 
 export const updateUserFields = async (user_id, updateFields, token) => {
-  const res = await client.patch(`/api/users/${user_id}`, updateFields, {
-    headers: {
-      'Content-Type': 'application/json',
-      'token': token, // Include the token in the headers
-    },
-  });
+  try{
+    const res = await client.patch(`/api/users/${user_id}`, updateFields, {
+      headers: {
+        'Content-Type': 'application/json',
+        'token': token, // Include the token in the headers
+      },
+    });
 
-  return res.data;
+    return res.data;
+  } catch (e) {
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
 };
 
 export const completeExercise = async (user_id, exercise_id, isComplete, points, token) => {
-  const res = await client.patch('/api/users/' + user_id + '/completed', { exerciseId: exercise_id, isComplete: isComplete, points: points }, {
-    headers: {
-      'Content-Type': 'application/json',
-      'token': token, // Include the token in the headers
-    },
-  });
+  try{
+    const res = await client.patch('/api/users/' + user_id + '/completed', { exerciseId: exercise_id, isComplete: isComplete, points: points }, {
+      headers: {
+        'Content-Type': 'application/json',
+        'token': token, // Include the token in the headers
+      },
+    });
 
-  // Extract the required fields from the response data
-  const { _id, firstName, lastName, email, completedCourses } = res.data;
+    // Extract the required fields from the response data
+    const { _id, firstName, lastName, email, completedCourses } = res.data;
 
-  // Return the specific fields
-  return {
-    id: _id,
-    firstName,
-    lastName,
-    email,
-    completedCourses
-  };
+    // Return the specific fields
+    return {
+      id: _id,
+      firstName,
+      lastName,
+      email,
+      completedCourses
+    };
+  } catch (e) {
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
 };
 
 export const enrollInCourse = async (user_Id, course_Id) => {
@@ -130,23 +154,43 @@ export const enrollInCourse = async (user_Id, course_Id) => {
         section.exercises.map((exercise) => exercise.isComplete)
       ),
     };
-  } catch (err) {
-    return err.message;
+  } catch (e) {
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
   }
 };
 
 export const updateCourseStatus = async (user_id, course_id) => {
-  // When user completes course it should update the user document from
-  // isComplete: false, to isComplete: true for that course
-  const res = await client.put('/api/eml/' + user_id + '/updateCourse/' + course_id);
-  return res.data;
+  try{
+    // When user completes course it should update the user document from
+    // isComplete: false, to isComplete: true for that course
+    const res = await client.put('/api/eml/' + user_id + '/updateCourse/' + course_id);
+    return res.data;
+  } catch (e) {
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
 };
 
 export const updateSectionStatus = async (user_id, course_id, section_id) => {
-  // When user completes section it should update the user document from
-  // isComplete: false, to isComplete: true for that section
-  const res = await client.put('/api/eml/' + user_id + '/updateSection/' + course_id + '/' + section_id);
-  return res.data;
+  try{
+    // When user completes section it should update the user document from
+    // isComplete: false, to isComplete: true for that section
+    const res = await client.put('/api/eml/' + user_id + '/updateSection/' + course_id + '/' + section_id);
+    return res.data;
+  } catch (e) {
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
 };
 
 export const updateExerciseStatus = async (
@@ -155,11 +199,19 @@ export const updateExerciseStatus = async (
   section_id,
   exercise_id
 ) => {
-  // When user completes an exercise it should update the user document from
-  // isComplete: false, to isComplete: true for that exercise
-  const res = await client.put('/api/eml/' + user_id + '/updateExercise/'
-    + course_id + '/' + section_id + '/' + exercise_id);
-  return res.data;
+  try{
+    // When user completes an exercise it should update the user document from
+    // isComplete: false, to isComplete: true for that exercise
+    const res = await client.put('/api/eml/' + user_id + '/updateExercise/'
+      + course_id + '/' + section_id + '/' + exercise_id);
+    return res.data;
+  } catch (e) {
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
 };
 
 /**
