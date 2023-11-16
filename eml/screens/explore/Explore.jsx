@@ -158,7 +158,6 @@ export default function Explore() {
         />
         {!isOnline ?
           <View>
-            <IconHeader title={"Explorar cursos"} />
             <View className="justify-center px-1 pt-6">
               <MaterialCommunityIcons name="wifi-off" size={160} color="black" style={{ alignSelf: 'center' }} />
               <Text className="text-center font-montserrat-semi-bold text-[24px]">
