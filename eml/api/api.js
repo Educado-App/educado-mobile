@@ -128,6 +128,23 @@ export const getExercisesInSection = async (courseId, sectionId) => {
   }
 };
 
+//CREATED BY VIDEOSTREAM TEAM
+//: get exercises in section by section id
+export const getExerciseBySectionId = async (sectionId) => {
+  try {
+    const res = await axios.get(
+      url + "/api/courses/" + sectionId + "/exercises"
+    );
+    return res.data;
+  } catch (e) {
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
+};
+
 // Get all lectures in a specific section:
 export const getLecturesInSection = async (sectionId) => {
   try {
@@ -227,11 +244,21 @@ export const ifSubscribed = async (userId, courseId) => {
 };
 // Call to backend to see if online
 export const checkBackendOnline = async () => {
-  const res = await axios.get(url + '/api/utility/online/');
-  return res.data;
+  let response;
+  try {
+    const res = await axios.get(url + '/api/utility/online/');
+    response = res.data;
+  } catch {
+    response = false;
+  }
+  return response;
 };
 
 //CREATED BY VIDEOSTREAM TEAM
+/*This will be improved in next pull request to handle getting different resolutions properly 
+with our new video streaming service in go.
+*/
+
 export const getVideoDownloadUrl = (fileName) => {
   
   const _vidUrl = `${url}/api/bucket/stream/${fileName}`;

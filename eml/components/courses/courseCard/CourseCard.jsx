@@ -7,6 +7,7 @@ import CustomProgressBar from "../../exercise/Progressbar";
 import tailwindConfig from "../../../tailwind.config";
 import DownloadCourseButton from "./DownloadCourseButton";
 import { determineIcon, determineCategory, formatHours } from '../../../services/utilityFunctions';
+import DownloadCourseButton from './DownloadCourseButton';
 import PropTypes from 'prop-types';
 
 /**
@@ -32,6 +33,9 @@ export default function CourseCard({ course }) {
           <Text className="text-[18px] text-black flex-1 self-center font-montserrat-semi-bold">
             {course.title ? course.title : 'Título do curso'}
           </Text>
+          <View className="flex-2 pr-6">
+            <DownloadCourseButton/>
+          </View>
         </View>
         <View className="h-[1] bg-disable m-[2%]" />
         <View className="flex-row flex-wrap items-center justify-start">
@@ -61,8 +65,6 @@ export default function CourseCard({ course }) {
     </Pressable>
   );
 }
-
-
 
 CourseCard.propTypes = {
   course: PropTypes.oneOfType([

@@ -8,6 +8,10 @@ const SECTION_LIST = '@sectionList';
 const COURSE = '@course';
 const USER_ID = '@userId';
 const USER_INFO = '@userInfo';
+let isOnline = true;
+
+
+
 
 export const getUserInfo = async () => {
   try {
@@ -422,6 +426,13 @@ export const checkSubscriptions = async (courseId) => {
     }
   }
 };
+
+// A function that calls the backed through the api just to test if it can be reached 
+export const checkIfOnline = async () => {
+  isOnline = await api.checkBackendOnline();
+  return isOnline;
+};
+
 
 /** Downloading course **/
 

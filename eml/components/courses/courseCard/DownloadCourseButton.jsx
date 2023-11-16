@@ -1,16 +1,18 @@
-import React, { useEffect, useRef, useState } from "react";
-import LottieView from "lottie-react-native";
-import {Alert, Pressable, View} from "react-native";
+import React, { useEffect, useRef, useState } from 'react';
+import LottieView from 'lottie-react-native';
+import {Alert, TouchableWithoutFeedback} from 'react-native';
+import animationAsset from '../../../assets/animations/downloadAnimation.json';
+import PropTypes from 'prop-types';
 import * as StorageService from "../../../services/StorageService";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ANIMATION_STATES = {
-    INITIAL: "initial",
-    DOWNLOADING: "downloading",
-    FINISHING: "finishing",
-    COMPLETED: "completed",
-    DELETE: "delete",
-}
+  INITIAL: 'initial',
+  DOWNLOADING: 'downloading',
+  FINISHING: 'finishing',
+  COMPLETED: 'completed',
+  DELETE: 'delete',
+};
 
 /**
  * DownloadCourseButton component displays a button that downloads a course
@@ -18,6 +20,7 @@ const ANIMATION_STATES = {
  * @returns {JSX.Element} - The DownloadCourseButton component
  */
 export default function DownloadCourseButton(course) {
+    let disabled = false;
     const animationRef = useRef(null);
     const [animationState, setAnimationState] = useState(ANIMATION_STATES.INITIAL);
 
@@ -30,44 +33,45 @@ export default function DownloadCourseButton(course) {
 
     storageCheck();
 
-    // Play animation based on animation state
-    // Hardcoded frame numbers are based on the animation
-    // https://lottiefiles.com/animations/download-ZdWE0VoaZW
+  // Play animation based on animation state
+  // Hardcoded frame numbers are based on the animation
+  // https://lottiefiles.com/animations/download-ZdWE0VoaZW
+  useEffect(() => {
+    if (animationRef.current) {
+      switch (animationState) {
+      case ANIMATION_STATES.INITIAL:
+        return animationRef.current.play(17, 17);
 
-    useEffect(() => {
-        switch (animationState) {
-            case ANIMATION_STATES.INITIAL:
-                return animationRef.current.play(17, 17);
+      case ANIMATION_STATES.DOWNLOADING:
+        return animationRef.current.play(18, 77);
 
-            case ANIMATION_STATES.DOWNLOADING:
-                return animationRef.current.play(18, 77);
+      case ANIMATION_STATES.FINISHING:
+        // 2333ms is the duration of the animation from frame 78 to 148
+        setTimeout(() => setAnimationState(ANIMATION_STATES.COMPLETED), 2333);
+        return animationRef.current.play(78, 148);
 
-            case ANIMATION_STATES.FINISHING:
-                // 2333ms is the duration of the animation from frame 78 to 148
-                setTimeout(() => setAnimationState(ANIMATION_STATES.COMPLETED), 2333);
-                return animationRef.current.play(78, 148);
+      case ANIMATION_STATES.COMPLETED:
+        return animationRef.current.play(149, 149);
 
-            case ANIMATION_STATES.COMPLETED:
-                return animationRef.current.play(149, 149);
+      case ANIMATION_STATES.DELETE:
+        // 1066ms is the duration of the animation from frame 110 to 78
+        setTimeout(() => setAnimationState(ANIMATION_STATES.INITIAL), 1066);
+        return animationRef.current.play(110, 78);
 
-            case ANIMATION_STATES.DELETE:
-                // 1066ms is the duration of the animation from frame 110 to 78
-                setTimeout(() => setAnimationState(ANIMATION_STATES.INITIAL), 1066);
-                return animationRef.current.play(110, 78);
+      default:
+        break;
+      }
+    }
+  }, [animationState]);
 
-            default:
-                break;
-        }
-    }, [animationState]);
-
-    const downloadConfirmation = () =>
-        Alert.alert("Baixar curso", "Deseja baixar este curso para acesso offline?", [
-            {
-                text: "Cancelar",
-                style: "cancel",
-            },
-            {
-                text: "Baixar",
+  const downloadConfirmation = () =>
+    Alert.alert('Baixar curso', 'Deseja baixar este curso para acesso offline?', [
+      {
+        text: 'Cancelar',
+        style: 'cancel',
+      },
+      {
+        text: 'Baixar',
                 onPress: async () => {
                     setAnimationState(ANIMATION_STATES.DOWNLOADING);
                     await StorageService.storeCourseLocally(course.course.courseId).then(result => {
@@ -79,18 +83,18 @@ export default function DownloadCourseButton(course) {
                         }
                     });
                 },
-            },
-        ]);
+      },
+    ]);
 
-    const removeDownloadConfirmation = () =>
-        Alert.alert("Remover curso", "Tem certeza de que deseja remover este curso baixado?", [
-            {
-                text: "Cancelar",
-                style: "cancel",
-            },
-            {
-                text: "Remover",
-                onPress: () => {
+  const removeDownloadConfirmation = () =>
+    Alert.alert('Remover curso', 'Tem certeza de que deseja remover este curso baixado?', [
+      {
+        text: 'Cancelar',
+        style: 'cancel',
+      },
+      {
+        text: 'Remover',
+        onPress: () => {
                     StorageService.deleteLocallyStoredCourse(course.course.courseId).then(result => {
                         if(result){
                             setAnimationState(ANIMATION_STATES.DELETE);
@@ -99,35 +103,35 @@ export default function DownloadCourseButton(course) {
                             setAnimationState(ANIMATION_STATES.DELETE);
                         }
                     });
+        },
+        style: 'destructive',
+      },
+    ]);
 
-                },
-                style: "destructive",
-            },
-        ]);
-
-    // TODO: Implement download functionality - DONE
-    // TODO: Change initial state based on if it have already been stored - DONE
     const handlePress = () => {
-        // For testing purposes - (simulate downloading a course)
-        if (animationState === ANIMATION_STATES.INITIAL) {
-            downloadConfirmation();
-        }
-        // For testing purposes (reset to initial state if completed)
-        if (animationState === ANIMATION_STATES.COMPLETED) {
-            removeDownloadConfirmation();
-        }
-    };
+    // Disable button if disabled prop is true
+    if (disabled) return;
 
-    return (
-        <Pressable
-            onPress={handlePress}
-            hitSlop={{ top: 30, bottom: 30, left: 30, right: 30 }}>
-            <LottieView
-                ref={animationRef}
-                source={require('../../../assets/animations/downloadAnimation.json')}
-                height={32}
-                width={24}
-            />
-        </Pressable>
-    );
+    if (animationState === ANIMATION_STATES.INITIAL) {
+      downloadConfirmation();
+    }
+    if (animationState === ANIMATION_STATES.COMPLETED) {
+      removeDownloadConfirmation();
+    }
+  };
+
+  return (
+    <TouchableWithoutFeedback onPress={handlePress} disabled={disabled}>
+      <LottieView
+        ref={animationRef}
+        source={animationAsset}
+        height={32}
+        width={24}
+      />
+    </TouchableWithoutFeedback>
+  );
 }
+
+DownloadCourseButton.propTypes = {
+  disabled: PropTypes.bool,
+};

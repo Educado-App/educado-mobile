@@ -649,6 +649,7 @@ describe('StorageService Functions', () => {
 
 
   /** Downloading course **/
+  
 
   describe('storeCourseLocally', () => {
     it('should store course locally and update AsyncStorage', async () => {
@@ -659,6 +660,7 @@ describe('StorageService Functions', () => {
       const mockLectureList = [{title: 'Lecture 1', _id: 'lecture_id', image: 'image_id'}];
       const mockImage = {image: 'image_id'};
       const mockExerciseList = [{title: 'Exercise 1', _id: 'exercise_id'}];
+ 
 
       jest.spyOn(api, 'getCourse').mockResolvedValueOnce(mockCourse);
       jest.spyOn(api, 'getAllSections').mockResolvedValueOnce(mockSectionList);
@@ -818,5 +820,34 @@ describe('StorageService Functions', () => {
     });
   });
 
+describe('checkIfOnline', () => {
+    beforeEach(() => {
+      jest.clearAllMocks();
+    });
+    
+    it('should check if it is online', async () => {
+      // Mock checkBackendOnline to return true
+      await api.checkBackendOnline.mockResolvedValue(true);
+
+      // calls checkIFOnline function
+      const result = await StorageService.checkIfOnline();
+
+      // Assert that the result is as expected
+      expect(result).toBe(true);
+
+    });
+
+    it('should check if it is not online', async () => {
+      // Mock checkBackendOnline to return true
+      await api.checkBackendOnline.mockResolvedValue(false);
+
+      // calls checkIFOnline function
+      const result = await StorageService.checkIfOnline();
+
+      // Assert that the result is as expected
+      expect(result).toBe(false);
+
+    });
+  });
 
 });
