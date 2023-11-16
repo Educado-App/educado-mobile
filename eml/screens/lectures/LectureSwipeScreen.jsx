@@ -39,6 +39,14 @@ export default function LectureSwipeScreen({ route }) {
         fetchData();
     }, [sectionId, parsedCourse]);
 
+    //This 
+    const handleIndexChange = (_index) => {
+        const currentLecture = allLectures[_index];
+        const currentLectureType = currentLecture?.video ? "video" : "text";
+        setCurrentLectureType(currentLectureType);
+        setIndex(_index);
+    };
+
   if (loading) {
     return (
       <View className="flex-col justify-center items-center" >
