@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { View, StyleSheet, Animated, Text } from 'react-native';
-import {Svg, Circle } from 'react-native-svg';
+import { Svg, Circle } from 'react-native-svg';
 
 const CircleProgressBar = ({ progress }) => {
   const radius = 70;
@@ -17,15 +17,18 @@ const CircleProgressBar = ({ progress }) => {
     }).start();
   }, [progress, animatedValue]);
 
-  const circumference = 2 * Math.PI * (radius - strokeWidth / 2);
+  const circumference = (2 * Math.PI * (radius - strokeWidth / 2)) * (progress/100);
+  console.log(circumference);
 
   const animatedStrokeDashoffset = animatedValue.interpolate({
     inputRange: [0, 100],
     outputRange: [circumference, 0],
   });
 
+  console.log("log: " + animatedStrokeDashoffset.inputRange + " " + animatedStrokeDashoffset.outputRange);
+
   return (
-    <View style={styles.container}>
+    <View className="align-middle justify-center">
       <Svg width={radius * 2} height={radius * 2}>
         <Circle
           cx={radius}
@@ -48,26 +51,17 @@ const CircleProgressBar = ({ progress }) => {
         />
       </Svg>
       <View style={styles.textContainer}>
-        <Text style={styles.text}>{`${Math.round(progress)}%`}</Text>
+        <Text className="font-sans-bold text-xl">{`${Math.round(progress)}%`}</Text>
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   textContainer: {
     ...StyleSheet.absoluteFillObject,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  text: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#383838',
   },
 });
 

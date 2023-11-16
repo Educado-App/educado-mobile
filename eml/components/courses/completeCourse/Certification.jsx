@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, TouchableOpacity } from 'react-native';
-import CircleProgressBar from './CircleProgressBar';
 import LottieView from 'lottie-react-native';
 import Text from '../../general/Text';
 
@@ -8,8 +7,7 @@ import Text from '../../general/Text';
 export default function Certification() {
   return (
     <View className="flex w-full h-full justify-start items-center">
-    {/* <CircleProgressBar progress={50}/> */}
-      <Text className="text-center font-sans-bold text-3xl text-primary">Você Recebeu um Certificado!</Text>
+      <Text className="text-center font-sans-bold text-3xl text-primary px-5">Você Recebeu um Certificado!</Text>
 
       <View className="h-80 w-full items-center">
         <LottieView
@@ -30,8 +28,7 @@ export default function Certification() {
         </TouchableOpacity>
       </View>
 
-      <Text className="text-center text-base text-projectBlack px-5 mt-8">Congrats, you have finished ... and have received a certification. You can view all your certifications on your profile.</Text>
+      <Text className="text-center text-base text-projectBlack px-5 mt-8">Parabéns, você concluiu o curso COURSE NAME e recebeu uma certificação. Você pode ver todas as suas certificações em seu perfil.</Text>
     </View>
   );
-
 }

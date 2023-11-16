@@ -15,17 +15,7 @@ export default function CompleteCourseScreen() {
     <BgLinearGradient>
       <SafeAreaView >
         <View className="justify-around items-center flex flex-col h-full w-full">
-          
-          <View className="items-center mb-[5%] pt-[5%]">
-            <Image 
-              source={require('../../assets/images/logo.png')}
-              className="w-44 h-6"
-            />
-          </View>
-
-          
-    
-          <View className="flex w-screen h-3/4 justify-center items-center">
+          <View className="flex w-screen h-5/6 justify-center items-center">
             <CompleteCourseSlider />
           </View>
 
