@@ -198,8 +198,12 @@ export default function EditProfile() {
               placeholder='Insira sua nome'
               value={firstName}
               onChangeText={(firstName) => {setFirstName(firstName); validateName(firstName);}}
+              testId='firstName'
             ></FormTextField>
-            <FormFieldAlert label={firstNameAlert}/>
+            <FormFieldAlert 
+              label={firstNameAlert}
+              testId='firstNameAlert'
+            />
           </View>
           <View className='mb-8'>
             <FormTextField
@@ -208,8 +212,12 @@ export default function EditProfile() {
               placeholder='Insira sua sobrenome'
               value={lastName}
               onChangeText={(lastName) => {setLastName(lastName); validateName(lastName);}}
+              testId='lastName'
             ></FormTextField>
-            <FormFieldAlert label={lastNameAlert}/>
+            <FormFieldAlert 
+              label={lastNameAlert}
+              testId='lastNameAlert'
+            />
           </View>
           <View className='mb-12'>
             <FormTextField
@@ -219,8 +227,12 @@ export default function EditProfile() {
               value={email}
               keyboardType="email-address"
               onChangeText={async (email) => {setEmail(email); validateEmail(email);}}
+              testId='email'
             ></FormTextField>
-            <FormFieldAlert label={emailAlert}/>
+            <FormFieldAlert 
+              label={emailAlert}
+              testId='emailAlert'
+            />
           </View>
 
           {/* Change password */}
