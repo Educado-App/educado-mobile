@@ -55,6 +55,48 @@ function LoginStack() {
   );
 }
 
+function CourseStack() {
+  checkLogin();
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Course"
+        component={CourseScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="CompleteSection"
+        component={CompleteSectionScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Exercise"
+        component={ExerciseScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Section"
+        component={SectionScreen}
+        initialParams={{ course_id: '' }}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ErrorScreen"
+        component={ErrorScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
 export function useWelcomeScreenLogic(loadingTime, onResult) {
 
   setTimeout(() => {
