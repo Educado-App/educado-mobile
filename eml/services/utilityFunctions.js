@@ -143,6 +143,7 @@ export function formatHours(number) {
   }
 }
 
+
 export async function givePoints(user, exercise_id, isComplete, points, token) {
   try {
     let obj;
@@ -210,23 +211,5 @@ function exerciseIsCompleteStatus(user, exerciseIdToCheck) {
   } catch(error) {
     console.log(error);
     throw error;
-  }
-}
-
-/**
- * Returns a string with the number and the correct form of "Hora/Horas" in Portuguese.
- * @param {number} number - The number of hours.
- * @returns {string} A string combining the number and either "Hora" (singular) or "Horas" (plural). Returns "- Hora" for non-numeric or negative inputs.
- */
-
-export function formatHours(number) {
-  if (typeof number !== "number" || isNaN(number) || number <= 0) {
-    return "- Hora";
-  }
-
-  if (number <= 1) {
-    return `${number} Hora`;
-  } else {
-    return `${number} Horas`;
   }
 }
