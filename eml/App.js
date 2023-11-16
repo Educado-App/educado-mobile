@@ -181,6 +181,7 @@ export default function App() {
               <Stack.Screen
                 name={'Section'}
                 component={SectionScreen}
+                initialParams={{ course_id: '' }}
                 options={{ headerShown: false }}
               />
               <Stack.Screen
