@@ -14,7 +14,11 @@ export const getUserInfo = async () => {
     const fetchedUserInfo = JSON.parse(await AsyncStorage.getItem(USER_INFO));
     return fetchedUserInfo;
   } catch (e) {
-    throw e;
+      if (e?.response?.data != null) {
+          throw e.response.data;
+      } else {
+          throw e;
+      }
   }
 };
 
@@ -38,7 +42,7 @@ export const getCourseId = async (id) => {
     }
   }
 };
-*/
+
 // (This function is obsolete and is only used in test)
 export const refreshCourse = async (id) => {
   return await api
@@ -54,7 +58,7 @@ export const refreshCourse = async (id) => {
       }
     });
 };
-
+*/
 // get all courses
 export const getCourseList = async () => {
     let courseList = [];;
@@ -428,8 +432,6 @@ export const storeCourseLocally = async (courseID) => {
     try {
         const course = await api.getCourse(courseID);
         await AsyncStorage.setItem(courseID + await AsyncStorage.getItem(USER_ID), JSON.stringify(course));
-        //console.log(courseID + await AsyncStorage.getItem(USER_ID));
-        //console.log(await AsyncStorage.getItem(courseID + await AsyncStorage.getItem(USER_ID)));
 
         const sectionList = await api.getAllSections(courseID);
         await AsyncStorage.setItem("S" + courseID, JSON.stringify(sectionList));
@@ -506,7 +508,9 @@ export const updateStoredCourses = async () => {
         const subList = await getSubCourseList();
         for (const subListElement of subList) {
             let course;
-            if ((course = JSON.parse(await AsyncStorage.getItem(subListElement.courseId + await AsyncStorage.getItem(USER_ID)))) !== null && course.dateUpdated !== subListElement.dateUpdated) {
+            if ((course = JSON.parse(await AsyncStorage.getItem(subListElement.courseId + await AsyncStorage.getItem(USER_ID)))) !== null
+                && course.dateUpdated !== subListElement.dateUpdated) {
+
                 storeCourseLocally(subListElement.courseId);
             }
         }

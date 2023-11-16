@@ -40,7 +40,6 @@ export function mockDataAsyncStorage() {
         published: true,
         status: 'published',
         rating: 3,
-        downloaded: false,
       }
     ],
     subscribedCourses2: [
@@ -55,7 +54,6 @@ export function mockDataAsyncStorage() {
         published: true,
         status: 'published',
         rating: 3,
-        downloaded: true,
       }
     ],
     sectionData: [
@@ -84,6 +82,18 @@ export function mockDataAsyncStorage() {
       description: 'this is a test section',
       components: [],
       total: 100,
-    }
+    },
+    course: {
+      title: 'Course math',
+      courseId: '651d3a15cda7d5bd2878dfc7',
+      description: 'Test',
+      category: 'Finanças pessoais',
+      estimatedHours: 10,
+      dateUpdated: '2023-10-04T10:10:29.897Z',
+      difficulty: 1,
+      published: true,
+      status: 'published',
+      rating: 0,
+    },
   };
 };
