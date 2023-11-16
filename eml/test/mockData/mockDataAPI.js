@@ -104,7 +104,7 @@ export function mockDataAPI () {
       },
     ],
     errorResponse: new Error('Error message'),
-  }
+  };
 }
 
 

@@ -2,11 +2,10 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CourseScreen from '../../screens/courses/CourseScreen';
 import Explore from '../../screens/explore/Explore';
-import TestScreen from '../../screens/test/TestScreen';
 import ProfileComponent from '../../screens/profile/Profile';
 import { Icon } from '@rneui/themed';
 import { Platform } from 'react-native';
-import tailwindConfig from "../../tailwind.config";
+import tailwindConfig from '../../tailwind.config';
 
 const Tab = createBottomTabNavigator();
 
@@ -47,7 +46,7 @@ export default function NavBar() {
               shadowRadius: 8,
             },
             android: {
-              paddingVertical: '2%',
+              paddingVertical: '4%',
               paddingHorizontal: '4%',
               paddingBottom: '2%',
               elevation: 4, // Add elevation for the shadow (Android-specific)
@@ -63,7 +62,7 @@ export default function NavBar() {
       }}
     >
       <Tab.Screen
-        name="Central"
+        name="Meus cursos"
         component={CourseScreen}
         options={{
           tabBarActiveBackgroundColor: tailwindConfig.theme.colors.cyanBlue,
