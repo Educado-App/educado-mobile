@@ -20,7 +20,7 @@ export default function IconHeader({ title, description }) {
         <View className="flex flex-row items-center pl-6 pb-2 pt-[20%]">
             
             <Image
-                source={require('../../assets/singleIcon.png')}
+                source={require('../../assets/images/singleIcon.png')}
                 alt="Icon"
                 className="w-8 h-8 mr-2"
             />
