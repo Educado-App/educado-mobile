@@ -24,13 +24,13 @@ const STUDENT_INFO = '@studentInfo';
  * @returns {React.Element} Component for logging in (login screen)
  */
 export default function LoginForm() {
-  
+
   const navigation = useNavigation();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
-  const [passwordAlert, setPasswordAlert] = useState("");
-  const [emailAlert, setEmailAlert] = useState("");
+  const [passwordAlert, setPasswordAlert] = useState('');
+  const [emailAlert, setEmailAlert] = useState('');
   // State variable to track password visibility
   const [showPassword, setShowPassword] = useState(false);
 
@@ -45,6 +45,7 @@ export default function LoginForm() {
         firstName: userInfo.firstName,
         lastName: userInfo.lastName,
         email: userInfo.email,
+        completedCourses: userInfo.completedCourses,
       };
 
       await AsyncStorage.setItem(USER_INFO, JSON.stringify(obj));
@@ -64,8 +65,8 @@ export default function LoginForm() {
   async function login(email, password) {
 
     //Reset alerts
-    setEmailAlert("");
-    setPasswordAlert("");
+    setEmailAlert('');
+    setPasswordAlert('');
 
     //The Object must be hashed before it is sent to backend (before loginUser() is called)
     //The Input must be conditioned (at least one capital letter, minimum 8 letters and a number etc.)
@@ -80,27 +81,27 @@ export default function LoginForm() {
       // Set login token in AsyncStorage and navigate to home screen
       await AsyncStorage.setItem(LOGIN_TOKEN, response.accessToken);
       await saveUserInfoLocally(response.userInfo);
-      navigation.navigate("HomeStack");
+      navigation.navigate('HomeStack');
     }).catch((error) => {
       switch (error?.error?.code) {
-        case 'E0004':
-          // No user exists with this email!
-          setEmailAlert("Não existe nenhum usuário com este email!");
-          break;
+      case 'E0004':
+        // No user exists with this email!
+        setEmailAlert('Não existe nenhum usuário com este email!');
+        break;
 
-        case 'E0105':
-          // Password is incorrect!
-          setPasswordAlert("Senha incorreta!");
-          break;
+      case 'E0105':
+        // Password is incorrect!
+        setPasswordAlert('Senha incorreta!');
+        break;
 
-        case 'E0003':
-          // Error connecting to server!
-          ShowAlert("Erro de conexão com o servidor!");
-          break;
+      case 'E0003':
+        // Error connecting to server!
+        ShowAlert('Erro de conexão com o servidor!');
+        break;
 
         // TODO: What error should we give here instead? Unknown error? 
-        default: // Errors not currently handled with specific alerts
-          ShowAlert("Erro desconhecido!");
+      default: // Errors not currently handled with specific alerts
+        ShowAlert('Erro desconhecido!');
       }
     });
   }
@@ -138,7 +139,7 @@ export default function LoginForm() {
           placeholder="Insira sua senha" // Type your password
           value={password}
           onChangeText={(inputPassword) => {
-            setPassword(removeEmojis(inputPassword, password))
+            setPassword(removeEmojis(inputPassword, password));
           }}
           label="Senha" // Password
           required={true}
@@ -155,7 +156,7 @@ export default function LoginForm() {
       <View>
         {/* TODO: tilføj onPress til nedenstående; reset password */}
         <Text
-          className={"text-right underline text-base text-black mb-15"}
+          className={'text-right underline text-base text-black mb-15'}
           onPress={() => setModalVisible(true)}
         >
           {/* reset your password? */}
@@ -171,7 +172,7 @@ export default function LoginForm() {
       />
       <View className="pt-10">
         <ResetPassword
-          className={(!modalVisible ? "hidden" : "")}
+          className={(!modalVisible ? 'hidden' : '')}
           modalVisible={modalVisible}
           onModalClose={closeModal}
           testId="resetPasswordModal"

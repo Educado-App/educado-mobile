@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Text from '../general/Text';
-import tailwindConfig from "../../tailwind.config";
+import tailwindConfig from '../../tailwind.config';
+import PropTypes from 'prop-types';
 
 /**
  * CustomRating component displays a star rating based on a number
@@ -10,7 +11,7 @@ import tailwindConfig from "../../tailwind.config";
  * @returns {JSX.Element} - Rendered component
  */
 const CustomRating = ({ rating = 0 }) => {
-  const [ratingIcons, setRatingIcons] = useState(Array(5).fill({ icon: 'star-outline', color: 'gray' }));
+  const [ratingIcons, setRatingIcons] = useState(Array(5).fill({ icon: 'star-outline', color: tailwindConfig.theme.colors.projectGray }));
   const [noRating, setNoRating] = useState(false);
 
   useEffect(() => {
@@ -39,7 +40,7 @@ const CustomRating = ({ rating = 0 }) => {
   return (
     noRating ? (
       <View className="w-full flex-row items-start justify-start">
-        <Text className="pl-1 text-xs" style={{ color: "gray" }}>no ratings yet</Text>
+        <Text className="pl-1 text-xs" style={{ color: tailwindConfig.theme.colors.projectGray }}>no ratings yet</Text>
       </View>
     ) :
       <View className="w-full flex-row items-start justify-start">
@@ -48,6 +49,10 @@ const CustomRating = ({ rating = 0 }) => {
         ))}
       </View>
   );
+};
+
+CustomRating.propTypes = {
+  rating: PropTypes.number,
 };
 
 export default CustomRating;

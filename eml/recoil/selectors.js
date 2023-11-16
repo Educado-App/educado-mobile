@@ -1,9 +1,9 @@
-import { selector } from "recoil";
+import { selector } from 'recoil';
 
-import {getCourses, getCoverPhoto} from './../api/api';
+import { getCourses } from './../api/api';
 
 export const activeCourse = selector({
-  key: "activeCourse",
+  key: 'activeCourse',
   get: async () => {
     const response = await getCourses();
     return response[1];
@@ -11,7 +11,7 @@ export const activeCourse = selector({
 });
 
 export const allCourses = selector({
-  key: "allCourses",
+  key: 'allCourses',
   get: async () => {
     const response = await getCourses();
     return response;

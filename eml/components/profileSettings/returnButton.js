@@ -1,16 +1,16 @@
-import { View, TouchableOpacity} from 'react-native'
-import { useNavigation } from '@react-navigation/native'
-import React from 'react'
+import { View, TouchableOpacity} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import React from 'react';
 import Svg, { Path } from 'react-native-svg';
 
 export default function ReturnButton() {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
   const tailwindConfig = require('../../tailwind.config.js');
   const projectColors = tailwindConfig.theme.colors;
 
   const handleBackButtonPress = () => {
     navigation.navigate('Perfil');
-  }
+  };
 
   return (
     <View>
@@ -23,5 +23,5 @@ export default function ReturnButton() {
         </Svg>
       </TouchableOpacity>    
     </View>
-  )
+  );
 }

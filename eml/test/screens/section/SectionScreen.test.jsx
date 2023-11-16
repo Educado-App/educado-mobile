@@ -4,13 +4,13 @@
  * @module SectionScreen.test
  */
 
-import React from "react";
-import renderer from "react-test-renderer";
-import SectionScreen from "../../../screens/section/SectionScreen";
-import SectionCard from "../../../components/section/SectionCard";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Alert } from "react-native";
-import { mockDataAsyncStorage } from "../../mockData/mockDataAsyncStorage";
+import React from 'react';
+import renderer from 'react-test-renderer';
+import SectionScreen from '../../../screens/section/SectionScreen';
+import SectionCard from '../../../components/section/SectionCard';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Alert } from 'react-native';
+import { mockDataAsyncStorage } from '../../mockData/mockDataAsyncStorage';
 
 /**
  * Mock navigation object used for testing.
@@ -28,8 +28,8 @@ let mockNavigation = {
  * @function useNavigation
  * @returns {object} - Returns the mock navigation object.
  */
-jest.mock("@react-navigation/native", () => ({
-  ...jest.requireActual("@react-navigation/native"),
+jest.mock('@react-navigation/native', () => ({
+  ...jest.requireActual('@react-navigation/native'),
   useNavigation: () => ({
     mockNavigation,
     navigate: jest.fn(() => {
@@ -37,6 +37,15 @@ jest.mock("@react-navigation/native", () => ({
     }),
   }),
 }));
+
+jest.mock('../../../components/general/BaseScreen', () => {
+  return jest.fn().mockImplementation(({ children }) => children);
+});
+
+// Mock the ToastNotification
+jest.mock('../../../components/general/ToastNotification', () => {
+  return jest.fn().mockImplementation(({ children }) => children);
+});
 
 /**
  * Flag indicating whether the navigate method was called.
@@ -66,7 +75,7 @@ afterAll(() => {
   jest.restoreAllMocks();
 });
 
-describe("SectionScreen", () => {
+describe('SectionScreen', () => {
   /**
    * Mock route object used for testing.
    * @type {object}
@@ -88,15 +97,15 @@ describe("SectionScreen", () => {
   /**
    * Tests the rendering of the SectionScreen component with sections loaded.
    */
-  it("Renders section screen with sections loaded", async () => {
-    const StorageService = require("../../../services/StorageService");
-    jest.spyOn(StorageService, "getSectionList").mockResolvedValue(mockData.sectionData);
+  it('Renders section screen with sections loaded', async () => {
+    const StorageService = require('../../../services/StorageService');
+    jest.spyOn(StorageService, 'getSectionList').mockResolvedValue(mockData.sectionData);
 
-    
+
     await renderer.act(async () => {
       return sectionScreen = renderer.create(<SectionScreen route={route} />);
     });
-    
+
 
     await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -104,28 +113,28 @@ describe("SectionScreen", () => {
     expect(await sectionScreen.toJSON()).toMatchSnapshot();
   });
 
-  describe("unsubAlert", () => {
+  describe('unsubAlert', () => {
     /**
      * Tests that the unsub function is called when "Sim" is pressed.
      */
-    it("should call unsub function when 'Sim' is pressed", async () => {
+    it('should call unsub function when \'Sim\' is pressed', async () => {
       /**
        * Function that displays an alert asking the user if they want to unsubscribe.
        * @function unsubAlert
        * @returns {void}
        */
       const unsubAlert = () => {
-        Alert.alert("Cancelar subscrição", "Tem certeza?", [
+        Alert.alert('Cancelar subscrição', 'Tem certeza?', [
           {
-            text: "Não",
-            onPress: () => console.log("No Pressed"),
-            style: "cancel",
+            text: 'Não',
+            onPress: () => console.log('No Pressed'),
+            style: 'cancel',
           },
-          { text: "Sim", onPress: unsub },
+          { text: 'Sim', onPress: unsub },
         ]);
       };
       const unsub = jest.fn();
-      const alert = jest.spyOn(Alert, "alert");
+      const alert = jest.spyOn(Alert, 'alert');
       alert.mockImplementation((_, __, buttons) => buttons[1].onPress());
       unsubAlert();
       expect(alert).toHaveBeenCalled();
@@ -136,24 +145,24 @@ describe("SectionScreen", () => {
     /**
      * Tests that the unsub function is not called when "Não" is pressed.
      */
-    it("should not call unsub function when 'Não' is pressed", async () => {
+    it('should not call unsub function when \'Não\' is pressed', async () => {
       /**
        * Function that displays an alert asking the user if they want to unsubscribe.
        * @function unsubAlert
        * @returns {void}
        */
       const unsubAlert = () => {
-        Alert.alert("Cancelar subscrição", "Tem certeza?", [
+        Alert.alert('Cancelar subscrição', 'Tem certeza?', [
           {
-            text: "Não",
-            onPress: () => console.log("No Pressed"),
-            style: "cancel",
+            text: 'Não',
+            onPress: () => console.log('No Pressed'),
+            style: 'cancel',
           },
-          { text: "Sim", onPress: unsub },
+          { text: 'Sim', onPress: unsub },
         ]);
       };
       const unsub = jest.fn();
-      const alert = jest.spyOn(Alert, "alert");
+      const alert = jest.spyOn(Alert, 'alert');
       alert.mockImplementation((_, __, buttons) => buttons[0].onPress());
       unsubAlert();
       expect(alert).toHaveBeenCalled();

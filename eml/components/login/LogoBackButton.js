@@ -1,7 +1,8 @@
-import React from "react";
-import { View } from "react-native";
-import LeaveButton from "../exercise/LeaveButton";
-import EducadoLogo from "../images/EducadoLogo";
+import React from 'react';
+import { View } from 'react-native';
+import LeaveButton from '../exercise/LeaveButton';
+import EducadoLogo from '../images/EducadoLogo';
+import PropTypes from 'prop-types';
 
 
 /**
@@ -26,5 +27,9 @@ export default function LogoBackButton(props) {
         <EducadoLogo />
       </View>
     </View>
-  )
+  );
 }
+
+LogoBackButton.propTypes = {
+  navigationPlace: PropTypes.string,
+};

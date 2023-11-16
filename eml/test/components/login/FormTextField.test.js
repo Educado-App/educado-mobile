@@ -1,8 +1,8 @@
-import renderer from "react-test-renderer";
-import React from "react";
-import FormTextField from "../../../components/login/FormTextField";
+import renderer from 'react-test-renderer';
+import React from 'react';
+import FormTextField from '../../../components/login/FormTextField';
 
-test("Ensure that the text field is rendered correctly", async () => {
+test('Ensure that the text field is rendered correctly', async () => {
   let textField;
   await renderer.act(() => {
     textField = renderer.create(<FormTextField />);
@@ -11,7 +11,7 @@ test("Ensure that the text field is rendered correctly", async () => {
   expect(tree).toMatchSnapshot();
 });
 
-test("Ensure that the field props are rendered correctly", async () => {
+test('Ensure that the field props are rendered correctly', async () => {
   let textField;
   await renderer.act(async () => {
     textField = renderer.create(<FormTextField
@@ -22,9 +22,9 @@ test("Ensure that the field props are rendered correctly", async () => {
       value="Test"
     />);
   });
-  expect(textField.root.props.placeholder).toBe("Test");
-  expect(textField.root.props.keyboardType).toBe("default");
+  expect(textField.root.props.placeholder).toBe('Test');
+  expect(textField.root.props.keyboardType).toBe('default');
   expect(textField.root.props.secureTextEntry).toBe(false);
   expect(textField.root.props.onChangeText).toBeDefined();
-  expect(textField.root.props.value).toBe("Test");
+  expect(textField.root.props.value).toBe('Test');
 });
