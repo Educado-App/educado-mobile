@@ -21,7 +21,7 @@ let exercise;
 let section;
 
 // givenId is used for testing purposes, in the future an exercise object should be passed by the previous screen
-export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7', onContinue }) {
+export default function ExerciseScreen({ givenExercise, givenSection, givenCourse, onContinue }) {
   const navigation = useNavigation();
   const route = useRoute();
   const tailwindConfig = require('../../tailwind.config.js');
@@ -86,9 +86,9 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7', o
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setExerciseData(exercise = await getExerciseByid(givenId));
-        setSectionData(section = await getSectionByid(exercise.parentSection));
-        setCourseData(await getCourse(section.parentCourse));
+        setExerciseData(givenExercise);
+        setSectionData(givenSection);
+        setCourseData(givenCourse);
         setHasData(true);
       } catch (error) {
         console.log('Error fetching data:', error);
@@ -98,7 +98,7 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7', o
 
     fetchData();
   }, [route.params]);
-  
+
   return (
     <SafeAreaView className="h-full bg-secondary">
       {/* This will now be shown by parent component, LectureSwipeScreen       
@@ -119,8 +119,8 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7', o
       ) : (
         <View className='items-center'>
           <Text testID='exerciseQuestion'
-            className='pt-6 pb-10 text-center text-body font-sans-bold text-projectBlack w-11/12'>
-            {exerciseData.description}
+            className='pt-20 pb-10 text-center text-body font-sans-bold text-projectBlack w-11/12'>
+            {exerciseData.question}
           </Text>
 
           <View className={`${buttonClassName} items-center justify-center h-96 w-full`}>
@@ -194,14 +194,14 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7', o
         <PopUp xpAmount={points} isCorrectAnswer={isCorrectAnswer} />
       ) : null}
 
-      <ExerciseInfo courseId={courseData.title} sectionId={sectionData.title} />
+      {<ExerciseInfo courseId={courseData.title} sectionId={sectionData.title} />}
       <StatusBar style='auto' />
     </SafeAreaView>
   );
 }
 
 ExerciseScreen.propTypes = {
-  givenId: PropTypes.string,
+  givenExercise: PropTypes.string,
   onContinue: PropTypes.func,
 };
 

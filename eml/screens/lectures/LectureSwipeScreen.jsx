@@ -24,6 +24,7 @@ export default function LectureSwipeScreen({ route }) {
     const [loading, setLoading] = useState(true);
     const [currentLectureType, setCurrentLectureType] = useState("text");
     const [index, setIndex] = useState(0);
+    const [section, setSection] = useState(null);
     const [course, setCourse] = useState(null);
 
 
@@ -68,6 +69,7 @@ export default function LectureSwipeScreen({ route }) {
 
                 setCombinedLecturesAndExercises(_combinedLecturesAndExercises);
                 setCurrentLectureType(sectionData.components[initialIndex]?.video ? "video" : "text");
+                setSection(sectionData);
                 setCourse(courseData);
                 setIndex(initialIndex);
                 setLoading(false);
@@ -129,7 +131,7 @@ export default function LectureSwipeScreen({ route }) {
         <View className="flex-1">
             {combinedLecturesAndExercises && (
                 <View className=" absolute top-0 z-10 w-[100%]">
-                    <ProgressTopBar lectureType={currentLectureType} allLectures={combinedLecturesAndExercises} currentLectureIndex={index} />
+                    <ProgressTopBar givenCourse={course} lectureType={currentLectureType} allLectures={combinedLecturesAndExercises} currentLectureIndex={index} />
                 </View>
             )}
 
@@ -146,14 +148,10 @@ export default function LectureSwipeScreen({ route }) {
                         comp.type === "lecture" ?
                             <LectureScreen key={_index} currentIndex={index} indexCount={combinedLecturesAndExercises.length} lectureObject={comp.component} courseObject={course} />
                             :
-                            /**
-                             * The exercise screen is not yet implemented because it didnt work in this branch
-                             * I made a function for fecthing the exercises
-                             * the exercise components are can be accessed via:
-                             * comp.component
-                             */
-                            <ExerciseScreen key={_index} givenId={comp.component._id} onContinue={() => handleExerciseContinue(_index)} />
+                            <ExerciseScreen key={_index} givenExercise={comp.component} givenSection={section} givenCourse={course} onContinue={() => handleExerciseContinue(_index)}>
+                            </ExerciseScreen>
                     ))}
+
                 </Swiper>
             )}
         </View>
