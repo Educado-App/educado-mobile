@@ -46,24 +46,15 @@ export default function LectureScreen({ lectureObject, courseObject, currentInde
                             )}
                         }}
                     />
-                    : null}
-                </View>
+                    : null
+                    }
+        </View>
                 :
                 <View className="w-full h-full items-center justify-center align-middle">
                     <Text className="text-[25px] font-bold ml-[10]">loading...</Text>
                 </View>
 
             }
-
-               
-
-        </View>
-        :
-        <View className="w-full h-full items-center justify-center align-middle">
-          <Text className="text-[25px] font-bold ml-[10]">loading...</Text>
-        </View>
-
-      }
     </View>
   );
 }
