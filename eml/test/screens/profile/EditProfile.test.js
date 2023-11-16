@@ -1,11 +1,6 @@
 import React from "react";
 import renderer from 'react-test-renderer';
 import EditProfile from "../../../screens/profile/EditProfile";
-import { Animated } from 'react-native';
-
-Animated.timing = () => ({
-  start: () => jest.fn(),
-});
 
 jest.mock('@react-navigation/native', () => ({
   useNavigation: () => ({
