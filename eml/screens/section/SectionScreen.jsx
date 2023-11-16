@@ -62,7 +62,7 @@ export default function SectionScreen({ route }) {
         text: 'Não',
         style: 'cancel',
       },
-      { text: 'Sim', onPress: () => { unsubscribe(courseId); setTimeout(() =>  {navigation.goBack();}, 300 ); }},
+      { text: 'Sim', onPress: () => { unsubscribe(course.courseId); setTimeout(() =>  {navigation.goBack();}, 300 ); }},
     ]);
 
   return (

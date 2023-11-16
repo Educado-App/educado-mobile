@@ -129,7 +129,7 @@ export default function LectureSwipeScreen({ route }) {
                 </View>
             )}
 
-            {combinedLecturesAndExercises.length > 0 && course && index !== null && (
+            {combinedLecturesAndExercises.length > 0 && parsedCourse && index !== null && (
                 <Swiper
                     ref={swiperRef}
                     index={index}
@@ -140,7 +140,7 @@ export default function LectureSwipeScreen({ route }) {
                 >
                     {combinedLecturesAndExercises.map((comp, _index) => (
                         comp.type === "lecture" ?
-                            <LectureScreen key={_index} currentIndex={index} indexCount={combinedLecturesAndExercises.length} lectureObject={comp.component} courseObject={parsedCouese} />
+                            <LectureScreen key={_index} currentIndex={index} indexCount={combinedLecturesAndExercises.length} lectureObject={comp.component} courseObject={parsedCourse} />
                             :
                             /**
                              * The exercise screen is not yet implemented because it didnt work in this branch

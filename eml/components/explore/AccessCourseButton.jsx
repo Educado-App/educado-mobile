@@ -14,8 +14,7 @@ const AccessCourseButton = ({ course }) => {
 
   const handlePress = () => {
     navigation.navigate('Section', {
-    courseId: course.courseId,
-    courseTitle: course.title,
+    course: course
     })
   };
 

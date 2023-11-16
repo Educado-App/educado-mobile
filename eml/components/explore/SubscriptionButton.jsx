@@ -17,7 +17,7 @@ const SubscriptionButton = ({ course }) => {
     subscribe(course.courseId);
 
     navigation.navigate('Section', {
-      courseId: course.courseId,
+      course: course
     });
   };
 
