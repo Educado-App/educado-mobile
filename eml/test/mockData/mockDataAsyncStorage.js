@@ -96,4 +96,4 @@ export function mockDataAsyncStorage() {
       rating: 0,
     },
   };
-};
+}

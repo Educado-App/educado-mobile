@@ -1,6 +1,6 @@
-import React from 'react'
-import { StyleSheet, TouchableOpacity } from 'react-native'
-import { Icon, Button } from '@rneui/base'
+import React from 'react';
+import { StyleSheet, TouchableOpacity } from 'react-native';
+import { Icon, Button } from '@rneui/base';
 const LeaveButton = () => {
   return (
     <TouchableOpacity>
@@ -19,10 +19,10 @@ const LeaveButton = () => {
         }
       ></Button>
     </TouchableOpacity>
-  )
-}
+  );
+};
 const styles = StyleSheet.create({
   buttons: { width: 50, height: 50 }
-})
+});
 
-export default LeaveButton
+export default LeaveButton;

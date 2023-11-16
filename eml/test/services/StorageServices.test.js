@@ -102,7 +102,7 @@ describe('StorageService Functions', () => {
 
     it('should handle errors getting from async storage', async () => {
 
-      const errorMessage = "Error getting course from async storage: " + mockData.errorResponse;
+      const errorMessage = 'Error getting course from async storage: ' + mockData.errorResponse;
 
       // Mock AsyncStorage to simulate an error
       AsyncStorage.getItem.mockRejectedValue(new Error(errorMessage));
@@ -123,7 +123,7 @@ describe('StorageService Functions', () => {
 
     it('should handle errors in refreshCourse', async () => {
 
-      const errorMessage = "Error getting course from database: " + mockData.errorResponse;
+      const errorMessage = 'Error getting course from database: ' + mockData.errorResponse;
 
       // Mock AsyncStorage to simulate an error
       AsyncStorage.getItem.mockResolvedValue(null);
@@ -479,7 +479,7 @@ describe('StorageService Functions', () => {
 
     it('should throw an error if AsyncStorage getItem fails', async () => {
       // Mock AsyncStorage to simulate a failure
-      AsyncStorage.getItem.mockRejectedValue(new Error("Cannot fetch user id from async storage"));
+      AsyncStorage.getItem.mockRejectedValue(new Error('Cannot fetch user id from async storage'));
 
       await expect(StorageService.getSubCourseList()).rejects.toThrow('Cannot fetch user id from async storage');
     });
