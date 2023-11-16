@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { View } from "react-native";
 import { loginUser, registerUser } from "../../api/userApi";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import FormTextField from "./FormTextField";
-import FormButton from "./FormButton";
-import PasswordEye from "./PasswordEye";
+import FormTextField from "../general/forms/FormTextField";
+import FormButton from "../general/forms/FormButton";
+import PasswordEye from "../general/forms/PasswordEye";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import ShowAlert from "../general/ShowAlert";
-import FormFieldAlert from "./FormFieldAlert";
+import FormFieldAlert from "../general/forms/FormFieldAlert";
 import { removeEmojis, validatePasswordContainsLetter, validatePasswordLength, validateEmail, validateName } from "../general/Validation";
 import Text from "../general/Text";
 import errorSwitch from "../general/errorSwitch";
@@ -15,9 +14,7 @@ import { useNavigation } from "@react-navigation/native";
 import DialogNotification from "../general/DialogNotification";
 import { AlertNotificationRoot } from "react-native-alert-notification";
 import tailwindConfig from "../../tailwind.config";
-
-const LOGIN_TOKEN = "@loginToken";
-const USER_INFO = "@userInfo";
+import { setUserInfo, setJWT } from "../../services/StorageService";
 
 /**
  * Component for registering a new account in the system, used in the register screen
@@ -163,8 +160,13 @@ export default function RegisterForm() {
     try {
       await registerUser(obj)
         .then(async function (response) {
-          // saves input information locally
-          await saveUserInfoLocally(response._id, firstName, lastName, email);
+          // Save user info in storage
+          // TODO: Refactor backend to get the same response as on login
+          const userInfo = {
+            id: response.baseUser._id,
+            ...response.baseUser,
+          };
+          await setUserInfo(userInfo);
         }).then(async function () {
           // logs in the user, if no errors occur, navigates to home screen and sets token
           await loginFromRegister(obj);
@@ -172,28 +174,6 @@ export default function RegisterForm() {
         .catch((error) => {
           ShowAlert(errorSwitch(error));
         });
-    } catch (e) {
-      console.log(e);
-    }
-  }
-
-  /**
-   * Stores the user info in async storage (locally)
-   * @param {String} id this is the user id trying to register
-   * @param {String} firstName first name of the user trying to register
-   * @param {String} lastName last name of the user trying to register
-   * @param {String} email email of the user trying to register
-   */
-  async function saveUserInfoLocally(id, firstName, lastName, email) {
-    try {
-      const obj = {
-        id: id,
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-      };
-
-      await AsyncStorage.setItem(USER_INFO, JSON.stringify(obj));
     } catch (e) {
       console.log(e);
     }
@@ -209,7 +189,7 @@ export default function RegisterForm() {
   async function loginFromRegister(obj) {
     try {
       await loginUser(obj).then((response) => {
-        AsyncStorage.setItem(LOGIN_TOKEN, response.accessToken);
+        setJWT(response.accessToken);
         DialogNotification('success', 'Usuário cadastrado! Cantando em...');
         setTimeout(() => {
           navigation.navigate("HomeStack");
@@ -336,13 +316,15 @@ export default function RegisterForm() {
           </View>
           <FormFieldAlert label={confirmPasswordAlert} />
         </View>
+        {/* Register */}
         <View className="my-2">
           <FormButton
             onPress={() => register(firstName, lastName, email, password)}
-            label="Cadastrar" // Register
             testId="registerButton"
             disabled={!isAllInputValid}
-          />
+          >
+            Cadastrar
+          </FormButton>
         </View>
       </AlertNotificationRoot>
     </View>

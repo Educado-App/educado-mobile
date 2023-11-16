@@ -2,21 +2,17 @@ import React, { useState } from "react";
 import { View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { loginUser } from "../../api/userApi";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import FormTextField from "./FormTextField";
-import FormButton from "./FormButton";
-import PasswordEye from "./PasswordEye";
+import FormTextField from "../general/forms/FormTextField";
+import FormButton from "../general/forms/FormButton";
+import PasswordEye from "../general/forms/PasswordEye";
 import ResetPassword from "./ResetPassword";
-import FormFieldAlert from "./FormFieldAlert";
+import FormFieldAlert from "../general/forms/FormFieldAlert";
 import { removeEmojis } from "../general/Validation";
 import Text from "../general/Text";
 import ShowAlert from "../general/ShowAlert";
 
-const LOGIN_TOKEN = "@loginToken";
-const USER_INFO = "@userInfo";
-const USER_ID = "@userId";
-
-//When Logout: back button should be disabled!!!!
+// Services
+import { setUserInfo, setJWT } from "../../services/StorageService";
 
 /**
  * Login form component for login screen containing email and password input fields and a login button.
@@ -32,28 +28,6 @@ export default function LoginForm() {
   const [emailAlert, setEmailAlert] = useState("");
   // State variable to track password visibility
   const [showPassword, setShowPassword] = useState(false);
-
-  /**
-   * Stores the user info in async storage
-   * @param {*} userInfo: {id, firstName, lastName, email}
-   */
-  async function saveUserInfoLocally(userInfo) {
-    try {
-      const obj = {
-        id: userInfo.id,
-        firstName: userInfo.firstName,
-        lastName: userInfo.lastName,
-        email: userInfo.email,
-        completedCourses: userInfo.completedCourses,
-      };
-
-      await AsyncStorage.setItem(USER_INFO, JSON.stringify(obj));
-      await AsyncStorage.setItem(USER_ID, userInfo.id); // needs to be seperate
-    } catch (e) {
-      console.log(e);
-    }
-  }
-
 
   /**
    * Logs user in with the entered credentials 
@@ -77,8 +51,8 @@ export default function LoginForm() {
     // Await the response from the backend API for login
     await loginUser(obj).then(async (response) => {
       // Set login token in AsyncStorage and navigate to home screen
-      await AsyncStorage.setItem(LOGIN_TOKEN, response.accessToken);
-      await saveUserInfoLocally(response.userInfo);
+      await setJWT(response.accessToken);
+      await setUserInfo(response.userInfo);
       navigation.navigate("HomeStack");
     }).catch((error) => {
       switch (error?.error?.code) {
@@ -164,10 +138,12 @@ export default function LoginForm() {
       {/* Enter */}
       <FormButton
         testId="loginButton"
-        label="Entrar"
         onPress={() => login(email, password)}
         disabled={!(password.length > 0 && email.length > 0)}
-      />
+        className='mt-4'
+      >
+        Entrar
+      </FormButton>
       <View className="pt-10">
         <ResetPassword
           className={(!modalVisible ? "hidden" : "")}
