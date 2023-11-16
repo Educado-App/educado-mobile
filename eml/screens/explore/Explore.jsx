@@ -189,7 +189,7 @@ export default function Explore() {
             </View>
           </View>
           :
-          <View height="100%">
+          <View height="77%">
             <FilterNavBar
               onChangeText={(text) => handleFilter(text)}
               onCategoryChange={handleCategoryFilter}
