@@ -39,7 +39,7 @@ export const getSectionByid = async (sectionId) => {
   }
 };
 
-export const getExerciseByid = async (exerciseId) => {
+export const getExerciseById = async (exerciseId) => {
   try {
     const res = await axios.get(url + '/api/exercises/' + exerciseId);
     return res.data;

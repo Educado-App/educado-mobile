@@ -117,24 +117,24 @@ export const refreshCourseList = async (courseList) => {
 
 // get all section for specific course
 export const getSectionList = async (course_id) => {
-    let sectionList = null;
+  let sectionList = null;
+  try {
+    sectionList = await api.getAllSections(course_id);
+  } catch (unusedErrorMessage) {
+  // Use locally stored section if they exist and the DB cannot be reached
     try {
-        sectionList = await api.getAllSections(course_id);
-
-    } catch (unusedErrorMessage) {
-        // Use locally stored section if they exist and the DB cannot be reached
-      try {
-        sectionList = JSON.parse(await AsyncStorage.getItem('S'+course_id));
-        throw unusedErrorMessage;
-      } catch (e){
-          if (e?.response?.data != null) {
-              throw e.response.data;
-          } else {
-              throw e;
-          }
+      sectionList = JSON.parse(await AsyncStorage.getItem('S'+course_id));
+      throw unusedErrorMessage;
+    } catch (e){
+      if (e?.response?.data != null) {
+        throw e.response.data;
+      } else {
+        throw e;
       }
+    }
   } finally {
-      return await refreshSectionList(sectionList);
+      console.log(sectionList);
+    return await refreshSectionList(sectionList);
   }
 };
 
