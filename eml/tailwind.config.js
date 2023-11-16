@@ -1,54 +1,56 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./App.{js,jsx,ts,tsx}",
-    "./screens/**/*.{js,jsx,ts,tsx}",
-    "./components/**/*.{js,jsx,ts,tsx}",
+    './App.{js,jsx,ts,tsx}',
+    './screens/**/*.{js,jsx,ts,tsx}',
+    './components/**/*.{js,jsx,ts,tsx}',
   ],
   theme: {
-      colors: {
-        bgPrimary: '#C9E5EC',
-        primary: '#5ECCE9',
-        secondary: '#F1F9FB',
-        projectWhite: '#FFFFFF',
-        projectBlack: '#383838',
-        projectGray: '#A1ACB2',
-        error: '#FF4949',
-        success: '#4AA04A',
-        disable: '#DDD',
-        disabled: '#E4F2F5',
-        projectRed: '#FFE4E4',
-        projectGreen: '#E4F1E4',
-        projectLightGray: '#F1F9FB',
-        cyanBlue: '#65D4EE',
-        limeGreen: '#9DE89C',
-        yellow: '#FAC12F',
-        babyBlue: '#CFE9EF',
-        limeGreenDarker: '#8DD08C',
-        correctAnswer: '#00897B',
-        wrongAnswer: '#CF6679',
+    colors: {
+      bgPrimary: '#C9E5EC',
+      primary: '#5ECCE9',
+      secondary: '#F1F9FB',
+      projectWhite: '#FFFFFF',
+      projectBlack: '#383838',
+      projectGray: '#A1ACB2',
+      error: '#FF4949',
+      success: '#4AA04A',
+      disable: '#DDD',
+      disabled: '#E4F2F5',
+      projectRed: '#FFE4E4',
+      projectGreen: '#E4F1E4',
+      projectLightGray: '#F1F9FB',
+      cyanBlue: '#65D4EE',
+      limeGreen: '#9DE89C',
+      yellow: '#FAC12F',
+      babyBlue: '#CFE9EF',
+      limeGreenDarker: '#8DD08C',
+      correctAnswer: '#00897B',
+      wrongAnswer: '#CF6679',
+      progressBar: '#5ECCDD',
+      progressBarUnFilled: '#E4F2F5',
+    },
+    fontFamily: {
+      montserrat: ['Montserrat-Regular'],
+      'montserrat-bold': ['Montserrat-Bold'],
+      'montserrat-semi-bold': ['Montserrat-SemiBold'],
+      sans: ['"Montserrat-Regular"'],
+      'sans-bold': ['\'Montserrat-Bold\''],
+      'sans-semi-bold': ['\'Montserrat-SemiBold\''],
+    },
+    extend: {
+      fontSize: {
+        heading: 32,
+        subheading: 24,
+        body: 16,
+        'caption-medium': 12,
+        'caption-small': 10,
       },
-      fontFamily: {
-        montserrat: ['Montserrat-Regular'],
-        'montserrat-bold': ['Montserrat-Bold'],
-        'montserrat-semi-bold': ['Montserrat-SemiBold'],
-        sans: ['"Montserrat-Regular"'],
-        "sans-bold": ["'Montserrat-Bold'"],
-        "sans-semi-bold": ["'Montserrat-SemiBold'"],
-      },
-      extend: {
-        fontSize: {
-          heading: 32,
-          subheading: 24,
-          body: 16,
-          'caption-medium': 12,
-          'caption-small': 10,
-        },
-        borderRadius: {
-          small: 4,
-          medium: 8,
-          large: 16,
-        }
+      borderRadius: {
+        small: 4,
+        medium: 8,
+        large: 16,
+      }
     },
   },
   exports: {
@@ -58,6 +60,6 @@ module.exports = {
     aspectRatio: false,
   },
 
-  plugins: [require("@tailwindcss/aspect-ratio")],
+  plugins: [require('@tailwindcss/aspect-ratio')],
 };
 

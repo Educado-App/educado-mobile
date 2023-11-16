@@ -1,16 +1,16 @@
-import React from "react";
+import React from 'react';
 import renderer from 'react-test-renderer';
-import Login from "../../../screens/login/Login";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import Login from '../../../screens/login/Login';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 let navigated = false;
 
 jest.mock('@react-navigation/native', () => ({
   useNavigation: () => ({
-    navigate: jest.fn(() => { navigated = true }),
+    navigate: jest.fn(() => { navigated = true; }),
   }),
-}))
+}));
 
 describe('Login screen', () => {
 
@@ -29,7 +29,7 @@ describe('Login screen', () => {
   });
 
   it('Pressing register new user navigates to the register page', async () => {
-    const registerNav = loginScreen.root.findByProps({ testId: "registerNav" });
+    const registerNav = loginScreen.root.findByProps({ testId: 'registerNav' });
     await renderer.act(() => {
       registerNav.props.onPress();
     });
@@ -41,10 +41,10 @@ describe('Login screen', () => {
       renderer.create(<Login />);
     });
     expect(navigated).toBe(false);
-  })
+  });
 
   it('Check login when valid token stored', async () => {
-    AsyncStorage.setItem("@loginToken", "testToken");
+    AsyncStorage.setItem('@loginToken', 'testToken');
     await renderer.act(() => {
       renderer.create(<Login />);
     });

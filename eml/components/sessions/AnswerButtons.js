@@ -1,7 +1,7 @@
-import AnswerButton from './AnswerButton'
-import { StyleSheet, View } from 'react-native'
-import { Icon, Button } from '@rneui/base'
-import React from 'react'
+import AnswerButton from './AnswerButton';
+import { StyleSheet, View } from 'react-native';
+import { Icon, Button } from '@rneui/base';
+import React from 'react';
 const AnswerButtons = () => {
   return (
     <View style={[styles.container]}>
@@ -82,8 +82,8 @@ const AnswerButtons = () => {
         ></AnswerButton>
       </View>
     </View>
-  )
-}
+  );
+};
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
@@ -93,5 +93,5 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row'
   }
-})
-export default AnswerButtons
+});
+export default AnswerButtons;

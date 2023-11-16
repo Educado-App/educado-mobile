@@ -8,7 +8,7 @@ export default function CourseProgress({ fracTop, fracBot }) {
   CourseProgress.propTypes = {
     fracTop: PropTypes.number.isRequired,
     fracBot: PropTypes.number.isRequired
-  }
+  };
   return (
     <View style={styles.container}>
       <Text style={styles.fracStyle}>
@@ -16,7 +16,7 @@ export default function CourseProgress({ fracTop, fracBot }) {
       </Text>
       <Star></Star>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -32,4 +32,4 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold'
   }
-})
+});

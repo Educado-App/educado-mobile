@@ -5,7 +5,7 @@ module.exports = function (api) {
     plugins: ["nativewind/babel", "react-native-reanimated/plugin"],
     env: {
       test: {
-        plugins: ["@babel/plugin-transform-runtime"],
+        plugins: ['@babel/plugin-transform-runtime'],
       },
     }
   };
