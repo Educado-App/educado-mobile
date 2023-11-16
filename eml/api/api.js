@@ -226,6 +226,18 @@ export const ifSubscribed = async (userId, courseId) => {
   }
 };
 
+// Call to backend to see if online
+export const checkBackendOnline = async () => {
+  let response;
+  try {
+    const res = await axios.get(url + '/api/utility/online/');
+    response = res.data;
+  } catch {
+    response = false;
+  }
+  return response;
+};
+
 //CREATED BY VIDEOSTREAM TEAM
 /*This will be improved in next pull request to handle getting different resolutions properly 
 with our new video streaming service in go.
