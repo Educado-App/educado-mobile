@@ -29,7 +29,7 @@ export class NetworkStatusService {
   }
 
   initializeWebSocket() {
-    this.socket = io();
+    this.socket = io('ws://localhost:8888');
 
     this.socket.on('connect', () => {
       this.updateNetworkStatus(true);
