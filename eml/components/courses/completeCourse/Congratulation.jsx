@@ -6,7 +6,7 @@ import LottieView from 'lottie-react-native';
 export default function Congratulation() {
   return (
     <View className="flex w-full h-full justify-start items-center">
-      <Text className="text-center font-sans-bold text-3xl text-primary px-5">Excelente trabalho, você terminou!</Text>
+      <Text className="text-center font-sans-bold text-3xl text-primary p-5">Excelente trabalho, você terminou!</Text>
 
       <View className="h-80 w-full items-center">
         <LottieView

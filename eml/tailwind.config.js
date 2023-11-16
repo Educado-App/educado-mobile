@@ -13,6 +13,7 @@ module.exports = {
       projectWhite: '#FFFFFF',
       projectBlack: '#383838',
       projectGray: '#A1ACB2',
+      lightGray: '#E5E5E5',
       error: '#FF4949',
       success: '#4AA04A',
       disable: '#DDD',

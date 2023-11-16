@@ -7,7 +7,7 @@ import Text from '../../general/Text';
 export default function Certification() {
   return (
     <View className="flex w-full h-full justify-start items-center">
-      <Text className="text-center font-sans-bold text-3xl text-primary px-5">Você Recebeu um Certificado!</Text>
+      <Text className="text-center font-sans-bold text-3xl text-primary p-5">Você Recebeu um Certificado!</Text>
 
       <View className="h-80 w-full items-center">
         <LottieView

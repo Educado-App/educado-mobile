@@ -1,45 +1,78 @@
-import React, { useRef, useEffect } from 'react';
-import { View } from 'react-native';
+import React, { useRef, useEffect, useState } from 'react';
+import { View, Dimensions, Image } from 'react-native';
 import Text from '../../general/Text';
-import CircleProgressBar from './CircleProgressBar';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
-import { Circle } from 'react-native-svg';
 import { Easing } from 'react-native-reanimated';
 
 export default function StatsOverview() {
+  const [percentage, setPercentage] = useState(0);
+  const circleSize = Dimensions.get('window').height * 0.17;
   const tailwindConfig = require('../../../tailwind.config.js');
   const projectColors = tailwindConfig.theme.colors;
-  const percentage = 25;
-
   const circularProgressRef = useRef();
 
   useEffect(() => {
     // Check if the ref is available before calling the animate method
     if (circularProgressRef.current) {
-      circularProgressRef.current.animate(100, 8000, Easing.quad);
-    }
+      circularProgressRef.current.animate(percentage, 1250, Easing.quad);
+      setPercentage(75);
+    } 
   }, []);
 
   return (
     <View className="flex w-full h-full justify-start items-center">
-      <Text className="text-center font-sans-bold text-3xl text-primary px-5 py-5">Veja suas estatísticas do curso</Text>
+      <Text className="text-center font-sans-bold text-3xl text-primary p-5">Veja suas estatísticas do curso</Text>
 
-      <View className="h-80 w-full items-center py-5">
-        {/* <CircleProgressBar progress={70}/> */}
+      <View className="w-full items-center mt-5 mb-8">
         <AnimatedCircularProgress
           ref={circularProgressRef}
           fill={percentage}
-          size={150}
-          width={10}
+          size={circleSize}
+          width={7.5}
           rotation={0.25}
           tintColor= {projectColors.primary}
           backgroundColor={projectColors.projectWhite}
-          />
-        <Text className="text-center text-base text-projectBlack py-5 px-11">Você respondeu PERCENTAGE correta na primeira tentativa, bravo!</Text>
+          >
+            {(fill) => (
+              <Text className="text-center font-sans-bold text-2xl text-primary">
+                {percentage}%
+              </Text>
+            )}
+          </AnimatedCircularProgress>
+        <Text className="text-center text-base text-projectBlack pt-10 px-10">Você respondeu {percentage}% correta na primeira tentativa, bravo!</Text>
       </View>
 
-      <View className="h-30 w-full items-center">
-        <Text className="text-center font-sans-bold text-base text-projectBlack">Placar Educado</Text>
+      
+      <Text className="text-center font-sans-bold text-base text-projectBlack mb-3">Placar Educado</Text>
+
+      <View className="px-6 w-screen">
+        <View className="bg-lightGray h-14 rounded-full flex flex-row justify-between items-center px-2">
+          <View className="flex flex-row items-center">
+            <Image source={require('../../../assets/images/profileEX.jpg')} alt="arrow-right" className="h-10 w-10 rounded-full" />
+            <Text className="text-center font-sans-bold text-base text-projectWhite ml-3">Hans Zimmer</Text>
+          </View>
+          <Text className="text-center font-sans-bold text-base text-projectWhite">1099</Text>
+        </View>
+      </View>
+
+      <View className="px-6 w-screen z-10 -mt-3">
+        <View className="bg-primary h-14 rounded-full flex flex-row justify-between items-center px-2">
+          <View className="flex flex-row items-center">
+            <Image source={require('../../../assets/images/profileEX.jpg')} alt="arrow-right" className="h-10 w-10 rounded-full" />
+            <Text className="text-center font-sans-bold text-base text-projectWhite ml-3">Hans Zimmer</Text>
+          </View>
+          <Text className="text-center font-sans-bold text-base text-projectWhite">1100</Text>
+        </View>
+      </View>
+
+      <View className="px-6 w-screen -mt-3">
+        <View className="bg-lightGray h-14 rounded-full flex flex-row justify-between items-center px-2">
+          <View className="flex flex-row items-center">
+            <Image source={require('../../../assets/images/profileEX.jpg')} alt="arrow-right" className="h-10 w-10 rounded-full" />
+            <Text className="text-center font-sans-bold text-base text-projectWhite ml-3">Hans Zimmer</Text>
+          </View>
+          <Text className="text-center font-sans-bold text-base text-projectWhite">1101</Text>
+        </View>
       </View>
     </View>
   );

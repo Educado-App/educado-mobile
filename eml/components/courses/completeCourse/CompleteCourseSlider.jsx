@@ -49,7 +49,9 @@ export default function CompleteCourseSlider() {
       }
     >
     {screens.map((screen, index) => (
-      <View key={index}>{screen}</View>
+      <View key={index}>
+        {screen}
+      </View>
     ))}
     </Slick>
   );
