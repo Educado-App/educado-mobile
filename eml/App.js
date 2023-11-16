@@ -17,8 +17,8 @@ import ProfileSettingsScreen from './screens/profile/ProfileSettings';
 import CompleteSectionScreen from './screens/section/CompleteSection';
 import NavBar from './components/navBar/NavBar';
 import LectureSwipeScreen from './screens/lectures/LectureSwipeScreen';
-import CourseScreen from './screens/courses/CourseScreen';
 import ErrorScreen from './screens/error/ErrorScreen';
+import CourseScreen from './screens/courses/CourseScreen';
 
 const Stack = createNativeStackNavigator();
 
