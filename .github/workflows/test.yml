@@ -10,6 +10,7 @@ on:
       - main
       - cert-success_messages_mergeToDev
       - video_pr_01_11
+      - cert-profile_page
 
 jobs:
   test:
