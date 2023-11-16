@@ -24,8 +24,6 @@ jest.mock('@react-navigation/native', () => ({
 
 jest.useRealTimers('legacy');
 
-jest.useRealTimers('legacy');
-
 const errorCodesStr = JSON.stringify(errorCodes);
 const errorCodesJSON = JSON.parse(errorCodesStr);
 
