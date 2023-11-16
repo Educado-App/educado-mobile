@@ -156,10 +156,10 @@ export default function Explore() {
         {!isOnline ?
           <View>
             <IconHeader title={"Explorar cursos"} />
-            <View className="justify-center px-1">
-              <MaterialCommunityIcons name="wifi-off" size={200} color="black" style={{ alignSelf: 'center' }} />
-              <Text className="text-center font-montserrat-semi-bold text-heading">
-                Sem conexão com internet.
+            <View className="justify-center px-1 pt-6">
+              <MaterialCommunityIcons name="wifi-off" size={160} color="black" style={{ alignSelf: 'center' }} />
+              <Text className="text-center font-montserrat-semi-bold text-[24px]">
+                {"\n"}Sem conexão com internet.
               </Text>
               <View className="flex-row flex-wrap justify-center">
                 <Text className="text-center text-body">
@@ -175,7 +175,7 @@ export default function Explore() {
                   </Text>
                 </View>
               </View>
-              <View className="items-center pt-1">
+              <View className="items-center pt-6">
                 <Pressable
                   testID={"offlineExploreButton"}
                   className="rounded-r-8 rounded-md bg-primary justify-center items-center p-2 h-14 w-80"
