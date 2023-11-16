@@ -11,6 +11,7 @@ on:
       - cert-success_messages_mergeToDev
       - video_pr_01_11
       - cert-profile_page
+      - cert-profile_page_dev_merge
 
 jobs:
   test:
