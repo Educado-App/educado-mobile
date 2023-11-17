@@ -62,7 +62,7 @@ const CoursePoints = (courseId) => {
   }, []);
 
   return (
-    <View className="flex-row items-center justify-around">
+    <View className="pr-2 flex-row items-center justify-around">
       <AnimatedNumbers
         animateToNumber={courseEndPoints}
         animationDuration={50}

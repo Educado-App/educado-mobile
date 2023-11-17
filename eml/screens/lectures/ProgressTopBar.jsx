@@ -10,7 +10,6 @@ const ProgressTopBar = ({ givenCourse, lectureType, allLectures, currentLectureI
 
   const navigator = useNavigation();
 
-
   const chevronColor = lectureType === 'video' ? tailwindConfig.theme.colors.projectWhite : tailwindConfig.theme.colors.projectBlack;
 
   const createCorrectIcon = (_index, _currentIndex) => {
@@ -83,6 +82,7 @@ const ProgressTopBar = ({ givenCourse, lectureType, allLectures, currentLectureI
           ))}
         </View>
         <CoursePoints courseId={givenCourse} />
+        <MaterialCommunityIcons name="crown-circle" size={20} color={tailwindConfig.theme.colors.yellow} />
       </View>
     </View>
   );
