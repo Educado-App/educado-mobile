@@ -90,7 +90,6 @@
     "react-test-renderer": "^18.0.0",
     "react-use-window-size": "^1.0.1",
     "recoil": "^0.7.5",
-    "socket.io-client": "^4.7.2",
     "source-code-pro": "^2.38.0",
     "tailwindcss-react-native": "^1.7.10",
     "zxcvbn": "^4.4.2"
