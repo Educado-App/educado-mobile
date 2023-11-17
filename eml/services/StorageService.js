@@ -1,4 +1,5 @@
 import * as api from '../api/api.js';
+import * as userApi from '../api/userApi.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
@@ -8,6 +9,30 @@ const SECTION_LIST = '@sectionList';
 const COURSE = '@course';
 const USER_ID = '@userId';
 const USER_INFO = '@userInfo';
+const STUDENT_INFO = '@studentInfo';
+
+
+/** STUDENT **/
+
+export const setStudentInfo = async (userId) => {
+  try {
+    const fetchedStudentInfo = await userApi.getStudentInfo(userId);
+    await AsyncStorage.setItem(STUDENT_INFO, JSON.stringify(fetchedStudentInfo));
+  } catch (e) {
+    throw(e);
+  }
+}
+
+export const getStudentInfo = async () => {
+  try {
+    const fetchedStudentInfo = JSON.parse(await AsyncStorage.getItem(STUDENT_INFO));
+    return fetchedStudentInfo;
+  } catch (e) {
+    throw(e);
+  }
+}
+
+/** USER **/
 
 export const getUserInfo = async () => {
   const fetchedUserInfo = JSON.parse(await AsyncStorage.getItem(USER_INFO));
@@ -33,6 +58,7 @@ export const getCourseId = async (id) => {
     }
   }
 };
+
 export const refreshCourse = async (id) => {
   return await api
     .getCourse(id)

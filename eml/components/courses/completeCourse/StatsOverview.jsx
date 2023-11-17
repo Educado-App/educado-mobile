@@ -3,20 +3,58 @@ import { View, Dimensions, Image } from 'react-native';
 import Text from '../../general/Text';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import { Easing } from 'react-native-reanimated';
+import { getStudentInfo } from '../../../services/StorageService';
 
-export default function StatsOverview() {
+export default function StatsOverview({ courseObject }) {
   const [percentage, setPercentage] = useState(0);
   const circleSize = Dimensions.get('window').height * 0.17;
   const tailwindConfig = require('../../../tailwind.config.js');
   const projectColors = tailwindConfig.theme.colors;
-  const circularProgressRef = useRef();
+  const circularProgressRef = useRef(null);
 
+  async function getCompletedCourse() {
+    const studentInfo = await getStudentInfo();
+    const completedCourse = studentInfo.completedCourses.find((course) => course.courseId === courseObject.id);
+
+    return completedCourse;
+  }
+  
+  async function getPercentage() {
+    try {
+      const completedCourse = await getCompletedCourse();
+      let totalExercises = 0;
+      let totalExercisesWithFirstTry = 2;
+  
+      if (completedCourse) {
+        completedCourse.completedSections.forEach((completedSection) => {
+          completedSection.completedExercises.forEach((completedExercise) => {
+            totalExercises++;
+  
+            // Assuming completedExercise has a property named firstTry
+            if (completedExercise.firstTry === true) {
+              totalExercisesWithFirstTry++;
+            }
+          });
+        });
+      } else {
+        return 0;
+      }
+
+      return Math.round((totalExercisesWithFirstTry / totalExercises) * 100);
+      } catch (error) {
+        console.error('Error fetching completed courses:', error);
+        return 0;
+      }
+  }
+  
   useEffect(() => {
-    // Check if the ref is available before calling the animate method
-    if (circularProgressRef.current) {
-      circularProgressRef.current.animate(percentage, 1250, Easing.quad);
-      setPercentage(75);
-    } 
+    getPercentage().then((percentage) => {
+      // Check if the ref is available before calling the animate method
+      if (circularProgressRef.current) {
+        circularProgressRef.current.animate(percentage, 1250, Easing.quad);
+        setPercentage(percentage);
+      }
+    });
   }, []);
 
   return (

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { View, TouchableOpacity, SafeAreaView } from 'react-native';
 import { BgLinearGradient } from '../../constants/BgLinearGradient';
 import CompleteCourseSlider from '../../components/courses/completeCourse/CompleteCourseSlider';
@@ -10,6 +10,11 @@ import { useNavigation } from '@react-navigation/native';
 export default function CompleteCourseScreen() {
   const completeCourseSliderRef = useRef(null);
   let currentSlide = 0;
+
+  const courseObject = {
+    id: '6540f668536b2b37a49457dc',
+    title: 'Curso de Teste',
+  };
 
   const navigation = useNavigation();
 
@@ -39,6 +44,7 @@ export default function CompleteCourseScreen() {
             <CompleteCourseSlider 
               onIndexChanged={handleIndexChange}
               ref={completeCourseSliderRef}  
+              courseObject={courseObject}
             />
           </View>
 

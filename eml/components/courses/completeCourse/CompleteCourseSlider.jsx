@@ -6,15 +6,15 @@ import Congratulation from './Congratulation';
 import StatsOverview from './StatsOverview';
 import Certification from './Certification';
 
-const CompleteCourseSlider = forwardRef(({ onIndexChanged }, ref) => {
+const CompleteCourseSlider = forwardRef(({ onIndexChanged, courseObject }, ref) => {
   const slick = useRef(null);
   const tailwindConfig = require('../../../tailwind.config.js');
   const projectColors = tailwindConfig.theme.colors;
 
   const screens = [
     <Congratulation />,
-    <StatsOverview />,
-    <Certification />,
+    <StatsOverview courseObject={courseObject} />,
+    <Certification courseObject={courseObject} />,
   ];
 
   const scrollBy = (number) => {

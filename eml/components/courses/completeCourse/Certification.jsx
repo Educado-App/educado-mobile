@@ -4,7 +4,7 @@ import LottieView from 'lottie-react-native';
 import Text from '../../general/Text';
 
 
-export default function Certification() {
+export default function Certification({ courseObject }) {
   return (
     <View className="flex w-full h-full justify-start items-center">
       <Text className="text-center font-sans-bold text-3xl text-primary p-5">Você Recebeu um Certificado!</Text>
@@ -29,7 +29,7 @@ export default function Certification() {
         </TouchableOpacity>
       </View>
 
-      <Text className="text-center text-base text-projectBlack px-5 mt-8">Parabéns, você concluiu o curso COURSE NAME e recebeu uma certificação. Você pode ver todas as suas certificações em seu perfil.</Text>
+      <Text className="text-center text-base text-projectBlack px-5 mt-8">Parabéns, você concluiu o curso {courseObject.title} e recebeu uma certificação. Você pode ver todas as suas certificações em seu perfil.</Text>
     </View>
   );
 }
