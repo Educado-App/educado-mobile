@@ -448,7 +448,6 @@ export const storeCourseLocally = async (courseID) => {
 
         const sectionList = await api.getAllSections(courseID);
         await AsyncStorage.setItem("S" + courseID, JSON.stringify(sectionList));
-
         for (let section of sectionList) {
             let lectureList = await api.getLecturesInSection(section._id);
             await AsyncStorage.setItem("L" + section._id, JSON.stringify(lectureList));
@@ -476,7 +475,6 @@ export const storeCourseLocally = async (courseID) => {
     }
 }
 
-
 /**
  * Deletes a locally stored course
  * @param {String} courseID - A string with the ID of the course to be removed from lacal storage
@@ -489,11 +487,12 @@ export const deleteLocallyStoredCourse = async (courseID) => {
 
         const sectionList = JSON.parse(await AsyncStorage.getItem("S" + courseID));
         await AsyncStorage.removeItem("S" + courseID);
-
         for (let section of sectionList) {
+            let lectureList = JSON.parse(await AsyncStorage.getItem("L" + section._id));
             await AsyncStorage.removeItem("L" + section._id);
             await AsyncStorage.removeItem("E" + section._id);
-            for (let lecture of section.lectures) {
+            
+            for (let lecture of lectureList) {
                 await AsyncStorage.removeItem("I" + lecture._id);
                 //delete video here
                 //await unlink(RNBackgroundDownloader.directories.documents + '/' + lecture.video);

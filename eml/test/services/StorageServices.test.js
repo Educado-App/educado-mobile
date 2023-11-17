@@ -4,11 +4,9 @@ import * as StorageService from '../../services/StorageService.js';
 import { sub } from 'react-native-reanimated';
 import { mockDataAPI } from '../mockData/mockDataAPI.js';
 import { mockDataAsyncStorage } from '../mockData/mockDataAsyncStorage.js';
-import {deleteLocallyStoredCourse} from "../../services/StorageService.js";
 
 
 jest.mock('@react-native-async-storage/async-storage');
-//jest.mock('../../services/StorageService.js');
 
 // Mock the API functions
 jest.mock('../../api/api');
@@ -23,6 +21,7 @@ describe('StorageService Functions', () => {
     AsyncStorage.clear();
     AsyncStorage.getItem.mockReset();
     AsyncStorage.setItem.mockReset();
+    AsyncStorage.removeItem.mockReset();
   };
 
   beforeEach(() => {
@@ -63,89 +62,6 @@ describe('StorageService Functions', () => {
 
 
   /** COURSES */
-/*
-  describe('Course', () => {
-    it('should return the course from AsyncStorage if it exists', async () => {
-      const course_id = mockData.courseData._id;
-
-      // Arrange
-      AsyncStorage.getItem.mockResolvedValueOnce(JSON.stringify(mockData.courseData));
-      jest.spyOn(api, 'getCourse').mockResolvedValueOnce(mockData.courseData);
-
-      // Act
-      const result = await StorageService.getCourseId(course_id);
-
-      // Assert
-      expect(result).toEqual(mockData.courseData);
-
-      // Clean up by restoring the original api.getCourses function
-      jest.restoreAllMocks();
-
-    });
-
-    it('should call refreshCourse if course is not in AsyncStorage', async () => {
-
-      // Arrange
-      AsyncStorage.getItem.mockResolvedValueOnce(null);
-      jest.spyOn(api, 'getCourse').mockResolvedValueOnce(mockData.courseData);
-
-      // Act
-      const result = await StorageService.getCourseId(mockData.courseData._id);
-
-      // Assert
-      expect(result).toEqual(mockData.courseData);
-
-      // Clean up by restoring the original api.getCourses function
-      jest.restoreAllMocks();
-
-    });
-
-    it('should handle errors getting from async storage', async () => {
-
-      const errorMessage = 'Error getting course from async storage: ' + mockData.errorResponse;
-
-      // Mock AsyncStorage to simulate an error
-      AsyncStorage.getItem.mockRejectedValue(new Error(errorMessage));
-
-      // Mock the refreshCourse function from the 'api' module to throw an error
-      jest.spyOn(StorageService, 'refreshCourse').mockRejectedValue(new Error(errorMessage));
-
-      try {
-        await StorageService.getCourseId(mockData.course_id);
-      } catch (error) {
-        expect(error).toBeInstanceOf(Error);
-        expect(error.message).toEqual(errorMessage);
-      }
-
-      // Clean up by restoring the original mock functions
-      jest.restoreAllMocks();
-    });
-
-    it('should handle errors in refreshCourse', async () => {
-
-      const errorMessage = 'Error getting course from database: ' + mockData.errorResponse;
-
-      // Mock AsyncStorage to simulate an error
-      AsyncStorage.getItem.mockResolvedValue(null);
-      AsyncStorage.getItem.mockRejectedValue(new Error(errorMessage));
-
-      // Mocking the refreshCourse function from StorageServices
-      jest.spyOn(StorageService, 'refreshCourse').mockRejectedValue(new Error(errorMessage));
-
-      try {
-        await StorageService.getCourseId(mockData.courseData._id);
-      } catch (error) {
-        expect(error).toBeInstanceOf(Error);
-        expect(error.message).toEqual(errorMessage);
-        expect(AsyncStorage.setItem).not.toHaveBeenCalled();
-      }
-      //Clean up by restoring the original StorageService.refreshCourse function
-      jest.restoreAllMocks();
-    });
-  });
-*/
-
-  // Add more test cases for other functions as needed
 
   describe('Course List', () => {
     // Test cases for getCourseList
@@ -704,21 +620,33 @@ describe('StorageService Functions', () => {
   });
 
   describe('deleteLocallyStoredCourse', () => {
+
     it('should delete a locally stored course and return true', async () => {
       // Arrange
       const mockCourseID = 'course_id';
-      const mockSectionList = [{ _id: 'section_id_1', lectures: [] }, { _id: 'section_id_2', lectures: [] }];
+      const mockSectionList = [{_id: 'section_id_1', lectures: [{_id: 'lecture_id_1'}] }, {_id: 'section_id_2', lectures: [{_id: 'lecture_id_2'}] }];
+      const mockLectureList1 = [{_id: 'lecture_id_1'}];
+      const mockLectureList2 = [{_id: 'lecture_id_2'}];
       const USER_ID = '@userId';
 
       // Mock AsyncStorage getItem and removeItem
-      await AsyncStorage.getItem.mockImplementation(async (key) => {
+
+      //jest.spyOn(AsyncStorage, 'getItem').mockImplementationOnce(
+      //AsyncStorage.getItem = jest.fn(
+      await AsyncStorage.getItem.mockImplementation(
+          async (key) => {
         if (key === '@userId'){
           return 'userID';
-        } else if (key === ('S' + mockCourseID)) {
+        } else if (key === ('S' + 'course_id')) {
           return JSON.stringify(mockSectionList);
+        } else if (key === ('L' + mockSectionList[0]._id)) {
+          return JSON.stringify(mockLectureList1);
+        } else if (key === ('L' + mockSectionList[1]._id)) {
+          return JSON.stringify(mockLectureList2);
         }
-        return null;
       });
+
+      //await AsyncStorage.getItem('@userId').mockResolvedValueOnce('userID');
 
       await AsyncStorage.removeItem.mockResolvedValue();
 
@@ -727,10 +655,20 @@ describe('StorageService Functions', () => {
 
       // Assert
       expect(result).toBe(true);
-      expect(await AsyncStorage.getItem).toHaveBeenCalledWith(USER_ID);
-      expect(await AsyncStorage.getItem).toHaveBeenCalledWith('S' + mockCourseID);
-      expect(await AsyncStorage.removeItem).toHaveBeenCalledWith(mockCourseID + await AsyncStorage.getItem(USER_ID));
-      expect(await AsyncStorage.removeItem).toHaveBeenCalledWith('S' + mockCourseID);
+      expect(AsyncStorage.getItem).toHaveBeenCalled();
+      expect(AsyncStorage.getItem).toHaveBeenCalledWith(USER_ID);
+      expect(AsyncStorage.getItem).toHaveBeenCalledWith('S' + mockCourseID);
+      expect(AsyncStorage.getItem).toHaveBeenCalledWith('L' + mockSectionList[0]._id);
+      expect(AsyncStorage.getItem).toHaveBeenCalledWith('L' + mockSectionList[1]._id);
+      expect(AsyncStorage.removeItem).toHaveBeenCalledWith(mockCourseID + await AsyncStorage.getItem(USER_ID));
+      expect(AsyncStorage.removeItem).toHaveBeenCalledWith('S' + mockCourseID);
+      expect(AsyncStorage.removeItem).toHaveBeenCalledWith('L' + mockSectionList[0]._id);
+      expect(AsyncStorage.removeItem).toHaveBeenCalledWith('E' + mockSectionList[0]._id);
+      expect(AsyncStorage.removeItem).toHaveBeenCalledWith('I' + mockLectureList1[0]._id);
+      expect(AsyncStorage.removeItem).toHaveBeenCalledWith('L' + mockSectionList[1]._id);
+      expect(AsyncStorage.removeItem).toHaveBeenCalledWith('E' + mockSectionList[1]._id);
+      expect(AsyncStorage.removeItem).toHaveBeenCalledWith('I' + mockLectureList2[0]._id);
+
       // Add more assertions based on your actual implementation
     });
 
@@ -740,7 +678,7 @@ describe('StorageService Functions', () => {
       const USER_ID = '@userId';
 
       // Mock AsyncStorage getItem to simulate an error
-      await AsyncStorage.getItem.mockRejectedValueOnce(new Error('AsyncStorage error'));
+      await AsyncStorage.getItem.mockRejectedValue(new Error('AsyncStorage error'));
 
       // Act
       const result = await StorageService.deleteLocallyStoredCourse(mockCourseID);
@@ -820,7 +758,7 @@ describe('StorageService Functions', () => {
     });
   });
 
-describe('checkIfOnline', () => {
+  describe('checkIfOnline', () => {
     beforeEach(() => {
       jest.clearAllMocks();
     });
