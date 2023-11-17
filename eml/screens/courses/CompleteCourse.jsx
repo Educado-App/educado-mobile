@@ -1,11 +1,27 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { View, TouchableOpacity, SafeAreaView } from 'react-native';
 import { BgLinearGradient } from '../../constants/BgLinearGradient';
 import CompleteCourseSlider from '../../components/courses/completeCourse/CompleteCourseSlider';
 import Text from '../../components/general/Text.js';
 import { useNavigation } from '@react-navigation/native';
 
-// Both components are brokey
+// TODO: after merge with dev, add navigation to this screen from CompleteSectionScreen with courseObject as param
+
+// use this code:
+// import { getStudentInfo } from '../../services/StorageService';
+
+// async function completedCourse() {
+//   const studentInfo = await getStudentInfo();
+//   const completedCourse = studentInfo.completedCourses.find((course) => course.courseId === courseObject.id);
+
+//   return completedCourse.isComplete
+// }
+
+// useEffect(() => {
+//   completedCourse().then((isCompleted) => {
+//     console.log('isCompleted', isCompleted)
+//   })
+// }, []);
 
 export default function CompleteCourseScreen() {
   const completeCourseSliderRef = useRef(null);
@@ -33,7 +49,6 @@ export default function CompleteCourseScreen() {
         completeCourseSliderRef.current.scrollBy(1);
       }
     }
-    
   };
 
   return (

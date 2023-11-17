@@ -41,7 +41,7 @@ const CompleteCourseSlider = forwardRef(({ onIndexChanged, courseObject }, ref) 
       height={265}
       showsButtons={true}
       onIndexChanged={(index) => {
-        onIndexChanged;
+        onIndexChanged(index);
         statsOverviewRef.current.startAnimation(index);
       }}
       autoplayTimeout={10}
