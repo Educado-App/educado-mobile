@@ -1,75 +1,60 @@
+import NetInfo from "@react-native-community/netinfo";
 import { NetworkStatusService } from '../../services/NetworkStatusService';
-import io from 'socket.io-client';
 
-jest.mock('socket.io-client', () => {
-    const emitEvent = jest.fn();
-    const mockSocket = {
-        on: jest.fn((event, callback) => {
-            emitEvent[event] = callback;
-        }),
-        emit: emitEvent,
-        // Add other necessary mocks here
-    };
-    return jest.fn(() => mockSocket);
-});
+jest.mock('@react-native-community/netinfo');
+
+let netInfoCallback;
 
 describe('NetworkStatusService', () => {
-    let service;
-    let mockSocket;
+    NetInfo.addEventListener.mockImplementation(callback => {
+        netInfoCallback = callback;
+        return jest.fn();
+    });
 
     beforeEach(() => {
-        // Reset the instance for each test to ensure isolation
-        NetworkStatusService.instance = null;
-        service = NetworkStatusService.getInstance();
-        mockSocket = io();
+        jest.resetModules();
     });
 
-    it('should always return the same instance', () => {
-        const anotherInstance = NetworkStatusService.getInstance();
-        expect(service).toBe(anotherInstance);
+    test('should implement singleton pattern', () => {
+        const instance1 = NetworkStatusService.getInstance();
+        const instance2 = NetworkStatusService.getInstance();
+        expect(instance1).toBe(instance2);
     });
 
-    it('should add and notify observers correctly', () => {
-        const mockObserver = {update: jest.fn()};
-        service.addObserver(mockObserver);
-        service.updateNetworkStatus(true);
-        expect(mockObserver.update).toHaveBeenCalledWith(true);
+    test('should add and remove observers', () => {
+        const service = NetworkStatusService.getInstance();
+        const observer = { update: jest.fn() };
+
+        // Add observer and simulate a network change
+        service.addObserver(observer);
+        netInfoCallback({ isConnected: true }); // Assuming netInfoCallback is your mock function
+        expect(observer.update).toHaveBeenCalledWith(true); // Check if observer is notified
+
+        // Remove observer and simulate another network change
+        service.removeObserver(observer);
+        observer.update.mockClear(); // Clear previous calls to update
+        netInfoCallback({ isConnected: false });
+        expect(observer.update).not.toHaveBeenCalled(); // Observer should not be notified this time
     });
 
-    it('should update status to online when WebSocket connects', () => {
-        mockSocket.emit['connect']();
-        expect(service.isOnline).toBeTruthy();
+    test('should get correct isOnline status', () => {
+        const service = NetworkStatusService.getInstance();
+        expect(service.isOnline).toEqual(expect.any(Boolean));
     });
 
-    it('should update status to offline when WebSocket disconnects', () => {
-        mockSocket.emit['disconnect']();
-        expect(service.isOnline).toBeFalsy();
-    });
+    test('should update and notify observers on network change', async () => {
+        const service = NetworkStatusService.getInstance();
+        const observer = { update: jest.fn() };
+        service.addObserver(observer);
 
-    it('should notify observers on network status change', () => {
-        const mockObserver = { update: jest.fn() };
-        service.addObserver(mockObserver);
+        // Simulate network change to true
+        netInfoCallback({ isConnected: true });
+        await new Promise(setImmediate); // Wait for the event loop to process the change
+        expect(observer.update).toHaveBeenCalledWith(true);
 
-        mockSocket.emit['connect']();
-        expect(mockObserver.update).toHaveBeenCalledWith(true);
-
-        mockSocket.emit['disconnect']();
-        expect(mockObserver.update).toHaveBeenCalledWith(false);
-    });
-
-    it('should not notify observers if status is updated to the same value', () => {
-        const mockObserver = { update: jest.fn() };
-        service.addObserver(mockObserver);
-
-        // Simulate initial connection
-        mockSocket.emit['connect']();
-        expect(mockObserver.update).toHaveBeenCalledWith(true);
-
-        // Reset the mock function for the observer
-        mockObserver.update.mockReset();
-
-        // Simulate another connection event with the same status
-        mockSocket.emit['connect']();
-        expect(mockObserver.update).not.toHaveBeenCalled();
+        // Simulate network change to false
+        netInfoCallback({ isConnected: false });
+        await new Promise(setImmediate); // Wait again
+        expect(observer.update).toHaveBeenCalledWith(false);
     });
 });
