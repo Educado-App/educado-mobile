@@ -73,7 +73,7 @@ export const deleteUser = async (user_id, token) => {
       headers: {
         'Content-Type': 'application/json',
         'token': token, // Include the token in the headers
-        },
+      },
     });
     return res.data;
   } catch (e) {

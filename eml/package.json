@@ -10,7 +10,7 @@
     "test-coverage": "jest --coverage",
     "test-watch": "jest --watch",
     "test:components": "jest -i .*/components/explore.test.js -t \"Component Tests\"",
-    "build": "babel components/ -d lib/",
+    "build": "eas build -p android --profile preview",
     "flow": "flow",
     "lint": "eslint --fix ."
   },

@@ -55,6 +55,13 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7', o
     }
   }
 
+  /* function handleSecondOnclick() {
+    navigation.navigate('Lecture', {
+      sectionId: '6540f6b3536b2b37a49457e0', // hardcoded for testing
+      courseId: '6540f668536b2b37a49457dc', // hardcoded for testing
+    });
+  } */
+  
   async function handleReviewAnswer(selectedAnswer) {
     const continueText = 'Continuar';
     const { userInfo, loginToken } = await retrieveUserInfoAndLoginToken();
@@ -80,7 +87,7 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7', o
       onContinue();
     }
   }
-
+  
   useEffect(() => {
     const fetchData = async () => {
       try {

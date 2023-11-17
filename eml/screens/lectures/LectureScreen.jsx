@@ -2,10 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { View, Text } from 'react-native';
 import VideoLectureScreen from './VideoLectureScreen';
 import TextImageLectureScreen from './TextImageLectureScreen';
+import StandardButton from '../../components/general/StandardButton';
 import PropTypes from 'prop-types';
+import { useNavigation } from '@react-navigation/native';
 
 export default function LectureScreen({ lectureObject, courseObject, currentIndex, indexCount }) {
 
+  const navigation = useNavigation();
     const [course, setCourse] = useState(courseObject);
   const [lecture, setLecture] = useState(lectureObject);
   const [progressPercent, setProgressPercent] = useState(null);
@@ -34,6 +37,19 @@ export default function LectureScreen({ lectureObject, courseObject, currentInde
             <VideoLectureScreen lecture={lecture} progress={progressPercent} course={course} />
             :
             <TextImageLectureScreen lecture={lecture} course={course} progress={progressPercent} />
+          }
+
+          {currentIndex === indexCount - 1 ?
+          /* need to send course (courseObject._id) and section (lecture.parentSection) id to completeSection screen */
+            <StandardButton
+              props={{
+                buttonText: 'Continuar',
+                onPress: () => {navigation.navigate('CompleteSection', 
+                  { courseId: courseObject._id, sectionId: lectureObject.parentSection }
+                );}
+              }}
+            />
+            : null
           }
         </View>
         :

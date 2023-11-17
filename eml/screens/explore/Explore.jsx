@@ -131,7 +131,10 @@ export default function Explore() {
 
   return (
     <BaseScreen>
-      <IconHeader title={'Explorar cursos'}/>
+      <IconHeader 
+        title={"Explorar cursos"}
+        description={"Inscreva-se nos cursos do seu interesse e comece sua jornada"}
+      />
 
       <FilterNavBar
         onChangeText={(text) => handleFilter(text)}
