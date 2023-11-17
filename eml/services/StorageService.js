@@ -8,7 +8,7 @@ const COURSE = '@course';
 const USER_ID = '@userId';
 const USER_INFO = '@userInfo';
 let isOnline = true;
-const LOGIN_TOKEN = "@loginToken";
+const LOGIN_TOKEN = '@loginToken';
 
 
 // Get user info from storage
@@ -30,39 +30,25 @@ export const getUserInfo = async () => {
 
 // Set user info in storage
 export const setUserInfo = async (userInfo) => {
-  try {
-    const obj = {
-      id: userInfo.id,
-      firstName: userInfo.firstName,
-      lastName: userInfo.lastName,
-      email: userInfo.email,
-      completedCourses: userInfo.completedCourses,
-    };
-
-    await AsyncStorage.setItem(USER_INFO, JSON.stringify(obj));
-    await AsyncStorage.setItem(USER_ID, userInfo.id); // needs to be seperate
-  } catch (error) {
-    throw error;
-  }
+  const obj = {
+    id: userInfo.id,
+    firstName: userInfo.firstName,
+    lastName: userInfo.lastName,
+    email: userInfo.email,
+    completedCourses: userInfo.completedCourses,
+  };
+  await AsyncStorage.setItem(USER_INFO, JSON.stringify(obj));
+  await AsyncStorage.setItem(USER_ID, userInfo.id); // needs to be seperate
 };
 
 // Get JWT from storage
 export const getJWT = async () => {
-  try {
-    const fetchedJWT = await AsyncStorage.getItem(LOGIN_TOKEN);
-    return fetchedJWT;
-  } catch (e) {
-    throw e;
-  }
+  return await AsyncStorage.getItem(LOGIN_TOKEN);
 };
 
 // Set JWT in storage
 export const setJWT = async (jwt) => {
-  try {
-    return await AsyncStorage.setItem(LOGIN_TOKEN, jwt);
-  } catch (e) {
-    throw e;
-  }
+  return await AsyncStorage.setItem(LOGIN_TOKEN, jwt);
 };
 
 /** COURSE AND COURSE LIST **/

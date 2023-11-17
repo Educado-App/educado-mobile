@@ -4,7 +4,6 @@ import {
   SafeAreaView,
   Alert
 } from 'react-native';
-import { getCourses } from '../../api/api';
 import Text from '../../components/general/Text';
 import ProfileNameCircle from '../../components/profile/ProfileNameCircle';
 import FormButton from '../../components/general/forms/FormButton';
@@ -12,7 +11,7 @@ import ChangePasswordModal from '../../components/profileSettings/ChangePassword
 import FormTextField from '../../components/general/forms/FormTextField';
 import { deleteUser, updateUserFields } from '../../api/userApi';
 import BackButton from '../../components/general/BackButton';
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native';
 import { validateEmail, validateName } from '../../components/general/Validation';
 import FormFieldAlert from '../../components/general/forms/FormFieldAlert';
 import { getUserInfo, setUserInfo, getJWT } from '../../services/StorageService';
@@ -91,21 +90,10 @@ export default function EditProfile() {
     } catch (e) {
       console.log(e);
     }
-  }
-
-  const fetchCourses = async () => {
-    try {
-      const courseData = await getCourses();
-      setCourses(courseData);
-    } catch (error) {
-      ShowAlert(errorSwitch(error));
-    }
-  }
+  };
 
   useEffect(() => {
     getProfile();
-    // Looked cute, might delete later
-    //fetchCourses();
   }, []);
 
   /**
@@ -122,7 +110,7 @@ export default function EditProfile() {
       firstName: fetchedFirstName,
       lastName: fetchedLastName,
       email: fetchedEmail,
-    }
+    };
     
     const updatedProfile = {
       ...fetchedProfile,
@@ -142,13 +130,13 @@ export default function EditProfile() {
   };
 
   const deleteAccountAlert = () =>
-  Alert.alert('Deletar conta', 'Tem certeza de que deseja excluir sua conta?', [
-    {
-      text: 'Não',
-      style: 'cancel'
-    },
-    { text: 'Sim', onPress: deleteAccount}
-  ])
+    Alert.alert('Deletar conta', 'Tem certeza de que deseja excluir sua conta?', [
+      {
+        text: 'Não',
+        style: 'cancel'
+      },
+      { text: 'Sim', onPress: deleteAccount}
+    ]);
 
   const deleteAccount = async () => {
     try {

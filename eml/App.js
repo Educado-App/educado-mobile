@@ -18,7 +18,7 @@ import NavBar from './components/navBar/NavBar';
 import LectureSwipeScreen from './screens/lectures/LectureSwipeScreen';
 import ErrorScreen from './screens/errors/ErrorScreen';
 import CourseScreen from './screens/courses/CourseScreen';
-import EditProfileScreen from "./screens/profile/EditProfile";
+import EditProfileScreen from './screens/profile/EditProfile';
 
 
 const Stack = createNativeStackNavigator();

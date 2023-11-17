@@ -5,6 +5,7 @@ import ProfileNameCircle from './ProfileNameCircle';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { FontAwesome5 } from '@expo/vector-icons';
 import tailwindConfig from '../../tailwind.config';
+import PropTypes from 'prop-types';
 
 
 /**
@@ -18,6 +19,13 @@ import tailwindConfig from '../../tailwind.config';
  */
 export default function UserInfo(props) {
   const tailwindColors = tailwindConfig.theme.colors;
+
+  UserInfo.propTypes = {
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+    email: PropTypes.string,
+    points: PropTypes.number
+  };
 
   return (
     <View className="p-6 flex flex-row items-start ">

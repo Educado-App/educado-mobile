@@ -3,9 +3,10 @@ import {
   TouchableOpacity
 } from 'react-native';
 import Text from '../general/Text';
-import React from 'react'
+import React from 'react';
 import { Icon } from '@rneui/base';
-import tailwindConfig from "../../tailwind.config";
+import tailwindConfig from '../../tailwind.config';
+import PropTypes from 'prop-types';
 
 /**
  * Component for profile navigation buttons on profile page
@@ -17,6 +18,11 @@ import tailwindConfig from "../../tailwind.config";
 export default function ProfileNavigationButton(props) {
 
   const tailwindColors = tailwindConfig.theme.colors;
+
+  ProfileNavigationButton.propTypes = {
+    label: PropTypes.string,
+    onPress: PropTypes.func,
+  };
 
   return (
     <View className="px-6 w-screen my-3">
@@ -34,5 +40,5 @@ export default function ProfileNavigationButton(props) {
         </View>
       </TouchableOpacity>
     </View>
-  )
+  );
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
-import { Pressable } from "react-native";
+import { Pressable } from 'react-native';
 
 /**
  * Icon component for the eye besides passwords to toggle if text can be seen by user

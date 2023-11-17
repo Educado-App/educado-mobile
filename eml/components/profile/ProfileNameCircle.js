@@ -1,6 +1,7 @@
-import React from 'react'
-import { View } from 'react-native'
+import React from 'react';
+import { View } from 'react-native';
 import Text from '../general/Text';
+import PropTypes from 'prop-types';
 
 /**
  * Component for showing an alert below a form field
@@ -10,11 +11,17 @@ import Text from '../general/Text';
  * @returns {React.Element} JSX element for showing alerts
  */
 export default function ProfileNameCircle(props) {
+
+  ProfileNameCircle.propTypes = {
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+  };
+
   return (
     <View className="grid rounded-full bg-profileCircle h-24 w-24 aspect-square items-center justify-center">
       <Text className="text-projectWhite text-5xl font-bold text-center bg-white mt-2"> 
         {props.firstName.charAt(0).toUpperCase()}{props.lastName.charAt(0).toUpperCase()}
       </Text>
     </View>
-  )
+  );
 }

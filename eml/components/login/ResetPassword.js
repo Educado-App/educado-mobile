@@ -1,14 +1,14 @@
-import { View } from "react-native";
-import React, { useState, useEffect } from "react";
-import FormTextField from "../general/forms/FormTextField";
-import FormButton from "../general/forms/FormButton";
-import EducadoModal from "../general/EducadoModal";
-import EnterNewPasswordScreen from "./EnterNewPasswordScreen";
+import { View } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import FormTextField from '../general/forms/FormTextField';
+import FormButton from '../general/forms/FormButton';
+import EducadoModal from '../general/EducadoModal';
+import EnterNewPasswordScreen from './EnterNewPasswordScreen';
 import Text from '../general/Text';
-import { sendResetPasswordEmail, validateResetPasswordCode } from "../../api/userApi";
-import FormFieldAlert from "../general/forms/FormFieldAlert";
-import { validateEmail } from "../general/Validation";
-import ToastNotification from "../general/ToastNotification";
+import { sendResetPasswordEmail, validateResetPasswordCode } from '../../api/userApi';
+import FormFieldAlert from '../general/forms/FormFieldAlert';
+import { validateEmail } from '../general/Validation';
+import ToastNotification from '../general/ToastNotification';
 import ShowAlert from '../general/ShowAlert';
 import PropTypes from 'prop-types';
 
@@ -187,7 +187,7 @@ export default function ResetPassword(props) {
                       testId="validateCodeBtn"
                       disabled={!codeInputValid(token)}
                     >
-                      {buttonLoading ? "Validando código..." : "Continuar"}
+                      {buttonLoading ? 'Validando código...' : 'Continuar'}
                     </FormButton>
                   </View>
                   <View className="mx-10 flex-row justify-center">
@@ -202,9 +202,9 @@ export default function ResetPassword(props) {
                   // Send code
                   onPress={() => sendEmail(email)}
                   testId="resetPasswordButton"
-                  disabled={passwordResetAlert !== "" || email === "" || buttonLoading}
+                  disabled={passwordResetAlert !== '' || email === '' || buttonLoading}
                 >
-                  {buttonLoading ? "Enviando e-mail..." : "Enviar código"}
+                  {buttonLoading ? 'Enviando e-mail...' : 'Enviar código'}
                 </FormButton>
               )}
             </View>

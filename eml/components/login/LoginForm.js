@@ -1,19 +1,19 @@
-import React, { useState } from "react";
-import { View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { loginUser } from "../../api/userApi";
-import FormTextField from "../general/forms/FormTextField";
-import FormButton from "../general/forms/FormButton";
-import PasswordEye from "../general/forms/PasswordEye";
-import ResetPassword from "./ResetPassword";
-import FormFieldAlert from "../general/forms/FormFieldAlert";
-import { removeEmojis } from "../general/Validation";
-import Text from "../general/Text";
-import ShowAlert from "../general/ShowAlert";
+import React, { useState } from 'react';
+import { View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { loginUser } from '../../api/userApi';
+import FormTextField from '../general/forms/FormTextField';
+import FormButton from '../general/forms/FormButton';
+import PasswordEye from '../general/forms/PasswordEye';
+import ResetPassword from './ResetPassword';
+import FormFieldAlert from '../general/forms/FormFieldAlert';
+import { removeEmojis } from '../general/Validation';
+import Text from '../general/Text';
+import ShowAlert from '../general/ShowAlert';
 
 
 // Services
-import { setUserInfo, setJWT } from "../../services/StorageService";
+import { setUserInfo, setJWT } from '../../services/StorageService';
 
 /**
  * Login form component for login screen containing email and password input fields and a login button.
@@ -54,7 +54,7 @@ export default function LoginForm() {
       // Set login token in AsyncStorage and navigate to home screen
       await setJWT(response.accessToken);
       await setUserInfo(response.userInfo);
-      navigation.navigate("HomeStack");
+      navigation.navigate('HomeStack');
     }).catch((error) => {
       switch (error?.error?.code) {
       case 'E0004':

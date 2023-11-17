@@ -6,6 +6,7 @@ import Text from './Text';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { AlertNotificationRoot } from 'react-native-alert-notification';
 import BackButton from './BackButton';
+import PropTypes from 'prop-types';
 
 /**
  * 
@@ -16,6 +17,13 @@ import BackButton from './BackButton';
  * @returns 
  */
 const StandardModal = (props) => {
+
+  StandardModal.propTypes = {
+    modalVisible: PropTypes.bool,
+    closeModal: PropTypes.func,
+    title: PropTypes.string,
+    children: PropTypes.element
+  };
 
   return (
     <Modal
@@ -43,7 +51,7 @@ const StandardModal = (props) => {
         </KeyboardAwareScrollView>
       </AlertNotificationRoot>
     </Modal>
-  )
-}
+  );
+};
 
 export default StandardModal;

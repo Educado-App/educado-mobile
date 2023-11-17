@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { View } from "react-native";
-import { loginUser, registerUser } from "../../api/userApi";
-import FormTextField from "../general/forms/FormTextField";
-import FormButton from "../general/forms/FormButton";
-import PasswordEye from "../general/forms/PasswordEye";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import ShowAlert from "../general/ShowAlert";
-import FormFieldAlert from "../general/forms/FormFieldAlert";
-import { removeEmojis, validatePasswordContainsLetter, validatePasswordLength, validateEmail, validateName } from "../general/Validation";
-import Text from "../general/Text";
-import errorSwitch from "../general/errorSwitch";
-import { useNavigation } from "@react-navigation/native";
-import DialogNotification from "../general/DialogNotification";
-import { AlertNotificationRoot } from "react-native-alert-notification";
-import tailwindConfig from "../../tailwind.config";
-import { setUserInfo, setJWT } from "../../services/StorageService";
+import React, { useEffect, useState } from 'react';
+import { View } from 'react-native';
+import { loginUser, registerUser } from '../../api/userApi';
+import FormTextField from '../general/forms/FormTextField';
+import FormButton from '../general/forms/FormButton';
+import PasswordEye from '../general/forms/PasswordEye';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import ShowAlert from '../general/ShowAlert';
+import FormFieldAlert from '../general/forms/FormFieldAlert';
+import { removeEmojis, validatePasswordContainsLetter, validatePasswordLength, validateEmail, validateName } from '../general/Validation';
+import Text from '../general/Text';
+import errorSwitch from '../general/errorSwitch';
+import { useNavigation } from '@react-navigation/native';
+import DialogNotification from '../general/DialogNotification';
+import { AlertNotificationRoot } from 'react-native-alert-notification';
+import tailwindConfig from '../../tailwind.config';
+import { setUserInfo, setJWT } from '../../services/StorageService';
 
 /**
  * Component for registering a new account in the system, used in the register screen

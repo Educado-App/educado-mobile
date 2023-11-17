@@ -6,6 +6,7 @@ import { Icon } from '@rneui/base';
 
 // Misc
 import tailwindConfig from '../../tailwind.config';
+import PropTypes from 'prop-types';
 
 /**
  * Component for navigating back.
@@ -17,6 +18,12 @@ import tailwindConfig from '../../tailwind.config';
  * @returns JSX element
  */
 export default function BackButton(props) {
+
+  BackButton.propTypes = {
+    onPress: PropTypes.func,
+    style: PropTypes.object
+  };
+
   return <>
     <Pressable
       onPress={props.onPress}
@@ -30,5 +37,5 @@ export default function BackButton(props) {
         color={tailwindConfig.theme.colors.projectBlack}
       />
     </Pressable>
-  </>
+  </>;
 }

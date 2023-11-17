@@ -1,9 +1,10 @@
-import React from "react";
+import React from 'react';
 
 // Components
-import { TouchableOpacity } from "react-native";
-import { View } from "react-native";
-import Text from "../Text";
+import { TouchableOpacity } from 'react-native';
+import { View } from 'react-native';
+import Text from '../Text';
+import PropTypes from 'prop-types';
 
 /**
  * Button component for eg. login and register screens.
@@ -14,27 +15,35 @@ import Text from "../Text";
  */
 export default function FormButton(props) {
 
-	// Put this here for possible custom styling
-	const typeStyles = {
-		primary: "bg-primary",
-		error: "bg-error",
-		warning: "bg-yellow",
-	}
+  FormButton.propTypes = {
+    children: PropTypes.string,
+    disabled: PropTypes.bool,
+    onPress: PropTypes.func,
+    style: PropTypes.object,
+    type: PropTypes.string
+  };
 
-	return <>
-		<View>
-			<TouchableOpacity
-				className={"px-4 py-4 rounded-medium " +
+  // Put this here for possible custom styling
+  const typeStyles = {
+    primary: 'bg-primary',
+    error: 'bg-error',
+    warning: 'bg-yellow',
+  };
+
+  return <>
+    <View>
+      <TouchableOpacity
+        className={'px-4 py-4 rounded-medium ' +
 					(typeStyles[props.type] ?? typeStyles.primary) +
 					(props.disabled ? ' opacity-50' : '')}
-				style={props.style ?? null}
-				onPress={props.onPress}
-				disabled={props.disabled}
-			>
-				<Text className="text-center font-sans-bold text-body text-projectWhite">
-					{props.children}
-				</Text>
-			</TouchableOpacity>
-		</View>
-	</>
+        style={props.style ?? null}
+        onPress={props.onPress}
+        disabled={props.disabled}
+      >
+        <Text className="text-center font-sans-bold text-body text-projectWhite">
+          {props.children}
+        </Text>
+      </TouchableOpacity>
+    </View>
+  </>;
 }

@@ -1,7 +1,7 @@
 // TODO: Perhaps some of them should urge the user to contact support?
 // TODO: Verify these translatios with Luiza
 
-import ShowAlert from '../components/general/ShowAlert'
+import ShowAlert from '../components/general/ShowAlert';
 
 /**
  * // Show standard error message for each error code received from the backend.
@@ -120,7 +120,7 @@ export const ERROR_CODES = {
     'br': 'Não foi possível enviar um e-mail de verificação. Por favor, tente novamente mais tarde.',
   },
   'E0206': {
-    'en': "Email must contain '@' and '.'",
+    'en': 'Email must contain \'@\' and \'.\'',
     'br': 'O e-mail deve conter "@" e "."',
   },
   'E0207': {

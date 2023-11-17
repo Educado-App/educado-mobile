@@ -10,9 +10,9 @@ export default function settingsButton() {
   
   const navigation = useNavigation();
   
-    const handleGearIconPress = () => {
-      navigation.navigate('EditProfile');
-    };
+  const handleGearIconPress = () => {
+    navigation.navigate('EditProfile');
+  };
     
   return (
     <View className="flex items-center px-6 w-screen my-3">

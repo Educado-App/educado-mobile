@@ -23,7 +23,7 @@ export default function FormTextField(props) {
   return (
     <View>
       <View className="flex flex-row">
-        <Text className={"ml-2 text-xs"}>
+        <Text className={'ml-2 text-xs'}>
           {props.label ?? ''}
         </Text>
         <Text className={'ml-1 text-xs text-error'}>

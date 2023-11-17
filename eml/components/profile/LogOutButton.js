@@ -8,9 +8,9 @@ import tailwindConfig from '../../tailwind.config';
 import PropTypes from 'prop-types';
 
 
-const LOGIN_TOKEN = '@loginToken'
-const USER_INFO = '@userInfo'
-const tailwindColors = tailwindConfig.theme.colors
+const LOGIN_TOKEN = '@loginToken';
+const USER_INFO = '@userInfo';
+const tailwindColors = tailwindConfig.theme.colors;
 
 export default function LogOutButton(props) {
   LogOutButton.propTypes = {
