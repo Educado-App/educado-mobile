@@ -345,9 +345,6 @@ exports[`Login screen Login screen renders 1`] = `
                         "paddingLeft": 10,
                       },
                       {
-                        "backgroundColor": "#FFFFFF",
-                      },
-                      {
                         "borderBottomLeftRadius": 8,
                         "borderBottomRightRadius": 8,
                         "borderTopLeftRadius": 8,
@@ -497,9 +494,6 @@ exports[`Login screen Login screen renders 1`] = `
                       },
                       {
                         "paddingLeft": 10,
-                      },
-                      {
-                        "backgroundColor": "#FFFFFF",
                       },
                       {
                         "borderBottomLeftRadius": 8,
