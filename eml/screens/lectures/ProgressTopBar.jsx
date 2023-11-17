@@ -81,7 +81,7 @@ const ProgressTopBar = ({ givenCourse, lectureType, allLectures, currentLectureI
 
           ))}
         </View>
-        <CoursePoints courseId={givenCourse} />
+        <CoursePoints courseId={givenCourse._id} />
         <MaterialCommunityIcons name="crown-circle" size={20} color={tailwindConfig.theme.colors.yellow} />
       </View>
     </View>

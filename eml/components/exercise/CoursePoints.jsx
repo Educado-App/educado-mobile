@@ -41,12 +41,9 @@ const CoursePoints = (courseId) => {
   useEffect(() => {
     const fetchCourse = async () => {
       const studentInfo = await getProfile();
-      console.log('studentInfo', studentInfo)
       const studentCoursePoints = findCoursePointsByCourseId(studentInfo, courseId);
-      console.log('studentCoursePoints ',studentCoursePoints)
 
       if (studentCoursePoints) {
-        console.log("completed course points:", studentCoursePoints);
 
         // Set updatedCoursePoints to course.totalPoints
         setCourseEndPoints(studentCoursePoints);
