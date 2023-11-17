@@ -1,45 +1,31 @@
-import React, { useState, useEffect } from "react";
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import CourseScreen from './screens/courses/CourseScreen';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Icon } from '@rneui/themed';
-import ProfileComponent from './screens/profile/Profile';
+import React, { useState } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
 import LoginScreen from './screens/login/Login';
 import RegisterScreen from './screens/register/Register';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
-import RightAnswerScreen from './screens/excercise/RightAnswerScreen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ExerciseScreen from './screens/excercise/ExerciseScreen';
-import WrongAnswerComponent from './screens/excercise/WrongAnswerScreen';
-import Explore from './screens/explore/Explore';
 import { TailwindProvider } from 'tailwindcss-react-native';
-import ErrorScreen from './screens/errors/ErrorScreen';
-import SectionCompleteScreen from './screens/excercise/SectionCompleteScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SectionScreen from './screens/section/SectionScreen';
 import { isFontsLoaded } from './constants/Fonts';
-import LoadingScreen from "./components/loading/Loading";
-import WelcomeScreen from "./screens/welcome/Welcome";
+import LoadingScreen from './components/loading/Loading';
+import WelcomeScreen from './screens/welcome/Welcome';
+import CompleteSectionScreen from './screens/section/CompleteSection';
+import NavBar from './components/navBar/NavBar';
+import LectureSwipeScreen from './screens/lectures/LectureSwipeScreen';
+import ErrorScreen from './screens/errors/ErrorScreen';
+import CourseScreen from './screens/courses/CourseScreen';
 import EditProfileScreen from "./screens/profile/EditProfile";
-import NavBar from "./components/navBar/NavBar";
-import LectureSwipeScreen from "./screens/lectures/LectureSwipeScreen";
+
 
 const Stack = createNativeStackNavigator();
 
-/**
- * Check if user is logged in, if not redirect to login screen
- */
-const checkLogin = () => {
-  if (AsyncStorage.getItem("@login_token") === null) {
-    useNavigation().navigate("Login");
-  }
-}
-
 function WelcomeStack() {
   return (
-    <Stack.Navigator initialRouteName={"Welcome"}>
+    <Stack.Navigator initialRouteName={'Welcome'}>
       <Stack.Screen
         name="Welcome"
         component={WelcomeScreen}
@@ -53,7 +39,7 @@ function WelcomeStack() {
 
 function LoginStack() {
   return (
-    <Stack.Navigator initialRouteName={"Login"}>
+    <Stack.Navigator initialRouteName={'Login'}>
       <Stack.Screen
         name="Login"
         component={LoginScreen}
@@ -73,12 +59,18 @@ function LoginStack() {
 }
 
 function CourseStack() {
-  checkLogin();
   return (
     <Stack.Navigator>
       <Stack.Screen
         name="Course"
         component={CourseScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="CompleteSection"
+        component={CompleteSectionScreen}
         options={{
           headerShown: false,
         }}
@@ -91,25 +83,10 @@ function CourseStack() {
         }}
       />
       <Stack.Screen
-        name="WrongAnswer"
-        component={WrongAnswerComponent}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="RightAnswer"
-        component={RightAnswerScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="SectionComplete"
-        component={SectionCompleteScreen}
-        options={{
-          headerShown: false,
-        }}
+        name="Section"
+        component={SectionScreen}
+        initialParams={{ course_id: '' }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="ErrorScreen"
@@ -127,21 +104,21 @@ export function useWelcomeScreenLogic(loadingTime, onResult) {
   setTimeout(() => {
     const fetchData = async () => {
       try {
-        const value = await AsyncStorage.getItem("hasShownWelcome");
-        let initialRoute = "WelcomeStack";
+        const value = await AsyncStorage.getItem('hasShownWelcome');
+        let initialRoute = 'WelcomeStack';
         let isLoading = true;
 
-        if (value === "true") {
-          initialRoute = "LoginStack";
+        if (value === 'true') {
+          initialRoute = 'LoginStack';
         } else {
-          await AsyncStorage.setItem("hasShownWelcome", "true");
+          await AsyncStorage.setItem('hasShownWelcome', 'true');
         }
 
         // Pass the results to the callback
         isLoading = false;
         onResult(initialRoute, isLoading);
       } catch (error) {
-        console.error("Error retrieving or setting AsyncStorage data:", error);
+        console.error('Error retrieving or setting AsyncStorage data:', error);
       }
     };
 
@@ -198,9 +175,19 @@ export default function App() {
                 options={{ headerShown: false }}
               />
               <Stack.Screen
-                name="Section"
+                name={'CourseStack'}
+                component={CourseStack}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name={'Section'}
                 component={SectionScreen}
                 initialParams={{ course_id: '' }}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name={'CompleteSection'}
+                component={CompleteSectionScreen}
                 options={{ headerShown: false }}
               />
               <Stack.Screen

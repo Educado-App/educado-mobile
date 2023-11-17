@@ -1,26 +1,32 @@
-import { View, TouchableOpacity, Alert } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import { View, TouchableOpacity, Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import React from 'react';
 import Text from '../general/Text';
 import tailwindConfig from '../../tailwind.config';
+import PropTypes from 'prop-types';
+
 
 const LOGIN_TOKEN = '@loginToken'
 const USER_INFO = '@userInfo'
 const tailwindColors = tailwindConfig.theme.colors
 
 export default function LogOutButton(props) {
-  const navigation = useNavigation()
+  LogOutButton.propTypes = {
+    testID: PropTypes.string,
+  };
+
+  const navigation = useNavigation();
 
   async function logOut() {
     try {
       await AsyncStorage.removeItem(LOGIN_TOKEN);
       await AsyncStorage.removeItem(USER_INFO);
 
-      navigation.navigate('Login');
+      navigation.navigate('LoginStack');
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
   }
 
@@ -32,7 +38,7 @@ export default function LogOutButton(props) {
         style: 'cancel'
       },
       { text: 'Sim', onPress: logOut }
-    ])
+    ]);
 
   return (
     <View className="items-center flex-1 mt-[45%]">
@@ -49,5 +55,5 @@ export default function LogOutButton(props) {
         
       </TouchableOpacity>
     </View>
-  )
+  );
 }

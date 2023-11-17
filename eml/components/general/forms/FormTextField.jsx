@@ -1,6 +1,7 @@
-import React from "react";
-import { View, TextInput } from "react-native";
-import Text from "../Text";
+import React from 'react';
+import { View, TextInput } from 'react-native';
+import Text from '../general/Text';
+import PropTypes from 'prop-types';
 
 /**
  * Text field component for forms (e.g. login, register, etc.). 
@@ -25,23 +26,36 @@ export default function FormTextField(props) {
         <Text className={"ml-2 text-xs"}>
           {props.label ?? ''}
         </Text>
-        <Text className={"ml-1 text-xs text-error"}>
-          {props.required ? "*" : ""}
+        <Text className={'ml-1 text-xs text-error'}>
+          {props.required ? '*' : ''}
         </Text>
       </View>
       <View className=''>
-        <TextInput className={'h-50 br-25 py-1 pl-[10px] bg-projectWhite rounded-lg' +
-                                  (props.bordered ? ' border-2 border-gray' : '') +
-                                  (props.error ? ' border-2 border-error' : '')}
-          placeholder={props.placeholder ?? ""} // Placeholder text to be displayed
-          keyboardType={props.keyboardType ?? "default"} // Keyboard type (e.g. numeric, email-address, etc.)
-          autoComplete={props.autoComplete ?? "off"} // Whether to enable auto-completion
-          secureTextEntry={props.secureTextEntry ?? false} // Whether to mask the input (for passwords, etc.)
-          passwordGuidelines={props.passwordGuidelines ?? false} // Whether to display password guidelines
-          onChangeText={props.onChangeText ? value => props.onChangeText(value) : null} // Callback function to be called when the text changes
-          value={props.value} // Value of the input
+        <TextInput className={'h-50 br-25 py-1 pl-[10px] bg-white rounded-lg' +
+          (props.bordered ? ' border-2 border-gray' : '') + (props.error ? ' border-2 border-error' : '')}
+        placeholder={props.placeholder ?? ''} // Placeholder text to be displayed
+        keyboardType={props.keyboardType ?? 'default'} // Keyboard type (e.g. numeric, email-address, etc.)
+        autoComplete={props.autoComplete ?? 'off'} // Whether to enable auto-completion
+        secureTextEntry={props.secureTextEntry ?? false} // Whether to mask the input (for passwords, etc.)
+        passwordGuidelines={props.passwordGuidelines ?? false} // Whether to display password guidelines
+        onChangeText={props.onChangeText ? value => props.onChangeText(value) : null} // Callback function to be called when the text changes
+        value={props.value} // Value of the input
         />
       </View>
     </View>
   );
 }
+
+FormTextField.propTypes = {
+  autoComplete: PropTypes.string,
+  bordered: PropTypes.bool,
+  error: PropTypes.bool,
+  keyboardType: PropTypes.string,
+  label: PropTypes.string,
+  onChangeText: PropTypes.func,
+  passwordGuidelines: PropTypes.bool,
+  placeholder: PropTypes.string,
+  required: PropTypes.bool,
+  secureTextEntry: PropTypes.bool,
+  value: PropTypes.string,
+};

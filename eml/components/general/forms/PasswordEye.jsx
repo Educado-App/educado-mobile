@@ -1,6 +1,7 @@
-import React from "react";
+import React from 'react';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import PropTypes from 'prop-types';
 import { Pressable } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 /**
  * Icon component for the eye besides passwords to toggle if text can be seen by user
@@ -15,10 +16,15 @@ export default function PasswordEye(props) {
       onPress={props.toggleShowPassword}
     >
       <MaterialCommunityIcons
-        name={props.showPasswordIcon ? "eye-off" : "eye"}
+        name={props.showPasswordIcon ? 'eye-off' : 'eye'}
         size={24}
         color="gray"
       />
     </Pressable>
   );
 }
+
+PasswordEye.propTypes = {
+  showPasswordIcon: PropTypes.bool,
+  toggleShowPassword: PropTypes.func,
+};

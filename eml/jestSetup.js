@@ -8,13 +8,14 @@ Animated.timing = () => ({
 jest.mock('@react-native-async-storage/async-storage', () => mockAsyncStorage);
 
 jest.mock('react-native-keyboard-aware-scroll-view', () => {
-    return {
-        KeyboardAwareScrollView: jest.fn().mockImplementation(({ children }) => children),
-    };
+  return {
+    KeyboardAwareScrollView: jest.fn().mockImplementation(({ children }) => children),
+  };
 });
 
 jest.mock('react-native-alert-notification', () => {
-    return {
-        AlertNotificationRoot: jest.fn().mockImplementation(({ children }) => children),
-    };
+  return {
+    AlertNotificationRoot: jest.fn().mockImplementation(({ children }) => children),
+  };
 });
+

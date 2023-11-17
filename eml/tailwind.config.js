@@ -1,9 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./App.{js,jsx,ts,tsx}",
-    "./screens/**/*.{js,jsx,ts,tsx}",
-    "./components/**/*.{js,jsx,ts,tsx}",
+    './App.{js,jsx,ts,tsx}',
+    './screens/**/*.{js,jsx,ts,tsx}',
+    './components/**/*.{js,jsx,ts,tsx}',
   ],
   theme: {
     colors: {
@@ -30,6 +30,8 @@ module.exports = {
       profileCircle: '#166276',
       pointsText: '#C1A146',
       pointsCoin: '#AD872D',
+      progressBar: '#5ECCDD',
+      progressBarUnFilled: '#E4F2F5',
     },
     fontFamily: {
       montserrat: ['Montserrat-Regular'],
@@ -62,6 +64,6 @@ module.exports = {
     aspectRatio: false,
   },
 
-  plugins: [require("@tailwindcss/aspect-ratio")],
+  plugins: [require('@tailwindcss/aspect-ratio')],
 };
 

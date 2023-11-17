@@ -5,7 +5,7 @@ import Text from "../../components/general/Text";
 import tailwindConfig from "../../tailwind.config";
 
 const LoadingScreen = () => {
-  const logo = require("../../assets/images/logo.png");
+  const logo = require('../../assets/images/logo.png');
 
   return (
     <SafeAreaView className="py-10 px-6 justify-center items-center flex-1 gap-10 bg-secondary">
@@ -19,6 +19,6 @@ const LoadingScreen = () => {
       />
     </SafeAreaView>
   );
-}
+};
 
 export default LoadingScreen;

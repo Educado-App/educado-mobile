@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import {
   View,
   SafeAreaView,
@@ -11,17 +11,15 @@ import UserInfo from '../../components/profile/UserInfo'
 import { useNavigation } from '@react-navigation/native'
 import { getUserInfo } from '../../services/StorageService'
 
-const USER_INFO = '@userInfo'
+const USER_INFO = '@userInfo';
 
 /**
  * Profile screen
  * @returns {React.Element} Component for the profile screen
  */
 export default function ProfileComponent() {
-  const [id, setId] = useState('')
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [email, setEmail] = useState('')
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
 
   const navigation = useNavigation();
 
@@ -42,20 +40,18 @@ export default function ProfileComponent() {
       const fetchedProfile = JSON.parse(await AsyncStorage.getItem(USER_INFO));
 
       if (fetchedProfile !== null) {
-        setId(fetchedProfile.id)
-        setFirstName(fetchedProfile.firstName)
-        setLastName(fetchedProfile.lastName)
-        setEmail(fetchedProfile.email)
+        setFirstName(fetchedProfile.firstName);
+        setLastName(fetchedProfile.lastName);
       }
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
-  }
+  };
 
   useEffect(() => {
-    getProfile()
-  }, [])
-
+    getProfile();
+  }, []);
+  
   return (
     <SafeAreaView className='bg-secondary'>
       <ScrollView className='flex flex-col'>
