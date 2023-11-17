@@ -133,7 +133,6 @@ export const getSectionList = async (course_id) => {
       }
     }
   } finally {
-      console.log(sectionList);
     return await refreshSectionList(sectionList);
   }
 };
