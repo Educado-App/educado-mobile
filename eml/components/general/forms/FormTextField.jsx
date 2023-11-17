@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, TextInput } from 'react-native';
-import Text from '../general/Text';
+import Text from '../Text';
 import PropTypes from 'prop-types';
 
 /**

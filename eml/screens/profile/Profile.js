@@ -20,7 +20,7 @@ const USER_INFO = '@userInfo';
 export default function ProfileComponent() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-
+  const [email, setEmail] = useState('');
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -42,6 +42,7 @@ export default function ProfileComponent() {
       if (fetchedProfile !== null) {
         setFirstName(fetchedProfile.firstName);
         setLastName(fetchedProfile.lastName);
+        setEmail(fetchedProfile.email);
       }
     } catch (e) {
       console.log(e);
