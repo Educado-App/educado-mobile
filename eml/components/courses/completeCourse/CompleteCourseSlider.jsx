@@ -10,10 +10,11 @@ const CompleteCourseSlider = forwardRef(({ onIndexChanged, courseObject }, ref) 
   const slick = useRef(null);
   const tailwindConfig = require('../../../tailwind.config.js');
   const projectColors = tailwindConfig.theme.colors;
+  const statsOverviewRef = useRef(null);
 
   const screens = [
     <Congratulation />,
-    <StatsOverview courseObject={courseObject} />,
+    <StatsOverview ref={statsOverviewRef} courseObject={courseObject} />,
     <Certification courseObject={courseObject} />,
   ];
 
@@ -39,7 +40,10 @@ const CompleteCourseSlider = forwardRef(({ onIndexChanged, courseObject }, ref) 
       activeDotStyle={{ width: 10, height: 10 }}
       height={265}
       showsButtons={true}
-      onIndexChanged={onIndexChanged}
+      onIndexChanged={(index) => {
+        onIndexChanged;
+        statsOverviewRef.current.startAnimation(index);
+      }}
       autoplayTimeout={10}
       autoplay={true}
       nextButton={

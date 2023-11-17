@@ -1,11 +1,11 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, forwardRef, useImperativeHandle } from 'react';
 import { View, Dimensions, Image } from 'react-native';
 import Text from '../../general/Text';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import { Easing } from 'react-native-reanimated';
 import { getStudentInfo } from '../../../services/StorageService';
 
-export default function StatsOverview({ courseObject }) {
+const StatsOverview = forwardRef(({ courseObject }, ref) => {
   const [percentage, setPercentage] = useState(0);
   const circleSize = Dimensions.get('window').height * 0.17;
   const tailwindConfig = require('../../../tailwind.config.js');
@@ -30,7 +30,6 @@ export default function StatsOverview({ courseObject }) {
           completedSection.completedExercises.forEach((completedExercise) => {
             totalExercises++;
   
-            // Assuming completedExercise has a property named firstTry
             if (completedExercise.firstTry === true) {
               totalExercisesWithFirstTry++;
             }
@@ -46,14 +45,20 @@ export default function StatsOverview({ courseObject }) {
         return 0;
       }
   }
-  
-  useEffect(() => {
+
+  const startAnimation = (index) => {
+    if (index === 1) {
+      circularProgressRef.current?.animate(percentage, 1250, Easing.quad);
+    }
+  };
+
+  useImperativeHandle(ref, () => ({
+    startAnimation
+  }));
+
+  useEffect(() => { 
     getPercentage().then((percentage) => {
-      // Check if the ref is available before calling the animate method
-      if (circularProgressRef.current) {
-        circularProgressRef.current.animate(percentage, 1250, Easing.quad);
-        setPercentage(percentage);
-      }
+      setPercentage(percentage);
     });
   }, []);
 
@@ -64,19 +69,19 @@ export default function StatsOverview({ courseObject }) {
       <View className="w-full items-center mt-5 mb-8">
         <AnimatedCircularProgress
           ref={circularProgressRef}
-          fill={percentage}
+          fill={0}
           size={circleSize}
           width={7.5}
           rotation={0.25}
           tintColor= {projectColors.primary}
           backgroundColor={projectColors.projectWhite}
-          >
-            {(fill) => (
-              <Text className="text-center font-sans-bold text-2xl text-primary">
-                {percentage}%
-              </Text>
-            )}
-          </AnimatedCircularProgress>
+        >
+          {(fill) => (
+            <Text className="text-center font-sans-bold text-2xl text-primary">
+              {percentage}%
+            </Text>
+          )}
+        </AnimatedCircularProgress>
         <Text className="text-center text-base text-projectBlack pt-10 px-10">Você respondeu {percentage}% correta na primeira tentativa, bravo!</Text>
       </View>
 
@@ -114,4 +119,6 @@ export default function StatsOverview({ courseObject }) {
       </View>
     </View>
   );
-}
+});
+
+export default StatsOverview;
