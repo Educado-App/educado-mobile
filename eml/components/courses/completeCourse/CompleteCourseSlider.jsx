@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, forwardRef, useImperativeHandle } from 'react';
 import { View } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 import Slick from 'react-native-slick';
@@ -6,7 +6,7 @@ import Congratulation from './Congratulation';
 import StatsOverview from './StatsOverview';
 import Certification from './Certification';
 
-export default function CompleteCourseSlider() {
+const CompleteCourseSlider = forwardRef(({ onIndexChanged }, ref) => {
   const slick = useRef(null);
   const tailwindConfig = require('../../../tailwind.config.js');
   const projectColors = tailwindConfig.theme.colors;
@@ -16,6 +16,16 @@ export default function CompleteCourseSlider() {
     <StatsOverview />,
     <Certification />,
   ];
+
+  const scrollBy = (number) => {
+    if (slick.current) {
+      slick.current.scrollBy(number, true);
+    }
+  };
+
+  useImperativeHandle(ref, () => ({
+    scrollBy,
+  }));
 
   return (
     <Slick
@@ -29,6 +39,7 @@ export default function CompleteCourseSlider() {
       activeDotStyle={{ width: 10, height: 10 }}
       height={265}
       showsButtons={true}
+      onIndexChanged={onIndexChanged}
       autoplayTimeout={10}
       autoplay={true}
       nextButton={
@@ -55,4 +66,6 @@ export default function CompleteCourseSlider() {
     ))}
     </Slick>
   );
-}
+});
+
+export default CompleteCourseSlider;
