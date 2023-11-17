@@ -132,7 +132,7 @@ export const getExercisesInSection = async (courseId, sectionId) => {
 export const getExerciseBySectionId = async (sectionId) => {
   try {
     const res = await axios.get(
-      url + "/api/courses/" + sectionId + "/exercises"
+      url + '/api/courses/' + sectionId + '/exercises'
     );
     return res.data;
   } catch (e) {
