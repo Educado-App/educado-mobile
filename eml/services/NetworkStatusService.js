@@ -4,6 +4,7 @@ export class NetworkStatusService {
   static #instance;
   #isOnline = false;
   #observers = [];
+  #simulateOffline = false;
 
   constructor() {
     if (NetworkStatusService.#instance) {
@@ -36,8 +37,11 @@ export class NetworkStatusService {
   }
 
   #updateNetworkStatus(isOnline) {
-    if (this.#isOnline !== isOnline) {
-      this.#isOnline = isOnline;
+    // Adjust network status based on simulateOffline
+    let networkStatus = this.#simulateOffline ? false : isOnline;
+
+    if (this.#isOnline !== networkStatus) {
+      this.#isOnline = networkStatus;
       this.#notifyObservers();
     }
   }
@@ -46,7 +50,6 @@ export class NetworkStatusService {
     this.#observers.forEach(observer => observer.update(this.#isOnline));
   }
 
-  // Public getter
   get isOnline() {
     return this.#isOnline;
   }
