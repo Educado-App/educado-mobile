@@ -6,11 +6,16 @@ import tailwindConfig from '../../tailwind.config';
 import PropTypes from 'prop-types';
 import CoursePoints from '../../components/exercise/CoursePoints';
 
-const ProgressTopBar = ({ givenCourse, lectureType, allLectures, currentLectureIndex = '' }) => {
+const LectureType = {
+  TEXT: 'text',
+  VIDEO: 'video',
+};
+
+const ProgressTopBar = ({ courseObject, lectureType, allLectures, currentLectureIndex = '' }) => {
 
   const navigator = useNavigation();
 
-  const chevronColor = lectureType === 'video' ? tailwindConfig.theme.colors.projectWhite : tailwindConfig.theme.colors.projectBlack;
+  const chevronColor = lectureType === LectureType.VIDEO ? tailwindConfig.theme.colors.projectWhite : tailwindConfig.theme.colors.projectBlack;
 
   const createCorrectIcon = (_index, _currentIndex) => {
 
@@ -81,14 +86,19 @@ const ProgressTopBar = ({ givenCourse, lectureType, allLectures, currentLectureI
 
           ))}
         </View>
-        <CoursePoints courseId={givenCourse._id} />
-        <MaterialCommunityIcons name="crown-circle" size={20} color={tailwindConfig.theme.colors.yellow} />
+        {LectureType.TEXT === lectureType && (
+          <>
+            <CoursePoints courseId={courseObject._id} />
+          </>
+        )}
+        
       </View>
     </View>
   );
 };
 
 ProgressTopBar.propTypes = {
+  courseObject: PropTypes.object,
   lectureType: PropTypes.string,
   allLectures: PropTypes.array,
   currentLectureIndex: PropTypes.number,

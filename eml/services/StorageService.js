@@ -1,4 +1,5 @@
 import * as api from '../api/api.js';
+import * as userApi from '../api/userApi.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
@@ -9,15 +10,37 @@ const COURSE = '@course';
 const USER_ID = '@userId';
 const USER_INFO = '@userInfo';
 const STUDENT_INFO = '@studentInfo';
+const LOGIN_TOKEN = '@loginToken';
+
+
+/** STUDENT **/
+
+export const setStudentInfo = async (userId) => {
+  try {
+    const fetchedStudentInfo = await userApi.getStudentInfo(userId);
+    await AsyncStorage.setItem(STUDENT_INFO, JSON.stringify(fetchedStudentInfo));
+  } catch (e) {
+    throw (e);
+  }
+}
 
 export const getStudentInfo = async () => {
   try {
     const fetchedStudentInfo = JSON.parse(await AsyncStorage.getItem(STUDENT_INFO));
     return fetchedStudentInfo;
   } catch (e) {
+    throw (e);
+  }
+}
+
+export const getLoginToken = async () => {
+  try {
+    const fetchedToken = await AsyncStorage.getItem(LOGIN_TOKEN);
+    return fetchedToken;
+  } catch (e) {
     throw e;
   }
-};
+}
 
 export const getUserInfo = async () => {
   const fetchedUserInfo = JSON.parse(await AsyncStorage.getItem(USER_INFO));
@@ -43,6 +66,7 @@ export const getCourseId = async (id) => {
     }
   }
 };
+
 export const refreshCourse = async (id) => {
   return await api
     .getCourse(id)
@@ -108,6 +132,25 @@ export const refreshCourseList = async () => {
       }
     });
 };
+
+export const saveCourseTotalPoints = async (courses, courseId, newTotalPoints) => {
+  try {
+    const updatedCourses = courses.map(course => {
+      if (course.courseId === courseId.courseId) {
+        return { ...course, totalPoints: newTotalPoints };
+      }
+      return course;
+    });
+
+    const studentInfo = JSON.parse(await AsyncStorage.getItem(STUDENT_INFO));
+
+    studentInfo.completedCourses = updatedCourses;
+
+    await AsyncStorage.setItem(STUDENT_INFO, JSON.stringify(studentInfo));
+  } catch (e) {
+    throw e;
+  }
+}
 
 /** SECTIONS **/
 

@@ -15,6 +15,7 @@ import { useNavigation } from '@react-navigation/native';
 import DialogNotification from '../general/DialogNotification';
 import { AlertNotificationRoot } from 'react-native-alert-notification';
 import tailwindConfig from '../../tailwind.config';
+import { setStudentInfo } from '../../services/StorageService';
 
 const LOGIN_TOKEN = '@loginToken';
 const USER_INFO = '@userInfo';
@@ -191,6 +192,7 @@ export default function RegisterForm() {
 
       await AsyncStorage.setItem(USER_INFO, JSON.stringify(obj));
       await AsyncStorage.setItem(USER_ID, userInfo.id); // needs to be seperate
+      await setStudentInfo(userInfo.id);
     } catch (e) {
       console.log(e);
     }

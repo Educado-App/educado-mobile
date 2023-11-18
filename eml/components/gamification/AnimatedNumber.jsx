@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { View } from 'react-native';
 import Animated, { EasingNode } from 'react-native-reanimated';
 import Text from '../general/Text';
+import PropTypes from 'prop-types';
 
 //inspo from https://www.npmjs.com/package/react-native-animated-numbers?activeTab=code
 
@@ -88,8 +89,6 @@ const AnimatedNumber = ({
 		return animations[index];
 	};
 
-	console.log(animateToNumbersArr);
-
 	return (
 		<>
 			{numberHeight !== 0 && (
@@ -104,7 +103,7 @@ const AnimatedNumber = ({
 						if (typeof n === 'string') {
 							return (
 								<Text key={index} className={`${fontStyle}`} style={{ height: numberHeight }}>
-									{n}
+									{String(n)}
 								</Text>
 							);
 						}
@@ -132,7 +131,7 @@ const AnimatedNumber = ({
 									{NUMBERS.map((number, i) => (
 										<View key={i} className="w-fit">
 											<Text className={`${fontStyle}`} style={{ height: numberHeight }}>
-												{number}
+												{String(number)}
 											</Text>
 										</View>
 									))}
@@ -147,10 +146,17 @@ const AnimatedNumber = ({
 				style={{ position: 'absolute', top: -999999 }}
 				onLayout={setButtonLayout}
 			>
-				{0}
+				{String(0)}
 			</Text>
 		</>
 	);
+};
+
+AnimatedNumber.propTypes = {
+	animateToNumber: PropTypes.number,
+	fontStyle: PropTypes.string,
+	animationDuration: PropTypes.number,
+	easing: PropTypes.func,
 };
 
 export default AnimatedNumber;

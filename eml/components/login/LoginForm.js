@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { loginUser, getStudentInfo} from "../../api/userApi";
+import { loginUser } from "../../api/userApi";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import FormTextField from "./FormTextField";
 import FormButton from "./FormButton";
@@ -11,6 +11,7 @@ import FormFieldAlert from "./FormFieldAlert";
 import { removeEmojis } from "../general/Validation";
 import Text from "../general/Text";
 import ShowAlert from "../general/ShowAlert";
+import { setStudentInfo } from "../../services/StorageService";
 
 const LOGIN_TOKEN = "@loginToken";
 const USER_INFO = "@userInfo";
@@ -50,7 +51,7 @@ export default function LoginForm() {
 
       await AsyncStorage.setItem(USER_INFO, JSON.stringify(obj));
       await AsyncStorage.setItem(USER_ID, userInfo.id); // needs to be seperate
-      await AsyncStorage.setItem(STUDENT_INFO, JSON.stringify(await getStudentInfo(userInfo.id)));
+      await setStudentInfo(userInfo.id);
     } catch (e) {
       console.log(e);
     }
