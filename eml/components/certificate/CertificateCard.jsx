@@ -6,6 +6,8 @@ import CardLabel from '../explore/CardLabel';
 import * as Utility from '../../services/utilityFunctions';
 import PropTypes from 'prop-types';
 
+import CertificateBtn from './CertificateBtn';
+
 /**
  * This component is used to display a certificate card.
  * @param certificate - The certificate object to be displayed.
@@ -49,18 +51,16 @@ export default function CertificateCard({ certificate }) {
                 title={certificate.dateOfCompletion}
                 icon={'calendar-check'} />
             </View>
-            <View className="h-1.25 opacity-50" />
-
           </View>
-
         </View>
-
       </View>
 
 
       <Collapsible className="w-full" collapsed={isCollapsed}>
-        <View className="py-7 flex-row items-center justify-between px-1">
-          <Text className="text-black text-m">{certificate.courseName}</Text>
+        <View className="py-1 flex-row items-center justify-between px-1">
+          <CertificateBtn buttonText="Preview" />
+          <CertificateBtn buttonText="Download" />
+          <CertificateBtn buttonText="Email" />
         </View>
 
       </Collapsible>
