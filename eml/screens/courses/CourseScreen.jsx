@@ -55,7 +55,6 @@ export default function CourseScreen() {
   }
   const checkOnline = async () => {
     let result = await StorageService.checkIfOnline();
-    console.log("isOnline: " + result);
     setIsOnline(result);
   }
   

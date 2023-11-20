@@ -20,12 +20,10 @@ import * as StorageService from '../../../services/StorageService';
 export default function CourseCard({ course, isOnline }) {
     const [downloaded, setDownloaded] = useState(false);
     const navigation = useNavigation();
-    console.log("card online: " + isOnline);
     
 
     const checkDownload = async () => {
         let result = !!(await AsyncStorage.getItem(course.courseId + await AsyncStorage.getItem('@userId')));
-        console.log("Downloaded:" + result);
         //setDownloaded((Math.random() * 100) < 50 ? true : false); //for testing
         setDownloaded(result);
     }
