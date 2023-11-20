@@ -12,7 +12,8 @@
     "test-watch": "jest --watch",
     "test:components": "jest -i .*/components/explore.test.js -t \"Component Tests\"",
     "build": "eas build -p android --profile preview",
-    "flow": "flow"
+    "flow": "flow",
+    "lint": "eslint --fix ."
   },
   "dependencies": {
     "@eva-design/eva": "^2.1.1",
@@ -97,6 +98,7 @@
   "devDependencies": {
     "@babel/cli": "^7.18.6",
     "@babel/core": "^7.19.3",
+    "@babel/eslint-parser": "^7.23.3",
     "@babel/preset-env": "^7.18.6",
     "@babel/preset-flow": "^7.18.6",
     "@babel/preset-react": "^7.18.6",
