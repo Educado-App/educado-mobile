@@ -8,7 +8,7 @@ const local = 'http://localhost:8888';
 const digitalOcean = 'http://207.154.213.68:8888';
 */ 
 
-const url = 'http://192.168.0.224:8888'; // Change this to your LOCAL IP address when testing.
+const url = "http://172.30.245.78:8888"; // Change this to your LOCAL IP address when testing.
 
 /**
  * This is the client that will be used to make requests to the backend.
@@ -107,6 +107,15 @@ export const completeExercise = async (user_id, exercise_id, isComplete, points,
     email,
     completedCourses
   };
+};
+
+export const getStudentInfo = async (user_Id) => {
+  try {
+    const res = await client.get('/api/students/' + user_Id);
+    return res.data;
+  } catch (err) {
+    return err.message;
+  }
 };
 
 export const enrollInCourse = async (user_Id, course_Id) => {

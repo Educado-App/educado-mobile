@@ -133,18 +133,17 @@ export const refreshCourseList = async () => {
     });
 };
 
-export const saveCourseTotalPoints = async (courses, courseId, newTotalPoints) => {
+export const saveCourseTotalPointsLocally = async (courseId, newTotalPoints) => {
   try {
-    const updatedCourses = courses.map(course => {
-      if (course.courseId === courseId.courseId) {
-        return { ...course, totalPoints: newTotalPoints };
-      }
-      return course;
-    });
-
     const studentInfo = JSON.parse(await AsyncStorage.getItem(STUDENT_INFO));
 
-    studentInfo.completedCourses = updatedCourses;
+    const completedCourses = studentInfo.completedCourses;
+    const completedCourseIndex = completedCourses.findIndex(course => course.courseId === courseId.courseId);
+    if (completedCourseIndex !== -1) {
+      completedCourses[completedCourseIndex].totalPoints = newTotalPoints;
+    }
+
+    studentInfo.completedCourses = completedCourses;
 
     await AsyncStorage.setItem(STUDENT_INFO, JSON.stringify(studentInfo));
   } catch (e) {

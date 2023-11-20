@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { View } from "react-native";
 import AnimatedNumbers from '../gamification/AnimatedNumber';
-import { getStudentInfo, saveCourseTotalPoints } from '../../services/StorageService';
+import { getStudentInfo, saveCourseTotalPointsLocally } from '../../services/StorageService';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import tailwindConfig from '../../tailwind.config';
 import PropTypes from 'prop-types';
 import { getPointsFromExerciseReceiver, getPointsFromExerciseUnsubscribe } from '../events/receiverEvents';
-import Text from '../general/Text';
 
 const CoursePoints = (courseId) => {
   const [coursePoints, setCoursePoints] = useState(0);
-  const [completedCoursesList, setCompletedCoursList] = useState([]);
   
   const getCompletedCourse = async () => {
     const studentInfo = await getStudentInfo();
@@ -34,12 +32,27 @@ const CoursePoints = (courseId) => {
   };
 
   const updateCoursePoints = (newPoints) => {
-    setCoursePoints((prevNumber) => {
-      const updatedPoints = prevNumber + newPoints;
-      // brokey, magnus help
-      //saveCourseTotalPoints(completedCoursesList, courseId, updatedPoints);
-      return updatedPoints;
-    });
+    let isFirstIteration = true;
+    let finalValue;
+    const interval = setInterval(() => {
+      setCoursePoints((prevNumber) => {
+        if (isFirstIteration) {
+          finalValue = prevNumber + newPoints;
+          isFirstIteration = false;
+        }
+        const nextNumber = prevNumber + 1;
+        if (nextNumber >= finalValue) {
+          clearInterval(interval);
+          saveCourseTotalPointsLocally(courseId, finalValue);
+          return finalValue;
+        }
+        return nextNumber;
+      });
+    }, 50);
+
+    // TODO: brokey, magnus help
+    
+    
   };
 
   const fetchCourseAndPoints = async () => {
@@ -48,7 +61,6 @@ const CoursePoints = (courseId) => {
       const currentCourse = completedCourses.find((course) => course.courseId === courseId.courseId);
 
       if (currentCourse && completedCourses) {
-        setCompletedCoursList(completedCourses);
         setCoursePoints(currentCourse.totalPoints);
       } else {
         console.error('Course not found');
@@ -63,19 +75,21 @@ const CoursePoints = (courseId) => {
     fetchCourseAndPoints();
 
     getPointsFromExerciseReceiver(updateCoursePoints);
-    getPointsFromExerciseUnsubscribe();
+    return () => {
+      getPointsFromExerciseUnsubscribe();
+    };
   }, []);
 
   return (
     <View className="pr-2 flex flex-row items-center justify-around">
-      <Text className="font-sans-bold">
-        {String(coursePoints)}
-      </Text>
-      {/* <AnimatedNumbers
+      {/* <Text className="font-sans-bold"> */}
+        {/* {String(coursePoints)}
+      </Text> */}
+      <AnimatedNumbers
         animateToNumber={coursePoints}
-        animationDuration={5000}
+        animationDuration={500}
         fontStyle={`font-sans-bold text-center`}
-      /> */}
+      />
       <MaterialCommunityIcons name="crown-circle" size={20} color={tailwindConfig.theme.colors.yellow} />
     </View>
   );
