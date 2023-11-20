@@ -39,7 +39,7 @@ export default function LectureSwipeScreen({ route }) {
         const courseData = await getCourse(courseId);
 
         //get exercises
-        const _exercisesInSection = 0;
+        const _exercisesInSection = await getExerciseBySectionId(sectionId);
         const _lectures = sectionData.components;
         let _combinedLecturesAndExercises = [];
 
