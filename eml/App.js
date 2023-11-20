@@ -14,8 +14,11 @@ import { isFontsLoaded } from './constants/Fonts';
 import LoadingScreen from './components/loading/Loading';
 import WelcomeScreen from './screens/welcome/Welcome';
 import ProfileSettingsScreen from './screens/profile/ProfileSettings';
+import CompleteSectionScreen from './screens/section/CompleteSection';
 import NavBar from './components/navBar/NavBar';
 import LectureSwipeScreen from './screens/lectures/LectureSwipeScreen';
+import ErrorScreen from './screens/errors/ErrorScreen';
+import CourseScreen from './screens/courses/CourseScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -46,6 +49,47 @@ function LoginStack() {
       <Stack.Screen
         name="Register"
         component={RegisterScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function CourseStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Course"
+        component={CourseScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="CompleteSection"
+        component={CompleteSectionScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Exercise"
+        component={ExerciseScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Section"
+        component={SectionScreen}
+        initialParams={{ course_id: '' }}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ErrorScreen"
+        component={ErrorScreen}
         options={{
           headerShown: false,
         }}
@@ -130,9 +174,19 @@ export default function App() {
                 options={{ headerShown: false }}
               />
               <Stack.Screen
-                name="Section"
+                name={'CourseStack'}
+                component={CourseStack}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name={'Section'}
                 component={SectionScreen}
                 initialParams={{ course_id: '' }}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name={'CompleteSection'}
+                component={CompleteSectionScreen}
                 options={{ headerShown: false }}
               />
               <Stack.Screen

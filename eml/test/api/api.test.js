@@ -18,7 +18,7 @@ jest.mock('@react-native-async-storage/async-storage');
 
 const mock = new MockAdapter(axios);
 
-const port = 'http://localhost:8888';
+const port = 'https://educado-backend-staging-x7rgvjso4a-ew.a.run.app/';
 
 const mockData = mockDataAPI();
 
