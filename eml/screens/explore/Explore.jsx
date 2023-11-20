@@ -143,18 +143,18 @@ export default function Explore() {
       <ScrollView showsVerticalScrollIndicator={false} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
         <View className="overflow-y-auto">
           {courses.length !== 0 ?
-              // Display courses
-              courses && filteredCourses && filteredCourses.map((course, index) => (
-                  <ExploreCard
-                      key={index}
-                      isPublished={course.status === 'published'}
-                      subscribed={isSubscribed[index]}
-                      course={course}
-                  ></ExploreCard>
-              ))
+          // Display courses
+            courses && filteredCourses && filteredCourses.map((course, index) => (
+              <ExploreCard
+                key={index}
+                isPublished={course.status === 'published'}
+                subscribed={isSubscribed[index]}
+                course={course}
+              ></ExploreCard>
+            ))
             :
-              // No courses to display
-              <Text className={"self-center align-middle text-2xl"}>Não há cursos a serem exibidos</Text>
+          // No courses to display
+            <Text className={'self-center align-middle text-2xl'}>Não há cursos a serem exibidos</Text>
           }
         </View>
       </ScrollView>

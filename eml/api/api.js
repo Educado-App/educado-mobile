@@ -116,8 +116,8 @@ export const getExercisesInSection = async (sectionId) => {
   try {
     const res = await axios.get(
       //url + "/api/courses/" + courseId + "/sections/" + sectionId + "/exercises"
-        url + "/api/exercises/section/" + sectionId
-    , {timeout: 2000});
+      url + '/api/exercises/section/' + sectionId
+      , {timeout: 2000});
     return res.data;
   } catch (e) {
     if (e?.response?.data != null) {
@@ -149,8 +149,8 @@ export const getExerciseBySectionId = async (sectionId) => {
 export const getLecturesInSection = async (sectionId) => {
   try {
     const res = await axios.get(
-        url + "/api/lectures/section/" + sectionId
-    , {timeout: 2000});
+      url + '/api/lectures/section/' + sectionId
+      , {timeout: 2000});
     return res.data;
   } catch (e) {
     if (e?.response?.data != null) {
@@ -171,7 +171,7 @@ export const getSubscriptions = async (userId) => {
     // passing user ID as request body for get request gives error
     const res = await axios.get(
       url + '/api/students/' + userId + '/subscriptions'
-    , {timeout: 2000});
+      , {timeout: 2000});
 
     return res.data;
   } catch (e) {
@@ -299,7 +299,7 @@ export const getBucketImage = async (fileName) => {
   try {
     const res = await axios.get(
       `${url}/api/bucket/${fileName}`
-    , {timeout: 2000});
+      , {timeout: 2000});
     const workingUrl = `data:image/png;base64,${res.data}`;
     return workingUrl;
   } catch (err) {

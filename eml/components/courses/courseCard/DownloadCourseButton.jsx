@@ -3,8 +3,8 @@ import LottieView from 'lottie-react-native';
 import {Alert, TouchableWithoutFeedback} from 'react-native';
 import animationAsset from '../../../assets/animations/downloadAnimation.json';
 import PropTypes from 'prop-types';
-import * as StorageService from "../../../services/StorageService";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as StorageService from '../../../services/StorageService';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ANIMATION_STATES = {
   INITIAL: 'initial',
@@ -20,17 +20,17 @@ const ANIMATION_STATES = {
  * @returns {JSX.Element} - The DownloadCourseButton component
  */
 export default function DownloadCourseButton(course, {disabled = false}) {
-    const animationRef = useRef(null);
-    const [animationState, setAnimationState] = useState(ANIMATION_STATES.INITIAL);
+  const animationRef = useRef(null);
+  const [animationState, setAnimationState] = useState(ANIMATION_STATES.INITIAL);
 
-    const storageCheck = async () => {
-        if (animationState === ANIMATION_STATES.INITIAL || animationState === ANIMATION_STATES.COMPLETED) {
-            let result = !!(await AsyncStorage.getItem(course.course.courseId + await AsyncStorage.getItem('@userId')));
-            setAnimationState(result ? ANIMATION_STATES.COMPLETED : ANIMATION_STATES.INITIAL);
-        }
+  const storageCheck = async () => {
+    if (animationState === ANIMATION_STATES.INITIAL || animationState === ANIMATION_STATES.COMPLETED) {
+      let result = !!(await AsyncStorage.getItem(course.course.courseId + await AsyncStorage.getItem('@userId')));
+      setAnimationState(result ? ANIMATION_STATES.COMPLETED : ANIMATION_STATES.INITIAL);
     }
+  };
 
-    storageCheck();
+  storageCheck();
 
   // Play animation based on animation state
   // Hardcoded frame numbers are based on the animation
@@ -71,17 +71,17 @@ export default function DownloadCourseButton(course, {disabled = false}) {
       },
       {
         text: 'Baixar',
-                onPress: async () => {
-                    setAnimationState(ANIMATION_STATES.DOWNLOADING);
-                    await StorageService.storeCourseLocally(course.course.courseId).then(result => {
-                        if (result){
-                            setAnimationState(ANIMATION_STATES.FINISHING);
-                        } else {
-                            alert("Não foi possível baixar o curso. Certifique-se de estar conectado à Internet."); //Could not download course. Make sure you are connected to the internet
-                            setAnimationState(ANIMATION_STATES.INITIAL);
-                        }
-                    });
-                },
+        onPress: async () => {
+          setAnimationState(ANIMATION_STATES.DOWNLOADING);
+          await StorageService.storeCourseLocally(course.course.courseId).then(result => {
+            if (result){
+              setAnimationState(ANIMATION_STATES.FINISHING);
+            } else {
+              alert('Não foi possível baixar o curso. Certifique-se de estar conectado à Internet.'); //Could not download course. Make sure you are connected to the internet
+              setAnimationState(ANIMATION_STATES.INITIAL);
+            }
+          });
+        },
       },
     ]);
 
@@ -94,27 +94,27 @@ export default function DownloadCourseButton(course, {disabled = false}) {
       {
         text: 'Remover',
         onPress: () => {
-                    StorageService.deleteLocallyStoredCourse(course.course.courseId).then(result => {
-                        if(result){
-                            setAnimationState(ANIMATION_STATES.DELETE);
-                        } else {
-                            alert("Algo deu errado. Não foi possível remover os dados armazenados do curso."); //Something went wrong. Could not remove stored course data.
-                            setAnimationState(ANIMATION_STATES.DELETE);
-                        }
-                    });
+          StorageService.deleteLocallyStoredCourse(course.course.courseId).then(result => {
+            if(result){
+              setAnimationState(ANIMATION_STATES.DELETE);
+            } else {
+              alert('Algo deu errado. Não foi possível remover os dados armazenados do curso.'); //Something went wrong. Could not remove stored course data.
+              setAnimationState(ANIMATION_STATES.DELETE);
+            }
+          });
         },
         style: 'destructive',
       },
     ]);
 
   const handlePress = () => {
-      if (animationState === ANIMATION_STATES.INITIAL) {
-        downloadConfirmation();
-      }
-      if (animationState === ANIMATION_STATES.COMPLETED) {
-        removeDownloadConfirmation();
-      }
-    };
+    if (animationState === ANIMATION_STATES.INITIAL) {
+      downloadConfirmation();
+    }
+    if (animationState === ANIMATION_STATES.COMPLETED) {
+      removeDownloadConfirmation();
+    }
+  };
 
   return (
     <TouchableWithoutFeedback onPress={handlePress} disabled={disabled}>

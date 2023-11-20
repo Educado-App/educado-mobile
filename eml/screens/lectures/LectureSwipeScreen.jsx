@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import ProgressTopBar from './ProgressTopBar';
 import LectureScreen from './LectureScreen';
 import tailwindConfig from '../../tailwind.config';
-import * as StorageService from "../../services/StorageService";
+import * as StorageService from '../../services/StorageService';
 import ExerciseScreen from '../excercise/ExerciseScreen';
 import PropTypes from 'prop-types';
 
@@ -17,24 +17,24 @@ import PropTypes from 'prop-types';
  * @returns 
  */
 export default function LectureSwipeScreen({ route }) {
-    const { sectionId, parsedCourse } = route.params;
+  const { sectionId, parsedCourse } = route.params;
   const [loading, setLoading] = useState(true);
   const [currentLectureType, setCurrentLectureType] = useState('text');
   const [index, setIndex] = useState(0);
   const [combinedLecturesAndExercises, setCombinedLecturesAndExercises] = useState([]);
-    const navigation = useNavigation();
+  const navigation = useNavigation();
 
-    useEffect(() => {
-        async function fetchData() {
-            try {
-                const sectionData = await StorageService.getLectureList(sectionId);//getSectionAndLecturesBySectionId(sectionId);
-                //TODO: get the first uncompleted lecture - set the initial index to that
-                const initialIndex = 0;
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const sectionData = await StorageService.getLectureList(sectionId);//getSectionAndLecturesBySectionId(sectionId);
+        //TODO: get the first uncompleted lecture - set the initial index to that
+        const initialIndex = 0;
 
-                //get exercises
-                const _exercisesInSection = await StorageService.getExerciseList(sectionId);
-                const _lectures = sectionData;
-                let _combinedLecturesAndExercises = [];
+        //get exercises
+        const _exercisesInSection = await StorageService.getExerciseList(sectionId);
+        const _lectures = sectionData;
+        let _combinedLecturesAndExercises = [];
 
         //first add all lectures
         _lectures.forEach(lecture => {
@@ -59,17 +59,17 @@ export default function LectureSwipeScreen({ route }) {
         }
 
 
-                setCombinedLecturesAndExercises(_combinedLecturesAndExercises);
-                setCurrentLectureType(sectionData[initialIndex]?.video ? "video" : "text");
-                setIndex(initialIndex);
-                setLoading(false);
-            } catch (error) {
-                setLoading(false);
-            }
-        }
+        setCombinedLecturesAndExercises(_combinedLecturesAndExercises);
+        setCurrentLectureType(sectionData[initialIndex]?.video ? 'video' : 'text');
+        setIndex(initialIndex);
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+      }
+    }
 
-        fetchData();
-    }, [sectionId, parsedCourse]);
+    fetchData();
+  }, [sectionId, parsedCourse]);
 
 
   const swiperRef = useRef(null);
@@ -156,7 +156,7 @@ LectureSwipeScreen.propTypes = {
   route: PropTypes.shape({
     params: PropTypes.shape({
       sectionId: PropTypes.string,
-      courseId: PropTypes.string
+      parsedCourse: PropTypes.object
     }).isRequired,
   }).isRequired,
 };

@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 import { Image } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import PropTypes from 'prop-types';
-import * as StorageService from "../../services/StorageService";
+import * as StorageService from '../../services/StorageService';
 
 const TextImageLectureScreen = ({ lecture, course }) => {
 

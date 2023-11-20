@@ -3,8 +3,8 @@ import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import Text from '../../../components/general/Text';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import CustomProgressBar from "../../exercise/Progressbar";
-import tailwindConfig from "../../../tailwind.config";
+import CustomProgressBar from '../../exercise/Progressbar';
+import tailwindConfig from '../../../tailwind.config';
 import { determineIcon, determineCategory, formatHours } from '../../../services/utilityFunctions';
 import DownloadCourseButton from './DownloadCourseButton';
 import PropTypes from 'prop-types';
@@ -52,9 +52,9 @@ export default function CourseCard({ course }) {
           <CustomProgressBar width={56} progress={50} height={1} />
           <Pressable className="z-[1]"
             onPress={() => {
-                navigation.navigate('Section', {
-                    course: course,
-                });
+              navigation.navigate('Section', {
+                course: course,
+              });
             }}
           >
             <MaterialCommunityIcons size={28} name="play-circle" color={tailwindConfig.theme.colors.primary}></MaterialCommunityIcons>
