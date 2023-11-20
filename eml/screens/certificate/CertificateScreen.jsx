@@ -8,16 +8,27 @@ import { useNavigation } from '@react-navigation/native';
 import BackButton from '../../components/general/BackButton';
 import Text from '../../components/general/Text';
 import FilterNavBar from '../../components/explore/FilterNavBar';
+import CertificateCard from '../../components/certificate/CertificateCard';
+import { determineCategory } from '../../services/utilityFunctions';
 
 const USER_INFO = '@userInfo';
+
+// ---- TEST DATA ---- //
+const testCertificates = {
+  courseName: 'Curso de React Native',
+  courseCategory: 'electronics',
+  estimatedCourseDuration: 60,
+  dateOfCompletion: '2021-08-01',
+};
 
 /**
  * Profile screen
  * @returns {React.Element} Component for the profile screen
  */
-export default function ProfileComponent() {
+export default function CertificateScreen() {
   // Sets dummy data for courses (will be replaced with data from backend)
-  const [certificates, setCertificates] = useState([]);
+  const [certificates, setCertificates] = useState([testCertificates]);
+
   // Search text state
   const [searchText, setSearchText] = useState('');
   // Selected category state
@@ -25,11 +36,11 @@ export default function ProfileComponent() {
 
   const navigation = useNavigation();
 
-  const filteredCourses = certificates.filter((certificate) => {
+  const filteredCertificates = certificates.filter((certificate) => {
     // Check if the course title includes the search text
-    const titleMatchesSearch = certificate.title.toLowerCase().includes(searchText.toLowerCase());
+    const titleMatchesSearch = certificate.courseName.toLowerCase().includes(searchText.toLowerCase());
     // Check if the course category matches the selected category (or no category is selected)
-    const categoryMatchesFilter = !selectedCategory || determineCategory(certificate.category) === selectedCategory;
+    const categoryMatchesFilter = !selectedCategory || determineCategory(certificate.courseCategory) === selectedCategory;
     // Return true if both title and category conditions are met
     return titleMatchesSearch && categoryMatchesFilter;
   });
@@ -65,8 +76,15 @@ export default function ProfileComponent() {
           onChangeText={(text) => handleFilter(text)}
           onCategoryChange={handleCategoryFilter}
         />
-        <ScrollView className='mx-4'>
-
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View className="overflow-y-auto">
+            {certificates && filteredCertificates && filteredCertificates.map((certificate, index) => (
+              <CertificateCard
+                key={index}
+                certificate={certificate}
+              ></CertificateCard>
+            ))}
+          </View>
         </ScrollView>
       </View>
     </SafeAreaView>
