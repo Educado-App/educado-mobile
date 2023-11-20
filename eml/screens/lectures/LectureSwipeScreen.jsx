@@ -8,7 +8,7 @@ import LectureScreen from './LectureScreen';
 import { getSectionAndLecturesBySectionId, getCourse } from '../../api/api';
 import tailwindConfig from '../../tailwind.config';
 
-//import { getExerciseBySectionId } from '../../api/api';
+import { getExerciseBySectionId } from '../../api/api';
 import ExerciseScreen from '../excercise/ExerciseScreen';
 
 import PropTypes from 'prop-types';
