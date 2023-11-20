@@ -93,7 +93,7 @@ export default function LectureSwipeScreen({ route }) {
       swiperRef.current.scrollTo(_index + 1, true);
     }
     else {
-      navigation.goBack();
+      navigation.navigate('CompleteSection', { sectionId: sectionId, courseId: courseId });
     }
   };
 

@@ -20,7 +20,7 @@ export default function LogOutButton(props) {
       await AsyncStorage.removeItem(LOGIN_TOKEN);
       await AsyncStorage.removeItem(USER_INFO);
 
-      navigation.navigate('Login');
+      navigation.navigate('LoginStack');
     } catch (e) {
       console.log(e);
     }
