@@ -89,24 +89,33 @@ export const updateUserFields = async (user_id, updateFields, token) => {
 };
 
 export const completeExercise = async (user_id, exercise_id, isComplete, points, token) => {
-  const res = await client.patch('/api/users/' + user_id + '/completed', { exerciseId: exercise_id, isComplete: isComplete, points: points }, {
-    headers: {
-      'Content-Type': 'application/json',
-      'token': token, // Include the token in the headers
-    },
-  });
-
-  // Extract the required fields from the response data
-  const { _id, firstName, lastName, email, completedCourses } = res.data;
-
-  // Return the specific fields
-  return {
-    id: _id,
-    firstName,
-    lastName,
-    email,
-    completedCourses
-  };
+  try {
+    const res = await client.patch('/api/students/' + user_id + '/completed', { exerciseId: exercise_id, isComplete: isComplete, points: points }, {
+      headers: {
+        'Content-Type': 'application/json',
+        'token': token, // Include the token in the headers
+      },
+    });
+  
+    return res.data;
+  } catch (error) {
+    // Handle the error
+    if (error.response) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx
+      console.log('Response data:', error.response.data);
+      console.log('Response status:', error.response.status);
+      console.log('Response headers:', error.response.headers);
+    } else if (error.request) {
+      // The request was made but no response was received
+      console.log('Request:', error.request);
+    } else {
+      // Something happened in setting up the request that triggered an Error
+      console.error('Error:', error.message);
+    }
+    
+    throw error; // Re-throw the error to propagate it further if needed
+  }
 };
 
 export const getStudentInfo = async (user_Id) => {

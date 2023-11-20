@@ -9,6 +9,7 @@ import PopUp from '../../components/gamification/PopUp';
 import { StatusBar } from 'expo-status-bar';
 import PropTypes from 'prop-types';
 import { getLoginToken, getUserInfo } from '../../services/StorageService';
+import { givePoints } from '../../services/utilityFunctions';
 
 export default function ExerciseScreen({ exerciseObject, sectionObject, courseObject, onContinue }) {
   const tailwindConfig = require('../../tailwind.config.js');
@@ -26,23 +27,10 @@ export default function ExerciseScreen({ exerciseObject, sectionObject, courseOb
     setSelectedAnswer(answerIndex);
   };
 
-  async function retrieveUserInfoAndLoginToken() {
-    try {
-      // Retrieve the user info object and parse it from JSON
-      const userInfoString = await getUserInfo();
-      const userInfo = JSON.parse(userInfoString);
-      const loginToken = await getLoginToken();
-
-      return { userInfo, loginToken };
-    } catch (error) {
-      // Handle errors here
-      console.error('Error retrieving data:', error);
-    }
-  }
+  
 
   async function handleReviewAnswer(selectedAnswer) {
     const continueText = 'Continuar';
-    //const { userInfo, loginToken } = await retrieveUserInfoAndLoginToken();
 
     setIsCorrectAnswer(selectedAnswer);
 
@@ -50,12 +38,11 @@ export default function ExerciseScreen({ exerciseObject, sectionObject, courseOb
       `bg-project${selectedAnswer ? 'Green' : 'Red'}`
     );
 
-
-    // if (selectedAnswer) {
-    //   setPoints(await givePoints(userInfo, exerciseObject._id, true, 10, loginToken));
-    // } else {
-    //   setPoints(await givePoints(userInfo, exerciseObject._id, false, 0, loginToken));
-    // }
+    if (selectedAnswer) {
+      setPoints(await givePoints(exerciseObject._id, true, 10));
+    } else {
+      setPoints(await givePoints(exerciseObject._id, false, 0));
+    }
 
     setShowFeedback(true);
     setButtonText(continueText);
