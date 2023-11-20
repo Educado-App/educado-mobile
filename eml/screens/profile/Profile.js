@@ -58,7 +58,7 @@ export default function ProfileComponent() {
         <View className="flex-1 justify-start pt-[20%] h-screen">
           <UserInfo firstName={firstName} lastName={lastName} email={email} points={points}></UserInfo>
           <ProfileNavigationButton label='Editar perfil' testId={'editProfileNav'} onPress={() => navigation.navigate('EditProfile')}></ProfileNavigationButton>
-          <ProfileNavigationButton label='Certificados'></ProfileNavigationButton>
+          <ProfileNavigationButton label='Certificados' onPress={() => navigation.navigate('CertificateStack')}></ProfileNavigationButton>
           <ProfileNavigationButton label='Download'></ProfileNavigationButton>
           <View className='flex flex-row'>
             <LogOutButton testID='logoutBtn'></LogOutButton>

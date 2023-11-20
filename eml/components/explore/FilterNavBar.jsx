@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
  * @param onCategoryChange - Callback function called when a category is selected.
  * @returns {JSX.Element} - Rendered component
  */
-function FilterNavBar({ onChangeText, onCategoryChange }) {
+function FilterNavBar({ onChangeText, onCategoryChange, searchPlaceholder }) {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [searchText, setSearchText] = useState('');
 
@@ -28,7 +28,7 @@ function FilterNavBar({ onChangeText, onCategoryChange }) {
   return (
     <View>
       <View className="z-10 p-2">
-        <SearchBar searchText={searchText} onSearchChange={handleSearchInputChange} />
+        <SearchBar searchText={searchText} onSearchChange={handleSearchInputChange} placeholder={searchPlaceholder} />
       </View>
 
       <View className=" z-10 pl-2 pr-2 pb-4">
@@ -44,13 +44,13 @@ function FilterNavBar({ onChangeText, onCategoryChange }) {
                     className={`${selectedCategory === category.label
                       ? 'bg-primary border-primary text-projectWhite'
                       : 'border-2 border-projectGray text-gray'
-                    } px-2 py-2 rounded-lg border-projectGray border-[1px] mr-2 items-center justify-center`}
+                      } px-2 py-2 rounded-lg border-projectGray border-[1px] mr-2 items-center justify-center`}
                   >
                     <Text
                       className={`${selectedCategory === category.label
                         ? 'text-projectWhite font-bold'
                         : 'text-projectGray'
-                      }`}
+                        }`}
                     >{category.label}</Text>
                   </Pressable>
                 ))}
@@ -66,6 +66,7 @@ function FilterNavBar({ onChangeText, onCategoryChange }) {
 FilterNavBar.propTypes = {
   onChangeText: PropTypes.func,
   onCategoryChange: PropTypes.func,
+  searchPlaceholder: PropTypes.string,
 };
 
 export default FilterNavBar;

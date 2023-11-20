@@ -130,12 +130,13 @@ export default function Explore() {
 
   return (
     <BaseScreen>
-      <IconHeader 
+      <IconHeader
         title={'Explorar cursos'}
         description={'Inscreva-se nos cursos do seu interesse e comece sua jornada'}
       />
 
       <FilterNavBar
+        searchPlaceholder={'Buscar cursos'}
         onChangeText={(text) => handleFilter(text)}
         onCategoryChange={handleCategoryFilter}
       />
