@@ -180,7 +180,7 @@ export default function Explore() {
                 <Pressable
                   testID={'offlineExploreButton'}
                   className="rounded-r-8 rounded-md bg-primary justify-center items-center p-2 h-14 w-80"
-                  onPress={() => navigation.navigate('Central')}>
+                  onPress={() => navigation.navigate('Meus cursos')}>
                   {/* Click to explore courses */}
                   <Text className="text-projectWhite font-sans-bold text-center text-body" >Ir para Meus cursos</Text>
                 </Pressable>
