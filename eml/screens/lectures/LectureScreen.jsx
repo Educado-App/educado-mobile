@@ -38,9 +38,9 @@ export default function LectureScreen({ lectureObject, courseObject, currentInde
             <TextImageLectureScreen lecture={lecture} course={course} progress={progressPercent} />
           }
 
-          {currentIndex === indexCount - 1 ?
-          /* need to send course (courseObject._id) and section (lecture.parentSection) id to completeSection screen */
-            <StandardButton
+          {/*currentIndex === indexCount - 1 ?
+           need to send course (courseObject._id) and section (lecture.parentSection) id to completeSection screen */
+            /* <StandardButton
               props={{
                 buttonText: 'Continuar',
                 onPress: () => {navigation.navigate('CompleteSection', 
@@ -48,7 +48,7 @@ export default function LectureScreen({ lectureObject, courseObject, currentInde
                 );}
               }}
             />
-            : null
+            : null */
           }
         </View>
         :
