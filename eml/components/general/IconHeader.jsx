@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Image } from 'react-native';
 import Text from './Text';
 import PropTypes from 'prop-types';
+import OfflineBanner from './OfflineBanner';
 
 /**
  * Custom header component with an icon and title.
@@ -17,8 +18,8 @@ export default function IconHeader({ title, description }) {
 
   return (
     <>
+    <OfflineBanner />
       <View className="flex flex-row items-center pl-6 pb-2 pt-[20%]">
-        <OfflineBanner />
         <Image
           source={require('../../assets/images/singleIcon.png')}
           alt="Icon"
