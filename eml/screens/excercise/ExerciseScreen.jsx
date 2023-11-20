@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { ScrollView, View, TouchableOpacity } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Text from '../../components/general/Text';
-import CustomProgressBar from '../../components/exercise/Progressbar';
 import { RadioButton } from 'react-native-paper';
 import ExerciseInfo from '../../components/exercise/ExerciseInfo';
 import { Icon } from '@rneui/themed';
@@ -10,7 +9,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import PopUp from '../../components/gamification/PopUp';
 import { StatusBar } from 'expo-status-bar';
 import { getExerciseByid, getSectionByid, getCourse } from '../../api/api';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { givePoints } from '../../services/utilityFunctions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import PropTypes from 'prop-types';
@@ -21,10 +19,10 @@ let exercise;
 let section;
 
 // givenId is used for testing purposes, in the future an exercise object should be passed by the previous screen
-export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7' }) {
+export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7', onContinue }) {
   const navigation = useNavigation();
   const route = useRoute();
-  const tailwindConfig = require('../../tailwind.config.js');	
+  const tailwindConfig = require('../../tailwind.config.js');
   const projectColors = tailwindConfig.theme.colors;
 
   const [hasData, setHasData] = useState(false);
@@ -37,7 +35,7 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7' })
   const [buttonText, setButtonText] = useState('Confirmar Resposta'); // Used to change the text of a button
   const [isPopUpVisible, setIsPopUpVisible] = useState(false); // Used to render the pop up
   const [isCorrectAnswer, setIsCorrectAnswer] = useState(false);
-  const [points, setPoints] = useState(10); 
+  const [points, setPoints] = useState(10);
 
   const handleAnswerSelect = (answerIndex) => {
     setSelectedAnswer(answerIndex);
@@ -57,6 +55,13 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7' })
     }
   }
 
+  /* function handleSecondOnclick() {
+    navigation.navigate('Lecture', {
+      sectionId: '6540f6b3536b2b37a49457e0', // hardcoded for testing
+      courseId: '6540f668536b2b37a49457dc', // hardcoded for testing
+    });
+  } */
+  
   async function handleReviewAnswer(selectedAnswer) {
     const continueText = 'Continuar';
     const { userInfo, loginToken } = await retrieveUserInfoAndLoginToken();
@@ -78,9 +83,11 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7' })
     setButtonText(continueText);
     if (buttonText !== continueText) {
       setIsPopUpVisible(true);
+    } else {
+      onContinue();
     }
   }
-
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -99,14 +106,14 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7' })
 
 
   return (
-    <SafeAreaView className="h-screen bg-secondary">
+    <SafeAreaView className="h-full bg-secondary">
+      {/* This will now be shown by parent component, LectureSwipeScreen       
       <View className='flex-row items-center justify-around top-0'>
-        {/* Back Button */}
         <TouchableOpacity className="pr-3" onPress={() => navigation.goBack()}>
           <MaterialCommunityIcons name="chevron-left" size={25} color="black" />
         </TouchableOpacity>
-        <CustomProgressBar progress={50} width={65} height={1.2}></CustomProgressBar>
-      </View>
+          <CustomProgressBar progress={50} width={65} height={1.2}></CustomProgressBar>
+        </View> */}
 
       {hasData === false ? (
         // No data
@@ -199,6 +206,7 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7' })
 
 ExerciseScreen.propTypes = {
   givenId: PropTypes.string,
+  onContinue: PropTypes.func,
 };
 
 /*
@@ -254,3 +262,4 @@ async function getExercise() {
   }
 }
 */
+

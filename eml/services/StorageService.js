@@ -13,10 +13,24 @@ let isOnline = true;
 
 
 
+
 export const getUserInfo = async () => {
-  const fetchedUserInfo = JSON.parse(await AsyncStorage.getItem(USER_INFO));
-  return fetchedUserInfo;
+  try {
+    const fetchedUserInfo = JSON.parse(await AsyncStorage.getItem(USER_INFO));
+    if (fetchedUserInfo === null) {
+      throw new Error('Cannot fetch user info from async storage');
+    }
+    return fetchedUserInfo;
+  } catch (e) {
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
 };
+
+
 
 /** COURSE AND COURSE LIST **/
 
@@ -281,7 +295,7 @@ export const checkSubscriptions = async (courseId) => {
   }
 };
 
-
+// A function that calls the backed through the api just to test if it can be reached 
 export const checkIfOnline = async () => {
   isOnline = await api.checkBackendOnline();
   return isOnline;

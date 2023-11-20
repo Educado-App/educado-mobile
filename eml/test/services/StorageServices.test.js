@@ -483,6 +483,35 @@ describe('Async Storage Functions', () => {
   });
 
 
+  describe('checkIfOnline', () => {
+    beforeEach(() => {
+      jest.clearAllMocks();
+    });
 
+    it('should check if it is online', async () => {
+
+      // Mock checkBackendOnline to return true
+      await api.checkBackendOnline.mockResolvedValue(true);
+
+      // calls checkIFOnline function
+      const result = await StorageService.checkIfOnline();
+
+      // Assert that the result is as expected
+      expect(result).toBe(true);
+
+    });
+
+    it('should check if it is not online', async () => {
+      // Mock checkBackendOnline to return true
+      await api.checkBackendOnline.mockResolvedValue(false);
+
+      // calls checkIFOnline function
+      const result = await StorageService.checkIfOnline();
+
+      // Assert that the result is as expected
+      expect(result).toBe(false);
+
+    });
+  });
 
 });

@@ -11,19 +11,45 @@ const url = 'http://localhost:8888'; // change to lcd ip when testing
 
 /*** COURSE, SECTIONS AND EXERCISES ***/
 
+//This function is not used in this version of dev
 export const getCourseByid = async (courseId) => {
-  const res = await axios.get(url + '/api/courses/' + courseId);
-  return res.data;
+  try {
+    const res = await axios.get(url + '/api/courses/' + courseId);
+    return res.data;
+  } catch (e) {
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
 };
 
 export const getSectionByid = async (sectionId) => {
-  const res = await axios.get(url + '/api/sections/' + sectionId);
-  return res.data;
+  try {
+    const res = await axios.get(url + '/api/sections/' + sectionId);
+    return res.data;
+  } catch (e) {
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+
+  }
 };
 
 export const getExerciseByid = async (exerciseId) => {
-  const res = await axios.get(url + '/api/exercises/' + exerciseId);
-  return res.data;
+  try {
+    const res = await axios.get(url + '/api/exercises/' + exerciseId);
+    return res.data;
+  } catch (e) {
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
 };
 
 // Get specific course
@@ -90,6 +116,23 @@ export const getExercisesInSection = async (courseId, sectionId) => {
   try {
     const res = await axios.get(
       url + '/api/courses/' + courseId + '/sections/' + sectionId + '/exercises'
+    );
+    return res.data;
+  } catch (e) {
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
+};
+
+//CREATED BY VIDEOSTREAM TEAM
+//: get exercises in section by section id
+export const getExerciseBySectionId = async (sectionId) => {
+  try {
+    const res = await axios.get(
+      url + '/api/courses/' + sectionId + '/exercises'
     );
     return res.data;
   } catch (e) {
@@ -191,38 +234,18 @@ export const checkBackendOnline = async () => {
     response = res.data;
   } catch {
     response = false;
-  } finally {
-    return response;
   }
+  return response;
 };
 
 //CREATED BY VIDEOSTREAM TEAM
-/**
- *
- * @param {* name of video in bucketRoute, should be the same as lecture id} fileId
- * @param {* use 360p, 720p or 1080p - standard is 360p} resolution
- */
-export const getVideoDownloadUrl = (fileName, resolution) => {
-  let usableResolution = '360x640';
+/*This will be improved in next pull request to handle getting different resolutions properly 
+with our new video streaming service in go.
+*/
 
-  switch (resolution) {
-  case '180p':
-    usableResolution = '180x320';
-    break;
-  case '360p':
-    usableResolution = '360x640';
-    break;
-  case '720p':
-    usableResolution = '720x1280';
-    break;
-  case '1080p':
-    usableResolution = '1080x1920';
-    break;
-  default:
-    usableResolution = '360x640';
-    break;
-  }
-  const _vidUrl = `${url}/api/bucket/stream/${fileName}_transcoded${usableResolution}.mp4`;
+export const getVideoDownloadUrl = (fileName) => {
+  
+  const _vidUrl = `${url}/api/bucket/stream/${fileName}`;
   console.log(_vidUrl);
   return _vidUrl;
 };
