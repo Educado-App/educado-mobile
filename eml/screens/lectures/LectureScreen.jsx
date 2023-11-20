@@ -4,12 +4,12 @@ import VideoLectureScreen from './VideoLectureScreen';
 import TextImageLectureScreen from './TextImageLectureScreen';
 //import StandardButton from '../../components/general/StandardButton';
 import PropTypes from 'prop-types';
-//import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 export default function LectureScreen({ lectureObject, courseObject, currentIndex, indexCount }) {
 
   const navigation = useNavigation();
-    const [course, setCourse] = useState(courseObject);
+  const [course, setCourse] = useState(courseObject);
   const [lecture, setLecture] = useState(lectureObject);
   const [progressPercent, setProgressPercent] = useState(null);
   
