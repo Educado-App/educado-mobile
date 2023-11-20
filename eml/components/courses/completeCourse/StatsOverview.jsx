@@ -23,7 +23,7 @@ const StatsOverview = forwardRef(({ courseObject }, ref) => {
     try {
       const completedCourse = await getCompletedCourse();
       let totalExercises = 0;
-      let totalExercisesWithFirstTry = 2;
+      let totalExercisesWithFirstTry = 0;
   
       if (completedCourse) {
         completedCourse.completedSections.forEach((completedSection) => {
