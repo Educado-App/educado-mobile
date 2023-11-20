@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View } from "react-native";
+import Animated from 'react-native-reanimated';
 import AnimatedNumbers from '../gamification/AnimatedNumber';
 import { getStudentInfo, saveCourseTotalPointsLocally } from '../../services/StorageService';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -9,6 +10,7 @@ import { getPointsFromExerciseReceiver, getPointsFromExerciseUnsubscribe } from 
 
 const CoursePoints = (courseId) => {
   const [coursePoints, setCoursePoints] = useState(0);
+  const [scale, setScale] = useState(1);
   
   const getCompletedCourse = async () => {
     const studentInfo = await getStudentInfo();
@@ -34,7 +36,10 @@ const CoursePoints = (courseId) => {
   const updateCoursePoints = (newPoints) => {
     let isFirstIteration = true;
     let finalValue;
+    let counter = 0;
+    setScale(1.5);
     const interval = setInterval(() => {
+      counter++;
       setCoursePoints((prevNumber) => {
         if (isFirstIteration) {
           finalValue = prevNumber + newPoints;
@@ -44,6 +49,9 @@ const CoursePoints = (courseId) => {
         if (nextNumber >= finalValue) {
           clearInterval(interval);
           saveCourseTotalPointsLocally(courseId, finalValue);
+          setTimeout(() => {
+            setScale(1);
+          }, 75 * counter);
           return finalValue;
         }
         return nextNumber;
@@ -81,17 +89,24 @@ const CoursePoints = (courseId) => {
   }, []);
 
   return (
-    <View className="pr-2 flex flex-row items-center justify-around">
-      {/* <Text className="font-sans-bold"> */}
-        {/* {String(coursePoints)}
-      </Text> */}
+    <Animated.View className="flex flex-row items-center justify-around pr-2"
+        style={[
+          {
+            transform: [
+              {
+                scale: scale,
+              },
+            ],
+          },
+        ]}
+      >
       <AnimatedNumbers
         animateToNumber={coursePoints}
         animationDuration={500}
         fontStyle={`font-sans-bold text-center`}
       />
       <MaterialCommunityIcons name="crown-circle" size={20} color={tailwindConfig.theme.colors.yellow} />
-    </View>
+    </Animated.View>
   );
 }
 
