@@ -1,18 +1,59 @@
-name: Build
+name: CI 
 
 on:
   pull_request:
     types:
       - opened
-      - synchronize
-      - reopened
     branches:
       - dev
 
 jobs:
+
+  eslint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18
+      
+      - name: List directories and files
+        run: ls -al
+
+      - name: Install dependencies
+        run: cd eml && npm install
+
+      - name: Run ESLint
+        run: cd eml && npm run lint 
+
+  test:
+    runs-on: ubuntu-latest
+    needs: eslint
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18
+      
+      - name: List directories and files
+        run: ls -al
+
+      - name: Install dependencies
+        run: cd eml && npm install
+        
+      - name: Run Tests
+        run: cd eml && npm run test 
+
   build:
     runs-on: ubuntu-latest
-    
+    needs: test
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -34,3 +75,4 @@ jobs:
 
       - name: Build with Gradle
         run: ./android/gradlew assembleRelease
+    
