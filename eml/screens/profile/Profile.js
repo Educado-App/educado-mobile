@@ -20,6 +20,7 @@ export default function ProfileComponent() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
+  const [points, setPoints] = useState(0);
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -29,19 +30,17 @@ export default function ProfileComponent() {
     return getInfo;
   }, [navigation]);
 
-  const points = 87; // placeholder for the points that will be fetched eventually @SocialGamified
-
   /**
   * Fetches the user's profile from the local storage
   */ 
   const getProfile = async () => {
     try {
       const fetchedProfile = JSON.parse(await AsyncStorage.getItem(USER_INFO));
-
       if (fetchedProfile !== null) {
         setFirstName(fetchedProfile.firstName);
         setLastName(fetchedProfile.lastName);
         setEmail(fetchedProfile.email);
+        setPoints(fetchedProfile.points);
       }
     } catch (e) {
       console.log(e);
