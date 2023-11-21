@@ -11,6 +11,7 @@ import FormFieldAlert from './FormFieldAlert';
 import { removeEmojis } from '../general/Validation';
 import Text from '../general/Text';
 import ShowAlert from '../general/ShowAlert';
+import { setStudentInfo } from '../../services/StorageService';
 
 const LOGIN_TOKEN = '@loginToken';
 const USER_INFO = '@userInfo';
@@ -49,6 +50,7 @@ export default function LoginForm() {
 
       await AsyncStorage.setItem(USER_INFO, JSON.stringify(obj));
       await AsyncStorage.setItem(USER_ID, userInfo.id); // needs to be seperate
+      await setStudentInfo(userInfo.id);
     } catch (e) {
       console.log(e);
     }

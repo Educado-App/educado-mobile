@@ -3,7 +3,7 @@ import axios from 'axios';
 /* Commented out to avoid linting errors 
  * TODO: move IP address to .env file !!!
 const prod = 'http://educado.somethingnew.dk';
-const test = 'http://172.30.210.66:8888'; 
+const test = 'http://172.30.211.110:8888'; // Change this to your LOCAL IP address when testing.
 const local = 'http://localhost:8888';
 const digitalOcean = 'http://207.154.213.68:8888';
 */ 
@@ -130,6 +130,15 @@ export const completeExercise = async (user_id, exercise_id, isComplete, points,
     } else {
       throw e;
     }
+  }
+};
+
+export const getStudentInfo = async (user_Id) => {
+  try {
+    const res = await client.get('/api/students/' + user_Id);
+    return res.data;
+  } catch (err) {
+    return err.message;
   }
 };
 
