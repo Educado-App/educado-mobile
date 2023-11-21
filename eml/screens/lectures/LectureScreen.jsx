@@ -1,26 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import VideoLectureScreen from './VideoLectureScreen';
 import TextImageLectureScreen from './TextImageLectureScreen';
 import PropTypes from 'prop-types';
+import Text from '../../components/general/Text';
 
 export default function LectureScreen({ lectureObject, courseObject, currentIndex, indexCount }) {
-
   const [lecture, setLecture] = useState(lectureObject);
-  const [progressPercent, setProgressPercent] = useState(null);
+  const [course, setCourse] = useState(courseObject);
+
   useEffect(() => {
     setLecture(lectureObject);
     setCourse(courseObject);
-    const _progressPercent = calculateProgressInPercent();
-    setProgressPercent(_progressPercent);
-
   }, []);
-
-  const [course, setCourse] = useState(courseObject);
-
-  const calculateProgressInPercent = () => {
-    return Math.round((currentIndex / indexCount) * 100);
-  };
 
   //Safe area should not be used if we want to use the full screen
   return (
@@ -30,9 +22,9 @@ export default function LectureScreen({ lectureObject, courseObject, currentInde
         <View className="w-full h-full flex-col justify-center items-center">
 
           {lecture.video ?
-            <VideoLectureScreen lecture={lecture} progress={progressPercent} course={course} />
+            <VideoLectureScreen lecture={lecture} course={course} isLastSlide={currentIndex === indexCount - 1} />
             :
-            <TextImageLectureScreen lecture={lecture} course={course} progress={progressPercent} />
+            <TextImageLectureScreen lecture={lecture} course={course} isLastSlide={currentIndex === indexCount - 1} />
           }
         </View>
         :

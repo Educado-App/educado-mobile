@@ -1,8 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-
-// For animating play button
-
-import { View, Pressable } from 'react-native';
+import { View, Pressable, TouchableOpacity } from 'react-native';
 import Text from '../../components/general/Text';
 import VideoActions from '../../components/lectures/VideoActions';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -10,10 +7,11 @@ import CustomExpoVideoPlayer from '../../components/lectures/VideoPlayer';
 import ReactSliderProgress from './ReactSliderProgress';
 import { getVideoDownloadUrl } from '../../api/api';
 import PropTypes from 'prop-types';
+import { useNavigation } from '@react-navigation/native';
 
 
-export default function VideoLectureScreen({ lecture, course }) {
-
+export default function VideoLectureScreen({ lecture, course, isLastSlide }) {
+  const navigation = useNavigation();
 
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false); // Keep track of playback status
@@ -114,8 +112,8 @@ export default function VideoLectureScreen({ lecture, course }) {
       <View className="w-full h-full bg-projectBlack" >
 
         <View className="w-full h-full  bg-projectBlack" >
-          {videoUrl ? <CustomExpoVideoPlayer
-
+          {videoUrl ? 
+          <CustomExpoVideoPlayer
             videoUrl={videoUrl}
             ref={videoRef}
             isPlaying={isPlaying}
@@ -130,18 +128,27 @@ export default function VideoLectureScreen({ lecture, course }) {
 
       <View className="absolute w-full h-full p-5">
         <View className="w-full h-full flex-col justify-end items-center  bg-opacity-20" >
-          {/* Progress bar (on top) */}
-          {/* <ProgressTopBar progressPercent={progress} /> */}
+
+          {isLastSlide ?
+            <View className="px-6 mb-3 w-screen">
+              <TouchableOpacity className="bg-primary px-10 py-4 rounded-medium"
+                onPress={() => { console.log('continue to completeSection') }}
+              >
+                <Text className="text-center font-sans-bold text-body text-projectWhite">Continuar</Text>
+              </TouchableOpacity>
+            </View>
+          : null}
+
           {/* Lecture information */}
 
           <View className="w-full flex-col items-start justify-left" >
 
             <View className="w-full flex-row justify-between items-end">
-
               <View className=" flex-col">
                 <Text className=" text-projectWhite opacity-80"  >Nome do curso: {course.title}</Text>
                 <Text className="text-xl text-projectWhite" >{lecture.title && lecture.title}</Text>
               </View>
+
               <VideoActions isPlaying={isPlaying} isMuted={isMuted} onVolumeClick={handleMutepress} onPlayClick={handlePress} />
             </View>
 
@@ -182,5 +189,6 @@ export default function VideoLectureScreen({ lecture, course }) {
 
 VideoLectureScreen.propTypes = {
   lecture: PropTypes.object,
-  course: PropTypes.object
+  course: PropTypes.object,
+  isLastSlide: PropTypes.bool
 };

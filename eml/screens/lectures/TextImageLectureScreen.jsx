@@ -1,28 +1,26 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
+import Text from '../../components/general/Text';
 import { Image } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { getBucketImage } from '../../api/api';
 import PropTypes from 'prop-types';
+import { useNavigation } from '@react-navigation/native';
 
-const TextImageLectureScreen = ({ lecture, course }) => {
-
+const TextImageLectureScreen = ({ lecture, course, isLastSlide }) => {
   const [imageUrl, setImageUrl] = useState(null);
-
   const [paragraphs, setParagraphs] = useState(null);
+  const navigation = useNavigation();
 
   useEffect(() => {
-
     if (lecture.image) {
       getLectureImage();
     }
     splitText(lecture.description);
-
   }, []);
 
 
   const getLectureImage = async () => {
-
     try {
       const imageRes = await getBucketImage(lecture.image);
       setImageUrl(imageRes);
@@ -31,14 +29,10 @@ const TextImageLectureScreen = ({ lecture, course }) => {
 
       setImageUrl(null);
     }
-
-
   };
 
   //split text into paragraphs and dont cut words
   const splitText = (text) => {
-
-
     let _paragraphs = [];
 
     if (text.length < 250) {
@@ -76,16 +70,15 @@ const TextImageLectureScreen = ({ lecture, course }) => {
       }
     }
 
-
     // Now, `_paragraphs` contains the split text.
     setParagraphs(_paragraphs);
   };
 
-  return (<View className={'absolute w-full h-full px-4 pt-20'}>
-    {/* <ProgressTopBar progressPercent={progress} color='black' /> */}
+  return (
+  <View className={'absolute w-full h-full px-4 pt-20'}>
     {/* Content */}
     <Text className="text-center text-2xl pt-6 font-bold">BEM VINDO!</Text>
-    <ScrollView className=" mt-2">
+    <ScrollView className="mt-2">
 
 
       {
@@ -118,6 +111,18 @@ const TextImageLectureScreen = ({ lecture, course }) => {
       }
     </ScrollView>
 
+    {isLastSlide ?
+    <View className="w-full items-center">
+      <View className="px-6 mb-3 w-screen">
+        <TouchableOpacity className="bg-primary px-10 py-4 rounded-medium"
+          onPress={() => { console.log('continue to completeSection') }}
+        >
+          <Text className="text-center font-sans-bold text-body text-projectWhite">Continuar</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+    : null}
+
     <View className="flex-col w-full justify-left drop-shadow-2xl mt-2 pb-4 pt-2" >
       {/* Course name and lecturen name */}
       <View className="w-full flex-row justify-between">
@@ -134,6 +139,7 @@ const TextImageLectureScreen = ({ lecture, course }) => {
 TextImageLectureScreen.propTypes = {
   lecture: PropTypes.object,
   course: PropTypes.object,
+  isLastSlide: PropTypes.bool
 };
 
 export default TextImageLectureScreen;

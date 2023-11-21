@@ -12,9 +12,7 @@ const LectureType = {
 };
 
 const ProgressTopBar = ({ courseObject, lectureType, allLectures, currentLectureIndex = '' }) => {
-
   const navigator = useNavigation();
-
   const chevronColor = lectureType === LectureType.VIDEO ? tailwindConfig.theme.colors.projectWhite : tailwindConfig.theme.colors.projectBlack;
 
   const createCorrectIcon = (_index, _currentIndex) => {
