@@ -25,7 +25,7 @@ export const getCourseByid = async (courseId) => {
   }
 };
 
-export const getSectionByid = async (sectionId) => {
+export const getSectionById = async (sectionId) => {
   try {
     const res = await axios.get(url + '/api/sections/' + sectionId);
     return res.data;
