@@ -1,10 +1,10 @@
-name: Run Tests on Pull Request and Branches
+name: Tests
+
 on:
-  pull_request:
+  workflow_run:
+    workflows: ["Linting"]
     types:
-      - opened
-      - synchronize
-      - reopened
+      - completed
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -16,7 +16,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: 20 
+          node-version: 18
       
       - name: List directories and files
         run: ls -al
