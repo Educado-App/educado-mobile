@@ -48,7 +48,6 @@
     "expo": "^46.0.15",
     "expo-app-loading": "~2.1.0",
     "expo-av": "~12.0.4",
-    "expo-cli": "^6.3.10",
     "expo-file-system": "~14.1.0",
     "expo-font": "~10.2.0",
     "expo-linear-gradient": "~11.4.0",
@@ -93,7 +92,8 @@
     "recoil": "^0.7.5",
     "source-code-pro": "^2.38.0",
     "tailwindcss-react-native": "^1.7.10",
-    "zxcvbn": "^4.4.2"
+    "zxcvbn": "^4.4.2",
+    "expo-build-properties": "~0.3.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.18.6",
