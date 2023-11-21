@@ -1,6 +1,6 @@
 import * as api from '../api/api.js';
-import * as userApi from '../api/userApi.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const COURSE_LIST = '@courseList';
 const SUB_COURSE_LIST = '@subCourseList';
@@ -8,33 +8,26 @@ const SECTION_LIST = '@sectionList';
 const COURSE = '@course';
 const USER_ID = '@userId';
 const USER_INFO = '@userInfo';
-const STUDENT_INFO = '@studentInfo';
-const LOGIN_TOKEN = '@loginToken';
 let isOnline = true;
 
-/** STUDENT **/
 
-export const setStudentInfo = async (userId) => {
-  const fetchedStudentInfo = await userApi.getStudentInfo(userId);
-  await AsyncStorage.setItem(STUDENT_INFO, JSON.stringify(fetchedStudentInfo));
-};
 
-export const getStudentInfo = async () => {
-  const fetchedStudentInfo = JSON.parse(await AsyncStorage.getItem(STUDENT_INFO));
-  return fetchedStudentInfo;
-};
 
-export const getLoginToken = async () => {
-  const fetchedToken = await AsyncStorage.getItem(LOGIN_TOKEN);
-  return fetchedToken;
-};
 
 export const getUserInfo = async () => {
-  const fetchedUserInfo = JSON.parse(await AsyncStorage.getItem(USER_INFO));
-  if (fetchedUserInfo === null) {
-    throw new Error('Cannot fetch user info from async storage');
+  try {
+    const fetchedUserInfo = JSON.parse(await AsyncStorage.getItem(USER_INFO));
+    if (fetchedUserInfo === null) {
+      throw new Error('Cannot fetch user info from async storage');
+    }
+    return fetchedUserInfo;
+  } catch (e) {
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
   }
-  return fetchedUserInfo;
 };
 
 // Set user info in storage
@@ -80,7 +73,6 @@ export const getCourseId = async (id) => {
     }
   }
 };
-
 export const refreshCourse = async (id) => {
   return await api
     .getCourse(id)
@@ -145,20 +137,6 @@ export const refreshCourseList = async () => {
         throw e;
       }
     });
-};
-
-export const saveCourseTotalPointsLocally = async (courseId, newTotalPoints) => {
-  const studentInfo = JSON.parse(await AsyncStorage.getItem(STUDENT_INFO));
-
-  const completedCourses = studentInfo.completedCourses;
-  const completedCourseIndex = completedCourses.findIndex(course => course.courseId === courseId.courseId);
-  if (completedCourseIndex !== -1) {
-    completedCourses[completedCourseIndex].totalPoints = newTotalPoints;
-  }
-
-  studentInfo.completedCourses = completedCourses;
-
-  await AsyncStorage.setItem(STUDENT_INFO, JSON.stringify(studentInfo));
 };
 
 /** SECTIONS **/
