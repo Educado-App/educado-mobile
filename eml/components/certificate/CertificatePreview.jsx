@@ -28,8 +28,8 @@ export default function CertificatePreview(props) {
 
   return (
     <CertificateModal modalVisible={modalVisible} closeModal={onModalClose} id="EducadoModal">
-      <View className="flex flex-row justify-end p-4">
-        <View className="flex-1 border-solid border-2 border-black m-2">
+      <View className="flex flex-1 flex-row justify-end p-4">
+        <View className="flex-1 border-solid border-2 border-black m-2 ">
           <View className="flex-1 border-solid border-2 border-primary m-2">
             <Text className="text-center text-4xl text-webprimary font-bold p-6">CERTIFICADO DE CONCLUSÃO</Text>
 
