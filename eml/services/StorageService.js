@@ -11,7 +11,6 @@ const USER_INFO = '@userInfo';
 const STUDENT_INFO = '@studentInfo';
 const LOGIN_TOKEN = '@loginToken';
 let isOnline = true;
-const LOGIN_TOKEN = '@loginToken';
 
 /** STUDENT **/
 
