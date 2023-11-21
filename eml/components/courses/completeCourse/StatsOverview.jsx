@@ -7,7 +7,7 @@ import { getStudentInfo } from '../../../services/StorageService';
 
 const StatsOverview = forwardRef(({ courseObject }, ref) => {
   const [percentage, setPercentage] = useState(0);
-  const circleSize = Dimensions.get('window').height * 0.17;
+  const circleSize = Dimensions.get('window').height * 0.25;
   const tailwindConfig = require('../../../tailwind.config.js');
   const projectColors = tailwindConfig.theme.colors;
   const circularProgressRef = useRef(null);
@@ -64,9 +64,9 @@ const StatsOverview = forwardRef(({ courseObject }, ref) => {
 
   return (
     <View className="flex w-full h-full justify-start items-center">
-      <Text className="text-center font-sans-bold text-3xl text-primary p-5">Veja suas estatísticas do curso</Text>
+      <Text className="text-center font-sans-bold text-3xl text-primary p-4 mb-14">Veja suas estatísticas do curso</Text>
 
-      <View className="w-full items-center mt-5 mb-8">
+      <View className="w-full items-center m-5 ">
         <AnimatedCircularProgress
           ref={circularProgressRef}
           fill={0}
@@ -82,10 +82,11 @@ const StatsOverview = forwardRef(({ courseObject }, ref) => {
             </Text>
           )}
         </AnimatedCircularProgress>
-        <Text className="text-center text-base text-projectBlack pt-10 px-10">Você respondeu {percentage}% correta na primeira tentativa, bravo!</Text>
+        <Text className="text-center text-base text-projectBlack pt-10 px-10">Você respondeu {percentage}% correta na primeira tentativa e a sua posição atual é [posição], bravo! Clique aqui para ver o ranking completo.</Text>
       </View>
 
-      
+      {/* ---------------------------- Code for leaderboard goes from here ------------------------------------------------------------------------------------
+
       <Text className="text-center font-sans-bold text-base text-projectBlack mb-3">Placar Educado</Text>
 
       <View className="px-6 w-screen">
@@ -117,6 +118,9 @@ const StatsOverview = forwardRef(({ courseObject }, ref) => {
           <Text className="text-center font-sans-bold text-base text-projectWhite">1101</Text>
         </View>
       </View>
+
+      ---------------------------- Code for leaderboard goes to here   ------------------------------------------------------------------------------------ */}
+
     </View>
   );
 });
