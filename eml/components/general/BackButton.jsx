@@ -21,7 +21,7 @@ export default function BackButton(props) {
 
   BackButton.propTypes = {
     onPress: PropTypes.func,
-    style: PropTypes.object
+    style: PropTypes.array
   };
 
   return <>

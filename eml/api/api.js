@@ -1,13 +1,10 @@
 import axios from 'axios';
 
-/* Commented out for avoiding linting errors
- * TODO: move IP address to .env file !!!
-const testUrl = 'http://localhost:8888';
-const testExpo = 'http://172.30.211.57:8888'; 
-const digitalOcean = 'http://207.154.213.68:8888';
-*/
+// const testUrl = 'http://localhost:8888';
+// const testExpo = 'http://172.30.245.78:8888'; //Change to local expo ip
+// const digitalOcean = 'http://207.154.213.68:8888';
 
-const url = 'http://localhost:8888'; // change to lcd ip when testing
+const url = 'https://educado-backend-staging-x7rgvjso4a-ew.a.run.app/'; // change to lcd ip when testing
 
 /*** COURSE, SECTIONS AND EXERCISES ***/
 
@@ -96,6 +93,7 @@ export const getAllSections = async (courseId) => {
 };
 
 // Get specific section
+// ************* same as getSectionByid *************
 export const getSection = async (courseId, sectionId) => {
   try {
     const res = await axios.get(
@@ -112,6 +110,7 @@ export const getSection = async (courseId, sectionId) => {
 };
 
 // Get all exercises in a specific section:
+// ************* same as getExercisesBySectionId *************
 export const getExercisesInSection = async (courseId, sectionId) => {
   try {
     const res = await axios.get(
@@ -129,7 +128,7 @@ export const getExercisesInSection = async (courseId, sectionId) => {
 
 //CREATED BY VIDEOSTREAM TEAM
 //: get exercises in section by section id
-export const getExerciseBySectionId = async (sectionId) => {
+export const getExercisesBySectionId = async (sectionId) => {
   try {
     const res = await axios.get(
       url + '/api/courses/' + sectionId + '/exercises'
@@ -246,11 +245,11 @@ with our new video streaming service in go.
 export const getVideoDownloadUrl = (fileName) => {
   
   const _vidUrl = `${url}/api/bucket/stream/${fileName}`;
-  console.log(_vidUrl);
   return _vidUrl;
 };
 
 //CREATED BY VIDEO STREAMING TEAM
+// ************** same as getSectionByid **************
 export const getSectionAndLecturesBySectionId = async (sectionId) => {
   try {
     const res = await axios.get(url + '/api/sections/' + sectionId);
@@ -277,6 +276,19 @@ export const getLectureById = async (lectureId) => {
     }
   }
 
+};
+
+export const getExerciseById = async (exerciseId) => {
+  try {
+    const res = await axios.get(url + '/api/exercises/' + exerciseId);
+    return res.data;
+  } catch (e) {
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
 };
 
 //CREATED BY VIDEOSTREAM TEAM
