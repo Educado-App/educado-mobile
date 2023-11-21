@@ -69,12 +69,9 @@ jobs:
       - name: Install Expo CLI globally
         run: npm install -g expo-cli
 
-      - name: Install dependencies and build using EAS
-        run: |
-          cd eml
-          npm install
-          npm eas build -p android --profile preview
+      - name: Install dependencies
+        run: cd eml && npm install
 
-      - name: Build with Gradle
-        run: cd eml && npm run build
+      - name: Install dependencies and build using EAS
+        run: cd eml && npm eas build -p android --profile preview
     
