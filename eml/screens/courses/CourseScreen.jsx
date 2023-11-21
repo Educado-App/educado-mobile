@@ -106,6 +106,7 @@ export default function CourseScreen() {
                 <Image source={require('../../assets/images/no-courses.png')} />
                 <Text className=" leading-[29.26] text-projectBlack pb-4 pt-4 font-sans-bold text-subheading text-center " >Comece agora</Text>
                 <Text className=" text-projectBlack font-montserrat text-center text-body " > Você ainda não se increveu em nenhum curso. Acesse a página Explore e use a busca para encontrar cursos do seu intresse.</Text>
+                {/*You haven't signed up for any course yet. Access the Explore page and use the search to find courses that interest you.*/}
               </View>
               <View>
                 <Pressable
