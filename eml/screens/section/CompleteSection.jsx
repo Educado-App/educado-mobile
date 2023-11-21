@@ -11,7 +11,7 @@ import { getUserInfo } from '../../services/StorageService';
 
 export default function CompleteSectionScreen() {
   const route = useRoute();
-  const { courseId, sectionId } = route.params;
+  const { course, sectionId } = route.params;
   const [points, setPoints] = useState(0);
   const [extraPoints, setExtraPoints] = useState(0);
   // const [totalPointsText, setTotalPointsText] = useState('Pontos');
@@ -69,7 +69,7 @@ export default function CompleteSectionScreen() {
   }
 
   const findCompletedSection = (completedCourses) => {
-    const completedCourse = completedCourses.find((course) => course.courseId === courseId);
+    const completedCourse = completedCourses.find((course) => course.courseId === course._id);
 
     if (completedCourse) {
       const completedSection = completedCourse.completedSections.find(
@@ -89,7 +89,7 @@ export default function CompleteSectionScreen() {
     const getUser = await getUserInfo();
     const completedSection = findCompletedSection(
       getUser.completedCourses,
-      courseId,
+      course._id,
       sectionId,
     );
     if (completedSection === null) {
@@ -144,7 +144,7 @@ export default function CompleteSectionScreen() {
                     { name: 'HomeStack' },
                     {
                       name: 'Section',
-                      params: { courseId },
+                      params: { course },
                     },
                   ],
                 });
