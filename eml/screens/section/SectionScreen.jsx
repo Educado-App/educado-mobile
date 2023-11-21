@@ -37,20 +37,11 @@ export default function SectionScreen({ route }) {
 
   // Fetch courses from backend and replace dummy data!
   useEffect(() => {
-    let componentIsMounted = true;
-
     /**
      * Loads the sections and course data for the given courseId.
      */
-    async function loadData() {
-      await loadSections(course.courseId);
-    }
+    loadSections();
 
-    if (componentIsMounted) {
-      loadData();
-    }
-
-    return () => componentIsMounted = false;
   }, []);
 
   /**
