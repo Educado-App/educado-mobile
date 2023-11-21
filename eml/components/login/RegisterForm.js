@@ -15,11 +15,6 @@ import DialogNotification from '../general/DialogNotification';
 import { AlertNotificationRoot } from 'react-native-alert-notification';
 import tailwindConfig from '../../tailwind.config';
 import { setUserInfo, setJWT } from '../../services/StorageService';
-import { setStudentInfo } from '../../services/StorageService';
-
-const LOGIN_TOKEN = '@loginToken';
-const USER_INFO = '@userInfo';
-const USER_ID = '@userId';
 
 /**
  * Component for registering a new account in the system, used in the register screen
@@ -180,28 +175,6 @@ export default function RegisterForm() {
         .catch((error) => {
           ShowAlert(errorSwitch(error));
         });
-    } catch (e) {
-      console.log(e);
-    }
-  }
-
-  /**
-   * Stores the user info in async storage
-   * @param {*} userInfo: {id, firstName, lastName, email, completed courses}
-   */
-  async function saveUserInfoLocally(userInfo) {
-    try {
-      const obj = {
-        id: userInfo.id,
-        firstName: userInfo.firstName,
-        lastName: userInfo.lastName,
-        email: userInfo.email,
-        completedCourses: userInfo.completedCourses,
-      };
-
-      await AsyncStorage.setItem(USER_INFO, JSON.stringify(obj));
-      await AsyncStorage.setItem(USER_ID, userInfo.id); // needs to be seperate
-      await setStudentInfo(userInfo.id);
     } catch (e) {
       console.log(e);
     }
