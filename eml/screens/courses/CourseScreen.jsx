@@ -79,7 +79,10 @@ export default function CourseScreen() {
              */}
       {courseLoaded ?
         <View height="100%">
-          <IconHeader title={'Bem Vindo!'} />
+          <IconHeader 
+            title={'Bem Vindo!'} 
+            description={'Aqui você encontra todos os cursos em que você está inscrito!'}    
+          />
           <ScrollView showsVerticalScrollIndicator={false} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
             {courses.map((course, index) => (
               <CourseCard key={index} course={course}></CourseCard>
@@ -89,28 +92,30 @@ export default function CourseScreen() {
           </ScrollView>
         </View>
         :
-        <View className=" justify-center items-center bg-secondary ">
+        <View className="bg-secondary justify-center items-center ">
           <View className="pt-24 pb-16">
-            <Image source={require('../../assets/images/logo.png')} className=" justify-center items-center w-[175.88] h-[25.54] " />
+            <Image source={require('../../assets/images/logo.png')} className=" justify-center items-center" />
           </View>
-          <View className=" justify-center items-center pb-24 pt-24 gap-10 ">
-            <View className=" justify-center items-center w-[342] h-[308.02] ">
+          <View className=" justify-center items-center py-10 gap-10 ">
+            <View className=" justify-center items-center w-full h-auto  px-10">
               {/* No active courses */}
               <Image source={require('../../assets/images/no-courses.png')} />
               <Text className=" leading-[29.26] text-projectBlack pb-4 pt-4 font-sans-bold text-subheading text-center " >Comece agora</Text>
-              <Text className=" text-projectBlack leading-[19.5] font-montserrat text-center text-body " > Você ainda não se increveu em nenhum curso. Acesse a página Explore e use a busca para encontrar cursos do seu intresse.</Text>
+              <Text className=" text-projectBlack font-montserrat text-center text-body " > Você ainda não se increveu em nenhum curso. Acesse a página Explore e use a busca para encontrar cursos do seu intresse.</Text>
             </View>
             <View>
               <Pressable
                 testID={'exploreButton'}
-                className=" rounded-r-8 rounded-md bg-primary justify-center items-center p-2 h-[52] w-[342] "
+                className=" rounded-r-8 rounded-md bg-primary justify-center items-center py-4 w-full h-auto px-20 "
                 onPress={() => navigation.navigate('Explorar')}>
                 {/* Click to explore courses */}
-                <Text className=" text-projectWhite font-sans-bold text-center text-body " > Explore courses</Text>
+                <Text className=" text-projectWhite font-sans-bold text-center text-body " > Explorar cursos</Text>
               </Pressable>
             </View>
           </View>
-        </View>}
+                    
+        </View>
+      }
     </BaseScreen>
   );
 }

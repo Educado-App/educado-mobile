@@ -13,6 +13,7 @@ let isOnline = true;
 
 
 
+
 export const getUserInfo = async () => {
   try {
     const fetchedUserInfo = JSON.parse(await AsyncStorage.getItem(USER_INFO));
@@ -28,6 +29,8 @@ export const getUserInfo = async () => {
     }
   }
 };
+
+
 
 /** COURSE AND COURSE LIST **/
 

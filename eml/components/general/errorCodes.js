@@ -17,6 +17,10 @@ module.exports = {
     code: 'E0003',
     message: 'Server could not be reached'
   },
+  E0004: {
+    code: 'E0004',
+    message: 'User not found'
+  },
 
   // E01 - Login errors
   E0101: {

@@ -4,6 +4,8 @@ import RegisterForm from '../../../components/login/RegisterForm';
 
 let registerForm;
 
+jest.useRealTimers('legacy');
+
 jest.mock('@react-navigation/native', () => ({
   useNavigation: () => ({
     navigate: jest.fn(),
