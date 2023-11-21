@@ -40,10 +40,6 @@ const CoursePoints = (courseId) => {
         return nextNumber;
       });
     }, 50);
-
-    // TODO: brokey, magnus help
-    
-    
   };
 
   const fetchCourseAndPoints = async () => {
