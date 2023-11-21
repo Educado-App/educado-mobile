@@ -114,7 +114,6 @@ export const refreshCourseList = async (courseList) => {
 };
 
 /** SECTIONS **/
-/** SECTIONS **/
 
 // get all section for specific course
 export const getSectionList = async (course_id) => {
@@ -544,6 +543,25 @@ export const updateStoredCourses = async () => {
 
 
 /** Other **/
+
+export const checkCourseStoredLocally = async (courseID) => {
+  try{
+    if (await AsyncStorage.getItem(courseID + await AsyncStorage.getItem(USER_ID))){
+      return true;
+    } else {
+      return false;
+    }
+  } catch (e) {
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
+};
+
+
+
 
 export const clearAsyncStorage = async () => {
   console.log(await AsyncStorage.getAllKeys());
