@@ -73,5 +73,5 @@ jobs:
         run: cd eml && npm install
 
       - name: Install dependencies and build using EAS
-        run: cd eml && npm eas build -p android --profile preview
+        run: cd eml && npm run build
     
