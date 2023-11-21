@@ -10,6 +10,7 @@ import FormFieldAlert from '../general/forms/FormFieldAlert';
 import { removeEmojis } from '../general/Validation';
 import Text from '../general/Text';
 import ShowAlert from '../general/ShowAlert';
+import { setStudentInfo } from '../../services/StorageService';
 
 
 // Services
@@ -29,6 +30,29 @@ export default function LoginForm() {
   const [emailAlert, setEmailAlert] = useState('');
   // State variable to track password visibility
   const [showPassword, setShowPassword] = useState(false);
+
+  /**
+   * Stores the user info in async storage
+   * @param {*} userInfo: {id, firstName, lastName, email}
+   */
+  async function saveUserInfoLocally(userInfo) {
+    try {
+      const obj = {
+        id: userInfo.id,
+        firstName: userInfo.firstName,
+        lastName: userInfo.lastName,
+        email: userInfo.email,
+        completedCourses: userInfo.completedCourses,
+      };
+
+      await AsyncStorage.setItem(USER_INFO, JSON.stringify(obj));
+      await AsyncStorage.setItem(USER_ID, userInfo.id); // needs to be seperate
+      await setStudentInfo(userInfo.id);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
 
   /**
    * Logs user in with the entered credentials 
