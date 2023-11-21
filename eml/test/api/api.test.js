@@ -35,7 +35,7 @@ describe('API Functions', () => {
 
       const result = await getCourse(courseId);
 
-      expect(axios.get).toHaveBeenCalledWith(`${port}/api/courses/${courseId}`);
+      expect(axios.get).toHaveBeenCalledWith(`${port}/api/courses/${courseId}`, {"timeout": 1200});
       expect(result).toEqual(mockData.courseData);
 
     });
@@ -76,7 +76,7 @@ describe('API Functions', () => {
 
       const result = await getAllSections(courseId);
 
-      expect(axios.get).toHaveBeenCalledWith(`${port}/api/courses/${courseId}/sections`);
+      expect(axios.get).toHaveBeenCalledWith(`${port}/api/courses/${courseId}/sections`, {"timeout": 1200});
       expect(result).toEqual(mockData.sectionsData);
     });
 
@@ -126,7 +126,7 @@ describe('API Functions', () => {
       const result = await getSubscriptions(userId);
 
       // Check that axios.get was called with the correct URL
-      expect(axios.get).toHaveBeenCalledWith(`${port}/api/students/${userId}/subscriptions`);
+      expect(axios.get).toHaveBeenCalledWith(`${port}/api/students/${userId}/subscriptions`, {"timeout": 1200});
       expect(result).toEqual(mockData.subscriptionData);
     });
 

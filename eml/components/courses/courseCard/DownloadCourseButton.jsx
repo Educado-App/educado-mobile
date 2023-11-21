@@ -3,6 +3,8 @@ import LottieView from 'lottie-react-native';
 import {Alert, TouchableWithoutFeedback} from 'react-native';
 import animationAsset from '../../../assets/animations/downloadAnimation.json';
 import PropTypes from 'prop-types';
+import * as StorageService from '../../../services/StorageService';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ANIMATION_STATES = {
   INITIAL: 'initial',
@@ -14,11 +16,21 @@ const ANIMATION_STATES = {
 
 /**
  * DownloadCourseButton component displays a button that downloads a course
+ * @param {object} course - The course the button is on
  * @returns {JSX.Element} - The DownloadCourseButton component
  */
-export default function DownloadCourseButton({disabled = false}) {
+export default function DownloadCourseButton(course, {disabled = false}) {
   const animationRef = useRef(null);
   const [animationState, setAnimationState] = useState(ANIMATION_STATES.INITIAL);
+
+  const storageCheck = async () => {
+    if (animationState === ANIMATION_STATES.INITIAL || animationState === ANIMATION_STATES.COMPLETED) {
+      let result = !!(await AsyncStorage.getItem(course.course.courseId + await AsyncStorage.getItem('@userId')));
+      setAnimationState(result ? ANIMATION_STATES.COMPLETED : ANIMATION_STATES.INITIAL);
+    }
+  };
+
+  storageCheck();
 
   // Play animation based on animation state
   // Hardcoded frame numbers are based on the animation
@@ -59,13 +71,19 @@ export default function DownloadCourseButton({disabled = false}) {
       },
       {
         text: 'Baixar',
-        onPress: () => {
+        onPress: async () => {
           setAnimationState(ANIMATION_STATES.DOWNLOADING);
-          setTimeout(() => setAnimationState(ANIMATION_STATES.FINISHING), 5000);
+          await StorageService.storeCourseLocally(course.course.courseId).then(result => {
+            if (result){
+              setAnimationState(ANIMATION_STATES.FINISHING);
+            } else {
+              alert('Não foi possível baixar o curso. Certifique-se de estar conectado à Internet.'); //Could not download course. Make sure you are connected to the internet
+              setAnimationState(ANIMATION_STATES.INITIAL);
+            }
+          });
         },
       },
     ]);
-
 
   const removeDownloadConfirmation = () =>
     Alert.alert('Remover curso', 'Tem certeza de que deseja remover este curso baixado?', [
@@ -76,23 +94,23 @@ export default function DownloadCourseButton({disabled = false}) {
       {
         text: 'Remover',
         onPress: () => {
-          setAnimationState(ANIMATION_STATES.DELETE);
+          StorageService.deleteLocallyStoredCourse(course.course.courseId).then(result => {
+            if(result){
+              setAnimationState(ANIMATION_STATES.DELETE);
+            } else {
+              alert('Algo deu errado. Não foi possível remover os dados armazenados do curso.'); //Something went wrong. Could not remove stored course data.
+              setAnimationState(ANIMATION_STATES.DELETE);
+            }
+          });
         },
         style: 'destructive',
       },
     ]);
 
-
-  // TODO: Implement download functionality
   const handlePress = () => {
-    // Disable button if disabled prop is true
-    if (disabled) return;
-
-    // For testing purposes - (simulate downloading a course)
     if (animationState === ANIMATION_STATES.INITIAL) {
       downloadConfirmation();
     }
-    // For testing purposes (reset to initial state if completed)
     if (animationState === ANIMATION_STATES.COMPLETED) {
       removeDownloadConfirmation();
     }

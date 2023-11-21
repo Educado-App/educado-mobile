@@ -84,7 +84,10 @@ describe('SectionScreen', () => {
    */
   const route = {
     params: {
-      courseId: 1,
+      course: {
+        courseId: 1,
+        title: 1
+      },
     },
   };
 

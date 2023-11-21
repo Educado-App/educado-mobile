@@ -9,8 +9,10 @@ import { useNavigation } from '@react-navigation/native';
 export default function LectureScreen({ lectureObject, courseObject, currentIndex, indexCount }) {
 
   const navigation = useNavigation();
+  const [course, setCourse] = useState(courseObject);
   const [lecture, setLecture] = useState(lectureObject);
   const [progressPercent, setProgressPercent] = useState(null);
+  
   useEffect(() => {
     setLecture(lectureObject);
     setCourse(courseObject);
@@ -19,7 +21,6 @@ export default function LectureScreen({ lectureObject, courseObject, currentInde
 
   }, []);
 
-  const [course, setCourse] = useState(courseObject);
 
   const calculateProgressInPercent = () => {
     return Math.round((currentIndex / indexCount) * 100);
@@ -44,7 +45,7 @@ export default function LectureScreen({ lectureObject, courseObject, currentInde
               props={{
                 buttonText: 'Continuar',
                 onPress: () => {navigation.navigate('CompleteSection', 
-                  { courseId: courseObject._id, sectionId: lectureObject.parentSection }
+                  { course: courseObject, sectionId: lectureObject.parentSection }
                 );}
               }}
             />

@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+const timeoutInMs = 1200;
+
 /* Commented out for avoiding linting errors
  * TODO: move IP address to .env file !!!
 const testUrl = 'http://localhost:8888';
@@ -25,7 +27,7 @@ export const getCourseByid = async (courseId) => {
   }
 };
 
-export const getSectionByid = async (sectionId) => {
+export const getSectionById = async (sectionId) => {
   try {
     const res = await axios.get(url + '/api/sections/' + sectionId);
     return res.data;
@@ -39,7 +41,7 @@ export const getSectionByid = async (sectionId) => {
   }
 };
 
-export const getExerciseByid = async (exerciseId) => {
+export const getExerciseById = async (exerciseId) => {
   try {
     const res = await axios.get(url + '/api/exercises/' + exerciseId);
     return res.data;
@@ -56,7 +58,7 @@ export const getExerciseByid = async (exerciseId) => {
 
 export const getCourse = async (courseId) => {
   try {
-    const res = await axios.get(url + '/api/courses/' + courseId);
+    const res = await axios.get(url + '/api/courses/' + courseId, {timeout: timeoutInMs});
     return res.data;
   } catch (e) {
     if (e?.response?.data != null) {
@@ -84,7 +86,7 @@ export const getCourses = async () => {
 // Get all sections for a specific course
 export const getAllSections = async (courseId) => {
   try {
-    const res = await axios.get(url + '/api/courses/' + courseId + '/sections');
+    const res = await axios.get(url + '/api/courses/' + courseId + '/sections', {timeout: timeoutInMs});
     return res.data;
   } catch (e) {
     if (e?.response?.data != null) {
@@ -112,11 +114,12 @@ export const getSection = async (courseId, sectionId) => {
 };
 
 // Get all exercises in a specific section:
-export const getExercisesInSection = async (courseId, sectionId) => {
+export const getExercisesInSection = async (sectionId) => {
   try {
     const res = await axios.get(
-      url + '/api/courses/' + courseId + '/sections/' + sectionId + '/exercises'
-    );
+      //url + "/api/courses/" + courseId + "/sections/" + sectionId + "/exercises"
+      url + '/api/exercises/section/' + sectionId
+      , {timeout: timeoutInMs});
     return res.data;
   } catch (e) {
     if (e?.response?.data != null) {
@@ -144,6 +147,22 @@ export const getExerciseBySectionId = async (sectionId) => {
   }
 };
 
+// Get all lectures in a specific section:
+export const getLecturesInSection = async (sectionId) => {
+  try {
+    const res = await axios.get(
+      url + '/api/lectures/section/' + sectionId
+      , {timeout: timeoutInMs});
+    return res.data;
+  } catch (e) {
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
+};
+
 /*** SUBSCRIPTION ***/
 
 // Get user subsribtions
@@ -154,7 +173,7 @@ export const getSubscriptions = async (userId) => {
     // passing user ID as request body for get request gives error
     const res = await axios.get(
       url + '/api/students/' + userId + '/subscriptions'
-    );
+      , {timeout: timeoutInMs});
 
     return res.data;
   } catch (e) {
@@ -225,7 +244,6 @@ export const ifSubscribed = async (userId, courseId) => {
     }
   }
 };
-
 // Call to backend to see if online
 export const checkBackendOnline = async () => {
   let response;
@@ -246,7 +264,6 @@ with our new video streaming service in go.
 export const getVideoDownloadUrl = (fileName) => {
   
   const _vidUrl = `${url}/api/bucket/stream/${fileName}`;
-  console.log(_vidUrl);
   return _vidUrl;
 };
 
@@ -284,7 +301,7 @@ export const getBucketImage = async (fileName) => {
   try {
     const res = await axios.get(
       `${url}/api/bucket/${fileName}`
-    );
+      , {timeout: timeoutInMs});
     const workingUrl = `data:image/png;base64,${res.data}`;
     return workingUrl;
   } catch (err) {
@@ -295,3 +312,4 @@ export const getBucketImage = async (fileName) => {
     }
   }
 };
+

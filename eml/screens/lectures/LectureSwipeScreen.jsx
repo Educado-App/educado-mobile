@@ -5,42 +5,35 @@ import { useNavigation } from '@react-navigation/native';
 
 import ProgressTopBar from './ProgressTopBar';
 import LectureScreen from './LectureScreen';
-import { getSectionAndLecturesBySectionId, getCourse } from '../../api/api';
 import tailwindConfig from '../../tailwind.config';
-
-import { getExerciseBySectionId } from '../../api/api';
+import * as StorageService from '../../services/StorageService';
 import ExerciseScreen from '../excercise/ExerciseScreen';
-
 import PropTypes from 'prop-types';
 
+
 /**
- * when navigating to this page sectionId, courseId must be passed as parameters
+ * when navigating to this page sectionId, parsedCourse must be passed as parameters
  * @param {} param0 
  * @returns 
  */
 export default function LectureSwipeScreen({ route }) {
-  const { sectionId, courseId } = route.params;
-  const navigation = useNavigation();
+  const { sectionId, parsedCourse } = route.params;
   const [loading, setLoading] = useState(true);
   const [currentLectureType, setCurrentLectureType] = useState('text');
   const [index, setIndex] = useState(0);
-  const [course, setCourse] = useState(null);
-
-
   const [combinedLecturesAndExercises, setCombinedLecturesAndExercises] = useState([]);
+  const navigation = useNavigation();
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const sectionData = await getSectionAndLecturesBySectionId(sectionId);
+        const sectionData = await StorageService.getLectureList(sectionId);//getSectionAndLecturesBySectionId(sectionId);
         //TODO: get the first uncompleted lecture - set the initial index to that
-
         const initialIndex = 0;
-        const courseData = await getCourse(courseId);
 
         //get exercises
-        const _exercisesInSection = await getExerciseBySectionId(sectionId);
-        const _lectures = sectionData.components;
+        const _exercisesInSection = await StorageService.getExerciseList(sectionId);
+        const _lectures = sectionData;
         let _combinedLecturesAndExercises = [];
 
         //first add all lectures
@@ -67,8 +60,7 @@ export default function LectureSwipeScreen({ route }) {
 
 
         setCombinedLecturesAndExercises(_combinedLecturesAndExercises);
-        setCurrentLectureType(sectionData.components[initialIndex]?.video ? 'video' : 'text');
-        setCourse(courseData);
+        setCurrentLectureType(sectionData[initialIndex]?.video ? 'video' : 'text');
         setIndex(initialIndex);
         setLoading(false);
       } catch (error) {
@@ -77,7 +69,7 @@ export default function LectureSwipeScreen({ route }) {
     }
 
     fetchData();
-  }, [sectionId, courseId]);
+  }, [sectionId, parsedCourse]);
 
 
   const swiperRef = useRef(null);
@@ -93,7 +85,7 @@ export default function LectureSwipeScreen({ route }) {
       swiperRef.current.scrollTo(_index + 1, true);
     }
     else {
-      navigation.navigate('CompleteSection', { sectionId: sectionId, courseId: courseId });
+      navigation.navigate('CompleteSection', { sectionId: sectionId, courseId: parsedCourse.courseId });
     }
   };
 
@@ -133,7 +125,7 @@ export default function LectureSwipeScreen({ route }) {
         </View>
       )}
 
-      {combinedLecturesAndExercises.length > 0 && course && index !== null && (
+      {combinedLecturesAndExercises.length > 0 && parsedCourse && index !== null && (
         <Swiper
           ref={swiperRef}
           index={index}
@@ -144,7 +136,7 @@ export default function LectureSwipeScreen({ route }) {
         >
           {combinedLecturesAndExercises.map((comp, _index) => (
             comp.type === 'lecture' ?
-              <LectureScreen key={_index} currentIndex={index} indexCount={combinedLecturesAndExercises.length} lectureObject={comp.component} courseObject={course} />
+              <LectureScreen key={_index} currentIndex={index} indexCount={combinedLecturesAndExercises.length} lectureObject={comp.component} courseObject={parsedCourse} />
               :
             /**
                              * The exercise screen is not yet implemented because it didnt work in this branch
@@ -164,7 +156,7 @@ LectureSwipeScreen.propTypes = {
   route: PropTypes.shape({
     params: PropTypes.shape({
       sectionId: PropTypes.string,
-      courseId: PropTypes.string
+      parsedCourse: PropTypes.object
     }).isRequired,
   }).isRequired,
 };

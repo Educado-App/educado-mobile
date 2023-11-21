@@ -143,6 +143,7 @@ export function formatHours(number) {
   }
 }
 
+
 export async function givePoints(user, exercise_id, isComplete, points, token) {
   try {
     let obj;

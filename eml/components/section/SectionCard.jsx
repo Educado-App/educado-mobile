@@ -9,9 +9,10 @@ import PropTypes from 'prop-types';
 /**
  * A component that displays a section card with collapsible content.
  * @param {Object} section - The section object containing the section data.
+ * @param {Object} course - The course object containing the course data.
  * @returns {JSX.Element} - The SectionCard component.
  */
-export default function SectionCard({ section }) {
+export default function SectionCard({ section, course }) {
 
   // hardcoded for now
 
@@ -38,7 +39,7 @@ export default function SectionCard({ section }) {
 
     navigation.navigate('Lecture', {
       sectionId: section.sectionId,
-      courseId: section.parentCourseId,
+      parsedCourse: course,
     });
   };
 
@@ -81,5 +82,6 @@ export default function SectionCard({ section }) {
 }
 
 SectionCard.propTypes = {
-  section: PropTypes.object
+  section: PropTypes.object,
+  course: PropTypes.object
 };

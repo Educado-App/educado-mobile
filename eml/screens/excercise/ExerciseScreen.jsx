@@ -8,7 +8,7 @@ import { Icon } from '@rneui/themed';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import PopUp from '../../components/gamification/PopUp';
 import { StatusBar } from 'expo-status-bar';
-import { getExerciseByid, getSectionByid, getCourse } from '../../api/api';
+import { getExerciseById, getSectionById, getCourse } from '../../api/api';
 import { givePoints } from '../../services/utilityFunctions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import PropTypes from 'prop-types';
@@ -91,8 +91,8 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7', o
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setExerciseData(exercise = await getExerciseByid(givenId));
-        setSectionData(section = await getSectionByid(exercise.parentSection));
+        setExerciseData(await getExerciseById(givenId));
+        setSectionData(await getSectionById(exercise.parentSection));
         setCourseData(await getCourse(section.parentCourse));
         setHasData(true);
       } catch (error) {

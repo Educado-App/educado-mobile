@@ -9,6 +9,7 @@ import { TouchableWithoutFeedback } from 'react-native';
 import Text from '../../components/general/Text';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import LoadingScreen from '../../components/loading/Loading';
+import * as StorageService from '../../services/StorageService';
 
 const LOGIN_TOKEN = '@loginToken';
 
@@ -31,6 +32,7 @@ export default function Login() {
     try {
       const fetchedToken = await AsyncStorage.getItem(LOGIN_TOKEN);
       if (fetchedToken !== null) {
+        StorageService.updateStoredCourses();
         navigation.navigate('HomeStack');
       }
       setLoading(false);

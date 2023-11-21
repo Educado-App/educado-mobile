@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { View, Text } from 'react-native';
 import { Image } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { getBucketImage } from '../../api/api';
 import PropTypes from 'prop-types';
+import * as StorageService from '../../services/StorageService';
 
 const TextImageLectureScreen = ({ lecture, course }) => {
 
@@ -24,7 +24,7 @@ const TextImageLectureScreen = ({ lecture, course }) => {
   const getLectureImage = async () => {
 
     try {
-      const imageRes = await getBucketImage(lecture.image);
+      const imageRes = await StorageService.fetchLectureImage(lecture.image, lecture._id);
       setImageUrl(imageRes);
     }
     catch (err) {

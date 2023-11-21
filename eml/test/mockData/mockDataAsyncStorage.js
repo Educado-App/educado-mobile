@@ -42,6 +42,20 @@ export function mockDataAsyncStorage() {
         rating: 3,
       }
     ],
+    subscribedCourses2: [
+      {
+        title: 'Just a test course',
+        courseId: '651d596a26cd9875d86a12b7',
+        description: 'Test description',
+        category: 'Costura',
+        estimatedHours: 20,
+        dateUpdated: '2023-10-04T12:24:10.740Z',
+        difficulty: 3,
+        published: true,
+        status: 'published',
+        rating: 3,
+      }
+    ],
     sectionData: [
 
       {
@@ -68,6 +82,18 @@ export function mockDataAsyncStorage() {
       description: 'this is a test section',
       components: [],
       total: 100,
-    }
+    },
+    course: {
+      title: 'Course math',
+      courseId: '651d3a15cda7d5bd2878dfc7',
+      description: 'Test',
+      category: 'Finanças pessoais',
+      estimatedHours: 10,
+      dateUpdated: '2023-10-04T10:10:29.897Z',
+      difficulty: 1,
+      published: true,
+      status: 'published',
+      rating: 0,
+    },
   };
 }
