@@ -15,46 +15,26 @@ let isOnline = true;
 /** STUDENT **/
 
 export const setStudentInfo = async (userId) => {
-  try {
-    const fetchedStudentInfo = await userApi.getStudentInfo(userId);
-    await AsyncStorage.setItem(STUDENT_INFO, JSON.stringify(fetchedStudentInfo));
-  } catch (e) {
-    throw (e);
-  }
-}
+  const fetchedStudentInfo = await userApi.getStudentInfo(userId);
+  await AsyncStorage.setItem(STUDENT_INFO, JSON.stringify(fetchedStudentInfo));
+};
 
 export const getStudentInfo = async () => {
-  try {
-    const fetchedStudentInfo = JSON.parse(await AsyncStorage.getItem(STUDENT_INFO));
-    return fetchedStudentInfo;
-  } catch (e) {
-    throw (e);
-  }
-}
+  const fetchedStudentInfo = JSON.parse(await AsyncStorage.getItem(STUDENT_INFO));
+  return fetchedStudentInfo;
+};
 
 export const getLoginToken = async () => {
-  try {
-    const fetchedToken = await AsyncStorage.getItem(LOGIN_TOKEN);
-    return fetchedToken;
-  } catch (e) {
-    throw e;
-  }
-}
+  const fetchedToken = await AsyncStorage.getItem(LOGIN_TOKEN);
+  return fetchedToken;
+};
 
 export const getUserInfo = async () => {
-  try {
-    const fetchedUserInfo = JSON.parse(await AsyncStorage.getItem(USER_INFO));
-    if (fetchedUserInfo === null) {
-      throw new Error('Cannot fetch user info from async storage');
-    }
-    return fetchedUserInfo;
-  } catch (e) {
-    if (e?.response?.data != null) {
-      throw e.response.data;
-    } else {
-      throw e;
-    }
+  const fetchedUserInfo = JSON.parse(await AsyncStorage.getItem(USER_INFO));
+  if (fetchedUserInfo === null) {
+    throw new Error('Cannot fetch user info from async storage');
   }
+  return fetchedUserInfo;
 };
 
 /** COURSE AND COURSE LIST **/
@@ -144,22 +124,18 @@ export const refreshCourseList = async () => {
 };
 
 export const saveCourseTotalPointsLocally = async (courseId, newTotalPoints) => {
-  try {
-    const studentInfo = JSON.parse(await AsyncStorage.getItem(STUDENT_INFO));
+  const studentInfo = JSON.parse(await AsyncStorage.getItem(STUDENT_INFO));
 
-    const completedCourses = studentInfo.completedCourses;
-    const completedCourseIndex = completedCourses.findIndex(course => course.courseId === courseId.courseId);
-    if (completedCourseIndex !== -1) {
-      completedCourses[completedCourseIndex].totalPoints = newTotalPoints;
-    }
-
-    studentInfo.completedCourses = completedCourses;
-
-    await AsyncStorage.setItem(STUDENT_INFO, JSON.stringify(studentInfo));
-  } catch (e) {
-    throw e;
+  const completedCourses = studentInfo.completedCourses;
+  const completedCourseIndex = completedCourses.findIndex(course => course.courseId === courseId.courseId);
+  if (completedCourseIndex !== -1) {
+    completedCourses[completedCourseIndex].totalPoints = newTotalPoints;
   }
-}
+
+  studentInfo.completedCourses = completedCourses;
+
+  await AsyncStorage.setItem(STUDENT_INFO, JSON.stringify(studentInfo));
+};
 
 /** SECTIONS **/
 

@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { ScrollView, View, TouchableOpacity } from 'react-native';
 import Text from '../../components/general/Text';
-import { RadioButton } from "react-native-paper";
-import ExerciseInfo from "../../components/exercise/ExerciseInfo";
+import { RadioButton } from 'react-native-paper';
+import ExerciseInfo from '../../components/exercise/ExerciseInfo';
 import { Icon } from '@rneui/themed';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import PopUp from '../../components/gamification/PopUp';
 import { StatusBar } from 'expo-status-bar';
 import PropTypes from 'prop-types';
-import { getLoginToken, getUserInfo } from '../../services/StorageService';
+// import { getLoginToken, getUserInfo } from '../../services/StorageService';
 import { givePoints } from '../../services/utilityFunctions';
 
 export default function ExerciseScreen({ exerciseObject, sectionObject, courseObject, onContinue }) {
@@ -140,13 +140,13 @@ export default function ExerciseScreen({ exerciseObject, sectionObject, courseOb
       </View>
     
 
-    {isPopUpVisible ? (
-      <PopUp pointAmount={points} isCorrectAnswer={isCorrectAnswer} />
-    ) : null}
+      {isPopUpVisible ? (
+        <PopUp pointAmount={points} isCorrectAnswer={isCorrectAnswer} />
+      ) : null}
 
-    {<ExerciseInfo courseId={courseObject.title} sectionId={sectionObject.title} />}
-    <StatusBar style='auto' />
-  </SafeAreaView>
+      {<ExerciseInfo courseId={courseObject.title} sectionId={sectionObject.title} />}
+      <StatusBar style='auto' />
+    </SafeAreaView>
   );
 }
 

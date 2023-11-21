@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-const testUrl = "http://localhost:8888";
-const testExpo = "http://172.30.245.78:8888"; //Change to local expo ip
-const digitalOcean = "http://207.154.213.68:8888";
+// const testUrl = 'http://localhost:8888';
+// const testExpo = 'http://172.30.245.78:8888'; //Change to local expo ip
+// const digitalOcean = 'http://207.154.213.68:8888';
 
 const url = 'https://educado-backend-staging-x7rgvjso4a-ew.a.run.app/'; // change to lcd ip when testing
 

@@ -2,14 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
 import VideoLectureScreen from './VideoLectureScreen';
 import TextImageLectureScreen from './TextImageLectureScreen';
-import StandardButton from '../../components/general/StandardButton';
 import PropTypes from 'prop-types';
 import Text from '../../components/general/Text';
-import { useNavigation } from '@react-navigation/native';
 
 export default function LectureScreen({ lectureObject, courseObject, currentIndex, indexCount }) {
-
-  const navigation = useNavigation();
   const [lecture, setLecture] = useState(lectureObject);
   const [course, setCourse] = useState(courseObject);
   const isLastSlide = currentIndex === indexCount - 1;

@@ -1,8 +1,5 @@
 /** Utility functions used in Explore and Course screens **/
-import { completeExercise } from '../api/userApi.js';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as StorageService from '../services/StorageService.js';
-const USER_INFO = '@userInfo';
 
 /**
  * Converts a numeric difficulty level to a human-readable label.
@@ -145,55 +142,43 @@ export function formatHours(number) {
 }
 
 export async function givePoints(exerciseId, isComplete, points) {
-  try {
-    // Retrieve the user info object and parse it from JSON
-    const userInfo = await StorageService.getUserInfo();
-    const studentInfo = await StorageService.getStudentInfo();
-    const loginToken = await StorageService.getLoginToken();
+  // Retrieve the user info object and parse it from JSON
+  // const userInfo = await StorageService.getUserInfo();
+  const studentInfo = await StorageService.getStudentInfo();
+  // const loginToken = await StorageService.getLoginToken();
 
-    const exerciseExists = isExerciseCompleted(studentInfo, exerciseId);
-    const exerciseIsComplete = exerciseIsCompleteStatus(studentInfo, exerciseId);
-    
-    // If the exercise is present but it's field "isComplete" is false, it means the user has answered wrong before and only gets 5 points.
-    if (exerciseExists && !exerciseIsComplete) {
-      points = 5;
-    }
-
-    // TODO: Magnus help
-    // Updates the user with the new points in the db
-    //await completeExercise(userInfo.id, exerciseId, isComplete, points, loginToken);
-
-    return points;
-  } catch(error) {
-    throw(error);
+  const exerciseExists = isExerciseCompleted(studentInfo, exerciseId);
+  const exerciseIsComplete = exerciseIsCompleteStatus(studentInfo, exerciseId);
+  
+  // If the exercise is present but it's field "isComplete" is false, it means the user has answered wrong before and only gets 5 points.
+  if (exerciseExists && !exerciseIsComplete) {
+    points = 5;
   }
+
+  // TODO: Magnus help
+  // Updates the user with the new points in the db
+  //await completeExercise(userInfo.id, exerciseId, isComplete, points, loginToken);
+
+  return points;
 }
 
 function isExerciseCompleted(student, exerciseId) {
-  try {
-    return student.completedCourses.find(course =>
-      course.completedSections.find(section =>
-        section.completedExercises.find(exercise =>
-          exercise.exerciseId == exerciseId
-        )
+  return student.completedCourses.find(course =>
+    course.completedSections.find(section =>
+      section.completedExercises.find(exercise =>
+        exercise.exerciseId == exerciseId
       )
-    ) !== undefined;
-  } catch(error) {
-    throw error;
-  }
+    )
+  ) !== undefined;
 }
 
 function exerciseIsCompleteStatus(student, exerciseId) {
-  try {
-    for (const course of student.completedCourses) {
-      for (const section of course.completedSections) {
-        const exercise = section.completedExercises.find(ex => ex.exerciseId === exerciseId);
-        if (exercise) {
-          return exercise.isComplete;
-        }
+  for (const course of student.completedCourses) {
+    for (const section of course.completedSections) {
+      const exercise = section.completedExercises.find(ex => ex.exerciseId === exerciseId);
+      if (exercise) {
+        return exercise.isComplete;
       }
     }
-  } catch(error) {
-    throw error;
   }
 }

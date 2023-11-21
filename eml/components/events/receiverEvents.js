@@ -1,4 +1,4 @@
-import { EventRegister } from 'react-native-event-listeners'
+import { EventRegister } from 'react-native-event-listeners';
 
 export const getPointsFromExerciseReceiver = (callback) => {
   EventRegister.addEventListener('getPointsFromExercise', (data) => {

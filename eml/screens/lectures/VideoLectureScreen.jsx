@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Pressable, TouchableOpacity } from 'react-native';
+import { View, Pressable } from 'react-native';
 import Text from '../../components/general/Text';
 import VideoActions from '../../components/lectures/VideoActions';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -113,13 +113,13 @@ export default function VideoLectureScreen({ lectureObject, courseObject, isLast
 
         <View className="w-full h-full  bg-projectBlack" >
           {videoUrl ? 
-          <CustomExpoVideoPlayer
-            videoUrl={videoUrl}
-            ref={videoRef}
-            isPlaying={isPlaying}
-            isMuted={isMuted}
-            onStatusUpdate={onStatusUpdate}
-          /> :
+            <CustomExpoVideoPlayer
+              videoUrl={videoUrl}
+              ref={videoRef}
+              isPlaying={isPlaying}
+              isMuted={isMuted}
+              onStatusUpdate={onStatusUpdate}
+            /> :
             <Text>Loading</Text>
           }
         </View>
@@ -140,7 +140,7 @@ export default function VideoLectureScreen({ lectureObject, courseObject, isLast
                 }}
               />
             </View>
-          : null}
+            : null}
 
           {/* Lecture information */}
 

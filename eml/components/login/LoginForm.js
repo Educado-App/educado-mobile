@@ -1,22 +1,21 @@
-import React, { useState } from "react";
-import { View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { loginUser } from "../../api/userApi";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import FormTextField from "./FormTextField";
-import FormButton from "./FormButton";
-import PasswordEye from "./PasswordEye";
-import ResetPassword from "./ResetPassword";
-import FormFieldAlert from "./FormFieldAlert";
-import { removeEmojis } from "../general/Validation";
-import Text from "../general/Text";
-import ShowAlert from "../general/ShowAlert";
-import { setStudentInfo } from "../../services/StorageService";
+import React, { useState } from 'react';
+import { View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { loginUser } from '../../api/userApi';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import FormTextField from './FormTextField';
+import FormButton from './FormButton';
+import PasswordEye from './PasswordEye';
+import ResetPassword from './ResetPassword';
+import FormFieldAlert from './FormFieldAlert';
+import { removeEmojis } from '../general/Validation';
+import Text from '../general/Text';
+import ShowAlert from '../general/ShowAlert';
+import { setStudentInfo } from '../../services/StorageService';
 
-const LOGIN_TOKEN = "@loginToken";
-const USER_INFO = "@userInfo";
-const USER_ID = "@userId";
-const STUDENT_INFO = '@studentInfo';
+const LOGIN_TOKEN = '@loginToken';
+const USER_INFO = '@userInfo';
+const USER_ID = '@userId';
 
 //When Logout: back button should be disabled!!!!
 

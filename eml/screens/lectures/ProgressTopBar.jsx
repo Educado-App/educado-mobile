@@ -23,7 +23,7 @@ const ProgressTopBar = ({ courseObject, lectureType, allLectures, currentLecture
         <View key={_index} className=" mx-1  w-4 h-4 rounded-full bg-primary flex-col justify-center items-center">
           <MaterialCommunityIcons name="check-bold" size={12} color={tailwindConfig.theme.colors.projectWhite} />
         </View>
-      )
+      );
     }
     //if lecture is current indicate with circle
     else if (_index === _currentIndex) {
@@ -31,7 +31,7 @@ const ProgressTopBar = ({ courseObject, lectureType, allLectures, currentLecture
         <View key={_index} className=" mx-1  w-4 h-4 rounded-full bg-primary flex-col justify-center items-center opacity-50">
           {/* <MaterialCommunityIcons name={_index >= allLectures.length ? "check" : "check"} size={12} color={tailwindConfig.theme.colors.primary} /> */}
         </View>
-      )
+      );
     }
     //if lecture is not current or completed show empty circle
     else if (_index > _currentIndex) {
@@ -39,7 +39,7 @@ const ProgressTopBar = ({ courseObject, lectureType, allLectures, currentLecture
         <View key={_index} className=" mx-1  w-3 h-3 rounded-full bg-projectGray first-line:opacity-50 flex-col justify-center items-center">
           {/* <MaterialCommunityIcons name={_index >= allLectures.length ? "check" : "check"} size={12} color={tailwindConfig.theme.colors.secondary} /> */}
         </View>
-      )
+      );
     }
 
     //if lecture is completed show check

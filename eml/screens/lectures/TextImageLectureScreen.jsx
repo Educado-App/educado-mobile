@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View } from 'react-native';
 import Text from '../../components/general/Text';
 import { Image } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -76,68 +76,68 @@ const TextImageLectureScreen = ({ lectureObject, courseObject, isLastSlide }) =>
   };
 
   return (
-  <View className={'absolute w-full h-full px-4 pt-20'}>
-    {/* Content */}
-    <Text className="text-center text-2xl pt-6 font-bold">BEM VINDO!</Text>
-    <ScrollView className="mt-2">
+    <View className={'absolute w-full h-full px-4 pt-20'}>
+      {/* Content */}
+      <Text className="text-center text-2xl pt-6 font-bold">BEM VINDO!</Text>
+      <ScrollView className="mt-2">
 
 
-      {
+        {
         // Rendering all paragraphs above the image if the array has two or fewer elements
         // If the array has more than two elements, rendering all but the last paragraph above the image
-        paragraphs && paragraphs.map((paragraph, index) => {
-          if (paragraphs.length <= 2 || index !== paragraphs.length - 1) {
-            return (
-              index == 0 ?
-                <Text key={index} className="text-base pt-4 px-4 text-primary">{paragraph}</Text>
-                :
-                <Text key={index} className="text-base pt-4 px-4 text-projectGray">{paragraph}</Text>
-            );
-          }
-          return null;
-        })
-      }
+          paragraphs && paragraphs.map((paragraph, index) => {
+            if (paragraphs.length <= 2 || index !== paragraphs.length - 1) {
+              return (
+                index == 0 ?
+                  <Text key={index} className="text-base pt-4 px-4 text-primary">{paragraph}</Text>
+                  :
+                  <Text key={index} className="text-base pt-4 px-4 text-projectGray">{paragraph}</Text>
+              );
+            }
+            return null;
+          })
+        }
 
-      {/* Image */}
-      {imageUrl && <View className="w-full h-[25vh] px-4 pt-8" >
-        <Image
-          source={{ uri: imageUrl }}
-          className="w-full h-full"
-        />
-      </View>}
-      {
+        {/* Image */}
+        {imageUrl && <View className="w-full h-[25vh] px-4 pt-8" >
+          <Image
+            source={{ uri: imageUrl }}
+            className="w-full h-full"
+          />
+        </View>}
+        {
         // Rendering the last paragraph below the image if the array has more than two elements
-        paragraphs && paragraphs.length > 2 &&
+          paragraphs && paragraphs.length > 2 &&
         <Text className="text-[18px] px-4 text-projectGray">{paragraphs[paragraphs.length - 1]}</Text>
-      }
-    </ScrollView>
+        }
+      </ScrollView>
 
-    {isLastSlide ?
-    <View className="w-full items-center">
-      <View className="px-6 mb-3 w-screen">
-        <StandardButton
-          props={{
-            buttonText: 'Continuar',
-            onPress: () => {navigation.navigate('CompleteSection', 
-              { courseId: courseObject._id, sectionId: lectureObject.parentSection }
-            );}
-          }}
-        />
-      </View>
-    </View>
-    : null}
+      {isLastSlide ?
+        <View className="w-full items-center">
+          <View className="px-6 mb-3 w-screen">
+            <StandardButton
+              props={{
+                buttonText: 'Continuar',
+                onPress: () => {navigation.navigate('CompleteSection', 
+                  { courseId: courseObject._id, sectionId: lectureObject.parentSection }
+                );}
+              }}
+            />
+          </View>
+        </View>
+        : null}
 
-    <View className="flex-col w-full justify-left drop-shadow-2xl mt-2 pb-4 pt-2" >
-      {/* Course name and lecturen name */}
-      <View className="w-full flex-row justify-between">
+      <View className="flex-col w-full justify-left drop-shadow-2xl mt-2 pb-4 pt-2" >
+        {/* Course name and lecturen name */}
+        <View className="w-full flex-row justify-between">
 
-        <View className=" flex-col mb-8">
-          <Text className=" text-projectGray " >Nome do curso: {courseObject.title}</Text>
-          <Text className=" text-xl font-bold text-black " >{lectureObject.title}</Text>
+          <View className=" flex-col mb-8">
+            <Text className=" text-projectGray " >Nome do curso: {courseObject.title}</Text>
+            <Text className=" text-xl font-bold text-black " >{lectureObject.title}</Text>
+          </View>
         </View>
       </View>
-    </View>
-  </View>);
+    </View>);
 };
 
 TextImageLectureScreen.propTypes = {

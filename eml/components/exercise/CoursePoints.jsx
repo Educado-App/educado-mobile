@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { View } from "react-native";
 import Animated from 'react-native-reanimated';
 import AnimatedNumbers from '../gamification/AnimatedNumber';
 import { getStudentInfo, saveCourseTotalPointsLocally } from '../../services/StorageService';
@@ -15,22 +14,6 @@ const CoursePoints = (courseId) => {
   const getCompletedCourse = async () => {
     const studentInfo = await getStudentInfo();
     return studentInfo.completedCourses;
-  }
-
-  function animation(state, finalValue) {
-    if (state < finalValue) {
-      const interval = setInterval(() => {
-        setCoursePoints((prevNumber) => {
-          console.log('prevNumber', prevNumber);
-          const nextNumber = prevNumber + 1;
-          if (nextNumber >= finalValue) {
-            clearInterval(interval);
-            return finalValue;
-          }
-          return nextNumber;
-        });
-      });
-    }
   };
 
   const updateCoursePoints = (newPoints) => {
@@ -90,25 +73,25 @@ const CoursePoints = (courseId) => {
 
   return (
     <Animated.View className="flex flex-row items-center justify-around pr-2"
-        style={[
-          {
-            transform: [
-              {
-                scale: scale,
-              },
-            ],
-          },
-        ]}
-      >
+      style={[
+        {
+          transform: [
+            {
+              scale: scale,
+            },
+          ],
+        },
+      ]}
+    >
       <AnimatedNumbers
         animateToNumber={coursePoints}
         animationDuration={500}
-        fontStyle={`font-sans-bold text-center`}
+        fontStyle={'font-sans-bold text-center'}
       />
       <MaterialCommunityIcons name="crown-circle" size={20} color={tailwindConfig.theme.colors.yellow} />
     </Animated.View>
   );
-}
+};
 
 CoursePoints.propTypes = {
   courseId: PropTypes.string,
