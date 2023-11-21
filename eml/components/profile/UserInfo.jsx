@@ -34,7 +34,7 @@ export default function UserInfo(props) {
           <ProfileNameCircle firstName={props.firstName} lastName={props.lastName}/>
         </TouchableOpacity>
       </View>
-      <View className='w-[70%]'>
+      <View>
         <Text className="text-xl font-sans-bold">{props.firstName} {props.lastName}</Text>
         <Text className="text-m font-sans-bold text-projectGray">{props.email}</Text>
         <View className='p-1 mt-1 flex flex-row'>

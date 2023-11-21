@@ -1,4 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
+
+// For animating play button
+
 import { View, Pressable } from 'react-native';
 import Text from '../../components/general/Text';
 import VideoActions from '../../components/lectures/VideoActions';
@@ -7,11 +10,10 @@ import CustomExpoVideoPlayer from '../../components/lectures/VideoPlayer';
 import ReactSliderProgress from './ReactSliderProgress';
 import { getVideoDownloadUrl } from '../../api/api';
 import PropTypes from 'prop-types';
-import { useNavigation } from '@react-navigation/native';
-import StandardButton from '../../components/general/StandardButton';
 
-export default function VideoLectureScreen({ lectureObject, courseObject, isLastSlide }) {
-  const navigation = useNavigation();
+
+export default function VideoLectureScreen({ lecture, course }) {
+
 
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false); // Keep track of playback status
@@ -31,7 +33,7 @@ export default function VideoLectureScreen({ lectureObject, courseObject, isLast
   const [videoUrl, setVideoUrl] = useState(null);
 
   useEffect(() => {
-    const _videoUrl = getVideoDownloadUrl(lectureObject.video, '180p');
+    const _videoUrl = getVideoDownloadUrl(lecture.video, '180p');
 
 
 
@@ -112,14 +114,14 @@ export default function VideoLectureScreen({ lectureObject, courseObject, isLast
       <View className="w-full h-full bg-projectBlack" >
 
         <View className="w-full h-full  bg-projectBlack" >
-          {videoUrl ? 
-            <CustomExpoVideoPlayer
-              videoUrl={videoUrl}
-              ref={videoRef}
-              isPlaying={isPlaying}
-              isMuted={isMuted}
-              onStatusUpdate={onStatusUpdate}
-            /> :
+          {videoUrl ? <CustomExpoVideoPlayer
+
+            videoUrl={videoUrl}
+            ref={videoRef}
+            isPlaying={isPlaying}
+            isMuted={isMuted}
+            onStatusUpdate={onStatusUpdate}
+          /> :
             <Text>Loading</Text>
           }
         </View>
@@ -128,30 +130,18 @@ export default function VideoLectureScreen({ lectureObject, courseObject, isLast
 
       <View className="absolute w-full h-full p-5">
         <View className="w-full h-full flex-col justify-end items-center  bg-opacity-20" >
-
-          {isLastSlide ?
-            <View className="px-6 mb-3 w-screen">
-              <StandardButton
-                props={{
-                  buttonText: 'Continuar',
-                  onPress: () => {navigation.navigate('CompleteSection', 
-                    { courseId: courseObject._id, sectionId: lectureObject.parentSection }
-                  );}
-                }}
-              />
-            </View>
-            : null}
-
+          {/* Progress bar (on top) */}
+          {/* <ProgressTopBar progressPercent={progress} /> */}
           {/* Lecture information */}
 
           <View className="w-full flex-col items-start justify-left" >
 
             <View className="w-full flex-row justify-between items-end">
-              <View className=" flex-col">
-                <Text className=" text-projectWhite opacity-80"  >Nome do curso: {courseObject.title}</Text>
-                <Text className="text-xl text-projectWhite" >{lectureObject.title && lectureObject.title}</Text>
-              </View>
 
+              <View className=" flex-col">
+                <Text className=" text-projectWhite opacity-80"  >Nome do curso: {course.title}</Text>
+                <Text className="text-xl text-projectWhite" >{lecture.title && lecture.title}</Text>
+              </View>
               <VideoActions isPlaying={isPlaying} isMuted={isMuted} onVolumeClick={handleMutepress} onPlayClick={handlePress} />
             </View>
 
@@ -191,7 +181,6 @@ export default function VideoLectureScreen({ lectureObject, courseObject, isLast
 }
 
 VideoLectureScreen.propTypes = {
-  lectureObject: PropTypes.object,
-  courseObject: PropTypes.object,
-  isLastSlide: PropTypes.bool
+  lecture: PropTypes.object,
+  course: PropTypes.object
 };

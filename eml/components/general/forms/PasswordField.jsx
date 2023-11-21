@@ -11,7 +11,7 @@ const PasswordField = (props) => {
   PasswordField.propTypes = {
     password: PropTypes.string,
     setPassword: PropTypes.func,
-    style: PropTypes.array,
+    style: PropTypes.object,
     placeholder: PropTypes.string,
     label: PropTypes.string,
     required: PropTypes.bool,

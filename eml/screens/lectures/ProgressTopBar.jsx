@@ -4,19 +4,17 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import tailwindConfig from '../../tailwind.config';
 import PropTypes from 'prop-types';
-import CoursePoints from '../../components/exercise/CoursePoints';
 
-const LectureType = {
-  TEXT: 'text',
-  VIDEO: 'video',
-};
+const ProgressTopBar = ({ lectureType, allLectures, currentLectureIndex = '' }) => {
 
-const ProgressTopBar = ({ courseObject, lectureType, allLectures, currentLectureIndex = '' }) => {
   const navigator = useNavigation();
-  const chevronColor = lectureType === LectureType.VIDEO ? tailwindConfig.theme.colors.projectWhite : tailwindConfig.theme.colors.projectBlack;
+
+
+  const chevronColor = lectureType === 'video' ? tailwindConfig.theme.colors.projectWhite : tailwindConfig.theme.colors.projectBlack;
 
   const createCorrectIcon = (_index, _currentIndex) => {
 
+    // if lecture is completed show check
     //if lecture is completed show check
     if (_index < _currentIndex || allLectures[_index].component?.completed ? true : false) {
       return (
@@ -42,6 +40,7 @@ const ProgressTopBar = ({ courseObject, lectureType, allLectures, currentLecture
       );
     }
 
+    // if lecture is completed show check
     //if lecture is completed show check
     if (_index < _currentIndex || allLectures[_index].completed) {
       return (
@@ -82,19 +81,15 @@ const ProgressTopBar = ({ courseObject, lectureType, allLectures, currentLecture
 
           ))}
         </View>
-        {LectureType.TEXT === lectureType && (
-          <>
-            <CoursePoints courseId={courseObject._id} />
-          </>
-        )}
-        
+        <View className="opacity-0" >
+          <MaterialCommunityIcons name="chevron-left" size={28} />
+        </View>
       </View>
     </View>
   );
 };
 
 ProgressTopBar.propTypes = {
-  courseObject: PropTypes.object,
   lectureType: PropTypes.string,
   allLectures: PropTypes.array,
   currentLectureIndex: PropTypes.number,

@@ -11,7 +11,6 @@ import PropTypes from 'prop-types';
 const LOGIN_TOKEN = '@loginToken';
 const USER_INFO = '@userInfo';
 const tailwindColors = tailwindConfig.theme.colors;
-const STUDENT_INFO = '@studentInfo';
 
 export default function LogOutButton(props) {
   LogOutButton.propTypes = {
@@ -24,7 +23,6 @@ export default function LogOutButton(props) {
     try {
       await AsyncStorage.removeItem(LOGIN_TOKEN);
       await AsyncStorage.removeItem(USER_INFO);
-      await AsyncStorage.removeItem(STUDENT_INFO);
 
       navigation.navigate('LoginStack');
     } catch (e) {

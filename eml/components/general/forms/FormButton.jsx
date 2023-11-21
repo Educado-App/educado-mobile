@@ -19,7 +19,7 @@ export default function FormButton(props) {
     children: PropTypes.string,
     disabled: PropTypes.bool,
     onPress: PropTypes.func,
-    style: PropTypes.array,
+    style: PropTypes.object,
     type: PropTypes.string
   };
 

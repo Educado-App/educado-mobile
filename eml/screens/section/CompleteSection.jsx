@@ -7,7 +7,7 @@ import Text from '../../components/general/Text';
 import StandardButton from '../../components/general/StandardButton';
 import AnimatedNumbers from '../../components/gamification/AnimatedNumber';
 import { generateSectionCompletePhrases } from '../../constants/Phrases';
-import { getStudentInfo } from '../../services/StorageService';
+import { getUserInfo } from '../../services/StorageService';
 
 export default function CompleteSectionScreen() {
   const route = useRoute();
@@ -86,9 +86,9 @@ export default function CompleteSectionScreen() {
   };
 
   async function getPointsFromSection() {
-    const studentInfo = await getStudentInfo();
+    const getUser = await getUserInfo();
     const completedSection = findCompletedSection(
-      studentInfo.completedCourses,
+      getUser.completedCourses,
       courseId,
       sectionId,
     );
