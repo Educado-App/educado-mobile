@@ -37,12 +37,29 @@ export default function SectionScreen({ route }) {
 
   // Fetch courses from backend and replace dummy data!
   useEffect(() => {
+    let componentIsMounted = true;
+
     /**
      * Loads the sections and course data for the given courseId.
      */
-    loadSections();
+    async function loadData() {
+      await loadSections(course.courseId);
+    }
 
+    if (componentIsMounted) {
+      loadData();
+    }
+
+    return () => componentIsMounted = false;
   }, []);
+
+  useEffect(() => {
+    // this makes sure loadSections is called when the screen is focused
+    const update = navigation.addListener('focus', () => {
+      loadSections(course.courseId);
+    });
+    return update;
+  }, [navigation]);
 
   /**
    * Displays an alert to confirm unsubscribing from the course.
