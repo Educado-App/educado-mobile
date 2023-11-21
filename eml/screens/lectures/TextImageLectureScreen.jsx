@@ -6,23 +6,24 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { getBucketImage } from '../../api/api';
 import PropTypes from 'prop-types';
 import { useNavigation } from '@react-navigation/native';
+import StandardButton from '../../components/general/StandardButton';
 
-const TextImageLectureScreen = ({ lecture, course, isLastSlide }) => {
+const TextImageLectureScreen = ({ lectureObject, courseObject, isLastSlide }) => {
   const [imageUrl, setImageUrl] = useState(null);
   const [paragraphs, setParagraphs] = useState(null);
   const navigation = useNavigation();
 
   useEffect(() => {
-    if (lecture.image) {
+    if (lectureObject.image) {
       getLectureImage();
     }
-    splitText(lecture.description);
+    splitText(lectureObject.description);
   }, []);
 
 
   const getLectureImage = async () => {
     try {
-      const imageRes = await getBucketImage(lecture.image);
+      const imageRes = await getBucketImage(lectureObject.image);
       setImageUrl(imageRes);
     }
     catch (err) {
@@ -88,9 +89,9 @@ const TextImageLectureScreen = ({ lecture, course, isLastSlide }) => {
           if (paragraphs.length <= 2 || index !== paragraphs.length - 1) {
             return (
               index == 0 ?
-                <Text key={index} className="text-[18px] pt-4 px-4 text-primary">{paragraph}</Text>
+                <Text key={index} className="text-base pt-4 px-4 text-primary">{paragraph}</Text>
                 :
-                <Text key={index} className="text-[18px] pt-4 px-4 text-projectGray">{paragraph}</Text>
+                <Text key={index} className="text-base pt-4 px-4 text-projectGray">{paragraph}</Text>
             );
           }
           return null;
@@ -114,11 +115,14 @@ const TextImageLectureScreen = ({ lecture, course, isLastSlide }) => {
     {isLastSlide ?
     <View className="w-full items-center">
       <View className="px-6 mb-3 w-screen">
-        <TouchableOpacity className="bg-primary px-10 py-4 rounded-medium"
-          onPress={() => { console.log('continue to completeSection') }}
-        >
-          <Text className="text-center font-sans-bold text-body text-projectWhite">Continuar</Text>
-        </TouchableOpacity>
+        <StandardButton
+          props={{
+            buttonText: 'Continuar',
+            onPress: () => {navigation.navigate('CompleteSection', 
+              { courseId: courseObject._id, sectionId: lectureObject.parentSection }
+            );}
+          }}
+        />
       </View>
     </View>
     : null}
@@ -128,8 +132,8 @@ const TextImageLectureScreen = ({ lecture, course, isLastSlide }) => {
       <View className="w-full flex-row justify-between">
 
         <View className=" flex-col mb-8">
-          <Text className=" text-projectGray " >Nome do curso: {course.title}</Text>
-          <Text className=" text-xl font-bold text-black " >{lecture.title}</Text>
+          <Text className=" text-projectGray " >Nome do curso: {courseObject.title}</Text>
+          <Text className=" text-xl font-bold text-black " >{lectureObject.title}</Text>
         </View>
       </View>
     </View>
@@ -137,8 +141,8 @@ const TextImageLectureScreen = ({ lecture, course, isLastSlide }) => {
 };
 
 TextImageLectureScreen.propTypes = {
-  lecture: PropTypes.object,
-  course: PropTypes.object,
+  lectureObject: PropTypes.object,
+  courseObject: PropTypes.object,
   isLastSlide: PropTypes.bool
 };
 

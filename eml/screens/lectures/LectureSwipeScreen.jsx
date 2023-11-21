@@ -35,6 +35,7 @@ export default function LectureSwipeScreen({ route }) {
     const [course, setCourse] = useState(null);
     const [scrollEnabled, setScrollEnabled] = useState(true);
     const [combinedLecturesAndExercises, setCombinedLecturesAndExercises] = useState([]);
+    const swiperRef = useRef(null);
 
     useEffect(() => {
         async function fetchData() {
@@ -78,14 +79,13 @@ export default function LectureSwipeScreen({ route }) {
                 setIndex(initialIndex);
                 setLoading(false);
             } catch (error) {
-                setLoading(false);
+                setLoading(true);
             }
         }
 
         fetchData();
     }, [sectionId, courseId]);
 
-    const swiperRef = useRef(null);
 
     const handleExerciseContinue = () => {
         swiperRef.current.scrollBy(1, true);
@@ -105,7 +105,6 @@ export default function LectureSwipeScreen({ route }) {
             setScrollEnabled(false);
         } else {
             const currentLectureType = currentSlide?.lectureType === LectureType.VIDEO ? LectureType.VIDEO : LectureType.TEXT;
-
             setCurrentLectureType(currentLectureType);
         }
         setIndex(_index);
@@ -113,47 +112,47 @@ export default function LectureSwipeScreen({ route }) {
 
     if (loading || !section || !course || !combinedLecturesAndExercises) {
         return (
-            <View className="flex-col justify-center items-center" >
+            <View className="flex-col justify-center items-center h-screen" >
                 <ActivityIndicator size="large" color={tailwindConfig.theme.colors.primary} />
                 <Text>Loading...</Text>
             </View>
         );
-    }
+    } else {
+        return (
+            <View className="flex-1">
+                {combinedLecturesAndExercises && (
+                    <View className=" absolute top-0 z-10 w-[100%]">
+                        <ProgressTopBar courseObject={course} lectureType={currentLectureType} allLectures={combinedLecturesAndExercises} currentLectureIndex={index} />
+                    </View>
+                )}
 
-    return (
-        <View className="flex-1">
-            {combinedLecturesAndExercises && (
-                <View className=" absolute top-0 z-10 w-[100%]">
-                    <ProgressTopBar courseObject={course} lectureType={currentLectureType} allLectures={combinedLecturesAndExercises} currentLectureIndex={index} />
-                </View>
-            )}
-
-            {combinedLecturesAndExercises.length > 0 && course && index !== null && (
-                <Swiper
-                    ref={swiperRef}
-                    index={index}
-                    onIndexChanged={(_index) => handleIndexChange(_index)}
-                    loop={false}
-                    showsPagination={false}
-                    scrollEnabled={scrollEnabled}
-                >
-                    {combinedLecturesAndExercises.map((comp, _index) => (
-                        comp.type === ComponentType.LECTURE ?
-                            <LectureScreen key={_index} currentIndex={index} indexCount={combinedLecturesAndExercises.length} lectureObject={comp.component} courseObject={course} />
-                            :
-                            <ExerciseScreen key={_index} exerciseObject={comp.component} sectionObject={section} courseObject={course} onContinue={() => handleExerciseContinue()} />
-                    ))}
-                </Swiper>
-            )}
-        </View>
-    );
+                {combinedLecturesAndExercises.length > 0 && course && index !== null && (
+                    <Swiper
+                        ref={swiperRef}
+                        index={index}
+                        onIndexChanged={(_index) => handleIndexChange(_index)}
+                        loop={false}
+                        showsPagination={false}
+                        scrollEnabled={scrollEnabled}
+                    >
+                        {combinedLecturesAndExercises.map((comp, _index) => (
+                            comp.type === ComponentType.LECTURE ?
+                                <LectureScreen key={_index} currentIndex={index} indexCount={combinedLecturesAndExercises.length} lectureObject={comp.component} courseObject={course} />
+                                :
+                                <ExerciseScreen key={_index} exerciseObject={comp.component} sectionObject={section} courseObject={course} onContinue={() => handleExerciseContinue()} />
+                        ))}
+                    </Swiper>
+                )}
+            </View>
+        );
+  }
 }
 
 LectureSwipeScreen.propTypes = {
-    route: PropTypes.shape({
-        params: PropTypes.shape({
-            sectionId: PropTypes.string,
-            courseId: PropTypes.string
-        }).isRequired,
+  route: PropTypes.shape({
+    params: PropTypes.shape({
+      sectionId: PropTypes.string,
+      courseId: PropTypes.string
     }).isRequired,
+  }).isRequired,
 };

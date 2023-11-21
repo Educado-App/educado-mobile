@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { View } from 'react-native';
 import Animated, { EasingNode } from 'react-native-reanimated';
 import Text from '../general/Text';
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';	
 
 //inspo from https://www.npmjs.com/package/react-native-animated-numbers?activeTab=code
 
@@ -153,10 +153,10 @@ const AnimatedNumber = ({
 };
 
 AnimatedNumber.propTypes = {
-	animateToNumber: PropTypes.number,
-	fontStyle: PropTypes.string,
-	animationDuration: PropTypes.number,
-	easing: PropTypes.func,
+  animateToNumber: PropTypes.number,
+  fontStyle: PropTypes.string,
+  animationDuration: PropTypes.number,
+  easing: PropTypes.func,
 };
 
 export default AnimatedNumber;

@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View } from 'react-native';
 import VideoLectureScreen from './VideoLectureScreen';
 import TextImageLectureScreen from './TextImageLectureScreen';
+import StandardButton from '../../components/general/StandardButton';
 import PropTypes from 'prop-types';
 import Text from '../../components/general/Text';
+import { useNavigation } from '@react-navigation/native';
 
 export default function LectureScreen({ lectureObject, courseObject, currentIndex, indexCount }) {
+
+  const navigation = useNavigation();
   const [lecture, setLecture] = useState(lectureObject);
   const [course, setCourse] = useState(courseObject);
+  const isLastSlide = currentIndex === indexCount - 1;
 
   useEffect(() => {
     setLecture(lectureObject);
@@ -22,10 +27,11 @@ export default function LectureScreen({ lectureObject, courseObject, currentInde
         <View className="w-full h-full flex-col justify-center items-center">
 
           {lecture.video ?
-            <VideoLectureScreen lecture={lecture} course={course} isLastSlide={currentIndex === indexCount - 1} />
+            <VideoLectureScreen lectureObject={lecture} courseObject={course} isLastSlide={isLastSlide} />
             :
-            <TextImageLectureScreen lecture={lecture} course={course} isLastSlide={currentIndex === indexCount - 1} />
+            <TextImageLectureScreen lectureObject={lecture} courseObject={course} isLastSlide={isLastSlide} />
           }
+          
         </View>
         :
         <View className="w-full h-full items-center justify-center align-middle">

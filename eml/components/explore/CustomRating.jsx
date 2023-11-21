@@ -26,7 +26,7 @@ const CustomRating = ({ rating = 0 }) => {
         else if (index === fullStars && halfStar) {
           return { icon: 'star-half-full', color: tailwindConfig.theme.colors.yellow };
         } else {
-          return { icon: 'star-outline', color: 'gray' };
+          return { icon: 'star-outline', color: tailwindConfig.theme.colors.projectGray };
         }
       });
 
@@ -40,7 +40,7 @@ const CustomRating = ({ rating = 0 }) => {
   return (
     noRating ? (
       <View className="w-full flex-row items-start justify-start">
-        <Text className="pl-1 text-xs" style={{ color: tailwindConfig.theme.colors.projectGray }}>no ratings yet</Text>
+        <Text className="pl-1 text-xs text-projectGray">ainda sem avaliações</Text>
       </View>
     ) :
       <View className="w-full flex-row items-start justify-start">

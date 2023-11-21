@@ -29,6 +29,13 @@ export default function ExerciseScreen({ exerciseObject, sectionObject, courseOb
 
   
 
+  /* function handleSecondOnclick() {
+    navigation.navigate('Lecture', {
+      sectionId: '6540f6b3536b2b37a49457e0', // hardcoded for testing
+      courseId: '6540f668536b2b37a49457dc', // hardcoded for testing
+    });
+  } */
+  
   async function handleReviewAnswer(selectedAnswer) {
     const continueText = 'Continuar';
 

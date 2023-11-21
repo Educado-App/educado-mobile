@@ -8,9 +8,9 @@ import ReactSliderProgress from './ReactSliderProgress';
 import { getVideoDownloadUrl } from '../../api/api';
 import PropTypes from 'prop-types';
 import { useNavigation } from '@react-navigation/native';
+import StandardButton from '../../components/general/StandardButton';
 
-
-export default function VideoLectureScreen({ lecture, course, isLastSlide }) {
+export default function VideoLectureScreen({ lectureObject, courseObject, isLastSlide }) {
   const navigation = useNavigation();
 
   const videoRef = useRef(null);
@@ -31,7 +31,7 @@ export default function VideoLectureScreen({ lecture, course, isLastSlide }) {
   const [videoUrl, setVideoUrl] = useState(null);
 
   useEffect(() => {
-    const _videoUrl = getVideoDownloadUrl(lecture.video, '180p');
+    const _videoUrl = getVideoDownloadUrl(lectureObject.video, '180p');
 
 
 
@@ -131,11 +131,14 @@ export default function VideoLectureScreen({ lecture, course, isLastSlide }) {
 
           {isLastSlide ?
             <View className="px-6 mb-3 w-screen">
-              <TouchableOpacity className="bg-primary px-10 py-4 rounded-medium"
-                onPress={() => { console.log('continue to completeSection') }}
-              >
-                <Text className="text-center font-sans-bold text-body text-projectWhite">Continuar</Text>
-              </TouchableOpacity>
+              <StandardButton
+                props={{
+                  buttonText: 'Continuar',
+                  onPress: () => {navigation.navigate('CompleteSection', 
+                    { courseId: courseObject._id, sectionId: lectureObject.parentSection }
+                  );}
+                }}
+              />
             </View>
           : null}
 
@@ -145,8 +148,8 @@ export default function VideoLectureScreen({ lecture, course, isLastSlide }) {
 
             <View className="w-full flex-row justify-between items-end">
               <View className=" flex-col">
-                <Text className=" text-projectWhite opacity-80"  >Nome do curso: {course.title}</Text>
-                <Text className="text-xl text-projectWhite" >{lecture.title && lecture.title}</Text>
+                <Text className=" text-projectWhite opacity-80"  >Nome do curso: {courseObject.title}</Text>
+                <Text className="text-xl text-projectWhite" >{lectureObject.title && lectureObject.title}</Text>
               </View>
 
               <VideoActions isPlaying={isPlaying} isMuted={isMuted} onVolumeClick={handleMutepress} onPlayClick={handlePress} />
@@ -188,7 +191,7 @@ export default function VideoLectureScreen({ lecture, course, isLastSlide }) {
 }
 
 VideoLectureScreen.propTypes = {
-  lecture: PropTypes.object,
-  course: PropTypes.object,
+  lectureObject: PropTypes.object,
+  courseObject: PropTypes.object,
   isLastSlide: PropTypes.bool
 };

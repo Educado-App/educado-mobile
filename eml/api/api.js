@@ -4,7 +4,7 @@ const testUrl = "http://localhost:8888";
 const testExpo = "http://172.30.245.78:8888"; //Change to local expo ip
 const digitalOcean = "http://207.154.213.68:8888";
 
-const url = testExpo;
+const url = 'https://educado-backend-staging-x7rgvjso4a-ew.a.run.app/'; // change to lcd ip when testing
 
 /*** COURSE, SECTIONS AND EXERCISES ***/
 
@@ -131,7 +131,7 @@ export const getExercisesInSection = async (courseId, sectionId) => {
 export const getExercisesBySectionId = async (sectionId) => {
   try {
     const res = await axios.get(
-      url + "/api/courses/" + sectionId + "/exercises"
+      url + '/api/courses/' + sectionId + '/exercises'
     );
     return res.data;
   } catch (e) {
@@ -223,6 +223,18 @@ export const ifSubscribed = async (userId, courseId) => {
       throw e;
     }
   }
+};
+
+// Call to backend to see if online
+export const checkBackendOnline = async () => {
+  let response;
+  try {
+    const res = await axios.get(url + '/api/utility/online/');
+    response = res.data;
+  } catch {
+    response = false;
+  }
+  return response;
 };
 
 //CREATED BY VIDEOSTREAM TEAM

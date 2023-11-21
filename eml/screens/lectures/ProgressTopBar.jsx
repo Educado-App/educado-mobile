@@ -17,7 +17,6 @@ const ProgressTopBar = ({ courseObject, lectureType, allLectures, currentLecture
 
   const createCorrectIcon = (_index, _currentIndex) => {
 
-    // if lecture is completed show check
     //if lecture is completed show check
     if (_index < _currentIndex || allLectures[_index].component?.completed ? true : false) {
       return (
@@ -43,7 +42,6 @@ const ProgressTopBar = ({ courseObject, lectureType, allLectures, currentLecture
       )
     }
 
-    // if lecture is completed show check
     //if lecture is completed show check
     if (_index < _currentIndex || allLectures[_index].completed) {
       return (
