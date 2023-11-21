@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+const timeoutInMs = 1200;
+
 /* Commented out for avoiding linting errors
  * TODO: move IP address to .env file !!!
 const testUrl = 'http://localhost:8888';
@@ -56,7 +58,7 @@ export const getExerciseById = async (exerciseId) => {
 
 export const getCourse = async (courseId) => {
   try {
-    const res = await axios.get(url + '/api/courses/' + courseId, {timeout: 1200});
+    const res = await axios.get(url + '/api/courses/' + courseId, {timeout: timeoutInMs});
     return res.data;
   } catch (e) {
     if (e?.response?.data != null) {
@@ -84,7 +86,7 @@ export const getCourses = async () => {
 // Get all sections for a specific course
 export const getAllSections = async (courseId) => {
   try {
-    const res = await axios.get(url + '/api/courses/' + courseId + '/sections', {timeout: 1200});
+    const res = await axios.get(url + '/api/courses/' + courseId + '/sections', {timeout: timeoutInMs});
     return res.data;
   } catch (e) {
     if (e?.response?.data != null) {
@@ -117,7 +119,7 @@ export const getExercisesInSection = async (sectionId) => {
     const res = await axios.get(
       //url + "/api/courses/" + courseId + "/sections/" + sectionId + "/exercises"
       url + '/api/exercises/section/' + sectionId
-      , {timeout: 1200});
+      , {timeout: timeoutInMs});
     return res.data;
   } catch (e) {
     if (e?.response?.data != null) {
@@ -150,7 +152,7 @@ export const getLecturesInSection = async (sectionId) => {
   try {
     const res = await axios.get(
       url + '/api/lectures/section/' + sectionId
-      , {timeout: 1200});
+      , {timeout: timeoutInMs});
     return res.data;
   } catch (e) {
     if (e?.response?.data != null) {
@@ -171,7 +173,7 @@ export const getSubscriptions = async (userId) => {
     // passing user ID as request body for get request gives error
     const res = await axios.get(
       url + '/api/students/' + userId + '/subscriptions'
-      , {timeout: 1200});
+      , {timeout: timeoutInMs});
 
     return res.data;
   } catch (e) {
@@ -299,7 +301,7 @@ export const getBucketImage = async (fileName) => {
   try {
     const res = await axios.get(
       `${url}/api/bucket/${fileName}`
-      , {timeout: 1200});
+      , {timeout: timeoutInMs});
     const workingUrl = `data:image/png;base64,${res.data}`;
     return workingUrl;
   } catch (err) {
