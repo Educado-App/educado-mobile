@@ -54,7 +54,6 @@ export default function CourseScreen() {
     }
     setLoading(false);
   }
-  loadCourses();
 
   // When refreshing the loadCourses function is called
   const onRefresh = () => {
