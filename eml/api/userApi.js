@@ -85,9 +85,30 @@ export const deleteUser = async (user_id, token) => {
   }
 };
 
-export const updateUserFields = async (user_id, updateFields, token) => {
-  try{
-    const res = await client.patch(`/api/users/${user_id}`, updateFields, {
+export const updateUserFields = async (user_id, obj, token) => {
+  try {
+    const res = await client.patch(`/api/users/${user_id}`, obj, {
+      headers: {
+        'Content-Type': 'application/json',
+        'token': token, // Include the token in the headers
+      },
+    });
+    return res.data;
+  } catch (e) {
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
+};
+
+export const updateUserPassword = async (user_id, oldPassword, newPassword, token) => {
+  try {
+    const res = await axios.patch(url + `/api/users/${user_id}/password`, {
+      oldPassword: oldPassword,
+      newPassword: newPassword,
+    }, {
       headers: {
         'Content-Type': 'application/json',
         'token': token, // Include the token in the headers

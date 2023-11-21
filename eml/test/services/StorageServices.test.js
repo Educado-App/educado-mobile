@@ -1,7 +1,6 @@
 import * as api from '../../api/api.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as StorageService from '../../services/StorageService.js';
-import { sub } from 'react-native-reanimated';
 import { mockDataAPI } from '../mockData/mockDataAPI.js';
 import { mockDataAsyncStorage } from '../mockData/mockDataAsyncStorage.js';
 

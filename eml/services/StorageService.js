@@ -37,6 +37,30 @@ export const getUserInfo = async () => {
   return fetchedUserInfo;
 };
 
+// Set user info in storage
+export const setUserInfo = async (userInfo) => {
+  const obj = {
+    id: userInfo.id,
+    firstName: userInfo.firstName,
+    lastName: userInfo.lastName,
+    email: userInfo.email,
+    completedCourses: userInfo.completedCourses,
+    points: userInfo.points,
+  };
+  await AsyncStorage.setItem(USER_INFO, JSON.stringify(obj));
+  await AsyncStorage.setItem(USER_ID, userInfo.id); // needs to be seperate
+};
+
+// Get JWT from storage
+export const getJWT = async () => {
+  return await AsyncStorage.getItem(LOGIN_TOKEN);
+};
+
+// Set JWT in storage
+export const setJWT = async (jwt) => {
+  return await AsyncStorage.setItem(LOGIN_TOKEN, jwt);
+};
+
 /** COURSE AND COURSE LIST **/
 
 // get specific course

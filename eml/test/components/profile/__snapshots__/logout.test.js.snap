@@ -5,23 +5,15 @@ exports[`LogOutButton render should render correctly 1`] = `
   style={
     [
       {
-        "flexDirection": "row",
-      },
-      {
         "alignItems": "center",
       },
       {
-        "justifyContent": "flex-end",
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
       },
       {
-        "paddingLeft": 24,
-        "paddingRight": 24,
-      },
-      {
-        "marginTop": "-40%",
-      },
-      {
-        "marginBottom": "20%",
+        "marginTop": "45%",
       },
     ]
   }
@@ -39,22 +31,54 @@ exports[`LogOutButton render should render correctly 1`] = `
     onStartShouldSetResponder={[Function]}
     style={
       {
-        "alignItems": "center",
-        "backgroundColor": "#dc2626",
-        "borderBottomLeftRadius": 8,
-        "borderBottomRightRadius": 8,
-        "borderTopLeftRadius": 8,
-        "borderTopRightRadius": 8,
         "opacity": 1,
-        "paddingBottom": 8,
-        "paddingLeft": 4,
-        "paddingTop": 8,
-        "width": "15%",
       }
     }
   >
-    <View>
+    <View
+      style={
+        [
+          {
+            "alignItems": "center",
+          },
+          {
+            "display": "flex",
+          },
+          {
+            "flexDirection": "row",
+          },
+        ]
+      }
+    >
       <Text />
+      <Text
+        style={
+          [
+            {
+              "fontFamily": "Montserrat-Regular",
+            },
+            {
+              "color": "#383838",
+            },
+            {
+              "fontSize": 16,
+            },
+            [
+              {
+                "color": "#FF4949",
+              },
+              {
+                "textAlign": "center",
+              },
+              {
+                "textDecorationLine": "underline",
+              },
+            ],
+          ]
+        }
+      >
+        Sair
+      </Text>
     </View>
   </View>
 </View>
