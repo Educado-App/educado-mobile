@@ -71,13 +71,12 @@ jobs:
         with:
           java-version: 1.8
 
-        
       - name: List directories and files
         run: ls -al
 
       - name: Install React Native dependencies
         run: |
-          cd eml && npm install -g react-native-cli
+          npm install -g react-native-cli
           cd eml && npm install
 
       - name: Build with Gradle
