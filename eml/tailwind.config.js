@@ -32,6 +32,7 @@ module.exports = {
       pointsCoin: '#AD872D',
       progressBar: '#5ECCDD',
       progressBarUnFilled: '#E4F2F5',
+      webprimary: '#166276',
     },
     fontFamily: {
       montserrat: ['Montserrat-Regular'],
@@ -41,6 +42,7 @@ module.exports = {
       "sans-bold": ["'Montserrat-Bold'"],
       "sans-semi-bold": ["'Montserrat-SemiBold'"],
       bold: ['Montserrat-Bold'],
+      ooohbaby: ['OoohBaby-Regular'],
     },
     extend: {
       fontSize: {

@@ -11,9 +11,10 @@ import CertificateBtn from './CertificateBtn';
 /**
  * This component is used to display a certificate card.
  * @param certificate - The certificate object to be displayed.
+ * @param previewOnPress - The function to be executed when the preview button is pressed.
  * @returns {JSX.Element|null} - Returns a JSX element.
  */
-export default function CertificateCard({ certificate }) {
+export default function CertificateCard({ certificate, previewOnPress }) {
   const [isCollapsed, setIsCollapsed] = useState(true);
 
   return (
@@ -58,9 +59,8 @@ export default function CertificateCard({ certificate }) {
 
       <Collapsible className="w-full" collapsed={isCollapsed}>
         <View className="py-1 flex-row items-center justify-between px-1">
-          <CertificateBtn buttonText="Preview" />
+          <CertificateBtn buttonText="Preview" onPress={previewOnPress} />
           <CertificateBtn buttonText="Download" />
-          <CertificateBtn buttonText="Email" />
         </View>
 
       </Collapsible>

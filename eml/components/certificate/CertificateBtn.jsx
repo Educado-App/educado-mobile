@@ -1,20 +1,18 @@
 import React from 'react';
 import { View, Pressable, Text } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import PropTypes from 'prop-types';
 
 /**
- * AccessCourseButton component displays a button to access a course
- * @param course - Course object containing course details
+ * CertificateBtn component displays a button for certificates
+ * @param buttonText - Text displayed in button
+ * @param onPress - Function to be executed when button is pressed
  * @returns {JSX.Element} - Rendered component
  */
-export default function CertificateBtn({ buttonText }) {
-
-  const navigation = useNavigation();
+export default function CertificateBtn({ buttonText, onPress }) {
 
   return (
     <View className="">
-      <Pressable
+      <Pressable onPress={onPress}
         className="w-full flex items-center justify-center rounded-lg bg-primary p-2"
       >
         <Text className="text-projectWhite py-1 font-bold px-2">
@@ -27,5 +25,6 @@ export default function CertificateBtn({ buttonText }) {
 
 CertificateBtn.propTypes = {
   buttonText: PropTypes.string,
+  onPress: PropTypes.func,
 };
 
