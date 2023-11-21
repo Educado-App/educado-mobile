@@ -76,7 +76,9 @@ const testCertificates = [
  */
 export default function CertificateScreen() {
   // Sets dummy data for courses (will be replaced with data from backend)
-  const [certificates, setCertificates] = useState(testCertificates);
+  const certificates = testCertificates;
+  //const [certificates, setCertificates] = useState(testCertificates);
+
   // Search text state
   const [searchText, setSearchText] = useState('');
   // Selected category state

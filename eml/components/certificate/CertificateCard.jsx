@@ -70,4 +70,5 @@ export default function CertificateCard({ certificate, previewOnPress }) {
 
 CertificateCard.propTypes = {
   certificate: PropTypes.object,
+  previewOnPress: PropTypes.func,
 };
