@@ -114,6 +114,7 @@ export const refreshCourseList = async (courseList) => {
 };
 
 /** SECTIONS **/
+/** SECTIONS **/
 
 // get all section for specific course
 export const getSectionList = async (course_id) => {
