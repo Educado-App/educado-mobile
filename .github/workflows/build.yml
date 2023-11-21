@@ -69,6 +69,9 @@ jobs:
       - name: Install Expo CLI globally
         run: npm install -g expo-cli
 
+      - name: Install EAS CLI globally
+        run: npm install -g eas-cli
+
       - name: Install dependencies
         run: cd eml && npm install
 
