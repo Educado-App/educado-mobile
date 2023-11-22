@@ -1,21 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import VideoLectureScreen from './VideoLectureScreen';
 import TextImageLectureScreen from './TextImageLectureScreen';
+import StandardButton from '../../components/general/StandardButton';
 import PropTypes from 'prop-types';
-import Text from '../../components/general/Text';
+import { useNavigation } from '@react-navigation/native';
 
 export default function LectureScreen({ lectureObject, courseObject, currentIndex, indexCount }) {
 
+  const navigation = useNavigation();
   const [course, setCourse] = useState(courseObject);
   const [lecture, setLecture] = useState(lectureObject);
-  const isLastSlide = currentIndex === indexCount - 1;
+  const [progressPercent, setProgressPercent] = useState(null);
   
   useEffect(() => {
     setLecture(lectureObject);
     setCourse(courseObject);
+    const _progressPercent = calculateProgressInPercent();
+    setProgressPercent(_progressPercent);
+
   }, []);
 
+
+  const calculateProgressInPercent = () => {
+    return Math.round((currentIndex / indexCount) * 100);
+  };
 
   //Safe area should not be used if we want to use the full screen
   return (
@@ -25,11 +34,23 @@ export default function LectureScreen({ lectureObject, courseObject, currentInde
         <View className="w-full h-full flex-col justify-center items-center">
 
           {lecture.video ?
-            <VideoLectureScreen lectureObject={lecture} courseObject={course} isLastSlide={isLastSlide} />
+            <VideoLectureScreen lecture={lecture} progress={progressPercent} course={course} />
             :
-            <TextImageLectureScreen lectureObject={lecture} courseObject={course} isLastSlide={isLastSlide} />
+            <TextImageLectureScreen lecture={lecture} course={course} progress={progressPercent} />
           }
-          
+
+          {currentIndex === indexCount - 1 ?
+          /* need to send course (courseObject._id) and section (lecture.parentSection) id to completeSection screen */
+            <StandardButton
+              props={{
+                buttonText: 'Continuar',
+                onPress: () => {navigation.navigate('CompleteSection', 
+                  { course: courseObject, sectionId: lectureObject.parentSection }
+                );}
+              }}
+            />
+            : null
+          }
         </View>
         :
         <View className="w-full h-full items-center justify-center align-middle">

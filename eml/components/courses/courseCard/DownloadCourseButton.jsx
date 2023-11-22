@@ -4,6 +4,7 @@ import {Alert, TouchableWithoutFeedback} from 'react-native';
 import animationAsset from '../../../assets/animations/downloadAnimation.json';
 import PropTypes from 'prop-types';
 import * as StorageService from '../../../services/StorageService';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ANIMATION_STATES = {
   INITIAL: 'initial',
@@ -24,7 +25,7 @@ export default function DownloadCourseButton(course, {disabled = false}) {
 
   const storageCheck = async () => {
     if (animationState === ANIMATION_STATES.INITIAL || animationState === ANIMATION_STATES.COMPLETED) {
-      let result = await StorageService.checkCourseStoredLocally(course.course.courseId);
+      let result = !!(await AsyncStorage.getItem(course.course.courseId + await AsyncStorage.getItem('@userId')));
       setAnimationState(result ? ANIMATION_STATES.COMPLETED : ANIMATION_STATES.INITIAL);
     }
   };

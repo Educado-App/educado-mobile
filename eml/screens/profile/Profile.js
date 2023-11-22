@@ -4,43 +4,25 @@ import {
   SafeAreaView,
   ScrollView,
 } from 'react-native';
+import ProfileName from '../../components/profile/profileName';
 import LogOutButton from '../../components/profile/LogOutButton';
-import ProfileNavigationButton from '../../components/profile/ProfileNavigationButton.js';
+import SettingsButton from '../../components/profile/settingsButton.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import UserInfo from '../../components/profile/UserInfo';
-import { useNavigation } from '@react-navigation/native';
+import { BgLinearGradient } from '../../constants/BgLinearGradient';
 
 const USER_INFO = '@userInfo';
 
-/**
- * Profile screen
- * @returns {React.Element} Component for the profile screen
- */
 export default function ProfileComponent() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [points, setPoints] = useState(0);
-  const navigation = useNavigation();
 
-  useEffect(() => {
-    const getInfo = navigation.addListener('focus', () => {
-      getProfile();
-    });
-    return getInfo;
-  }, [navigation]);
-
-  /**
-  * Fetches the user's profile from the local storage
-  */ 
   const getProfile = async () => {
     try {
       const fetchedProfile = JSON.parse(await AsyncStorage.getItem(USER_INFO));
+
       if (fetchedProfile !== null) {
         setFirstName(fetchedProfile.firstName);
         setLastName(fetchedProfile.lastName);
-        setEmail(fetchedProfile.email);
-        setPoints(fetchedProfile.points);
       }
     } catch (e) {
       console.log(e);
@@ -52,18 +34,16 @@ export default function ProfileComponent() {
   }, []);
   
   return (
-    <SafeAreaView className='bg-secondary'>
-      <ScrollView className='flex flex-col'>
-        <View className="flex-1 justify-start pt-[20%] h-screen">
-          <UserInfo firstName={firstName} lastName={lastName} email={email} points={points}></UserInfo>
-          <ProfileNavigationButton label='Editar perfil' testId={'editProfileNav'} onPress={() => navigation.navigate('EditProfile')}></ProfileNavigationButton>
-          <ProfileNavigationButton label='Certificados'></ProfileNavigationButton>
-          <ProfileNavigationButton label='Download'></ProfileNavigationButton>
-          <View className='flex flex-row'>
+    <BgLinearGradient>
+      <SafeAreaView>
+        <ScrollView>
+          <View className="flex-1 flex-col justify-center h-screen">
+            <ProfileName Name={`${firstName} ${lastName}`}></ProfileName>
+            <SettingsButton></SettingsButton>
             <LogOutButton testID='logoutBtn'></LogOutButton>
           </View>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+        </ScrollView>
+      </SafeAreaView>
+    </BgLinearGradient>
   );
 }

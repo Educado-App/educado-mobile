@@ -1,6 +1,6 @@
-import renderer from "react-test-renderer";
-import React from "react";
-import PasswordEye from "../../../components/general/forms/PasswordEye";
+import renderer from 'react-test-renderer';
+import React from 'react';
+import PasswordEye from '../../../components/login/PasswordEye';
 
 const mockFunction = jest.fn();
 

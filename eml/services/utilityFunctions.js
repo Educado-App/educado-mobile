@@ -1,5 +1,7 @@
 /** Utility functions used in Explore and Course screens **/
-import * as StorageService from '../services/StorageService.js';
+import { completeExercise } from '../api/userApi.js';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+const USER_INFO = '@userInfo';
 
 /**
  * Converts a numeric difficulty level to a human-readable label.
@@ -141,44 +143,73 @@ export function formatHours(number) {
   }
 }
 
-export async function givePoints(exerciseId, isComplete, points) {
-  // Retrieve the user info object and parse it from JSON
-  // const userInfo = await StorageService.getUserInfo();
-  const studentInfo = await StorageService.getStudentInfo();
-  // const loginToken = await StorageService.getLoginToken();
 
-  const exerciseExists = isExerciseCompleted(studentInfo, exerciseId);
-  const exerciseIsComplete = exerciseIsCompleteStatus(studentInfo, exerciseId);
-  
-  // If the exercise is present but it's field "isComplete" is false, it means the user has answered wrong before and only gets 5 points.
-  if (exerciseExists && !exerciseIsComplete) {
-    points = 5;
-  }
+export async function givePoints(user, exercise_id, isComplete, points, token) {
+  try {
+    let obj;
+    let exerciseExists = isExerciseCompleted(user, exercise_id);
 
-  // TODO: Magnus help
-  // Updates the user with the new points in the db
-  //await completeExercise(userInfo.id, exerciseId, isComplete, points, loginToken);
-
-  return points;
-}
-
-function isExerciseCompleted(student, exerciseId) {
-  return student.completedCourses.find(course =>
-    course.completedSections.find(section =>
-      section.completedExercises.find(exercise =>
-        exercise.exerciseId == exerciseId
-      )
-    )
-  ) !== undefined;
-}
-
-function exerciseIsCompleteStatus(student, exerciseId) {
-  for (const course of student.completedCourses) {
-    for (const section of course.completedSections) {
-      const exercise = section.completedExercises.find(ex => ex.exerciseId === exerciseId);
-      if (exercise) {
-        return exercise.isComplete;
-      }
+    let exerciseIsComplete = exerciseIsCompleteStatus(user, exercise_id);
+    
+    // If the exercise is present but it's field "isComplete" is false, it means the user has answered wrong before and only gets 5 points.
+    if (exerciseExists && !exerciseIsComplete) {
+      points = 5;
     }
+
+    // Updates the user with the new points, and adds the exercise to the completedExercises array
+    obj = await completeExercise(user.id, exercise_id, isComplete, points, token);
+
+    // Updates the Async Storage with the new user info
+    await AsyncStorage.setItem(USER_INFO, JSON.stringify(obj));
+
+    return points;
+
+  } catch(error) {
+    console.log(error);
+  }
+}
+
+function isExerciseCompleted(user, exerciseIdToCheck) {
+  try {
+    // Check if completedCourses, completedSections and completedExercises exist
+    if (!user.completedCourses || !user.completedCourses.length) return false;
+    if (!user.completedCourses[0].completedSections || !user.completedCourses[0].completedSections.length) return false;
+    if (!user.completedCourses[0].completedSections[0].completedExercises || !user.completedCourses[0].completedSections[0].completedExercises.length) return false;
+    
+    // Check if exerciseIdToCheck exists in completedExercises array
+    return user.completedCourses.some(course =>
+      course.completedSections.some(section =>
+        section.completedExercises.some(exercise =>
+          exercise.exerciseId == exerciseIdToCheck
+        )
+      )
+    );
+    
+  } catch(error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+function exerciseIsCompleteStatus(user, exerciseIdToCheck) {
+  try {
+    // Check if completedCourses, completedSections and completedExercises exist
+    if (!user.completedCourses || !user.completedCourses.length) return false;
+    if (!user.completedCourses[0].completedSections || !user.completedCourses[0].completedSections.length) return false;
+    if (!user.completedCourses[0].completedSections[0].completedExercises || !user.completedCourses[0].completedSections[0].completedExercises.length) return false;
+
+    return user.completedCourses.forEach(course => {
+      course.completedSections.forEach(section => {
+        section.completedExercises.forEach(exercise => {
+          if (exercise.exerciseId == exerciseIdToCheck) {
+            // Found the matching exerciseId, set exerciseIsComplete to the associated isComplete value
+            exercise.isComplete;
+          }
+        });
+      });
+    });
+  } catch(error) {
+    console.log(error);
+    throw error;
   }
 }

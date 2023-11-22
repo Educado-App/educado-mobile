@@ -1,6 +1,6 @@
-import renderer from "react-test-renderer";
-import React from "react";
-import FormFieldAlert from "../../../components/general/forms/FormFieldAlert";
+import renderer from 'react-test-renderer';
+import React from 'react';
+import FormFieldAlert from '../../../components/login/FormFieldAlert';
 
 test('Ensure that the alert is rendered correctly', async () => {
   let formAlert;
