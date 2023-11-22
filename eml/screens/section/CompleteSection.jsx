@@ -137,14 +137,14 @@ export default function CompleteSectionScreen() {
           <StandardButton
             props={{
               buttonText: 'Continuar',
-              onPress: () => {
+              onPress: () => {console.log(parsedCourse),
                 navigation.reset({
                   index: 1,
                   routes: [
                     { name: 'HomeStack' },
                     {
                       name: 'Section',
-                      params: { parsedCourse },
+                      params: { course: parsedCourse },
                     },
                   ],
                 });

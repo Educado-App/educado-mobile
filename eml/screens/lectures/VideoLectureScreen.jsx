@@ -150,7 +150,7 @@ export default function VideoLectureScreen({ lectureObject, courseObject, isLast
                   buttonText: 'Continuar',
                   onPress: () => {
                     navigation.navigate('CompleteSection',
-                      { course: courseObject, sectionId: lectureObject.parentSection }
+                      { parsedCourse: courseObject, sectionId: lectureObject.parentSection }
                     );
                   }
                 }}
