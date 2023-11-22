@@ -24,7 +24,7 @@ export default function DownloadCourseButton(course, {disabled = false}) {
 
   const storageCheck = async () => {
     if (animationState === ANIMATION_STATES.INITIAL || animationState === ANIMATION_STATES.COMPLETED) {
-      let result = awa5t StorageService.checkCourseStoredLocally(course.course.courseId);
+      let result = await StorageService.checkCourseStoredLocally(course.course.courseId);
       setAnimationState(result ? ANIMATION_STATES.COMPLETED : ANIMATION_STATES.INITIAL);
     }
   };
