@@ -11,7 +11,7 @@ const CoursePoints = (courseId) => {
   const [coursePoints, setCoursePoints] = useState(0);
   const [scale, setScale] = useState(1);
   
-  const getCompletedCourse = async () => {
+  const getCompletedCourses = async () => {
     const studentInfo = await getStudentInfo();
     return studentInfo.completedCourses;
   };
@@ -44,14 +44,13 @@ const CoursePoints = (courseId) => {
 
   const fetchCourseAndPoints = async () => {
     try {
-      const completedCourses = await getCompletedCourse();
+      const completedCourses = await getCompletedCourses();
       const currentCourse = completedCourses.find((course) => course.courseId === courseId.courseId);
 
       if (currentCourse && completedCourses) {
         setCoursePoints(currentCourse.totalPoints);
       } else {
-        console.error('Course not found');
-        // Handle the case when the course is not found, e.g., set default points or show an error message.
+        setCoursePoints(0);
       }
     } catch (error) {
       console.error('Error fetching course:', error);
