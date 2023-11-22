@@ -42,11 +42,10 @@ export const setUserInfo = async (userInfo) => {
     firstName: userInfo.firstName,
     lastName: userInfo.lastName,
     email: userInfo.email,
-    completedCourses: userInfo.completedCourses,
-    points: userInfo.points,
   };
   await AsyncStorage.setItem(USER_INFO, JSON.stringify(obj));
   await AsyncStorage.setItem(USER_ID, userInfo.id); // needs to be seperate
+  await setStudentInfo(userInfo.id);
 };
 
 // Get JWT from storage
