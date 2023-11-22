@@ -81,7 +81,6 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
               "fontSize": 25,
             },
             {
-              "fontFamily": "Montserrat-Bold",
               "fontWeight": "700",
             },
           ],
@@ -310,7 +309,6 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
                         "fontSize": 16,
                       },
                       {
-                        "fontFamily": "Montserrat-Bold",
                         "fontWeight": "700",
                       },
                       {
@@ -602,7 +600,6 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
                         "fontSize": 16,
                       },
                       {
-                        "fontFamily": "Montserrat-Bold",
                         "fontWeight": "700",
                       },
                       {
