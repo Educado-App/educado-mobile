@@ -5,6 +5,9 @@ on:
       - opened
       - synchronize
       - reopened
+    branches-ignore:
+      - stage
+      - main
 jobs:
   eslint:
     runs-on: ubuntu-latest
