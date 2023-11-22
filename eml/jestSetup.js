@@ -1,5 +1,9 @@
 import mockAsyncStorage from '@react-native-async-storage/async-storage/jest/async-storage-mock';
-import { Animated } from 'react-native';  Animated.timing = () => ({   start: () => jest.fn(), });
+import { Animated } from 'react-native';
+
+Animated.timing = () => ({
+  start: () => jest.fn(),
+});
 
 jest.mock('@react-native-async-storage/async-storage', () => mockAsyncStorage);
 

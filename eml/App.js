@@ -13,12 +13,13 @@ import SectionScreen from './screens/section/SectionScreen';
 import { isFontsLoaded } from './constants/Fonts';
 import LoadingScreen from './components/loading/Loading';
 import WelcomeScreen from './screens/welcome/Welcome';
-import ProfileSettingsScreen from './screens/profile/ProfileSettings';
 import CompleteSectionScreen from './screens/section/CompleteSection';
 import NavBar from './components/navBar/NavBar';
 import LectureSwipeScreen from './screens/lectures/LectureSwipeScreen';
 import ErrorScreen from './screens/errors/ErrorScreen';
 import CourseScreen from './screens/courses/CourseScreen';
+import EditProfileScreen from './screens/profile/EditProfile';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -190,8 +191,8 @@ export default function App() {
                 options={{ headerShown: false }}
               />
               <Stack.Screen
-                name="ProfileSettings"
-                component={ProfileSettingsScreen}
+                name="EditProfile"
+                component={EditProfileScreen}
                 options={{ headerShown: false }}
               />
               <Stack.Screen
