@@ -6,11 +6,12 @@ import {
 } from 'react-native';
 import LogOutButton from '../../components/profile/LogOutButton';
 import ProfileNavigationButton from '../../components/profile/ProfileNavigationButton.js';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import UserInfo from '../../components/profile/UserInfo';
 import { useNavigation } from '@react-navigation/native';
-
-const USER_INFO = '@userInfo';
+import { getUserInfo } from '../../services/StorageService';
+import { getStudentInfo } from '../../services/StorageService';
+import errorSwitch from '../../components/general/errorSwitch';
+import ShowAlert from '../../components/general/ShowAlert';
 
 /**
  * Profile screen
@@ -35,15 +36,16 @@ export default function ProfileComponent() {
   */ 
   const getProfile = async () => {
     try {
-      const fetchedProfile = JSON.parse(await AsyncStorage.getItem(USER_INFO));
+      const fetchedProfile = await getUserInfo();
+      const fetchedStudent = await getStudentInfo();
       if (fetchedProfile !== null) {
         setFirstName(fetchedProfile.firstName);
         setLastName(fetchedProfile.lastName);
         setEmail(fetchedProfile.email);
-        setPoints(fetchedProfile.points);
+        setPoints(fetchedStudent.points);
       }
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      ShowAlert(errorSwitch(error));
     }
   };
 
