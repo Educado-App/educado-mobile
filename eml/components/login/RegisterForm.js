@@ -165,7 +165,6 @@ export default function RegisterForm() {
           const userInfo = {
             id: response.baseUser._id,
             ...response.baseUser,
-            points: response.studentProfile.points,
           };
           await setUserInfo(userInfo);
         }).then(async function () {
