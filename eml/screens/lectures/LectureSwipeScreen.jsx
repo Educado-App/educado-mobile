@@ -45,6 +45,7 @@ export default function LectureSwipeScreen({ route }) {
         let _combinedLecturesAndExercises = [];
         for (let component of section.components) {
           try {
+            let newComp = null;
             let lectureType = null;
             let compType = null;
 
@@ -53,6 +54,7 @@ export default function LectureSwipeScreen({ route }) {
               if (lecture._id === component._id){
                 lectureType = lecture.video ? LectureType.VIDEO : LectureType.TEXT;
                 compType = ComponentType.LECTURE;
+                newComp = lecture;
                 break;
               }
             }
@@ -60,13 +62,14 @@ export default function LectureSwipeScreen({ route }) {
               for(let exercise in exerciseList) {
                 if (exercise._id === component._id) {
                   compType = ComponentType.EXERCISE;
+                  newComp = exercise;
                   break;
                 }
               }
             }
 
             const obj = {   
-              component: component,
+              component: newComp,
               type: compType,
               lectureType: lectureType
             };
