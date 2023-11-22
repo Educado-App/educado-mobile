@@ -9,7 +9,7 @@ const testExpo = 'http://172.30.211.57:8888';
 const digitalOcean = 'http://207.154.213.68:8888';
 */
 
-const url = 'http://192.168.0.3:8888'; // change to lcd ip when testing
+const url = 'https://educado-backend-staging-x7rgvjso4a-ew.a.run.app/'; // change to lcd ip when testing
 
 /*** COURSE, SECTIONS AND EXERCISES ***/
 
@@ -98,7 +98,6 @@ export const getAllSections = async (courseId) => {
 };
 
 // Get specific section
-// ************* same as getSectionByid *************
 export const getSection = async (courseId, sectionId) => {
   try {
     const res = await axios.get(
@@ -115,7 +114,6 @@ export const getSection = async (courseId, sectionId) => {
 };
 
 // Get all exercises in a specific section:
-// ************* same as getExercisesBySectionId *************
 export const getExercisesInSection = async (sectionId) => {
   try {
     const res = await axios.get(
@@ -134,7 +132,7 @@ export const getExercisesInSection = async (sectionId) => {
 
 //CREATED BY VIDEOSTREAM TEAM
 //: get exercises in section by section id
-export const getExercisesBySectionId = async (sectionId) => {
+export const getExerciseBySectionId = async (sectionId) => {
   try {
     const res = await axios.get(
       url + '/api/courses/' + sectionId + '/exercises'
@@ -174,8 +172,8 @@ export const getSubscriptions = async (userId) => {
     // but this is the only format where it works
     // passing user ID as request body for get request gives error
     const res = await axios.get(
-      url + '/api/students/' + userId + '/subscriptions',
-      {timeout: 1200});
+      url + '/api/students/' + userId + '/subscriptions'
+      , {timeout: timeoutInMs});
 
     return res.data;
   } catch (e) {
@@ -250,7 +248,7 @@ export const ifSubscribed = async (userId, courseId) => {
 export const checkBackendOnline = async () => {
   let response;
   try {
-    const res = await axios.get(url + '/api/utility/online/', {timeout: 1000});
+    const res = await axios.get(url + '/api/utility/online/');
     response = res.data;
   } catch {
     response = false;
@@ -270,7 +268,6 @@ export const getVideoDownloadUrl = (fileName) => {
 };
 
 //CREATED BY VIDEO STREAMING TEAM
-// ************** same as getSectionByid **************
 export const getSectionAndLecturesBySectionId = async (sectionId) => {
   try {
     const res = await axios.get(url + '/api/sections/' + sectionId);

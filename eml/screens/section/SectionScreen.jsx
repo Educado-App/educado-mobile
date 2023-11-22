@@ -53,6 +53,14 @@ export default function SectionScreen({ route }) {
     return () => componentIsMounted = false;
   }, []);
 
+  useEffect(() => {
+    // this makes sure loadSections is called when the screen is focused
+    const update = navigation.addListener('focus', () => {
+      loadSections(course.courseId);
+    });
+    return update;
+  }, [navigation]);
+
   /**
    * Displays an alert to confirm unsubscribing from the course.
    */

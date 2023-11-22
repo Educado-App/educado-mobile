@@ -3,15 +3,10 @@ import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import React from 'react';
-import Text from '../general/Text';
-import tailwindConfig from '../../tailwind.config';
 import PropTypes from 'prop-types';
-
 
 const LOGIN_TOKEN = '@loginToken';
 const USER_INFO = '@userInfo';
-const tailwindColors = tailwindConfig.theme.colors;
-const STUDENT_INFO = '@studentInfo';
 
 export default function LogOutButton(props) {
   LogOutButton.propTypes = {
@@ -24,7 +19,6 @@ export default function LogOutButton(props) {
     try {
       await AsyncStorage.removeItem(LOGIN_TOKEN);
       await AsyncStorage.removeItem(USER_INFO);
-      await AsyncStorage.removeItem(STUDENT_INFO);
 
       navigation.navigate('LoginStack');
     } catch (e) {
@@ -43,18 +37,16 @@ export default function LogOutButton(props) {
     ]);
 
   return (
-    <View className="items-center flex-1 mt-[45%]">
-      <TouchableOpacity onPress={logoutAlert}>
-        <View className='items-center flex flex-row'>
+    <View className="flex-row items-center justify-end px-6 mt-[-40%] mb-[20%]">
+      <TouchableOpacity className="bg-[#dc2626] items-center py-2 pl-1 rounded-medium w-[15%]" onPress={logoutAlert}>
+        <View>
           <MaterialCommunityIcons
             name="logout"
-            size={30}
-            color={tailwindColors.error}
+            size={40}
+            color="white"
             testID={props.testID}
           />
-          <Text className="text-error text-center underline">Sair</Text>
-        </View> 
-        
+        </View>
       </TouchableOpacity>
     </View>
   );

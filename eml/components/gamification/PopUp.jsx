@@ -1,20 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { View, Animated, Easing, Dimensions } from 'react-native';
+import { View, Animated, Easing } from 'react-native';
 import Text from '../general/Text';
 import { generateSuccessPhrases, generateEncouragementPhrases } from '../../constants/PopUpPhrases';
 import { getUserInfo } from '../../services/StorageService';
 import PropTypes from 'prop-types';
-import { getPointsFromExerciseSender } from '../../components/events/senderEvents';
 
-// sender of event
+export default function PopUp({ xpAmount, isCorrectAnswer }) {
 
-export default function PopUp({ pointAmount, isCorrectAnswer }) {
-  const screenWidth = Dimensions.get('window').width;
   const animatedPopUpValue = new Animated.Value(0);
-  const animatedPointValue = new Animated.Value(0);
+  const animatedXpValue = new Animated.Value(0);
   const opacityValue = new Animated.Value(1);
   const [randomPhrase, setRandomPhrase] = useState('');
-  const pointTimer = 3000;
+  console.log(xpAmount);
 
   const getRandomPhrase = (firstName) => {
     let randomIndex = 0;
@@ -72,23 +69,25 @@ export default function PopUp({ pointAmount, isCorrectAnswer }) {
     }).start();
   };
 
-  const startPointAnimation = () => {
+  const startXpAnimation = () => {
+    const timer = 3000;
+
     Animated.parallel([
-      Animated.timing(animatedPointValue, {
+      Animated.timing(animatedXpValue, {
         toValue: 8,
-        duration: pointTimer,
+        duration: timer,
         easing: (value) => customEasing(value),
         useNativeDriver: false,
       }),
       Animated.timing(opacityValue, {
         toValue: 0,
-        duration: pointTimer,
+        duration: timer,
         easing: (value) => customEasing(value),
         useNativeDriver: false,
       }),
     ]).start(() => {
       setTimeout(() => {
-      }, pointTimer);
+      }, timer);
     });
   };
 
@@ -96,14 +95,10 @@ export default function PopUp({ pointAmount, isCorrectAnswer }) {
     fetchUserFirstName().then((firstName) => {
       setRandomPhrase(getRandomPhrase(firstName));
     });
-    
-    setTimeout(() => {
-      getPointsFromExerciseSender(pointAmount);
-    }, pointTimer);
   }, []);
 
   startPopUpAnimation();
-  startPointAnimation();
+  startXpAnimation();
 
   return (
     <>
@@ -128,7 +123,7 @@ export default function PopUp({ pointAmount, isCorrectAnswer }) {
         </View>
 
         {isCorrectAnswer === true ?
-          <Text testID={'Xp'} className='font-sans-bold text-sm text-correctAnswer'>{pointAmount}pts</Text>
+          <Text testID={'Xp'} className='font-sans-bold text-sm text-correctAnswer'>{xpAmount}pts</Text>
           : null}
 
       </Animated.View>
@@ -136,16 +131,16 @@ export default function PopUp({ pointAmount, isCorrectAnswer }) {
       {/* XP Animation */}
       <Animated.View
         style={{
-          opacity: animatedPointValue,
+          opacity: animatedXpValue,
           transform: [
             {
-              translateY: animatedPointValue.interpolate({
+              translateY: animatedXpValue.interpolate({
                 inputRange: [0, 1],
                 outputRange: [100, 0], // Adjust the values for the desired effect
               }),
             },
             {
-              translateX: screenWidth / 2 - 40,
+              translateX: 85,
             },
           ],
         }}
@@ -159,7 +154,7 @@ export default function PopUp({ pointAmount, isCorrectAnswer }) {
             }}
             className="font-sans-bold text-lg text-correctAnswer text-center"
           >
-            {pointAmount}pts
+            {xpAmount}pts
           </Animated.Text>
         ) : null}
       </Animated.View></>
@@ -167,6 +162,6 @@ export default function PopUp({ pointAmount, isCorrectAnswer }) {
 }
 
 PopUp.propTypes = {
-  pointAmount: PropTypes.number,
+  xpAmount: PropTypes.number,
   isCorrectAnswer: PropTypes.bool,
 };

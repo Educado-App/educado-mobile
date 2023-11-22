@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, TextInput } from 'react-native';
-import Text from '../Text';
+import Text from '../general/Text';
 import PropTypes from 'prop-types';
 
 /**
@@ -18,13 +18,14 @@ import PropTypes from 'prop-types';
  * - bordered: Whether to display a border
  * - error: Whether to display an error border
  * @returns {React.Element} Text component for entering data
+
  */
 export default function FormTextField(props) {
   return (
     <View>
       <View className="flex flex-row">
         <Text className={'ml-2 text-xs'}>
-          {props.label ?? ''}
+          {props.label ? props.label : ''}
         </Text>
         <Text className={'ml-1 text-xs text-error'}>
           {props.required ? '*' : ''}

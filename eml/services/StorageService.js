@@ -1,61 +1,33 @@
 import * as api from '../api/api.js';
-import * as userApi from '../api/userApi.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SUB_COURSE_LIST = '@subCourseList';
 const USER_ID = '@userId';
 const USER_INFO = '@userInfo';
-const STUDENT_INFO = '@studentInfo';
-const LOGIN_TOKEN = '@loginToken';
+
 let isOnline = true;
 
-/** STUDENT **/
 
-export const setStudentInfo = async (userId) => {
-  const fetchedStudentInfo = await userApi.getStudentInfo(userId);
-  await AsyncStorage.setItem(STUDENT_INFO, JSON.stringify(fetchedStudentInfo));
-};
 
-export const getStudentInfo = async () => {
-  const fetchedStudentInfo = JSON.parse(await AsyncStorage.getItem(STUDENT_INFO));
-  return fetchedStudentInfo;
-};
 
-export const getLoginToken = async () => {
-  const fetchedToken = await AsyncStorage.getItem(LOGIN_TOKEN);
-  return fetchedToken;
-};
 
 export const getUserInfo = async () => {
-  const fetchedUserInfo = JSON.parse(await AsyncStorage.getItem(USER_INFO));
-  if (fetchedUserInfo === null) {
-    throw new Error('Cannot fetch user info from async storage');
+  try {
+    const fetchedUserInfo = JSON.parse(await AsyncStorage.getItem(USER_INFO));
+    if (fetchedUserInfo === null) {
+      throw new Error('Cannot fetch user info from async storage');
+    }
+    return fetchedUserInfo;
+  } catch (e) {
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
   }
-  return fetchedUserInfo;
 };
 
-// Set user info in storage
-export const setUserInfo = async (userInfo) => {
-  const obj = {
-    id: userInfo.id,
-    firstName: userInfo.firstName,
-    lastName: userInfo.lastName,
-    email: userInfo.email,
-  };
-  await AsyncStorage.setItem(USER_INFO, JSON.stringify(obj));
-  await AsyncStorage.setItem(USER_ID, userInfo.id); // needs to be seperate
-  await setStudentInfo(userInfo.id);
-};
 
-// Get JWT from storage
-export const getJWT = async () => {
-  return await AsyncStorage.getItem(LOGIN_TOKEN);
-};
-
-// Set JWT in storage
-export const setJWT = async (jwt) => {
-  return await AsyncStorage.setItem(LOGIN_TOKEN, jwt);
-};
 
 /** COURSE AND COURSE LIST **/
 
@@ -139,20 +111,6 @@ export const refreshCourseList = async (courseList) => {
       throw e;
     }
   }
-};
-
-export const saveCourseTotalPointsLocally = async (courseId, newTotalPoints) => {
-  const studentInfo = JSON.parse(await AsyncStorage.getItem(STUDENT_INFO));
-
-  const completedCourses = studentInfo.completedCourses;
-  const completedCourseIndex = completedCourses.findIndex(course => course.courseId === courseId.courseId);
-  if (completedCourseIndex !== -1) {
-    completedCourses[completedCourseIndex].totalPoints = newTotalPoints;
-  }
-
-  studentInfo.completedCourses = completedCourses;
-
-  await AsyncStorage.setItem(STUDENT_INFO, JSON.stringify(studentInfo));
 };
 
 /** SECTIONS **/
@@ -585,25 +543,6 @@ export const updateStoredCourses = async () => {
 
 
 /** Other **/
-
-export const checkCourseStoredLocally = async (courseID) => {
-  try{
-    if (await AsyncStorage.getItem(courseID + await AsyncStorage.getItem(USER_ID))){
-      return true;
-    } else {
-      return false;
-    }
-  } catch (e) {
-    if (e?.response?.data != null) {
-      throw e.response.data;
-    } else {
-      throw e;
-    }
-  }
-};
-
-
-
 
 export const clearAsyncStorage = async () => {
   console.log(await AsyncStorage.getAllKeys());

@@ -27,9 +27,6 @@ module.exports = {
       limeGreenDarker: '#8DD08C',
       correctAnswer: '#00897B',
       wrongAnswer: '#CF6679',
-      profileCircle: '#166276',
-      pointsText: '#C1A146',
-      pointsCoin: '#AD872D',
       progressBar: '#5ECCDD',
       progressBarUnFilled: '#E4F2F5',
     },
@@ -38,9 +35,8 @@ module.exports = {
       'montserrat-bold': ['Montserrat-Bold'],
       'montserrat-semi-bold': ['Montserrat-SemiBold'],
       sans: ['"Montserrat-Regular"'],
-      "sans-bold": ["'Montserrat-Bold'"],
-      "sans-semi-bold": ["'Montserrat-SemiBold'"],
-      bold: ['Montserrat-Bold'],
+      'sans-bold': ['\'Montserrat-Bold\''],
+      'sans-semi-bold': ['\'Montserrat-SemiBold\''],
     },
     extend: {
       fontSize: {

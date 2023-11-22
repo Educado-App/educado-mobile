@@ -11,7 +11,7 @@ export default function settingsButton() {
   const navigation = useNavigation();
   
   const handleGearIconPress = () => {
-    navigation.navigate('EditProfile');
+    navigation.navigate('ProfileSettings');
   };
     
   return (

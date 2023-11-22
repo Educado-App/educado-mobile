@@ -7,11 +7,11 @@ import Text from '../../components/general/Text';
 import StandardButton from '../../components/general/StandardButton';
 import AnimatedNumbers from '../../components/gamification/AnimatedNumber';
 import { generateSectionCompletePhrases } from '../../constants/Phrases';
-import { getStudentInfo } from '../../services/StorageService';
+import { getUserInfo } from '../../services/StorageService';
 
 export default function CompleteSectionScreen() {
   const route = useRoute();
-  const { parsedCourse, sectionId } = route.params;
+  const { course, sectionId } = route.params;
   const [points, setPoints] = useState(0);
   const [extraPoints, setExtraPoints] = useState(0);
   // const [totalPointsText, setTotalPointsText] = useState('Pontos');
@@ -69,7 +69,7 @@ export default function CompleteSectionScreen() {
   }
 
   const findCompletedSection = (completedCourses) => {
-    const completedCourse = completedCourses.find((course) => course.courseId === parsedCourse.courseId);
+    const completedCourse = completedCourses.find((course) => course.courseId === course._id);
 
     if (completedCourse) {
       const completedSection = completedCourse.completedSections.find(
@@ -86,10 +86,10 @@ export default function CompleteSectionScreen() {
   };
 
   async function getPointsFromSection() {
-    const studentInfo = await getStudentInfo();
+    const getUser = await getUserInfo();
     const completedSection = findCompletedSection(
-      studentInfo.completedCourses,
-      parsedCourse.courseId,
+      getUser.completedCourses,
+      course._id,
       sectionId,
     );
     if (completedSection === null) {
@@ -144,7 +144,7 @@ export default function CompleteSectionScreen() {
                     { name: 'HomeStack' },
                     {
                       name: 'Section',
-                      params: { parsedCourse },
+                      params: { course },
                     },
                   ],
                 });

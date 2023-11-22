@@ -1,13 +1,12 @@
 import React from 'react';
 import { View } from 'react-native';
-import Text from '../Text';
+import Text from '../general/Text';
 import PropTypes from 'prop-types';
 
 /**
  * Component for showing an alert below a form field
  * @param {Object} props should contain the following properties:
  * - label: String
- * - success: Boolean
  * @returns {React.Element} JSX element for showing alerts
  */
 export default function FormFieldAlert(props) {

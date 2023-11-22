@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Image } from 'react-native';
 import Text from './Text';
+import OfflineBanner from './OfflineBanner';
 import PropTypes from 'prop-types';
 
 /**
@@ -8,26 +9,23 @@ import PropTypes from 'prop-types';
  * @param {string} title - The title to display next to the icon.
  * @returns {JSX.Element} The IconHeader component.
  */
-export default function IconHeader({ title, description }) {
-
-  IconHeader.propTypes = {
-    title: PropTypes.string,
-    description: PropTypes.string,
-  };
-
+export default function IconHeader({ title }) {
   return (
-    <View>
-      <View className="flex flex-row items-center pl-6 pb-2 pt-[20%]">
-            
+
+    <>
+      <OfflineBanner/>
+      <View className="flex flex-row items-center pl-6 pt-[22%] pb-[5%]">
         <Image
           source={require('../../assets/images/singleIcon.png')}
           alt="Icon"
           className="w-8 h-8 mr-2"
         />
         <Text className="text-xl font-bold">{title}</Text>
-            
       </View>
-      <Text className="text-xs font-montserrat px-6 pl-6 pb-4">{description}</Text>
-    </View>
+    </>
   );
 }
+
+IconHeader.propTypes = {
+  title: PropTypes.string.isRequired
+};
