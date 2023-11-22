@@ -89,7 +89,7 @@ export default function CompleteSectionScreen() {
     const studentInfo = await getStudentInfo();
     const completedSection = findCompletedSection(
       studentInfo.completedCourses,
-      parsedCourse.courseId,
+      parsedCourse,
       sectionId,
     );
     if (completedSection === null) {
