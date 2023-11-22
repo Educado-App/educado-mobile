@@ -4,7 +4,8 @@ import axios from 'axios';
 // const testExpo = 'http://172.30.245.78:8888'; //Change to local expo ip
 // const digitalOcean = 'http://207.154.213.68:8888';
 
-const url = 'https://educado-backend-staging-x7rgvjso4a-ew.a.run.app/'; // change to lcd ip when testing
+const url = 'http://172.30.245.212:8888'; // change to lcd ip when testing
+const certificateUrl = 'http://172.30.245.212:8080';
 
 /*** COURSE, SECTIONS AND EXERCISES ***/
 
@@ -193,6 +194,20 @@ export const unSubscribeToCourse = async (userId, courseId) => {
       }
     );
   } catch (e) {
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
+};
+
+// Get certificates from student
+export const fetchCertificates = async (userId) => {
+  try {
+    const res = await axios.get(certificateUrl + '/api/student-certificates/student/' + userId);
+    return res.data;
+  }  catch (e) {
     if (e?.response?.data != null) {
       throw e.response.data;
     } else {

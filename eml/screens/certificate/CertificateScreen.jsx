@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   SafeAreaView,
@@ -11,64 +11,8 @@ import FilterNavBar from '../../components/explore/FilterNavBar';
 import CertificateCard from '../../components/certificate/CertificateCard';
 import { determineCategory } from '../../services/utilityFunctions';
 import CertificatePreview from '../../components/certificate/CertificatePreview';
-
-// ---- TEST DATA ---- //
-const testCertificates = [
-  {
-    studentFirstName: 'Jacob',
-    studentLastName: 'Smith',
-    courseName: 'Curso de React Native',
-    courseCategory: 'electronics',
-    estimatedCourseDuration: 60,
-    dateOfCompletion: '2021-08-01',
-    courseCreator: 'Morten Munk',
-  },
-  {
-    studentFirstName: 'Jacob',
-    studentLastName: 'Smith',
-    courseName: 'Jacob\'s German course',
-    courseCategory: 'personal finance',
-    estimatedCourseDuration: 45,
-    dateOfCompletion: '2021-09-15',
-    courseCreator: 'Morten Munk',
-  },
-  {
-    studentFirstName: 'Jacob',
-    studentLastName: 'Smith',
-    courseName: 'How to count money',
-    courseCategory: 'personal finance',
-    estimatedCourseDuration: 100,
-    dateOfCompletion: '2021-09-15',
-    courseCreator: 'Morten Munk',
-  },
-  {
-    studentFirstName: 'Jacob',
-    studentLastName: 'Smith',
-    courseName: 'Banana peel slipping',
-    courseCategory: 'health and workplace safety',
-    estimatedCourseDuration: 45,
-    dateOfCompletion: '2021-09-15',
-    courseCreator: 'Morten Munk',
-  },
-  {
-    studentFirstName: 'Jacob',
-    studentLastName: 'Smith',
-    courseName: 'Banana peel slipping',
-    courseCategory: 'health and workplace safety',
-    estimatedCourseDuration: 45,
-    dateOfCompletion: '2021-09-15',
-    courseCreator: 'Morten Munk',
-  },
-  {
-    studentFirstName: 'Jacob',
-    studentLastName: 'Smith',
-    courseName: 'Banana peel slipping',
-    courseCategory: 'health and workplace safety',
-    estimatedCourseDuration: 45,
-    dateOfCompletion: '2021-09-15',
-    courseCreator: 'Morten Munk',
-  },
-];
+import { fetchCertificates } from '../../api/api';
+import { getUserInfo } from '../../services/StorageService';
 
 /**
  * Profile screen
@@ -76,8 +20,7 @@ const testCertificates = [
  */
 export default function CertificateScreen() {
   // Sets dummy data for courses (will be replaced with data from backend)
-  const certificates = testCertificates;
-  //const [certificates, setCertificates] = useState(testCertificates);
+  const [certificates, setCertificates] = useState(fetchCertificates(userInfo.id));
 
   // Search text state
   const [searchText, setSearchText] = useState('');
@@ -88,10 +31,16 @@ export default function CertificateScreen() {
   // Certificate to preview state
   const [certificateToPreview, setCertificateToPreview] = useState(null);
 
+  const userInfo = getUserInfo();
+
   // Function to close the reset password modal
   const closeModal = () => {
     setModalVisible(false);
   };
+
+  useEffect(async () => {
+    setCertificates(await fetchCertificates(userInfo.id));
+  }, []);
 
   const handleCertificatePress = (certificate) => {
     // Set the specific certificate to be previewed
