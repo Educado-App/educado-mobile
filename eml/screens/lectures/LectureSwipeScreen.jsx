@@ -50,7 +50,7 @@ export default function LectureSwipeScreen({ route }) {
 
             //If order is important, then it should be handled on the server. However, this here is better than calling the server for every individual lecture or exercise.
             for(let lecture in lectureList){
-              if (lecture._id === component){
+              if (lecture._id === component._id){
                 lectureType = lecture.video ? LectureType.VIDEO : LectureType.TEXT;
                 compType = ComponentType.LECTURE;
                 break;
@@ -58,7 +58,7 @@ export default function LectureSwipeScreen({ route }) {
             }
             if (lectureType === null){
               for(let exercise in exerciseList) {
-                if (exercise._id === component) {
+                if (exercise._id === component._id) {
                   compType = ComponentType.EXERCISE;
                   break;
                 }
