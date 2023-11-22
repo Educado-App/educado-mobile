@@ -156,7 +156,7 @@ export const completeExercise = async (user_id, exercise_id, isComplete, points,
 
 export const getStudentInfo = async (user_Id) => {
   try {
-    const res = await client.get('/api/students/' + user_Id);
+    const res = await client.get('/api/students/' + user_Id + '/info');
     return res.data;
   } catch (err) {
     return err.message;
