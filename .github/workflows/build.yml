@@ -65,9 +65,6 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install Expo CLI globally
-        run: npm install -g expo-cli
-
       - name: Install EAS CLI globally
         run: npm install -g eas-cli
 
@@ -75,7 +72,7 @@ jobs:
         run: cd eml && npm install
 
       - name: Authenticate with Expo 
-        run: eas login -u sofiiagran1 -p ${{ secrets.EXPO_PASSWORD }}
+        run: npx expo login -u sofiiagran1 -p ${{ secrets.EXPO_PASSWORD }}
 
       - name: Install dependencies and build using EAS
         run: cd eml && npm run build
