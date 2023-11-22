@@ -5,7 +5,7 @@ import VideoActions from '../../components/lectures/VideoActions';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import CustomExpoVideoPlayer from '../../components/lectures/VideoPlayer';
 import ReactSliderProgress from './ReactSliderProgress';
-import { getVideoDownloadUrl } from '../../api/api';
+import { getVideoStreamUrl } from '../../api/api';
 import PropTypes from 'prop-types';
 import { useNavigation } from '@react-navigation/native';
 import StandardButton from '../../components/general/StandardButton';
@@ -31,12 +31,8 @@ export default function VideoLectureScreen({ lectureObject, courseObject, isLast
   const [videoUrl, setVideoUrl] = useState(null);
 
   useEffect(() => {
-    const _videoUrl = getVideoDownloadUrl(lectureObject.video);
-
-
-
+    const _videoUrl = getVideoStreamUrl(lectureObject.video, "360");
     //test if video is available for download from internet
-
     setVideoUrl(_videoUrl);
   }, []);
 
@@ -102,6 +98,24 @@ export default function VideoLectureScreen({ lectureObject, courseObject, isLast
   }, [isPlaying]);
 
 
+  const [currentResolution, setCurrentResolution] = useState("360");
+
+  const [allResolutions] = useState([
+    "1080",
+    "720",
+    "480",
+    "360",
+  ]);
+
+  const handleResolutionChange = (newRes) => {
+    setCurrentResolution(newRes);
+  }
+
+  useEffect(() => {
+    const _videoUrl = getVideoStreamUrl(lectureObject.video, currentResolution);
+
+    setVideoUrl(_videoUrl);
+  }, [currentResolution]);
 
 
   return (
@@ -112,7 +126,7 @@ export default function VideoLectureScreen({ lectureObject, courseObject, isLast
       <View className="w-full h-full bg-projectBlack" >
 
         <View className="w-full h-full  bg-projectBlack" >
-          {videoUrl ? 
+          {videoUrl ?
             <CustomExpoVideoPlayer
               videoUrl={videoUrl}
               ref={videoRef}
@@ -134,9 +148,11 @@ export default function VideoLectureScreen({ lectureObject, courseObject, isLast
               <StandardButton
                 props={{
                   buttonText: 'Continuar',
-                  onPress: () => {navigation.navigate('CompleteSection', 
-                    { courseId: courseObject._id, sectionId: lectureObject.parentSection }
-                  );}
+                  onPress: () => {
+                    navigation.navigate('CompleteSection',
+                      { courseId: courseObject._id, sectionId: lectureObject.parentSection }
+                    );
+                  }
                 }}
               />
             </View>
@@ -152,7 +168,14 @@ export default function VideoLectureScreen({ lectureObject, courseObject, isLast
                 <Text className="text-xl text-projectWhite" >{lectureObject.title && lectureObject.title}</Text>
               </View>
 
-              <VideoActions isPlaying={isPlaying} isMuted={isMuted} onVolumeClick={handleMutepress} onPlayClick={handlePress} />
+              <VideoActions
+                isPlaying={isPlaying}
+                isMuted={isMuted}
+                onVolumeClick={handleMutepress}
+                onPlayClick={handlePress}
+                currentResolution={currentResolution}
+                allResolutions={allResolutions}
+                onResolutionChange={(newRes) => handleResolutionChange(newRes)} />
             </View>
 
             <View className="h-[3vh]" />
