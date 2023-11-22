@@ -38,7 +38,7 @@ export default function SectionCard({ section, course }) {
   const handleImagePress = () => {
 
     navigation.navigate('Lecture', {
-      sectionId: section.sectionId,
+      section: section,
       parsedCourse: course,
     });
   };

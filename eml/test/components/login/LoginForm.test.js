@@ -1,7 +1,6 @@
 import renderer from 'react-test-renderer';
 import React from 'react';
 import LoginForm from '../../../components/login/LoginForm';
-import errorCodes from '../../../components/general/errorCodes';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 let loginForm;
@@ -23,9 +22,6 @@ jest.mock('@react-navigation/native', () => ({
 }));
 
 jest.useRealTimers('legacy');
-
-const errorCodesStr = JSON.stringify(errorCodes);
-const errorCodesJSON = JSON.parse(errorCodesStr);
 
 jest.mock('../../../api/userApi', () => ({
   loginUser: jest.fn(async ({ email, password }) => {
