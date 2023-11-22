@@ -9,7 +9,6 @@ import { getVideoStreamUrl } from '../../api/api';
 import PropTypes from 'prop-types';
 import { useNavigation } from '@react-navigation/native';
 import StandardButton from '../../components/general/StandardButton';
-import VideoChangeResolution from '../../components/lectures/VideoChangeResolution';
 
 export default function VideoLectureScreen({ lectureObject, courseObject, isLastSlide }) {
   const navigation = useNavigation();
@@ -101,7 +100,7 @@ export default function VideoLectureScreen({ lectureObject, courseObject, isLast
 
   const [currentResolution, setCurrentResolution] = useState("360");
 
-  const [allResolutions, setAllResolutions] = useState([
+  const [allResolutions] = useState([
     "1080",
     "720",
     "480",

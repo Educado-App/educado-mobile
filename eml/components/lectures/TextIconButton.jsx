@@ -1,5 +1,4 @@
 import React from 'react';
-import tailwindConfig from '../../tailwind.config';
 import PropTypes from 'prop-types';
 
 import { Pressable, View, Text } from 'react-native';

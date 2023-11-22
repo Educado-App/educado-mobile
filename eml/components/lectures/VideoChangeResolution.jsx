@@ -2,7 +2,6 @@
 import React from 'react';
 import { useState } from 'react';
 import { View } from 'react-native';
-import IconButton from './IconButton';
 import PropTypes from 'prop-types';
 
 import TextIconButton from './TextIconButton';
@@ -50,7 +49,7 @@ export default function VideoChangeResolution({ currentResolution = "360", onRes
 
             </View>}
             <View onLayout={(event) => {
-                const { width, height } = event.nativeEvent.layout;
+                const { width } = event.nativeEvent.layout;
                 setMainIconButtonWidth(width);
             }}>
                 <TextIconButton pressed={expanded} text={currentResolution} onClick={toggleExpanded} />
