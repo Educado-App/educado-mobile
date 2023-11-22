@@ -3,8 +3,8 @@ import { View } from 'react-native';
 import Text from '../../components/general/Text';
 import { Image } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { getBucketImage } from '../../api/api';
 import PropTypes from 'prop-types';
+import * as StorageService from '../../services/StorageService';
 import { useNavigation } from '@react-navigation/native';
 import StandardButton from '../../components/general/StandardButton';
 
@@ -23,7 +23,7 @@ const TextImageLectureScreen = ({ lectureObject, courseObject, isLastSlide }) =>
 
   const getLectureImage = async () => {
     try {
-      const imageRes = await getBucketImage(lectureObject.image);
+      const imageRes = await StorageService.fetchLectureImage(lectureObject.image, lectureObject._id);
       setImageUrl(imageRes);
     }
     catch (err) {

@@ -23,7 +23,7 @@ export default function CourseCard({ course }) {
       className="bg-projectWhite m-[3%] rounded-lg shadow-sm shadow-opacity-[0.3] elevation-[8] mx-[5%] p-[5%]"
       onPress={() => {
         navigation.navigate('Section', {
-          courseId: course.courseId,
+          course: course,
         });
       }}
     >
@@ -33,7 +33,7 @@ export default function CourseCard({ course }) {
             {course.title ? course.title : 'Título do curso'}
           </Text>
           <View className="flex-2 pr-6">
-            <DownloadCourseButton/>
+            <DownloadCourseButton course={course}/>
           </View>
         </View>
         <View className="h-[1] bg-disable m-[2%]" />
@@ -53,7 +53,7 @@ export default function CourseCard({ course }) {
           <Pressable className="z-[1]"
             onPress={() => {
               navigation.navigate('Section', {
-                courseId: course.courseId,
+                course: course,
               });
             }}
           >
