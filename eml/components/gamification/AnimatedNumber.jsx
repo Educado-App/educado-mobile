@@ -102,7 +102,7 @@ const AnimatedNumber = ({
             if (typeof n === 'string') {
               return (
                 <Text key={index} className={`${fontStyle}`} style={{ height: numberHeight }}>
-                  {n}
+                  {String(n)}
                 </Text>
               );
             }
@@ -130,7 +130,7 @@ const AnimatedNumber = ({
                   {NUMBERS.map((number, i) => (
                     <View key={i} className="w-fit">
                       <Text className={`${fontStyle}`} style={{ height: numberHeight }}>
-                        {number}
+                        {String(number)}
                       </Text>
                     </View>
                   ))}
@@ -145,7 +145,7 @@ const AnimatedNumber = ({
         style={{ position: 'absolute', top: -999999 }}
         onLayout={setButtonLayout}
       >
-        {0}
+        {String(0)}
       </Text>
     </>
   );
@@ -157,5 +157,5 @@ AnimatedNumber.propTypes = {
   animationDuration: PropTypes.number,
   easing: PropTypes.func,
 };
-  
+
 export default AnimatedNumber;
