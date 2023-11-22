@@ -2,7 +2,6 @@ import * as api from '../api/api.js';
 import * as userApi from '../api/userApi.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const COURSE_LIST = '@courseList';
 const SUB_COURSE_LIST = '@subCourseList';
 const USER_ID = '@userId';
 const USER_INFO = '@userInfo';
