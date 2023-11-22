@@ -31,7 +31,7 @@ export default function VideoLectureScreen({ lectureObject, courseObject, isLast
   const [videoUrl, setVideoUrl] = useState(null);
 
   useEffect(() => {
-    const _videoUrl = getVideoDownloadUrl(lectureObject.video, '180p');
+    const _videoUrl = getVideoDownloadUrl(lectureObject.video);
 
 
 
