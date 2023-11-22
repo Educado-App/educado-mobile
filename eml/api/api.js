@@ -9,7 +9,7 @@ const testExpo = 'http://172.30.211.57:8888';
 const digitalOcean = 'http://207.154.213.68:8888';
 */
 
-const url = 'https://educado-backend-staging-x7rgvjso4a-ew.a.run.app/'; // change to lcd ip when testing
+const url = 'http://192.168.0.3:8888'; // change to lcd ip when testing
 
 /*** COURSE, SECTIONS AND EXERCISES ***/
 
@@ -297,19 +297,6 @@ export const getLectureById = async (lectureId) => {
     }
   }
 
-};
-
-export const getExerciseById = async (exerciseId) => {
-  try {
-    const res = await axios.get(url + '/api/exercises/' + exerciseId);
-    return res.data;
-  } catch (e) {
-    if (e?.response?.data != null) {
-      throw e.response.data;
-    } else {
-      throw e;
-    }
-  }
 };
 
 //CREATED BY VIDEOSTREAM TEAM

@@ -3,7 +3,6 @@ import { View, Text, ActivityIndicator } from 'react-native';
 import Swiper from 'react-native-swiper';
 import ProgressTopBar from './ProgressTopBar';
 import LectureScreen from './LectureScreen';
-import { getSectionByid, getCourse, getExerciseById, getLectureById } from '../../api/api';
 import tailwindConfig from '../../tailwind.config';
 import * as StorageService from '../../services/StorageService';
 import ExerciseScreen from '../excercise/ExerciseScreen';
@@ -25,42 +24,50 @@ const ComponentType = {
  * @returns 
  */
 export default function LectureSwipeScreen({ route }) {
-  const { sectionId, parsedCourse } = route.params;
+  const { section, parsedCourse } = route.params;
   const [loading, setLoading] = useState(true);
   const [currentLectureType, setCurrentLectureType] = useState(LectureType.TEXT);
   const [index, setIndex] = useState(0);
-  const [section, setSection] = useState(null);
-  const [course, setCourse] = useState(null);
   const [scrollEnabled, setScrollEnabled] = useState(true);
   const [combinedLecturesAndExercises, setCombinedLecturesAndExercises] = useState([]);
-  const navigation = useNavigation();
   const swiperRef = useRef(null);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const sectionData = await StorageService.getLectureList(sectionId);//getSectionAndLecturesBySectionId(sectionId);
+        const lectureList = await StorageService.getLectureList(section.sectionId);
+        const exerciseList = await StorageService.getExerciseList(section.sectionId);
         //TODO: get the first uncompleted lecture - set the initial index to that
         const initialIndex = 0;
 
         //get exercises
-        const _exercisesInSection = await StorageService.getExerciseList(sectionId);
-        const _lectures = sectionData;
-        let _combinedLecturesAndExercises = [];
-        for (let comp of sectionData) {
-          try {
 
-            let component, lectureType;
-            if (comp.compType === ComponentType.LECTURE) {
-              component = comp;
-              lectureType = component.video ? LectureType.VIDEO : LectureType.TEXT;
-            } else {
-              component = await getExerciseById(comp.compId);
+        let _combinedLecturesAndExercises = [];
+        for (let component of section.components) {
+          try {
+            let lectureType = null;
+            let compType = null;
+
+            //If order is important, then it should be handled on the server. However, this here is better than calling the server for every individual lecture or exercise.
+            for(let lecture in lectureList){
+              if (lecture._id === component){
+                lectureType = lecture.video ? LectureType.VIDEO : LectureType.TEXT;
+                compType = ComponentType.LECTURE;
+                break;
+              }
             }
-                        
+            if (lectureType === null){
+              for(let exercise in exerciseList) {
+                if (exercise._id === component) {
+                  compType = ComponentType.EXERCISE;
+                  break;
+                }
+              }
+            }
+
             const obj = {   
               component: component,
-              type: comp.compType,
+              type: compType,
               lectureType: lectureType
             };
 
@@ -76,8 +83,6 @@ export default function LectureSwipeScreen({ route }) {
 
         setCombinedLecturesAndExercises(_combinedLecturesAndExercises);
         setCurrentLectureType(_combinedLecturesAndExercises[initialIndex]?.lectureType === LectureType.VIDEO ? LectureType.VIDEO : LectureType.TEXT);
-        setSection(sectionData);
-        setCourse(courseData);
         setIndex(initialIndex);
         setLoading(false);
       } catch (error) {
@@ -86,7 +91,7 @@ export default function LectureSwipeScreen({ route }) {
     }
 
     fetchData();
-  }, [sectionId, parsedCourse]);
+  }, [section, parsedCourse]);
 
 
   const handleExerciseContinue = () => {
@@ -112,7 +117,7 @@ export default function LectureSwipeScreen({ route }) {
     setIndex(_index);
   };
 
-  if (loading || !section || !course || !combinedLecturesAndExercises) {
+  if (loading || !section || !parsedCourse || !combinedLecturesAndExercises) {
     return (
       <View className="flex-col justify-center items-center h-screen" >
         <ActivityIndicator size="large" color={tailwindConfig.theme.colors.primary} />
@@ -124,11 +129,11 @@ export default function LectureSwipeScreen({ route }) {
       <View className="flex-1">
         {combinedLecturesAndExercises && (
           <View className=" absolute top-0 z-10 w-[100%]">
-            <ProgressTopBar courseObject={course} lectureType={currentLectureType} allLectures={combinedLecturesAndExercises} currentLectureIndex={index} />
+            <ProgressTopBar courseObject={parsedCourse} lectureType={currentLectureType} allLectures={combinedLecturesAndExercises} currentLectureIndex={index} />
           </View>
         )}
 
-        {combinedLecturesAndExercises.length > 0 && course && index !== null && (
+        {combinedLecturesAndExercises.length > 0 && parsedCourse && index !== null && (
           <Swiper
             ref={swiperRef}
             index={index}
@@ -139,9 +144,9 @@ export default function LectureSwipeScreen({ route }) {
           >
             {combinedLecturesAndExercises.map((comp, _index) => (
               comp.type === ComponentType.LECTURE ?
-                <LectureScreen key={_index} currentIndex={index} indexCount={combinedLecturesAndExercises.length} lectureObject={comp.component} courseObject={course} />
+                <LectureScreen key={_index} currentIndex={index} indexCount={combinedLecturesAndExercises.length} lectureObject={comp.component} courseObject={parsedCourse} />
                 :
-                <ExerciseScreen key={_index} exerciseObject={comp.component} sectionObject={section} courseObject={course} onContinue={() => handleExerciseContinue()} />
+                <ExerciseScreen key={_index} exerciseObject={comp.component} sectionObject={section} courseObject={parsedCourse} onContinue={() => handleExerciseContinue()} />
             ))}
           </Swiper>
         )}
@@ -153,7 +158,7 @@ export default function LectureSwipeScreen({ route }) {
 LectureSwipeScreen.propTypes = {
   route: PropTypes.shape({
     params: PropTypes.shape({
-      sectionId: PropTypes.string,
+      section: PropTypes.object,
       parsedCourse: PropTypes.object
     }).isRequired,
   }).isRequired,

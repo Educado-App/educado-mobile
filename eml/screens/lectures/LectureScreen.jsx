@@ -7,21 +7,15 @@ import Text from '../../components/general/Text';
 
 export default function LectureScreen({ lectureObject, courseObject, currentIndex, indexCount }) {
 
-  const navigation = useNavigation();
   const [course, setCourse] = useState(courseObject);
   const [lecture, setLecture] = useState(lectureObject);
   const isLastSlide = currentIndex === indexCount - 1;
-  const [progressPercent, setProgressPercent] = useState(null);
   
   useEffect(() => {
     setLecture(lectureObject);
     setCourse(courseObject);
   }, []);
 
-
-  const calculateProgressInPercent = () => {
-    return Math.round((currentIndex / indexCount) * 100);
-  };
 
   //Safe area should not be used if we want to use the full screen
   return (

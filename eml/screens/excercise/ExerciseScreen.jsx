@@ -67,18 +67,6 @@ export default function ExerciseScreen({ exerciseObject, sectionObject, courseOb
     }
   }
   
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setExerciseData(await getExerciseById(givenId));
-        setSectionData(await getSectionById(exercise.parentSection));
-        setCourseData(await getCourse(section.parentCourse));
-        setHasData(true);
-      } catch (error) {
-        console.log('Error fetching data:', error);
-        navigation.navigate('ErrorScreen');
-      }
-    };
 
   return (
     <SafeAreaView className="h-full bg-secondary">
