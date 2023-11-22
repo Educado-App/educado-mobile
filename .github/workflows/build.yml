@@ -65,8 +65,8 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install EXPO CLI globally
-        run: npm install -g expo-cli
+      - name: Install EXPO
+        run: npx install expo@46.0.15
 
       - name: Install EAS CLI globally
         run: npm install -g eas-cli
