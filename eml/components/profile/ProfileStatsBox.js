@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, Image } from 'react-native';
 import CustomProgressBar from '../exercise/Progressbar';
+import PropTypes from 'prop-types';
 
 const ProfileStatsBox = ({ studentPoints, studentLevel, levelProgress }) => {
   return (
@@ -29,6 +30,12 @@ const ProfileStatsBox = ({ studentPoints, studentLevel, levelProgress }) => {
       </View>
     </View>
   );
+};
+
+ProfileStatsBox.propTypes = {
+  studentPoints: PropTypes.number.isRequired,
+  studentLevel: PropTypes.number.isRequired,
+  levelProgress: PropTypes.number.isRequired,
 };
 
 export default ProfileStatsBox;
