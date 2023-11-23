@@ -5,6 +5,9 @@ on:
       - opened
       - synchronize
       - reopened
+    branches-ignore:
+      - stage
+      - main
 jobs:
   test:
     runs-on: ubuntu-latest

@@ -10,6 +10,9 @@ import { shouldUpdate } from '../../services/utilityFunctions';
 import ToastNotification from '../../components/general/ToastNotification';
 import LoadingScreen from '../../components/loading/Loading';
 import NetworkStatusObserver from '../../hooks/NetworkStatusObserver';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import errorSwitch from '../../components/general/errorSwitch';
+import ShowAlert from '../../components/general/ShowAlert';
 
 /**
  * Course screen component that displays a list of courses.
@@ -17,12 +20,6 @@ import NetworkStatusObserver from '../../hooks/NetworkStatusObserver';
  * @returns {JSX.Element} The course screen component.
  */
 export default function CourseScreen() {
-
-  /**
-    * React hook that declares a state variable for courses and a function to update it.
-    * @typedef {[Object[], function]} CourseState
-    * @returns {CourseState} The state variable and its updater function.
-    */
   const [courses, setCourses] = useState([]);
   const [courseLoaded, setCourseLoaded] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
@@ -65,7 +62,20 @@ export default function CourseScreen() {
   }, [navigation]);
 
   useEffect(() => {
-    ToastNotification('success', 'Logado!');
+    const logged = async () => {
+      const loggedIn = await AsyncStorage.getItem('loggedIn');
+      if (loggedIn) {
+        setTimeout(async () => {
+          ToastNotification('success', 'Logado!');
+          await AsyncStorage.removeItem('loggedIn');
+        }, 1000);
+      }
+    };
+    try {
+      logged();
+    } catch (e) {
+      ShowAlert(errorSwitch(e));
+    }
   }, []);
 
   return (
