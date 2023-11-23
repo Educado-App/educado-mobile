@@ -26,7 +26,7 @@ export default function Explore() {
   //Sets dummy data for courses (will be replaced with data from backend)
   const [courses, setCourses] = useState([]);
   const [subCourses, setSubCourses] = useState([]);
-  const [isSubscribed, setIsSubscribed] = useState([]);
+  //const [isSubscribed, setIsSubscribed] = useState([]);
   const [isOnline, setIsOnline] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -121,6 +121,10 @@ export default function Explore() {
 
   }, [navigation, subCourses, selectedCategory, searchText, isOnline]);
 
+  const checkIfSubscribed = (course, subCourses) => {
+    return subCourses.find((subCourse) => subCourse.courseId === course.courseId);
+  };
+
   ///---------------------------------------------///
 
   // Function to filter courses based on searchText or selectedCategory
@@ -199,7 +203,7 @@ export default function Explore() {
                   <ExploreCard
                     key={index}
                     isPublished={course.status === 'published'}
-                    subscribed={isSubscribed[index]}
+                    subscribed={/*isSubscribed[index]*/checkIfSubscribed(course, subCourses)}
                     course={course}
                   ></ExploreCard>
                 ))}
