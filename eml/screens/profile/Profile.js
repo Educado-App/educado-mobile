@@ -13,6 +13,7 @@ import UserInfo from '../../components/profile/UserInfo';
 import { useNavigation } from '@react-navigation/native';
 import { Icon } from '@rneui/themed';
 import CustomProgressBar from '../../components/exercise/Progressbar';
+import { getStudentInfo } from '../../services/StorageService';
 
 const USER_INFO = '@userInfo';
 
@@ -26,6 +27,9 @@ export default function ProfileComponent() {
   const [email, setEmail] = useState('');
   const [points, setPoints] = useState(0);
   const navigation = useNavigation();
+  const [studentLevel, setStudentLevel] = useState(0);
+  const [studentPoints, setStudentPoints] = useState(0);
+  const [levelProgress, setLevelProgress] = useState(0);
 
   useEffect(() => {
     const getInfo = navigation.addListener('focus', () => {
@@ -54,7 +58,19 @@ export default function ProfileComponent() {
   useEffect(() => {
     getProfile();
   }, []);
+
+  const fetchStudentProfile = async () => {
+    const studentInfo = await getStudentInfo();
+    setStudentLevel(studentInfo.level);
+    setStudentPoints(studentInfo.points);
+    setLevelProgress((studentInfo.points/(studentInfo.level * 100)) * 100);
+  };
   
+  useEffect(() => {
+    fetchStudentProfile();
+  }, []);
+
+
   return (
     <SafeAreaView className='bg-secondary'>
       <ScrollView className='flex flex-col'>
@@ -72,7 +88,7 @@ export default function ProfileComponent() {
                 <Image
                   source={require('../../assets/images/profileCoin.png')}
                 />
-                <Text className='text-projectWhite font-sans-bold pt-3'>87 pontos</Text>
+                <Text className='text-projectWhite font-sans-bold pt-3'>{studentPoints} pontos</Text>
               </View>
               <View className='flex flex-col bg-badgesBlue justify-center items-center py-2 rounded-medium w-[32%]'>
                 <Image
@@ -83,8 +99,8 @@ export default function ProfileComponent() {
               </View>
             </View>
             <View className='flex flex-row justify-between p-4 border-projectGray border-t-2'>
-              <Text className='font-sans-bold text-primary'>Nível 1</Text>
-              <CustomProgressBar progress={50} width={65} height={1} displayLabel={false}></CustomProgressBar>
+              <Text className='font-sans-bold text-primary'>Nível {studentLevel}</Text>
+              <CustomProgressBar progress={levelProgress} width={65} height={1} displayLabel={false}></CustomProgressBar>
             </View>
           </View>
           <ProfileNavigationButton label='Editar perfil' testId={'editProfileNav'} onPress={() => navigation.navigate('EditProfile')}></ProfileNavigationButton>
@@ -97,4 +113,4 @@ export default function ProfileComponent() {
       </ScrollView>
     </SafeAreaView>
   );
-}
+  }
