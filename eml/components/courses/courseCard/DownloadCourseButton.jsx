@@ -32,7 +32,7 @@ export default function DownloadCourseButton(props) {
   };
 
   storageCheck();
-  console.log(disabled)
+
   // Play animation based on animation state
   // Hardcoded frame numbers are based on the animation
   // https://lottiefiles.com/animations/download-ZdWE0VoaZW
