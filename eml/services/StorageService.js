@@ -445,7 +445,7 @@ export const unsubscribe = async (courseId) => {
   }
 };
 
-
+/* no need for DB or storageService for this simple thang
 // check if user is subscribed to a course
 export const checkSubscriptions = async (courseId) => {
 
@@ -467,6 +467,7 @@ export const checkSubscriptions = async (courseId) => {
     }
   }
 };
+ */
 
 // A function that calls the backed through the api just to test if it can be reached 
 export const checkIfOnline = async () => {

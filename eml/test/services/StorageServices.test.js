@@ -507,7 +507,7 @@ describe('StorageService Functions', () => {
       expect(api.unSubscribeToCourse).toHaveBeenCalledWith(mockData.userData._id, mockData.courseData._id);
     });
   });
-
+/* function removed, test unnecessary
   describe('checkSubscriptions', () => {
     beforeEach(() => {
       jest.clearAllMocks();
@@ -561,6 +561,7 @@ describe('StorageService Functions', () => {
       expect(api.ifSubscribed).toHaveBeenCalledWith(mockData.userData._id, mockData.courseData._id);
     });
   });
+ */
 
 
   /** Downloading course **/
