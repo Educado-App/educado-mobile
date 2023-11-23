@@ -507,61 +507,6 @@ describe('StorageService Functions', () => {
       expect(api.unSubscribeToCourse).toHaveBeenCalledWith(mockData.userData._id, mockData.courseData._id);
     });
   });
-/* function removed, test unnecessary
-  describe('checkSubscriptions', () => {
-    beforeEach(() => {
-      jest.clearAllMocks();
-    });
-
-    it('should check if the user is subscribed to a course', async () => {
-      // Mock AsyncStorage.getItem to return a user ID
-      AsyncStorage.getItem.mockResolvedValue(mockData.userData._id);
-
-      // Mock the successful behavior of api.ifSubscribed
-      await api.ifSubscribed.mockResolvedValue(true);
-
-      // Call the checkSubscriptions function
-      const result = await StorageService.checkSubscriptions(mockData.courseData._id);
-
-      // Assert that the result is as expected
-      expect(result).toBe(true);
-
-      // Assert that AsyncStorage.getItem was called with the correct arguments
-      expect(AsyncStorage.getItem).toHaveBeenCalledWith('@userId');
-
-      // Assert that api.ifSubscribed was called with the correct arguments
-      expect(api.ifSubscribed).toHaveBeenCalledWith(mockData.userData._id, mockData.courseData._id);
-    });
-
-    it('should throw an error when AsyncStorage getItem fails', async () => {
-      // Mock AsyncStorage.getItem to simulate a failure
-      AsyncStorage.getItem.mockRejectedValue(new Error('Cannot fetch user id from async storage'));
-
-      // Assert that the checkSubscriptions function throws the expected error
-      await expect(StorageService.checkSubscriptions(mockData.courseData._id)).rejects.toThrow('Cannot fetch user id from async storage');
-
-      // Assert that AsyncStorage.getItem was called with the correct arguments
-      expect(AsyncStorage.getItem).toHaveBeenCalledWith('@userId');
-    });
-
-    it('should throw an error when api.ifSubscribed fails', async () => {
-      // Mock AsyncStorage.getItem to return a user ID
-      AsyncStorage.getItem.mockResolvedValue(mockData.userData._id);
-
-      // Mock the behavior of api.ifSubscribed to simulate a failure
-      await api.ifSubscribed.mockRejectedValue(new Error('Subscription check failed'));
-
-      // Assert that the checkSubscriptions function throws the expected error
-      await expect(StorageService.checkSubscriptions(mockData.courseData._id)).rejects.toThrow('Subscription check failed');
-
-      // Assert that AsyncStorage.getItem was called with the correct arguments
-      expect(AsyncStorage.getItem).toHaveBeenCalledWith('@userId');
-
-      // Assert that api.ifSubscribed was called with the correct arguments
-      expect(api.ifSubscribed).toHaveBeenCalledWith(mockData.userData._id, mockData.courseData._id);
-    });
-  });
- */
 
 
   /** Downloading course **/

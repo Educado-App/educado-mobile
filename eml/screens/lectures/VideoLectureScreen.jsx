@@ -31,7 +31,7 @@ export default function VideoLectureScreen({ lectureObject, courseObject, isLast
   const [videoUrl, setVideoUrl] = useState(null);
 
   useEffect(() => {
-    const _videoUrl = getVideoStreamUrl(lectureObject.video, "360");
+    const _videoUrl = getVideoStreamUrl(lectureObject.video, '360');
     //test if video is available for download from internet
     setVideoUrl(_videoUrl);
   }, []);
@@ -98,18 +98,18 @@ export default function VideoLectureScreen({ lectureObject, courseObject, isLast
   }, [isPlaying]);
 
 
-  const [currentResolution, setCurrentResolution] = useState("360");
+  const [currentResolution, setCurrentResolution] = useState('360');
 
   const [allResolutions] = useState([
-    "1080",
-    "720",
-    "480",
-    "360",
+    '1080',
+    '720',
+    '480',
+    '360',
   ]);
 
   const handleResolutionChange = (newRes) => {
     setCurrentResolution(newRes);
-  }
+  };
 
   useEffect(() => {
     const _videoUrl = getVideoStreamUrl(lectureObject.video, currentResolution);
