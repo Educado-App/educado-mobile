@@ -223,29 +223,6 @@ export const unSubscribeToCourse = async (userId, courseId) => {
   }
 };
 
-export const ifSubscribed = async (userId, courseId) => {
-  try {
-    // maybe not best practise to pass user ID as request query
-    // but this is the only format where it works
-    // passing user ID as request body for get request gives error
-    const res = await axios.get(
-      url +
-      '/api/students/subscriptions?user_id=' +
-      userId +
-      '&' +
-      'course_id=' +
-      courseId
-    );
-
-    return res.data;
-  } catch (e) {
-    if (e?.response?.data != null) {
-      throw e.response.data;
-    } else {
-      throw e;
-    }
-  }
-};
 // Call to backend to see if online
 export const checkBackendOnline = async () => {
   let response;
@@ -267,20 +244,20 @@ export const getVideoStreamUrl = (fileName, resolution) => {
 
   let resolutionPostfix = '_360x640';
   switch (resolution) {
-    case '360':
-      resolutionPostfix = '_360x640';
-      break;
-    case '480':
-      resolutionPostfix = '_480x854';
-      break;
-    case '720':
-      resolutionPostfix = '_720x1280';
-      break;
-    case '1080':
-      resolutionPostfix = '_1080x1920';
-      break;
-    default:
-      resolutionPostfix = '_360x640';
+  case '360':
+    resolutionPostfix = '_360x640';
+    break;
+  case '480':
+    resolutionPostfix = '_480x854';
+    break;
+  case '720':
+    resolutionPostfix = '_720x1280';
+    break;
+  case '1080':
+    resolutionPostfix = '_1080x1920';
+    break;
+  default:
+    resolutionPostfix = '_360x640';
   }
 
   const _vidUrl = `${url}/api/bucket/stream/${fileName}${resolutionPostfix}.mp4`;

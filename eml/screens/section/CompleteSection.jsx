@@ -138,16 +138,16 @@ export default function CompleteSectionScreen() {
             props={{
               buttonText: 'Continuar',
               onPress: () => {console.log(parsedCourse),
-                navigation.reset({
-                  index: 1,
-                  routes: [
-                    { name: 'HomeStack' },
-                    {
-                      name: 'Section',
-                      params: { course: parsedCourse },
-                    },
-                  ],
-                });
+              navigation.reset({
+                index: 1,
+                routes: [
+                  { name: 'HomeStack' },
+                  {
+                    name: 'Section',
+                    params: { course: parsedCourse },
+                  },
+                ],
+              });
               },
             }}
           />
