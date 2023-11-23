@@ -74,13 +74,13 @@ export default function ProfileComponent() {
   return (
     <SafeAreaView className='bg-secondary'>
       <ScrollView className='flex flex-col'>
-        <View className="flex-1 justify-start pt-[20%] h-screen">
+        <View className="flex-1 justify-start pt-[20%]">
           <UserInfo firstName={firstName} lastName={lastName} email={email} points={points}></UserInfo>
           <ProfileStatsBox studentPoints={studentPoints} studentLevel={studentLevel} levelProgress={levelProgress} />
           <ProfileNavigationButton label='Editar perfil' testId={'editProfileNav'} onPress={() => navigation.navigate('EditProfile')}></ProfileNavigationButton>
           <ProfileNavigationButton label='Certificados'></ProfileNavigationButton>
           <ProfileNavigationButton label='Download'></ProfileNavigationButton>
-          <View className='flex flex-row'>
+          <View className='flex flex-row pb-4'>
             <LogOutButton testID='logoutBtn'></LogOutButton>
           </View>
         </View>
