@@ -482,7 +482,7 @@ export const storeCourseLocally = async (courseID) => {
           //await api.downloadVideo(lecture.video);
         }
       }
-      let exerciseList = await api.getExercisesInSection(courseID, section._id);
+      let exerciseList = await api.getExercisesInSection(section._id);
       await AsyncStorage.setItem('E' + section._id, JSON.stringify(exerciseList));
     }
   } catch (e) {

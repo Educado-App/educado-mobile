@@ -1,5 +1,5 @@
 import { View, Pressable } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import Text from '../../../components/general/Text';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -8,6 +8,7 @@ import tailwindConfig from '../../../tailwind.config';
 import { determineIcon, determineCategory, formatHours } from '../../../services/utilityFunctions';
 import DownloadCourseButton from './DownloadCourseButton';
 import PropTypes from 'prop-types';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 /**
  * CourseCard component displays a card for a course with its details
@@ -15,16 +16,31 @@ import PropTypes from 'prop-types';
  * @param {Object} props.course - Course object containing course details
  * @returns {JSX.Element} - Rendered component
  */
-export default function CourseCard({ course }) {
+export default function CourseCard({ course, isOnline }) {
+  const [downloaded, setDownloaded] = useState(false);
   const navigation = useNavigation();
+    
+
+  const checkDownload = async () => {
+    let result = !!(await AsyncStorage.getItem(course.courseId + await AsyncStorage.getItem('@userId')));
+    setDownloaded(result);
+  };
+  checkDownload();
+
+  const enabledUI = 'bg-projectWhite m-[3%] rounded-lg shadow-sm shadow-opacity-[0.3] elevation-[8] mx-[5%] p-[5%]';
+  const disabledUI = 'opacity-50 bg-projectWhite m-[3%] rounded-lg shadow-sm shadow-opacity-[0.3] elevation-[8] mx-[5%] p-[5%]';
+
+  const layout = downloaded || isOnline ? enabledUI : disabledUI;
+
+  let isDisabled = layout === disabledUI ? true : false;
 
   return (
     <Pressable testID="courseCard"
-      className="bg-projectWhite m-[3%] rounded-lg shadow-sm shadow-opacity-[0.3] elevation-[8] mx-[5%] p-[5%]"
-      onPress={() => {
+      className={layout}
+      onPress={() => { layout === enabledUI ?
         navigation.navigate('Section', {
           course: course,
-        });
+        }) : null;
       }}
     >
       <View>
@@ -33,7 +49,7 @@ export default function CourseCard({ course }) {
             {course.title ? course.title : 'Título do curso'}
           </Text>
           <View className="flex-2 pr-6">
-            <DownloadCourseButton course={course}/>
+            <DownloadCourseButton course={course} disabled={isDisabled}/>
           </View>
         </View>
         <View className="h-[1] bg-disable m-[2%]" />
@@ -51,10 +67,10 @@ export default function CourseCard({ course }) {
           {/* TODO: Implement progress dynamically */}
           <CustomProgressBar width={56} progress={50} height={1} />
           <Pressable className="z-[1]"
-            onPress={() => {
+            onPress={() => {layout === enabledUI ?
               navigation.navigate('Section', {
                 course: course,
-              });
+              }) : null;
             }}
           >
             <MaterialCommunityIcons size={28} name="play-circle" color={tailwindConfig.theme.colors.primary}></MaterialCommunityIcons>
@@ -69,5 +85,6 @@ CourseCard.propTypes = {
   course: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.array,
-  ])
+  ]),
+  isOnline: PropTypes.bool
 };
