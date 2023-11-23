@@ -119,7 +119,12 @@ export default function Explore() {
   }, [navigation, subCourses, selectedCategory, searchText, isOnline]);
 
   const checkIfSubscribed = (course, subCourses) => {
-    return subCourses.find((subCourse) => subCourse.courseId === course.courseId);
+    for(let subCourse of subCourses){
+      if (subCourse.courseId === course.courseId){
+        return true;
+      }
+    }
+    return false;
   };
 
   ///---------------------------------------------///
