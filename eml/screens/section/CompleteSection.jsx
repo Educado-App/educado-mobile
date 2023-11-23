@@ -7,7 +7,7 @@ import Text from '../../components/general/Text';
 import StandardButton from '../../components/general/StandardButton';
 import AnimatedNumbers from '../../components/gamification/AnimatedNumber';
 import { generateSectionCompletePhrases } from '../../constants/Phrases';
-import { getUserInfo } from '../../services/StorageService';
+import { getStudentInfo } from '../../services/StorageService';
 
 export default function CompleteSectionScreen() {
   const route = useRoute();
@@ -86,10 +86,10 @@ export default function CompleteSectionScreen() {
   };
 
   async function getPointsFromSection() {
-    const getUser = await getUserInfo();
+    const studentInfo = await getStudentInfo();
     const completedSection = findCompletedSection(
-      getUser.completedCourses,
-      parsedCourse.courseId,
+      studentInfo.completedCourses,
+      parsedCourse,
       sectionId,
     );
     if (completedSection === null) {
@@ -137,17 +137,17 @@ export default function CompleteSectionScreen() {
           <StandardButton
             props={{
               buttonText: 'Continuar',
-              onPress: () => {
-                navigation.reset({
-                  index: 1,
-                  routes: [
-                    { name: 'HomeStack' },
-                    {
-                      name: 'Section',
-                      params: { parsedCourse },
-                    },
-                  ],
-                });
+              onPress: () => {console.log(parsedCourse),
+              navigation.reset({
+                index: 1,
+                routes: [
+                  { name: 'HomeStack' },
+                  {
+                    name: 'Section',
+                    params: { course: parsedCourse },
+                  },
+                ],
+              });
               },
             }}
           />

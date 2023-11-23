@@ -1,44 +1,39 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
+import Text from '../../components/general/Text';
 import { Image } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import PropTypes from 'prop-types';
 import * as StorageService from '../../services/StorageService';
+import { useNavigation } from '@react-navigation/native';
+import StandardButton from '../../components/general/StandardButton';
 
-const TextImageLectureScreen = ({ lecture, course }) => {
-
+const TextImageLectureScreen = ({ lectureObject, courseObject, isLastSlide }) => {
   const [imageUrl, setImageUrl] = useState(null);
-
   const [paragraphs, setParagraphs] = useState(null);
+  const navigation = useNavigation();
 
   useEffect(() => {
-
-    if (lecture.image) {
+    if (lectureObject.image) {
       getLectureImage();
     }
-    splitText(lecture.description);
-
+    splitText(lectureObject.description);
   }, []);
 
 
   const getLectureImage = async () => {
-
     try {
-      const imageRes = await StorageService.fetchLectureImage(lecture.image, lecture._id);
+      const imageRes = await StorageService.fetchLectureImage(lectureObject.image, lectureObject._id);
       setImageUrl(imageRes);
     }
     catch (err) {
 
       setImageUrl(null);
     }
-
-
   };
 
   //split text into paragraphs and dont cut words
   const splitText = (text) => {
-
-
     let _paragraphs = [];
 
     if (text.length < 250) {
@@ -76,64 +71,79 @@ const TextImageLectureScreen = ({ lecture, course }) => {
       }
     }
 
-
     // Now, `_paragraphs` contains the split text.
     setParagraphs(_paragraphs);
   };
 
-  return (<View className={'absolute w-full h-full px-4 pt-20'}>
-    {/* <ProgressTopBar progressPercent={progress} color='black' /> */}
-    {/* Content */}
-    <Text className="text-center text-2xl pt-6 font-bold">BEM VINDO!</Text>
-    <ScrollView className=" mt-2">
+  return (
+    <View className={'absolute w-full h-full px-4 pt-20'}>
+      {/* Content */}
+      <Text className="text-center text-2xl pt-6 font-bold">BEM VINDO!</Text>
+      <ScrollView className="mt-2">
 
 
-      {
+        {
         // Rendering all paragraphs above the image if the array has two or fewer elements
         // If the array has more than two elements, rendering all but the last paragraph above the image
-        paragraphs && paragraphs.map((paragraph, index) => {
-          if (paragraphs.length <= 2 || index !== paragraphs.length - 1) {
-            return (
-              index == 0 ?
-                <Text key={`index${index}`} className="text-[18px] pt-4 px-4 text-primary">{paragraph}</Text>
-                :
-                <Text key={`index${index}`} className="text-[18px] pt-4 px-4 text-projectGray">{paragraph}</Text>
-            );
-          }
-          return null;
-        })
-      }
+          paragraphs && paragraphs.map((paragraph, index) => {
+            if (paragraphs.length <= 2 || index !== paragraphs.length - 1) {
+              return (
+                index == 0 ?
+                  <Text key={index} className="text-base pt-4 px-4 text-primary">{paragraph}</Text>
+                  :
+                  <Text key={index} className="text-base pt-4 px-4 text-projectGray">{paragraph}</Text>
+              );
+            }
+            return null;
+          })
+        }
 
-      {/* Image */}
-      {imageUrl && <View className="w-full h-[25vh] px-4 pt-8" >
-        <Image
-          source={{ uri: imageUrl }}
-          className="w-full h-full"
-        />
-      </View>}
-      {
+        {/* Image */}
+        {imageUrl && <View className="w-full h-[25vh] px-4 pt-8" >
+          <Image
+            source={{ uri: imageUrl }}
+            className="w-full h-full"
+          />
+        </View>}
+        {
         // Rendering the last paragraph below the image if the array has more than two elements
-        paragraphs && paragraphs.length > 2 &&
+          paragraphs && paragraphs.length > 2 &&
         <Text className="text-[18px] px-4 text-projectGray">{paragraphs[paragraphs.length - 1]}</Text>
-      }
-    </ScrollView>
+        }
+      </ScrollView>
 
-    <View className="flex-col w-full justify-left drop-shadow-2xl mt-2 pb-4 pt-2" >
-      {/* Course name and lecturen name */}
-      <View className="w-full flex-row justify-between">
+      {isLastSlide ?
+        <View className="w-full items-center">
+          <View className="px-6 mb-3 w-screen">
+            <StandardButton
+              props={{
+                buttonText: 'Continuar',
+                onPress: () => {navigation.navigate('CompleteSection', 
+                  { parsedCourse: courseObject, sectionId: lectureObject.parentSection }
+                );}
+              }}
+            />
+          </View>
+        </View>
+        : null}
 
-        <View className=" flex-col mb-8">
-          <Text className=" text-projectGray " >Nome do curso: {course.title}</Text>
-          <Text className=" text-xl font-bold text-black " >{lecture.title}</Text>
+      <View className="flex-col w-full justify-left drop-shadow-2xl mt-2 pb-4 pt-2" >
+        {/* Course name and lecturen name */}
+        <View className="w-full flex-row justify-between">
+
+          <View className=" flex-col mb-8">
+            <Text className=" text-projectGray " >Nome do curso: {courseObject.title}</Text>
+            <Text className=" text-xl font-bold text-black " >{lectureObject.title}</Text>
+          </View>
         </View>
       </View>
-    </View>
-  </View>);
+    </View>);
 };
 
 TextImageLectureScreen.propTypes = {
-  lecture: PropTypes.object,
-  course: PropTypes.object,
+  lectureObject: PropTypes.object,
+  courseObject: PropTypes.object,
+  isLastSlide: PropTypes.bool
 };
 
 export default TextImageLectureScreen;

@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, ActivityIndicator } from 'react-native';
 import Swiper from 'react-native-swiper';
-import { useNavigation } from '@react-navigation/native';
-
 import ProgressTopBar from './ProgressTopBar';
 import LectureScreen from './LectureScreen';
 import tailwindConfig from '../../tailwind.config';
@@ -10,6 +8,15 @@ import * as StorageService from '../../services/StorageService';
 import ExerciseScreen from '../excercise/ExerciseScreen';
 import PropTypes from 'prop-types';
 
+const LectureType = {
+  TEXT: 'text',
+  VIDEO: 'video',
+};
+
+const ComponentType = {
+  LECTURE: 'lecture',
+  EXERCISE: 'exercise',
+};
 
 /**
  * when navigating to this page sectionId, parsedCourse must be passed as parameters
@@ -17,145 +24,144 @@ import PropTypes from 'prop-types';
  * @returns 
  */
 export default function LectureSwipeScreen({ route }) {
-  const { sectionId, parsedCourse } = route.params;
+  const { section, parsedCourse } = route.params;
   const [loading, setLoading] = useState(true);
-  const [currentLectureType, setCurrentLectureType] = useState('text');
+  const [currentLectureType, setCurrentLectureType] = useState(LectureType.TEXT);
   const [index, setIndex] = useState(0);
+  const [scrollEnabled, setScrollEnabled] = useState(true);
   const [combinedLecturesAndExercises, setCombinedLecturesAndExercises] = useState([]);
-  const navigation = useNavigation();
+  const swiperRef = useRef(null);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const sectionData = await StorageService.getLectureList(sectionId);//getSectionAndLecturesBySectionId(sectionId);
+        const lectureList = await StorageService.getLectureList(section.sectionId);
+        const exerciseList = await StorageService.getExerciseList(section.sectionId);
         //TODO: get the first uncompleted lecture - set the initial index to that
         const initialIndex = 0;
 
         //get exercises
-        const _exercisesInSection = await StorageService.getExerciseList(sectionId);
-        const _lectures = sectionData;
+
         let _combinedLecturesAndExercises = [];
+        for (let component of section.components) {
+          try {
+            let newComp = null;
+            let lectureType = null;
+            let compType = null;
 
-        //first add all lectures
-        _lectures.forEach(lecture => {
-          _combinedLecturesAndExercises.push({
-            component: lecture,
-            type: 'lecture',
-            done: true
-          });
+            //If order is important, then it should be handled on the server. However, this here is better than calling the server for every individual lecture or exercise.
+            for(let lecture of lectureList){
+              if (lecture._id === component.compId){
+                lectureType = lecture.video ? LectureType.VIDEO : LectureType.TEXT;
+                compType = ComponentType.LECTURE;
+                newComp = lecture;
+                break;
+              }
+            }
+            if (lectureType === null){
+              for(let exercise of exerciseList) {
+                if (exercise._id === component.compId) {
+                  compType = ComponentType.EXERCISE;
+                  newComp = exercise;
+                  break;
+                }
+              }
+            }
 
-        });
+            const obj = {   
+              component: newComp,
+              type: compType,
+              lectureType: lectureType
+            };
 
-        if (_exercisesInSection.length > 0) {
-          //then add all exercises
-          _exercisesInSection.forEach(exercise => {
-            _combinedLecturesAndExercises.push({
-              component: exercise,
-              type: 'exercise',
-              done: false
-            });
-          });
-
+            _combinedLecturesAndExercises.push(obj);
+          } catch (error) {
+            console.log(error);
+          }
         }
 
+        if (_combinedLecturesAndExercises[0].type === ComponentType.EXERCISE) {
+          setScrollEnabled(false);
+        }
 
         setCombinedLecturesAndExercises(_combinedLecturesAndExercises);
-        setCurrentLectureType(sectionData[initialIndex]?.video ? 'video' : 'text');
+        setCurrentLectureType(_combinedLecturesAndExercises[initialIndex]?.lectureType === LectureType.VIDEO ? LectureType.VIDEO : LectureType.TEXT);
         setIndex(initialIndex);
         setLoading(false);
       } catch (error) {
-        setLoading(false);
+        setLoading(true);
       }
     }
 
     fetchData();
-  }, [sectionId, parsedCourse]);
+  }, [section, parsedCourse]);
 
 
-  const swiperRef = useRef(null);
+  const handleExerciseContinue = () => {
+    swiperRef.current.scrollBy(1, true);
+    setScrollEnabled(true);
 
-  const handleExerciseContinue = (_index) => {
+    if (index === combinedLecturesAndExercises.length - 1) {
+      return true;
+    } 
 
-    //update the exercise to be marked as done
-    const _combinedLecturesAndExercises = [...combinedLecturesAndExercises];
-    _combinedLecturesAndExercises[_index].done = true;
-    setCombinedLecturesAndExercises(_combinedLecturesAndExercises);
-    //scroll to next if not last index
-    if (_index < combinedLecturesAndExercises.length - 1) {
-      swiperRef.current.scrollTo(_index + 1, true);
-    }
-    else {
-      navigation.navigate('CompleteSection', { sectionId: sectionId, courseId: parsedCourse.courseId });
-    }
+    return false;
   };
 
   const handleIndexChange = (_index) => {
-    const currentLecture = combinedLecturesAndExercises[_index];
+    const currentSlide = combinedLecturesAndExercises[_index];
 
-
-    if (_index > 0) {
-      const previousLecture = combinedLecturesAndExercises[_index - 1];
-
-      // Check if the current component is not marked as done
-      if (!previousLecture.done) {
-        // Disable scrolling to the next slide
-        swiperRef.current.scrollBy(0);
-      }
+    if (currentSlide.type === ComponentType.EXERCISE) {
+      setScrollEnabled(false);
+    } else {
+      const currentLectureType = currentSlide?.lectureType === LectureType.VIDEO ? LectureType.VIDEO : LectureType.TEXT;
+      setCurrentLectureType(currentLectureType);
     }
-
-    const currentLectureType = currentLecture?.component?.video ? 'video' : 'text';
-    setCurrentLectureType(currentLectureType);
     setIndex(_index);
   };
 
-  if (loading) {
+  if (loading || !section || !parsedCourse || !combinedLecturesAndExercises) {
     return (
-      <View className="flex-col justify-center items-center" >
+      <View className="flex-col justify-center items-center h-screen" >
         <ActivityIndicator size="large" color={tailwindConfig.theme.colors.primary} />
         <Text>Loading...</Text>
       </View>
     );
+  } else {
+    return (
+      <View className="flex-1">
+        {combinedLecturesAndExercises && (
+          <View className=" absolute top-0 z-10 w-[100%]">
+            <ProgressTopBar courseObject={parsedCourse} lectureType={currentLectureType} allLectures={combinedLecturesAndExercises} currentLectureIndex={index} />
+          </View>
+        )}
+
+        {combinedLecturesAndExercises.length > 0 && parsedCourse && index !== null && (
+          <Swiper
+            ref={swiperRef}
+            index={index}
+            onIndexChanged={(_index) => handleIndexChange(_index)}
+            loop={false}
+            showsPagination={false}
+            scrollEnabled={scrollEnabled}
+          >
+            {combinedLecturesAndExercises.map((comp, _index) => (
+              comp.type === ComponentType.LECTURE ?
+                <LectureScreen key={_index} currentIndex={index} indexCount={combinedLecturesAndExercises.length} lectureObject={comp.component} courseObject={parsedCourse} />
+                :
+                <ExerciseScreen key={_index} exerciseObject={comp.component} sectionObject={section} courseObject={parsedCourse} onContinue={() => handleExerciseContinue()} />
+            ))}
+          </Swiper>
+        )}
+      </View>
+    );
   }
-
-  return (
-    <View className="flex-1">
-      {combinedLecturesAndExercises && (
-        <View className=" absolute top-0 z-10 w-[100%]">
-          <ProgressTopBar lectureType={currentLectureType} allLectures={combinedLecturesAndExercises} currentLectureIndex={index} />
-        </View>
-      )}
-
-      {combinedLecturesAndExercises.length > 0 && parsedCourse && index !== null && (
-        <Swiper
-          ref={swiperRef}
-          index={index}
-          onIndexChanged={(_index) => handleIndexChange(_index)}
-          showsButtons={false}
-          loop={false}
-          showsPagination={false}
-        >
-          {combinedLecturesAndExercises.map((comp, _index) => (
-            comp.type === 'lecture' ?
-              <LectureScreen key={_index} currentIndex={index} indexCount={combinedLecturesAndExercises.length} lectureObject={comp.component} courseObject={parsedCourse} />
-              :
-            /**
-                             * The exercise screen is not yet implemented because it didnt work in this branch
-                             * I made a function for fecthing the exercises
-                             * the exercise components are can be accessed via:
-                             * comp.component
-                             */
-              <ExerciseScreen key={_index} givenId={comp.component._id} onContinue={() => handleExerciseContinue(_index)} />
-          ))}
-        </Swiper>
-      )}
-    </View>
-  );
 }
 
 LectureSwipeScreen.propTypes = {
   route: PropTypes.shape({
     params: PropTypes.shape({
-      sectionId: PropTypes.string,
+      section: PropTypes.object,
       parsedCourse: PropTypes.object
     }).isRequired,
   }).isRequired,
