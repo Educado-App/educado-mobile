@@ -16,21 +16,23 @@ const ANIMATION_STATES = {
 /**
  * DownloadCourseButton component displays a button that downloads a course
  * @param {object} course - The course the button is on
+ * @param {boolean} disabled - Whether the button is disabled or not
  * @returns {JSX.Element} - The DownloadCourseButton component
  */
-export default function DownloadCourseButton(course, {disabled = false}) {
+export default function DownloadCourseButton(props) {
+  const {course, disabled = false} = props;
   const animationRef = useRef(null);
   const [animationState, setAnimationState] = useState(ANIMATION_STATES.INITIAL);
 
   const storageCheck = async () => {
     if (animationState === ANIMATION_STATES.INITIAL || animationState === ANIMATION_STATES.COMPLETED) {
-      let result = await StorageService.checkCourseStoredLocally(course.course.courseId);
+      let result = await StorageService.checkCourseStoredLocally(course.courseId);
       setAnimationState(result ? ANIMATION_STATES.COMPLETED : ANIMATION_STATES.INITIAL);
     }
   };
 
   storageCheck();
-
+  console.log(disabled)
   // Play animation based on animation state
   // Hardcoded frame numbers are based on the animation
   // https://lottiefiles.com/animations/download-ZdWE0VoaZW
@@ -72,7 +74,7 @@ export default function DownloadCourseButton(course, {disabled = false}) {
         text: 'Baixar',
         onPress: async () => {
           setAnimationState(ANIMATION_STATES.DOWNLOADING);
-          await StorageService.storeCourseLocally(course.course.courseId).then(result => {
+          await StorageService.storeCourseLocally(course.courseId).then(result => {
             if (result){
               setAnimationState(ANIMATION_STATES.FINISHING);
             } else {
@@ -93,7 +95,7 @@ export default function DownloadCourseButton(course, {disabled = false}) {
       {
         text: 'Remover',
         onPress: () => {
-          StorageService.deleteLocallyStoredCourse(course.course.courseId).then(result => {
+          StorageService.deleteLocallyStoredCourse(course.courseId).then(result => {
             if(result){
               setAnimationState(ANIMATION_STATES.DELETE);
             } else {
@@ -107,6 +109,9 @@ export default function DownloadCourseButton(course, {disabled = false}) {
     ]);
 
   const handlePress = () => {
+    if (disabled) {
+      return;
+    }
     if (animationState === ANIMATION_STATES.INITIAL) {
       downloadConfirmation();
     }
@@ -128,5 +133,6 @@ export default function DownloadCourseButton(course, {disabled = false}) {
 }
 
 DownloadCourseButton.propTypes = {
+  course: PropTypes.object,
   disabled: PropTypes.bool,
 };

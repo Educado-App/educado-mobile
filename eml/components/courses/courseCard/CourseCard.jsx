@@ -29,15 +29,15 @@ export default function CourseCard({ course, isOnline }) {
     }
     checkDownload();
 
-    const enabled = "bg-projectWhite m-[3%] rounded-lg shadow-sm shadow-opacity-[0.3] elevation-[8] mx-[5%] p-[5%]";
-    const disabled = "opacity-50 bg-projectWhite m-[3%] rounded-lg shadow-sm shadow-opacity-[0.3] elevation-[8] mx-[5%] p-[5%]";
+    const enabledUI = "bg-projectWhite m-[3%] rounded-lg shadow-sm shadow-opacity-[0.3] elevation-[8] mx-[5%] p-[5%]";
+    const disabledUI = "opacity-50 bg-projectWhite m-[3%] rounded-lg shadow-sm shadow-opacity-[0.3] elevation-[8] mx-[5%] p-[5%]";
 
-    const layout = downloaded || isOnline ? enabled : disabled;
+    const layout = downloaded || isOnline ? enabledUI : disabledUI;
 
     return (
             <Pressable testID="courseCard"
                 className={layout}
-                onPress={() => { layout === enabled ?
+                onPress={() => { layout === enabledUI ?
                     navigation.navigate('Section', {
                         course: course,
                     }) : null
@@ -49,7 +49,7 @@ export default function CourseCard({ course, isOnline }) {
                             {course.title ? course.title : 'Título do curso'}
                         </Text>
                         <View className="flex-2 pr-6">
-                            <DownloadCourseButton course={course} disabled={layout === disabled ? true : false}/>
+                            <DownloadCourseButton course={course} disabled={layout === disabledUI ? true : false}/>
                         </View>
                     </View>
                     <View className="h-[1] bg-disable m-[2%]" />
@@ -67,9 +67,9 @@ export default function CourseCard({ course, isOnline }) {
                         {/* TODO: Implement progress dynamically */}
                         <CustomProgressBar width={56} progress={50} height={1} />
                         <Pressable className="z-[1]"
-                            onPress={() => {layout === enabled ?
+                            onPress={() => {layout === enabledUI ?
                                 navigation.navigate('Section', {
-                                    courseId: course.courseId,
+                                    course: course,
                                 }) : null
                             }}
                         >
