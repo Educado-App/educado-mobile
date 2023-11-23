@@ -39,7 +39,7 @@ export default function CourseCard({ course, isOnline }) {
                 className={layout}
                 onPress={() => { layout === enabled ?
                     navigation.navigate('Section', {
-                        courseId: course.courseId,
+                        course: course,
                     }) : null
                 }}
             >
@@ -49,7 +49,7 @@ export default function CourseCard({ course, isOnline }) {
                             {course.title ? course.title : 'Título do curso'}
                         </Text>
                         <View className="flex-2 pr-6">
-                            <DownloadCourseButton disabled={layout === disabled ? true : false}/>
+                            <DownloadCourseButton course={course} disabled={layout === disabled ? true : false}/>
                         </View>
                     </View>
                     <View className="h-[1] bg-disable m-[2%]" />

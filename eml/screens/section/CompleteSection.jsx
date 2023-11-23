@@ -137,7 +137,7 @@ export default function CompleteSectionScreen() {
           <StandardButton
             props={{
               buttonText: 'Continuar',
-              onPress: () => {console.log(parsedCourse),
+              onPress: () => {
                 navigation.reset({
                   index: 1,
                   routes: [
