@@ -58,7 +58,7 @@ export default function CourseScreen() {
   const checkOnline = async () => {
     let result = await StorageService.checkIfOnline();
     setIsOnline(result);
-  }
+  };
   
 
   useEffect(() => {
@@ -69,7 +69,7 @@ export default function CourseScreen() {
 
     // Clear interval on component unmount
     return () => clearInterval(intervalId);
-}, []);
+  }, []);
 
   // When refreshing the loadCourses function is called
   const onRefresh = () => {
