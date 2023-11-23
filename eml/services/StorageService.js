@@ -2,6 +2,7 @@ import * as api from '../api/api.js';
 import * as userApi from '../api/userApi.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import RNFS from 'react-native-fs';
+import {getVideoStreamUrl} from "../api/api.js";
 
 const SUB_COURSE_LIST = '@subCourseList';
 const USER_ID = '@userId';
@@ -285,6 +286,28 @@ export const fetchLectureImage = async (imageID, lectureID) => {
   }
 };
 
+// get videoURL for a Lecture
+export const getLectureVideoURL = async (videoName) => {
+  let videoUrl;
+  try {
+    videoUrl = api.getVideoStreamUrl(videoName, '360');
+
+  } catch (unusedErrorMessage) {
+    // Use locally stored video if they exist and the DB cannot be reached
+    try {
+      videoUrl = lectureVideoPath+videoName;
+    } catch (e){
+      if (e?.response?.data != null) {
+        throw e.response.data;
+      } else {
+        throw e;
+      }
+    }
+  } finally {
+    return videoUrl;
+  }
+};
+
 /** EXERCISES **/
 
 // get all Exercises for specific section
@@ -490,7 +513,7 @@ export const storeCourseLocally = async (courseID) => {
           await makeDirectory(lectureVideoPath);
           console.log(RNFS.DocumentDirectoryPath);
           console.log('video url: ' + lecture.video);
-          console.log(await api.getBucketImage(lecture.video))
+          console.log(await api.getBucketImage(lecture.video));
           //await createFile(lecture.video, await api.getBucketImage(lecture.video));
 
         }
@@ -543,9 +566,8 @@ export const deleteLocallyStoredCourse = async (courseID) => {
             
       for (let lecture of lectureList) {
         await AsyncStorage.removeItem('I' + lecture._id);
-        //delete video here
-        //await unlink(RNBackgroundDownloader.directories.documents + '/' + lecture.video);
-        //console.log('FILE DELETED');
+        //await RNFS.unlink(lectureVideoPath+lecture.video);
+        console.log(lectureVideoPath+lecture.video);
       }
     }
   } catch (e) {
