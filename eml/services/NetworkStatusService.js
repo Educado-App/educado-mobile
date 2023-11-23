@@ -12,7 +12,7 @@ export class NetworkStatusService {
 
   constructor() {
     if (NetworkStatusService.#instance) {
-      throw('NetworkStatusService is a singleton. Use NetworkStatusService.getInstance() instead.');
+      throw new Error('NetworkStatusService is a singleton. Use NetworkStatusService.getInstance() instead.');
     }
     this.#initializeNetworkInfo();
     NetworkStatusService.#instance = this;

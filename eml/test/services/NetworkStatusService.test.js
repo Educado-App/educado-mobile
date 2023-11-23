@@ -15,6 +15,14 @@ describe('NetworkStatusService', () => {
         jest.resetModules();
     });
 
+    test('should throw an error when constructor is called directly after an instance is already created', () => {
+        // First, ensure a singleton instance is already created
+        NetworkStatusService.getInstance();
+
+        // Now, any direct call to the constructor should throw an error
+        expect(() => new NetworkStatusService()).toThrow(Error);
+    });
+
     test('should implement singleton pattern', () => {
         const instance1 = NetworkStatusService.getInstance();
         const instance2 = NetworkStatusService.getInstance();
