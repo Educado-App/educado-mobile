@@ -542,7 +542,7 @@ describe('StorageService Functions', () => {
       expect(api.getAllSections).toHaveBeenCalledWith(mockCourseID);
       expect(api.getLecturesInSection).toHaveBeenCalledWith('section_id');
       expect(api.getBucketImage).toHaveBeenCalledWith('image_id');
-      expect(api.getExercisesInSection).toHaveBeenCalledWith(mockCourseID, 'section_id');
+      expect(api.getExercisesInSection).toHaveBeenCalledWith('section_id');
       expect(AsyncStorage.setItem).toHaveBeenCalledTimes(5); // Check the actual count based on your calls
     });
 
