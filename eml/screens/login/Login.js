@@ -32,6 +32,7 @@ export default function Login() {
     try {
       const fetchedToken = await AsyncStorage.getItem(LOGIN_TOKEN);
       if (fetchedToken !== null) {
+        await AsyncStorage.setItem('loggedIn', 'true');
         StorageService.updateStoredCourses();
         navigation.navigate('HomeStack');
       }
