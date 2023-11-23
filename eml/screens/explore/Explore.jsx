@@ -9,8 +9,8 @@ import BaseScreen from '../../components/general/BaseScreen';
 import IconHeader from '../../components/general/IconHeader';
 import { shouldUpdate, determineCategory } from '../../services/utilityFunctions';
 import Text from '../../components/general/Text';
-import LoadingScreen from '../../components/loading/Loading';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import NetworkStatusObserver from '../../hooks/NetworkStatusObserver';
 
 /**
  * Explore screen displays all courses and allows the user to filter them by category or search text.
@@ -28,24 +28,7 @@ export default function Explore() {
   const [subCourses, setSubCourses] = useState([]);
   const [isOnline, setIsOnline] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
-  const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
-
-
-  /**
-   * Checks the backend connection.
-   * @returns {Promise<void>}
-   */
-  const checkBackendConnection = async () => {
-    try {
-      setIsOnline(await StorageService.checkIfOnline());
-      setLoading(false);
-    } catch (error) {
-      setLoading(false);
-      throw error;
-    }
-  };
-  checkBackendConnection();
 
   /**
   * Asynchronous function that loads the subscribed courses from storage and updates the state.
@@ -90,7 +73,6 @@ export default function Explore() {
   useEffect(() => {
     // this makes sure loadcourses is called when the screen is focused
     const update = navigation.addListener('focus', () => {
-      checkBackendConnection();
       loadCourses();
       loadSubscriptions();
     });
@@ -135,7 +117,8 @@ export default function Explore() {
   };
 
   return (
-    loading ? (<LoadingScreen />) : (
+    <>
+      <NetworkStatusObserver setIsOnline={setIsOnline} />
       <BaseScreen>
         <IconHeader
           title={'Explorar cursos'}
@@ -194,5 +177,6 @@ export default function Explore() {
           </View>
         }
       </BaseScreen>
-    ));
+    </>
+  );
 }
