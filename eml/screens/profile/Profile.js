@@ -27,6 +27,7 @@ export default function ProfileComponent() {
   const [studentLevel, setStudentLevel] = useState(0);
   const [studentPoints, setStudentPoints] = useState(0);
   const [levelProgress, setLevelProgress] = useState(0);
+  const [totalPoints, setTotalPoints] = useState(0);
 
   useEffect(() => {
     const getInfo = navigation.addListener('focus', () => {
@@ -36,7 +37,7 @@ export default function ProfileComponent() {
   }, [navigation]);
 
   /**
-  * Fetches the user's profile from the local storage
+  * Fetches the user's profile from local storage
   */ 
   const getProfile = async () => {
     try {
@@ -47,6 +48,7 @@ export default function ProfileComponent() {
         setLastName(fetchedProfile.lastName);
         setEmail(fetchedProfile.email);
         setPoints(fetchedStudent.points);
+        setTotalPoints(await calculateTotalPoints(fetchedStudent.level, fetchedStudent.points));
       }
     } catch (error) {
       ShowAlert(errorSwitch(error));
@@ -61,20 +63,28 @@ export default function ProfileComponent() {
     const studentInfo = await getStudentInfo();
     setStudentLevel(studentInfo.level);
     setStudentPoints(studentInfo.points);
-    setLevelProgress((studentInfo.points/(studentInfo.level * 100)) * 100);
+    setLevelProgress((studentInfo.points / (studentInfo.level * 100)) * 100);
+    setTotalPoints(await calculateTotalPoints(studentInfo.level, studentInfo.points));
   };
   
   useEffect(() => {
     fetchStudentProfile();
   }, []);
 
+  const calculateTotalPoints = async (level, currentPoints) => {
+    let levelPoints = 0;
+    for (let i = 1; i <= level; i++) {
+      levelPoints = levelPoints + (i * 100);
+    }
+    return levelPoints + currentPoints;
+  };
 
   return (
     <SafeAreaView className='bg-secondary'>
       <ScrollView className='flex flex-col'>
         <View className="flex-1 justify-start pt-[20%]">
-          <UserInfo firstName={firstName} lastName={lastName} email={email} points={points}></UserInfo>
-          <ProfileStatsBox studentPoints={studentPoints} studentLevel={studentLevel} levelProgress={levelProgress} />
+          <UserInfo firstName={firstName} lastName={lastName} email={email} points={totalPoints}></UserInfo>
+          <ProfileStatsBox studentPoints={studentPoints} studentLevel={studentLevel} levelProgress={levelProgress} totalPoints={totalPoints} />
           <ProfileNavigationButton label='Editar perfil' testId={'editProfileNav'} onPress={() => navigation.navigate('EditProfile')}></ProfileNavigationButton>
           <ProfileNavigationButton label='Certificados'></ProfileNavigationButton>
           <ProfileNavigationButton label='Download'></ProfileNavigationButton>
