@@ -7,9 +7,9 @@ import { Icon } from '@rneui/themed';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import PopUp from '../../components/gamification/PopUp';
 import { StatusBar } from 'expo-status-bar';
-import PropTypes from 'prop-types';
-// import { getLoginToken, getUserInfo } from '../../services/StorageService';
 import { givePoints } from '../../services/utilityFunctions';
+import PropTypes from 'prop-types';
+
 
 export default function ExerciseScreen({ exerciseObject, sectionObject, courseObject, onContinue }) {
   const tailwindConfig = require('../../tailwind.config.js');
@@ -63,6 +63,7 @@ export default function ExerciseScreen({ exerciseObject, sectionObject, courseOb
       }
     }
   }
+  
 
   return (
     <SafeAreaView className="h-full bg-secondary">

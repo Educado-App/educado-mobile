@@ -1,5 +1,18 @@
+
 {
   "expo": {
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "compileSdkVersion": 33,
+            "targetSdkVersion": 33,
+            "buildToolsVersion": "33.0.0"
+          }
+        }
+      ]
+    ],
     "name": "Educado",
     "slug": "educado-mobile",
     "version": "1.0.0",
@@ -32,9 +45,9 @@
     },
     "extra": {
       "eas": {
-        "projectId": "c5fe94c6-f83d-499b-8c99-e30e712bbb5b"
+        "projectId": "33029e48-261a-46db-a3d6-211aa40139f0"
       }
     },
-    "owner": "sofiiagran"
+    "owner": "sofiiagran1"
   }
 }

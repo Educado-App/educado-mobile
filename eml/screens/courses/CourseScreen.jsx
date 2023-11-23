@@ -29,6 +29,7 @@ export default function CourseScreen() {
   const [courses, setCourses] = useState([]);
   const [courseLoaded, setCourseLoaded] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
+  const [isOnline, setIsOnline] = useState(true);
   const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
 
@@ -57,6 +58,21 @@ export default function CourseScreen() {
     }
     setLoading(false);
   }
+  const checkOnline = async () => {
+    let result = await StorageService.checkIfOnline();
+    setIsOnline(result);
+  };
+  
+
+  useEffect(() => {
+    // Check once on mount
+    checkOnline();
+
+    const intervalId = setInterval(checkOnline, 10000);
+
+    // Clear interval on component unmount
+    return () => clearInterval(intervalId);
+  }, []);
 
   // When refreshing the loadCourses function is called
   const onRefresh = () => {
@@ -105,7 +121,7 @@ export default function CourseScreen() {
             />
             <ScrollView showsVerticalScrollIndicator={false} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
               {courses.map((course, index) => (
-                <CourseCard key={index} course={course}></CourseCard>
+                <CourseCard key={index} course={course} isOnline={isOnline}></CourseCard>
               )
               )
               }

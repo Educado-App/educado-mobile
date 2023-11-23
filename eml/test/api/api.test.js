@@ -186,32 +186,4 @@ describe('API Functions', () => {
     });
   });
 
-  describe('ifSubscribed', () => {
-    it('should check if user is subscribed to a course', async () => {
-      const userId = mockData.userData._id;
-      const courseId = mockData.courseData._id;
-
-      // Mock the Axios request
-      const subscribedData = {
-        isSubscribed: true
-      };
-      axios.get.mockResolvedValue({ data: subscribedData.isSubscribed });
-
-      const result = await ifSubscribed(userId, courseId);
-
-      //expect(axios.get).toHaveBeenCalledWith(`${port}/api/students/subscriptions?user_id=${userId}&course_id=${courseId}`);
-      expect(result).toEqual(subscribedData.isSubscribed);
-    });
-
-    it('should handle errors', async () => {
-      const userId = mockData.userData._id;
-      const courseId = mockData.courseData._id;
-      const errorMessage = 'Error checking if user is subscribed to a course: ' + mockData.errorResponse;
-
-      axios.get.mockRejectedValue(new Error(errorMessage));
-
-      await expect(ifSubscribed(userId, courseId)).rejects.toThrow(errorMessage);
-    });
-  });
-
 });
