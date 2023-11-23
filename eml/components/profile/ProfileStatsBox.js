@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text } from 'react-native';
 import CustomProgressBar from '../exercise/Progressbar';
 import PropTypes from 'prop-types';
 
-const ProfileStatsBox = ({ studentPoints, studentLevel, levelProgress }) => {
+const ProfileStatsBox = ({ studentLevel, levelProgress }) => {
   return (
     <View className='m-2 rounded-medium'>
       {/* <View className='flex flex-row justify-between items-center p-3 w-full'>
@@ -33,7 +33,6 @@ const ProfileStatsBox = ({ studentPoints, studentLevel, levelProgress }) => {
 };
 
 ProfileStatsBox.propTypes = {
-  studentPoints: PropTypes.number.isRequired,
   studentLevel: PropTypes.number.isRequired,
   levelProgress: PropTypes.number.isRequired,
 };
