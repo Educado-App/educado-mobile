@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { View, ScrollView, RefreshControl } from 'react-native';
+import { View, ScrollView, RefreshControl, Pressable } from 'react-native';
 import FilterNavBar from '../../components/explore/FilterNavBar';
 import ExploreCard from '../../components/explore/ExploreCard';
 import * as StorageService from '../../services/StorageService';
@@ -8,6 +8,9 @@ import { useNavigation } from '@react-navigation/native';
 import BaseScreen from '../../components/general/BaseScreen';
 import IconHeader from '../../components/general/IconHeader';
 import { shouldUpdate, determineCategory } from '../../services/utilityFunctions';
+import Text from '../../components/general/Text';
+import LoadingScreen from '../../components/loading/Loading';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 /**
  * Explore screen displays all courses and allows the user to filter them by category or search text.
@@ -24,10 +27,26 @@ export default function Explore() {
   const [courses, setCourses] = useState([]);
   const [subCourses, setSubCourses] = useState([]);
   const [isSubscribed, setIsSubscribed] = useState([]);
-
+  const [isOnline, setIsOnline] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
+  const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
 
+
+  /**
+   * Checks the backend connection.
+   * @returns {Promise<void>}
+   */
+  const checkBackendConnection = async () => {
+    try {
+      setIsOnline(await StorageService.checkIfOnline());
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      throw error;
+    }
+  };
+  checkBackendConnection();
 
   /**
   * Asynchronous function that loads the subscribed courses from storage and updates the state.
@@ -90,6 +109,7 @@ export default function Explore() {
   useEffect(() => {
     // this makes sure loadcourses is called when the screen is focused
     const update = navigation.addListener('focus', () => {
+      checkBackendConnection();
       loadCourses();
       loadSubscriptions();
     });
@@ -99,7 +119,7 @@ export default function Explore() {
     });
     return update;
 
-  }, [navigation, subCourses]);
+  }, [navigation, subCourses, selectedCategory, searchText, isOnline]);
 
   ///---------------------------------------------///
 
@@ -129,29 +149,64 @@ export default function Explore() {
   };
 
   return (
-    <BaseScreen>
-      <IconHeader 
-        title={"Explorar cursos"}
-        description={"Inscreva-se nos cursos do seu interesse e comece sua jornada"}
-      />
-
-      <FilterNavBar
-        onChangeText={(text) => handleFilter(text)}
-        onCategoryChange={handleCategoryFilter}
-      />
-      <ScrollView showsVerticalScrollIndicator={false} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
-        <View className="overflow-y-auto">
-          {courses && filteredCourses && filteredCourses.map((course, index) => (
-            <ExploreCard
-              key={index}
-              isPublished={course.status === 'published'}
-              subscribed={isSubscribed[index]}
-              course={course}
-            ></ExploreCard>
-          ))}
-        </View>
-      </ScrollView>
-
-    </BaseScreen>
-  );
+    loading ? (<LoadingScreen />) : (
+      <BaseScreen>
+        <IconHeader
+          title={'Explorar cursos'}
+          description={'Inscreva-se nos cursos do seu interesse e comece sua jornada'}
+        />
+        {!isOnline ?
+          <View>
+            <View className="justify-center px-1 pt-6">
+              <MaterialCommunityIcons name="wifi-off" size={160} color="black" style={{ alignSelf: 'center' }} />
+              <Text className="text-center font-montserrat-semi-bold text-[24px]">
+                {'\n'}Sem conexão com internet.
+              </Text>
+              <View className="flex-row flex-wrap justify-center">
+                <Text className="text-center text-body">
+                  {/* You are offline. Connect to the internet to explore the courses. */}
+                  {'\n'}Você está sem acesso a internet. Vá para
+                </Text>
+                <View className="flex-row flex-wrap justify-center">
+                  <Text className="text-center text-body font-montserrat-bold">
+                    meus cursos
+                  </Text>
+                  <Text className="text-center text-body">
+                    e acesse os cursos baixados.{'\n'}
+                  </Text>
+                </View>
+              </View>
+              <View className="items-center pt-6">
+                <Pressable
+                  testID={'offlineExploreButton'}
+                  className="rounded-r-8 rounded-md bg-primary justify-center items-center p-2 h-14 w-80"
+                  onPress={() => navigation.navigate('Meus cursos')}>
+                  {/* Click to explore courses */}
+                  <Text className="text-projectWhite font-sans-bold text-center text-body" >Ir para Meus cursos</Text>
+                </Pressable>
+              </View>
+            </View>
+          </View>
+          :
+          <View height="77%">
+            <FilterNavBar
+              onChangeText={(text) => handleFilter(text)}
+              onCategoryChange={handleCategoryFilter}
+            />
+            <ScrollView showsVerticalScrollIndicator={false} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
+              <View className="overflow-y-auto">
+                {courses && filteredCourses && filteredCourses.map((course, index) => (
+                  <ExploreCard
+                    key={index}
+                    isPublished={course.status === 'published'}
+                    subscribed={isSubscribed[index]}
+                    course={course}
+                  ></ExploreCard>
+                ))}
+              </View>
+            </ScrollView>
+          </View>
+        }
+      </BaseScreen>
+    ));
 }

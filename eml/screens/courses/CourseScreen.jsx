@@ -8,6 +8,7 @@ import BaseScreen from '../../components/general/BaseScreen';
 import IconHeader from '../../components/general/IconHeader';
 import { shouldUpdate } from '../../services/utilityFunctions';
 import ToastNotification from '../../components/general/ToastNotification';
+import LoadingScreen from '../../components/loading/Loading';
 
 /**
  * Course screen component that displays a list of courses.
@@ -26,6 +27,7 @@ export default function CourseScreen() {
   const [courseLoaded, setCourseLoaded] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [isOnline, setIsOnline] = useState(true);
+  const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
 
   /**
@@ -51,6 +53,7 @@ export default function CourseScreen() {
         setCourseLoaded(false);
       }
     }
+    setLoading(false);
   }
   const checkOnline = async () => {
     let result = await StorageService.checkIfOnline();
@@ -88,45 +91,51 @@ export default function CourseScreen() {
   }, []);
 
   return (
-    <BaseScreen>
-        <IconHeader title={'Bem Vindo!'}  />
-      {/** Checks if the course(s) has been loaded
+    loading ? <LoadingScreen /> :
+      <BaseScreen>
+        {/** Checks if the course(s) has been loaded
              * If it has, it will render and map the courses
              * If not, it will render a message saying that there are no active courses (in portugese)
              */}
-      {courseLoaded ?
-        <View height="100%">
-          <ScrollView showsVerticalScrollIndicator={false} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
-            {courses.map((course, index) => (
-              <CourseCard key={index} course={course} isOnline={isOnline}></CourseCard>
-            )
-            )
-            }
-          </ScrollView>
-        </View>
-        :
-        <View className=" justify-center items-center bg-secondary ">
-          <View className="pt-24 pb-16">
-            <Image source={require('../../assets/images/logo.png')} className=" justify-center items-center w-[175.88] h-[25.54] " />
+        {courseLoaded ?
+          <View height="100%">
+            <IconHeader
+              title={'Bem Vindo!'}
+              description={'Aqui você encontra todos os cursos em que você está inscrito!'}
+            />
+            <ScrollView showsVerticalScrollIndicator={false} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
+              {courses.map((course, index) => (
+                <CourseCard key={index} course={course} isOnline={isOnline}></CourseCard>
+              )
+              )
+              }
+            </ScrollView>
           </View>
-          <View className=" justify-center items-center pb-24 pt-24 gap-10 ">
-            <View className=" justify-center items-center w-[342] h-[308.02] ">
-              {/* No active courses */}
-              <Image source={require('../../assets/images/no-courses.png')} />
-              <Text className=" leading-[29.26] text-projectBlack pb-4 pt-4 font-sans-bold text-subheading text-center " >Comece agora</Text>
-              <Text className=" text-projectBlack leading-[19.5] font-montserrat text-center text-body " > Você ainda não se increveu em nenhum curso. Acesse a página Explore e use a busca para encontrar cursos do seu intresse.</Text>
+          :
+          <View className="bg-secondary justify-center items-center ">
+            <View className="pt-24 pb-16">
+              <Image source={require('../../assets/images/logo.png')} className=" justify-center items-center" />
             </View>
-            <View>
-              <Pressable
-                testID={'exploreButton'}
-                className=" rounded-r-8 rounded-md bg-primary justify-center items-center p-2 h-[52] w-[342] "
-                onPress={() => navigation.navigate('Explorar')}>
-                {/* Click to explore courses */}
-                <Text className=" text-projectWhite font-sans-bold text-center text-body " > Explore courses</Text>
-              </Pressable>
+            <View className=" justify-center items-center py-10 gap-10 ">
+              <View className=" justify-center items-center w-full h-auto  px-10">
+                {/* No active courses */}
+                <Image source={require('../../assets/images/no-courses.png')} />
+                <Text className=" leading-[29.26] text-projectBlack pb-4 pt-4 font-sans-bold text-subheading text-center " >Comece agora</Text>
+                <Text className=" text-projectBlack font-montserrat text-center text-body " > Você ainda não se increveu em nenhum curso. Acesse a página Explore e use a busca para encontrar cursos do seu intresse.</Text>
+                {/*You haven't signed up for any course yet. Access the Explore page and use the search to find courses that interest you.*/}
+              </View>
+              <View>
+                <Pressable
+                  testID={'exploreButton'}
+                  className=" rounded-r-8 rounded-md bg-primary justify-center items-center py-4 w-full h-auto px-20 "
+                  onPress={() => navigation.navigate('Explorar')}>
+                  {/* Click to explore courses */}
+                  <Text className=" text-projectWhite font-sans-bold text-center text-body " > Explorar cursos</Text>
+                </Pressable>
+              </View>
             </View>
           </View>
-        </View>}
-    </BaseScreen>
+        }
+      </BaseScreen>
   );
 }

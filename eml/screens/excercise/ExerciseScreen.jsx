@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { ScrollView, View, TouchableOpacity } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native';
 import Text from '../../components/general/Text';
 import { RadioButton } from 'react-native-paper';
 import ExerciseInfo from '../../components/exercise/ExerciseInfo';
@@ -8,32 +7,19 @@ import { Icon } from '@rneui/themed';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import PopUp from '../../components/gamification/PopUp';
 import { StatusBar } from 'expo-status-bar';
-import { getExerciseByid, getSectionByid, getCourse } from '../../api/api';
 import { givePoints } from '../../services/utilityFunctions';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import PropTypes from 'prop-types';
 
-const USER_INFO = '@userInfo';
-const LOGIN_TOKEN = '@loginToken';
-let exercise;
-let section;
 
-// givenId is used for testing purposes, in the future an exercise object should be passed by the previous screen
-export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7', onContinue }) {
-  const navigation = useNavigation();
-  const route = useRoute();
+export default function ExerciseScreen({ exerciseObject, sectionObject, courseObject, onContinue }) {
   const tailwindConfig = require('../../tailwind.config.js');
   const projectColors = tailwindConfig.theme.colors;
 
-  const [hasData, setHasData] = useState(false);
-  const [exerciseData, setExerciseData] = useState({});
-  const [sectionData, setSectionData] = useState({});
-  const [courseData, setCourseData] = useState({});
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [buttonClassName, setButtonClassName] = useState('');
   const [showFeedback, setShowFeedback] = useState(false);
-  const [buttonText, setButtonText] = useState('Confirmar Resposta'); // Used to change the text of a button
-  const [isPopUpVisible, setIsPopUpVisible] = useState(false); // Used to render the pop up
+  const [buttonText, setButtonText] = useState('Confirmar Resposta'); 
+  const [isPopUpVisible, setIsPopUpVisible] = useState(false); 
   const [isCorrectAnswer, setIsCorrectAnswer] = useState(false);
   const [points, setPoints] = useState(10);
 
@@ -41,19 +27,7 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7', o
     setSelectedAnswer(answerIndex);
   };
 
-  async function retrieveUserInfoAndLoginToken() {
-    try {
-      // Retrieve the user info object and parse it from JSON
-      const userInfoString = await AsyncStorage.getItem(USER_INFO);
-      const userInfo = JSON.parse(userInfoString);
-      const loginToken = await AsyncStorage.getItem(LOGIN_TOKEN);
-
-      return { userInfo, loginToken };
-    } catch (error) {
-      // Handle errors here
-      console.error('Error retrieving data:', error);
-    }
-  }
+  
 
   /* function handleSecondOnclick() {
     navigation.navigate('Lecture', {
@@ -64,7 +38,6 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7', o
   
   async function handleReviewAnswer(selectedAnswer) {
     const continueText = 'Continuar';
-    const { userInfo, loginToken } = await retrieveUserInfoAndLoginToken();
 
     setIsCorrectAnswer(selectedAnswer);
 
@@ -72,11 +45,10 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7', o
       `bg-project${selectedAnswer ? 'Green' : 'Red'}`
     );
 
-
     if (selectedAnswer) {
-      setPoints(await givePoints(userInfo, exerciseData._id, true, 10, loginToken));
+      setPoints(await givePoints(exerciseObject._id, true, 10));
     } else {
-      setPoints(await givePoints(userInfo, exerciseData._id, false, 0, loginToken));
+      setPoints(await givePoints(exerciseObject._id, false, 0));
     }
 
     setShowFeedback(true);
@@ -84,128 +56,105 @@ export default function ExerciseScreen({ givenId = '65181a4f4c78b45368126ed7', o
     if (buttonText !== continueText) {
       setIsPopUpVisible(true);
     } else {
-      onContinue();
+      setIsPopUpVisible(false);
+      if (onContinue()) {
+        console.log('Continue to section complete screen');
+        // TODO: navigate to section complete screen
+      }
     }
   }
   
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setExerciseData(exercise = await getExerciseByid(givenId));
-        setSectionData(section = await getSectionByid(exercise.parentSection));
-        setCourseData(await getCourse(section.parentCourse));
-        setHasData(true);
-      } catch (error) {
-        console.log('Error fetching data:', error);
-        navigation.navigate('ErrorScreen');
-      }
-    };
-
-    fetchData();
-  }, [route.params]);
-
 
   return (
     <SafeAreaView className="h-full bg-secondary">
-      {/* This will now be shown by parent component, LectureSwipeScreen       
-      <View className='flex-row items-center justify-around top-0'>
-        <TouchableOpacity className="pr-3" onPress={() => navigation.goBack()}>
-          <MaterialCommunityIcons name="chevron-left" size={25} color="black" />
-        </TouchableOpacity>
-          <CustomProgressBar progress={50} width={65} height={1.2}></CustomProgressBar>
-        </View> */}
 
-      {hasData === false ? (
-        // No data
-        <Text>Sem dados</Text>
-      ) : (
-        <View className='items-center'>
-          <Text testID='exerciseQuestion'
-            className='pt-6 pb-10 text-center text-body font-sans-bold text-projectBlack w-11/12'>
-            {exerciseData.description}
-          </Text>
+      <View className='items-center'>
+        <Text testID='exerciseQuestion'
+          className='pt-20 pb-10 text-center text-body font-sans-bold text-projectBlack w-11/12'>
+          {exerciseObject.question}
+        </Text>
 
-          <View className={`${buttonClassName} items-center justify-center h-96 w-full`}>
-            <ScrollView className="py-2">
-              {/* Map through the answers and render each one */}
-              {exerciseData.answers.map((answer, index) => (
-                <View
-                  key={index}
-                  className='flex-row w-96 pb-6 pl-2'
-                >
-                  <View>
-                    <RadioButton.Android
-                      disabled={showFeedback}
-                      value={index}
-                      status={
-                        selectedAnswer === index ? 'checked' : 'unchecked'
-                      }
-                      onPress={() => handleAnswerSelect(index)}
-                      color={projectColors.primary}
-                      uncheckedColor={projectColors.primary}
-                    />
-                  </View>
-
-                  <View>
-                    <TouchableOpacity onPress={() => handleAnswerSelect(index)} disabled={showFeedback}>
-                      <Text className='pt-2 pb-1 w-72 font-montserrat text-body text-projectBlack'>{answer.text}</Text>
-                    </TouchableOpacity>
-
-                    {showFeedback ? (
-                      <View className={`flex-row pb-2 w-fit rounded-medium ${answer.isCorrect ? 'bg-projectGreen' : 'bg-projectRed'}`}>
-                        <View className='pl-2 pt-1'>
-                          <View className='pt-1.5'>
-                            {answer.isCorrect === true ? (
-                              <Icon
-                                size={10}
-                                name='check'
-                                type='material'
-                                color={projectColors.success}
-                              />
-                            ) : (
-                              <Icon
-                                size={10}
-                                name='close'
-                                type='material'
-                                color={projectColors.error}
-                              />
-                            )}
-                          </View>
-                        </View>
-                        <Text className={`w-72 pl-1 pt-2 pr-2 text-caption-medium ${answer.isCorrect ? 'text-success' : 'text-error'}`}>{answer.feedback}</Text>
-                      </View>
-                    ) : null}
-                  </View>
+        <View className={`${buttonClassName} items-center justify-center h-96 w-full`}>
+          <ScrollView className="py-2">
+            {/* Map through the answers and render each one */}
+            {exerciseObject.answers.map((answer, index) => (
+              <View
+                key={index}
+                className='flex-row w-96 pb-6 pl-2'
+              >
+                <View>
+                  <RadioButton.Android
+                    disabled={showFeedback}
+                    value={index}
+                    status={
+                      selectedAnswer === index ? 'checked' : 'unchecked'
+                    }
+                    onPress={() => handleAnswerSelect(index)}
+                    color={projectColors.primary}
+                    uncheckedColor={projectColors.primary}
+                  />
                 </View>
-              ))}
 
-            </ScrollView>
-          </View>
+                <View>
+                  <TouchableOpacity onPress={() => handleAnswerSelect(index)} disabled={showFeedback}>
+                    <Text className='pt-2 pb-1 w-72 font-montserrat text-body text-projectBlack'>{answer.text}</Text>
+                  </TouchableOpacity>
 
-          <View className='px-6 pt-10 w-screen'>
-            <TouchableOpacity
-              disabled={selectedAnswer === null ? true : false}
-              className={`${selectedAnswer !== null ? 'opacity-100' : 'opacity-30'} bg-primary px-10 py-4 rounded-medium`}
-              onPress={() => handleReviewAnswer(exerciseData.answers[selectedAnswer].isCorrect)}
-            >
-              <Text className='text-center font-sans-bold text-body text-projectWhite'>{buttonText}</Text>
-            </TouchableOpacity>
-          </View>
+                  {showFeedback ? (
+                    <View className={`flex-row pb-2 w-fit rounded-medium ${answer.correct ? 'bg-projectGreen' : 'bg-projectRed'}`}>
+                      <View className='pl-2 pt-1'>
+                        <View className='pt-1.5'>
+                          {answer.correct === true ? (
+                            <Icon
+                              size={10}
+                              name='check'
+                              type='material'
+                              color={projectColors.success}
+                            />
+                          ) : (
+                            <Icon
+                              size={10}
+                              name='close'
+                              type='material'
+                              color={projectColors.error}
+                            />
+                          )}
+                        </View>
+                      </View>
+                      <Text className={`w-72 pl-1 pt-2 pr-2 text-caption-medium ${answer.correct ? 'text-success' : 'text-error'}`}>{answer.feedback}</Text>
+                    </View>
+                  ) : null}
+                </View>
+              </View>
+            ))}
+          </ScrollView>
         </View>
-      )}
+        <View className='px-6 pt-10 w-screen'>
+          <TouchableOpacity
+            disabled={selectedAnswer === null ? true : false}
+            className={`${selectedAnswer !== null ? 'opacity-100' : 'opacity-30'} bg-primary px-10 py-4 rounded-medium`}
+            onPress={() => handleReviewAnswer(exerciseObject.answers[selectedAnswer].correct)}
+          >
+            <Text className='text-center font-sans-bold text-body text-projectWhite'>{buttonText}</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    
 
       {isPopUpVisible ? (
-        <PopUp xpAmount={points} isCorrectAnswer={isCorrectAnswer} />
+        <PopUp pointAmount={points} isCorrectAnswer={isCorrectAnswer} />
       ) : null}
 
-      <ExerciseInfo courseId={courseData.title} sectionId={sectionData.title} />
+      {<ExerciseInfo courseId={courseObject.title} sectionId={sectionObject.title} />}
       <StatusBar style='auto' />
     </SafeAreaView>
   );
 }
 
 ExerciseScreen.propTypes = {
-  givenId: PropTypes.string,
+  exerciseObject: PropTypes.object,
+  sectionObject: PropTypes.object,
+  courseObject: PropTypes.object,
   onContinue: PropTypes.func,
 };
 

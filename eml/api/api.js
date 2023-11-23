@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+const timeoutInMs = 1200;
+
 /* Commented out for avoiding linting errors
  * TODO: move IP address to .env file !!!
 const testUrl = 'http://localhost:8888';
@@ -7,7 +9,7 @@ const testExpo = 'http://172.30.211.57:8888';
 const digitalOcean = 'http://207.154.213.68:8888';
 */
 
-const url = 'http://localhost:8888'; // change to lcd ip when testing
+const url = 'http://192.168.0.3:8888'; // change to lcd ip when testing
 
 /*** COURSE, SECTIONS AND EXERCISES ***/
 
@@ -25,7 +27,7 @@ export const getCourseByid = async (courseId) => {
   }
 };
 
-export const getSectionByid = async (sectionId) => {
+export const getSectionById = async (sectionId) => {
   try {
     const res = await axios.get(url + '/api/sections/' + sectionId);
     return res.data;
@@ -39,7 +41,7 @@ export const getSectionByid = async (sectionId) => {
   }
 };
 
-export const getExerciseByid = async (exerciseId) => {
+export const getExerciseById = async (exerciseId) => {
   try {
     const res = await axios.get(url + '/api/exercises/' + exerciseId);
     return res.data;
@@ -56,7 +58,7 @@ export const getExerciseByid = async (exerciseId) => {
 
 export const getCourse = async (courseId) => {
   try {
-    const res = await axios.get(url + '/api/courses/' + courseId);
+    const res = await axios.get(url + '/api/courses/' + courseId, {timeout: timeoutInMs});
     return res.data;
   } catch (e) {
     if (e?.response?.data != null) {
@@ -84,7 +86,7 @@ export const getCourses = async () => {
 // Get all sections for a specific course
 export const getAllSections = async (courseId) => {
   try {
-    const res = await axios.get(url + '/api/courses/' + courseId + '/sections');
+    const res = await axios.get(url + '/api/courses/' + courseId + '/sections', {timeout: timeoutInMs});
     return res.data;
   } catch (e) {
     if (e?.response?.data != null) {
@@ -96,6 +98,7 @@ export const getAllSections = async (courseId) => {
 };
 
 // Get specific section
+// ************* same as getSectionByid *************
 export const getSection = async (courseId, sectionId) => {
   try {
     const res = await axios.get(
@@ -112,11 +115,13 @@ export const getSection = async (courseId, sectionId) => {
 };
 
 // Get all exercises in a specific section:
-export const getExercisesInSection = async (courseId, sectionId) => {
+// ************* same as getExercisesBySectionId *************
+export const getExercisesInSection = async (sectionId) => {
   try {
     const res = await axios.get(
-      url + '/api/courses/' + courseId + '/sections/' + sectionId + '/exercises'
-    );
+      //url + "/api/courses/" + courseId + "/sections/" + sectionId + "/exercises"
+      url + '/api/exercises/section/' + sectionId
+      , {timeout: timeoutInMs});
     return res.data;
   } catch (e) {
     if (e?.response?.data != null) {
@@ -129,11 +134,27 @@ export const getExercisesInSection = async (courseId, sectionId) => {
 
 //CREATED BY VIDEOSTREAM TEAM
 //: get exercises in section by section id
-export const getExerciseBySectionId = async (sectionId) => {
+export const getExercisesBySectionId = async (sectionId) => {
   try {
     const res = await axios.get(
       url + '/api/courses/' + sectionId + '/exercises'
     );
+    return res.data;
+  } catch (e) {
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
+};
+
+// Get all lectures in a specific section:
+export const getLecturesInSection = async (sectionId) => {
+  try {
+    const res = await axios.get(
+      url + '/api/lectures/section/' + sectionId
+      , {timeout: timeoutInMs});
     return res.data;
   } catch (e) {
     if (e?.response?.data != null) {
@@ -153,8 +174,8 @@ export const getSubscriptions = async (userId) => {
     // but this is the only format where it works
     // passing user ID as request body for get request gives error
     const res = await axios.get(
-      url + '/api/students/' + userId + '/subscriptions'
-    );
+      url + '/api/students/' + userId + '/subscriptions',
+      {timeout: 1200});
 
     return res.data;
   } catch (e) {
@@ -225,12 +246,11 @@ export const ifSubscribed = async (userId, courseId) => {
     }
   }
 };
-
 // Call to backend to see if online
 export const checkBackendOnline = async () => {
   let response;
   try {
-    const res = await axios.get(url + '/api/utility/online/', {timeout: 1200});
+    const res = await axios.get(url + '/api/utility/online/', {timeout: 1000});
     response = res.data;
   } catch {
     response = false;
@@ -243,14 +263,32 @@ export const checkBackendOnline = async () => {
 with our new video streaming service in go.
 */
 
-export const getVideoDownloadUrl = (fileName) => {
-  
-  const _vidUrl = `${url}/api/bucket/stream/${fileName}`;
-  console.log(_vidUrl);
+export const getVideoStreamUrl = (fileName, resolution) => {
+
+  let resolutionPostfix = '_360x640';
+  switch (resolution) {
+    case '360':
+      resolutionPostfix = '_360x640';
+      break;
+    case '480':
+      resolutionPostfix = '_480x854';
+      break;
+    case '720':
+      resolutionPostfix = '_720x1280';
+      break;
+    case '1080':
+      resolutionPostfix = '_1080x1920';
+      break;
+    default:
+      resolutionPostfix = '_360x640';
+  }
+
+  const _vidUrl = `${url}/api/bucket/stream/${fileName}${resolutionPostfix}.mp4`;
   return _vidUrl;
 };
 
 //CREATED BY VIDEO STREAMING TEAM
+// ************** same as getSectionByid **************
 export const getSectionAndLecturesBySectionId = async (sectionId) => {
   try {
     const res = await axios.get(url + '/api/sections/' + sectionId);
@@ -284,7 +322,7 @@ export const getBucketImage = async (fileName) => {
   try {
     const res = await axios.get(
       `${url}/api/bucket/${fileName}`
-    );
+      , {timeout: timeoutInMs});
     const workingUrl = `data:image/png;base64,${res.data}`;
     return workingUrl;
   } catch (err) {
@@ -295,3 +333,4 @@ export const getBucketImage = async (fileName) => {
     }
   }
 };
+

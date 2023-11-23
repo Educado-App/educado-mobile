@@ -7,11 +7,11 @@ import Text from '../../components/general/Text';
 import StandardButton from '../../components/general/StandardButton';
 import AnimatedNumbers from '../../components/gamification/AnimatedNumber';
 import { generateSectionCompletePhrases } from '../../constants/Phrases';
-import { getUserInfo } from '../../services/StorageService';
+import { getStudentInfo } from '../../services/StorageService';
 
 export default function CompleteSectionScreen() {
   const route = useRoute();
-  const { courseId, sectionId } = route.params;
+  const { parsedCourse, sectionId } = route.params;
   const [points, setPoints] = useState(0);
   const [extraPoints, setExtraPoints] = useState(0);
   // const [totalPointsText, setTotalPointsText] = useState('Pontos');
@@ -69,7 +69,7 @@ export default function CompleteSectionScreen() {
   }
 
   const findCompletedSection = (completedCourses) => {
-    const completedCourse = completedCourses.find((course) => course.courseId === courseId);
+    const completedCourse = completedCourses.find((course) => course.courseId === parsedCourse.courseId);
 
     if (completedCourse) {
       const completedSection = completedCourse.completedSections.find(
@@ -86,10 +86,10 @@ export default function CompleteSectionScreen() {
   };
 
   async function getPointsFromSection() {
-    const getUser = await getUserInfo();
+    const studentInfo = await getStudentInfo();
     const completedSection = findCompletedSection(
-      getUser.completedCourses,
-      courseId,
+      studentInfo.completedCourses,
+      parsedCourse,
       sectionId,
     );
     if (completedSection === null) {
@@ -137,14 +137,14 @@ export default function CompleteSectionScreen() {
           <StandardButton
             props={{
               buttonText: 'Continuar',
-              onPress: () => {
+              onPress: () => {console.log(parsedCourse),
                 navigation.reset({
                   index: 1,
                   routes: [
                     { name: 'HomeStack' },
                     {
                       name: 'Section',
-                      params: { courseId },
+                      params: { course: parsedCourse },
                     },
                   ],
                 });
