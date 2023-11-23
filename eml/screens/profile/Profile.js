@@ -14,8 +14,6 @@ import ShowAlert from '../../components/general/ShowAlert';
 import { getStudentInfo } from '../../services/StorageService';
 import ProfileStatsBox from '../../components/profile/ProfileStatsBox';
 
-const USER_INFO = '@userInfo';
-
 /**
  * Profile screen
  * @returns {React.Element} Component for the profile screen
@@ -87,4 +85,4 @@ export default function ProfileComponent() {
       </ScrollView>
     </SafeAreaView>
   );
-  }
+}

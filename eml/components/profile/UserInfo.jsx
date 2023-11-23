@@ -3,10 +3,7 @@ import { View } from 'react-native';
 import Text from '../general/Text';
 import ProfileNameCircle from './ProfileNameCircle';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { FontAwesome5 } from '@expo/vector-icons';
-import tailwindConfig from '../../tailwind.config';
 import PropTypes from 'prop-types';
-
 
 /**
  * Component for showing user information
@@ -18,7 +15,6 @@ import PropTypes from 'prop-types';
  * @returns {React.Element} React component
  */
 export default function UserInfo(props) {
-  const tailwindColors = tailwindConfig.theme.colors;
 
   UserInfo.propTypes = {
     firstName: PropTypes.string,
