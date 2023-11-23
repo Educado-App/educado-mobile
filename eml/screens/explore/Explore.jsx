@@ -86,12 +86,10 @@ export default function Explore() {
     loadSubscriptions();
     loadCourses();
     // Fetch subscriptions for filtered courses and set them in state
-    fetchSubscriptionsForFilteredCourses().then((results) => {
-      setIsSubscribed(results);
-    });
+    //fetchSubscriptionsForFilteredCourses().then((results) => {setIsSubscribed(results);});
     setRefreshing(false);
   };
-
+  /*
   // Function to check if user is subscribed to a specific course
   async function fetchCourseSubscription(course) {
     const result = await StorageService.checkSubscriptions(course.courseId);
@@ -105,6 +103,7 @@ export default function Explore() {
     );
     return results;
   }
+  */
 
   useEffect(() => {
     // this makes sure loadcourses is called when the screen is focused
@@ -114,9 +113,7 @@ export default function Explore() {
       loadSubscriptions();
     });
     // Fetch subscriptions for filtered courses and set them in state
-    fetchSubscriptionsForFilteredCourses().then((results) => {
-      setIsSubscribed(results);
-    });
+    //fetchSubscriptionsForFilteredCourses().then((results) => {setIsSubscribed(results)});
     return update;
 
   }, [navigation, subCourses, selectedCategory, searchText, isOnline]);
