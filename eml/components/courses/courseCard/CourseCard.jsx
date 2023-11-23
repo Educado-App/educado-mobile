@@ -24,7 +24,6 @@ export default function CourseCard({ course, isOnline }) {
 
     const checkDownload = async () => {
         let result = !!(await AsyncStorage.getItem(course.courseId + await AsyncStorage.getItem('@userId')));
-        //setDownloaded((Math.random() * 100) < 50 ? true : false); //for testing
         setDownloaded(result);
     }
     checkDownload();
@@ -33,6 +32,8 @@ export default function CourseCard({ course, isOnline }) {
     const disabledUI = "opacity-50 bg-projectWhite m-[3%] rounded-lg shadow-sm shadow-opacity-[0.3] elevation-[8] mx-[5%] p-[5%]";
 
     const layout = downloaded || isOnline ? enabledUI : disabledUI;
+
+    let isDisabled = layout === disabledUI ? true : false;
 
     return (
             <Pressable testID="courseCard"
@@ -49,7 +50,7 @@ export default function CourseCard({ course, isOnline }) {
                             {course.title ? course.title : 'Título do curso'}
                         </Text>
                         <View className="flex-2 pr-6">
-                            <DownloadCourseButton course={course} disabled={layout === disabledUI ? true : false}/>
+                            <DownloadCourseButton course={course} disabled={isDisabled}/>
                         </View>
                     </View>
                     <View className="h-[1] bg-disable m-[2%]" />
