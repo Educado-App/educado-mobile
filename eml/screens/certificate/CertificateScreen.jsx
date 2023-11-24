@@ -24,15 +24,6 @@ export default function CertificateScreen() {
   const [searchText, setSearchText] = useState('');
   // Selected category state
   const [selectedCategory, setSelectedCategory] = useState(null);
-  // Modal visibility state
-  const [modalVisible, setModalVisible] = useState(false);
-  // Certificate to preview state
-  const [certificateToPreview, setCertificateToPreview] = useState(null);
-
-  // Function to close the reset password modal
-  const closeModal = () => {
-    setModalVisible(false);
-  };
 
   const getProfile = async () => {
     try {
@@ -49,13 +40,6 @@ export default function CertificateScreen() {
   useEffect(() => {
     getProfile();
   }, []);
-
-  const handleCertificatePress = (certificate) => {
-    // Set the specific certificate to be previewed
-    setCertificateToPreview(certificate);
-    // Open the modal
-    setModalVisible(true);
-  };
 
   const navigation = useNavigation();
 
@@ -105,7 +89,6 @@ export default function CertificateScreen() {
               <CertificateCard
                 key={index}
                 certificate={certificate}
-                previewOnPress={() => { handleCertificatePress(certificate); }}
               ></CertificateCard>
             )) : <Text>sem certificados</Text>}
           </View>
