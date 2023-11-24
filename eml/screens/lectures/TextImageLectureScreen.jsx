@@ -131,9 +131,9 @@ const TextImageLectureScreen = ({ lectureObject, courseObject, isLastSlide }) =>
         {/* Course name and lecturen name */}
         <View className="w-full flex-row justify-between">
 
-          <View className=" flex-col mb-8">
-            <Text className=" text-projectGray " >Nome do curso: {courseObject.title}</Text>
-            <Text className=" text-xl font-bold text-black " >{lectureObject.title}</Text>
+          <View className="flex-col mb-8">
+            <Text className="text-projectGray" >Nome do curso: {courseObject.title}</Text>
+            <Text className="text-xl font-bold text-projectBlack" >{lectureObject.title}</Text>
           </View>
         </View>
       </View>

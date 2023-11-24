@@ -27,7 +27,7 @@ export default function ExploreCard({ course, isPublished, subscribed }) {
     >
       <View className="flex-col items-center">
         <View className="flex-row justify-between w-full items-center">
-          <Text className="text-black font-medium text-lg">{course.title}</Text>
+          <Text className="text-projectBlack font-medium text-lg">{course.title}</Text>
           <MaterialCommunityIcons
             name={isCollapsed ? 'chevron-down' : 'chevron-up'}
             size={25}
@@ -35,9 +35,9 @@ export default function ExploreCard({ course, isPublished, subscribed }) {
           />
         </View>
 
-        <View className="h-1 border-b-[1px] w-full border-gray opacity-50 pt-2"></View>
+        <View className="h-1 border-b-[1px] w-full border-projectGray opacity-50 pt-2"></View>
 
-        <View className="w-full h-[0.5] bg-gray-500 opacity-50 pt-2" />
+        <View className="w-full h-[0.5] pt-2" />
         <View className="flex-row justify-between w-full items-start">
           <View className="flex-col items-start justify-between">
             <View className="flex-row items-center justify-start pb-2 flex-wrap">
@@ -68,7 +68,7 @@ export default function ExploreCard({ course, isPublished, subscribed }) {
 
       <Collapsible className="w-full" collapsed={isCollapsed}>
         <View className="py-7 flex-row items-center justify-between px-1">
-          <Text className="text-black text-m">{course.description}</Text>
+          <Text className="text-projectBlack text-m">{course.description}</Text>
         </View>
 
         <View>

@@ -45,7 +45,7 @@ export default function CourseCard({ course, isOnline }) {
     >
       <View>
         <View className="flex-row items-start justify-between px-[1%] py-[1%]">
-          <Text className="text-[18px] text-black flex-1 self-center font-montserrat-semi-bold">
+          <Text className="text-[18px] text-projectBlack flex-1 self-center font-montserrat-semi-bold">
             {course.title ? course.title : 'Título do curso'}
           </Text>
           <View className="flex-2 pr-6">
