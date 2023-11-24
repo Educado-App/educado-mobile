@@ -13,7 +13,7 @@ exports[`LogOutButton render should render correctly 1`] = `
         "flexShrink": 1,
       },
       {
-        "marginTop": "45%",
+        "marginTop": "12%",
       },
     ]
   }
@@ -72,6 +72,9 @@ exports[`LogOutButton render should render correctly 1`] = `
               },
               {
                 "textDecorationLine": "underline",
+              },
+              {
+                "fontFamily": "Montserrat-Bold",
               },
             ],
           ]
