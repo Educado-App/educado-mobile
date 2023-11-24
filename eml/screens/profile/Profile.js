@@ -82,7 +82,7 @@ export default function ProfileComponent() {
   return (
     <SafeAreaView className='bg-secondary'>
       <ScrollView className='flex flex-col'>
-        <View className="flex-1 justify-start pt-[20%]">
+        <View className="flex-1 justify-start pt-[20%] h-screen">
           <UserInfo firstName={firstName} lastName={lastName} email={email} points={totalPoints}></UserInfo>
           <ProfileStatsBox studentLevel={studentLevel} levelProgress={levelProgress} />
           <ProfileNavigationButton label='Editar perfil' testId={'editProfileNav'} onPress={() => navigation.navigate('EditProfile')}></ProfileNavigationButton>
