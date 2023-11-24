@@ -205,6 +205,9 @@ export const unSubscribeToCourse = async (userId, courseId) => {
 // Get certificates from student
 export const fetchCertificates = async (userId) => {
   try {
+    if (userId == null) {
+      throw 'User ID is null';
+    }
     const res = await axios.get(certificateUrl + '/api/student-certificates/student/' + userId);
     return res.data;
   }  catch (e) {

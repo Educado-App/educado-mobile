@@ -20,8 +20,7 @@ import { getUserInfo } from '../../services/StorageService';
  */
 export default function CertificateScreen() {
   // Sets dummy data for courses (will be replaced with data from backend)
-  const [certificates, setCertificates] = useState(fetchCertificates(userInfo.id));
-
+  const [certificates, setCertificates] = useState([]);
   // Search text state
   const [searchText, setSearchText] = useState('');
   // Selected category state
@@ -30,16 +29,29 @@ export default function CertificateScreen() {
   const [modalVisible, setModalVisible] = useState(false);
   // Certificate to preview state
   const [certificateToPreview, setCertificateToPreview] = useState(null);
-
-  const userInfo = getUserInfo();
+  const [id, setId] = useState('');
 
   // Function to close the reset password modal
   const closeModal = () => {
     setModalVisible(false);
   };
 
-  useEffect(async () => {
-    setCertificates(await fetchCertificates(userInfo.id));
+  const getProfile = async () => {
+    try {
+      const fetchedProfile = await getUserInfo();
+      if (fetchedProfile !== null) {
+        setId(fetchedProfile.id);
+      }
+
+      const fetchedCertificates = await fetchCertificates(fetchedProfile.id);
+      setCertificates(fetchedCertificates);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    getProfile();
   }, []);
 
   const handleCertificatePress = (certificate) => {
@@ -51,7 +63,7 @@ export default function CertificateScreen() {
 
   const navigation = useNavigation();
 
-  const filteredCertificates = certificates.filter((certificate) => {
+  const filteredCertificates = certificates && certificates.filter((certificate) => {
     // Check if the course title includes the search text
     const titleMatchesSearch = (certificate.courseName || '').toLowerCase().includes(searchText.toLowerCase());
     // Check if the course category matches the selected category (or no category is selected)
@@ -93,13 +105,13 @@ export default function CertificateScreen() {
         />
         <ScrollView showsVerticalScrollIndicator={true}>
           <View>
-            {filteredCertificates.map((certificate, index) => (
+            {certificates !== null ? filteredCertificates.map((certificate, index) => (
               <CertificateCard
                 key={index}
                 certificate={certificate}
                 previewOnPress={() => { handleCertificatePress(certificate); }}
               ></CertificateCard>
-            ))}
+            )) : <Text>sem certificados</Text>}
           </View>
         </ScrollView>
       </View>
