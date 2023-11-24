@@ -96,6 +96,9 @@ exports[`<SectionCard /> renders SectionCard correctly 1`] = `
                 "fontWeight": "700",
               },
               {
+                "color": "#383838",
+              },
+              {
                 "flexBasis": 0,
                 "flexGrow": 1,
                 "flexShrink": 1,
@@ -121,6 +124,9 @@ exports[`<SectionCard /> renders SectionCard correctly 1`] = `
             [
               {
                 "marginRight": 10,
+              },
+              {
+                "color": "#383838",
               },
             ],
           ]

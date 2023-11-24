@@ -125,7 +125,7 @@ export default function VideoLectureScreen({ lectureObject, courseObject, isLast
       {/* Video - currently just black image */}
       <View className="w-full h-full bg-projectBlack" >
 
-        <View className="w-full h-full  bg-projectBlack" >
+        <View className="w-full h-full bg-projectBlack" >
           {videoUrl ?
             <CustomExpoVideoPlayer
               videoUrl={videoUrl}
@@ -141,7 +141,7 @@ export default function VideoLectureScreen({ lectureObject, courseObject, isLast
       {/* Layers on top of video */}
 
       <View className="absolute w-full h-full p-5">
-        <View className="w-full h-full flex-col justify-end items-center  bg-opacity-20" >
+        <View className="w-full h-full flex-col justify-end items-center bg-opacity-20" >
 
           {isLastSlide ?
             <View className="px-6 mb-3 w-screen">
@@ -163,8 +163,8 @@ export default function VideoLectureScreen({ lectureObject, courseObject, isLast
           <View className="w-full flex-col items-start justify-left" >
 
             <View className="w-full flex-row justify-between items-end">
-              <View className=" flex-col">
-                <Text className=" text-projectWhite opacity-80"  >Nome do curso: {courseObject.title}</Text>
+              <View className="flex-col">
+                <Text className="text-projectWhite opacity-80">Nome do curso: {courseObject.title}</Text>
                 <Text className="text-xl text-projectWhite" >{lectureObject.title && lectureObject.title}</Text>
               </View>
 
@@ -192,8 +192,8 @@ export default function VideoLectureScreen({ lectureObject, courseObject, isLast
 
       </View>
 
-      <Pressable className="absolute top-[12%] bottom-[50%]  right-0 left-0 " onPress={handlePress} />
-      <Pressable className="absolute top-[24%] bottom-[22%]  right-[20%] left-0 " onPress={handlePress} />
+      <Pressable className="absolute top-[12%] bottom-[50%] right-0 left-0" onPress={handlePress} />
+      <Pressable className="absolute top-[24%] bottom-[22%] right-[20%] left-0" onPress={handlePress} />
       {/* Fade in out play /pause icon shown for one second */}
       {/* Fade in/out play/pause icon */}
 

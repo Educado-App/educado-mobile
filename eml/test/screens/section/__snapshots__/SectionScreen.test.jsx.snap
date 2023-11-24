@@ -316,6 +316,9 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
                         "fontWeight": "700",
                       },
                       {
+                        "color": "#383838",
+                      },
+                      {
                         "flexBasis": 0,
                         "flexGrow": 1,
                         "flexShrink": 1,
@@ -341,6 +344,9 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
                     [
                       {
                         "marginRight": 10,
+                      },
+                      {
+                        "color": "#383838",
                       },
                     ],
                   ]
@@ -608,6 +614,9 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
                         "fontWeight": "700",
                       },
                       {
+                        "color": "#383838",
+                      },
+                      {
                         "flexBasis": 0,
                         "flexGrow": 1,
                         "flexShrink": 1,
@@ -633,6 +642,9 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
                     [
                       {
                         "marginRight": 10,
+                      },
+                      {
+                        "color": "#383838",
                       },
                     ],
                   ]
