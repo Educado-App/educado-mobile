@@ -321,6 +321,9 @@ exports[`Register screen Login screen renders 1`] = `
                         "paddingLeft": 10,
                       },
                       {
+                        "backgroundColor": "#FFFFFF",
+                      },
+                      {
                         "borderBottomLeftRadius": 8,
                         "borderBottomRightRadius": 8,
                         "borderTopLeftRadius": 8,
@@ -427,6 +430,9 @@ exports[`Register screen Login screen renders 1`] = `
                       },
                       {
                         "paddingLeft": 10,
+                      },
+                      {
+                        "backgroundColor": "#FFFFFF",
                       },
                       {
                         "borderBottomLeftRadius": 8,
@@ -576,6 +582,9 @@ exports[`Register screen Login screen renders 1`] = `
                       },
                       {
                         "paddingLeft": 10,
+                      },
+                      {
+                        "backgroundColor": "#FFFFFF",
                       },
                       {
                         "borderBottomLeftRadius": 8,
@@ -734,6 +743,9 @@ exports[`Register screen Login screen renders 1`] = `
                         },
                         {
                           "paddingLeft": 10,
+                        },
+                        {
+                          "backgroundColor": "#FFFFFF",
                         },
                         {
                           "borderBottomLeftRadius": 8,
@@ -1025,6 +1037,9 @@ exports[`Register screen Login screen renders 1`] = `
                           "paddingLeft": 10,
                         },
                         {
+                          "backgroundColor": "#FFFFFF",
+                        },
+                        {
                           "borderBottomLeftRadius": 8,
                           "borderBottomRightRadius": 8,
                           "borderTopLeftRadius": 8,
@@ -1221,6 +1236,9 @@ exports[`Register screen Login screen renders 1`] = `
               },
               [
                 {
+                  "color": "#A1ACB2",
+                },
+                {
                   "lineHeight": 20,
                 },
                 {
@@ -1247,6 +1265,9 @@ exports[`Register screen Login screen renders 1`] = `
                 "fontSize": 16,
               },
               [
+                {
+                  "color": "#383838",
+                },
                 {
                   "lineHeight": 20,
                 },
