@@ -5,7 +5,6 @@ export const isFontsLoaded = () => {
     'Montserrat-Regular': require('../assets/fonts/Montserrat-Regular.ttf'),
     'Montserrat-Bold': require('../assets/fonts/Montserrat-Bold.ttf'),
     'Montserrat-SemiBold': require('../assets/fonts/Montserrat-SemiBold.ttf'),
-    'OoohBaby-Regular': require('../assets/fonts/OoohBaby-Regular.ttf'),
   });
 
   return fontsLoaded;

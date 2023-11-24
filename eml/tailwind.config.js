@@ -44,7 +44,6 @@ module.exports = {
       "sans-bold": ["'Montserrat-Bold'"],
       "sans-semi-bold": ["'Montserrat-SemiBold'"],
       bold: ['Montserrat-Bold'],
-      ooohbaby: ['OoohBaby-Regular'],
     },
     extend: {
       fontSize: {
