@@ -29,7 +29,6 @@ export default function CertificateScreen() {
   const [modalVisible, setModalVisible] = useState(false);
   // Certificate to preview state
   const [certificateToPreview, setCertificateToPreview] = useState(null);
-  const [id, setId] = useState('');
 
   // Function to close the reset password modal
   const closeModal = () => {
@@ -40,11 +39,9 @@ export default function CertificateScreen() {
     try {
       const fetchedProfile = await getUserInfo();
       if (fetchedProfile !== null) {
-        setId(fetchedProfile.id);
+        const fetchedCertificates = await fetchCertificates(fetchedProfile.id);
+        setCertificates(fetchedCertificates);
       }
-
-      const fetchedCertificates = await fetchCertificates(fetchedProfile.id);
-      setCertificates(fetchedCertificates);
     } catch (e) {
       console.log(e);
     }
@@ -105,7 +102,7 @@ export default function CertificateScreen() {
         />
         <ScrollView showsVerticalScrollIndicator={true}>
           <View>
-            {certificates !== null ? filteredCertificates.map((certificate, index) => (
+            {certificates.length !== 0 ? filteredCertificates.map((certificate, index) => (
               <CertificateCard
                 key={index}
                 certificate={certificate}

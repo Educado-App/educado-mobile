@@ -1,12 +1,8 @@
-import React, { useState } from 'react';
-import { View, Text, Pressable } from 'react-native';
-import Collapsible from 'react-native-collapsible';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import React from 'react';
+import { View, Text } from 'react-native';
 import CardLabel from '../explore/CardLabel';
 import * as Utility from '../../services/utilityFunctions';
 import PropTypes from 'prop-types';
-
-import CertificateBtn from './CertificateBtn';
 
 /**
  * This component is used to display a certificate card.
@@ -14,7 +10,7 @@ import CertificateBtn from './CertificateBtn';
  * @param previewOnPress - The function to be executed when the preview button is pressed.
  * @returns {JSX.Element|null} - Returns a JSX element.
  */
-export default function CertificateCard({ certificate, previewOnPress }) {
+export default function CertificateCard({ certificate }) {
   return (
     <View className="bg-projectWhite rounded-lg shadow-2xl mb-4 mx-4 p-6 overflow-hidden">
       <View className="flex-col items-center">
@@ -49,5 +45,4 @@ export default function CertificateCard({ certificate, previewOnPress }) {
 
 CertificateCard.propTypes = {
   certificate: PropTypes.object,
-  previewOnPress: PropTypes.func,
 };

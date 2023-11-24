@@ -24,7 +24,7 @@ export default function CertificatePreview(props) {
 
   const certificateText = `Certificamos que ${studentName} concluiu com sucesso 
   ${courseDuration} horas do curso de ${courseName} no dia 
-  ${doc}, na modalidade de educação à distância na plataforma Educado.`
+  ${doc}, na modalidade de educação à distância na plataforma Educado.`;
 
   return (
     <CertificateModal modalVisible={modalVisible} closeModal={onModalClose} id="EducadoModal">

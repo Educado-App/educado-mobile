@@ -21,7 +21,7 @@ export default function CertificateBtn({ buttonText, onPress }) {
       </Pressable>
     </View>
   );
-};
+}
 
 CertificateBtn.propTypes = {
   buttonText: PropTypes.string,
