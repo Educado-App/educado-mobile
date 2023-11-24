@@ -90,7 +90,7 @@ export default function CertificateScreen() {
                 key={index}
                 certificate={certificate}
               ></CertificateCard>
-            )) : <Text>sem certificados</Text>}
+            )) : <Text className="justify-center mx-auto">sem certificados</Text>}
           </View>
         </ScrollView>
       </View>
