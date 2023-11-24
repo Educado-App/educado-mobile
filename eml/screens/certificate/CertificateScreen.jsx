@@ -10,7 +10,6 @@ import Text from '../../components/general/Text';
 import FilterNavBar from '../../components/explore/FilterNavBar';
 import CertificateCard from '../../components/certificate/CertificateCard';
 import { determineCategory } from '../../services/utilityFunctions';
-import CertificatePreview from '../../components/certificate/CertificatePreview';
 import { fetchCertificates } from '../../api/api';
 import { getUserInfo } from '../../services/StorageService';
 
@@ -112,12 +111,6 @@ export default function CertificateScreen() {
           </View>
         </ScrollView>
       </View>
-
-      <CertificatePreview
-        modalVisible={modalVisible}
-        onModalClose={closeModal}
-        certificate={certificateToPreview}
-      />
     </SafeAreaView>
   );
 }
