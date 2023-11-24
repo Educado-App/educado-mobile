@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
  * @param onCategoryChange - Callback function called when a category is selected.
  * @returns {JSX.Element} - Rendered component
  */
-function FilterNavBar({ onChangeText, onCategoryChange }) {
+function FilterNavBar({ onChangeText, onCategoryChange, searchPlaceholder }) {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [searchText, setSearchText] = useState('');
 
@@ -28,7 +28,7 @@ function FilterNavBar({ onChangeText, onCategoryChange }) {
   return (
     <View>
       <View className="z-10 p-2">
-        <SearchBar searchText={searchText} onSearchChange={handleSearchInputChange} />
+        <SearchBar searchText={searchText} onSearchChange={handleSearchInputChange} placeholder={searchPlaceholder} />
       </View>
 
       <View className=" z-10 pl-2 pr-2 pb-4">
@@ -66,6 +66,7 @@ function FilterNavBar({ onChangeText, onCategoryChange }) {
 FilterNavBar.propTypes = {
   onChangeText: PropTypes.func,
   onCategoryChange: PropTypes.func,
+  searchPlaceholder: PropTypes.string,
 };
 
 export default FilterNavBar;
