@@ -7,7 +7,6 @@ const USER_ID = '@userId';
 const USER_INFO = '@userInfo';
 const STUDENT_INFO = '@studentInfo';
 const LOGIN_TOKEN = '@loginToken';
-let isOnline = true;
 
 /** STUDENT **/
 
@@ -444,13 +443,6 @@ export const unsubscribe = async (courseId) => {
     }
   }
 };
-
-// A function that calls the backed through the api just to test if it can be reached 
-export const checkIfOnline = async () => {
-  isOnline = await api.checkBackendOnline();
-  return isOnline;
-};
-
 
 /** Downloading course **/
 
