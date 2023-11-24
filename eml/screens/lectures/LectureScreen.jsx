@@ -6,14 +6,16 @@ import PropTypes from 'prop-types';
 import Text from '../../components/general/Text';
 
 export default function LectureScreen({ lectureObject, courseObject, currentIndex, indexCount }) {
-  const [lecture, setLecture] = useState(lectureObject);
-  const [course, setCourse] = useState(courseObject);
-  const isLastSlide = currentIndex === indexCount - 1;
 
+  const [course, setCourse] = useState(courseObject);
+  const [lecture, setLecture] = useState(lectureObject);
+  const isLastSlide = currentIndex === indexCount - 1;
+  
   useEffect(() => {
     setLecture(lectureObject);
     setCourse(courseObject);
   }, []);
+
 
   //Safe area should not be used if we want to use the full screen
   return (

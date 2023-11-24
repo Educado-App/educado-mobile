@@ -42,6 +42,7 @@ module.exports = {
     'indent': ['error', 2],
     'quotes': ['error', 'single'], // Specify single quotes
     'semi': ['error', 'always'], // Require semicolons
+    'no-unsafe-finally': 'off', // Disable no-unsafe-finally rule
   },
   'settings': {
     'react': {

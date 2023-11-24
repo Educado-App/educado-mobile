@@ -22,10 +22,9 @@ export default function SectionScreen({ route }) {
   SectionScreen.propTypes = {
     route: PropTypes.object,
   };
-  const { courseId } = route.params;
+  const { course } = route.params;
   const navigation = useNavigation();
   const [sections, setSections] = useState(null);
-  const [course, setCourse] = useState([]);
 
   /**
    * Loads the sections for the given course from the backend.
@@ -36,15 +35,6 @@ export default function SectionScreen({ route }) {
     setSections(sectionData);
   }
 
-  /**
-   * Loads the course data for the given courseId from the backend.
-   * @param {string} id - The id of the course to load.
-   */
-  async function getCourse(id) {
-    const courseData = await StorageService.getCourseId(id);
-    setCourse(courseData);
-  }
-
   // Fetch courses from backend and replace dummy data!
   useEffect(() => {
     let componentIsMounted = true;
@@ -53,8 +43,7 @@ export default function SectionScreen({ route }) {
      * Loads the sections and course data for the given courseId.
      */
     async function loadData() {
-      await loadSections(courseId);
-      await getCourse(courseId);
+      await loadSections(course.courseId);
     }
 
     if (componentIsMounted) {
@@ -73,7 +62,7 @@ export default function SectionScreen({ route }) {
         text: 'Não',
         style: 'cancel',
       },
-      { text: 'Sim', onPress: () => { unsubscribe(courseId); setTimeout(() =>  {navigation.goBack();}, 300 ); }},
+      { text: 'Sim', onPress: () => { unsubscribe(course.courseId); setTimeout(() =>  {navigation.goBack();}, 300 ); }},
     ]);
 
   return (
@@ -104,7 +93,7 @@ export default function SectionScreen({ route }) {
             {/* Section Cards */}
             <ScrollView className="mt-[5%]" showsVerticalScrollIndicator={false}>
               {sections.map((section, i) => {
-                return <SectionCard key={i} section={section}></SectionCard>;
+                return <SectionCard key={i} section={section} course={course}></SectionCard>;
               })}
             </ScrollView>
             {/* Unsubscribe Button */}
