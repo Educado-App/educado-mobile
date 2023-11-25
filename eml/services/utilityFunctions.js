@@ -231,7 +231,17 @@ export async function handleLastComponent(comp, courseId, navigation) {
   const isComplete = isSectionCompleted(studentInfo, comp.parentSection);
   
   if (isComplete) { 
-    navigation.navigate('CompleteSection', { courseId: courseId, sectionId: comp.parentSection });
+    navigation.reset({
+      index: 0,
+      routes: [
+        {
+          name: 'CompleteSection',
+          params: { 
+            courseId: courseId, 
+            sectionId: comp.parentSection }
+        },
+      ],
+    });
   } else {
     console.log('Section not complete');
   }

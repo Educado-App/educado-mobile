@@ -10,7 +10,6 @@ import PropTypes from 'prop-types';
 import { useNavigation } from '@react-navigation/native';
 import StandardButton from '../../components/general/StandardButton';
 import { completeComponent, handleLastComponent } from '../../services/utilityFunctions';
-import { useNavigation } from '@react-navigation/native';
 
 export default function VideoLectureScreen({ lectureObject, courseObject, isLastSlide }) {
   const navigation = useNavigation();

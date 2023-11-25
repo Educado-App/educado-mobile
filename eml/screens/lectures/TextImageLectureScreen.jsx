@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import { useNavigation } from '@react-navigation/native';
 import StandardButton from '../../components/general/StandardButton';
 import { completeComponent, handleLastComponent } from '../../services/utilityFunctions';
-import { useNavigation } from '@react-navigation/native';
 
 const TextImageLectureScreen = ({ lectureObject, courseObject, isLastSlide }) => {
   const [imageUrl, setImageUrl] = useState(null);
