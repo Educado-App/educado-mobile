@@ -92,6 +92,7 @@ exports[`<SectionCard /> renders SectionCard correctly 1`] = `
                 "fontSize": 16,
               },
               {
+                "fontFamily": "Montserrat-Bold",
                 "fontWeight": "700",
               },
               {
