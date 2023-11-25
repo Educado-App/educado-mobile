@@ -56,7 +56,7 @@ export const registerUser = async (obj) => {
 export const loginUser = async (obj) => {
   try {
     const res = await client.post('/api/auth/login', obj);
-    console.log('User successfully registered');
+    console.log('User successfully login');
     return res.data;
   } catch (e) {
     if (e?.response?.data != null) {
@@ -125,26 +125,16 @@ export const updateUserPassword = async (user_id, oldPassword, newPassword, toke
   }
 };
 
-export const completeExercise = async (user_id, exercise_id, isComplete, points, token) => {
+export const completeComponent = async (user_id, comp, isComplete, points, token) => {
   try{
-    const res = await client.patch('/api/users/' + user_id + '/completed', { exerciseId: exercise_id, isComplete: isComplete, points: points }, {
+    const res = await client.patch('/api/students/' + user_id + '/completed', { comp: comp, isComplete: isComplete, points: points }, {
       headers: {
         'Content-Type': 'application/json',
         'token': token, // Include the token in the headers
       },
     });
 
-    // Extract the required fields from the response data
-    const { _id, firstName, lastName, email, completedCourses } = res.data;
-
-    // Return the specific fields
-    return {
-      id: _id,
-      firstName,
-      lastName,
-      email,
-      completedCourses
-    };
+    return res.data;
   } catch (e) {
     if (e?.response?.data != null) {
       throw e.response.data;
@@ -156,7 +146,7 @@ export const completeExercise = async (user_id, exercise_id, isComplete, points,
 
 export const getStudentInfo = async (user_Id) => {
   try {
-    const res = await client.get('/api/students/' + user_Id);
+    const res = await client.get('/api/students/' + user_Id + '/info');
     return res.data;
   } catch (err) {
     return err.message;
@@ -190,6 +180,21 @@ export const enrollInCourse = async (user_Id, course_Id) => {
     } else {
       throw e;
     }
+  }
+};
+
+export const addCourseToStudent = async (user_Id, course_Id, token) => {
+  try {
+    const res = await client.patch('/api/students/' + user_Id + '/addCourse', { courseId: course_Id }, {
+      headers: {
+        'Content-Type': 'application/json',
+        'token': token, // Include the token in the headers
+      },
+    });
+
+    return res.data;
+  } catch (err) {
+    throw err;
   }
 };
 
