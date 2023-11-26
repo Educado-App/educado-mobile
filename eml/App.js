@@ -232,13 +232,6 @@ export default function App() {
                   headerShown: false,
                 }}
               />
-              <Stack.Screen
-                name="CertificateStack"
-                component={CertificateStack}
-                options={{
-                  headerShown: false,
-                }}
-              />
             </Stack.Navigator>
           </NavigationContainer>
         </ApplicationProvider>
