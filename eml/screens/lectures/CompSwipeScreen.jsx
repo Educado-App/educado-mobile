@@ -5,6 +5,7 @@ import ProgressTopBar from './ProgressTopBar';
 import LectureScreen from './LectureScreen';
 import { getComponents } from '../../api/api';
 import tailwindConfig from '../../tailwind.config';
+import * as StorageService from '../../services/StorageService';
 import ExerciseScreen from '../excercise/ExerciseScreen';
 import { completeComponent, findIndexOfUncompletedComp } from '../../services/utilityFunctions';
 import { getStudentInfo } from '../../services/StorageService';
@@ -21,7 +22,7 @@ const ComponentType = {
 };
 
 /**
- * when navigating to this page sectionId, courseId must be passed as parameters
+ * when navigating to this page sectionId, parsedCourse must be passed as parameters
  * @param {} param0 
  * @returns 
  */
