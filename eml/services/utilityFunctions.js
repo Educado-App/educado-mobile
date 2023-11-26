@@ -163,7 +163,7 @@ export async function completeComponent(comp, courseId, isComplete) {
   const isCompComplete = isComponentCompleted(studentInfo, comp._id); 
 
   // If the exercise is present but it's field "isComplete" is false, it means the user has answered wrong before and only gets 5 points.
-  const points = isFirstAttempt && !isCompComplete ? 10 : (!isFirstAttempt && !isCompComplete ? 5 : 0);
+  const points = isFirstAttempt && !isCompComplete && isComplete ? 10 : (!isFirstAttempt && !isCompComplete && isComplete ? 5 : 0);
 
   // Updates the user with the new points in the db
   const updatedStudent = await userApi.completeComponent(userInfo.id, comp, isComplete, points, loginToken);
@@ -226,9 +226,16 @@ function getComponent(student, courseId, sectionId, componentId) {
   return section?.components.find(component => component.compId == componentId);
 }
 
-export async function handleLastComponent(comp, courseId, navigation) {
-  const studentInfo = await StorageService.getStudentInfo();
-  const isComplete = isSectionCompleted(studentInfo, comp.parentSection);
+export function findIndexOfUncompletedComp(student, courseId, sectionId) {
+  const course = student.courses.find(course => course.courseId == courseId);
+  const section = course?.sections.find(section => section.sectionId == sectionId);
+
+  return index = section?.components.findIndex(component => !component.isComplete);
+}
+
+export async function handleLastComponent(comp, course, navigation) {
+  const student = await StorageService.getStudentInfo();
+  const isComplete = isSectionCompleted(student, comp.parentSection);
   
   if (isComplete) { 
     navigation.reset({
@@ -237,7 +244,7 @@ export async function handleLastComponent(comp, courseId, navigation) {
         {
           name: 'CompleteSection',
           params: { 
-            courseId: courseId, 
+            parsedCourse: course, 
             sectionId: comp.parentSection }
         },
       ],

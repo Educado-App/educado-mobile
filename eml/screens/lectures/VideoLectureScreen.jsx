@@ -27,8 +27,8 @@ export default function VideoLectureScreen({ lectureObject, courseObject, isLast
   };
 
   const handleContinue = async () => {
-    await completeComponent(lectureObject, courseObject._id, true);
-    handleLastComponent(lectureObject, courseObject._id, navigation);
+    await completeComponent(lectureObject, courseObject.courseId, true);
+    handleLastComponent(lectureObject, courseObject, navigation);
   }
 
   const [videoUrl, setVideoUrl] = useState(null);

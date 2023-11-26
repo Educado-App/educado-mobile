@@ -15,8 +15,8 @@ const TextImageLectureScreen = ({ lectureObject, courseObject, isLastSlide }) =>
   const navigation = useNavigation();
 
   const handleContinue = async () => {
-    await completeComponent(lectureObject, courseObject._id, true);
-    handleLastComponent(lectureObject, courseObject._id, navigation);
+    await completeComponent(lectureObject, courseObject.courseId, true);
+    handleLastComponent(lectureObject, courseObject, navigation);
   }
 
   useEffect(() => {

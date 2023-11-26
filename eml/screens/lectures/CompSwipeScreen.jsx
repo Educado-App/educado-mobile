@@ -3,10 +3,11 @@ import { View, Text, ActivityIndicator } from 'react-native';
 import Swiper from 'react-native-swiper';
 import ProgressTopBar from './ProgressTopBar';
 import LectureScreen from './LectureScreen';
+import { getComponents } from '../../api/api';
 import tailwindConfig from '../../tailwind.config';
-import * as StorageService from '../../services/StorageService';
 import ExerciseScreen from '../excercise/ExerciseScreen';
-import { completeComponent } from '../../services/utilityFunctions';
+import { completeComponent, findIndexOfUncompletedComp } from '../../services/utilityFunctions';
+import { getStudentInfo } from '../../services/StorageService';
 import PropTypes from 'prop-types';
 
 const LectureType = {
@@ -20,7 +21,7 @@ const ComponentType = {
 };
 
 /**
- * when navigating to this page sectionId, parsedCourse must be passed as parameters
+ * when navigating to this page sectionId, courseId must be passed as parameters
  * @param {} param0 
  * @returns 
  */
@@ -36,57 +37,20 @@ export default function LectureSwipeScreen({ route }) {
   useEffect(() => {
     async function fetchData() {
       try {
-        const lectureList = await StorageService.getLectureList(section.sectionId);
-        const exerciseList = await StorageService.getExerciseList(section.sectionId);
-        //TODO: get the first uncompleted lecture - set the initial index to that
-        const initialIndex = 0;
+        let initialIndex = findIndexOfUncompletedComp(await getStudentInfo(), parsedCourse.courseId, section.sectionId);;
 
-        //get exercises
-
-        let _combinedLecturesAndExercises = [];
-        for (let component of section.components) {
-          try {
-            let newComp = null;
-            let lectureType = null;
-            let compType = null;
-
-            //If order is important, then it should be handled on the server. However, this here is better than calling the server for every individual lecture or exercise.
-            for(let lecture of lectureList){
-              if (lecture._id === component.compId){
-                lectureType = lecture.video ? LectureType.VIDEO : LectureType.TEXT;
-                compType = ComponentType.LECTURE;
-                newComp = lecture;
-                break;
-              }
-            }
-            if (lectureType === null){
-              for(let exercise of exerciseList) {
-                if (exercise._id === component.compId) {
-                  compType = ComponentType.EXERCISE;
-                  newComp = exercise;
-                  break;
-                }
-              }
-            }
-
-            const obj = {   
-              component: newComp,
-              type: compType,
-              lectureType: lectureType
-            };
-
-            _combinedLecturesAndExercises.push(obj);
-          } catch (error) {
-            console.log(error);
-          }
+        if (initialIndex === -1) {
+          initialIndex = 0;
         }
 
-        if (_combinedLecturesAndExercises[0].type === ComponentType.EXERCISE) {
+        const compList = await getComponents(section.sectionId);
+
+        if (compList[initialIndex].type === ComponentType.EXERCISE) {
           setScrollEnabled(false);
         }
 
-        setCombinedLecturesAndExercises(_combinedLecturesAndExercises);
-        setCurrentLectureType(_combinedLecturesAndExercises[initialIndex]?.lectureType === LectureType.VIDEO ? LectureType.VIDEO : LectureType.TEXT);
+        setCombinedLecturesAndExercises(compList);
+        setCurrentLectureType(compList[initialIndex]?.lectureType === LectureType.VIDEO ? LectureType.VIDEO : LectureType.TEXT);
         setIndex(initialIndex);
         setLoading(false);
       } catch (error) {
@@ -122,7 +86,7 @@ export default function LectureSwipeScreen({ route }) {
     if (_index > 0) {
         const lastSlide = combinedLecturesAndExercises[_index - 1];
         if (lastSlide.type === ComponentType.LECTURE) {
-            await completeComponent(lastSlide.component, course._id, true);
+            await completeComponent(lastSlide.component, parsedCourse.courseId, true);
         }
     }
     setIndex(_index);

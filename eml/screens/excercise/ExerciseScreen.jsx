@@ -40,13 +40,13 @@ export default function ExerciseScreen({ exerciseObject, sectionObject, courseOb
     setShowFeedback(true);
     setButtonText(continueText);
     if (buttonText !== continueText) {
-      const obj = await completeComponent(exerciseObject, courseObject._id, selectedAnswer)
+      const obj = await completeComponent(exerciseObject, courseObject.courseId, selectedAnswer)
       setPoints(obj.points);
       setIsPopUpVisible(true);
     } else {
       setIsPopUpVisible(false);
       if (onContinue()) {
-        handleLastComponent(exerciseObject, courseObject._id, navigation);
+        handleLastComponent(exerciseObject, courseObject, navigation);
       }
     }
   }

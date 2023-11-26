@@ -8,9 +8,7 @@ const local = 'http://localhost:8888';
 const digitalOcean = 'http://207.154.213.68:8888';
 */ 
 
-
-const url = 'http://172.30.245.212:8888'; // Change this to your LOCAL IP address when testing.
-
+const url = 'https://educado-backend-staging-x7rgvjso4a-ew.a.run.app/'; // Change this to your LOCAL IP address when testing.
 
 /**
  * This is the client that will be used to make requests to the backend.

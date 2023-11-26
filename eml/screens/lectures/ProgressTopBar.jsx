@@ -84,7 +84,7 @@ const ProgressTopBar = ({ courseObject, lectureType, allLectures, currentLecture
         </View>
         {LectureType.TEXT === lectureType && (
           <>
-            <CoursePoints courseId={courseObject._id} />
+            <CoursePoints courseId={courseObject.courseId} />
           </>
         )}
         
