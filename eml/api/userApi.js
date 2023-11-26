@@ -185,12 +185,15 @@ export const enrollInCourse = async (user_Id, course_Id) => {
 
 export const addCourseToStudent = async (user_Id, course_Id, token) => {
   try {
-    const res = await client.patch('/api/students/' + user_Id + '/courses/' + course_Id + '/add', {
-      headers: {
-        'Content-Type': 'application/json',
-        'token': token, // Include the token in the headers
-      },
-    });
+    const res = await client.patch('/api/students/' + user_Id + '/courses/' + course_Id + '/add',
+      {},
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'token': token, // Include the token in the headers
+        },
+      }
+    );
 
     return res.data;
   } catch (err) {

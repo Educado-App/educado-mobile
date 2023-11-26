@@ -18,8 +18,6 @@ export default function CompleteSectionScreen() {
   const navigation = useNavigation();
   const [randomPhrase, setRandomPhrase] = useState('');
 
-  const extraPointsFinal = 20;
-
   const getRandomPhrase = () => {
     let randomIndex = 0;
     const phrases = generateSectionCompletePhrases();
@@ -78,16 +76,16 @@ export default function CompleteSectionScreen() {
     if (completedSection === null) {
       return 0;
     }
-    return completedSection.totalPoints;
+    return { totalPoints: completedSection.totalPoints, extraPoints: completedSection.extraPoints };
   }
 
   useEffect(() => {
     async function animations() {
-      const pointsFinal = await getPointsFromSection();
-      await animation(points, setPoints, pointsFinal);
+      const obj = await getPointsFromSection();
+      await animation(points, setPoints, obj.totalPoints);
 
       setTimeout(async () => {
-        await animation(extraPoints, setExtraPoints, extraPointsFinal);
+        await animation(extraPoints, setExtraPoints, obj.extraPoints);
       }, 750);
     }
 
@@ -138,4 +136,4 @@ export default function CompleteSectionScreen() {
 
     </SafeAreaView>
   );
-}
+};
