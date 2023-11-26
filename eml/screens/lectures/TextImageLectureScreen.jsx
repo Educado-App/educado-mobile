@@ -17,7 +17,7 @@ const TextImageLectureScreen = ({ lectureObject, courseObject, isLastSlide }) =>
   const handleContinue = async () => {
     await completeComponent(lectureObject, courseObject.courseId, true);
     handleLastComponent(lectureObject, courseObject, navigation);
-  }
+  };
 
   useEffect(() => {
     if (lectureObject.image) {

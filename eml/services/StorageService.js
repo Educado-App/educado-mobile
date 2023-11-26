@@ -417,7 +417,7 @@ export const subscribe = async (courseId) => {
 
 export const addCourseToStudent = async (courseId) => {
   const userId = await AsyncStorage.getItem(USER_ID);
-  const loginToken = await getLoginToken()
+  const loginToken = await getLoginToken();
 
   try {
     const student = await userApi.addCourseToStudent(userId, courseId, loginToken);
@@ -433,7 +433,7 @@ export const addCourseToStudent = async (courseId) => {
       throw e;
     }
   }
-}
+};
 
 // unsubscribe to a course
 export const unsubscribe = async (courseId) => {

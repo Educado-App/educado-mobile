@@ -2,11 +2,6 @@
 import * as StorageService from '../services/StorageService.js';
 import * as userApi from '../api/userApi.js';
 
-const COMP_TYPES = {
-  LECTURE: 'lecture',
-  EXERCISE: 'exercise',
-};
-
 /**
  * Converts a numeric difficulty level to a human-readable label.
  * @param {number} lvl - The difficulty level of the course.
@@ -177,9 +172,10 @@ export async function completeComponent(comp, courseId, isComplete) {
   return { points, updatedStudent };
 }
 
-function isCourseCompleted(student, courseId) {
-  return student.courses.some(course => course.courseId == courseId);
-}
+// shoule be used in the future
+// function isCourseCompleted(student, courseId) {
+//   return student.courses.some(course => course.courseId == courseId);
+// }
 
 export function isSectionCompleted(student, sectionId) {
   return student.courses.some(course =>
@@ -196,7 +192,7 @@ export function isComponentCompleted(student, compId) {
         component.compId === compId && component.isComplete
       )
     )
-  )
+  );
 }
 
 function isFirstAttemptExercise(student, compId) {
@@ -206,7 +202,7 @@ function isFirstAttemptExercise(student, compId) {
         component.compId === compId && component.isFirstAttempt
       )
     )
-  )
+  );
 }
 
 export function findCompletedCourse(student, courseId) {
@@ -230,7 +226,7 @@ export function findIndexOfUncompletedComp(student, courseId, sectionId) {
   const course = student.courses.find(course => course.courseId == courseId);
   const section = course?.sections.find(section => section.sectionId == sectionId);
 
-  return index = section?.components.findIndex(component => !component.isComplete);
+  return section?.components.findIndex(component => !component.isComplete);
 }
 
 export async function handleLastComponent(comp, course, navigation) {

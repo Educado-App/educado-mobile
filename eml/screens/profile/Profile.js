@@ -10,6 +10,8 @@ import UserInfo from '../../components/profile/UserInfo';
 import { useNavigation } from '@react-navigation/native';
 import { getStudentInfo, getUserInfo } from '../../services/StorageService';
 import ProfileStatsBox from '../../components/profile/ProfileStatsBox';
+import { ShowAlert } from '../../components/general/ShowAlert';
+import { errorSwitch } from '../../components/general/errorSwitch';
 
 /**
  * Profile screen

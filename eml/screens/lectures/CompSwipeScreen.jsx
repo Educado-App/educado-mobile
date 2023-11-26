@@ -37,7 +37,7 @@ export default function LectureSwipeScreen({ route }) {
   useEffect(() => {
     async function fetchData() {
       try {
-        let initialIndex = findIndexOfUncompletedComp(await getStudentInfo(), parsedCourse.courseId, section.sectionId);;
+        let initialIndex = findIndexOfUncompletedComp(await getStudentInfo(), parsedCourse.courseId, section.sectionId);
 
         if (initialIndex === -1) {
           initialIndex = 0;
@@ -84,10 +84,10 @@ export default function LectureSwipeScreen({ route }) {
     }
 
     if (_index > 0) {
-        const lastSlide = combinedLecturesAndExercises[_index - 1];
-        if (lastSlide.type === ComponentType.LECTURE) {
-            await completeComponent(lastSlide.component, parsedCourse.courseId, true);
-        }
+      const lastSlide = combinedLecturesAndExercises[_index - 1];
+      if (lastSlide.type === ComponentType.LECTURE) {
+        await completeComponent(lastSlide.component, parsedCourse.courseId, true);
+      }
     }
     setIndex(_index);
   };

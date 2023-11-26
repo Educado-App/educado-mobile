@@ -27,7 +27,7 @@ export const getComponents = async (sectionId) => {
       throw e;
     }
   }
-}
+};
 
 //This function is not used in this version of dev
 export const getCourseByid = async (courseId) => {

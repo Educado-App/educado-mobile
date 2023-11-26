@@ -29,7 +29,7 @@ export default function VideoLectureScreen({ lectureObject, courseObject, isLast
   const handleContinue = async () => {
     await completeComponent(lectureObject, courseObject.courseId, true);
     handleLastComponent(lectureObject, courseObject, navigation);
-  }
+  };
 
   const [videoUrl, setVideoUrl] = useState(null);
 
