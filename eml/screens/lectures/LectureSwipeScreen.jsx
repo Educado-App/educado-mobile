@@ -6,6 +6,7 @@ import LectureScreen from './LectureScreen';
 import tailwindConfig from '../../tailwind.config';
 import * as StorageService from '../../services/StorageService';
 import ExerciseScreen from '../excercise/ExerciseScreen';
+import { completeComponent } from '../../services/utilityFunctions';
 import PropTypes from 'prop-types';
 
 const LectureType = {
@@ -108,7 +109,7 @@ export default function LectureSwipeScreen({ route }) {
     return false;
   };
 
-  const handleIndexChange = (_index) => {
+  const handleIndexChange = async (_index) => {
     const currentSlide = combinedLecturesAndExercises[_index];
 
     if (currentSlide.type === ComponentType.EXERCISE) {
@@ -116,6 +117,13 @@ export default function LectureSwipeScreen({ route }) {
     } else {
       const currentLectureType = currentSlide?.lectureType === LectureType.VIDEO ? LectureType.VIDEO : LectureType.TEXT;
       setCurrentLectureType(currentLectureType);
+    }
+
+    if (_index > 0) {
+        const lastSlide = combinedLecturesAndExercises[_index - 1];
+        if (lastSlide.type === ComponentType.LECTURE) {
+            await completeComponent(lastSlide.component, course._id, true);
+        }
     }
     setIndex(_index);
   };

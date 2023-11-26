@@ -2,7 +2,6 @@ import axios from 'axios';
 
 const timeoutInMs = 1200;
 
-const url = 'http://172.30.245.212:8888'; // change to lcd ip when testing
 const certificateUrl = 'http://172.30.245.212:8080';
 
 /* Commented out for avoiding linting errors
@@ -11,6 +10,7 @@ const testUrl = 'http://localhost:8888';
 const testExpo = 'http://172.30.211.57:8888'; 
 const digitalOcean = 'http://207.154.213.68:8888';
 */
+const url = 'https://educado-backend-staging-x7rgvjso4a-ew.a.run.app/'; // Change this to your LOCAL IP address when testing.
 
 /*** COURSE, SECTIONS AND EXERCISES ***/
 
@@ -56,7 +56,6 @@ export const getExerciseById = async (exerciseId) => {
 };
 
 // Get specific course
-
 export const getCourse = async (courseId) => {
   try {
     const res = await axios.get(url + '/api/courses/' + courseId, {timeout: timeoutInMs});
@@ -140,22 +139,6 @@ export const getExercisesBySectionId = async (sectionId) => {
     const res = await axios.get(
       url + '/api/courses/' + sectionId + '/exercises'
     );
-    return res.data;
-  } catch (e) {
-    if (e?.response?.data != null) {
-      throw e.response.data;
-    } else {
-      throw e;
-    }
-  }
-};
-
-// Get all lectures in a specific section:
-export const getLecturesInSection = async (sectionId) => {
-  try {
-    const res = await axios.get(
-      url + '/api/lectures/section/' + sectionId
-      , {timeout: timeoutInMs});
     return res.data;
   } catch (e) {
     if (e?.response?.data != null) {
@@ -311,7 +294,6 @@ export const getLectureById = async (lectureId) => {
       throw err;
     }
   }
-
 };
 
 //CREATED BY VIDEOSTREAM TEAM

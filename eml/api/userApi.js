@@ -58,7 +58,7 @@ export const registerUser = async (obj) => {
 export const loginUser = async (obj) => {
   try {
     const res = await client.post('/api/auth/login', obj);
-    console.log('User successfully registered');
+    console.log('User successfully login');
     return res.data;
   } catch (e) {
     if (e?.response?.data != null) {
@@ -127,26 +127,16 @@ export const updateUserPassword = async (user_id, oldPassword, newPassword, toke
   }
 };
 
-export const completeExercise = async (user_id, exercise_id, isComplete, points, token) => {
+export const completeComponent = async (user_id, comp, isComplete, points, token) => {
   try{
-    const res = await client.patch('/api/users/' + user_id + '/completed', { exerciseId: exercise_id, isComplete: isComplete, points: points }, {
+    const res = await client.patch('/api/students/' + user_id + '/complete', { comp: comp, isComplete: isComplete, points: points }, {
       headers: {
         'Content-Type': 'application/json',
         'token': token, // Include the token in the headers
       },
     });
 
-    // Extract the required fields from the response data
-    const { _id, firstName, lastName, email, completedCourses } = res.data;
-
-    // Return the specific fields
-    return {
-      id: _id,
-      firstName,
-      lastName,
-      email,
-      completedCourses
-    };
+    return res.data;
   } catch (e) {
     if (e?.response?.data != null) {
       throw e.response.data;
@@ -195,54 +185,21 @@ export const enrollInCourse = async (user_Id, course_Id) => {
   }
 };
 
-export const updateCourseStatus = async (user_id, course_id) => {
-  try{
-    // When user completes course it should update the user document from
-    // isComplete: false, to isComplete: true for that course
-    const res = await client.put('/api/eml/' + user_id + '/updateCourse/' + course_id);
-    return res.data;
-  } catch (e) {
-    if (e?.response?.data != null) {
-      throw e.response.data;
-    } else {
-      throw e;
-    }
-  }
-};
+export const addCourseToStudent = async (user_Id, course_Id, token) => {
+  try {
+    const res = await client.patch('/api/students/' + user_Id + '/courses/' + course_Id + '/add',
+      {},
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'token': token, // Include the token in the headers
+        },
+      }
+    );
 
-export const updateSectionStatus = async (user_id, course_id, section_id) => {
-  try{
-    // When user completes section it should update the user document from
-    // isComplete: false, to isComplete: true for that section
-    const res = await client.put('/api/eml/' + user_id + '/updateSection/' + course_id + '/' + section_id);
     return res.data;
-  } catch (e) {
-    if (e?.response?.data != null) {
-      throw e.response.data;
-    } else {
-      throw e;
-    }
-  }
-};
-
-export const updateExerciseStatus = async (
-  user_id,
-  course_id,
-  section_id,
-  exercise_id
-) => {
-  try{
-    // When user completes an exercise it should update the user document from
-    // isComplete: false, to isComplete: true for that exercise
-    const res = await client.put('/api/eml/' + user_id + '/updateExercise/'
-      + course_id + '/' + section_id + '/' + exercise_id);
-    return res.data;
-  } catch (e) {
-    if (e?.response?.data != null) {
-      throw e.response.data;
-    } else {
-      throw e;
-    }
+  } catch (err) {
+    throw err;
   }
 };
 

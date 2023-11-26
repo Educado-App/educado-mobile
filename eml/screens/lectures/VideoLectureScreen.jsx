@@ -9,6 +9,7 @@ import { getVideoStreamUrl } from '../../api/api';
 import PropTypes from 'prop-types';
 import { useNavigation } from '@react-navigation/native';
 import StandardButton from '../../components/general/StandardButton';
+import { completeComponent, handleLastComponent } from '../../services/utilityFunctions';
 
 export default function VideoLectureScreen({ lectureObject, courseObject, isLastSlide }) {
   const navigation = useNavigation();
@@ -23,10 +24,12 @@ export default function VideoLectureScreen({ lectureObject, courseObject, isLast
   const onStatusUpdate = (status) => {
     setPositionMillis(status.positionMillis || 0);
     setDurationMillis(status.durationMillis || 0);
-
   };
 
-
+  const handleContinue = async () => {
+    await completeComponent(lectureObject, courseObject._id, true);
+    handleLastComponent(lectureObject, courseObject._id, navigation);
+  }
 
   const [videoUrl, setVideoUrl] = useState(null);
 
@@ -149,9 +152,7 @@ export default function VideoLectureScreen({ lectureObject, courseObject, isLast
                 props={{
                   buttonText: 'Continuar',
                   onPress: () => {
-                    navigation.navigate('CompleteSection',
-                      { parsedCourse: courseObject, sectionId: lectureObject.parentSection }
-                    );
+                    handleContinue();
                   }
                 }}
               />
