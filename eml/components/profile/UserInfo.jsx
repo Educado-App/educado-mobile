@@ -36,10 +36,12 @@ export default function UserInfo(props) {
       <View className='w-[70%]'>
         <Text className="text-xl font-sans-bold">{props.firstName} {props.lastName}</Text>
         <Text className="text-m font-sans-bold text-projectGray">{props.email}</Text>
+        {/*
         <View className='p-1 mt-1 flex flex-row'>
           <FontAwesome5 name="coins" size={24} color={tailwindColors.pointsCoin} className='flex-1'/>
           <Text className="text-m font-sans-bold text-pointsText ml-2">{props.points} pontos</Text>
         </View>
+        */}
       </View>
     </View> 
   );
