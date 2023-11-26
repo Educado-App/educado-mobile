@@ -5,7 +5,6 @@ import ProgressTopBar from './ProgressTopBar';
 import LectureScreen from './LectureScreen';
 import { getComponents } from '../../api/api';
 import tailwindConfig from '../../tailwind.config';
-import * as StorageService from '../../services/StorageService';
 import ExerciseScreen from '../excercise/ExerciseScreen';
 import { completeComponent, findIndexOfUncompletedComp } from '../../services/utilityFunctions';
 import { getStudentInfo } from '../../services/StorageService';
