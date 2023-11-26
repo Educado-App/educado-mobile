@@ -50,6 +50,7 @@ export default function ExerciseScreen({ exerciseObject, sectionObject, courseOb
       }
     }
   }
+  
 
   return (
     <SafeAreaView className="h-full bg-secondary">

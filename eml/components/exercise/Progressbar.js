@@ -7,23 +7,24 @@ import tailwindConfig from '../../tailwind.config';
 
 const projectColors = tailwindConfig.theme.colors;
 
-
 /**
  * A custom progress bar component.
  * @param {Object} props - The props object.
  * @param {number} props.progress - The progress value (0-100).
  * @param {number} props.width - The width of the progress bar (in percentage).
  * @param {number} props.height - The height of the progress bar (in percentage).
+ * @param {boolean} [props.displayLabel=true] - Whether to display the bottom text component.
  * @returns {JSX.Element} - A JSX element representing the custom progress bar.
  */
-const CustomProgressBar = ({ progress, width, height }) => {
+const CustomProgressBar = ({ progress, width, height, displayLabel = true }) => {
   CustomProgressBar.propTypes = {
     progress: PropTypes.number.isRequired,
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
+    displayLabel: PropTypes.bool,
   };
 
-  // Insure progress is between 0 and 100
+  // Ensure progress is between 0 and 100
   progress = Math.min(100, Math.max(0, progress));
 
   return (
@@ -37,9 +38,11 @@ const CustomProgressBar = ({ progress, width, height }) => {
         borderWidth={0}
         borderRadius={8}
       ></Progress.Bar>
-      <Text className='px-5 text-center font-montserrat-bold text-caption-medium text-projectBlack'>
-        {progress}%
-      </Text>
+      {displayLabel && (
+        <Text className='px-5 text-center font-montserrat-bold text-caption-medium text-projectBlack'>
+          {progress}%
+        </Text>
+      )}
     </View>
   );
 };

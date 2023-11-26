@@ -9,6 +9,7 @@ import { TouchableWithoutFeedback } from 'react-native';
 import Text from '../../components/general/Text';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import LoadingScreen from '../../components/loading/Loading';
+import * as StorageService from '../../services/StorageService';
 
 const LOGIN_TOKEN = '@loginToken';
 
@@ -31,6 +32,8 @@ export default function Login() {
     try {
       const fetchedToken = await AsyncStorage.getItem(LOGIN_TOKEN);
       if (fetchedToken !== null) {
+        await AsyncStorage.setItem('loggedIn', 'true');
+        StorageService.updateStoredCourses();
         navigation.navigate('HomeStack');
       }
       setLoading(false);
@@ -63,13 +66,13 @@ export default function Login() {
                 </View>
                 {/* Register button */}
                 <View className="flex-row justify-center">
-                  <Text className="text-base text-gray mr-1">
+                  <Text className="text-base text-projectGray mr-1">
                     {/* Dont have an account yet? */}
                     Ainda não tem conta?
                   </Text>
                   <Text
                     testId="registerNav"
-                    className={'text-base text-black underline'}
+                    className={'text-base text-projectBlack underline'}
                     onPress={() => navigation.navigate('Register')}
                   >
                     {/* Sign up now */}

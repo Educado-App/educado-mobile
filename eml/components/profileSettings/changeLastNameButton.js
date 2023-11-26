@@ -78,13 +78,13 @@ export default function ProfileComponent() {
 
   return (
     <View>
-      <Text className="text-left text-caption-medium text-black mb-2">Sobrenome</Text>
+      <Text className="text-left text-caption-medium text-projectBlack mb-2">Sobrenome</Text>
       <TouchableOpacity
         className="bg-projectWhite px-5 py-4 rounded-medium w-full"
         onPress={() => setLastNameModalVisible(true)}
       >
         <Text 
-          className="text-left text-body text-gray">
+          className="text-left text-body text-projectGray">
           {lastName}
         </Text>
       </TouchableOpacity>
@@ -96,7 +96,7 @@ export default function ProfileComponent() {
         visible={lastNameModalVisible}
         onRequestClose={() => setLastNameModalVisible(false)}
       >
-        <View className="flex justify-center items-center h-full bg-opacity-50 bg-black">
+        <View className="flex justify-center items-center h-full bg-opacity-50 bg-projectBlack">
           <View className="bg-projectLightGray p-4 rounded-lg w-11/12 max-w-md">
             <View className="flex flex-col items-center">
               <TextInput
@@ -122,7 +122,7 @@ export default function ProfileComponent() {
                 className="px-10 py-4 rounded-medium w-full mt-2 border-0 border-opacity-0"
                 onPress={() => setLastNameModalVisible(false)}
               >
-                <Text className="text-black text-center font-sans-bold">Cancelar</Text>
+                <Text className="text-projectBlack text-center font-sans-bold">Cancelar</Text>
               </TouchableOpacity>
             </View>
           </View>

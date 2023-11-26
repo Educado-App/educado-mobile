@@ -19,6 +19,7 @@ import LectureSwipeScreen from './screens/lectures/LectureSwipeScreen';
 import ErrorScreen from './screens/errors/ErrorScreen';
 import CourseScreen from './screens/courses/CourseScreen';
 import EditProfileScreen from './screens/profile/EditProfile';
+import CertificateScreen from './screens/certificate/CertificateScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -57,6 +58,21 @@ function LoginStack() {
     </Stack.Navigator>
   );
 }
+
+function CertificateStack() {
+  return (
+    <Stack.Navigator initialRouteName={'Certificate'}>
+      <Stack.Screen
+        name="Certificate"
+        component={CertificateScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
 
 function CourseStack() {
   return (
@@ -205,6 +221,13 @@ export default function App() {
               <Stack.Screen
                 name="Lecture"
                 component={LectureSwipeScreen}
+                options={{
+                  headerShown: false,
+                }}
+              />
+              <Stack.Screen
+                name="CertificateStack"
+                component={CertificateStack}
                 options={{
                   headerShown: false,
                 }}

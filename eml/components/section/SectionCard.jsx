@@ -9,9 +9,10 @@ import PropTypes from 'prop-types';
 /**
  * A component that displays a section card with collapsible content.
  * @param {Object} section - The section object containing the section data.
+ * @param {Object} course - The course object containing the course data.
  * @returns {JSX.Element} - The SectionCard component.
  */
-export default function SectionCard({ section }) {
+export default function SectionCard({ section, course }) {
 
   // hardcoded for now
 
@@ -37,8 +38,8 @@ export default function SectionCard({ section }) {
   const handleImagePress = () => {
 
     navigation.navigate('Lecture', {
-      sectionId: section.sectionId,
-      courseId: section.parentCourseId,
+      section: section,
+      parsedCourse: course,
     });
   };
 
@@ -47,10 +48,10 @@ export default function SectionCard({ section }) {
     <View>
       <Pressable testID="collapsible" onPress={toggleDropdown} className="bg-projectWhite rounded-lg shadow-lg shadow-opacity-[0.3] mb-[15] mx-[18] overflow-hidden elevation-[8]">
         <View className={'flex-row items-center justify-between px-[25] py-[15] ' + backgroundColor}>
-          <Text className="text-[16px] font-bold text-black flex-[1]">
+          <Text className="text-[16px] font-bold text-projectBlack flex-[1]">
             {section.title}
           </Text>
-          <Text className="mr-[10] text-black">
+          <Text className="mr-[10] text-projectBlack">
             {/* completed */}
             {completed}/{section.total} concluídos
           </Text>
@@ -81,5 +82,6 @@ export default function SectionCard({ section }) {
 }
 
 SectionCard.propTypes = {
-  section: PropTypes.object
+  section: PropTypes.object,
+  course: PropTypes.object
 };

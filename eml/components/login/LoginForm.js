@@ -14,6 +14,7 @@ import ShowAlert from '../general/ShowAlert';
 
 // Services
 import { setUserInfo, setJWT } from '../../services/StorageService';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 /**
  * Login form component for login screen containing email and password input fields and a login button.
@@ -54,6 +55,7 @@ export default function LoginForm() {
       // Set login token in AsyncStorage and navigate to home screen
       await setJWT(response.accessToken);
       await setUserInfo(response.userInfo);
+      await AsyncStorage.setItem('loggedIn', 'true');
       navigation.navigate('HomeStack');
     }).catch((error) => {
       switch (error?.error?.code) {
@@ -129,7 +131,7 @@ export default function LoginForm() {
       <View>
         {/* TODO: tilføj onPress til nedenstående; reset password */}
         <Text
-          className={'text-right underline text-base text-black mb-15'}
+          className={'text-right underline text-base text-projectBlack mb-15'}
           onPress={() => setModalVisible(true)}
         >
           {/* reset your password? */}

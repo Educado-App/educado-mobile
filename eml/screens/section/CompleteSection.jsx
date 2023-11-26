@@ -12,7 +12,7 @@ import { findCompletedSection } from '../../services/utilityFunctions';
 
 export default function CompleteSectionScreen() {
   const route = useRoute();
-  const { courseId, sectionId } = route.params;
+  const { parsedCourse, sectionId } = route.params;
   const [points, setPoints] = useState(0);
   const [extraPoints, setExtraPoints] = useState(0);
   const navigation = useNavigation();
@@ -124,7 +124,7 @@ export default function CompleteSectionScreen() {
                     { name: 'HomeStack' },
                     {
                       name: 'Section',
-                      params: { courseId },
+                      params: { course: parsedCourse },
                     },
                   ],
                 });
