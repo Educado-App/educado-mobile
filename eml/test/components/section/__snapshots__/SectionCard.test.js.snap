@@ -92,7 +92,11 @@ exports[`<SectionCard /> renders SectionCard correctly 1`] = `
                 "fontSize": 16,
               },
               {
+                "fontFamily": "Montserrat-Bold",
                 "fontWeight": "700",
+              },
+              {
+                "color": "#383838",
               },
               {
                 "flexBasis": 0,
@@ -120,6 +124,9 @@ exports[`<SectionCard /> renders SectionCard correctly 1`] = `
             [
               {
                 "marginRight": 10,
+              },
+              {
+                "color": "#383838",
               },
             ],
           ]

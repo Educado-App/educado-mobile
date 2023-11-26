@@ -8,12 +8,13 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import PopUp from '../../components/gamification/PopUp';
 import { StatusBar } from 'expo-status-bar';
 import PropTypes from 'prop-types';
-// import { getLoginToken, getUserInfo } from '../../services/StorageService';
-import { givePoints } from '../../services/utilityFunctions';
+import { completeComponent, handleLastComponent } from '../../services/utilityFunctions';
+import { useNavigation } from '@react-navigation/native';
 
 export default function ExerciseScreen({ exerciseObject, sectionObject, courseObject, onContinue }) {
   const tailwindConfig = require('../../tailwind.config.js');
   const projectColors = tailwindConfig.theme.colors;
+  const navigation = useNavigation();
 
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [buttonClassName, setButtonClassName] = useState('');
@@ -26,15 +27,6 @@ export default function ExerciseScreen({ exerciseObject, sectionObject, courseOb
   const handleAnswerSelect = (answerIndex) => {
     setSelectedAnswer(answerIndex);
   };
-
-  
-
-  /* function handleSecondOnclick() {
-    navigation.navigate('Lecture', {
-      sectionId: '6540f6b3536b2b37a49457e0', // hardcoded for testing
-      courseId: '6540f668536b2b37a49457dc', // hardcoded for testing
-    });
-  } */
   
   async function handleReviewAnswer(selectedAnswer) {
     const continueText = 'Continuar';
@@ -45,24 +37,20 @@ export default function ExerciseScreen({ exerciseObject, sectionObject, courseOb
       `bg-project${selectedAnswer ? 'Green' : 'Red'}`
     );
 
-    if (selectedAnswer) {
-      setPoints(await givePoints(exerciseObject._id, true, 10));
-    } else {
-      setPoints(await givePoints(exerciseObject._id, false, 0));
-    }
-
     setShowFeedback(true);
     setButtonText(continueText);
     if (buttonText !== continueText) {
+      const obj = await completeComponent(exerciseObject, courseObject._id, selectedAnswer)
+      setPoints(obj.points);
       setIsPopUpVisible(true);
     } else {
       setIsPopUpVisible(false);
       if (onContinue()) {
-        console.log('Continue to section complete screen');
-        // TODO: navigate to section complete screen
+        handleLastComponent(exerciseObject, courseObject._id, navigation);
       }
     }
   }
+  
 
   return (
     <SafeAreaView className="h-full bg-secondary">

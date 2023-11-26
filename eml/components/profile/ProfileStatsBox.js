@@ -31,4 +31,9 @@ const ProfileStatsBox = ({ studentPoints, studentLevel, levelProgress }) => {
   );
 };
 
+ProfileStatsBox.propTypes = {
+  studentLevel: PropTypes.number.isRequired,
+  levelProgress: PropTypes.number.isRequired,
+};
+
 export default ProfileStatsBox;

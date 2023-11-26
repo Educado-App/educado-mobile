@@ -3,15 +3,21 @@ import { View } from 'react-native';
 import Text from '../../components/general/Text';
 import { Image } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { getBucketImage } from '../../api/api';
 import PropTypes from 'prop-types';
+import * as StorageService from '../../services/StorageService';
 import { useNavigation } from '@react-navigation/native';
 import StandardButton from '../../components/general/StandardButton';
+import { completeComponent, handleLastComponent } from '../../services/utilityFunctions';
 
 const TextImageLectureScreen = ({ lectureObject, courseObject, isLastSlide }) => {
   const [imageUrl, setImageUrl] = useState(null);
   const [paragraphs, setParagraphs] = useState(null);
   const navigation = useNavigation();
+
+  const handleContinue = async () => {
+    await completeComponent(lectureObject, courseObject._id, true);
+    handleLastComponent(lectureObject, courseObject._id, navigation);
+  }
 
   useEffect(() => {
     if (lectureObject.image) {
@@ -23,7 +29,7 @@ const TextImageLectureScreen = ({ lectureObject, courseObject, isLastSlide }) =>
 
   const getLectureImage = async () => {
     try {
-      const imageRes = await getBucketImage(lectureObject.image);
+      const imageRes = await StorageService.fetchLectureImage(lectureObject.image, lectureObject._id);
       setImageUrl(imageRes);
     }
     catch (err) {
@@ -118,9 +124,9 @@ const TextImageLectureScreen = ({ lectureObject, courseObject, isLastSlide }) =>
             <StandardButton
               props={{
                 buttonText: 'Continuar',
-                onPress: () => {navigation.navigate('CompleteSection', 
-                  { courseId: courseObject._id, sectionId: lectureObject.parentSection }
-                );}
+                onPress: () => {
+                  handleContinue();
+                }
               }}
             />
           </View>
@@ -131,9 +137,9 @@ const TextImageLectureScreen = ({ lectureObject, courseObject, isLastSlide }) =>
         {/* Course name and lecturen name */}
         <View className="w-full flex-row justify-between">
 
-          <View className=" flex-col mb-8">
-            <Text className=" text-projectGray " >Nome do curso: {courseObject.title}</Text>
-            <Text className=" text-xl font-bold text-black " >{lectureObject.title}</Text>
+          <View className="flex-col mb-8">
+            <Text className="text-projectGray" >Nome do curso: {courseObject.title}</Text>
+            <Text className="text-xl font-bold text-projectBlack" >{lectureObject.title}</Text>
           </View>
         </View>
       </View>

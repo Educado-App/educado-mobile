@@ -3,10 +3,9 @@ import { View } from 'react-native';
 import Text from '../general/Text';
 import ProfileNameCircle from './ProfileNameCircle';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import PropTypes from 'prop-types';
 import { FontAwesome5 } from '@expo/vector-icons';
 import tailwindConfig from '../../tailwind.config';
-import PropTypes from 'prop-types';
-
 
 /**
  * Component for showing user information

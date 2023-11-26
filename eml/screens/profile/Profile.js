@@ -6,7 +6,6 @@ import {
 } from 'react-native';
 import LogOutButton from '../../components/profile/LogOutButton';
 import ProfileNavigationButton from '../../components/profile/ProfileNavigationButton.js';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import UserInfo from '../../components/profile/UserInfo';
 import { useNavigation } from '@react-navigation/native';
 import { getStudentInfo } from '../../services/StorageService';
@@ -22,7 +21,7 @@ export default function ProfileComponent() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
-  const [points, setPoints] = useState(0);
+  //const [points, setPoints] = useState(0);
   const navigation = useNavigation();
   const [studentLevel, setStudentLevel] = useState(0);
   const [studentPoints, setStudentPoints] = useState(0);
@@ -36,19 +35,21 @@ export default function ProfileComponent() {
   }, [navigation]);
 
   /**
-  * Fetches the user's profile from the local storage
+  * Fetches the user's profile from local storage
   */ 
   const getProfile = async () => {
     try {
-      const fetchedProfile = JSON.parse(await AsyncStorage.getItem(USER_INFO));
+      const fetchedProfile = await getUserInfo();
+      const fetchedStudent = await getStudentInfo();
       if (fetchedProfile !== null) {
         setFirstName(fetchedProfile.firstName);
         setLastName(fetchedProfile.lastName);
         setEmail(fetchedProfile.email);
-        setPoints(fetchedProfile.points);
+        //setPoints(fetchedStudent.points);
+        setTotalPoints(await calculateTotalPoints(fetchedStudent.level, fetchedStudent.points));
       }
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      ShowAlert(errorSwitch(error));
     }
   };
 
@@ -75,13 +76,13 @@ export default function ProfileComponent() {
           <UserInfo firstName={firstName} lastName={lastName} email={email} points={points}></UserInfo>
           <ProfileStatsBox studentPoints={studentPoints} studentLevel={studentLevel} levelProgress={levelProgress} />
           <ProfileNavigationButton label='Editar perfil' testId={'editProfileNav'} onPress={() => navigation.navigate('EditProfile')}></ProfileNavigationButton>
-          <ProfileNavigationButton label='Certificados'></ProfileNavigationButton>
+          <ProfileNavigationButton label='Certificados' onPress={() => navigation.navigate('CertificateStack')}></ProfileNavigationButton>
           <ProfileNavigationButton label='Download'></ProfileNavigationButton>
-          <View className='flex flex-row'>
+          <View className='flex flex-row pb-4'>
             <LogOutButton testID='logoutBtn'></LogOutButton>
           </View>
         </View>
       </ScrollView>
     </SafeAreaView>
   );
-  }
+}

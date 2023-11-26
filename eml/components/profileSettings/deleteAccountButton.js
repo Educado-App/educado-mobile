@@ -54,7 +54,7 @@ export default function DeleteAccount() {
 
   return (
     <View>
-      <Text className="text-left text-caption-medium text-black mb-2">Deletar conta</Text>
+      <Text className="text-left text-caption-medium text-projectBlack mb-2">Deletar conta</Text>
       <TouchableOpacity
         className="bg-error px-10 py-4 rounded-medium w-full"
         onPress={deleteAlert}

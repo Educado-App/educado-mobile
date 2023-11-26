@@ -81,12 +81,15 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
               "fontSize": 25,
             },
             {
+              "fontFamily": "Montserrat-Bold",
               "fontWeight": "700",
             },
           ],
         ]
       }
-    />
+    >
+      1
+    </Text>
     <View
       style={
         {
@@ -309,7 +312,11 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
                         "fontSize": 16,
                       },
                       {
+                        "fontFamily": "Montserrat-Bold",
                         "fontWeight": "700",
+                      },
+                      {
+                        "color": "#383838",
                       },
                       {
                         "flexBasis": 0,
@@ -337,6 +344,9 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
                     [
                       {
                         "marginRight": 10,
+                      },
+                      {
+                        "color": "#383838",
                       },
                     ],
                   ]
@@ -600,7 +610,11 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
                         "fontSize": 16,
                       },
                       {
+                        "fontFamily": "Montserrat-Bold",
                         "fontWeight": "700",
+                      },
+                      {
+                        "color": "#383838",
                       },
                       {
                         "flexBasis": 0,
@@ -628,6 +642,9 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
                     [
                       {
                         "marginRight": 10,
+                      },
+                      {
+                        "color": "#383838",
                       },
                     ],
                   ]
