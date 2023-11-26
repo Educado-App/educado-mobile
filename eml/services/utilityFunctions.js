@@ -223,10 +223,32 @@ function getComponent(student, courseId, sectionId, componentId) {
 }
 
 export function findIndexOfUncompletedComp(student, courseId, sectionId) {
-  const course = student.courses.find(course => course.courseId == courseId);
-  const section = course?.sections.find(section => section.sectionId == sectionId);
+  const course = student.courses.find(course => course.courseId === courseId);
 
-  return section?.components.findIndex(component => !component.isComplete);
+  if (!course) {
+    console.error(`Course with ID ${courseId} not found for the student.`);
+    return -1; // or any other appropriate value to indicate not found
+  }
+
+  const section = course.sections.find(section => section.sectionId === sectionId);
+
+  if (!section) {
+    console.error(`Section with ID ${sectionId} not found in course ${courseId}.`);
+    return -1; // or any other appropriate value to indicate not found
+  }
+
+  if (!section.components || section.components.length === 0) {
+    console.warn(`Section ${sectionId} in course ${courseId} has no components.`);
+    return -1; // or any other appropriate value to indicate no components
+  }
+
+  const indexOfUncompletedComp = section.components.findIndex(component => !component.isComplete);
+
+  if (indexOfUncompletedComp === -1) {
+    console.log(`All components in section ${sectionId} of course ${courseId} are complete.`);
+  }
+
+  return indexOfUncompletedComp;
 }
 
 export async function handleLastComponent(comp, course, navigation) {
