@@ -27,7 +27,7 @@ export default function ExerciseScreen({ exerciseObject, sectionObject, courseOb
   const handleAnswerSelect = (answerIndex) => {
     setSelectedAnswer(answerIndex);
   };
-  
+
   async function handleReviewAnswer(selectedAnswer) {
     const continueText = 'Continuar';
 

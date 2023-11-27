@@ -197,6 +197,57 @@ export const addCourseToStudent = async (user_Id, course_Id, token) => {
   return res.data;
 };
 
+export const updateCourseStatus = async (user_id, course_id) => {
+  try{
+    // When user completes course it should update the user document from
+    // isComplete: false, to isComplete: true for that course
+    const res = await client.put('/api/eml/' + user_id + '/updateCourse/' + course_id);
+    return res.data;
+  } catch (e) {
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
+};
+
+export const updateSectionStatus = async (user_id, course_id, section_id) => {
+  try{
+    // When user completes section it should update the user document from
+    // isComplete: false, to isComplete: true for that section
+    const res = await client.put('/api/eml/' + user_id + '/updateSection/' + course_id + '/' + section_id);
+    return res.data;
+  } catch (e) {
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
+};
+
+export const updateExerciseStatus = async (
+  user_id,
+  course_id,
+  section_id,
+  exercise_id
+) => {
+  try{
+    // When user completes an exercise it should update the user document from
+    // isComplete: false, to isComplete: true for that exercise
+    const res = await client.put('/api/eml/' + user_id + '/updateExercise/'
+      + course_id + '/' + section_id + '/' + exercise_id);
+    return res.data;
+  } catch (e) {
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
+};
+
 /**
  * Function to send mail to user with code to reset password
  * @param {Object} email should contain an email, to receive a reset password message
