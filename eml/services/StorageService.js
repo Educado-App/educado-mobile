@@ -1,7 +1,7 @@
 import * as api from '../api/api.js';
 import * as userApi from '../api/userApi.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {NetworkStatusService} from "./NetworkStatusService";
+import {NetworkStatusService} from './NetworkStatusService';
 import defaultImage from '../assets/images/defaultImage-base64.json';
 
 const SUB_COURSE_LIST = '@subCourseList';
@@ -91,7 +91,7 @@ export const getCourseList = async () => {
   } else {
     return courseList;
   }
-}
+};
 
 const refreshCourseList = async (courseList) => {
   try {
@@ -147,7 +147,7 @@ export const getSectionList = async (course_id) => {
     if (isOnline) {
       sectionList = await api.getAllSections(course_id);
     } else {
-      throw new Error('No internet connection in getSectionList')
+      throw new Error('No internet connection in getSectionList');
     }
   } catch (error) {
   // Use locally stored section if they exist and the DB cannot be reached
@@ -158,7 +158,7 @@ export const getSectionList = async (course_id) => {
       if (e?.response?.data != null) {
         throw new Error('Error in getSectionList: ', e.response.data);
       } else {
-        throw new Error('Error in getSectionList: ', e)
+        throw new Error('Error in getSectionList: ', e);
       }
     }
   } finally {
@@ -240,7 +240,7 @@ const lectureFittingModel = async (lectureList) => {
     }
   } catch (e){
     if (e?.response?.data != null) {
-      throw new Error('Error in lectureFittingModel: ', e.response.data)
+      throw new Error('Error in lectureFittingModel: ', e.response.data);
     } else {
       throw new Error('Error in lectureFittingModel: ', e);
     }
@@ -257,13 +257,13 @@ export const fetchLectureImage = async (imageID, lectureID) => {
     if (isOnline) {
       image = await api.getBucketImage(imageID);
     } else {
-        throw new Error('No internet connection in fetchLectureImage');
+      throw new Error('No internet connection in fetchLectureImage');
     }
   } catch (error) {
     // Use locally stored lectures if they exist and the DB cannot be reached
     try {
       if((image = JSON.parse(await AsyncStorage.getItem('I' + lectureID))) === null){
-        throw new Error('JSON parse error in fetchLectureImage', error)
+        throw new Error('JSON parse error in fetchLectureImage', error);
       }
     } catch (e){
       if (e?.response?.data != null) {
@@ -323,7 +323,7 @@ const exerciseFittingModel = async (exerciseList) => {
     if (error?.response?.data != null) {
       throw new Error('Error in exerciseFittingModel: ', error.response.data);
     } else {
-        throw new Error('Error in exerciseFittingModel: ', error);
+      throw new Error('Error in exerciseFittingModel: ', error);
     }
   } finally {
     //Returns new fitted exercise list, or empty list if there was no data fetched from DB or Storage,
@@ -434,12 +434,11 @@ export const unsubscribe = async (courseId) => {
     }
     return await api.unSubscribeToCourse(userId, courseId);
 
-    // TODO
-  } catch (e) {
-    if (e?.response?.data != null) {
-      throw e.response.data;
+  } catch (error) {
+    if (error?.response?.data != null) {
+      throw new Error(error.response.data);
     } else {
-      throw e;
+      throw new Error(error);
     }
   }
 };
@@ -478,13 +477,13 @@ export const storeCourseLocally = async (courseID) => {
         let exerciseList = await api.getExercisesInSection(section._id);
         await AsyncStorage.setItem('E' + section._id, JSON.stringify(exerciseList));
       }
-    } catch (e) {
+    } catch (error) {
       success = false;
       deleteLocallyStoredCourse(courseID);
-      if (e?.response?.data != null) {
-        throw e.response.data;
+      if (error?.response?.data != null) {
+        throw new Error(error.response.data);
       } else {
-        throw e;
+        throw new Error(error);
       }
     } finally {
       return success;
