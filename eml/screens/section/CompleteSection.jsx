@@ -8,15 +8,17 @@ import StandardButton from '../../components/general/StandardButton';
 import AnimatedNumbers from '../../components/gamification/AnimatedNumber';
 import { generateSectionCompletePhrases } from '../../constants/Phrases';
 import { getStudentInfo } from '../../services/StorageService';
-import { findCompletedSection } from '../../services/utilityFunctions';
 
 export default function CompleteSectionScreen() {
   const route = useRoute();
   const { parsedCourse, sectionId } = route.params;
   const [points, setPoints] = useState(0);
   const [extraPoints, setExtraPoints] = useState(0);
+  // const [totalPointsText, setTotalPointsText] = useState('Pontos');
   const navigation = useNavigation();
   const [randomPhrase, setRandomPhrase] = useState('');
+
+  const extraPointsFinal = 20;
 
   const getRandomPhrase = () => {
     let randomIndex = 0;
@@ -66,26 +68,44 @@ export default function CompleteSectionScreen() {
     );
   }
 
+  const findCompletedSection = (completedCourses) => {
+    const completedCourse = completedCourses.find((course) => course.courseId === parsedCourse.courseId);
+
+    if (completedCourse) {
+      const completedSection = completedCourse.completedSections.find(
+        (section) => section.sectionId === sectionId,
+      );
+
+      if (completedSection) {
+        return completedSection;
+      }
+      return null;
+    }
+
+    return null;
+  };
+
   async function getPointsFromSection() {
     const studentInfo = await getStudentInfo();
     const completedSection = findCompletedSection(
-      studentInfo,
-      courseId,
+      studentInfo.completedCourses,
+      parsedCourse,
       sectionId,
     );
     if (completedSection === null) {
       return 0;
     }
-    return { totalPoints: completedSection.totalPoints, extraPoints: completedSection.extraPoints };
+    return completedSection.totalPoints;
   }
 
   useEffect(() => {
     async function animations() {
-      const obj = await getPointsFromSection();
-      await animation(points, setPoints, obj.totalPoints);
+      const pointsFinal = await getPointsFromSection();
+      await animation(points, setPoints, pointsFinal);
 
       setTimeout(async () => {
-        await animation(extraPoints, setExtraPoints, obj.extraPoints);
+        await animation(extraPoints, setExtraPoints, extraPointsFinal);
+        // await totalPointsAnimation(points, pointsFinal + extraPointsFinal);
       }, 750);
     }
 
@@ -136,4 +156,4 @@ export default function CompleteSectionScreen() {
 
     </SafeAreaView>
   );
-};
+}

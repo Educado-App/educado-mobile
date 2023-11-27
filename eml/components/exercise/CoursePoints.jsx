@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Animated from 'react-native-reanimated';
 import AnimatedNumbers from '../gamification/AnimatedNumber';
-import { getStudentCourses } from '../../services/StorageService';
+import { getStudentInfo, saveCourseTotalPointsLocally } from '../../services/StorageService';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import tailwindConfig from '../../tailwind.config';
 import PropTypes from 'prop-types';
@@ -10,10 +10,13 @@ import { getPointsFromExerciseReceiver, getPointsFromExerciseUnsubscribe } from 
 const CoursePoints = (courseId) => {
   const [coursePoints, setCoursePoints] = useState(0);
   const [scale, setScale] = useState(1);
+  
+  const getCompletedCourses = async () => {
+    const studentInfo = await getStudentInfo();
+    return studentInfo.completedCourses;
+  };
 
   const updateCoursePoints = (newPoints) => {
-    if (newPoints === 0) return;
-
     let isFirstIteration = true;
     let finalValue;
     let counter = 0;
@@ -28,6 +31,7 @@ const CoursePoints = (courseId) => {
         const nextNumber = prevNumber + 1;
         if (nextNumber >= finalValue) {
           clearInterval(interval);
+          saveCourseTotalPointsLocally(courseId, finalValue);
           setTimeout(() => {
             setScale(1);
           }, 75 * counter);
@@ -40,10 +44,10 @@ const CoursePoints = (courseId) => {
 
   const fetchCourseAndPoints = async () => {
     try {
-      const courses = await getStudentCourses();
-      const currentCourse = courses.find((course) => course.courseId === courseId.courseId);
+      const completedCourses = await getCompletedCourses();
+      const currentCourse = completedCourses.find((course) => course.courseId === courseId.courseId);
 
-      if (currentCourse && courses) {
+      if (currentCourse && completedCourses) {
         setCoursePoints(currentCourse.totalPoints);
       } else {
         setCoursePoints(0);

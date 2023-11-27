@@ -416,7 +416,7 @@ describe('StorageService Functions', () => {
       const result = await StorageService.subscribe(mockData.courseData._id);
 
       // Assert that the result is as expected
-      expect(result).toBe(true);
+      expect(result).toBe('Subscription Successful');
 
       // Assert that AsyncStorage.getItem was called with the correct arguments
       expect(AsyncStorage.getItem).toHaveBeenCalledWith('@userId');

@@ -15,18 +15,9 @@ export const setStudentInfo = async (userId) => {
   await AsyncStorage.setItem(STUDENT_INFO, JSON.stringify(fetchedStudentInfo));
 };
 
-export const updateStudentInfo = async (studentInfo) => {
-  await AsyncStorage.setItem(STUDENT_INFO, JSON.stringify(studentInfo));
-};
-
 export const getStudentInfo = async () => {
   const fetchedStudentInfo = JSON.parse(await AsyncStorage.getItem(STUDENT_INFO));
   return fetchedStudentInfo;
-};
-
-export const getStudentCourses = async () => {
-  const fetchedStudentInfo = await getStudentInfo();
-  return fetchedStudentInfo.courses;
 };
 
 export const getLoginToken = async () => {
@@ -147,6 +138,20 @@ export const refreshCourseList = async (courseList) => {
       throw e;
     }
   }
+};
+
+export const saveCourseTotalPointsLocally = async (courseId, newTotalPoints) => {
+  const studentInfo = JSON.parse(await AsyncStorage.getItem(STUDENT_INFO));
+
+  const completedCourses = studentInfo.completedCourses;
+  const completedCourseIndex = completedCourses.findIndex(course => course.courseId === courseId.courseId);
+  if (completedCourseIndex !== -1) {
+    completedCourses[completedCourseIndex].totalPoints = newTotalPoints;
+  }
+
+  studentInfo.completedCourses = completedCourses;
+
+  await AsyncStorage.setItem(STUDENT_INFO, JSON.stringify(studentInfo));
 };
 
 /** SECTIONS **/
@@ -403,7 +408,8 @@ export const subscribe = async (courseId) => {
   }
 
   try {
-    await api.subscribeToCourse(userId, courseId);
+    return await api.subscribeToCourse(userId, courseId);
+
   } catch (e) {
     if (e?.response?.data != null) {
       throw e.response.data;
@@ -411,29 +417,7 @@ export const subscribe = async (courseId) => {
       throw e;
     }
   }
-
-  return true;
 };
-
-export const addCourseToStudent = async (courseId) => {
-  const userId = await AsyncStorage.getItem(USER_ID);
-  const loginToken = await getLoginToken()
-
-  try {
-    const student = await userApi.addCourseToStudent(userId, courseId, loginToken);
-    if (!student) {
-      throw new Error('Student not found');
-    }
-
-    updateStudentInfo(student);
-  } catch (e) {
-    if (e?.response?.data != null) {
-      throw e.response.data;
-    } else {
-      throw e;
-    }
-  }
-}
 
 // unsubscribe to a course
 export const unsubscribe = async (courseId) => {
