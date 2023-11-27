@@ -8,10 +8,11 @@ import LogOutButton from '../../components/profile/LogOutButton';
 import ProfileNavigationButton from '../../components/profile/ProfileNavigationButton.js';
 import UserInfo from '../../components/profile/UserInfo';
 import { useNavigation } from '@react-navigation/native';
-import { getStudentInfo, getUserInfo } from '../../services/StorageService';
+import { getUserInfo } from '../../services/StorageService';
+import errorSwitch from '../../components/general/errorSwitch';
+import ShowAlert from '../../components/general/ShowAlert';
+import { getStudentInfo } from '../../services/StorageService';
 import ProfileStatsBox from '../../components/profile/ProfileStatsBox';
-import { ShowAlert } from '../../components/general/ShowAlert';
-import { errorSwitch } from '../../components/general/errorSwitch';
 
 /**
  * Profile screen
@@ -23,8 +24,8 @@ export default function ProfileComponent() {
   const [email, setEmail] = useState('');
   const navigation = useNavigation();
   const [studentLevel, setStudentLevel] = useState(0);
-  const [studentPoints, setStudentPoints] = useState(0);
   const [levelProgress, setLevelProgress] = useState(0);
+  const [totalPoints, setTotalPoints] = useState(0);
 
   useEffect(() => {
     const getInfo = navigation.addListener('focus', () => {
@@ -53,7 +54,7 @@ export default function ProfileComponent() {
         setEmail(fetchedProfile.email);
       } else if (fetchedStudent !== null) {
         setStudentLevel(fetchedStudent.level);
-        setStudentPoints(fetchedStudent.points);
+        setTotalPoints(fetchedStudent.points);
         setLevelProgress(getLevelProgress(fetchedStudent));
       }
     } catch (error) {
@@ -68,7 +69,7 @@ export default function ProfileComponent() {
   const fetchStudentProfile = async () => {
     const studentInfo = await getStudentInfo();
     setStudentLevel(studentInfo.level);
-    setStudentPoints(studentInfo.points);
+    setTotalPoints(studentInfo.points);
     setLevelProgress(getLevelProgress(studentInfo));
   };
   
@@ -79,9 +80,9 @@ export default function ProfileComponent() {
   return (
     <SafeAreaView className='bg-secondary'>
       <ScrollView className='flex flex-col'>
-        <View className="flex-1 justify-start pt-[5%] h-screen">
-          <UserInfo firstName={firstName} lastName={lastName} email={email}></UserInfo>
-          <ProfileStatsBox studentPoints={studentPoints} studentLevel={studentLevel} levelProgress={levelProgress} />
+        <View className="flex-1 justify-start pt-[20%] h-screen">
+          <UserInfo firstName={firstName} lastName={lastName} email={email} points={totalPoints}></UserInfo>
+          <ProfileStatsBox studentLevel={studentLevel} levelProgress={levelProgress} />
           <ProfileNavigationButton label='Editar perfil' testId={'editProfileNav'} onPress={() => navigation.navigate('EditProfile')}></ProfileNavigationButton>
           <ProfileNavigationButton label='Certificados' onPress={() => navigation.navigate('CertificateStack')}></ProfileNavigationButton>
           <ProfileNavigationButton label='Download'></ProfileNavigationButton>
