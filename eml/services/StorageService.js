@@ -1,7 +1,8 @@
 import * as api from '../api/api.js';
 import * as userApi from '../api/userApi.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import RNFS from 'react-native-fs';
+import * as FileSystem from 'expo-file-system';
+
 
 
 const SUB_COURSE_LIST = '@subCourseList';
@@ -10,7 +11,7 @@ const USER_INFO = '@userInfo';
 const STUDENT_INFO = '@studentInfo';
 const LOGIN_TOKEN = '@loginToken';
 let isOnline = true;
-const lectureVideoPath = RNFS.DocumentDirectoryPath+'/lectureVideos'
+const lectureVideoPath = FileSystem.documentDirectory + 'lectureVideos/';
 
 /** STUDENT **/
 
@@ -480,8 +481,8 @@ export const checkIfOnline = async () => {
 /** Downloading course **/
 
 
-const makeDirectory = async (folderPath) => {
-  await RNFS.mkdir(folderPath); //create a new folder on folderPath
+const makeDirectory = (folderPath) => {
+  FileSystem.makeDirectoryAsync(folderPath, { intermediates: true }); //create a new folder on folderPath // Might need true as second parameter
 };
 
 /**
@@ -511,17 +512,22 @@ export const storeCourseLocally = async (courseID) => {
         } else if (lecture.video){
 
           await makeDirectory(lectureVideoPath);
-          console.log(RNFS.DocumentDirectoryPath);
+          console.log('general path: ' + FileSystem.documentDirectory);
+          console.log('specific path: ' + lectureVideoPath);
           console.log('video url: ' + lecture.video);
-          console.log(await api.getBucketImage(lecture.video));
-          //await createFile(lecture.video, await api.getBucketImage(lecture.video));
-
+          console.log(!!(await api.getBucketImage(lecture.video)));
+          //await FileSystem.StorageAccessFramework.createFileAsync(lectureVideoPath, lecture.video, 'JSON');
+          await FileSystem.writeAsStringAsync(lectureVideoPath + lecture.video + '.txt', await api.getBucketImage(lecture.video));
+          console.log(await FileSystem.getInfoAsync(lectureVideoPath));
+          console.log(await FileSystem.getInfoAsync(lectureVideoPath + lecture.video + '.txt'));
+          console.log(await FileSystem.readAsStringAsync(lectureVideoPath + lecture.video + '.txt'));
         }
       }
       let exerciseList = await api.getExercisesInSection(section._id);
       await AsyncStorage.setItem('E' + section._id, JSON.stringify(exerciseList));
     }
   } catch (e) {
+    console.log(e);
     success = false;
     deleteLocallyStoredCourse(courseID);
     if (e?.response?.data != null) {
@@ -533,7 +539,7 @@ export const storeCourseLocally = async (courseID) => {
     return success;
   }
 };
-
+/*
 const createFile = async (fileName, content) => {
   try {
     //create a file at filePath. Write the content data to it
@@ -546,7 +552,7 @@ const createFile = async (fileName, content) => {
     }
   }
 };
-
+*/
 /**
  * Deletes a locally stored course
  * @param {String} courseID - A string with the ID of the course to be removed from lacal storage
