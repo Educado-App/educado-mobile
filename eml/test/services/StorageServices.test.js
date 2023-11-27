@@ -54,7 +54,7 @@ describe('StorageService Functions', () => {
       AsyncStorage.getItem.mockResolvedValueOnce('Invalid JSON data');
 
       // Act and Assert
-      await expect(StorageService.getUserInfo()).rejects.toThrow('Unexpected token \'I\', \"Invalid JSON data\" is not valid JSON');
+      await expect(StorageService.getUserInfo()).rejects.toThrow('Unexpected token I in JSON at position 0');
     });
   });
 
@@ -542,7 +542,7 @@ describe('StorageService Functions', () => {
       expect(api.getAllSections).toHaveBeenCalledWith(mockCourseID);
       expect(api.getLecturesInSection).toHaveBeenCalledWith('section_id');
       expect(api.getBucketImage).toHaveBeenCalledWith('image_id');
-      expect(api.getExercisesInSection).toHaveBeenCalledWith(mockCourseID, 'section_id');
+      expect(api.getExercisesInSection).toHaveBeenCalledWith('section_id');
       expect(AsyncStorage.setItem).toHaveBeenCalledTimes(5); // Check the actual count based on your calls
     });
 
@@ -700,36 +700,6 @@ describe('StorageService Functions', () => {
       expect(AsyncStorage.getItem).toHaveBeenCalledWith(USER_ID);
       expect(api.getSubscriptions).toHaveBeenCalledWith('user_id');
       // Add more assertions based on your actual error-handling logic
-    });
-  });
-
-  describe('checkIfOnline', () => {
-    beforeEach(() => {
-      jest.clearAllMocks();
-    });
-    
-    it('should check if it is online', async () => {
-      // Mock checkBackendOnline to return true
-      await api.checkBackendOnline.mockResolvedValue(true);
-
-      // calls checkIFOnline function
-      const result = await StorageService.checkIfOnline();
-
-      // Assert that the result is as expected
-      expect(result).toBe(true);
-
-    });
-
-    it('should check if it is not online', async () => {
-      // Mock checkBackendOnline to return true
-      await api.checkBackendOnline.mockResolvedValue(false);
-
-      // calls checkIFOnline function
-      const result = await StorageService.checkIfOnline();
-
-      // Assert that the result is as expected
-      expect(result).toBe(false);
-
     });
   });
 

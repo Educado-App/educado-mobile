@@ -2,14 +2,15 @@ import axios from 'axios';
 
 const timeoutInMs = 1200;
 
+const url = 'http://172.30.245.212:8888'; // change to lcd ip when testing
+const certificateUrl = 'http://172.30.245.212:8080';
+
 /* Commented out for avoiding linting errors
  * TODO: move IP address to .env file !!!
 const testUrl = 'http://localhost:8888';
 const testExpo = 'http://172.30.211.57:8888'; 
 const digitalOcean = 'http://207.154.213.68:8888';
 */
-
-const url = 'http://192.168.0.3:8888'; // change to lcd ip when testing
 
 /*** COURSE, SECTIONS AND EXERCISES ***/
 
@@ -222,6 +223,25 @@ export const unSubscribeToCourse = async (userId, courseId) => {
     }
   }
 };
+
+
+// Get certificates from student
+export const fetchCertificates = async (userId) => {
+  try {
+    if (userId == null) {
+      throw 'User ID is null';
+    }
+    const res = await axios.get(certificateUrl + '/api/student-certificates/student/' + userId);
+    return res.data;
+  }  catch (e) {
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
+};
+
 
 // Call to backend to see if online
 export const checkBackendOnline = async () => {
