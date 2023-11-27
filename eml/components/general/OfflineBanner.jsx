@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Animated, Text } from 'react-native';
+import { Animated, Text, Easing } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { checkIfOnline } from '../../services/StorageService';
+import NetworkStatusObserver from '../../hooks/NetworkStatusObserver';
+import tailwindConfig from '../../tailwind.config';
 
 /**
  * A banner component that shows an offline notification.
@@ -9,47 +10,43 @@ import { checkIfOnline } from '../../services/StorageService';
  * @returns {JSX.Element} - The rendered component.
  */
 export default function OfflineBanner() {
-  const [isBackendReachable, setIsBackendReachable] = useState(false);
+  const [isOnline, setIsOnline] = useState(false);
   const translateY = useRef(new Animated.Value(-100)).current;
-
-  /**
- * Checks the backend connection status and updates state.
- */
-  const checkBackendConnection = async () => {
-    setIsBackendReachable(await checkIfOnline());
-  };
-
-  useEffect(() => {
-    // Check once on mount
-    checkBackendConnection();
-
-    const intervalId = setInterval(checkBackendConnection, 10000);
-
-    // Clear interval on component unmount
-    return () => clearInterval(intervalId);
-  }, []);
 
   useEffect(() => {
     Animated.timing(translateY, {
-      toValue: isBackendReachable ? -100 : 0, // Slide in or out
-      duration: 300,
+      toValue: isOnline ? -100 : 0, // Slide in or out
+      duration: 1000,
+      easing: Easing.cubic,
       useNativeDriver: true,
     }).start();
-  }, [isBackendReachable, translateY]);
+  }, [isOnline, translateY]);
 
   return (
-    <Animated.View style={[{
-      transform: [{translateY}],
-      position: 'absolute',
-      top: 0,
-      width: '100%',
-      zIndex: 10,
-    }]} className='bg-yellow flex-row pb-2 justify-center items-end h-[10%]'>
-      <MaterialCommunityIcons name={'wifi-off'} color='black' size={20}/>
-      <Text className={'px-2'}>
-        {/* No internet connection! */}
-          Sem conexão com a internet!
-      </Text>
-    </Animated.View>
+    <>
+      <NetworkStatusObserver setIsOnline={setIsOnline} />
+
+      <Animated.View
+        style={[{
+          transform: [{translateY}],
+          position: 'absolute',
+          top: 0,
+          width: '100%',
+          zIndex: 10,
+          backgroundColor: isOnline ? tailwindConfig.theme.colors.success : tailwindConfig.theme.colors.yellow,
+        }]}
+        className='flex-row pb-2 justify-center items-end h-[10%]'
+      >
+        <MaterialCommunityIcons
+          name={isOnline ? 'wifi' : 'wifi-off'}
+          color='black'
+          size={20}
+        />
+        <Text className={'px-2'}>
+          {/* No internet connection! */}
+          {isOnline ? 'Conectado à internet' : 'Sem conexão com a internet!'}
+        </Text>
+      </Animated.View>
+    </>
   );
 }

@@ -98,6 +98,9 @@ exports[`login Check LoginForm renders correctly 1`] = `
                 "paddingLeft": 10,
               },
               {
+                "backgroundColor": "#FFFFFF",
+              },
+              {
                 "borderBottomLeftRadius": 8,
                 "borderBottomRightRadius": 8,
                 "borderTopLeftRadius": 8,
@@ -249,6 +252,9 @@ exports[`login Check LoginForm renders correctly 1`] = `
                 "paddingLeft": 10,
               },
               {
+                "backgroundColor": "#FFFFFF",
+              },
+              {
                 "borderBottomLeftRadius": 8,
                 "borderBottomRightRadius": 8,
                 "borderTopLeftRadius": 8,
@@ -261,26 +267,40 @@ exports[`login Check LoginForm renders correctly 1`] = `
       </View>
     </View>
     <View
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
       style={
         [
           {
             "position": "absolute",
           },
           {
-            "right": 8,
+            "right": 0,
           },
           {
             "top": 8,
           },
           {
-            "marginTop": 12,
+            "paddingBottom": 12,
+            "paddingLeft": 12,
+            "paddingRight": 12,
+            "paddingTop": 12,
           },
         ]
       }
     >
       <Text
         allowFontScaling={false}
-        onPress={[Function]}
         selectable={false}
         style={
           [
@@ -368,6 +388,9 @@ exports[`login Check LoginForm renders correctly 1`] = `
               "fontSize": 16,
               "lineHeight": 24,
             },
+            {
+              "color": "#383838",
+            },
           ],
         ]
       }
@@ -375,15 +398,7 @@ exports[`login Check LoginForm renders correctly 1`] = `
       Esqueceu a senha?
     </Text>
   </View>
-  <View
-    style={
-      [
-        {
-          "marginTop": 48,
-        },
-      ]
-    }
-  >
+  <View>
     <View
       accessibilityState={
         {
@@ -393,9 +408,7 @@ exports[`login Check LoginForm renders correctly 1`] = `
       accessible={true}
       collapsable={false}
       focusable={true}
-      onBlur={[Function]}
       onClick={[Function]}
-      onFocus={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -403,39 +416,19 @@ exports[`login Check LoginForm renders correctly 1`] = `
       onResponderTerminationRequest={[Function]}
       onStartShouldSetResponder={[Function]}
       style={
-        [
-          {
-            "flexBasis": "auto",
-            "flexGrow": 1,
-            "flexShrink": 1,
-          },
-          {
-            "alignItems": "center",
-          },
-          {
-            "backgroundColor": "#5ECCE9",
-          },
-          {
-            "paddingLeft": 40,
-            "paddingRight": 40,
-          },
-          {
-            "paddingBottom": 16,
-            "paddingTop": 16,
-          },
-          {
-            "borderBottomLeftRadius": 8,
-            "borderBottomRightRadius": 8,
-            "borderTopLeftRadius": 8,
-            "borderTopRightRadius": 8,
-          },
-          {
-            "opacity": 1,
-          },
-          {
-            "opacity": 0.5,
-          },
-        ]
+        {
+          "backgroundColor": "#5ECCE9",
+          "borderBottomLeftRadius": 8,
+          "borderBottomRightRadius": 8,
+          "borderTopLeftRadius": 8,
+          "borderTopRightRadius": 8,
+          "marginTop": 16,
+          "opacity": 0.5,
+          "paddingBottom": 16,
+          "paddingLeft": 16,
+          "paddingRight": 16,
+          "paddingTop": 16,
+        }
       }
     >
       <Text
@@ -452,10 +445,16 @@ exports[`login Check LoginForm renders correctly 1`] = `
             },
             [
               {
+                "textAlign": "center",
+              },
+              {
+                "fontFamily": "Montserrat-Bold",
+              },
+              {
                 "fontSize": 16,
               },
               {
-                "fontWeight": "700",
+                "color": "#FFFFFF",
               },
             ],
           ]

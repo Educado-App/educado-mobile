@@ -1,7 +1,7 @@
 module.exports = {
   'env': {
     'browser': true,
-    'es2021': true,
+    'es2022': true,
     'node': true,
   },
   'extends': [
@@ -42,6 +42,7 @@ module.exports = {
     'indent': ['error', 2],
     'quotes': ['error', 'single'], // Specify single quotes
     'semi': ['error', 'always'], // Require semicolons
+    'no-unsafe-finally': 'off', // Disable no-unsafe-finally rule
   },
   'settings': {
     'react': {

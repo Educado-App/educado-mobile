@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
-import FormTextField from '../../components/login/FormTextField';
-import FormButton from '../../components/login/FormButton';
-import PasswordEye from '../../components/login/PasswordEye';
+import FormTextField from '../general/forms/FormTextField';
+import FormButton from '../general/forms/FormButton';
+import PasswordEye from '../general/forms/PasswordEye';
 import { enterNewPassword } from '../../api/userApi';
-import FormFieldAlert from './FormFieldAlert';
+import FormFieldAlert from '../general/forms/FormFieldAlert';
 import { removeEmojis, validatePasswordContainsLetter, validatePasswordLength } from '../general/Validation';
 import Text from '../general/Text';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -148,7 +148,7 @@ export default function EnterNewPasswordScreen(props) {
         <PasswordEye id="showPasswordEye" showPasswordIcon={showPassword} toggleShowPassword={() => toggleShowPassword(setShowPassword, showPassword)} />
       </View>
       <View className="flex-row justify-start mt-1 h-6">
-        <Text testId="passwordLengthAlert" className={'text-xs' + ((passwordLengthValid || !newPassword) ? ' text-gray' : ' text-error')}>
+        <Text testId="passwordLengthAlert" className={'text-xs' + ((passwordLengthValid || !newPassword) ? ' text-projectGray' : ' text-error')}>
           {/* Minimum 8 characters */}
           • Mínimo 8 caracteres
         </Text>
@@ -159,7 +159,7 @@ export default function EnterNewPasswordScreen(props) {
         </View>
       </View>
       <View className="flex-row justify-start h-6">
-        <Text testId="passwordLetterAlert" className={'text-xs font-sans' + ((passwordContainsLetter || !newPassword) ? ' text-gray' : ' text-error')}>
+        <Text testId="passwordLetterAlert" className={'text-xs font-sans' + ((passwordContainsLetter || !newPassword) ? ' text-projectGray' : ' text-error')}>
           {/* Must contain at least one letter */}
           • Conter pelo menos uma letra
         </Text>
@@ -184,19 +184,21 @@ export default function EnterNewPasswordScreen(props) {
         <PasswordEye showPasswordIcon={showConfirmPassword} toggleShowPassword={() => toggleShowPassword(setShowConfirmPassword, showConfirmPassword)} />
       </View>
       <FormFieldAlert label={confirmPasswordAlert} />
+      {/* Enter button */}
       <FormButton
         testId="resetPasswordButton"
-        label="Entrar" // Enter
         onPress={() => changePassword(props.email, props.token, newPassword)}
         disabled={!validateInput()}
-      />
+      >
+        Entrar
+      </FormButton>
       <View className="flex-row justify-center items-end mt-2">
-        <Text className="text-gray leading-5 text-base mr-1">
+        <Text className="text-projectGray leading-5 text-base mr-1">
           {/* Wrong email? */}
           E-mail errado?
         </Text>
         <Text
-          className="text-black leading-5 text-base underline"
+          className="text-projectBlack leading-5 text-base underline"
           onPress={() => props.resetState()}
         >
           {/* Go back */}
