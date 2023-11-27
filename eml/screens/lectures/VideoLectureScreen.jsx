@@ -9,6 +9,7 @@ import { getVideoStreamUrl } from '../../api/api';
 import PropTypes from 'prop-types';
 import { useNavigation } from '@react-navigation/native';
 import StandardButton from '../../components/general/StandardButton';
+import {getVideoURL} from '../../services/StorageService';
 
 export default function VideoLectureScreen({ lectureObject, courseObject, isLastSlide }) {
   const navigation = useNavigation();
@@ -112,9 +113,12 @@ export default function VideoLectureScreen({ lectureObject, courseObject, isLast
   };
 
   useEffect(() => {
-    const _videoUrl = getVideoStreamUrl(lectureObject.video, currentResolution); //HERE
-
-    setVideoUrl(_videoUrl);
+    getVideoURL(lectureObject.video, currentResolution).then((result)=>{
+      let _videoUrl = result;
+      console.log(_videoUrl);
+      console.log(typeof _videoUrl);
+      setVideoUrl(_videoUrl);
+    }); //getVideoStreamUrl(lectureObject.video, currentResolution); //HERE
   }, [currentResolution]);
 
 

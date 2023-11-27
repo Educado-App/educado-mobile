@@ -288,15 +288,19 @@ export const fetchLectureImage = async (imageID, lectureID) => {
 };
 
 // get videoURL for a Lecture
-export const getLectureVideoURL = async (videoName) => {
+export const getVideoURL = async (videoName, resolution) => {
   let videoUrl;
+  if (!resolution){
+    resolution = '360';
+  }
   try {
-    videoUrl = api.getVideoStreamUrl(videoName, '360');
+    console.log(videoName, resolution);
+    videoUrl = api.getVideoStreamUrl(videoName, resolution);
 
   } catch (unusedErrorMessage) {
     // Use locally stored video if they exist and the DB cannot be reached
     try {
-      videoUrl = lectureVideoPath+videoName;
+      videoUrl = await FileSystem.readAsStringAsync(lectureVideoPath + videoName + '.json');
     } catch (e){
       if (e?.response?.data != null) {
         throw e.response.data;
@@ -305,6 +309,7 @@ export const getLectureVideoURL = async (videoName) => {
       }
     }
   } finally {
+    console.log(videoUrl);
     return videoUrl;
   }
 };
@@ -515,12 +520,10 @@ export const storeCourseLocally = async (courseID) => {
           console.log('general path: ' + FileSystem.documentDirectory);
           console.log('specific path: ' + lectureVideoPath);
           console.log('video url: ' + lecture.video);
-          console.log(!!(await api.getBucketImage(lecture.video)));
-          //await FileSystem.StorageAccessFramework.createFileAsync(lectureVideoPath, lecture.video, 'JSON');
-          await FileSystem.writeAsStringAsync(lectureVideoPath + lecture.video + '.txt', await api.getBucketImage(lecture.video));
+          await FileSystem.writeAsStringAsync(lectureVideoPath + lecture.video + '.json', await api.getBucketImage(lecture.video));
           console.log(await FileSystem.getInfoAsync(lectureVideoPath));
-          console.log(await FileSystem.getInfoAsync(lectureVideoPath + lecture.video + '.txt'));
-          console.log(await FileSystem.readAsStringAsync(lectureVideoPath + lecture.video + '.txt'));
+          console.log(await FileSystem.getInfoAsync(lectureVideoPath + lecture.video + '.json'));
+          //console.log(await FileSystem.readAsStringAsync(lectureVideoPath + lecture.video + '.json'));
         }
       }
       let exerciseList = await api.getExercisesInSection(section._id);
@@ -539,20 +542,7 @@ export const storeCourseLocally = async (courseID) => {
     return success;
   }
 };
-/*
-const createFile = async (fileName, content) => {
-  try {
-    //create a file at filePath. Write the content data to it
-    await RNFS.writeFile(lectureVideoPath+fileName, content, "utf8");
-  } catch (e) {
-    if (e?.response?.data != null) {
-      throw e.response.data;
-    } else {
-      throw e;
-    }
-  }
-};
-*/
+
 /**
  * Deletes a locally stored course
  * @param {String} courseID - A string with the ID of the course to be removed from lacal storage
@@ -571,9 +561,14 @@ export const deleteLocallyStoredCourse = async (courseID) => {
       await AsyncStorage.removeItem('E' + section._id);
             
       for (let lecture of lectureList) {
-        await AsyncStorage.removeItem('I' + lecture._id);
-        //await RNFS.unlink(lectureVideoPath+lecture.video);
-        console.log(lectureVideoPath+lecture.video);
+        if (lecture.image) {
+          await AsyncStorage.removeItem('I' + lecture._id);
+        } else if (lecture.video) {
+          console.log(await FileSystem.getInfoAsync(lectureVideoPath + lecture.video + '.json'));
+          await FileSystem.deleteAsync(lectureVideoPath + lecture.video + '.json');
+          console.log(lectureVideoPath + lecture.video);
+          console.log(await FileSystem.getInfoAsync(lectureVideoPath + lecture.video + '.json'));
+        }
       }
     }
   } catch (e) {
