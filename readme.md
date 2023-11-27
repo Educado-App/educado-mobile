@@ -43,6 +43,27 @@ const certificateUrl = 'http://172.30.245.212:8080';
 - Wait until the app starts on the device
 - If you receive errors, make sure to run `npm i` to install missing dependencies and try running again
 
+### Use own phone as emulator with Expo Go (Android)
+- Go to your phones system settings and find the "About device" button and press it.
+ABOUT DEVICE PICTURE
+- In "About device" find the "build-number", the location can vary from phone to phone, it can be under "Version"
+VERSION PICTURE
+- When you have located the "build-number" press it 7-10 times and you should get a message that you have unlocked dev mode.
+BUILD NUMBER PICTURE
+- Now you should be able to find "developer options" somewhere in your settings, again this can vary, it could be under "Additional settings".
+ADDITIONAL SETTINGS PICTURE
+DEVELOPER OPTIONS PICTURE
+- When you have found the "developer settings" you have to find and enable "USB Debugging".
+USB DEBUGGING PICTURE
+- Now your phone can download files and/or apps properly through USB.
+- Connect your phone to your computer through USB and you should get a notification on your phone, select file transfer on the notification.
+- Now you open educado-mobile on your IDE and run it as usual with "npm start".
+- When you get the QR-code and other options press "shift+a" to view all available android devices.
+- Select your own device and it should begin downloading the Expo Go app on your phone.
+- When it has been downloaded, you should go and stop the Expo Go app from trying to update to avoid future issues, here is a link on how: (https://www.makeuseof.com/disable-auto-update-android-apps/)
+- With the app downloaded you can turn off the USB debugging option if you want, but you should be ready to use your own phone wirelessly as an emulator with Expo Go.
+- To use your phone wirelessly you have to be on the same wifi/internet as your computer and scan the QR code with the Expo Go app when you run your code.
+
 ## Images
 
 <img src="https://github.com/Educado-App/educado-mobile/assets/92527083/6d6b4714-c7f2-43eb-9987-045d9e1c85d7" width="250">
