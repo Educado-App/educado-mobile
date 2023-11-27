@@ -45,16 +45,21 @@ const certificateUrl = 'http://172.30.245.212:8080';
 
 ### Use own phone as emulator with Expo Go (Android)
 - Go to your phones system settings and find the "About device" button and press it.
-ABOUT DEVICE PICTURE
+<img src="https://github.com/Educado-App/educado-mobile/assets/100210077/c54c651b-8f2a-45cc-86ff-0e5191ca7e7d" width="250">
+
 - In "About device" find the "build-number", the location can vary from phone to phone, it can be under "Version"
-VERSION PICTURE
+<img src="https://github.com/Educado-App/educado-mobile/assets/100210077/1ec176c8-226e-4b28-8131-5d0006019896" width="250">
+
 - When you have located the "build-number" press it 7-10 times and you should get a message that you have unlocked dev mode.
-BUILD NUMBER PICTURE
+<img src="https://github.com/Educado-App/educado-mobile/assets/100210077/48f2e0cd-4f00-4a32-932f-6e65bc282483" width="250">
+
 - Now you should be able to find "developer options" somewhere in your settings, again this can vary, it could be under "Additional settings".
-ADDITIONAL SETTINGS PICTURE
-DEVELOPER OPTIONS PICTURE
+<img src="https://github.com/Educado-App/educado-mobile/assets/100210077/d9ed6bbb-88d1-46f5-ad3b-7192f6fe21ab" width="250">
+<img src="https://github.com/Educado-App/educado-mobile/assets/100210077/eebde1a7-3ae6-48fa-914a-8b80e89999b2" width="250">
+
 - When you have found the "developer settings" you have to find and enable "USB Debugging".
-USB DEBUGGING PICTURE
+<img src="https://github.com/Educado-App/educado-mobile/assets/100210077/84c02c79-72f1-4073-a39c-491a9e841fb5" width="250">
+
 - Now your phone can download files and/or apps properly through USB.
 - Connect your phone to your computer through USB and you should get a notification on your phone, select file transfer on the notification.
 - Now you open educado-mobile on your IDE and run it as usual with "npm start".
