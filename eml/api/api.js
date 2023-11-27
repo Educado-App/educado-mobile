@@ -25,7 +25,7 @@ const digitalOcean = 'http://207.154.213.68:8888';
 // Get components for a specific section
 export const getComponents = async (sectionId) => {
   try {
-    const res = await axios.get(url + '/api/sections/' + sectionId + '/components');
+    const res = await axios.get(url + '/api/courses/sections/' + sectionId + '/components');
     return res.data;
   } catch (e) {
     if (e?.response?.data != null) {
