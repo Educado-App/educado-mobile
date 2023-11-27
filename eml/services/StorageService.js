@@ -2,7 +2,7 @@ import * as api from '../api/api.js';
 import * as userApi from '../api/userApi.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import RNFS from 'react-native-fs';
-import {getVideoStreamUrl} from "../api/api.js";
+
 
 const SUB_COURSE_LIST = '@subCourseList';
 const USER_ID = '@userId';
