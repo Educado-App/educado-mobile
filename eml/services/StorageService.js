@@ -295,6 +295,7 @@ export const getVideoURL = async (videoName, resolution) => {
   }
   try {
     console.log(videoName, resolution);
+    throw new Error('Hello');
     videoUrl = api.getVideoStreamUrl(videoName, resolution);
 
   } catch (unusedErrorMessage) {

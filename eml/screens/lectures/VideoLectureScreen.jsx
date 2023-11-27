@@ -114,10 +114,7 @@ export default function VideoLectureScreen({ lectureObject, courseObject, isLast
 
   useEffect(() => {
     getVideoURL(lectureObject.video, currentResolution).then((result)=>{
-      let _videoUrl = result;
-      console.log(_videoUrl);
-      console.log(typeof _videoUrl);
-      setVideoUrl(_videoUrl);
+      setVideoUrl(result);
     }); //getVideoStreamUrl(lectureObject.video, currentResolution); //HERE
   }, [currentResolution]);
 
