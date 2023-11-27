@@ -9,11 +9,13 @@ import PopUp from '../../components/gamification/PopUp';
 import { StatusBar } from 'expo-status-bar';
 import PropTypes from 'prop-types';
 import { completeComponent, handleLastComponent } from '../../services/utilityFunctions';
+import { useNavigation } from '@react-navigation/native';
 
 
 export default function ExerciseScreen({ exerciseObject, sectionObject, courseObject, onContinue }) {
   const tailwindConfig = require('../../tailwind.config.js');
   const projectColors = tailwindConfig.theme.colors;
+  const navigation = useNavigation();
 
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [buttonClassName, setButtonClassName] = useState('');

@@ -232,7 +232,7 @@ export const updateExerciseStatus = async (
       throw e;
     }
   }
-}
+};
 
 export const addCourseToStudent = async (user_Id, course_Id, token) => {
   const res = await client.patch('/api/students/' + user_Id + '/courses/' + course_Id + '/add',
