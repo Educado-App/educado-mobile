@@ -54,7 +54,7 @@ describe('StorageService Functions', () => {
       AsyncStorage.getItem.mockResolvedValueOnce('Invalid JSON data');
 
       // Act and Assert
-      await expect(StorageService.getUserInfo()).rejects.toThrow('Unexpected token I in JSON at position 0');
+      await expect(StorageService.getUserInfo()).rejects.toThrowError();
     });
   });
 

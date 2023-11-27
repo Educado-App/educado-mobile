@@ -1,7 +1,7 @@
 import * as api from '../api/api.js';
 import * as userApi from '../api/userApi.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {NetworkStatusService} from "./NetworkStatusService";
+import {NetworkStatusService} from './NetworkStatusService';
 import defaultImage from '../assets/images/defaultImage-base64.json';
 import * as FileSystem from 'expo-file-system';
 
@@ -95,7 +95,7 @@ export const getCourseList = async () => {
   } else {
     return courseList;
   }
-}
+};
 
 const refreshCourseList = async (courseList) => {
   try {
@@ -151,7 +151,7 @@ export const getSectionList = async (course_id) => {
     if (isOnline) {
       sectionList = await api.getAllSections(course_id);
     } else {
-      throw new Error('No internet connection in getSectionList')
+      throw new Error('No internet connection in getSectionList');
     }
   } catch (error) {
   // Use locally stored section if they exist and the DB cannot be reached
@@ -162,7 +162,7 @@ export const getSectionList = async (course_id) => {
       if (e?.response?.data != null) {
         throw new Error('Error in getSectionList: ', e.response.data);
       } else {
-        throw new Error('Error in getSectionList: ', e)
+        throw new Error('Error in getSectionList: ', e);
       }
     }
   } finally {
@@ -244,7 +244,7 @@ const lectureFittingModel = async (lectureList) => {
     }
   } catch (e){
     if (e?.response?.data != null) {
-      throw new Error('Error in lectureFittingModel: ', e.response.data)
+      throw new Error('Error in lectureFittingModel: ', e.response.data);
     } else {
       throw new Error('Error in lectureFittingModel: ', e);
     }
@@ -261,13 +261,13 @@ export const fetchLectureImage = async (imageID, lectureID) => {
     if (isOnline) {
       image = await api.getBucketImage(imageID);
     } else {
-        throw new Error('No internet connection in fetchLectureImage');
+      throw new Error('No internet connection in fetchLectureImage');
     }
   } catch (error) {
     // Use locally stored lectures if they exist and the DB cannot be reached
     try {
       if((image = JSON.parse(await AsyncStorage.getItem('I' + lectureID))) === null){
-        throw new Error('JSON parse error in fetchLectureImage', error)
+        throw new Error('JSON parse error in fetchLectureImage', error);
       }
     } catch (e){
       if (e?.response?.data != null) {
@@ -281,17 +281,23 @@ export const fetchLectureImage = async (imageID, lectureID) => {
   }
 };
 
-// get videoURL for a Lecture
+/**
+ * gets videoURL for a Lecture if online, and video in base64 from file if offline
+ * @param videoName
+ * @param resolution
+ * @returns {Promise<string>}
+ */
 export const getVideoURL = async (videoName, resolution) => {
   let videoUrl;
   if (!resolution){
     resolution = '360';
   }
   try {
-    console.log(videoName, resolution);
-    throw new Error('Hello');
-    videoUrl = api.getVideoStreamUrl(videoName, resolution);
-
+    if (isOnline) {
+      videoUrl = api.getVideoStreamUrl(videoName, resolution);
+    } else {
+      throw new Error('No internet connection.');
+    }
   } catch (unusedErrorMessage) {
     // Use locally stored video if they exist and the DB cannot be reached
     try {
@@ -304,7 +310,6 @@ export const getVideoURL = async (videoName, resolution) => {
       }
     }
   } finally {
-    console.log(videoUrl);
     return videoUrl;
   }
 };
@@ -355,7 +360,7 @@ const exerciseFittingModel = async (exerciseList) => {
     if (error?.response?.data != null) {
       throw new Error('Error in exerciseFittingModel: ', error.response.data);
     } else {
-        throw new Error('Error in exerciseFittingModel: ', error);
+      throw new Error('Error in exerciseFittingModel: ', error);
     }
   } finally {
     //Returns new fitted exercise list, or empty list if there was no data fetched from DB or Storage,
@@ -478,9 +483,9 @@ export const unsubscribe = async (courseId) => {
 
 /** Downloading course **/
 
-
-const makeDirectory = (folderPath) => {
-  FileSystem.makeDirectoryAsync(folderPath, { intermediates: true }); //create a new folder on folderPath // Might need true as second parameter
+//create a new folder to store videos if it does not already exist.
+export const makeDirectory = () => {
+  FileSystem.makeDirectoryAsync(lectureVideoPath, { intermediates: true });
 };
 
 /**
@@ -492,34 +497,37 @@ export const storeCourseLocally = async (courseID) => {
   let success = true;
   if (isOnline) {
     try {
+      //Stores the course data
       const course = await api.getCourse(courseID);
       await AsyncStorage.setItem(courseID + await AsyncStorage.getItem(USER_ID), JSON.stringify(course));
 
+      //Stores section data
       const sectionList = await api.getAllSections(courseID);
       await AsyncStorage.setItem('S' + courseID, JSON.stringify(sectionList));
       for (let section of sectionList) {
+
+        //Stores lecture data
         let lectureList = await api.getLecturesInSection(section._id);
         await AsyncStorage.setItem('L' + section._id, JSON.stringify(lectureList));
         for (let lecture of lectureList) {
           if (lecture.image) {
+
+            //Stores images
             try {
               let image = await api.getBucketImage(lecture.image);
               await AsyncStorage.setItem('I' + lecture._id, JSON.stringify(image));
             } catch {
               await AsyncStorage.setItem('I' + lecture._id, defaultImage.base64);
             }
-        } else if (lecture.video){
+          } else if (lecture.video){
 
-          await makeDirectory(lectureVideoPath);
-          console.log('general path: ' + FileSystem.documentDirectory);
-          console.log('specific path: ' + lectureVideoPath);
-          console.log('video url: ' + lecture.video);
-          await FileSystem.writeAsStringAsync(lectureVideoPath + lecture.video + '.json', await api.getBucketImage(lecture.video));
-          console.log(await FileSystem.getInfoAsync(lectureVideoPath));
-          console.log(await FileSystem.getInfoAsync(lectureVideoPath + lecture.video + '.json'));
-          //console.log(await FileSystem.readAsStringAsync(lectureVideoPath + lecture.video + '.json'));
+            //Stores videos
+            await makeDirectory();
+            await FileSystem.writeAsStringAsync(lectureVideoPath + lecture.video + '.json', await api.getBucketImage(lecture.video));
+          }
         }
-        }
+
+        //Stores exercises
         let exerciseList = await api.getExercisesInSection(section._id);
         await AsyncStorage.setItem('E' + section._id, JSON.stringify(exerciseList));
       }
@@ -560,10 +568,7 @@ export const deleteLocallyStoredCourse = async (courseID) => {
         if (lecture.image) {
           await AsyncStorage.removeItem('I' + lecture._id);
         } else if (lecture.video) {
-          console.log(await FileSystem.getInfoAsync(lectureVideoPath + lecture.video + '.json'));
           await FileSystem.deleteAsync(lectureVideoPath + lecture.video + '.json');
-          console.log(lectureVideoPath + lecture.video);
-          console.log(await FileSystem.getInfoAsync(lectureVideoPath + lecture.video + '.json'));
         }
       }
     }
