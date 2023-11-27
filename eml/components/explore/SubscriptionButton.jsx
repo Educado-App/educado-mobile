@@ -27,7 +27,7 @@ const SubscriptionButton = ({ course }) => {
         onPress={handlePress}
         className="w-full flex items-center justify-center rounded-lg bg-primary p-2"
       >
-        <Text className="text-white p-1 font-bold">
+        <Text className="text-projectWhite p-1 font-bold">
           Inscrever-se agora
         </Text>
       </Pressable>

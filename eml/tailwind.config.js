@@ -32,6 +32,9 @@ module.exports = {
       pointsCoin: '#AD872D',
       progressBar: '#5ECCDD',
       progressBarUnFilled: '#E4F2F5',
+      badgesGreen: '#8CC43B',
+      badgesPurple: '#C383F7',
+      badgesBlue: '#54ADF1',
     },
     fontFamily: {
       montserrat: ['Montserrat-Regular'],
