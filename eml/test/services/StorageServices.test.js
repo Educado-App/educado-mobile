@@ -441,10 +441,10 @@ describe('StorageService Functions', () => {
       AsyncStorage.getItem.mockResolvedValue(mockData.userData._id);
 
       // Mock the behavior of api.subscribeToCourse to simulate a failure
-      api.subscribeToCourse.mockRejectedValue(new Error('Subscription failed'));
+      api.subscribeToCourse.mockRejectedValue(new Error('API error in subscribe:'));
 
       // Assert that the subscribe function throws the expected error
-      await expect(StorageService.subscribe(mockData.courseData._id)).rejects.toThrow('Subscription failed');
+      await expect(StorageService.subscribe(mockData.courseData._id)).rejects.toThrow('API error in subscribe:');
 
       // Assert that AsyncStorage.getItem was called with the correct arguments
       expect(AsyncStorage.getItem).toHaveBeenCalledWith('@userId');
