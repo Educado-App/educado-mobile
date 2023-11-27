@@ -6,3 +6,4 @@ coverage
 .expo
 .idea
 .env
+config/gcp_service.json

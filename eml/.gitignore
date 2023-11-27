@@ -18,5 +18,6 @@ dist/
 #expo over vpn
 ngrok.exe
 
-.env
-/config/gcp_service.json
+config/.env
+config/gcp_service.json
+
