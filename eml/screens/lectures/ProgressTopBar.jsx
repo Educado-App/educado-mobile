@@ -11,14 +11,14 @@ const LectureType = {
   VIDEO: 'video',
 };
 
-const ProgressTopBar = ({ courseObject, lectureType, allLectures, currentLectureIndex = '' }) => {
+const ProgressTopBar = ({ courseObject, lectureType, components, currentIndex = '' }) => {
   const navigator = useNavigation();
   const chevronColor = lectureType === LectureType.VIDEO ? tailwindConfig.theme.colors.projectWhite : tailwindConfig.theme.colors.projectBlack;
 
   const createCorrectIcon = (_index, _currentIndex) => {
 
     //if lecture is completed show check
-    if (_index < _currentIndex || allLectures[_index].component?.completed ? true : false) {
+    if (_index < _currentIndex || components[_index].component?.completed ? true : false) {
       return (
         <View key={_index} className=" mx-1  w-4 h-4 rounded-full bg-primary flex-col justify-center items-center">
           <MaterialCommunityIcons name="check-bold" size={12} color={tailwindConfig.theme.colors.projectWhite} />
@@ -43,7 +43,7 @@ const ProgressTopBar = ({ courseObject, lectureType, allLectures, currentLecture
     }
 
     //if lecture is completed show check
-    if (_index < _currentIndex || allLectures[_index].completed) {
+    if (_index < _currentIndex || components[_index].completed) {
       return (
         <View key={_index} className=" mx-1  w-5 h-5 rounded-full bg-primary flex-col justify-center items-center">
           <MaterialCommunityIcons name="check-bold" size={12} color={tailwindConfig.theme.colors.projectWhite} />
@@ -62,7 +62,7 @@ const ProgressTopBar = ({ courseObject, lectureType, allLectures, currentLecture
     else if (_index > _currentIndex) {
       return (
         <View key={_index} className=" mx-1  w-5 h-5 rounded-full  bg-secondary flex-col justify-center items-center">
-          <MaterialCommunityIcons name={_index >= allLectures.length ? 'check' : 'check'} size={12} color={tailwindConfig.theme.colors.secondary} />
+          <MaterialCommunityIcons name={_index >= components.length ? 'check' : 'check'} size={12} color={tailwindConfig.theme.colors.secondary} />
         </View>
       );
     }
@@ -76,15 +76,15 @@ const ProgressTopBar = ({ courseObject, lectureType, allLectures, currentLecture
           <MaterialCommunityIcons name="chevron-left" size={28} color={chevronColor} />
         </Pressable>
         <View className=" flex-grow  flex-row justify-center items-center py-2">
-          {allLectures.map((_lecture, _index) => (
+          {components.map((_lecture, _index) => (
             /* if lecture is completed show check, otherwise empty  */
-            createCorrectIcon(_index, currentLectureIndex)
+            createCorrectIcon(_index, currentIndex)
 
           ))}
         </View>
         {LectureType.TEXT === lectureType && (
           <>
-            <CoursePoints courseId={courseObject._id} />
+            <CoursePoints courseId={courseObject.courseId} />
           </>
         )}
         
@@ -96,9 +96,8 @@ const ProgressTopBar = ({ courseObject, lectureType, allLectures, currentLecture
 ProgressTopBar.propTypes = {
   courseObject: PropTypes.object,
   lectureType: PropTypes.string,
-  allLectures: PropTypes.array,
-  currentLectureIndex: PropTypes.number,
-  className: PropTypes.string,
+  components: PropTypes.array,
+  currentIndex: PropTypes.number,
 };
 
 export default ProgressTopBar;

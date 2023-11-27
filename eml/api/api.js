@@ -2,7 +2,8 @@ import axios from 'axios';
 
 const timeoutInMs = 1200;
 
-const url = 'http://172.30.245.212:8888'; // change to lcd ip when testing
+const url = 'https://educado-backend-staging-x7rgvjso4a-ew.a.run.app/';
+
 const certificateUrl = 'http://172.30.245.212:8080';
 
 /* Commented out for avoiding linting errors
@@ -12,7 +13,28 @@ const testExpo = 'http://172.30.211.57:8888';
 const digitalOcean = 'http://207.154.213.68:8888';
 */
 
+/* Commented out for avoiding linting errors
+ * TODO: move IP address to .env file !!!
+const testUrl = 'http://localhost:8888';
+const testExpo = 'http://172.30.211.57:8888'; 
+const digitalOcean = 'http://207.154.213.68:8888';
+*/
+
 /*** COURSE, SECTIONS AND EXERCISES ***/
+
+// Get components for a specific section
+export const getComponents = async (sectionId) => {
+  try {
+    const res = await axios.get(url + '/api/sections/' + sectionId + '/components');
+    return res.data;
+  } catch (e) {
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
+};
 
 //This function is not used in this version of dev
 export const getCourseByid = async (courseId) => {

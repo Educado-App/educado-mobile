@@ -7,8 +7,8 @@ import { Icon } from '@rneui/themed';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import PopUp from '../../components/gamification/PopUp';
 import { StatusBar } from 'expo-status-bar';
-import { givePoints } from '../../services/utilityFunctions';
 import PropTypes from 'prop-types';
+import { completeComponent, handleLastComponent } from '../../services/utilityFunctions';
 
 
 export default function ExerciseScreen({ exerciseObject, sectionObject, courseObject, onContinue }) {
@@ -26,15 +26,6 @@ export default function ExerciseScreen({ exerciseObject, sectionObject, courseOb
   const handleAnswerSelect = (answerIndex) => {
     setSelectedAnswer(answerIndex);
   };
-
-  
-
-  /* function handleSecondOnclick() {
-    navigation.navigate('Lecture', {
-      sectionId: '6540f6b3536b2b37a49457e0', // hardcoded for testing
-      courseId: '6540f668536b2b37a49457dc', // hardcoded for testing
-    });
-  } */
   
   async function handleReviewAnswer(selectedAnswer) {
     const continueText = 'Continuar';
@@ -45,21 +36,16 @@ export default function ExerciseScreen({ exerciseObject, sectionObject, courseOb
       `bg-project${selectedAnswer ? 'Green' : 'Red'}`
     );
 
-    if (selectedAnswer) {
-      setPoints(await givePoints(exerciseObject._id, true, 10));
-    } else {
-      setPoints(await givePoints(exerciseObject._id, false, 0));
-    }
-
     setShowFeedback(true);
     setButtonText(continueText);
     if (buttonText !== continueText) {
+      const obj = await completeComponent(exerciseObject, courseObject.courseId, selectedAnswer);
+      setPoints(obj.points);
       setIsPopUpVisible(true);
     } else {
       setIsPopUpVisible(false);
       if (onContinue()) {
-        console.log('Continue to section complete screen');
-        // TODO: navigate to section complete screen
+        handleLastComponent(exerciseObject, courseObject, navigation);
       }
     }
   }

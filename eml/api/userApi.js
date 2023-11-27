@@ -8,9 +8,7 @@ const local = 'http://localhost:8888';
 const digitalOcean = 'http://207.154.213.68:8888';
 */ 
 
-
-const url = 'http://172.30.245.212:8888'; // Change this to your LOCAL IP address when testing.
-
+const url = 'https://educado-backend-staging-x7rgvjso4a-ew.a.run.app/'; // Change this to your LOCAL IP address when testing.
 
 /**
  * This is the client that will be used to make requests to the backend.
@@ -127,26 +125,16 @@ export const updateUserPassword = async (user_id, oldPassword, newPassword, toke
   }
 };
 
-export const completeExercise = async (user_id, exercise_id, isComplete, points, token) => {
+export const completeComponent = async (user_id, comp, isComplete, points, token) => {
   try{
-    const res = await client.patch('/api/users/' + user_id + '/completed', { exerciseId: exercise_id, isComplete: isComplete, points: points }, {
+    const res = await client.patch('/api/students/' + user_id + '/completed', { comp: comp, isComplete: isComplete, points: points }, {
       headers: {
         'Content-Type': 'application/json',
         'token': token, // Include the token in the headers
       },
     });
 
-    // Extract the required fields from the response data
-    const { _id, firstName, lastName, email, completedCourses } = res.data;
-
-    // Return the specific fields
-    return {
-      id: _id,
-      firstName,
-      lastName,
-      email,
-      completedCourses
-    };
+    return res.data;
   } catch (e) {
     if (e?.response?.data != null) {
       throw e.response.data;
@@ -244,6 +232,20 @@ export const updateExerciseStatus = async (
       throw e;
     }
   }
+}
+
+export const addCourseToStudent = async (user_Id, course_Id, token) => {
+  const res = await client.patch('/api/students/' + user_Id + '/courses/' + course_Id + '/add',
+    {},
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        'token': token, // Include the token in the headers
+      },
+    }
+  );
+
+  return res.data;
 };
 
 /**

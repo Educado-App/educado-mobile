@@ -8,6 +8,7 @@ import StandardButton from '../../components/general/StandardButton';
 import AnimatedNumbers from '../../components/gamification/AnimatedNumber';
 import { generateSectionCompletePhrases } from '../../constants/Phrases';
 import { getStudentInfo } from '../../services/StorageService';
+import { findCompletedSection } from '../../services/utilityFunctions';
 
 export default function CompleteSectionScreen() {
   const route = useRoute();
@@ -68,28 +69,11 @@ export default function CompleteSectionScreen() {
     );
   }
 
-  const findCompletedSection = (completedCourses) => {
-    const completedCourse = completedCourses.find((course) => course.courseId === parsedCourse.courseId);
-
-    if (completedCourse) {
-      const completedSection = completedCourse.completedSections.find(
-        (section) => section.sectionId === sectionId,
-      );
-
-      if (completedSection) {
-        return completedSection;
-      }
-      return null;
-    }
-
-    return null;
-  };
-
   async function getPointsFromSection() {
     const studentInfo = await getStudentInfo();
     const completedSection = findCompletedSection(
-      studentInfo.completedCourses,
-      parsedCourse,
+      studentInfo,
+      parsedCourse.courseId,
       sectionId,
     );
     if (completedSection === null) {
