@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { View, TouchableOpacity, SafeAreaView } from 'react-native';
 import { BgLinearGradient } from '../../constants/BgLinearGradient';
 import CompleteCourseSlider from '../../components/courses/completeCourse/CompleteCourseSlider';
@@ -47,7 +47,7 @@ export default function CompleteCourseScreen() {
 
           <View className="px-6 w-screen">
             <TouchableOpacity className="bg-primary px-10 py-4 rounded-medium"
-              onPress={() => {handleNextSlide()}}
+              onPress={() => {handleNextSlide();}}
             >
               <Text className="text-center font-sans-bold text-body text-projectWhite">Continuar</Text>
             </TouchableOpacity>

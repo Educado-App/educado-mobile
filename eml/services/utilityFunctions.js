@@ -251,22 +251,24 @@ export function findIndexOfUncompletedComp(student, courseId, sectionId) {
 }
 
 export async function handleLastComponent(comp, course, navigation) {
-  const student = await StorageService.getStudentInfo();
-  const isComplete = isSectionCompleted(student, comp.parentSection);
-  
-    navigation.reset({
-      index: 0,
-      routes: [
-        {
-          name: 'CompleteSection',
-          params: { 
-            parsedCourse: course, 
-            sectionId: comp.parentSection }
-        },
-      ],
-    });
 
-   // For future reference
+  // For future reference
+  // const student = await StorageService.getStudentInfo();
+  // const isComplete = isSectionCompleted(student, comp.parentSection);
+  
+  navigation.reset({
+    index: 0,
+    routes: [
+      {
+        name: 'CompleteSection',
+        params: { 
+          parsedCourse: course, 
+          sectionId: comp.parentSection }
+      },
+    ],
+  });
+
+  // For future reference
   // if (isComplete) { 
   // Code above with naviagtion
   // } else {

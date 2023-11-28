@@ -1,17 +1,24 @@
 import React, { useRef, useEffect, useState, forwardRef, useImperativeHandle } from 'react';
-import { View, Dimensions, Image } from 'react-native';
+import { View, Dimensions } from 'react-native';
 import Text from '../../general/Text';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import { Easing } from 'react-native-reanimated';
 import { getStudentInfo } from '../../../services/StorageService';
 import { findCompletedCourse } from '../../../services/utilityFunctions';
+import PropTypes from 'prop-types'; 
 
 const StatsOverview = forwardRef(({ courseObject }, ref) => {
+  StatsOverview.propTypes = {
+    courseObject: PropTypes.object.isRequired,
+  };
+
   const [percentage, setPercentage] = useState(0);
   const circleSize = Dimensions.get('window').height * 0.25;
   const tailwindConfig = require('../../../tailwind.config.js');
   const projectColors = tailwindConfig.theme.colors;
   const circularProgressRef = useRef(null);
+
+  StatsOverview.displayName = 'StatsOverview';
   
   async function getPercentage() {
     try {
@@ -29,16 +36,16 @@ const StatsOverview = forwardRef(({ courseObject }, ref) => {
               }
             }
           }
-        };
+        }
       } else {
         return 0;
       }
 
       return Math.round((totalExercisesWithFirstTry / totalExercises) * 100);
-      } catch (error) {
-        console.error('Error fetching completed courses:', error);
-        return 0;
-      }
+    } catch (error) {
+      console.error('Error fetching completed courses:', error);
+      return 0;
+    }
   }
 
   const startAnimation = (index) => {
@@ -71,7 +78,7 @@ const StatsOverview = forwardRef(({ courseObject }, ref) => {
           tintColor= {projectColors.primary}
           backgroundColor={projectColors.projectWhite}
         >
-          {(fill) => (
+          {() => (
             <Text className="text-center font-sans-bold text-2xl text-primary">
               {percentage}%
             </Text>

@@ -5,17 +5,25 @@ import Slick from 'react-native-slick';
 import Congratulation from './Congratulation';
 import StatsOverview from './StatsOverview';
 import Certification from './Certification';
+import PropTypes from 'prop-types'; 
 
 const CompleteCourseSlider = forwardRef(({ onIndexChanged, courseObject }, ref) => {
+  CompleteCourseSlider.propTypes = {
+    courseObject: PropTypes.object.isRequired,
+    onIndexChanged: PropTypes.number.isRequired,
+  };
+
+  CompleteCourseSlider.displayName = 'CompleteCourseSlider';
+
   const slick = useRef(null);
   const tailwindConfig = require('../../../tailwind.config.js');
   const projectColors = tailwindConfig.theme.colors;
   const statsOverviewRef = useRef(null);
 
   const screens = [
-    <Congratulation />,
-    <StatsOverview ref={statsOverviewRef} courseObject={courseObject} />,
-    <Certification courseObject={courseObject} />,
+    <Congratulation key={0}/>,
+    <StatsOverview ref={statsOverviewRef} courseObject={courseObject} key={1}/>,
+    <Certification courseObject={courseObject} key={2}/>,
   ];
 
   const scrollBy = (number) => {
@@ -63,11 +71,11 @@ const CompleteCourseSlider = forwardRef(({ onIndexChanged, courseObject }, ref) 
         </Svg>
       }
     >
-    {screens.map((screen, index) => (
-      <View key={index}>
-        {screen}
-      </View>
-    ))}
+      {screens.map((screen, index) => (
+        <View key={index}>
+          {screen}
+        </View>
+      ))}
     </Slick>
   );
 });
