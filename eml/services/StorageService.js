@@ -243,8 +243,8 @@ export const refreshSectionList = async (sectionList) => {
  * @returns {Promise<Array>} A promise that resolves with a list of components for the section.
  */
 // get all components for specific section
-export const getComponentsList = async (sectionID) => {
-  let componentList = null;
+export const getComponentList = async (sectionID) => {
+  let componentList = [];
   try {
     if (isOnline) {
       componentList = await api.getComponents(sectionID);
