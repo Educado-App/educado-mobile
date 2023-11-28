@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Pressable, Text } from 'react-native';
-import { subscribe, addCourseToStudent } from '../../services/StorageService';
+import { subscribe } from '../../services/StorageService';
 import { useNavigation } from '@react-navigation/native';
 import PropTypes from 'prop-types';
 
@@ -15,7 +15,6 @@ const SubscriptionButton = ({ course }) => {
 
   const handlePress = () => {
     subscribe(course.courseId);
-    addCourseToStudent(course.courseId);
 
     navigation.navigate('Section', {
       course: course

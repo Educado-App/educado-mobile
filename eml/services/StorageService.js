@@ -15,6 +15,10 @@ const LOGIN_TOKEN = '@loginToken';
 const lectureVideoPath = FileSystem.documentDirectory + 'lectureVideos/';
 let isOnline = true;
 
+/**
+ * Updates the network status.
+ * @param {boolean} networkStatus - The current network status.
+ */
 const updateNetworkStatus = (networkStatus) => {
   isOnline = networkStatus;
 };
@@ -23,7 +27,10 @@ NetworkStatusService.getInstance().addObserver({ update: updateNetworkStatus });
 
 /** STUDENT **/
 
-// Function to get student information
+/**
+ * Retrieves and stores student information for a given user ID.
+ * @param userId - The user ID to retrieve student information for.
+ */
 export const setStudentInfo = async (userId) => {
   if (isOnline) {
     try {
@@ -35,6 +42,10 @@ export const setStudentInfo = async (userId) => {
   }
 };
 
+/**
+ * Retrieves student information from AsyncStorage.
+ * @returns {Promise<Object>} A promise that resolves with the fetched student information.
+ */
 export const getStudentInfo = async () => {
   const fetchedStudentInfo = JSON.parse(await AsyncStorage.getItem(STUDENT_INFO));
   return fetchedStudentInfo;
@@ -44,11 +55,19 @@ export const updateStudentInfo = async (studentInfo) => {
   await AsyncStorage.setItem(STUDENT_INFO, JSON.stringify(studentInfo));
 };
 
+/**
+ * Retrieves the login token from AsyncStorage.
+ * @returns {Promise<string>} A promise that resolves with the fetched login token.
+ */
 export const getLoginToken = async () => {
   const fetchedToken = await AsyncStorage.getItem(LOGIN_TOKEN);
   return fetchedToken;
 };
 
+/**
+ * Retrieves user information from AsyncStorage.
+ * @returns {Promise<Object>} A promise that resolves with the fetched user information.
+ */
 export const getUserInfo = async () => {
   const fetchedUserInfo = JSON.parse(await AsyncStorage.getItem(USER_INFO));
   if (fetchedUserInfo === null) {
@@ -57,7 +76,10 @@ export const getUserInfo = async () => {
   return fetchedUserInfo;
 };
 
-// Set user info in storage
+/**
+ * Stores user information in AsyncStorage.
+ * @param {Object} userInfo - The user information to store.
+ */
 export const setUserInfo = async (userInfo) => {
   const obj = {
     id: userInfo.id,
@@ -70,18 +92,28 @@ export const setUserInfo = async (userInfo) => {
   await setStudentInfo(userInfo.id);
 };
 
-// Get JWT from storage
+/**
+ * Retrieves the JWT from AsyncStorage.
+ * @returns {Promise<string>} A promise that resolves with the JWT.
+ */
 export const getJWT = async () => {
   return await AsyncStorage.getItem(LOGIN_TOKEN);
 };
 
-// Set JWT in storage
+/**
+ * Stores a JWT in AsyncStorage.
+ * @param {string} jwt - The JWT to store.
+ */
 export const setJWT = async (jwt) => {
-  return await AsyncStorage.setItem(LOGIN_TOKEN, jwt);
+  await AsyncStorage.setItem(LOGIN_TOKEN, jwt);
 };
 
 /** COURSE AND COURSE LIST **/
-// get all courses
+
+/**
+ * Retrieves a list of all courses.
+ * @returns {Promise<Array>} A promise that resolves with a list of courses.
+ */
 export const getCourseList = async () => {
   let courseList = [];
   if (isOnline) {
@@ -101,6 +133,11 @@ export const getCourseList = async () => {
   }
 };
 
+/**
+ * Refreshes the course list with updated data.
+ * @param {Array} courseList - The list of courses to refresh.
+ * @returns {Promise<Array>} A promise that resolves with the refreshed course list.
+ */
 const refreshCourseList = async (courseList) => {
   try {
     let newCourseList = [];
@@ -134,7 +171,11 @@ const refreshCourseList = async (courseList) => {
 
 /** SECTIONS **/
 
-// get all section for specific course
+/**
+ * Retrieves a list of sections for a specific course.
+ * @param {string} course_id - The ID of the course.
+ * @returns {Promise<Array>} A promise that resolves with a list of sections for the course.
+ */
 export const getSectionList = async (course_id) => {
   let sectionList = null;
   try {
@@ -160,7 +201,11 @@ export const getSectionList = async (course_id) => {
   }
 };
 
-// Fits section data to new object with relevant fields
+/**
+ * Refreshes the section list with updated data.
+ * @param {Array} sectionList - The list of sections to refresh.
+ * @returns {Promise<Array>} A promise that resolves with the refreshed section list.
+ */
 export const refreshSectionList = async (sectionList) => {
   let newSectionList = [];
   try {
@@ -192,6 +237,11 @@ export const refreshSectionList = async (sectionList) => {
 
 /** COMPONENTS **/
 
+/**
+ * Retrieves a list of components for a specific section.
+ * @param {string} sectionID - The ID of the section.
+ * @returns {Promise<Array>} A promise that resolves with a list of components for the section.
+ */
 // get all components for specific section
 export const getComponentsList = async (sectionID) => {
   let componentList = null;
@@ -219,7 +269,12 @@ export const getComponentsList = async (sectionID) => {
   }
 };
 
-// Fits lecture data to new object with relevant fields
+/**
+ * Refreshes and fits component data to a new object with relevant fields.
+ * @param {Array} componentList - The list of components to fit.
+ * @returns {Promise<Array>} A promise that resolves with the fitted lecture list.
+ */
+// Fits components data to new object with relevant fields
 const componentFittingModel = async (componentList) => {
   let newComponentList = [];
   try {
@@ -244,7 +299,12 @@ const componentFittingModel = async (componentList) => {
   }
 };
 
-// get images for a Lecture
+/**
+ * Fetches an image for a lecture.
+ * @param {string} imageID - The ID of the image.
+ * @param {string} lectureID - The ID of the lecture.
+ * @returns {Promise<Object>} A promise that resolves with the lecture image.
+ */
 export const fetchLectureImage = async (imageID, lectureID) => {
   let image = null;
   try {
@@ -306,7 +366,10 @@ export const getVideoURL = async (videoName, resolution) => {
 
 /** SUBSCRIPTIONS **/
 
-// get all subscribed courses from a user
+/**
+ * Retrieves a list of subscribed courses for a user.
+ * @returns {Promise<Array>} A promise that resolves with the list of subscribed courses.
+ */
 export const getSubCourseList = async () => {
 
   // get the logged-in user id from async storage
@@ -336,6 +399,11 @@ export const getSubCourseList = async () => {
   }
 };
 
+/**
+ * Refreshes the subscribed course list for a user.
+ * @param {string} userId - The user ID.
+ * @returns {Promise<Array>} A promise that resolves with the refreshed subscribed course list.
+ */
 export const refreshSubCourseList = async (userId) => {
   return await api
     .getSubscriptions(userId)
@@ -370,7 +438,11 @@ export const refreshSubCourseList = async (userId) => {
     });
 };
 
-// subscribe to a course
+/**
+ * Subscribes a user to a course.
+ * @param {string} courseId - The ID of the course to subscribe to.
+ * @returns {Promise<Object>} A promise that resolves with the subscription result.
+ */
 export const subscribe = async (courseId) => {
 
   // get the logged-in user id from async storage
@@ -381,12 +453,13 @@ export const subscribe = async (courseId) => {
   }
 
   try {
-    return await api.subscribeToCourse(userId, courseId);
+    await api.subscribeToCourse(userId, courseId);
+    await addCourseToStudent(courseId);
   } catch (error) {
     if (error?.response?.data != null) {
-      throw new Error('API error in subscribe:', error.response.data);
+      throw new Error('API error in subscribe:' + error.response.data);
     } else {
-      throw new Error('API error in subscribe:', error);
+      throw new Error('API error in subscribe:' + error);
     }
   }
 };
@@ -401,7 +474,7 @@ export const addCourseToStudent = async (courseId) => {
       throw new Error('Student not found');
     }
 
-    updateStudentInfo(student);
+    await updateStudentInfo(student);
   } catch (e) {
     if (e?.response?.data != null) {
       throw e.response.data;
@@ -412,6 +485,11 @@ export const addCourseToStudent = async (courseId) => {
 };
 
 // unsubscribe to a course
+/**
+ * Unsubscribes a user from a course.
+ * @param {string} courseId - The ID of the course to unsubscribe from.
+ * @returns {Promise<Object>} A promise that resolves with the unsubscription result.
+ */
 export const unsubscribe = async (courseId) => {
 
   // get the logged-in user id from async storage
@@ -427,12 +505,11 @@ export const unsubscribe = async (courseId) => {
     }
     return await api.unSubscribeToCourse(userId, courseId);
 
-    // TODO
-  } catch (e) {
-    if (e?.response?.data != null) {
-      throw e.response.data;
+  } catch (error) {
+    if (error?.response?.data != null) {
+      throw new Error(error.response.data);
     } else {
-      throw e;
+      throw new Error(error);
     }
   }
 };
@@ -447,7 +524,7 @@ export const makeDirectory = () => {
 /**
  * Stores a course locally
  * @param {String} courseID - A string with the ID of the course to be stored
- * @returns {boolean} - Returns true if no errors was thrown during the storage and false if there was
+ * @returns {Promise<boolean>} A promise that resolves with `true` if the course was stored successfully.
  */
 export const storeCourseLocally = async (courseID) => {
   let success = true;
@@ -485,13 +562,13 @@ export const storeCourseLocally = async (courseID) => {
           }
         }
       }
-    } catch (e) {
+    } catch (error) {
       success = false;
       deleteLocallyStoredCourse(courseID);
-      if (e?.response?.data != null) {
-        throw e.response.data;
+      if (error?.response?.data != null) {
+        throw new Error(error.response.data);
       } else {
-        throw e;
+        throw new Error(error);
       }
     } finally {
       return success;
@@ -502,9 +579,9 @@ export const storeCourseLocally = async (courseID) => {
 };
 
 /**
- * Deletes a locally stored course
- * @param {String} courseID - A string with the ID of the course to be removed from lacal storage
- * @returns {boolean} - Returns true if no errors was thrown during the deletion and false if there was
+ * Deletes a locally stored course.
+ * @param {string} courseID - The ID of the course to remove from local storage.
+ * @returns {Promise<boolean>} A promise that resolves with `true` if the course was deleted successfully.
  */
 export const deleteLocallyStoredCourse = async (courseID) => {
   let success = true;
@@ -540,7 +617,7 @@ export const deleteLocallyStoredCourse = async (courseID) => {
 };
 
 /**
- * Update all locally stored courses
+ * Updates all locally stored courses.
  */
 export const updateStoredCourses = async () => {
   try {
@@ -564,6 +641,11 @@ export const updateStoredCourses = async () => {
 
 /** Other **/
 
+/**
+ * Checks if a course is stored locally.
+ * @param {string} courseID - The ID of the course to check.
+ * @returns {Promise<boolean>} A promise that resolves with `true` if the course is stored locally.
+ */
 export const checkCourseStoredLocally = async (courseID) => {
   try {
     return !!(await AsyncStorage.getItem(courseID + await AsyncStorage.getItem(USER_ID)));
@@ -576,6 +658,9 @@ export const checkCourseStoredLocally = async (courseID) => {
   }
 };
 
+/**
+ * Clears all data from AsyncStorage.
+ */
 export const clearAsyncStorage = async () => {
   console.log(await AsyncStorage.getAllKeys());
   await AsyncStorage.clear();
