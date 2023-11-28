@@ -170,66 +170,66 @@ describe('StorageService Functions', () => {
 
   /** LECTURES **/
 
-  /*
-  describe('getLectureList', () => {
-    it('should get lecture list from API and refresh it in AsyncStorage', async () => {
+
+  describe('getComponentList', () => {
+    it('should get component list from API', async () => {
       // Arrange
       const mockSectionID = 'section_id';
-      const mockLectureList = [{ title: 'Lecture 1' }, { title: 'Lecture 2' }];
-      // jest.spyOn(api, 'getLecturesInSection').mockResolvedValueOnce(mockLectureList);
+      const mockComponentList = [{ title: 'Lecture 1' }, { title: 'Lecture 2' }];
+      jest.spyOn(api, 'getComponents').mockResolvedValueOnce(mockComponentList);
 
       // Act
-      const result = await StorageService.getLectureList(mockSectionID);
+      const result = await StorageService.getComponentList(mockSectionID);
 
       // Assert
-      expect(result).toEqual(mockLectureList);
-      expect(api.getLecturesInSection).toHaveBeenCalledWith(mockSectionID);
+      expect(result).toEqual(mockComponentList);
+      expect(api.getComponents).toHaveBeenCalledWith(mockSectionID);
     });
 
-    it('should use locally stored lectures if API fails and local data exists', async () => {
+    it('should use locally stored components if API fails and local data exists', async () => {
       // Arrange
       const mockSectionID = 'section_id';
-      const mockLectureList = [{ title: 'Lecture 1' }, { title: 'Lecture 2' }];
-      jest.spyOn(api, 'getLecturesInSection').mockRejectedValueOnce(new Error('API error'));
-      await AsyncStorage.getItem.mockResolvedValueOnce(JSON.stringify(mockLectureList));
+      const mockComponentList = [{ title: 'Lecture 1' }, { title: 'Lecture 2' }];
+      jest.spyOn(api, 'getComponents').mockRejectedValueOnce(new Error('API error'));
+      await AsyncStorage.getItem.mockResolvedValueOnce(JSON.stringify(mockComponentList));
 
       // Act
-      const result = await StorageService.getLectureList(mockSectionID);
+      const result = await StorageService.getComponentList(mockSectionID);
 
       // Assert
-      expect(result).toEqual(mockLectureList);
-      expect(api.getLecturesInSection).toHaveBeenCalledWith(mockSectionID);
+      expect(result).toEqual(mockComponentList);
+      expect(api.getComponents).toHaveBeenCalledWith(mockSectionID);
     });
 
     it('should return an empty array if both API and local storage fail', async () => {
       // Arrange
       const mockSectionID = 'section_id';
-      jest.spyOn(api, 'getLecturesInSection').mockRejectedValueOnce(new Error('API error'));
+      jest.spyOn(api, 'getComponents').mockRejectedValueOnce(new Error('API error'));
       await AsyncStorage.getItem.mockRejectedValueOnce(new Error('AsyncStorage error'));
 
       // Act
-      const result = await StorageService.getLectureList(mockSectionID);
+      const result = await StorageService.getComponentList(mockSectionID);
 
       // Assert
       expect(result).toEqual([]);
-      expect(api.getLecturesInSection).toHaveBeenCalledWith(mockSectionID);
+      expect(api.getComponents).toHaveBeenCalledWith(mockSectionID);
     });
 
     it('should return an empty array if locally stored data is corrupted', async () => {
       // Arrange
       const mockSectionID = 'section_id';
-      jest.spyOn(api, 'getLecturesInSection').mockRejectedValueOnce(new Error('API error'));
+      jest.spyOn(api, 'getComponents').mockRejectedValueOnce(new Error('API error'));
       await AsyncStorage.getItem.mockResolvedValueOnce('Invalid JSON data');
 
       // Act
-      const result = await StorageService.getLectureList(mockSectionID);
+      const result = await StorageService.getComponentList(mockSectionID);
 
       // Assert
       expect(result).toEqual([]);
-      expect(api.getLecturesInSection).toHaveBeenCalledWith(mockSectionID);
+      expect(api.getComponents).toHaveBeenCalledWith(mockSectionID);
     });
   });
-  */
+
 
   describe('fetchLectureImage', () => {
     it('should fetch lecture image from API and return it', async () => {
@@ -291,68 +291,6 @@ describe('StorageService Functions', () => {
       // Assert
       expect(result).toBeNull();
       expect(api.getBucketImage).toHaveBeenCalledWith(mockImageID);
-    });
-    jest.restoreAllMocks();
-  });
-
-  /** EXERCISES **/
-
-  describe('getExerciseList', () => {
-    it('should get exercise list from API and refresh it in AsyncStorage', async () => {
-      // Arrange
-      const mockSectionID = 'section_id';
-      const mockExerciseList = [{ title: 'Exercise 1' }, { title: 'Exercise 2' }];
-      jest.spyOn(api, 'getExercisesInSection').mockResolvedValueOnce(mockExerciseList);
-
-      // Act
-      const result = await StorageService.getExerciseList(mockSectionID);
-
-      // Assert
-      expect(result).toEqual(mockExerciseList);
-      expect(api.getExercisesInSection).toHaveBeenCalledWith(mockSectionID);
-    });
-
-    it('should use locally stored exercises if API fails and local data exists', async () => {
-      // Arrange
-      const mockSectionID = 'section_id';
-      const mockExerciseList = [{ title: 'Exercise 1' }, { title: 'Exercise 2' }];
-      jest.spyOn(api, 'getExercisesInSection').mockRejectedValueOnce(new Error('API error'));
-      await AsyncStorage.getItem.mockResolvedValueOnce(JSON.stringify(mockExerciseList));
-
-      // Act
-      const result = await StorageService.getExerciseList(mockSectionID);
-
-      // Assert
-      expect(result).toEqual(mockExerciseList);
-      expect(api.getExercisesInSection).toHaveBeenCalledWith(mockSectionID);
-    });
-
-    it('should return an empty array if both API and local storage fail', async () => {
-      // Arrange
-      const mockSectionID = 'section_id';
-      jest.spyOn(api, 'getExercisesInSection').mockRejectedValueOnce(new Error('API error'));
-      await AsyncStorage.getItem.mockRejectedValueOnce(new Error('AsyncStorage error'));
-
-      // Act
-      const result = await StorageService.getExerciseList(mockSectionID);
-
-      // Assert
-      expect(result).toEqual([]);
-      expect(api.getExercisesInSection).toHaveBeenCalledWith(mockSectionID);
-    });
-
-    it('should return an empty array if locally stored data is corrupted', async () => {
-      // Arrange
-      const mockSectionID = 'section_id';
-      jest.spyOn(api, 'getExercisesInSection').mockRejectedValueOnce(new Error('API error'));
-      await AsyncStorage.getItem.mockResolvedValueOnce('Invalid JSON data');
-
-      // Act
-      const result = await StorageService.getExerciseList(mockSectionID);
-
-      // Assert
-      expect(result).toEqual([]);
-      expect(api.getExercisesInSection).toHaveBeenCalledWith(mockSectionID);
     });
     jest.restoreAllMocks();
   });

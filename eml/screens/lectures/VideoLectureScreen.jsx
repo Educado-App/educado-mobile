@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import { useNavigation } from '@react-navigation/native';
 import StandardButton from '../../components/general/StandardButton';
 import { completeComponent, handleLastComponent } from '../../services/utilityFunctions';
+import {getVideoURL} from '../../services/StorageService';
 
 export default function VideoLectureScreen({ lectureObject, courseObject, isLastSlide }) {
   const navigation = useNavigation();
@@ -116,9 +117,9 @@ export default function VideoLectureScreen({ lectureObject, courseObject, isLast
   };
 
   useEffect(() => {
-    const _videoUrl = getVideoStreamUrl(lectureObject.video, currentResolution);
-
-    setVideoUrl(_videoUrl);
+    getVideoURL(lectureObject.video, currentResolution).then((result)=>{
+      setVideoUrl(result);
+    });
   }, [currentResolution]);
 
 

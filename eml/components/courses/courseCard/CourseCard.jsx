@@ -8,7 +8,7 @@ import tailwindConfig from '../../../tailwind.config';
 import { determineIcon, determineCategory, formatHours } from '../../../services/utilityFunctions';
 import DownloadCourseButton from './DownloadCourseButton';
 import PropTypes from 'prop-types';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {checkCourseStoredLocally} from '../../../services/StorageService';
 
 /**
  * CourseCard component displays a card for a course with its details
@@ -22,8 +22,7 @@ export default function CourseCard({ course, isOnline }) {
     
 
   const checkDownload = async () => {
-    let result = !!(await AsyncStorage.getItem(course.courseId + await AsyncStorage.getItem('@userId')));
-    setDownloaded(result);
+    setDownloaded(await checkCourseStoredLocally(course.courseId));
   };
   checkDownload();
 
