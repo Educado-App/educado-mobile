@@ -4,6 +4,7 @@ import Text from '../../general/Text';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import { Easing } from 'react-native-reanimated';
 import { getStudentInfo } from '../../../services/StorageService';
+import { findCompletedCourse } from '../../../services/utilityFunctions';
 
 const StatsOverview = forwardRef(({ courseObject }, ref) => {
   const [percentage, setPercentage] = useState(0);
@@ -11,30 +12,24 @@ const StatsOverview = forwardRef(({ courseObject }, ref) => {
   const tailwindConfig = require('../../../tailwind.config.js');
   const projectColors = tailwindConfig.theme.colors;
   const circularProgressRef = useRef(null);
-
-  async function getCompletedCourse() {
-    const studentInfo = await getStudentInfo();
-    const completedCourse = studentInfo.completedCourses.find((course) => course.courseId === courseObject.id);
-
-    return completedCourse;
-  }
   
   async function getPercentage() {
     try {
-      const completedCourse = await getCompletedCourse();
+      const completedCourse = findCompletedCourse(await getStudentInfo(), courseObject.id);
       let totalExercises = 0;
       let totalExercisesWithFirstTry = 0;
   
       if (completedCourse) {
-        completedCourse.completedSections.forEach((completedSection) => {
-          completedSection.completedExercises.forEach((completedExercise) => {
-            totalExercises++;
-  
-            if (completedExercise.firstTry === true) {
-              totalExercisesWithFirstTry++;
+        for (let section of completedCourse.sections) {
+          for (let comp of section.components) {
+            if (comp.compType === 'exercise') {
+              totalExercises++;
+              if (comp.isFirstAttempt) {
+                totalExercisesWithFirstTry++;
+              }
             }
-          });
-        });
+          }
+        };
       } else {
         return 0;
       }
@@ -82,7 +77,7 @@ const StatsOverview = forwardRef(({ courseObject }, ref) => {
             </Text>
           )}
         </AnimatedCircularProgress>
-        <Text className="text-center text-base text-projectBlack pt-10 px-10">Você respondeu {percentage}% correta na primeira tentativa e a sua posição atual é [posição], bravo! Clique aqui para ver o ranking completo.</Text>
+        <Text className="text-center text-base text-projectBlack pt-10 px-10">Você respondeu {percentage}% correta, bravo!</Text>
       </View>
 
       {/* ---------------------------- Code for leaderboard goes from here ------------------------------------------------------------------------------------

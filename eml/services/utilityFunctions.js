@@ -172,10 +172,9 @@ export async function completeComponent(comp, courseId, isComplete) {
   return { points, updatedStudent };
 }
 
-// shoule be used in the future
-// function isCourseCompleted(student, courseId) {
-//   return student.courses.some(course => course.courseId == courseId);
-// }
+export function isCourseCompleted(student, courseId) {
+  return student.courses.some(course => course.courseId == courseId);
+}
 
 export function isSectionCompleted(student, sectionId) {
   return student.courses.some(course =>
@@ -255,7 +254,6 @@ export async function handleLastComponent(comp, course, navigation) {
   const student = await StorageService.getStudentInfo();
   const isComplete = isSectionCompleted(student, comp.parentSection);
   
-  if (isComplete) { 
     navigation.reset({
       index: 0,
       routes: [
@@ -267,7 +265,11 @@ export async function handleLastComponent(comp, course, navigation) {
         },
       ],
     });
-  } else {
-    console.log('Section not complete');
-  }
+
+   // For future reference
+  // if (isComplete) { 
+  // Code above with naviagtion
+  // } else {
+  //   console.log('Section not complete - navigate to retry exercises TBD');
+  // }
 }

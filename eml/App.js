@@ -174,12 +174,7 @@ export default function App() {
         <IconRegistry icons={EvaIconsPack} />
         <ApplicationProvider {...eva} theme={eva.light}>
           <NavigationContainer>
-            <Stack.Navigator initialRouteName={'CompleteCourseScreen'}>
-            <Stack.Screen
-                name="tempStack"
-                component={CompleteCourseScreen}
-                options={{ headerShown: false }}
-              />
+            <Stack.Navigator initialRouteName={initialRoute}>
               <Stack.Screen
                 name="WelcomeStack"
                 component={WelcomeStack}
@@ -236,6 +231,11 @@ export default function App() {
                 options={{
                   headerShown: false,
                 }}
+              />
+              <Stack.Screen
+                name="CompleteCourse"
+                component={CompleteCourseScreen}
+                options={{ headerShown: false }}
               />
             </Stack.Navigator>
           </NavigationContainer>
