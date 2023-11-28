@@ -6,7 +6,7 @@ import LectureScreen from './LectureScreen';
 import tailwindConfig from '../../tailwind.config';
 import ExerciseScreen from '../excercise/ExerciseScreen';
 import { completeComponent, findIndexOfUncompletedComp } from '../../services/utilityFunctions';
-import {getComponentsList, getStudentInfo} from '../../services/StorageService';
+import {getComponentList, getStudentInfo} from '../../services/StorageService';
 import PropTypes from 'prop-types';
 
 const LectureType = {
@@ -42,7 +42,7 @@ export default function LectureSwipeScreen({ route }) {
           initialIndex = 0;
         }
 
-        const compList = await getComponentsList(section.sectionId);
+        const compList = await getComponentList(section.sectionId);
 
         if (compList[initialIndex].type === ComponentType.EXERCISE) {
           setScrollEnabled(false);
