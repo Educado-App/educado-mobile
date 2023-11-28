@@ -190,43 +190,43 @@ export const refreshSectionList = async (sectionList) => {
   }
 };
 
-/** LECTURES **/
+/** COMPONENTS **/
 
-// get all Lectures for specific section
-export const getLectureList = async (sectionID) => {
-  let lectureList = null;
+// get all components for specific section
+export const getComponentsList = async (sectionID) => {
+  let componentList = null;
   try {
     if (isOnline) {
-      lectureList = await api.getLecturesInSection(sectionID);
+      componentList = await api.getComponents(sectionID);
     } else {
-      throw new Error('No internet connection in getLectureList');
+      throw new Error('No internet connection in getComponentsList');
     }
   } catch (error) {
-    // Use locally stored lectures if they exist and the DB cannot be reached
+    // Use locally stored components if they exist and the DB cannot be reached
     try {
-      if ((lectureList = JSON.parse(await AsyncStorage.getItem('L' + sectionID))) === null){
-        throw new Error('JSON parse error in getLectureList', error);
+      if ((componentList = JSON.parse(await AsyncStorage.getItem('C' + sectionID))) === null){
+        throw new Error('JSON parse error in getComponentsList', error);
       }
     } catch (e) {
       if (e?.response?.data != null) {
-        throw new Error('Error in getLectureList: ', e.response.data);
+        throw new Error('Error in getComponentsList: ', e.response.data);
       } else {
-        throw new Error('Error in getLectureList: ', e);
+        throw new Error('Error in getComponentsList: ', e);
       }
     }
   } finally {
-    return await lectureFittingModel(lectureList);
+    return componentList; //await componentFittingModel(componentList);
   }
 };
 
 // Fits lecture data to new object with relevant fields
-const lectureFittingModel = async (lectureList) => {
-  let newLectureList = [];
+const componentFittingModel = async (componentList) => {
+  let newComponentList = [];
   try {
-    if (lectureList !== null) {
-      for (const lecture of lectureList) {
-        newLectureList.push(
-          lecture  // Replace with object model if needed (Se sections for reference)
+    if (componentList !== null) {
+      for (const component of componentList) {
+        newComponentList.push(
+          component  // Replace with object model if needed (Se sections for reference)
         );
       }
     } else {
@@ -234,13 +234,13 @@ const lectureFittingModel = async (lectureList) => {
     }
   } catch (e){
     if (e?.response?.data != null) {
-      throw new Error('Error in lectureFittingModel: ', e.response.data);
+      throw new Error('Error in componentFittingModel: ', e.response.data);
     } else {
-      throw new Error('Error in lectureFittingModel: ', e);
+      throw new Error('Error in componentFittingModel: ', e);
     }
   } finally {
     //Returns new fitted lecture list, or empty list if there was no data fetched from DB or Storage,
-    return newLectureList;
+    return newComponentList;
   }
 };
 
@@ -301,60 +301,6 @@ export const getVideoURL = async (videoName, resolution) => {
     }
   } finally {
     return videoUrl;
-  }
-};
-
-/** EXERCISES **/
-
-// get all Exercises for specific section
-export const getExerciseList = async (sectionID) => {
-  let exerciseList = null;
-  try {
-    if (isOnline) {
-      exerciseList = await api.getExercisesInSection(sectionID);
-    } else {
-      throw new Error('No internet connection in getExerciseList');
-    }
-  } catch (error) {
-    // Use locally stored exercises if they exist and the DB cannot be reached
-    try {
-      if ((exerciseList = JSON.parse(await AsyncStorage.getItem('E' + sectionID))) === null){
-        throw new Error('JSON parse error in getExerciseList', error);
-      }
-    } catch (e) {
-      if (e?.response?.data != null) {
-        throw new Error('Error in getExerciseList: ', e.response.data);
-      } else {
-        throw new Error('Error in getExerciseList: ', e);
-      }
-    }
-  } finally {
-    return await exerciseFittingModel(exerciseList);
-  }
-};
-
-// Fits exercise data to new object with relevant fields
-const exerciseFittingModel = async (exerciseList) => {
-  let newExerciseList = [];
-  try {
-    if (exerciseList !== null) {
-      for (const exercise of exerciseList) {
-        newExerciseList.push(
-          exercise  // Replace with object model if needed (Se sections for reference)
-        );
-      }
-    } else {
-      throw new Error('No data to be read in DB or local storage');
-    }
-  } catch (error) {
-    if (error?.response?.data != null) {
-      throw new Error('Error in exerciseFittingModel: ', error.response.data);
-    } else {
-      throw new Error('Error in exerciseFittingModel: ', error);
-    }
-  } finally {
-    //Returns new fitted exercise list, or empty list if there was no data fetched from DB or Storage,
-    return newExerciseList;
   }
 };
 
@@ -517,29 +463,27 @@ export const storeCourseLocally = async (courseID) => {
       for (let section of sectionList) {
 
         //Stores lecture data
-        let lectureList = await api.getLecturesInSection(section._id);
-        await AsyncStorage.setItem('L' + section._id, JSON.stringify(lectureList));
-        for (let lecture of lectureList) {
-          if (lecture.image) {
+        let componentList = await api.getComponents(section._id);
+        await AsyncStorage.setItem('C' + section._id, JSON.stringify(componentList));
+        for (let component of componentList) {
+          if (component.type === 'lecture'){
+            if (component.component.image) {
 
-            //Stores images
-            try {
-              let image = await api.getBucketImage(lecture.image);
-              await AsyncStorage.setItem('I' + lecture._id, JSON.stringify(image));
-            } catch {
-              await AsyncStorage.setItem('I' + lecture._id, defaultImage.base64);
+              //Stores images
+              try {
+                let image = await api.getBucketImage(component.component.image);
+                await AsyncStorage.setItem('I' + component.component._id, JSON.stringify(image));
+              } catch {
+                await AsyncStorage.setItem('I' + component.component._id, defaultImage.base64);
+              }
+            } else if (component.component.video){
+
+              //Stores videos
+              await makeDirectory();
+              await FileSystem.writeAsStringAsync(lectureVideoPath + component.component.video + '.json', await api.getBucketImage(component.component.video));
             }
-          } else if (lecture.video){
-
-            //Stores videos
-            await makeDirectory();
-            await FileSystem.writeAsStringAsync(lectureVideoPath + lecture.video + '.json', await api.getBucketImage(lecture.video));
           }
         }
-
-        //Stores exercises
-        let exerciseList = await api.getExercisesInSection(section._id);
-        await AsyncStorage.setItem('E' + section._id, JSON.stringify(exerciseList));
       }
     } catch (e) {
       success = false;
@@ -570,15 +514,16 @@ export const deleteLocallyStoredCourse = async (courseID) => {
     const sectionList = JSON.parse(await AsyncStorage.getItem('S' + courseID));
     await AsyncStorage.removeItem('S' + courseID);
     for (let section of sectionList) {
-      let lectureList = JSON.parse(await AsyncStorage.getItem('L' + section._id));
-      await AsyncStorage.removeItem('L' + section._id);
-      await AsyncStorage.removeItem('E' + section._id);
+      let componentList = JSON.parse(await AsyncStorage.getItem('C' + section._id));
+      await AsyncStorage.removeItem('C' + section._id);
             
-      for (let lecture of lectureList) {
-        if (lecture.image) {
-          await AsyncStorage.removeItem('I' + lecture._id);
-        } else if (lecture.video) {
-          await FileSystem.deleteAsync(lectureVideoPath + lecture.video + '.json');
+      for (let component of componentList) {
+        if (component.type === 'lecture'){
+          if (component.component.image) {
+            await AsyncStorage.removeItem('I' + component._id);
+          } else if (component.component.video) {
+            await FileSystem.deleteAsync(lectureVideoPath + component.component.video + '.json');
+          }
         }
       }
     }

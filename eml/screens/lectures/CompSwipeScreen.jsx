@@ -3,11 +3,10 @@ import { View, Text, ActivityIndicator } from 'react-native';
 import Swiper from 'react-native-swiper';
 import ProgressTopBar from './ProgressTopBar';
 import LectureScreen from './LectureScreen';
-import { getComponents } from '../../api/api';
 import tailwindConfig from '../../tailwind.config';
 import ExerciseScreen from '../excercise/ExerciseScreen';
 import { completeComponent, findIndexOfUncompletedComp } from '../../services/utilityFunctions';
-import { getStudentInfo } from '../../services/StorageService';
+import {getComponentsList, getStudentInfo} from '../../services/StorageService';
 import PropTypes from 'prop-types';
 
 const LectureType = {
@@ -43,7 +42,7 @@ export default function LectureSwipeScreen({ route }) {
           initialIndex = 0;
         }
 
-        const compList = await getComponents(section.sectionId);
+        const compList = await getComponentsList(section.sectionId);
 
         if (compList[initialIndex].type === ComponentType.EXERCISE) {
           setScrollEnabled(false);
