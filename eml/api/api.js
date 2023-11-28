@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const timeoutInMs = 1200;
 
-const url = 'https://educado-backend-staging-x7rgvjso4a-ew.a.run.app/';
+const url = 'http://172.30.253.63:8888';
 
 const certificateUrl = 'http://172.30.245.212:8080';
 
