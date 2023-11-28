@@ -73,10 +73,14 @@ const certificateUrl = 'http://172.30.245.212:8080';
 
 <img src="https://github.com/Educado-App/educado-mobile/assets/92527083/6d6b4714-c7f2-43eb-9987-045d9e1c85d7" width="250">
 <img src="https://github.com/Educado-App/educado-mobile/assets/92527083/3fac1c6a-7b73-409e-9e6e-de6ece72f7b3" width="250">
-<img src="https://github.com/Educado-App/educado-mobile/assets/92527083/54b25a6e-6c97-4e4d-ac66-a68e9ed77c25" width="250">
-<img src="https://github.com/Educado-App/educado-mobile/assets/92527083/a2880c10-b22b-45ea-9943-6a85d82de002" width="250">
-<img src="https://github.com/Educado-App/educado-mobile/assets/92527083/b681ade2-32e5-46c0-9796-113367414d53" width="250">
-<img src="https://github.com/Educado-App/educado-mobile/assets/92527083/b3995d0e-90d9-42b5-be12-21f6e820f59a" width="250">
+<img src="https://github.com/Educado-App/educado-mobile/assets/94057594/2e5809a4-2612-4fa1-918a-f83d9badb511" width="250">
+<img src="https://github.com/Educado-App/educado-mobile/assets/94057594/7387da95-1a24-4e50-86f1-e2c51ad7745e" width="250">
+<img src="https://github.com/Educado-App/educado-mobile/assets/94057594/a7bc5655-44c6-4d73-9d01-18f1e1332fa2" width="250">
+<img src="https://github.com/Educado-App/educado-mobile/assets/94057594/ce70dd3d-7a5d-410c-ac27-609a774df2d0" width="250">
+
+
+
+
 
 
 ## Development notes
