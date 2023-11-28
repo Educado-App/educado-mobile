@@ -1,5 +1,6 @@
 /** Utility functions used in Explore and Course screens **/
 import * as StorageService from '../services/StorageService.js';
+import * as userApi from '../api/userApi.js';
 
 /**
  * Converts a numeric difficulty level to a human-readable label.
@@ -141,44 +142,132 @@ export function formatHours(number) {
   }
 }
 
-export async function givePoints(exerciseId, isComplete, points) {
+export async function completeComponent(comp, courseId, isComplete) {
   // Retrieve the user info object and parse it from JSON
-  // const userInfo = await StorageService.getUserInfo();
   const studentInfo = await StorageService.getStudentInfo();
-  // const loginToken = await StorageService.getLoginToken();
+  const sectionId = comp.parentSection;
 
-  const exerciseExists = isExerciseCompleted(studentInfo, exerciseId);
-  const exerciseIsComplete = exerciseIsCompleteStatus(studentInfo, exerciseId);
-  
-  // If the exercise is present but it's field "isComplete" is false, it means the user has answered wrong before and only gets 5 points.
-  if (exerciseExists && !exerciseIsComplete) {
-    points = 5;
+  if (!getComponent(studentInfo, courseId, sectionId, comp._id)) {
+    throw new Error('Component not found');
   }
 
-  // TODO: Magnus help
-  // Updates the user with the new points in the db
-  //await completeExercise(userInfo.id, exerciseId, isComplete, points, loginToken);
+  // Retrieve the user info object and parse it from JSON
+  const userInfo = await StorageService.getUserInfo();
+  const loginToken = await StorageService.getLoginToken();
 
-  return points;
+  const isFirstAttempt = isFirstAttemptExercise(studentInfo, comp._id);
+  const isCompComplete = isComponentCompleted(studentInfo, comp._id); 
+
+  // If the exercise is present but it's field "isComplete" is false, it means the user has answered wrong before and only gets 5 points.
+  const points = isFirstAttempt && !isCompComplete && isComplete ? 10 : (!isFirstAttempt && !isCompComplete && isComplete ? 5 : 0);
+
+  const updatedStudent = await userApi.completeComponent(userInfo.id, comp, isComplete, points, loginToken);
+
+  if (!updatedStudent) {
+    throw new Error('Error completing component');
+  }
+
+  StorageService.updateStudentInfo(updatedStudent);
+
+  return { points, updatedStudent };
 }
 
-function isExerciseCompleted(student, exerciseId) {
-  return student.completedCourses.find(course =>
-    course.completedSections.find(section =>
-      section.completedExercises.find(exercise =>
-        exercise.exerciseId == exerciseId
+// shoule be used in the future
+// function isCourseCompleted(student, courseId) {
+//   return student.courses.some(course => course.courseId == courseId);
+// }
+
+export function isSectionCompleted(student, sectionId) {
+  return student.courses.some(course =>
+    course.sections.some(section =>
+      section.sectionId == sectionId && section.isComplete
+    )
+  );
+}
+
+export function isComponentCompleted(student, compId) {
+  return student.courses.some(course =>
+    course.sections.some(section =>
+      section.components.some(component =>
+        component.compId === compId && component.isComplete
       )
     )
-  ) !== undefined;
+  );
 }
 
-function exerciseIsCompleteStatus(student, exerciseId) {
-  for (const course of student.completedCourses) {
-    for (const section of course.completedSections) {
-      const exercise = section.completedExercises.find(ex => ex.exerciseId === exerciseId);
-      if (exercise) {
-        return exercise.isComplete;
-      }
-    }
+function isFirstAttemptExercise(student, compId) {
+  return student.courses.some(course =>
+    course.sections.some(section =>
+      section.components.some(component =>
+        component.compId === compId && component.isFirstAttempt
+      )
+    )
+  );
+}
+
+export function findCompletedCourse(student, courseId) {
+  return student.courses.find(course => course.courseId == courseId);
+}
+
+export function findCompletedSection(student, courseId, sectionId) {
+  const course = findCompletedCourse(student, courseId);
+  
+  return course?.sections.find(section => section.sectionId == sectionId);
+}
+
+function getComponent(student, courseId, sectionId, componentId) {
+  const course = student.courses.find(course => course.courseId == courseId);
+  const section = course?.sections.find(section => section.sectionId == sectionId);
+
+  return section?.components.find(component => component.compId == componentId);
+}
+
+export function findIndexOfUncompletedComp(student, courseId, sectionId) {
+  const course = student.courses.find(course => course.courseId === courseId);
+
+  if (!course) {
+    console.error(`Course with ID ${courseId} not found for the student.`);
+    return -1; // or any other appropriate value to indicate not found
+  }
+
+  const section = course.sections.find(section => section.sectionId === sectionId);
+
+  if (!section) {
+    console.error(`Section with ID ${sectionId} not found in course ${courseId}.`);
+    return -1; // or any other appropriate value to indicate not found
+  }
+
+  if (!section.components || section.components.length === 0) {
+    console.warn(`Section ${sectionId} in course ${courseId} has no components.`);
+    return -1; // or any other appropriate value to indicate no components
+  }
+
+  const indexOfUncompletedComp = section.components.findIndex(component => !component.isComplete);
+
+  if (indexOfUncompletedComp === -1) {
+    console.log(`All components in section ${sectionId} of course ${courseId} are complete.`);
+  }
+
+  return indexOfUncompletedComp;
+}
+
+export async function handleLastComponent(comp, course, navigation) {
+  const student = await StorageService.getStudentInfo();
+  const isComplete = isSectionCompleted(student, comp.parentSection);
+  
+  if (isComplete) { 
+    navigation.reset({
+      index: 0,
+      routes: [
+        {
+          name: 'CompleteSection',
+          params: { 
+            parsedCourse: course, 
+            sectionId: comp.parentSection }
+        },
+      ],
+    });
+  } else {
+    console.log('Section not complete');
   }
 }

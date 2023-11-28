@@ -25,7 +25,7 @@ export default function ProfileNavigationButton(props) {
   };
 
   return (
-    <View className="px-6 w-screen my-3">
+    <View className="w-screen my-3 px-6">
       <TouchableOpacity className="border-b border-projectGray py-4 w-full" onPress={props.onPress}>
         <View className="flex flex-row">
           <Text className="flex-1 text-body items-start mt-0.5">{props.label}</Text>

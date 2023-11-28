@@ -40,6 +40,10 @@ export const getStudentInfo = async () => {
   return fetchedStudentInfo;
 };
 
+export const updateStudentInfo = async (studentInfo) => {
+  await AsyncStorage.setItem(STUDENT_INFO, JSON.stringify(studentInfo));
+};
+
 export const getLoginToken = async () => {
   const fetchedToken = await AsyncStorage.getItem(LOGIN_TOKEN);
   return fetchedToken;
@@ -126,20 +130,6 @@ const refreshCourseList = async (courseList) => {
       throw new Error('API error in refreshCourseList:', error);
     }
   }
-};
-
-export const saveCourseTotalPointsLocally = async (courseId, newTotalPoints) => {
-  const studentInfo = JSON.parse(await AsyncStorage.getItem(STUDENT_INFO));
-
-  const completedCourses = studentInfo.completedCourses;
-  const completedCourseIndex = completedCourses.findIndex(course => course.courseId === courseId.courseId);
-  if (completedCourseIndex !== -1) {
-    completedCourses[completedCourseIndex].totalPoints = newTotalPoints;
-  }
-
-  studentInfo.completedCourses = completedCourses;
-
-  await AsyncStorage.setItem(STUDENT_INFO, JSON.stringify(studentInfo));
 };
 
 /** SECTIONS **/
@@ -451,6 +441,26 @@ export const subscribe = async (courseId) => {
       throw new Error('API error in subscribe:', error.response.data);
     } else {
       throw new Error('API error in subscribe:', error);
+    }
+  }
+};
+
+export const addCourseToStudent = async (courseId) => {
+  const userId = await AsyncStorage.getItem(USER_ID);
+  const loginToken = await getLoginToken();
+
+  try {
+    const student = await userApi.addCourseToStudent(userId, courseId, loginToken);
+    if (!student) {
+      throw new Error('Student not found');
+    }
+
+    updateStudentInfo(student);
+  } catch (e) {
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
     }
   }
 };
