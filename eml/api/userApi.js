@@ -160,18 +160,18 @@ export const getStudentInfo = async (user_Id) => {
 
 
 
-export const addCourseToStudent = async (studentId, courseId, token) => {
+export const addCourseToStudent = async (user_Id, course_Id, token) => {
   try {
-    const res = await client.patch(
-      `/api/students/${studentId}/courses/${courseId}/enroll`,
+    const res = await client.patch('/api/students/' + user_Id + '/courses/' + course_Id + '/enroll',
       {},
       {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
+          'token': token, // Include the token in the headers
         },
       }
     );
+
     return res.data;
   } catch (e) {
     if (e?.response?.data != null) {
@@ -181,6 +181,7 @@ export const addCourseToStudent = async (studentId, courseId, token) => {
     }
   }
 };
+
 
 
 /**
