@@ -125,16 +125,13 @@ export const updateUserPassword = async (user_id, oldPassword, newPassword, toke
     }
   }
 };
-export const completeComponent = async (userId, componentId, isComplete, points, token) => {
-  try {
-    const res = await client.patch(`/api/students/${userId}/complete`, {
-      componentId: componentId,
-      isComplete: isComplete,
-      points: points,
-    }, {
+
+export const completeComponent = async (user_id, comp, isComplete, points, token) => {
+  try{
+    const res = await client.patch('/api/students/' + user_id + '/complete', { comp: comp, isComplete: isComplete, points: points }, {
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`, // Using a Bearer token for authentication
+        'token': token, // Include the token in the headers
       },
     });
 
@@ -147,7 +144,6 @@ export const completeComponent = async (userId, componentId, isComplete, points,
     }
   }
 };
-
 
 export const getStudentInfo = async (user_Id) => {
   try {
@@ -166,7 +162,7 @@ export const getStudentInfo = async (user_Id) => {
 
 export const addCourseToStudent = async (studentId, courseId, token) => {
   try {
-    const res = await client.post(
+    const res = await client.patch(
       `/api/students/${studentId}/courses/${courseId}/enroll`,
       {},
       {
