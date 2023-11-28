@@ -216,8 +216,7 @@ export const refreshSectionList = async (sectionList) => {
           sectionId: section._id,
           parentCourseId: section.parentCourse,
           description: section.description,
-          components: section.components,
-          total: section.totalPoints,
+          total: section.components.length,
         });
       }
     } else {
