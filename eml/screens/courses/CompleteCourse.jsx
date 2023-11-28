@@ -5,24 +5,6 @@ import CompleteCourseSlider from '../../components/courses/completeCourse/Comple
 import Text from '../../components/general/Text.js';
 import { useNavigation } from '@react-navigation/native';
 
-// TODO: after merge with dev, add navigation to this screen from CompleteSectionScreen with courseObject as param
-
-// use this code:
-// import { getStudentInfo } from '../../services/StorageService';
-
-// async function completedCourse() {
-//   const studentInfo = await getStudentInfo();
-//   const completedCourse = studentInfo.completedCourses.find((course) => course.courseId === courseObject.id);
-
-//   return completedCourse.isComplete
-// }
-
-// useEffect(() => {
-//   completedCourse().then((isCompleted) => {
-//     console.log('isCompleted', isCompleted)
-//   })
-// }, []);
-
 export default function CompleteCourseScreen() {
   const completeCourseSliderRef = useRef(null);
   let currentSlide = 0;
