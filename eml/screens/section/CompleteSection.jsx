@@ -15,11 +15,8 @@ export default function CompleteSectionScreen() {
   const { parsedCourse, sectionId } = route.params;
   const [points, setPoints] = useState(0);
   const [extraPoints, setExtraPoints] = useState(0);
-  // const [totalPointsText, setTotalPointsText] = useState('Pontos');
   const navigation = useNavigation();
   const [randomPhrase, setRandomPhrase] = useState('');
-
-  const extraPointsFinal = 20;
 
   const getRandomPhrase = () => {
     let randomIndex = 0;
@@ -79,17 +76,16 @@ export default function CompleteSectionScreen() {
     if (completedSection === null) {
       return 0;
     }
-    return completedSection.totalPoints;
+    return { totalPoints: completedSection.totalPoints, extraPoints: completedSection.extraPoints };
   }
 
   useEffect(() => {
     async function animations() {
-      const pointsFinal = await getPointsFromSection();
-      await animation(points, setPoints, pointsFinal);
+      const obj = await getPointsFromSection();
+      await animation(points, setPoints, obj.totalPoints);
 
       setTimeout(async () => {
-        await animation(extraPoints, setExtraPoints, extraPointsFinal);
-        // await totalPointsAnimation(points, pointsFinal + extraPointsFinal);
+        await animation(extraPoints, setExtraPoints, obj.extraPoints);
       }, 750);
     }
 
