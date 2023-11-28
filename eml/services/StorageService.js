@@ -265,42 +265,11 @@ export const getComponentList = async (sectionID) => {
       }
     }
   } finally {
-    return componentList; //await componentFittingModel(componentList);
+    return componentList;
   }
 };
 
 
-/**
- * Refreshes and fits component data to a new object with relevant fields.
- * @param {Array} componentList - The list of components to fit.
- * @returns {Promise<Array>} A promise that resolves with the fitted lecture list.
- */
-/*
-// Fits components data to new object with relevant fields
-const componentFittingModel = async (componentList) => {
-  let newComponentList = [];
-  try {
-    if (componentList !== null) {
-      for (const component of componentList) {
-        newComponentList.push(
-          component  // Replace with object model if needed (Se sections for reference)
-        );
-      }
-    } else {
-      throw new Error('No data to be read in DB or local storage');
-    }
-  } catch (e){
-    if (e?.response?.data != null) {
-      throw new Error('Error in componentFittingModel: ', e.response.data);
-    } else {
-      throw new Error('Error in componentFittingModel: ', e);
-    }
-  } finally {
-    //Returns new fitted lecture list, or empty list if there was no data fetched from DB or Storage,
-    return newComponentList;
-  }
-};
-*/
 /**
  * Fetches an image for a lecture.
  * @param {string} imageID - The ID of the image.
