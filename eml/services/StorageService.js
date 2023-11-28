@@ -480,9 +480,9 @@ export const subscribe = async (courseId) => {
     await addCourseToStudent(courseId);
   } catch (error) {
     if (error?.response?.data != null) {
-      throw new Error('API error in subscribe:', error.response.data);
+      throw new Error('API error in subscribe:' + error.response.data);
     } else {
-      throw new Error('API error in subscribe:', error);
+      throw new Error('API error in subscribe:' + error);
     }
   }
 };
@@ -497,7 +497,7 @@ export const addCourseToStudent = async (courseId) => {
       throw new Error('Student not found');
     }
 
-    updateStudentInfo(student);
+    await updateStudentInfo(student);
   } catch (e) {
     if (e?.response?.data != null) {
       throw e.response.data;
