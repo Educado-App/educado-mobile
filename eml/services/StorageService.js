@@ -47,6 +47,10 @@ export const getStudentInfo = async () => {
   return fetchedStudentInfo;
 };
 
+export const updateStudentInfo = async (studentInfo) => {
+  await AsyncStorage.setItem(STUDENT_INFO, JSON.stringify(studentInfo));
+};
+
 /**
  * Retrieves the login token from AsyncStorage.
  * @returns {Promise<string>} A promise that resolves with the fetched login token.
@@ -159,25 +163,6 @@ const refreshCourseList = async (courseList) => {
       throw new Error('API error in refreshCourseList:', error);
     }
   }
-};
-
-/**
- * Saves the total points for a course locally.
- * @param {string} courseId - The ID of the course.
- * @param {number} newTotalPoints - The new total points for the course.
- */
-export const saveCourseTotalPointsLocally = async (courseId, newTotalPoints) => {
-  const studentInfo = JSON.parse(await AsyncStorage.getItem(STUDENT_INFO));
-
-  const completedCourses = studentInfo.completedCourses;
-  const completedCourseIndex = completedCourses.findIndex(course => course.courseId === courseId.courseId);
-  if (completedCourseIndex !== -1) {
-    completedCourses[completedCourseIndex].totalPoints = newTotalPoints;
-  }
-
-  studentInfo.completedCourses = completedCourses;
-
-  await AsyncStorage.setItem(STUDENT_INFO, JSON.stringify(studentInfo));
 };
 
 /** SECTIONS **/
@@ -501,6 +486,27 @@ export const subscribe = async (courseId) => {
   }
 };
 
+export const addCourseToStudent = async (courseId) => {
+  const userId = await AsyncStorage.getItem(USER_ID);
+  const loginToken = await getLoginToken();
+
+  try {
+    const student = await userApi.addCourseToStudent(userId, courseId, loginToken);
+    if (!student) {
+      throw new Error('Student not found');
+    }
+
+    updateStudentInfo(student);
+  } catch (e) {
+    if (e?.response?.data != null) {
+      throw e.response.data;
+    } else {
+      throw e;
+    }
+  }
+};
+
+// unsubscribe to a course
 /**
  * Unsubscribes a user from a course.
  * @param {string} courseId - The ID of the course to unsubscribe from.

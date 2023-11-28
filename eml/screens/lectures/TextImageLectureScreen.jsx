@@ -7,11 +7,17 @@ import PropTypes from 'prop-types';
 import * as StorageService from '../../services/StorageService';
 import { useNavigation } from '@react-navigation/native';
 import StandardButton from '../../components/general/StandardButton';
+import { completeComponent, handleLastComponent } from '../../services/utilityFunctions';
 
 const TextImageLectureScreen = ({ lectureObject, courseObject, isLastSlide }) => {
   const [imageUrl, setImageUrl] = useState(null);
   const [paragraphs, setParagraphs] = useState(null);
   const navigation = useNavigation();
+
+  const handleContinue = async () => {
+    await completeComponent(lectureObject, courseObject.courseId, true);
+    handleLastComponent(lectureObject, courseObject, navigation);
+  };
 
   useEffect(() => {
     if (lectureObject.image) {
@@ -118,9 +124,9 @@ const TextImageLectureScreen = ({ lectureObject, courseObject, isLastSlide }) =>
             <StandardButton
               props={{
                 buttonText: 'Continuar',
-                onPress: () => {navigation.navigate('CompleteSection', 
-                  { parsedCourse: courseObject, sectionId: lectureObject.parentSection }
-                );}
+                onPress: () => {
+                  handleContinue();
+                }
               }}
             />
           </View>

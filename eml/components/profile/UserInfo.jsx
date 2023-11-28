@@ -27,7 +27,7 @@ export default function UserInfo(props) {
   };
 
   return (
-    <View className="p-6 flex flex-row items-center ">
+    <View className="p-6 flex flex-row items-center">
       <View className='pr-5'>
         <TouchableOpacity>
           <ProfileNameCircle firstName={props.firstName} lastName={props.lastName}/>
