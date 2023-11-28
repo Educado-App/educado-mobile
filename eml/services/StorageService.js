@@ -476,7 +476,8 @@ export const subscribe = async (courseId) => {
   }
 
   try {
-    return await api.subscribeToCourse(userId, courseId);
+    await api.subscribeToCourse(userId, courseId);
+    await addCourseToStudent(courseId);
   } catch (error) {
     if (error?.response?.data != null) {
       throw new Error('API error in subscribe:', error.response.data);
