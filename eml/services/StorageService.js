@@ -269,11 +269,13 @@ export const getComponentsList = async (sectionID) => {
   }
 };
 
+
 /**
  * Refreshes and fits component data to a new object with relevant fields.
  * @param {Array} componentList - The list of components to fit.
  * @returns {Promise<Array>} A promise that resolves with the fitted lecture list.
  */
+/*
 // Fits components data to new object with relevant fields
 const componentFittingModel = async (componentList) => {
   let newComponentList = [];
@@ -298,7 +300,7 @@ const componentFittingModel = async (componentList) => {
     return newComponentList;
   }
 };
-
+*/
 /**
  * Fetches an image for a lecture.
  * @param {string} imageID - The ID of the image.
