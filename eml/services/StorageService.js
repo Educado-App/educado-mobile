@@ -348,17 +348,17 @@ export const getVideoURL = async (videoName, resolution) => {
     if (isOnline) {
       videoUrl = api.getVideoStreamUrl(videoName, resolution);
     } else {
-      throw new Error('No internet connection.');
+      throw new Error('No internet connection in getVideoUrl.');
     }
-  } catch (unusedErrorMessage) {
+  } catch (error) {
     // Use locally stored video if they exist and the DB cannot be reached
     try {
       videoUrl = await FileSystem.readAsStringAsync(lectureVideoPath + videoName + '.json');
     } catch (e){
       if (e?.response?.data != null) {
-        throw e.response.data;
+        throw new Error('Error in getVideoURL: ', e.response.data);
       } else {
-        throw e;
+        throw new Error('Error in getVideoURL: ', e);
       }
     }
   } finally {
