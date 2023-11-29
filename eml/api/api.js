@@ -2,11 +2,11 @@ import axios from 'axios';
 
 const timeoutInMs = 1200;
 
-const url = 'https://educado-backend-staging-x7rgvjso4a-ew.a.run.app/';
+const url = 'http://172.30.211.221:8888/';
 
 const certificateUrl = 'http://172.30.245.212:8080';
 
-/* Commented out for avoiding linting errors :))
+/* Commented out for avoiding linting errors :)
  * TODO: move IP address to .env file !!!
 const testUrl = 'http://localhost:8888';
 const testExpo = 'http://172.30.211.57:8888'; 
@@ -314,7 +314,7 @@ export const getSectionAndLecturesBySectionId = async (sectionId) => {
   }
 };
 
-//CREATED BY VIDEO STREAMING TEAM
+
 export const getLectureById = async (lectureId) => {
   try {
     const res = await axios.get(url + '/api/lectures/' + lectureId);
@@ -329,7 +329,7 @@ export const getLectureById = async (lectureId) => {
 
 };
 
-//CREATED BY VIDEOSTREAM TEAM
+
 export const getBucketImage = async (fileName) => {
   try {
     const res = await axios.get(

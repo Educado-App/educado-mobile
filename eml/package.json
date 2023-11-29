@@ -13,7 +13,8 @@
     "test:components": "jest -i .*/components/explore.test.js -t \"Component Tests\"",
     "build": "eas build -p android --profile preview",
     "flow": "flow",
-    "lint": "eslint --fix ."
+    "lint-fix": "eslint --fix .",
+    "lint": "eslint ."
   },
   "dependencies": {
     "@eva-design/eva": "^2.1.1",
