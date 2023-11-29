@@ -14,22 +14,22 @@ import PropTypes from 'prop-types';
  */
 export default function LogoBackButton(props) {
 
-	return (
-		<View className='flex-row justify-center items-center w-full mt-4'>
-			{/* TODO: Implement with general back button instead */}
-			<View className='absolute left-0 z-50'>
-				<LeaveButton
-					navigationPlace={props.navigationPlace ? props.navigationPlace : 'Home'}
-				/>
-			</View>
-			{/* Educado logo */}
-			<View className='items-center justify-center w-full'>
-				<EducadoLogo />
-			</View>
-		</View>
-	);
+  return (
+    <View className='flex-row justify-center items-center w-full mt-4'>
+      {/* TODO: Implement with general back button instead */}
+      <View className='absolute left-0 z-50'>
+        <LeaveButton
+          navigationPlace={props.navigationPlace ? props.navigationPlace : 'Home'}
+        />
+      </View>
+      {/* Educado logo */}
+      <View className='items-center justify-center w-full'>
+        <EducadoLogo />
+      </View>
+    </View>
+  );
 }
 
 LogoBackButton.propTypes = {
-	navigationPlace: PropTypes.string,
+  navigationPlace: PropTypes.string,
 };

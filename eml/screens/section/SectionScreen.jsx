@@ -19,89 +19,89 @@ import PropTypes from 'prop-types';
  * @returns {JSX.Element} - The SectionScreen component.
  */
 export default function SectionScreen({ route }) {
-	SectionScreen.propTypes = {
-		route: PropTypes.object,
-	};
-	const { course } = route.params;
-	const navigation = useNavigation();
-	const [sections, setSections] = useState(null);
+  SectionScreen.propTypes = {
+    route: PropTypes.object,
+  };
+  const { course } = route.params;
+  const navigation = useNavigation();
+  const [sections, setSections] = useState(null);
 
-	/**
+  /**
    * Loads the sections for the given course from the backend.
    * @param {string} id - The id of the course to load sections for.
    */
-	async function loadSections(id) {
-		const sectionData = await StorageService.getSectionList(id);
-		setSections(sectionData);
-	}
+  async function loadSections(id) {
+    const sectionData = await StorageService.getSectionList(id);
+    setSections(sectionData);
+  }
 
-	// Fetch courses from backend and replace dummy data!
-	useEffect(() => {
-		let componentIsMounted = true;
+  // Fetch courses from backend and replace dummy data!
+  useEffect(() => {
+    let componentIsMounted = true;
 
-		/**
+    /**
      * Loads the sections and course data for the given courseId.
      */
-		async function loadData() {
-			await loadSections(course.courseId);
-		}
+    async function loadData() {
+      await loadSections(course.courseId);
+    }
 
-		if (componentIsMounted) {
-			loadData();
-		}
+    if (componentIsMounted) {
+      loadData();
+    }
 
-		return () => componentIsMounted = false;
-	}, []);
+    return () => componentIsMounted = false;
+  }, []);
 
-	/**
+  /**
    * Displays an alert to confirm unsubscribing from the course.
    */
-	const unsubAlert = () =>
-		Alert.alert('Cancelar subscrição', 'Tem certeza?', [
-			{
-				text: 'Não',
-				style: 'cancel',
-			},
-			{ text: 'Sim', onPress: () => { unsubscribe(course.courseId); setTimeout(() =>  {navigation.goBack();}, 300 ); }},
-		]);
+  const unsubAlert = () =>
+    Alert.alert('Cancelar subscrição', 'Tem certeza?', [
+      {
+        text: 'Não',
+        style: 'cancel',
+      },
+      { text: 'Sim', onPress: () => { unsubscribe(course.courseId); setTimeout(() =>  {navigation.goBack();}, 300 ); }},
+    ]);
 
-	return (
-		<BaseScreen>
-			<View className="flex flex-row items-center justify-beween px-6 pt-[20%]">
-				{/* Back Button */}
-				<TouchableOpacity className="pr-3" onPress={() => navigation.goBack()}>
-					<MaterialCommunityIcons name="chevron-left" size={25} color="black" />
-				</TouchableOpacity>
+  return (
+    <BaseScreen>
+      <View className="flex flex-row items-center justify-beween px-6 pt-[20%]">
+        {/* Back Button */}
+        <TouchableOpacity className="pr-3" onPress={() => navigation.goBack()}>
+          <MaterialCommunityIcons name="chevron-left" size={25} color="black" />
+        </TouchableOpacity>
 
-				{/* Course Title */}
-				<Text className="text-[25px] font-bold">{course.title}</Text>
+        {/* Course Title */}
+        <Text className="text-[25px] font-bold">{course.title}</Text>
 
-				{/* Spacer to push the Unsubscribe Button to the right */}
-				<View style={{ flex: 1 }}></View>
+        {/* Spacer to push the Unsubscribe Button to the right */}
+        <View style={{ flex: 1 }}></View>
 
-			</View>
+      </View>
 
-			{/* Conditionally render the sections if they exist */}
-			{sections ? (
-				sections.length === 0 ? null : (
-					<View className="flex-[1] flex-col my-[10px]">
+      {/* Conditionally render the sections if they exist */}
+      {sections ? (
+        sections.length === 0 ? null : (
+          <View className="flex-[1] flex-col my-[10px]">
 
-						{/* Progress Bar */}
-						{/* TODO: Implement progress dynamically */}
-						<CustomProgressBar width={60} progress={50} height={3}></CustomProgressBar>
+            {/* Progress Bar */}
+            {/* TODO: Implement progress dynamically */}
+            <CustomProgressBar width={60} progress={50} height={3}></CustomProgressBar>
 
-						{/* Section Cards */}
-						<ScrollView className="mt-[5%]" showsVerticalScrollIndicator={false}>
-							{sections.map((section, i) => {
-								return <SectionCard key={i} section={section} course={course}></SectionCard>;
-							})}
-						</ScrollView>
-						{/* Unsubscribe Button */}
-						<SubscriptionCancel onPress={unsubAlert} />
-					</View>
-				)
-			) : null}
+            {/* Section Cards */}
+            <ScrollView className="mt-[5%]" showsVerticalScrollIndicator={false}>
+              {sections.map((section, i) => {
+                return <SectionCard key={i} section={section} course={course}></SectionCard>;
+              })}
+            </ScrollView>
+            {/* Unsubscribe Button */}
+            <SubscriptionCancel onPress={unsubAlert} />
+          </View>
+        )
+      ) : null}
 
-		</BaseScreen>
-	);
+    </BaseScreen>
+  );
 }

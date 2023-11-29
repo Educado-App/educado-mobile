@@ -18,40 +18,40 @@ import PropTypes from 'prop-types';
  */
 const StandardModal = (props) => {
 
-	StandardModal.propTypes = {
-		modalVisible: PropTypes.bool,
-		closeModal: PropTypes.func,
-		title: PropTypes.string,
-		children: PropTypes.element
-	};
+  StandardModal.propTypes = {
+    modalVisible: PropTypes.bool,
+    closeModal: PropTypes.func,
+    title: PropTypes.string,
+    children: PropTypes.element
+  };
 
-	return (
-		<Modal
-			visible={props.modalVisible}
-			animationType='slide'
-			className='border-8 border-black'
-		>
-			<AlertNotificationRoot>
-				<KeyboardAwareScrollView className='bg-secondary'>
-					<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-						<View>
-							<View className='relative mx-4 my-6'>
-								{/* Back button */}
-								<BackButton onPress={props.closeModal}/>
+  return (
+    <Modal
+      visible={props.modalVisible}
+      animationType='slide'
+      className='border-8 border-black'
+    >
+      <AlertNotificationRoot>
+        <KeyboardAwareScrollView className='bg-secondary'>
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View>
+              <View className='relative mx-4 my-6'>
+                {/* Back button */}
+                <BackButton onPress={props.closeModal}/>
 
-								{/* Title */}
-								<Text className='w-full text-center text-xl font-sans-bold'>
-									{props.title}
-								</Text>
-							</View>
+                {/* Title */}
+                <Text className='w-full text-center text-xl font-sans-bold'>
+                  {props.title}
+                </Text>
+              </View>
 
-							{props.children}
-						</View>
-					</TouchableWithoutFeedback>
-				</KeyboardAwareScrollView>
-			</AlertNotificationRoot>
-		</Modal>
-	);
+              {props.children}
+            </View>
+          </TouchableWithoutFeedback>
+        </KeyboardAwareScrollView>
+      </AlertNotificationRoot>
+    </Modal>
+  );
 };
 
 export default StandardModal;

@@ -10,21 +10,21 @@ import PropTypes from 'prop-types';
  */
 export default function CertificateBtn({ buttonText, onPress }) {
 
-	return (
-		<View className="">
-			<Pressable onPress={onPress}
-				className="w-full flex items-center justify-center rounded-lg bg-primary p-2"
-			>
-				<Text className="text-projectWhite py-1 font-bold px-2">
-					{buttonText}
-				</Text>
-			</Pressable>
-		</View>
-	);
+  return (
+    <View className="">
+      <Pressable onPress={onPress}
+        className="w-full flex items-center justify-center rounded-lg bg-primary p-2"
+      >
+        <Text className="text-projectWhite py-1 font-bold px-2">
+          {buttonText}
+        </Text>
+      </Pressable>
+    </View>
+  );
 }
 
 CertificateBtn.propTypes = {
-	buttonText: PropTypes.string,
-	onPress: PropTypes.func,
+  buttonText: PropTypes.string,
+  onPress: PropTypes.func,
 };
 

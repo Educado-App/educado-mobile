@@ -13,18 +13,18 @@ import PropTypes from 'prop-types';
  */
 const CardLabel = ({ title, icon, color = 'gray' }) => {
 
-	return (
-		<View className="flex-row items-center justify-start">
-			<MaterialCommunityIcons name={icon} size={13} color={color} />
-			<Text className="pl-1 text-xs" style={{ color: color }}>{title}</Text>
-		</View>
-	);
+  return (
+    <View className="flex-row items-center justify-start">
+      <MaterialCommunityIcons name={icon} size={13} color={color} />
+      <Text className="pl-1 text-xs" style={{ color: color }}>{title}</Text>
+    </View>
+  );
 };
 
 CardLabel.propTypes = {
-	title: PropTypes.string,
-	icon: PropTypes.string,
-	color: PropTypes.string,
+  title: PropTypes.string,
+  icon: PropTypes.string,
+  color: PropTypes.string,
 };
 
 export default CardLabel;

@@ -17,34 +17,34 @@ const projectColors = tailwindConfig.theme.colors;
  * @returns {JSX.Element} - A JSX element representing the custom progress bar.
  */
 const CustomProgressBar = ({ progress, width, height, displayLabel = true }) => {
-	CustomProgressBar.propTypes = {
-		progress: PropTypes.number.isRequired,
-		width: PropTypes.number.isRequired,
-		height: PropTypes.number.isRequired,
-		displayLabel: PropTypes.bool,
-	};
+  CustomProgressBar.propTypes = {
+    progress: PropTypes.number.isRequired,
+    width: PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired,
+    displayLabel: PropTypes.bool,
+  };
 
-	// Ensure progress is between 0 and 100
-	progress = Math.min(100, Math.max(0, progress));
+  // Ensure progress is between 0 and 100
+  progress = Math.min(100, Math.max(0, progress));
 
-	return (
-		<View className='flex-row items-center justify-around'>
-			<Progress.Bar
-				progress={progress / 100}
-				width={ScreenWidth * (width / 100)}
-				height={ScreenHeight * (height / 100)}
-				color={projectColors.progressBar}
-				unfilledColor={projectColors.progressBarUnFilled}
-				borderWidth={0}
-				borderRadius={8}
-			></Progress.Bar>
-			{displayLabel && (
-				<Text className='px-5 text-center font-montserrat-bold text-caption-medium text-projectBlack'>
-					{progress}%
-				</Text>
-			)}
-		</View>
-	);
+  return (
+    <View className='flex-row items-center justify-around'>
+      <Progress.Bar
+        progress={progress / 100}
+        width={ScreenWidth * (width / 100)}
+        height={ScreenHeight * (height / 100)}
+        color={projectColors.progressBar}
+        unfilledColor={projectColors.progressBarUnFilled}
+        borderWidth={0}
+        borderRadius={8}
+      ></Progress.Bar>
+      {displayLabel && (
+        <Text className='px-5 text-center font-montserrat-bold text-caption-medium text-projectBlack'>
+          {progress}%
+        </Text>
+      )}
+    </View>
+  );
 };
 
 export default CustomProgressBar;

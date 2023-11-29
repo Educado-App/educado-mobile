@@ -10,21 +10,21 @@ import { Pressable } from 'react-native';
  * - toggleShowPassword: Function
  */
 export default function PasswordEye(props) {
-	return (
-		<Pressable
-			className="absolute right-0 top-2 p-3"
-			onPress={props.toggleShowPassword}
-		>
-			<MaterialCommunityIcons
-				name={props.showPasswordIcon ? 'eye-off' : 'eye'}
-				size={24}
-				color="gray"
-			/>
-		</Pressable>
-	);
+  return (
+    <Pressable
+      className="absolute right-0 top-2 p-3"
+      onPress={props.toggleShowPassword}
+    >
+      <MaterialCommunityIcons
+        name={props.showPasswordIcon ? 'eye-off' : 'eye'}
+        size={24}
+        color="gray"
+      />
+    </Pressable>
+  );
 }
 
 PasswordEye.propTypes = {
-	showPasswordIcon: PropTypes.bool,
-	toggleShowPassword: PropTypes.func,
+  showPasswordIcon: PropTypes.bool,
+  toggleShowPassword: PropTypes.func,
 };
