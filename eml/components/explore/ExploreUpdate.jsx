@@ -8,15 +8,15 @@ import PropTypes from 'prop-types';
  * @returns {JSX.Element} - Returns a JSX element.
  */
 const UpdateDate = ({ dateUpdated }) => (
-  <View>
-    <Text className="text-xs opacity-40 pt-3">
+	<View>
+		<Text className="text-xs opacity-40 pt-3">
       ATUALIZADO: {dateUpdated}
-    </Text>
-  </View>
+		</Text>
+	</View>
 );
 
 UpdateDate.propTypes = {
-  dateUpdated: PropTypes.string,
+	dateUpdated: PropTypes.string,
 };
 
 export default UpdateDate;

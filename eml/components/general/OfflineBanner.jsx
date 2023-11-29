@@ -10,43 +10,43 @@ import tailwindConfig from '../../tailwind.config';
  * @returns {JSX.Element} - The rendered component.
  */
 export default function OfflineBanner() {
-  const [isOnline, setIsOnline] = useState(false);
-  const translateY = useRef(new Animated.Value(-100)).current;
+	const [isOnline, setIsOnline] = useState(false);
+	const translateY = useRef(new Animated.Value(-100)).current;
 
-  useEffect(() => {
-    Animated.timing(translateY, {
-      toValue: isOnline ? -100 : 0, // Slide in or out
-      duration: 1000,
-      easing: Easing.cubic,
-      useNativeDriver: true,
-    }).start();
-  }, [isOnline, translateY]);
+	useEffect(() => {
+		Animated.timing(translateY, {
+			toValue: isOnline ? -100 : 0, // Slide in or out
+			duration: 1000,
+			easing: Easing.cubic,
+			useNativeDriver: true,
+		}).start();
+	}, [isOnline, translateY]);
 
-  return (
-    <>
-      <NetworkStatusObserver setIsOnline={setIsOnline} />
+	return (
+		<>
+			<NetworkStatusObserver setIsOnline={setIsOnline} />
 
-      <Animated.View
-        style={[{
-          transform: [{translateY}],
-          position: 'absolute',
-          top: 0,
-          width: '100%',
-          zIndex: 10,
-          backgroundColor: isOnline ? tailwindConfig.theme.colors.success : tailwindConfig.theme.colors.yellow,
-        }]}
-        className='flex-row pb-2 justify-center items-end h-[10%]'
-      >
-        <MaterialCommunityIcons
-          name={isOnline ? 'wifi' : 'wifi-off'}
-          color='black'
-          size={20}
-        />
-        <Text className={'px-2'}>
-          {/* No internet connection! */}
-          {isOnline ? 'Conectado à internet' : 'Sem conexão com a internet!'}
-        </Text>
-      </Animated.View>
-    </>
-  );
+			<Animated.View
+				style={[{
+					transform: [{translateY}],
+					position: 'absolute',
+					top: 0,
+					width: '100%',
+					zIndex: 10,
+					backgroundColor: isOnline ? tailwindConfig.theme.colors.success : tailwindConfig.theme.colors.yellow,
+				}]}
+				className='flex-row pb-2 justify-center items-end h-[10%]'
+			>
+				<MaterialCommunityIcons
+					name={isOnline ? 'wifi' : 'wifi-off'}
+					color='black'
+					size={20}
+				/>
+				<Text className={'px-2'}>
+					{/* No internet connection! */}
+					{isOnline ? 'Conectado à internet' : 'Sem conexão com a internet!'}
+				</Text>
+			</Animated.View>
+		</>
+	);
 }

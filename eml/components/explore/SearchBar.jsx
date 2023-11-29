@@ -11,21 +11,21 @@ import PropTypes from 'prop-types';
  * @returns {JSX.Element} - Returns a JSX element.
  */
 function SearchBar({ onSearchChange, placeholder }) {
-  return (
-    <View className="flex-row items-center relative bg-projectWhite border-projectGray rounded-md pr-2.5 mb-2.5 mx-2.5">
-      <TextInput
-        placeholder={placeholder}
-        onChangeText={onSearchChange}
-        className="flex-1 px-2.5 py-3 pr-35"
-      />
-      <MaterialCommunityIcons name="magnify" size={20} color="gray" />
-    </View>
-  );
+	return (
+		<View className="flex-row items-center relative bg-projectWhite border-projectGray rounded-md pr-2.5 mb-2.5 mx-2.5">
+			<TextInput
+				placeholder={placeholder}
+				onChangeText={onSearchChange}
+				className="flex-1 px-2.5 py-3 pr-35"
+			/>
+			<MaterialCommunityIcons name="magnify" size={20} color="gray" />
+		</View>
+	);
 }
 
 SearchBar.propTypes = {
-  onSearchChange: PropTypes.func,
-  placeholder: PropTypes.string,
+	onSearchChange: PropTypes.func,
+	placeholder: PropTypes.string,
 };
 
 export default SearchBar;
