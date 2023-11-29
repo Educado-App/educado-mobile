@@ -38,7 +38,7 @@ jobs:
         run: expo login -u sofiiagran1 -p $PASSWORD
 
       - name: Extract Service Account JSON
-        run: echo "${{ secrets.gcp_app_deployment_json_key }}" > eml/service_account.json
+        run: echo "${{ secrets.GCP_APP_DEPLOYMENT_JSON_KEY }}" > service_account.json
 
       - name: Deploy to Play Store
         run: cd eml && eas submit --platform android --latest --non-interactive
