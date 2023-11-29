@@ -79,34 +79,34 @@ export default function CompleteSectionScreen() {
 		return { totalPoints: completedSection.totalPoints, extraPoints: completedSection.extraPoints };
 	}
 
-  async function handleAllSectionsCompleted() {
-    const studentInfo = await getStudentInfo();
+	async function handleAllSectionsCompleted() {
+		const studentInfo = await getStudentInfo();
 
-    if (isCourseCompleted(studentInfo, parsedCourse.courseId)) {
-      navigation.reset({
-        index: 0,
-        routes: [
-          { name: 'CompleteCourse' },
-        ],
-      });
-    } else {
-      navigation.reset({
-        index: 1,
-        routes: [
-          { name: 'HomeStack' },
-          {
-            name: 'Section',
-            params: { course: parsedCourse },
-          },
-        ],
-      });
-    }
-  }
+		if (isCourseCompleted(studentInfo, parsedCourse.courseId)) {
+			navigation.reset({
+				index: 0,
+				routes: [
+					{ name: 'CompleteCourse' },
+				],
+			});
+		} else {
+			navigation.reset({
+				index: 1,
+				routes: [
+					{ name: 'HomeStack' },
+					{
+						name: 'Section',
+						params: { course: parsedCourse },
+					},
+				],
+			});
+		}
+	}
 
-  useEffect(() => {
-    async function animations() {
-      const obj = await getPointsFromSection();
-      await animation(points, setPoints, obj.totalPoints);
+	useEffect(() => {
+		async function animations() {
+			const obj = await getPointsFromSection();
+			await animation(points, setPoints, obj.totalPoints);
 
 			setTimeout(async () => {
 				await animation(extraPoints, setExtraPoints, obj.extraPoints);
@@ -132,24 +132,24 @@ export default function CompleteSectionScreen() {
 					</Text>
 				</View>
 
-        <View className="flex flex-row justify-center w-full mb-20">
-          {pointBox('Pontos', points, 'yellow', 750)}
+				<View className="flex flex-row justify-center w-full mb-20">
+					{pointBox('Pontos', points, 'yellow', 750)}
 
-          {/* Extra Points Box for next year <3 */}
-          {/* {pointBox('Pontos Extras', extraPoints, 'green', 750)} */}
-        </View>
+					{/* Extra Points Box for next year <3 */}
+					{/* {pointBox('Pontos Extras', extraPoints, 'green', 750)} */}
+				</View>
 
-        <View className="w-full mb-20">
-          <StandardButton
-            props={{
-              buttonText: 'Continuar',
-              onPress: () => {
-                handleAllSectionsCompleted();
-              },
-            }}
-          />
-        </View>
-      </View>
+				<View className="w-full mb-20">
+					<StandardButton
+						props={{
+							buttonText: 'Continuar',
+							onPress: () => {
+								handleAllSectionsCompleted();
+							},
+						}}
+					/>
+				</View>
+			</View>
 
 		</SafeAreaView>
 	);
