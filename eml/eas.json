@@ -5,14 +5,17 @@
                 "buildType": "app-bundle"
             }
         },
-        "preview2": {
+        "production": {
             "android": {
-                "gradleCommand": ":app:assembleRelease"
+                "gradleCommand": ":app:assembleRelease",
+                "buildType": "app-bundle"
             }
-        },
-        "preview3": {
-            "developmentClient": true
-        },
-        "production": {}
+        }
+    },
+    "submit": {
+        "android": {
+            "track": "internal", 
+            "releaseStatus": "completed"
+        }
     }
 }

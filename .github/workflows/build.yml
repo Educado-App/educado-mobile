@@ -7,7 +7,7 @@ on:
       - synchronize
       - reopened
     branches:
-      - stage
+      - main
 
 jobs:
 
@@ -81,6 +81,6 @@ jobs:
           
         run: expo login -u sofiiagran1 -p $PASSWORD
 
-      - name: Install dependencies and build using EAS
+      - name: Build using EAS
         run: cd eml && npm run build
     

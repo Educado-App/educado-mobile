@@ -58,7 +58,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: test
     steps:
-
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -73,19 +72,25 @@ jobs:
       - name: Install EAS CLI globally
         run: npm install -g eas-cli
 
-      - name: Install dependencies
-        run: cd eml && npm install
-
       - name: Authenticate with Expo 
         env:
           PASSWORD: ${{ secrets.EXPO_PASSWORD }}
         run: expo login -u sofiiagran1 -p $PASSWORD
 
+      - name: Build using EAS
+        run: cd eml && eas build -p android --profile production
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
       - name: Extract Service Account JSON
-        run: echo "${{ secrets.gcp_app_deployment_json_key  }}" > service_account.json
+        run: echo "${{ secrets.gcp_app_deployment_json_key }}" > service_account.json
 
       - name: Deploy to Play Store
         run: eas submit --platform android --latest
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ./service_account.json
-    
