@@ -53,12 +53,12 @@ export default function CourseScreen() {
 		setRefreshing(false);
 	};
 
-  useEffect(() => {
-    // this makes sure loadCourses is called when the screen is focused
-    return navigation.addListener('focus', () => {
-      loadCourses();
-    });
-  }, [navigation]);
+	useEffect(() => {
+		// this makes sure loadCourses is called when the screen is focused
+		return navigation.addListener('focus', () => {
+			loadCourses();
+		});
+	}, [navigation]);
 
 	useEffect(() => {
 		const logged = async () => {

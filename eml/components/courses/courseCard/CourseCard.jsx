@@ -31,7 +31,7 @@ export default function CourseCard({ course, isOnline }) {
 
 	const layout = downloaded || isOnline ? enabledUI : disabledUI;
 
-    let isDisabled = layout === disabledUI;
+	let isDisabled = layout === disabledUI;
 
 	return (
 		<Pressable testID="courseCard"

@@ -38,9 +38,9 @@ const TextImageLectureScreen = ({ lectureObject, courseObject, isLastSlide }) =>
 		}
 	};
 
-  //split text into paragraphs and don't cut words
-  const splitText = (text) => {
-    let _paragraphs = [];
+	//split text into paragraphs and don't cut words
+	const splitText = (text) => {
+		let _paragraphs = [];
 
 		if (text.length < 250) {
 			_paragraphs.push(text);

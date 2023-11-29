@@ -221,7 +221,7 @@ export const getVideoStreamUrl = (fileName, resolution) => {
 		resolutionPostfix = '_360x640';
 	}
 
-  return `${url}/api/bucket/stream/${fileName}${resolutionPostfix}.mp4`;
+	return `${url}/api/bucket/stream/${fileName}${resolutionPostfix}.mp4`;
 };
 
 export const getLectureById = async (lectureId) => {
