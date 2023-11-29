@@ -20,7 +20,7 @@ import ErrorScreen from './screens/errors/ErrorScreen';
 import CourseScreen from './screens/courses/CourseScreen';
 import EditProfileScreen from './screens/profile/EditProfile';
 import CertificateScreen from './screens/certificate/CertificateScreen';
-
+import CompleteCourseScreen from './screens/courses/CompleteCourse';
 
 const Stack = createNativeStackNavigator();
 
@@ -231,6 +231,11 @@ export default function App() {
                 options={{
                   headerShown: false,
                 }}
+              />
+              <Stack.Screen
+                name="CompleteCourse"
+                component={CompleteCourseScreen}
+                options={{ headerShown: false }}
               />
             </Stack.Navigator>
           </NavigationContainer>
