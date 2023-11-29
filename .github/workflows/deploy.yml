@@ -72,6 +72,9 @@ jobs:
       - name: Install EAS CLI globally
         run: npm install -g eas-cli
 
+      - name: Install dependencies
+        run: cd eml && npm install
+
       - name: Authenticate with Expo 
         env:
           PASSWORD: ${{ secrets.EXPO_PASSWORD }}
@@ -86,6 +89,20 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install Expo CLI globally
+        run: npm install -g expo-cli
+
+      - name: Install EAS CLI globally
+        run: npm install -g eas-cli
+
+      - name: Install dependencies
+        run: cd eml && npm install
 
       - name: Extract Service Account JSON
         run: echo "${{ secrets.gcp_app_deployment_json_key }}" > service_account.json
