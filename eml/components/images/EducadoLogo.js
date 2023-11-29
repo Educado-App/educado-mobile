@@ -6,18 +6,18 @@ import logo from '../../assets/images/logo_educado.png';
 
 export default function EducadoLogo(props) {
 
-  EducadoLogo.propTypes = {
-    style: PropTypes.object,
-  };
+	EducadoLogo.propTypes = {
+		style: PropTypes.object,
+	};
 
-  return (
-    <Image
-      source={logo}
-      style={props.style}
-      className={'h-12'}
-      resizeMode='contain'
-    />
-  );
+	return (
+		<Image
+			source={logo}
+			style={props.style}
+			className={'h-12'}
+			resizeMode='contain'
+		/>
+	);
 }
 
 // THE CODE BELOW DOES NOT WORK. THE SVG NEVER SHOWS AFTER MERGING TO DEV.

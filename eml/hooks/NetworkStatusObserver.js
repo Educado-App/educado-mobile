@@ -15,23 +15,23 @@ import PropTypes from 'prop-types';
  * @returns {null} - This component does not render anything.
  */
 export default function NetworkStatusObserver({ setIsOnline }) {
-  const networkStatusService = NetworkStatusService.getInstance();
+	const networkStatusService = NetworkStatusService.getInstance();
 
-  useEffect(() => {
-    const observer = {
-      update: (status) => {
-        setIsOnline(status);
-      }
-    };
+	useEffect(() => {
+		const observer = {
+			update: (status) => {
+				setIsOnline(status);
+			}
+		};
 
-    setIsOnline(networkStatusService.addObserver(observer));
+		setIsOnline(networkStatusService.addObserver(observer));
 
-    return () => networkStatusService.removeObserver(observer);
-  }, [setIsOnline, networkStatusService]);
+		return () => networkStatusService.removeObserver(observer);
+	}, [setIsOnline, networkStatusService]);
 
-  return null; // This component does not render anything
+	return null; // This component does not render anything
 }
 
 NetworkStatusObserver.propTypes = {
-  setIsOnline: PropTypes.func.isRequired,
+	setIsOnline: PropTypes.func.isRequired,
 };
