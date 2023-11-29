@@ -158,7 +158,7 @@ export async function completeComponent(comp, courseId, isComplete) {
   const isFirstAttempt = isFirstAttemptExercise(studentInfo, comp._id);
   const isCompComplete = isComponentCompleted(studentInfo, comp._id); 
 
-  // If the exercise is present but it's field "isComplete" is false, it means the user has answered wrong before and only gets 5 points.
+  // If the exercise is present, but it's field "isComplete" is false, it means the user has answered wrong before and only gets 5 points.
   const points = isFirstAttempt && !isCompComplete && isComplete ? 10 : (!isFirstAttempt && !isCompComplete && isComplete ? 5 : 0);
 
   const updatedStudent = await userApi.completeComponent(userInfo.id, comp, isComplete, points, loginToken);
@@ -241,13 +241,9 @@ export function findIndexOfUncompletedComp(student, courseId, sectionId) {
     return -1; // or any other appropriate value to indicate no components
   }
 
-  const indexOfUncompletedComp = section.components.findIndex(component => !component.isComplete);
+  //if (indexOfUncompletedComp === -1) {console.log(`All components in section ${sectionId} of course ${courseId} are complete.`);}
 
-  if (indexOfUncompletedComp === -1) {
-    console.log(`All components in section ${sectionId} of course ${courseId} are complete.`);
-  }
-
-  return indexOfUncompletedComp;
+  return section.components.findIndex(component => !component.isComplete);
 }
 
 export async function handleLastComponent(comp, course, navigation) {
