@@ -11,32 +11,32 @@ import PropTypes from 'prop-types';
  * @returns {JSX.Element} - Returns a JSX element.
  */
 const SubscriptionButton = ({ course }) => {
-  const navigation = useNavigation();
+	const navigation = useNavigation();
 
-  const handlePress = () => {
-    subscribe(course.courseId);
+	const handlePress = () => {
+		subscribe(course.courseId);
 
-    navigation.navigate('Section', {
-      course: course
-    });
-  };
+		navigation.navigate('Section', {
+			course: course
+		});
+	};
 
-  return (
-    <View className="">
-      <Pressable
-        onPress={handlePress}
-        className="w-full flex items-center justify-center rounded-lg bg-primary p-2"
-      >
-        <Text className="text-projectWhite p-1 font-bold">
+	return (
+		<View className="">
+			<Pressable
+				onPress={handlePress}
+				className="w-full flex items-center justify-center rounded-lg bg-primary p-2"
+			>
+				<Text className="text-projectWhite p-1 font-bold">
           Inscrever-se agora
-        </Text>
-      </Pressable>
-    </View>
-  );
+				</Text>
+			</Pressable>
+		</View>
+	);
 };
 
 SubscriptionButton.propTypes = {
-  course: PropTypes.object,
+	course: PropTypes.object,
 };
 
 export default SubscriptionButton;

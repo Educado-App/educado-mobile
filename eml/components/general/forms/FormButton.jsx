@@ -15,35 +15,35 @@ import PropTypes from 'prop-types';
  */
 export default function FormButton(props) {
 
-  FormButton.propTypes = {
-    children: PropTypes.string,
-    disabled: PropTypes.bool,
-    onPress: PropTypes.func,
-    style: PropTypes.array,
-    type: PropTypes.string
-  };
+	FormButton.propTypes = {
+		children: PropTypes.string,
+		disabled: PropTypes.bool,
+		onPress: PropTypes.func,
+		style: PropTypes.array,
+		type: PropTypes.string
+	};
 
-  // Put this here for possible custom styling
-  const typeStyles = {
-    primary: 'bg-primary',
-    error: 'bg-error',
-    warning: 'bg-yellow',
-  };
+	// Put this here for possible custom styling
+	const typeStyles = {
+		primary: 'bg-primary',
+		error: 'bg-error',
+		warning: 'bg-yellow',
+	};
 
-  return <>
-    <View>
-      <TouchableOpacity
-        className={'px-4 py-4 rounded-medium ' +
+	return <>
+		<View>
+			<TouchableOpacity
+				className={'px-4 py-4 rounded-medium ' +
 					(typeStyles[props.type] ?? typeStyles.primary) +
 					(props.disabled ? ' opacity-50' : '')}
-        style={props.style ?? null}
-        onPress={props.onPress}
-        disabled={props.disabled}
-      >
-        <Text className="text-center font-sans-bold text-body text-projectWhite">
-          {props.children}
-        </Text>
-      </TouchableOpacity>
-    </View>
-  </>;
+				style={props.style ?? null}
+				onPress={props.onPress}
+				disabled={props.disabled}
+			>
+				<Text className="text-center font-sans-bold text-body text-projectWhite">
+					{props.children}
+				</Text>
+			</TouchableOpacity>
+		</View>
+	</>;
 }
