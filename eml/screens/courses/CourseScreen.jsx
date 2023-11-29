@@ -1,12 +1,12 @@
-import { useNavigation } from '@react-navigation/native';
-import React, { useEffect, useState } from 'react';
-import { View, Pressable, Image, ScrollView, RefreshControl } from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
+import {Image, Pressable, RefreshControl, ScrollView, View} from 'react-native';
 import Text from '../../components/general/Text';
 import * as StorageService from '../../services/StorageService';
 import CourseCard from '../../components/courses/courseCard/CourseCard';
 import BaseScreen from '../../components/general/BaseScreen';
 import IconHeader from '../../components/general/IconHeader';
-import { shouldUpdate } from '../../services/utilityFunctions';
+import {shouldUpdate} from '../../services/utilityFunctions';
 import ToastNotification from '../../components/general/ToastNotification';
 import LoadingScreen from '../../components/loading/Loading';
 import NetworkStatusObserver from '../../hooks/NetworkStatusObserver';
@@ -54,11 +54,10 @@ export default function CourseScreen() {
   };
 
   useEffect(() => {
-    // this makes sure loadcourses is called when the screen is focused
-    const update = navigation.addListener('focus', () => {
+    // this makes sure loadCourses is called when the screen is focused
+    return navigation.addListener('focus', () => {
       loadCourses();
     });
-    return update;
   }, [navigation]);
 
   useEffect(() => {
