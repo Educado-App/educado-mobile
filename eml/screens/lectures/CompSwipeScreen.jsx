@@ -65,12 +65,8 @@ export default function LectureSwipeScreen({ route }) {
 		swiperRef.current.scrollBy(1, true);
 		setScrollEnabled(true);
 
-		if (index === combinedLecturesAndExercises.length - 1) {
-			return true;
-		} 
-
-		return false;
-	};
+    return index === combinedLecturesAndExercises.length - 1;
+  };
 
 	const handleIndexChange = async (_index) => {
 		const currentSlide = combinedLecturesAndExercises[_index];

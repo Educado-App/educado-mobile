@@ -29,20 +29,6 @@ export const getComponents = async (sectionId) => {
 	}
 };
 
-//This function is not used in this version of dev
-export const getCourseByid = async (courseId) => {
-	try {
-		const res = await axios.get(url + '/api/courses/' + courseId);
-		return res.data;
-	} catch (e) {
-		if (e?.response?.data != null) {
-			throw e.response.data;
-		} else {
-			throw e;
-		}
-	}
-};
-
 export const getSectionById = async (sectionId) => {
 	try {
 		const res = await axios.get(url + '/api/sections/' + sectionId);
@@ -54,19 +40,6 @@ export const getSectionById = async (sectionId) => {
 			throw e;
 		}
 
-	}
-};
-
-export const getExerciseById = async (exerciseId) => {
-	try {
-		const res = await axios.get(url + '/api/exercises/' + exerciseId);
-		return res.data;
-	} catch (e) {
-		if (e?.response?.data != null) {
-			throw e.response.data;
-		} else {
-			throw e;
-		}
 	}
 };
 
@@ -114,7 +87,7 @@ export const getAllSections = async (courseId) => {
 };
 
 // Get specific section
-// ************* same as getSectionByid *************
+// ************* same as getSectionById *************
 export const getSection = async (courseId, sectionId) => {
 	try {
 		const res = await axios.get(
@@ -130,40 +103,6 @@ export const getSection = async (courseId, sectionId) => {
 	}
 };
 
-// Get all exercises in a specific section:
-// ************* same as getExercisesBySectionId *************
-export const getExercisesInSection = async (sectionId) => {
-	try {
-		const res = await axios.get(
-			//url + "/api/courses/" + courseId + "/sections/" + sectionId + "/exercises"
-			url + '/api/exercises/section/' + sectionId
-			, {timeout: timeoutInMs});
-		return res.data;
-	} catch (e) {
-		if (e?.response?.data != null) {
-			throw e.response.data;
-		} else {
-			throw e;
-		}
-	}
-};
-
-//CREATED BY VIDEOSTREAM TEAM
-//: get exercises in section by section id
-export const getExercisesBySectionId = async (sectionId) => {
-	try {
-		const res = await axios.get(
-			url + '/api/courses/' + sectionId + '/exercises'
-		);
-		return res.data;
-	} catch (e) {
-		if (e?.response?.data != null) {
-			throw e.response.data;
-		} else {
-			throw e;
-		}
-	}
-};
 
 // Get all lectures in a specific section:
 export const getLecturesInSection = async (sectionId) => {
@@ -183,7 +122,7 @@ export const getLecturesInSection = async (sectionId) => {
 
 /*** SUBSCRIPTION ***/
 
-// Get user subsribtions
+// Get user subscriptions
 export const getSubscriptions = async (userId) => {
 	try {
 		// maybe not best practise to pass user ID as request query
@@ -221,7 +160,7 @@ export const subscribeToCourse = async (userId, courseId) => {
 	}
 };
 
-// Unubscribe to course
+// Unsubscribe to course
 export const unSubscribeToCourse = async (userId, courseId) => {
 	try {
 		await axios.post(
@@ -257,27 +196,14 @@ export const fetchCertificates = async (userId) => {
 	}
 };
 
-
-// Call to backend to see if online
-export const checkBackendOnline = async () => {
-	let response;
-	try {
-		const res = await axios.get(url + '/api/utility/online/', {timeout: 1000});
-		response = res.data;
-	} catch {
-		response = false;
-	}
-	return response;
-};
-
-//CREATED BY VIDEOSTREAM TEAM
+//CREATED BY VIDEO STREAM TEAM
 /*This will be improved in next pull request to handle getting different resolutions properly 
 with our new video streaming service in go.
 */
 
 export const getVideoStreamUrl = (fileName, resolution) => {
 
-	let resolutionPostfix = '_360x640';
+	let resolutionPostfix;
 	switch (resolution) {
 	case '360':
 		resolutionPostfix = '_360x640';
@@ -295,25 +221,8 @@ export const getVideoStreamUrl = (fileName, resolution) => {
 		resolutionPostfix = '_360x640';
 	}
 
-	const _vidUrl = `${url}/api/bucket/stream/${fileName}${resolutionPostfix}.mp4`;
-	return _vidUrl;
+  return `${url}/api/bucket/stream/${fileName}${resolutionPostfix}.mp4`;
 };
-
-//CREATED BY VIDEO STREAMING TEAM
-// ************** same as getSectionByid **************
-export const getSectionAndLecturesBySectionId = async (sectionId) => {
-	try {
-		const res = await axios.get(url + '/api/sections/' + sectionId);
-		return res.data;
-	} catch (err) {
-		if (err?.response?.data != null) {
-			throw err.response.data;
-		} else {
-			throw err;
-		}
-	}
-};
-
 
 export const getLectureById = async (lectureId) => {
 	try {
@@ -335,8 +244,7 @@ export const getBucketImage = async (fileName) => {
 		const res = await axios.get(
 			`${url}/api/bucket/${fileName}`
 			, {timeout: timeoutInMs});
-		const workingUrl = `data:image/png;base64,${res.data}`;
-		return workingUrl;
+		return `data:image/png;base64,${res.data}`;
 	} catch (err) {
 		if (err?.response?.data != null) {
 			throw err.response.data;

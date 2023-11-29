@@ -32,14 +32,14 @@ NetworkStatusService.getInstance().addObserver({ update: updateNetworkStatus });
  * @param userId - The user ID to retrieve student information for.
  */
 export const setStudentInfo = async (userId) => {
-	if (isOnline) {
-		try {
-			const fetchedStudentInfo = await userApi.getStudentInfo(userId);
-			await AsyncStorage.setItem(STUDENT_INFO, JSON.stringify(fetchedStudentInfo));
-		} catch (error) {
-			throw new Error('API error in getStudentInfo:', error);
-		}
-	}
+  if (isOnline) {
+    try {
+      const fetchedStudentInfo = await userApi.getStudentInfo(userId);
+      await AsyncStorage.setItem(STUDENT_INFO, JSON.stringify(fetchedStudentInfo));
+    } catch (error) {
+      throw new Error('API error in getStudentInfo:' + error);
+    }
+  }
 };
 
 /**
@@ -47,8 +47,7 @@ export const setStudentInfo = async (userId) => {
  * @returns {Promise<Object>} A promise that resolves with the fetched student information.
  */
 export const getStudentInfo = async () => {
-	const fetchedStudentInfo = JSON.parse(await AsyncStorage.getItem(STUDENT_INFO));
-	return fetchedStudentInfo;
+  return JSON.parse(await AsyncStorage.getItem(STUDENT_INFO));
 };
 
 export const updateStudentInfo = async (studentInfo) => {
@@ -60,8 +59,7 @@ export const updateStudentInfo = async (studentInfo) => {
  * @returns {Promise<string>} A promise that resolves with the fetched login token.
  */
 export const getLoginToken = async () => {
-	const fetchedToken = await AsyncStorage.getItem(LOGIN_TOKEN);
-	return fetchedToken;
+  return await AsyncStorage.getItem(LOGIN_TOKEN);
 };
 
 /**
@@ -81,15 +79,15 @@ export const getUserInfo = async () => {
  * @param {Object} userInfo - The user information to store.
  */
 export const setUserInfo = async (userInfo) => {
-	const obj = {
-		id: userInfo.id,
-		firstName: userInfo.firstName,
-		lastName: userInfo.lastName,
-		email: userInfo.email,
-	};
-	await AsyncStorage.setItem(USER_INFO, JSON.stringify(obj));
-	await AsyncStorage.setItem(USER_ID, userInfo.id); // needs to be seperate
-	await setStudentInfo(userInfo.id);
+  const obj = {
+    id: userInfo.id,
+    firstName: userInfo.firstName,
+    lastName: userInfo.lastName,
+    email: userInfo.email,
+  };
+  await AsyncStorage.setItem(USER_INFO, JSON.stringify(obj));
+  await AsyncStorage.setItem(USER_ID, userInfo.id); // needs to be separate
+  await setStudentInfo(userInfo.id);
 };
 
 /**
@@ -115,22 +113,22 @@ export const setJWT = async (jwt) => {
  * @returns {Promise<Array>} A promise that resolves with a list of courses.
  */
 export const getCourseList = async () => {
-	let courseList = [];
-	if (isOnline) {
-		try {
-			courseList = await api.getCourses();
-		} catch (error) {
-			if (error?.response?.data != null) {
-				throw new Error('API error in getCourses:', error.response.data);
-			} else {
-				throw new Error('API error in getCourses:', error);
-			}
-		} finally {
-			return await refreshCourseList(courseList);
-		}
-	} else {
-		return courseList;
-	}
+  let courseList = [];
+  if (isOnline) {
+    try {
+      courseList = await api.getCourses();
+    } catch (error) {
+      if (error?.response?.data != null) {
+        throw new Error('API error in getCourses:' + error.response.data);
+      } else {
+        throw new Error('API error in getCourses:' + error);
+      }
+    } finally {
+      return await refreshCourseList(courseList);
+    }
+  } else {
+    return courseList;
+  }
 };
 
 /**
@@ -139,34 +137,34 @@ export const getCourseList = async () => {
  * @returns {Promise<Array>} A promise that resolves with the refreshed course list.
  */
 const refreshCourseList = async (courseList) => {
-	try {
-		let newCourseList = [];
-		if (courseList.length !== 0) {
-			for (const course of courseList) {
-				// Make new list with required members
-				newCourseList.push({
-					title: course.title,
-					courseId: course._id,
-					description: course.description,
-					category: course.category,
-					estimatedHours: course.estimatedHours,
-					dateUpdated: course.dateUpdated,
-					difficulty: course.difficulty,
-					published: course.published,
-					status: course.status,
-					rating: course.rating,
-				});
-			}
-		}
-		// Save new courseList for this key and return it.
-		return newCourseList;
-	} catch (error) {
-		if (error?.response?.data != null) {
-			throw new Error('API error in refreshCourseList:', error.response.data);
-		} else {
-			throw new Error('API error in refreshCourseList:', error);
-		}
-	}
+  try {
+    let newCourseList = [];
+    if (courseList.length !== 0) {
+      for (const course of courseList) {
+        // Make new list with required members
+        newCourseList.push({
+          title: course.title,
+          courseId: course._id,
+          description: course.description,
+          category: course.category,
+          estimatedHours: course.estimatedHours,
+          dateUpdated: course.dateUpdated,
+          difficulty: course.difficulty,
+          published: course.published,
+          status: course.status,
+          rating: course.rating,
+        });
+      }
+    }
+    // Save new courseList for this key and return it.
+    return newCourseList;
+  } catch (error) {
+    if (error?.response?.data != null) {
+      throw new Error('API error in refreshCourseList:' + error.response.data);
+    } else {
+      throw new Error('API error in refreshCourseList:' + error);
+    }
+  }
 };
 
 /** SECTIONS **/
@@ -177,28 +175,28 @@ const refreshCourseList = async (courseList) => {
  * @returns {Promise<Array>} A promise that resolves with a list of sections for the course.
  */
 export const getSectionList = async (course_id) => {
-	let sectionList = null;
-	try {
-		if (isOnline) {
-			sectionList = await api.getAllSections(course_id);
-		} else {
-			throw new Error('No internet connection in getSectionList');
-		}
-	} catch (error) {
-		// Use locally stored section if they exist and the DB cannot be reached
-		try {
-			sectionList = JSON.parse(await AsyncStorage.getItem('S' + course_id));
-			throw new Error('JSON parse error in getSectionList', error);
-		} catch (e){
-			if (e?.response?.data != null) {
-				throw new Error('Error in getSectionList: ', e.response.data);
-			} else {
-				throw new Error('Error in getSectionList: ', e);
-			}
-		}
-	} finally {
-		return await refreshSectionList(sectionList);
-	}
+  let sectionList = null;
+  try {
+    if (isOnline) {
+      sectionList = await api.getAllSections(course_id);
+    } else {
+      throw new Error('No internet connection in getSectionList');
+    }
+  } catch (error) {
+  // Use locally stored section if they exist and the DB cannot be reached
+    try {
+      sectionList = JSON.parse(await AsyncStorage.getItem('S' + course_id));
+      throw new Error('JSON parse error in getSectionList' + error);
+    } catch (e){
+      if (e?.response?.data != null) {
+        throw new Error('Error in getSectionList: ' + e.response.data);
+      } else {
+        throw new Error('Error in getSectionList: ' + e);
+      }
+    }
+  } finally {
+    return await refreshSectionList(sectionList);
+  }
 };
 
 /**
@@ -207,32 +205,32 @@ export const getSectionList = async (course_id) => {
  * @returns {Promise<Array>} A promise that resolves with the refreshed section list.
  */
 export const refreshSectionList = async (sectionList) => {
-	let newSectionList = [];
-	try {
-		if (sectionList !== null) {
-			for (const section of sectionList) {
-				newSectionList.push({
-					title: section.title,
-					sectionId: section._id,
-					parentCourseId: section.parentCourse,
-					description: section.description,
-					components: section.components,
-					total: section.totalPoints,
-				});
-			}
-		} else {
-			throw new Error('Error in refreshSectionList: Missing field in sectionList');
-		}
-	} catch (error) {
-		if (error?.response?.data != null) {
-			throw new Error('Error in refreshSectionList: ', error.response.data);
-		} else {
-			throw new Error('Error in refreshSectionList: ', error);
-		}
-	} finally {
-		//Returns new fitted section list, or empty list if there was no data fetched from DB or Storage,
-		return newSectionList;
-	}
+  let newSectionList = [];
+  try {
+    if (sectionList !== null) {
+      for (const section of sectionList) {
+        newSectionList.push({
+          title: section.title,
+          sectionId: section._id,
+          parentCourseId: section.parentCourse,
+          description: section.description,
+          components: section.components,
+          total: section.totalPoints,
+        });
+      }
+    } else {
+      throw new Error('Error in refreshSectionList: Missing field in sectionList');
+    }
+  } catch (error) {
+    if (error?.response?.data != null) {
+      throw new Error('Error in refreshSectionList: ' + error.response.data);
+    } else {
+      throw new Error('Error in refreshSectionList: ' + error);
+    }
+  } finally {
+    //Returns new fitted section list, or empty list if there was no data fetched from DB or Storage,
+    return newSectionList;
+  }
 };
 
 /** COMPONENTS **/
@@ -244,29 +242,29 @@ export const refreshSectionList = async (sectionList) => {
  */
 // get all components for specific section
 export const getComponentList = async (sectionID) => {
-	let componentList = [];
-	try {
-		if (isOnline) {
-			componentList = await api.getComponents(sectionID);
-		} else {
-			throw new Error('No internet connection in getComponentsList');
-		}
-	} catch (error) {
-		// Use locally stored components if they exist and the DB cannot be reached
-		try {
-			if ((componentList = JSON.parse(await AsyncStorage.getItem('C' + sectionID))) === null){
-				throw new Error('JSON parse error in getComponentsList', error);
-			}
-		} catch (e) {
-			if (e?.response?.data != null) {
-				throw new Error('Error in getComponentsList: ', e.response.data);
-			} else {
-				throw new Error('Error in getComponentsList: ', e);
-			}
-		}
-	} finally {
-		return componentList;
-	}
+  let componentList = [];
+  try {
+    if (isOnline) {
+      componentList = await api.getComponents(sectionID);
+    } else {
+      throw new Error('No internet connection in getComponentsList');
+    }
+  } catch (error) {
+    // Use locally stored components if they exist and the DB cannot be reached
+    try {
+      if ((componentList = JSON.parse(await AsyncStorage.getItem('C' + sectionID))) === null){
+        throw new Error('JSON parse error in getComponentsList ' + error);
+      }
+    } catch (e) {
+      if (e?.response?.data != null) {
+        throw new Error('Error in getComponentsList: ' + e.response.data);
+      } else {
+        throw new Error('Error in getComponentsList: ' + e);
+      }
+    }
+  } finally {
+    return componentList;
+  }
 };
 
 
@@ -277,29 +275,29 @@ export const getComponentList = async (sectionID) => {
  * @returns {Promise<Object>} A promise that resolves with the lecture image.
  */
 export const fetchLectureImage = async (imageID, lectureID) => {
-	let image = null;
-	try {
-		if (isOnline) {
-			image = await api.getBucketImage(imageID);
-		} else {
-			throw new Error('No internet connection in fetchLectureImage');
-		}
-	} catch (error) {
-		// Use locally stored lectures if they exist and the DB cannot be reached
-		try {
-			if((image = JSON.parse(await AsyncStorage.getItem('I' + lectureID))) === null){
-				throw new Error('JSON parse error in fetchLectureImage', error);
-			}
-		} catch (e){
-			if (e?.response?.data != null) {
-				throw new Error('Error in fetchLectureImage: ', e.response.data);
-			} else {
-				throw new Error('Error in fetchLectureImage: ', e);
-			}
-		}
-	} finally {
-		return image;
-	}
+  let image = null;
+  try {
+    if (isOnline) {
+      image = await api.getBucketImage(imageID);
+    } else {
+      throw new Error('No internet connection in fetchLectureImage');
+    }
+  } catch (error) {
+    // Use locally stored lectures if they exist and the DB cannot be reached
+    try {
+      if((image = JSON.parse(await AsyncStorage.getItem('I' + lectureID))) === null){
+        throw new Error('JSON parse error in fetchLectureImage ' + error);
+      }
+    } catch (e){
+      if (e?.response?.data != null) {
+        throw new Error('Error in fetchLectureImage: ' + e.response.data);
+      } else {
+        throw new Error('Error in fetchLectureImage: ' + e);
+      }
+    }
+  } finally {
+    return image;
+  }
 };
 
 /**
@@ -309,30 +307,30 @@ export const fetchLectureImage = async (imageID, lectureID) => {
  * @returns {Promise<string>}
  */
 export const getVideoURL = async (videoName, resolution) => {
-	let videoUrl;
-	if (!resolution){
-		resolution = '360';
-	}
-	try {
-		if (isOnline) {
-			videoUrl = api.getVideoStreamUrl(videoName, resolution);
-		} else {
-			throw new Error('No internet connection in getVideoUrl.');
-		}
-	} catch (error) {
-		// Use locally stored video if they exist and the DB cannot be reached
-		try {
-			videoUrl = await FileSystem.readAsStringAsync(lectureVideoPath + videoName + '.json');
-		} catch (e){
-			if (e?.response?.data != null) {
-				throw new Error('Error in getVideoURL: ', e.response.data);
-			} else {
-				throw new Error('Error in getVideoURL: ', e);
-			}
-		}
-	} finally {
-		return videoUrl;
-	}
+  let videoUrl;
+  if (!resolution){
+    resolution = '360';
+  }
+  try {
+    if (isOnline) {
+      videoUrl = api.getVideoStreamUrl(videoName, resolution);
+    } else {
+      throw new Error('No internet connection in getVideoUrl.');
+    }
+  } catch (error) {
+    // Use locally stored video if they exist and the DB cannot be reached
+    try {
+      videoUrl = await FileSystem.readAsStringAsync(lectureVideoPath + videoName + '.json');
+    } catch (e){
+      if (e?.response?.data != null) {
+        throw new Error('Error in getVideoURL: ' + e.response.data);
+      } else {
+        throw new Error('Error in getVideoURL: ' + e);
+      }
+    }
+  } finally {
+    return videoUrl;
+  }
 };
 
 /** SUBSCRIPTIONS **/
@@ -382,31 +380,31 @@ export const refreshSubCourseList = async (userId) => {
 			let newCourseList = [];
 			for (const course of list) {
 
-				// Make new list with required members
-				newCourseList.push({
-					title: course.title,
-					courseId: course._id,
-					description: course.description,
-					category: course.category,
-					estimatedHours: course.estimatedHours,
-					dateUpdated: course.dateUpdated,
-					difficulty: course.difficulty,
-					published: course.published,
-					status: course.status,
-					rating: course.rating,
-				});
-			}
-			// Save new courseList for this key and return it.
-			await AsyncStorage.setItem(SUB_COURSE_LIST, JSON.stringify(newCourseList));
-			return newCourseList;
-		})
-		.catch((error) => {
-			if (error?.response?.data != null) {
-				throw new Error('API error in refreshSubCourseList:', error.response.data);
-			} else {
-				throw new Error('API error in refreshSubCourseList:', error);
-			}
-		});
+        // Make new list with required members
+        newCourseList.push({
+          title: course.title,
+          courseId: course._id,
+          description: course.description,
+          category: course.category,
+          estimatedHours: course.estimatedHours,
+          dateUpdated: course.dateUpdated,
+          difficulty: course.difficulty,
+          published: course.published,
+          status: course.status,
+          rating: course.rating,
+        });
+      }
+      // Save new courseList for this key and return it.
+      await AsyncStorage.setItem(SUB_COURSE_LIST, JSON.stringify(newCourseList));
+      return newCourseList;
+    })
+    .catch((error) => {
+      if (error?.response?.data != null) {
+        throw new Error('API error in refreshSubCourseList:' + error.response.data);
+      } else {
+        throw new Error('API error in refreshSubCourseList:' + error);
+      }
+    });
 };
 
 /**
