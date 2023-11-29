@@ -81,14 +81,11 @@ jobs:
           PASSWORD: ${{ secrets.EXPO_PASSWORD }}
         run: expo login -u sofiiagran1 -p $PASSWORD
 
-      - name: Publish
-        run: cd eml && expo publish --non-interactive
-      - name: Build Android
-        run: cd eml && eas build -p android --profile production --non-interactive
-      - name: Submit Android
-        run: cd eml && eas submit -p android --latest --non-interactive
+      - name: Extract Service Account JSON
+        run: echo "${{ secrets.gcp_app_deployment_json_key  }}" > service_account.json
+
+      - name: Deploy to Play Store
+        run: eas submit --platform android --latest
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ./service_account.json
     
-
-
-# Submit Android build using EAS with GCP service account key
-eas submit --platform android --latest --service-account-key-path $GOOGLE_APPLICATION_CREDENTIALS --id $EAS_BUILD_ID --url $EAS_BUILD_URL --package $ANDROID_PACKAGE_NAME --track YOUR_TRACK --release-status YOUR_RELEASE_STATUS
