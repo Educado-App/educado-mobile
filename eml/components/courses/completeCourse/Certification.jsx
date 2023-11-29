@@ -26,8 +26,8 @@ export default function Certification({ courseObject }) {
       
       <View className="-mt-5">
         <TouchableOpacity 
-          // TODO: for the cert group
-          onPress={() => { console.log('Navigate to certification'); }}
+          // TODO: for the cert group - navigatie to certification
+          onPress={() => {}}
         >
           <Text className="text-center font-sans-bold text-base underline text-projectBlack">Ver Certificado</Text>
         </TouchableOpacity>

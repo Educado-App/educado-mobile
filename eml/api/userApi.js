@@ -57,7 +57,6 @@ export const registerUser = async (obj) => {
 export const loginUser = async (obj) => {
   try {
     const res = await client.post('/api/auth/login', obj);
-    console.log('User successfully logged in');
     return res.data;
   } catch (e) {
     if (e?.response?.data != null) {
