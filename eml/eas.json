@@ -11,11 +11,5 @@
                 "buildType": "app-bundle"
             }
         }
-    },
-    "submit": {
-        "android": {
-            "track": "internal", 
-            "releaseStatus": "completed"
-        }
     }
 }
