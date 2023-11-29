@@ -41,6 +41,6 @@ jobs:
         run: echo "${{ secrets.gcp_app_deployment_json_key }}" > service_account.json
 
       - name: Deploy to Play Store
-        run: eas submit --platform android --profile production --latest
+        run: cd eml && eas submit --platform android --latest --non-interactive
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ./service_account.json
