@@ -15,8 +15,7 @@ const ANIMATION_STATES = {
 
 /**
  * DownloadCourseButton component displays a button that downloads a course
- * @param {object} course - The course the button is on
- * @param {boolean} disabled - Whether the button is disabled or not
+ * @param {object} props - Props containing the course the button is on
  * @returns {JSX.Element} - The DownloadCourseButton component
  */
 export default function DownloadCourseButton(props) {

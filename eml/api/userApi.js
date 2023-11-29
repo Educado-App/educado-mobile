@@ -49,7 +49,7 @@ export const registerUser = async (obj) => {
 };
 
 /**
- * Sends a request to the backend to login an existing user.
+ * Sends a request to the backend to log in an existing user.
  * @param {Object} obj should contain the following properties:
  * - email
  * - password
