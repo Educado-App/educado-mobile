@@ -76,6 +76,12 @@ jobs:
       - name: Install dependencies
         run: cd eml && npm install
 
+      - name: Authenticate with Expo 
+        env:
+          PASSWORD: ${{ secrets.EXPO_PASSWORD }}
+          
+        run: expo login -u sofiiagran1 -p $PASSWORD
+
       - name: Extract Service Account JSON
         run: echo "${{ secrets.gcp_app_deployment_json_key }}" > service_account.json
 
