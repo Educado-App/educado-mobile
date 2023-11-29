@@ -15,8 +15,7 @@
         "production": {
             "android": {
                 "track": "internal",
-                "releaseStatus": "completed",
-                "serviceAccountKeyPath": "service-account.json"
+                "releaseStatus": "completed"
             }
         }
     }
