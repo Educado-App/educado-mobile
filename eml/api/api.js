@@ -6,7 +6,7 @@ const url = 'http://172.30.211.221:8888/';
 
 const certificateUrl = 'http://172.30.245.212:8080';
 
-/* Commented out for avoiding linting errors
+/* Commented out
  * TODO: move IP address to .env file !!!
 const testUrl = 'http://localhost:8888';
 const testExpo = 'http://172.30.211.57:8888'; 
