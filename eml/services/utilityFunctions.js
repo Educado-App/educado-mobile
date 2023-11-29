@@ -172,10 +172,9 @@ export async function completeComponent(comp, courseId, isComplete) {
 	return { points, updatedStudent };
 }
 
-// shoule be used in the future
-// function isCourseCompleted(student, courseId) {
-//   return student.courses.some(course => course.courseId == courseId);
-// }
+export function isCourseCompleted(student, courseId) {
+  return student.courses.some(course => course.courseId == courseId);
+}
 
 export function isSectionCompleted(student, sectionId) {
 	return student.courses.some(course =>
@@ -252,22 +251,27 @@ export function findIndexOfUncompletedComp(student, courseId, sectionId) {
 }
 
 export async function handleLastComponent(comp, course, navigation) {
-	const student = await StorageService.getStudentInfo();
-	const isComplete = isSectionCompleted(student, comp.parentSection);
+
+  // For future reference
+  // const student = await StorageService.getStudentInfo();
+  // const isComplete = isSectionCompleted(student, comp.parentSection);
   
-	if (isComplete) { 
-		navigation.reset({
-			index: 0,
-			routes: [
-				{
-					name: 'CompleteSection',
-					params: { 
-						parsedCourse: course, 
-						sectionId: comp.parentSection }
-				},
-			],
-		});
-	} else {
-		console.log('Section not complete');
-	}
+  navigation.reset({
+    index: 0,
+    routes: [
+      {
+        name: 'CompleteSection',
+        params: { 
+          parsedCourse: course, 
+          sectionId: comp.parentSection }
+      },
+    ],
+  });
+
+  // For future reference
+  // if (isComplete) { 
+  // Code above with naviagtion
+  // } else {
+  //   console.log('Section not complete - navigate to retry exercises TBD');
+  // }
 }
