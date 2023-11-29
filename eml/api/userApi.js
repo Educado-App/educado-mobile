@@ -14,10 +14,10 @@ const url = 'http://172.30.211.221:8888/'; // Change this to your LOCAL IP addre
  * This is the client that will be used to make requests to the backend.
  */
 export const client = axios.create({
-  baseURL: url,
-  withCredentials: true,
-  responseType: 'json',
-  timeout: 30000,
+	baseURL: url,
+	withCredentials: true,
+	responseType: 'json',
+	timeout: 30000,
 });
 
 /**
@@ -29,23 +29,23 @@ export const client = axios.create({
  * - password
  */
 export const registerUser = async (obj) => {
-  console.log(`User trying to register:
+	console.log(`User trying to register:
     firstName: ${obj.firstName ?? 'undefined'}
     lastName: ${obj.lastName ?? 'undefined'}
     email: ${obj.email ?? 'undefined'}`);
 
-  try {
-    const res = await client.post('/api/auth/signup', obj);
-    console.log('User successfully registered');
-    return res.data;
-  } catch (e) {
-    console.log(e.message);
-    if (e?.response?.data != null) {
-      throw e.response.data;
-    } else {
-      throw e;
-    }
-  }
+	try {
+		const res = await client.post('/api/auth/signup', obj);
+		console.log('User successfully registered');
+		return res.data;
+	} catch (e) {
+		console.log(e.message);
+		if (e?.response?.data != null) {
+			throw e.response.data;
+		} else {
+			throw e;
+		}
+	}
 };
 
 /**
@@ -55,131 +55,131 @@ export const registerUser = async (obj) => {
  * - password
  */
 export const loginUser = async (obj) => {
-  try {
-    const res = await client.post('/api/auth/login', obj);
-    console.log('User successfully registered');
-    return res.data;
-  } catch (e) {
-    if (e?.response?.data != null) {
-      throw e.response.data;
-    } else {
-      throw e;
-    }
-  }
+	try {
+		const res = await client.post('/api/auth/login', obj);
+		console.log('User successfully registered');
+		return res.data;
+	} catch (e) {
+		if (e?.response?.data != null) {
+			throw e.response.data;
+		} else {
+			throw e;
+		}
+	}
 };
 
 export const deleteUser = async (user_id, token) => {
-  try {
-    const res = await client.delete('/api/users/' + user_id, {
-      headers: {
-        'Content-Type': 'application/json',
-        'token': token, // Include the token in the headers
-      },
-    });
-    return res.data;
-  } catch (e) {
-    if (e?.response?.data != null) {
-      throw e.response.data;
-    } else {
-      throw e;
-    }
-  }
+	try {
+		const res = await client.delete('/api/users/' + user_id, {
+			headers: {
+				'Content-Type': 'application/json',
+				'token': token, // Include the token in the headers
+			},
+		});
+		return res.data;
+	} catch (e) {
+		if (e?.response?.data != null) {
+			throw e.response.data;
+		} else {
+			throw e;
+		}
+	}
 };
 
 export const updateUserFields = async (user_id, obj, token) => {
-  try {
-    const res = await client.patch(`/api/users/${user_id}`, obj, {
-      headers: {
-        'Content-Type': 'application/json',
-        'token': token, // Include the token in the headers
-      },
-    });
-    return res.data;
-  } catch (e) {
-    if (e?.response?.data != null) {
-      throw e.response.data;
-    } else {
-      throw e;
-    }
-  }
+	try {
+		const res = await client.patch(`/api/users/${user_id}`, obj, {
+			headers: {
+				'Content-Type': 'application/json',
+				'token': token, // Include the token in the headers
+			},
+		});
+		return res.data;
+	} catch (e) {
+		if (e?.response?.data != null) {
+			throw e.response.data;
+		} else {
+			throw e;
+		}
+	}
 };
 
 export const updateUserPassword = async (user_id, oldPassword, newPassword, token) => {
-  try {
-    const res = await axios.patch(url + `/api/users/${user_id}/password`, {
-      oldPassword: oldPassword,
-      newPassword: newPassword,
-    }, {
-      headers: {
-        'Content-Type': 'application/json',
-        'token': token, // Include the token in the headers
-      },
-    });
+	try {
+		const res = await axios.patch(url + `/api/users/${user_id}/password`, {
+			oldPassword: oldPassword,
+			newPassword: newPassword,
+		}, {
+			headers: {
+				'Content-Type': 'application/json',
+				'token': token, // Include the token in the headers
+			},
+		});
 
-    return res.data;
-  } catch (e) {
-    if (e?.response?.data != null) {
-      throw e.response.data;
-    } else {
-      throw e;
-    }
-  }
+		return res.data;
+	} catch (e) {
+		if (e?.response?.data != null) {
+			throw e.response.data;
+		} else {
+			throw e;
+		}
+	}
 };
 
 export const completeComponent = async (user_id, comp, isComplete, points, token) => {
-  try{
-    const res = await client.patch('/api/students/' + user_id + '/complete', { comp: comp, isComplete: isComplete, points: points }, {
-      headers: {
-        'Content-Type': 'application/json',
-        'token': token, // Include the token in the headers
-      },
-    });
+	try{
+		const res = await client.patch('/api/students/' + user_id + '/complete', { comp: comp, isComplete: isComplete, points: points }, {
+			headers: {
+				'Content-Type': 'application/json',
+				'token': token, // Include the token in the headers
+			},
+		});
 
-    return res.data;
-  } catch (e) {
-    if (e?.response?.data != null) {
-      throw e.response.data;
-    } else {
-      throw e;
-    }
-  }
+		return res.data;
+	} catch (e) {
+		if (e?.response?.data != null) {
+			throw e.response.data;
+		} else {
+			throw e;
+		}
+	}
 };
 
 export const getStudentInfo = async (user_Id) => {
-  try {
-    const res = await client.get('/api/students/' + user_Id + '/info');
-    return res.data;
-  } catch (e) {
-    if (e?.response?.data != null) {
-      throw e.response.data;
-    } else {
-      throw e;
-    }
-  }
+	try {
+		const res = await client.get('/api/students/' + user_Id + '/info');
+		return res.data;
+	} catch (e) {
+		if (e?.response?.data != null) {
+			throw e.response.data;
+		} else {
+			throw e;
+		}
+	}
 };
 
 
 
 export const addCourseToStudent = async (user_Id, course_Id, token) => {
-  try {
-    const res = await client.patch('/api/students/' + user_Id + '/courses/' + course_Id + '/enroll',
-      {},
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'token': token, // Include the token in the headers
-        },
-      }
-    );
+	try {
+		const res = await client.patch('/api/students/' + user_Id + '/courses/' + course_Id + '/enroll',
+			{},
+			{
+				headers: {
+					'Content-Type': 'application/json',
+					'token': token, // Include the token in the headers
+				},
+			}
+		);
 
-    return res.data;
-  } catch (e) {
-    if (e?.response?.data != null) {
-      throw e.response.data;
-    } else {
-      throw e;
-    }
-  }
+		return res.data;
+	} catch (e) {
+		if (e?.response?.data != null) {
+			throw e.response.data;
+		} else {
+			throw e;
+		}
+	}
 };
 
 
@@ -189,16 +189,16 @@ export const addCourseToStudent = async (user_Id, course_Id, token) => {
  * @param {Object} email should contain an email, to receive a reset password message
 */
 export const sendResetPasswordEmail = async (email) => {
-  try {
-    const res = await client.post('/api/auth/reset-password-request', email);
-    return res.data;
-  } catch (e) {
-    if (e?.response?.data != null) {
-      throw e.response.data;
-    } else {
-      throw e;
-    }
-  }
+	try {
+		const res = await client.post('/api/auth/reset-password-request', email);
+		return res.data;
+	} catch (e) {
+		if (e?.response?.data != null) {
+			throw e.response.data;
+		} else {
+			throw e;
+		}
+	}
 };
 
 
@@ -209,16 +209,16 @@ export const sendResetPasswordEmail = async (email) => {
  * - token
 */
 export const validateResetPasswordCode = async (obj) => {
-  try {
-    const res = await client.post('/api/auth/reset-password-code', obj);
-    return res.data;
-  } catch (e) {
-    if (e?.response?.data != null) {
-      throw e.response.data;
-    } else {
-      throw e;
-    }
-  }
+	try {
+		const res = await client.post('/api/auth/reset-password-code', obj);
+		return res.data;
+	} catch (e) {
+		if (e?.response?.data != null) {
+			throw e.response.data;
+		} else {
+			throw e;
+		}
+	}
 
 };
 
@@ -230,14 +230,14 @@ export const validateResetPasswordCode = async (obj) => {
  * - newPassword
 */
 export const enterNewPassword = async (obj) => {
-  try {
-    const res = await client.patch('/api/auth/reset-password', obj);
-    return res.data;
-  } catch (e) {
-    if (e?.response?.data != null) {
-      throw e.response.data;
-    } else {
-      throw e;
-    }
-  }
+	try {
+		const res = await client.patch('/api/auth/reset-password', obj);
+		return res.data;
+	} catch (e) {
+		if (e?.response?.data != null) {
+			throw e.response.data;
+		} else {
+			throw e;
+		}
+	}
 };
