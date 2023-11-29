@@ -2,11 +2,11 @@ import axios from 'axios';
 
 const timeoutInMs = 1200;
 
-const url = 'http://172.30.211.221:8888/';
+const url = 'https://educado-backend-staging-x7rgvjso4a-ew.a.run.app/';// Change this to your LOCAL IP address when testing.
 
 const certificateUrl = 'http://172.30.245.212:8080';
 
-/* Commented out for avoiding linting errors
+/* Commented out for avoiding linting errors :))
  * TODO: move IP address to .env file !!!
 const testUrl = 'http://localhost:8888';
 const testExpo = 'http://172.30.211.57:8888'; 

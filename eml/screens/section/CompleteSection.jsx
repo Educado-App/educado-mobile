@@ -8,7 +8,7 @@ import StandardButton from '../../components/general/StandardButton';
 import AnimatedNumbers from '../../components/gamification/AnimatedNumber';
 import { generateSectionCompletePhrases } from '../../constants/Phrases';
 import { getStudentInfo } from '../../services/StorageService';
-import { findCompletedSection } from '../../services/utilityFunctions';
+import { findCompletedSection, isCourseCompleted } from '../../services/utilityFunctions';
 
 export default function CompleteSectionScreen() {
   const route = useRoute();
@@ -79,6 +79,30 @@ export default function CompleteSectionScreen() {
     return { totalPoints: completedSection.totalPoints, extraPoints: completedSection.extraPoints };
   }
 
+  async function handleAllSectionsCompleted() {
+    const studentInfo = await getStudentInfo();
+
+    if (isCourseCompleted(studentInfo, parsedCourse.courseId)) {
+      navigation.reset({
+        index: 0,
+        routes: [
+          { name: 'CompleteCourse' },
+        ],
+      });
+    } else {
+      navigation.reset({
+        index: 1,
+        routes: [
+          { name: 'HomeStack' },
+          {
+            name: 'Section',
+            params: { course: parsedCourse },
+          },
+        ],
+      });
+    }
+  }
+
   useEffect(() => {
     async function animations() {
       const obj = await getPointsFromSection();
@@ -108,9 +132,11 @@ export default function CompleteSectionScreen() {
           </Text>
         </View>
 
-        <View className="flex flex-row justify-between w-full mb-20">
+        <View className="flex flex-row justify-center w-full mb-20">
           {pointBox('Pontos', points, 'yellow', 750)}
-          {pointBox('Pontos Extras', extraPoints, 'green', 750)}
+
+          {/* Extra Points Box for next year <3 */}
+          {/* {pointBox('Pontos Extras', extraPoints, 'green', 750)} */}
         </View>
 
         <View className="w-full mb-20">
@@ -118,16 +144,7 @@ export default function CompleteSectionScreen() {
             props={{
               buttonText: 'Continuar',
               onPress: () => {
-                navigation.reset({
-                  index: 1,
-                  routes: [
-                    { name: 'HomeStack' },
-                    {
-                      name: 'Section',
-                      params: { course: parsedCourse },
-                    },
-                  ],
-                });
+                handleAllSectionsCompleted();
               },
             }}
           />
