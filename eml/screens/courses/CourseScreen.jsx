@@ -13,7 +13,6 @@ import NetworkStatusObserver from '../../hooks/NetworkStatusObserver';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import errorSwitch from '../../components/general/errorSwitch';
 import ShowAlert from '../../components/general/ShowAlert';
-import { checkProgressCourse } from '../../services/utilityFunctions';
 
 /**
  * Course screen component that displays a list of courses.
@@ -27,7 +26,6 @@ export default function CourseScreen() {
 	const [isOnline, setIsOnline] = useState(false);
 	const [loading, setLoading] = useState(true);
 	const navigation = useNavigation();
-	const [progress, setProgress] = useState(0);
 
 	/**
     * Asynchronous function that loads the courses from storage and updates the state.

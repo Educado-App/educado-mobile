@@ -24,6 +24,9 @@ const CustomProgressBar = ({ progress, width, height, displayLabel = true }) => 
 		displayLabel: PropTypes.bool,
 	};
 
+	// Ensure progress is between 0 and 100
+	progress = Math.min(100, Math.max(0, progress));
+
 	return (
 		<View className='flex-row items-center justify-around'>
 			<Progress.Bar
