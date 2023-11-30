@@ -11,7 +11,7 @@ import BaseScreen from '../../components/general/BaseScreen';
 import SubscriptionCancel from '../../components/section/CancelSubscriptionButton';
 import { unsubscribe } from '../../services/StorageService';
 import PropTypes from 'prop-types';
-import { checkProgressCourse } from '../../services/utilityFunctions';
+import { checkProgressCourse, checkProgressSection } from '../../services/utilityFunctions';
 
 /**
  * Section screen component that displays a list of sections for a given course.
@@ -26,6 +26,7 @@ export default function SectionScreen({ route }) {
 	const navigation = useNavigation();
 	const [sections, setSections] = useState(null);
 	const [studentProgress, setStudentProgress] = useState(0);
+	const [completedComponents, setCompletedComponents] = useState(0);
 
 	/**
    * Loads the sections for the given course from the backend.
@@ -39,7 +40,20 @@ export default function SectionScreen({ route }) {
 	const checkProgress = async () => {
 		const progress = await checkProgressCourse(course.courseId);
 		setStudentProgress(progress);
-	}; checkProgress();
+	};
+
+	const checkProgressInSection = async (sectionId) => {
+		const completed = await checkProgressSection(sectionId);
+		setCompletedComponents(completed);
+	};
+
+	useEffect(() => {
+		// this makes sure loadcourses is called when the screen is focused
+		const update = navigation.addListener('focus', () => {
+			checkProgress();
+		});
+		return update;
+	}, [navigation]);
 
 	// Fetch courses from backend and replace dummy data!
 	useEffect(() => {
@@ -55,6 +69,8 @@ export default function SectionScreen({ route }) {
 		if (componentIsMounted) {
 			loadData();
 		}
+
+		checkProgress();
 
 		return () => componentIsMounted = false;
 	}, []);
@@ -98,7 +114,8 @@ export default function SectionScreen({ route }) {
 						{/* Section Cards */}
 						<ScrollView className="mt-[5%]" showsVerticalScrollIndicator={false}>
 							{sections.map((section, i) => {
-								return <SectionCard key={i} section={section} course={course}></SectionCard>;
+								checkProgressInSection(section.sectionId);
+								return <SectionCard key={i} section={section} course={course} progress={completedComponents}></SectionCard>;
 							})}
 						</ScrollView>
 						{/* Unsubscribe Button */}

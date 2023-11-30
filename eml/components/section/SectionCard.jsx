@@ -5,7 +5,7 @@ import Text from '../general/Text';
 import Collapsible from 'react-native-collapsible';
 import { useNavigation } from '@react-navigation/native';
 import PropTypes from 'prop-types';
-import { checkProgressSection } from '../../services/utilityFunctions';
+
 
 /**
  * A component that displays a section card with collapsible content.
@@ -13,20 +13,13 @@ import { checkProgressSection } from '../../services/utilityFunctions';
  * @param {Object} course - The course object containing the course data.
  * @returns {JSX.Element} - The SectionCard component.
  */
-export default function SectionCard({ section, course }) {
-
-	const [studentProgress, setStudentProgress] = useState(0);
-
-	const checkProgress = async () => {
-		const progress = await checkProgressSection(section.sectionId);
-		setStudentProgress(progress);
-	}; checkProgress();
+export default function SectionCard({ section, course, progress }) {
 
 
 	const navigation = useNavigation();
-	const isComplete = studentProgress === section.components.length;
-	const inProgress = 0 < studentProgress && studentProgress < section.components.length;
-	const notPossible = studentProgress > section.components.length;
+	const isComplete = progress === section.components.length;
+	const inProgress = 0 < progress && progress < section.components.length;
+	const notPossible = progress > section.components.length;
 	const [isOpen, setIsOpen] = useState(false);
 	const backgroundColor = isComplete ? 'bg-limeGreenDarker' : inProgress ? 'bg-cyanBlue' : notPossible ? 'bg-error' : {};
 
@@ -58,7 +51,7 @@ export default function SectionCard({ section, course }) {
 					</Text>
 					<Text className="mr-[10] text-projectBlack">
 						{/* completed */}
-						{studentProgress}/{section.components.length} concluídos
+						{progress}/{section.components.length} concluídos
 					</Text>
 					<MaterialCommunityIcons
 						testID={isOpen ? 'chevron-up' : 'chevron-down'}
@@ -88,5 +81,6 @@ export default function SectionCard({ section, course }) {
 
 SectionCard.propTypes = {
 	section: PropTypes.object,
-	course: PropTypes.object
+	course: PropTypes.object,
+	progress: PropTypes.number,
 };
