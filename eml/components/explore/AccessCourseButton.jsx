@@ -10,30 +10,30 @@ import PropTypes from 'prop-types';
  */
 const AccessCourseButton = ({ course }) => {
 
-  const navigation = useNavigation();
+	const navigation = useNavigation();
 
-  const handlePress = () => {
-    navigation.navigate('Section', {
-      course: course
-    });
-  };
+	const handlePress = () => {
+		navigation.navigate('Section', {
+			course: course
+		});
+	};
 
-  return (
-    <View className="">
-      <Pressable
-        onPress={handlePress} // Assigning the empty function to the onPress prop
-        className="w-full flex items-center justify-center rounded-lg bg-yellow p-2"
-      >
-        <Text className="text-projectWhite p-1 font-bold">
+	return (
+		<View className="">
+			<Pressable
+				onPress={handlePress} // Assigning the empty function to the onPress prop
+				className="w-full flex items-center justify-center rounded-lg bg-yellow p-2"
+			>
+				<Text className="text-projectWhite p-1 font-bold">
           Acessar curso
-        </Text>
-      </Pressable>
-    </View>
-  );
+				</Text>
+			</Pressable>
+		</View>
+	);
 };
 
 AccessCourseButton.propTypes = {
-  course: PropTypes.object,
+	course: PropTypes.object,
 };
 
 export default AccessCourseButton;

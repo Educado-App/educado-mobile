@@ -8,86 +8,86 @@ import { findCompletedCourse } from '../../../services/utilityFunctions';
 import PropTypes from 'prop-types'; 
 
 const StatsOverview = forwardRef(({ courseObject }, ref) => {
-  StatsOverview.propTypes = {
-    courseObject: PropTypes.object.isRequired,
-  };
+	StatsOverview.propTypes = {
+		courseObject: PropTypes.object.isRequired,
+	};
 
-  const [percentage, setPercentage] = useState(0);
-  const circleSize = Dimensions.get('window').height * 0.25;
-  const tailwindConfig = require('../../../tailwind.config.js');
-  const projectColors = tailwindConfig.theme.colors;
-  const circularProgressRef = useRef(null);
+	const [percentage, setPercentage] = useState(0);
+	const circleSize = Dimensions.get('window').height * 0.25;
+	const tailwindConfig = require('../../../tailwind.config.js');
+	const projectColors = tailwindConfig.theme.colors;
+	const circularProgressRef = useRef(null);
 
-  StatsOverview.displayName = 'StatsOverview';
+	StatsOverview.displayName = 'StatsOverview';
   
-  async function getPercentage() {
-    try {
-      const completedCourse = findCompletedCourse(await getStudentInfo(), courseObject.id);
-      let totalExercises = 0;
-      let totalExercisesWithFirstTry = 0;
+	async function getPercentage() {
+		try {
+			const completedCourse = findCompletedCourse(await getStudentInfo(), courseObject.id);
+			let totalExercises = 0;
+			let totalExercisesWithFirstTry = 0;
   
-      if (completedCourse) {
-        for (let section of completedCourse.sections) {
-          for (let comp of section.components) {
-            if (comp.compType === 'exercise') {
-              totalExercises++;
-              if (comp.isFirstAttempt) {
-                totalExercisesWithFirstTry++;
-              }
-            }
-          }
-        }
-      } else {
-        return 0;
-      }
+			if (completedCourse) {
+				for (let section of completedCourse.sections) {
+					for (let comp of section.components) {
+						if (comp.compType === 'exercise') {
+							totalExercises++;
+							if (comp.isFirstAttempt) {
+								totalExercisesWithFirstTry++;
+							}
+						}
+					}
+				}
+			} else {
+				return 0;
+			}
 
-      return Math.round((totalExercisesWithFirstTry / totalExercises) * 100);
-    } catch (error) {
-      console.error('Error fetching completed courses:', error);
-      return 0;
-    }
-  }
+			return Math.round((totalExercisesWithFirstTry / totalExercises) * 100);
+		} catch (error) {
+			console.error('Error fetching completed courses:', error);
+			return 0;
+		}
+	}
 
-  const startAnimation = (index) => {
-    if (index === 1) {
-      circularProgressRef.current?.animate(percentage, 1250, Easing.quad);
-    }
-  };
+	const startAnimation = (index) => {
+		if (index === 1) {
+			circularProgressRef.current?.animate(percentage, 1250, Easing.quad);
+		}
+	};
 
-  useImperativeHandle(ref, () => ({
-    startAnimation
-  }));
+	useImperativeHandle(ref, () => ({
+		startAnimation
+	}));
 
-  useEffect(() => { 
-    getPercentage().then((percentage) => {
-      setPercentage(percentage);
-    });
-  }, []);
+	useEffect(() => { 
+		getPercentage().then((percentage) => {
+			setPercentage(percentage);
+		});
+	}, []);
 
-  return (
-    <View className="flex w-full h-full justify-start items-center">
-      <Text className="text-center font-sans-bold text-3xl text-primary p-4 mb-14">Veja suas estatísticas do curso</Text>
+	return (
+		<View className="flex w-full h-full justify-start items-center">
+			<Text className="text-center font-sans-bold text-3xl text-primary p-4 mb-14">Veja suas estatísticas do curso</Text>
 
-      <View className="w-full items-center m-5 ">
-        <AnimatedCircularProgress
-          ref={circularProgressRef}
-          fill={0}
-          size={circleSize}
-          width={7.5}
-          rotation={0.25}
-          tintColor= {projectColors.primary}
-          backgroundColor={projectColors.projectWhite}
-        >
-          {() => (
-            <Text className="text-center font-sans-bold text-2xl text-primary">
-              {percentage}%
-            </Text>
-          )}
-        </AnimatedCircularProgress>
-        <Text className="text-center text-base text-projectBlack pt-10 px-10">Você respondeu {percentage}% correta, bravo!</Text>
-      </View>
+			<View className="w-full items-center m-5 ">
+				<AnimatedCircularProgress
+					ref={circularProgressRef}
+					fill={0}
+					size={circleSize}
+					width={7.5}
+					rotation={0.25}
+					tintColor= {projectColors.primary}
+					backgroundColor={projectColors.projectWhite}
+				>
+					{() => (
+						<Text className="text-center font-sans-bold text-2xl text-primary">
+							{percentage}%
+						</Text>
+					)}
+				</AnimatedCircularProgress>
+				<Text className="text-center text-base text-projectBlack pt-10 px-10">Você respondeu {percentage}% correta, bravo!</Text>
+			</View>
 
-      {/* ---------------------------- Code for leaderboard goes from here ------------------------------------------------------------------------------------
+			{/* ---------------------------- Code for leaderboard goes from here ------------------------------------------------------------------------------------
 
       <Text className="text-center font-sans-bold text-base text-projectBlack mb-3">Placar Educado</Text>
 
@@ -123,8 +123,8 @@ const StatsOverview = forwardRef(({ courseObject }, ref) => {
 
       ---------------------------- Code for leaderboard goes to here   ------------------------------------------------------------------------------------ */}
 
-    </View>
-  );
+		</View>
+	);
 });
 
 export default StatsOverview;
