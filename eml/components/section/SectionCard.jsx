@@ -5,6 +5,7 @@ import Text from '../general/Text';
 import Collapsible from 'react-native-collapsible';
 import { useNavigation } from '@react-navigation/native';
 import PropTypes from 'prop-types';
+import { checkProgressSection } from '../../services/utilityFunctions';
 
 /**
  * A component that displays a section card with collapsible content.
@@ -14,14 +15,18 @@ import PropTypes from 'prop-types';
  */
 export default function SectionCard({ section, course }) {
 
-	// hardcoded for now
+	const [studentProgress, setStudentProgress] = useState(0);
 
-	const completed = 0;
+	const checkProgress = async () => {
+		const progress = await checkProgressSection(section.sectionId);
+		setStudentProgress(progress);
+	}; checkProgress();
+
 
 	const navigation = useNavigation();
-	const isComplete = completed === section.total;
-	const inProgress = 0 < completed && completed < section.total;
-	const notPossible = completed > section.total;
+	const isComplete = studentProgress === section.components.length;
+	const inProgress = 0 < studentProgress && studentProgress < section.components.length;
+	const notPossible = studentProgress > section.components.length;
 	const [isOpen, setIsOpen] = useState(false);
 	const backgroundColor = isComplete ? 'bg-limeGreenDarker' : inProgress ? 'bg-cyanBlue' : notPossible ? 'bg-error' : {};
 
@@ -31,6 +36,7 @@ export default function SectionCard({ section, course }) {
 	const toggleDropdown = () => {
 		setIsOpen(!isOpen);
 	};
+
 
 	/**
      * Handles the image press event.
@@ -52,7 +58,7 @@ export default function SectionCard({ section, course }) {
 					</Text>
 					<Text className="mr-[10] text-projectBlack">
 						{/* completed */}
-						{completed}/{section.total} concluídos
+						{studentProgress}/{section.components.length} concluídos
 					</Text>
 					<MaterialCommunityIcons
 						testID={isOpen ? 'chevron-up' : 'chevron-down'}

@@ -9,14 +9,14 @@ import * as userApi from '../api/userApi.js';
  */
 export function getDifficultyLabel(lvl) {
 	switch (lvl) {
-	case 1:
-		return 'Iniciante';
-	case 2:
-		return 'Intermediário';
-	case 3:
-		return 'Avançado';
-	default:
-		return 'Iniciante';
+		case 1:
+			return 'Iniciante';
+		case 2:
+			return 'Intermediário';
+		case 3:
+			return 'Avançado';
+		default:
+			return 'Iniciante';
 	}
 }
 
@@ -47,16 +47,16 @@ export const convertMsToTime = (ms) => {
  */
 export function determineCategory(category) {
 	switch (category) {
-	case 'personal finance':
-		return 'Finanças pessoais';
-	case 'health and workplace safety':
-		return 'Saúde e segurança no trabalho';
-	case 'sewing':
-		return 'Costura';
-	case 'electronics':
-		return 'Eletrônica';
-	default: 'other';
-		return 'Outro';
+		case 'personal finance':
+			return 'Finanças pessoais';
+		case 'health and workplace safety':
+			return 'Saúde e segurança no trabalho';
+		case 'sewing':
+			return 'Costura';
+		case 'electronics':
+			return 'Eletrônica';
+		default: 'other';
+			return 'Outro';
 	}
 }
 
@@ -67,16 +67,16 @@ export function determineCategory(category) {
  */
 export function determineIcon(category) {
 	switch (category) {
-	case 'personal finance':
-		return 'finance';
-	case 'health and workplace safety':
-		return 'medical-bag';
-	case 'sewing':
-		return 'scissors-cutting';
-	case 'electronics':
-		return 'laptop';
-	default:
-		return 'bookshelf';
+		case 'personal finance':
+			return 'finance';
+		case 'health and workplace safety':
+			return 'medical-bag';
+		case 'sewing':
+			return 'scissors-cutting';
+		case 'electronics':
+			return 'laptop';
+		default:
+			return 'bookshelf';
 	}
 }
 
@@ -217,7 +217,7 @@ export async function checkProgressCourse(courseId) {
 
 	for (let i = 0; i < sections.length; i++) {
 		totalComponents += sections[i].components.length;
-		for(let j = 0; j < sections[i].components.length; j++) {
+		for (let j = 0; j < sections[i].components.length; j++) {
 			if (isComponentCompleted(student, sections[i].components[j].compId)) {
 				progress++;
 			}
@@ -227,6 +227,28 @@ export async function checkProgressCourse(courseId) {
 	progress = (progress / totalComponents) * 100;
 
 	return progress;
+}
+
+// Returns the students progress of a section
+export async function checkProgressSection(sectionId) {
+	const userId = await StorageService.getUserId();
+	const student = await userApi.getStudentInfo(userId);
+	const section = await StorageService.getSection(sectionId);
+
+	if (section.components !== 0) {
+		const totalComponents = section.components.length;
+		let progress = 0;
+
+		for (let i = 0; i < totalComponents; i++) {
+			if (isComponentCompleted(student, section.components[i].compId)) {
+				progress++;
+			}
+		}
+
+		return progress;
+	} else {
+		return 0;
+	}
 }
 
 export function findCompletedCourse(student, courseId) {

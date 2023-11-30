@@ -11,7 +11,7 @@ import BaseScreen from '../../components/general/BaseScreen';
 import SubscriptionCancel from '../../components/section/CancelSubscriptionButton';
 import { unsubscribe } from '../../services/StorageService';
 import PropTypes from 'prop-types';
-
+import { checkProgressCourse } from '../../services/utilityFunctions';
 
 /**
  * Section screen component that displays a list of sections for a given course.
@@ -25,6 +25,7 @@ export default function SectionScreen({ route }) {
 	const { course } = route.params;
 	const navigation = useNavigation();
 	const [sections, setSections] = useState(null);
+	const [studentProgress, setStudentProgress] = useState(0);
 
 	/**
    * Loads the sections for the given course from the backend.
@@ -34,6 +35,11 @@ export default function SectionScreen({ route }) {
 		const sectionData = await StorageService.getSectionList(id);
 		setSections(sectionData);
 	}
+
+	const checkProgress = async () => {
+		const progress = await checkProgressCourse(course.courseId);
+		setStudentProgress(progress);
+	}; checkProgress();
 
 	// Fetch courses from backend and replace dummy data!
 	useEffect(() => {
@@ -87,8 +93,7 @@ export default function SectionScreen({ route }) {
 					<View className="flex-[1] flex-col my-[10px]">
 
 						{/* Progress Bar */}
-						{/* TODO: Implement progress dynamically */}
-						<CustomProgressBar width={60} progress={50} height={3}></CustomProgressBar>
+						<CustomProgressBar width={60} progress={studentProgress} height={3}></CustomProgressBar>
 
 						{/* Section Cards */}
 						<ScrollView className="mt-[5%]" showsVerticalScrollIndicator={false}>

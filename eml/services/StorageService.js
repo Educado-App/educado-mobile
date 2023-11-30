@@ -184,18 +184,18 @@ const refreshCourseList = async (courseList) => {
  * @param {string} courseId - The ID of the sectiom
  * @returns {Promise<Object>} A promise that resolves with the section object.
  */
-export const getSection = async (sectionID) => {
+export const getSection = async (sectionId) => {
 	let section = null;
 	try {
 		if (isOnline) {
-			section = await api.getSection(sectionID);
+			section = await api.getSectionById(sectionId);
 		} else {
 			throw new Error('No internet connection in getSection');
 		}
 	} catch (error) {
 		// Use locally stored section if they exist and the DB cannot be reached
 		try {
-			section = JSON.parse(await AsyncStorage.getItem('S' + sectionID));
+			section = JSON.parse(await AsyncStorage.getItem('S' + sectionId));
 			throw new Error('JSON parse error in getSection', error);
 		} catch (e){
 			if (e?.response?.data != null) {
@@ -289,7 +289,6 @@ export const refreshSectionList = async (sectionList) => {
 					description: section.description,
 					components: section.components,
 					total: section.totalPoints,
-					length: section.components.length,
 				});
 			}
 		} else {
