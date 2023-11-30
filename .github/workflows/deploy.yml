@@ -11,9 +11,55 @@ on:
       - stage
 
 jobs:
-  deploy:
+
+  eslint:
     runs-on: ubuntu-latest
     steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18
+      
+      - name: List directories and files
+        run: ls -al
+
+      - name: Install dependencies
+        run: cd eml && npm install
+
+      - name: Run ESLint
+        run: cd eml && npm run lint 
+
+  test:
+    runs-on: ubuntu-latest
+    needs: eslint
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18
+      
+      - name: List directories and files
+        run: ls -al
+
+      - name: Install dependencies
+        run: cd eml && npm install
+        
+      - name: Run Tests
+        run: cd eml && npm run test 
+
+  build:
+    runs-on: ubuntu-latest
+    needs: test
+    env:
+      PATH: ${{ github.workspace }}/eml/node_modules/.bin:$PATH # Define environment settings at the job level
+    steps:
+
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -37,7 +83,41 @@ jobs:
           
         run: expo login -u sofiiagran1 -p $PASSWORD
 
-        
+      - name: Increment version
+        run: |
+          currentVersion=$(jq -r '.expo.version' eml/app.json)
+          newVersion=$(echo $currentVersion | awk -F '.' '{print $1"."$2"."$3+1}')
+          jq --arg newVersion "$newVersion" '.expo.version = $newVersion' eml/app.json > eml/app_temp.json && mv eml/app_temp.json eml/app.json
+        working-directory: eml # Specify the working directory for this step
+
+      - name: Build using EAS
+        run: cd eml && npm run build
+    
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install Expo CLI globally
+        run: npm install -g expo-cli
+
+      - name: Install EAS CLI globally
+        run: npm install -g eas-cli
+
+      - name: Install dependencies
+        run: cd eml && npm install
+
+      - name: Authenticate with Expo 
+        env:
+          PASSWORD: ${{ secrets.EXPO_PASSWORD }}
+        run: expo login -u sofiiagran1 -p $PASSWORD
 
       - name: Extract Service Account JSON
         run: |
