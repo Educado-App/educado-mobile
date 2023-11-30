@@ -45,6 +45,6 @@ jobs:
               GOOGLE_PLAY_DEVELOPER_SERVICES: "${{ secrets.GCP_APP_DEPLOYMENT_JSON_KEY }}"
 
       - name: Deploy to Play Store
-        run: cd eml && eas submit --platform android --profile internal --latest --release-notes release_note.txt --non-interactive 
+        run: cd eml && eas submit --platform android --profile internal --latest --release-notes "$(cat release_note.txt)" --non-interactive 
 
           
