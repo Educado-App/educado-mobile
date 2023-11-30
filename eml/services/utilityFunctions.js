@@ -208,24 +208,28 @@ function isFirstAttemptExercise(student, compId) {
 
 // Returns the students progress of a course in percentage
 export async function checkProgressCourse(courseId) {
-	const student = await StorageService.getStudentInfo();
-	const sections = await StorageService.getSectionList(courseId);
+	try {
+		const student = await StorageService.getStudentInfo();
+		const sections = await StorageService.getSectionList(courseId);
 
-	let totalComponents = 0;
-	let progress = 0;
+		let totalComponents = 0;
+		let progress = 0;
 
-	for (let i = 0; i < sections.length; i++) {
-		totalComponents += sections[i].components.length;
-		for (let j = 0; j < sections[i].components.length; j++) {
-			if (isComponentCompleted(student, sections[i].components[j].compId)) {
-				progress++;
+		for (let i = 0; i < sections.length; i++) {
+			totalComponents += sections[i].components.length;
+			for (let j = 0; j < sections[i].components.length; j++) {
+				if (isComponentCompleted(student, sections[i].components[j].compId)) {
+					progress++;
+				}
 			}
 		}
+
+		progress = (progress / totalComponents) * 100;
+
+		return progress;
+	} catch (e) {
+		return 0;
 	}
-
-	progress = (progress / totalComponents) * 100;
-
-	return progress;
 }
 
 // Returns the students progress of a section
