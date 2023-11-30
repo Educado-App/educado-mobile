@@ -3,7 +3,8 @@ import { View, TouchableOpacity, SafeAreaView } from 'react-native';
 import { BgLinearGradient } from '../../constants/BgLinearGradient';
 import CompleteCourseSlider from '../../components/courses/completeCourse/CompleteCourseSlider';
 import Text from '../../components/general/Text.js';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import PropTypes from 'prop-types';
 
 /* 
 Description: 	This screen is displayed when the student completes a course.
@@ -20,6 +21,8 @@ export default function CompleteCourseScreen() {
 	let currentSlide = 0;
 
 	const navigation = useNavigation();
+	const route = useRoute();
+	const { courseObject } = route.params;
 
 	const handleIndexChange = (index) => {
 		currentSlide = index;
@@ -63,4 +66,8 @@ export default function CompleteCourseScreen() {
 		</BgLinearGradient>
 	);
 }
+
+CompleteCourseScreen.propTypes = {
+	route: PropTypes.object,
+};
 

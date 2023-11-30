@@ -142,7 +142,7 @@ export default function CompSwipeScreen({ route }) {
 	}
 }
 
-LectureSwipeScreen.propTypes = {
+CompSwipeScreen.propTypes = {
 	route: PropTypes.shape({
 		params: PropTypes.shape({
 			section: PropTypes.object,

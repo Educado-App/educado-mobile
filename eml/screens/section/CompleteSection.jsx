@@ -95,7 +95,10 @@ export default function CompleteSectionScreen() {
 			navigation.reset({
 				index: 0,
 				routes: [
-					{ name: 'CompleteCourse' },
+					{ 
+						name: 'CompleteCourse',
+						params: { course: parsedCourse }
+					},
 				],
 			});
 		} else {
