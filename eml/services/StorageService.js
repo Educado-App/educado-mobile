@@ -37,7 +37,6 @@ export const setStudentInfo = async (userId) => {
 		try {
 			const fetchedStudentInfo = await userApi.getStudentInfo(userId);
 			await AsyncStorage.setItem(STUDENT_INFO, JSON.stringify(fetchedStudentInfo));
-			console.log("HEJ" + fetchedStudentInfo._id);
 			await AsyncStorage.setItem(STUDENT_ID, fetchedStudentInfo._id); // needs to be seperate
 		} catch (error) {
 			throw new Error('API error in getStudentInfo:', error);
