@@ -9,10 +9,10 @@ import PropTypes from 'prop-types';
 
 const CompleteCourseSlider = forwardRef(({ onIndexChanged, courseObject }, ref) => {
 
-	CompleteCourseSlider.propTypes = {
-		courseObject: PropTypes.object.isRequired,
-		onIndexChanged: PropTypes.func.isRequired,
-	};
+  CompleteCourseSlider.propTypes = {
+    courseObject: PropTypes.object.isRequired,
+    onIndexChanged: PropTypes.func.isRequired,
+  };
 
   CompleteCourseSlider.displayName = 'CompleteCourseSlider';
 
