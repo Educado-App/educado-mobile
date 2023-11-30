@@ -1,5 +1,5 @@
 
-name: CI 
+name: CI/CD
 
 on:
   pull_request:
@@ -81,17 +81,8 @@ jobs:
           
         run: expo login -u sofiiagran1 -p $PASSWORD
 
-      - name: Increment version
-        run: |
-          currentVersion=$(grep -o '"version": *"[^"]*"' eml/app.json | cut -d '"' -f4)
-          newVersion=$(echo $currentVersion | awk -F '.' '{$NF+=1; OFS="."; print}')
-          sed -i 's/"version": *"[^"]*"/"version": "'$newVersion'"/' eml/app.json
-        working-directory: eml
-        env:
-          PATH: ${{ github.workspace }}/eml/node_modules/.bin:$PATH
-
       - name: Build using EAS
-        run: cd eml && npm run build
+        run: cd eml && eas build -p android --profile production
     
 
   deploy:
