@@ -28,8 +28,8 @@ export default function CourseCard({ course, isOnline}) {
 	checkDownload();
 
 	const checkProgress = async () => {
-			const progress = await checkProgressCourse(course.courseId);
-			setStudentProgress(progress);
+		const progress = await checkProgressCourse(course.courseId);
+		setStudentProgress(progress);
 	}; checkProgress();
 
 	const enabledUI = 'bg-projectWhite m-[3%] rounded-lg shadow-sm shadow-opacity-[0.3] elevation-[8] mx-[5%] p-[5%]';
@@ -44,9 +44,9 @@ export default function CourseCard({ course, isOnline}) {
 			className={layout}
 			onPress={() => {
 				layout === enabledUI ?
-				navigation.navigate('Section', {
-					course: course,
-				}) : null;
+					navigation.navigate('Section', {
+						course: course,
+					}) : null;
 			}}
 		>
 			<View>
@@ -74,9 +74,9 @@ export default function CourseCard({ course, isOnline}) {
 					<Pressable className="z-[1]"
 						onPress={() => {
 							layout === enabledUI ?
-							navigation.navigate('Section', {
-								course: course,
-							}) : null;
+								navigation.navigate('Section', {
+									course: course,
+								}) : null;
 						}}
 					>
 						<MaterialCommunityIcons size={28} name="play-circle" color={tailwindConfig.theme.colors.primary}></MaterialCommunityIcons>
