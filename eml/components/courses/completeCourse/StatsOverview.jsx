@@ -5,7 +5,9 @@ import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import { Easing } from 'react-native-reanimated';
 import { getStudentInfo } from '../../../services/StorageService';
 import { findCompletedCourse } from '../../../services/utilityFunctions';
-import PropTypes from 'prop-types'; 
+import PropTypes from 'prop-types';
+
+/* Check the CompleteCourseSlider file in the screens folder for more info */
 
 const StatsOverview = forwardRef(({ courseObject }, ref) => {
 	StatsOverview.propTypes = {

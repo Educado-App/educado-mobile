@@ -7,6 +7,15 @@ import tailwindConfig from '../../tailwind.config';
 import PropTypes from 'prop-types';
 import { getPointsFromExerciseReceiver, getPointsFromExerciseUnsubscribe } from '../events/receiverEvents';
 
+/* 
+Description:	This component displays the points the student has earned in the course.
+				The points are retrieved from the student model (in the field courses.totalPoints) in the database,
+				which are updated when completing an exercise.
+				When getting points, an animation is triggered by an event from ExerciseScreen.
+Denpendencies: 	The student must be in a exercise or lecture.
+Props: 			courseId - The id of the course the student is in.
+*/
+
 const CoursePoints = (courseId) => {
 	const [coursePoints, setCoursePoints] = useState(0);
 	const [scale, setScale] = useState(1);

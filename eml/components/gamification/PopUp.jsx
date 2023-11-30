@@ -6,6 +6,16 @@ import { getUserInfo } from '../../services/StorageService';
 import PropTypes from 'prop-types';
 import { getPointsFromExerciseSender } from '../../components/events/senderEvents';
 
+/* 
+Description:	This component displays a pop up with a random phrase and the amount of points the student has earned.
+				This component is placed in the exercise screen.
+				When the pop up is displayed, an event is triggered to the course points component.
+Denpendencies: 	The student must be in a exercise.
+Props: 			pointAmount - The amount of points the student has earned from the exercise.
+				isCorrectAnswer - A boolean that is true if the student answered correctly, and false if not.
+
+*/
+
 // sender of event
 
 export default function PopUp({ pointAmount, isCorrectAnswer }) {

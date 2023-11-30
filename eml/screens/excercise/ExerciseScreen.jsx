@@ -11,6 +11,22 @@ import PropTypes from 'prop-types';
 import { completeComponent, handleLastComponent } from '../../services/utilityFunctions';
 import { useNavigation } from '@react-navigation/native';
 
+/* 
+Description: 	This screen is displayed when the student is doing an exercise.
+				It displays the question and the answers, and the student can select one answer.
+				When the student presses the confirm button, the answer is checked and the student is given feedback.
+				When the student presses the continue button, the next component is displayed.
+				The student can only continue if an answer is selected.
+				The student is given 10 points when the answer is correct in the first try, 
+				otherwise the student gets 5 points when the answer is correct.
+				The student gets 0 points when the answer is incorrect or they have completed the exercise before.
+Dependencies: 	CompSwipeScreen, the screen which contains all the components in the section
+Props:			- exerciseObject: The exercise object, which contains the question and the answers
+				- sectionObject: The section object, which contains the section title	
+				- courseObject: The course object, which contains the course title
+				- onContinue: A function that is called when the student presses the continue button, 
+				when the exercise is completed and it is the last component in the section, the student is taken to the section complete screen
+*/
 
 export default function ExerciseScreen({ exerciseObject, sectionObject, courseObject, onContinue }) {
 	const tailwindConfig = require('../../tailwind.config.js');
@@ -133,7 +149,7 @@ export default function ExerciseScreen({ exerciseObject, sectionObject, courseOb
 				<PopUp pointAmount={points} isCorrectAnswer={isCorrectAnswer} />
 			) : null}
 
-			{<ExerciseInfo courseId={courseObject.title} sectionId={sectionObject.title} />}
+			{<ExerciseInfo courseTitle={courseObject.title} sectionTitle={sectionObject.title} />}
 			<StatusBar style='auto' />
 		</SafeAreaView>
 	);

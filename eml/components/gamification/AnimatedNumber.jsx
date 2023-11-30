@@ -6,6 +6,8 @@ import PropTypes from 'prop-types';
 
 //inspo from https://www.npmjs.com/package/react-native-animated-numbers?activeTab=code
 
+/* This is basically a package, copied and modified */
+
 // makes an array of numbers from 0 to 9
 const NUMBERS = Array(10).fill().map((_, i) => i);
 

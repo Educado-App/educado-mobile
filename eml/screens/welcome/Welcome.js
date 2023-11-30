@@ -5,6 +5,13 @@ import WelcomeSlider from '../../components/welcome/WelcomeSlider';
 import Text from '../../components/general/Text.js';
 import { useNavigation } from '@react-navigation/native';
 
+/* 
+Description: 	This is the welcome screen that is shown when the user opens the app for the first time.
+				It is a slider that explains the app and its features. It also has a button to login and a button to register.
+				When the user clicks on the login button, it is redirected to the login screen.
+				When the user clicks on the register button, it is redirected to the register screen.
+*/
+
 export default function WelcomeScreen() {
 
 	const navigation = useNavigation();

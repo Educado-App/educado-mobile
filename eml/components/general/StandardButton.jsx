@@ -3,6 +3,8 @@ import { TouchableOpacity} from 'react-native';
 import Text from './Text';
 import PropTypes from 'prop-types';
 
+/* A standard button for continue */
+
 export default function StandardButton({ props }) {
 	const { onPress, buttonText } = props;
 	return (
