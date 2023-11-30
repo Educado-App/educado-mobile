@@ -240,7 +240,7 @@ export const refreshSection = async (section) => {
 		//Returns new fitted section, or null if there was no data fetched from DB or Storage,
 		return newSection;
 	}
-}
+};
 
 /**
  * Retrieves a list of sections for a specific course.
