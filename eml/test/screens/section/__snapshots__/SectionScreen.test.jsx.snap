@@ -142,7 +142,7 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
         indeterminate={false}
         indeterminateAnimationDuration={1000}
         onLayout={[Function]}
-        progress={0.5}
+        progress={0}
         style={
           [
             {
@@ -169,10 +169,10 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
                   "translateX": 0,
                 },
                 {
-                  "translateX": -112.5,
+                  "translateX": -225,
                 },
                 {
-                  "scaleX": 0.50005,
+                  "scaleX": 0.0001,
                 },
               ],
             }
@@ -201,7 +201,7 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
           ]
         }
       >
-        50
+        0
         %
       </Text>
     </View>
@@ -292,6 +292,9 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
                     "paddingBottom": 15,
                     "paddingTop": 15,
                   },
+                  {
+                    "backgroundColor": "#8DD08C",
+                  },
                 ]
               }
             >
@@ -354,7 +357,7 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
               >
                 0
                 /
-                100
+                0
                  concluídos
               </Text>
               <Text
@@ -590,6 +593,9 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
                     "paddingBottom": 15,
                     "paddingTop": 15,
                   },
+                  {
+                    "backgroundColor": "#8DD08C",
+                  },
                 ]
               }
             >
@@ -652,7 +658,7 @@ exports[`SectionScreen Renders section screen with sections loaded 1`] = `
               >
                 0
                 /
-                200
+                0
                  concluídos
               </Text>
               <Text
