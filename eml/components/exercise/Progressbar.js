@@ -26,6 +26,9 @@ const CustomProgressBar = ({ progress, width, height, displayLabel = true }) => 
 
 	// Ensure progress is between 0 and 100
 	progress = Math.min(100, Math.max(0, progress));
+	if (isNaN(progress)){
+		progress = 0;
+	}
 
 	return (
 		<View className='flex-row items-center justify-around'>

@@ -132,9 +132,8 @@ exports[`<SectionCard /> renders SectionCard correctly 1`] = `
           ]
         }
       >
-        0
         /
-        100
+        0
          concluídos
       </Text>
       <Text

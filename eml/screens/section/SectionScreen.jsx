@@ -11,7 +11,7 @@ import BaseScreen from '../../components/general/BaseScreen';
 import SubscriptionCancel from '../../components/section/CancelSubscriptionButton';
 import { unsubscribe } from '../../services/StorageService';
 import PropTypes from 'prop-types';
-
+import { checkProgressCourse, checkProgressSection } from '../../services/utilityFunctions';
 
 /**
  * Section screen component that displays a list of sections for a given course.
@@ -25,6 +25,8 @@ export default function SectionScreen({ route }) {
 	const { course } = route.params;
 	const navigation = useNavigation();
 	const [sections, setSections] = useState(null);
+	const [studentProgress, setStudentProgress] = useState(0);
+	const [completedComponents, setCompletedComponents] = useState(0);
 
 	/**
    * Loads the sections for the given course from the backend.
@@ -34,6 +36,24 @@ export default function SectionScreen({ route }) {
 		const sectionData = await StorageService.getSectionList(id);
 		setSections(sectionData);
 	}
+
+	const checkProgress = async () => {
+		const progress = await checkProgressCourse(course.courseId);
+		setStudentProgress(progress);
+	};
+
+	const checkProgressInSection = async (sectionId) => {
+		const completed = await checkProgressSection(sectionId);
+		setCompletedComponents(completed);
+	};
+
+	useEffect(() => {
+		// this makes sure loadcourses is called when the screen is focused
+		const update = navigation.addListener('focus', () => {
+			checkProgress();
+		});
+		return update;
+	}, [navigation]);
 
 	// Fetch courses from backend and replace dummy data!
 	useEffect(() => {
@@ -49,6 +69,8 @@ export default function SectionScreen({ route }) {
 		if (componentIsMounted) {
 			loadData();
 		}
+
+		checkProgress();
 
 		return () => componentIsMounted = false;
 	}, []);
@@ -67,7 +89,8 @@ export default function SectionScreen({ route }) {
 
 	return (
 		<BaseScreen>
-			<View className="flex flex-row items-center justify-beween px-6 pt-[20%]">
+			<View className="flex flex-row flex-wrap items-center justify-between px-6 pt-[20%]">
+
 				{/* Back Button */}
 				<TouchableOpacity className="pr-3" onPress={() => navigation.goBack()}>
 					<MaterialCommunityIcons name="chevron-left" size={25} color="black" />
@@ -75,10 +98,6 @@ export default function SectionScreen({ route }) {
 
 				{/* Course Title */}
 				<Text className="text-[25px] font-bold">{course.title}</Text>
-
-				{/* Spacer to push the Unsubscribe Button to the right */}
-				<View style={{ flex: 1 }}></View>
-
 			</View>
 
 			{/* Conditionally render the sections if they exist */}
@@ -87,13 +106,13 @@ export default function SectionScreen({ route }) {
 					<View className="flex-[1] flex-col my-[10px]">
 
 						{/* Progress Bar */}
-						{/* TODO: Implement progress dynamically */}
-						<CustomProgressBar width={60} progress={50} height={3}></CustomProgressBar>
+						<CustomProgressBar width={60} progress={studentProgress} height={3}></CustomProgressBar>
 
 						{/* Section Cards */}
 						<ScrollView className="mt-[5%]" showsVerticalScrollIndicator={false}>
 							{sections.map((section, i) => {
-								return <SectionCard key={i} section={section} course={course}></SectionCard>;
+								checkProgressInSection(section.sectionId);
+								return <SectionCard key={i} section={section} course={course} progress={completedComponents}></SectionCard>;
 							})}
 						</ScrollView>
 						{/* Unsubscribe Button */}

@@ -6,22 +6,20 @@ import Collapsible from 'react-native-collapsible';
 import { useNavigation } from '@react-navigation/native';
 import PropTypes from 'prop-types';
 
+
 /**
  * A component that displays a section card with collapsible content.
  * @param {Object} section - The section object containing the section data.
  * @param {Object} course - The course object containing the course data.
  * @returns {JSX.Element} - The SectionCard component.
  */
-export default function SectionCard({ section, course }) {
+export default function SectionCard({ section, course, progress }) {
 
-	// hardcoded for now
-
-	const completed = 0;
 
 	const navigation = useNavigation();
-	const isComplete = completed === section.total;
-	const inProgress = 0 < completed && completed < section.total;
-	const notPossible = completed > section.total;
+	const isComplete = progress === section.components.length;
+	const inProgress = 0 < progress && progress < section.components.length;
+	const notPossible = progress > section.components.length;
 	const [isOpen, setIsOpen] = useState(false);
 	const backgroundColor = isComplete ? 'bg-limeGreenDarker' : inProgress ? 'bg-cyanBlue' : notPossible ? 'bg-error' : {};
 
@@ -31,6 +29,7 @@ export default function SectionCard({ section, course }) {
 	const toggleDropdown = () => {
 		setIsOpen(!isOpen);
 	};
+
 
 	/**
      * Handles the image press event.
@@ -52,7 +51,7 @@ export default function SectionCard({ section, course }) {
 					</Text>
 					<Text className="mr-[10] text-projectBlack">
 						{/* completed */}
-						{completed}/{section.total} concluídos
+						{progress}/{section.components.length} concluídos
 					</Text>
 					<MaterialCommunityIcons
 						testID={isOpen ? 'chevron-up' : 'chevron-down'}
@@ -82,5 +81,6 @@ export default function SectionCard({ section, course }) {
 
 SectionCard.propTypes = {
 	section: PropTypes.object,
-	course: PropTypes.object
+	course: PropTypes.object,
+	progress: PropTypes.number,
 };

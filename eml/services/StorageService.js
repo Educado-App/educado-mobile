@@ -9,6 +9,7 @@ import * as FileSystem from 'expo-file-system';
 
 const SUB_COURSE_LIST = '@subCourseList';
 const USER_ID = '@userId';
+const STUDENT_ID = '@studentId';
 const USER_INFO = '@userInfo';
 const STUDENT_INFO = '@studentInfo';
 const LOGIN_TOKEN = '@loginToken';
@@ -36,9 +37,12 @@ export const setStudentInfo = async (userId) => {
 		try {
 			const fetchedStudentInfo = await userApi.getStudentInfo(userId);
 			await AsyncStorage.setItem(STUDENT_INFO, JSON.stringify(fetchedStudentInfo));
+			await AsyncStorage.setItem(STUDENT_ID, fetchedStudentInfo._id); // needs to be seperate
 		} catch (error) {
 			throw new Error('API error in getStudentInfo:', error);
 		}
+	} else {
+		throw new Error('No internet connection in getStudentInfo');
 	}
 };
 
@@ -108,6 +112,9 @@ export const setJWT = async (jwt) => {
 	await AsyncStorage.setItem(LOGIN_TOKEN, jwt);
 };
 
+export const getUserId = async () => {	
+	return await AsyncStorage.getItem(USER_ID);
+};
 /** COURSE AND COURSE LIST **/
 
 /**
@@ -170,6 +177,70 @@ const refreshCourseList = async (courseList) => {
 };
 
 /** SECTIONS **/
+
+
+/**
+ * Retrieves a sections for a specific course.
+ * @param {string} courseId - The ID of the sectiom
+ * @returns {Promise<Object>} A promise that resolves with the section object.
+ */
+export const getSection = async (sectionId) => {
+	let section = null;
+	try {
+		if (isOnline) {
+			section = await api.getSectionById(sectionId);
+		} else {
+			throw new Error('No internet connection in getSection');
+		}
+	} catch (error) {
+		// Use locally stored section if they exist and the DB cannot be reached
+		try {
+			section = JSON.parse(await AsyncStorage.getItem('S' + sectionId));
+			throw new Error('JSON parse error in getSection', error);
+		} catch (e){
+			if (e?.response?.data != null) {
+				throw new Error('Error in getSection: ', e.response.data);
+			} else {
+				throw new Error('Error in getSection: ', e);
+			}
+		}
+	} finally {
+		return await refreshSection(section);
+	}
+}; 
+
+
+/**
+ * Refreshes the section with updated data.
+ * @param {Array} section - The list section to refresh.
+ * @returns {Promise<Object>} A promise that resolves with the refreshed section.
+ */
+export const refreshSection = async (section) => {
+	let newSection = null;
+	try {
+		if (section !== null) {
+			newSection = {
+				title: section.title,
+				sectionId: section._id,
+				parentCourseId: section.parentCourse,
+				description: section.description,
+				components: section.components,
+				total: section.totalPoints,
+			};
+		} else {
+			throw new Error('Error in refreshSection: Missing field in section');
+		}
+	} catch (error) {
+		if (error?.response?.data != null) {
+			throw new Error('Error in refreshSection: ', error.response.data);
+		} else {
+			throw new Error('Error in refreshSection: ', error);
+		}
+	} finally {
+		//Returns new fitted section, or null if there was no data fetched from DB or Storage,
+		return newSection;
+	}
+};
 
 /**
  * Retrieves a list of sections for a specific course.
