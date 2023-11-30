@@ -1,4 +1,5 @@
-name: CI 
+
+name: CI/CD
 
 on:
   pull_request:
@@ -7,13 +8,12 @@ on:
       - synchronize
       - reopened
     branches:
-      - stage
+      - main
 
 jobs:
 
   eslint:
     runs-on: ubuntu-latest
-
     steps:
       - name: Check out code
         uses: actions/checkout@v2
@@ -82,5 +82,42 @@ jobs:
         run: expo login -u sofiiagran1 -p $PASSWORD
 
       - name: Build using EAS
-        run: cd eml && eas build -p android --profile preview
+        run: cd eml && eas build -p android --profile production
     
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install Expo CLI globally
+        run: npm install -g expo-cli
+
+      - name: Install EAS CLI globally
+        run: npm install -g eas-cli
+
+      - name: Install dependencies
+        run: cd eml && npm install
+
+      - name: Authenticate with Expo 
+        env:
+          PASSWORD: ${{ secrets.EXPO_PASSWORD }}
+        run: expo login -u sofiiagran1 -p $PASSWORD
+
+      - name: Extract Service Account JSON
+        run: |
+              echo $GOOGLE_PLAY_DEVELOPER_SERVICES > eml/google-play-developer-services.json
+        env:
+              GOOGLE_PLAY_DEVELOPER_SERVICES: "${{ secrets.GCP_APP_DEPLOYMENT_JSON_KEY }}"
+
+      - name: Deploy to Play Store
+        run: cd eml && eas submit --platform android --profile production --latest --non-interactive 
+
+          
