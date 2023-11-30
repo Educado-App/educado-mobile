@@ -9,7 +9,6 @@ import * as FileSystem from 'expo-file-system';
 
 const SUB_COURSE_LIST = '@subCourseList';
 const USER_ID = '@userId';
-const STUDENT_ID = '@studentId';
 const USER_INFO = '@userInfo';
 const STUDENT_INFO = '@studentInfo';
 const LOGIN_TOKEN = '@loginToken';
@@ -37,13 +36,9 @@ export const setStudentInfo = async (userId) => {
 		try {
 			const fetchedStudentInfo = await userApi.getStudentInfo(userId);
 			await AsyncStorage.setItem(STUDENT_INFO, JSON.stringify(fetchedStudentInfo));
-			console.log("HEJ" + fetchedStudentInfo._id);
-			await AsyncStorage.setItem(STUDENT_ID, fetchedStudentInfo._id); // needs to be seperate
 		} catch (error) {
 			throw new Error('API error in getStudentInfo:', error);
 		}
-	} else {
-		throw new Error('No internet connection in getStudentInfo');
 	}
 };
 
@@ -113,9 +108,6 @@ export const setJWT = async (jwt) => {
 	await AsyncStorage.setItem(LOGIN_TOKEN, jwt);
 };
 
-export const getUserId = async () => {	
-	return await AsyncStorage.getItem(USER_ID);
-};
 /** COURSE AND COURSE LIST **/
 
 /**
