@@ -1,0 +1,17 @@
+<pt-BR>
+Bem-vindo ao Educado 1.0.0!
+
+Descubra o Educado, um app para aprender de maneira divertida e interativa!
+
+Novidades:
+- Crie seu perfil
+- Explore cursos
+- Inscreva-se em aulas
+- Assista aulas e faça exercícios de forma envolvente
+
+E o melhor? Tudo gratuito!
+
+Baixe o Educado agora!
+
+Data de lançamento: 17/11/23
+</pt-BR>

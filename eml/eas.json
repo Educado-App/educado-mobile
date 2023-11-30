@@ -2,7 +2,7 @@
     "build": {
         "preview": {
             "android": {
-                "buildType": "app-bundle"
+                "buildType": "apk"
             }
         },
         "production": {
@@ -13,9 +13,16 @@
         }
     },
     "submit": {
-        "production": {
+        "internal": {
             "android": {
                 "track": "internal",
+                "releaseStatus": "completed",
+                "serviceAccountKeyPath": "./google-play-developer-services.json"
+            }
+        },
+        "production": {
+            "android": {
+                "track": "production",
                 "releaseStatus": "completed",
                 "serviceAccountKeyPath": "./google-play-developer-services.json"
             }
