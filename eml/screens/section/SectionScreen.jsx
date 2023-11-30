@@ -89,7 +89,8 @@ export default function SectionScreen({ route }) {
 
 	return (
 		<BaseScreen>
-			<View className="flex flex-row items-center justify-beween px-6 pt-[20%]">
+			<View className="flex flex-row flex-wrap items-center justify-between px-6 pt-[20%]">
+
 				{/* Back Button */}
 				<TouchableOpacity className="pr-3" onPress={() => navigation.goBack()}>
 					<MaterialCommunityIcons name="chevron-left" size={25} color="black" />
@@ -97,10 +98,6 @@ export default function SectionScreen({ route }) {
 
 				{/* Course Title */}
 				<Text className="text-[25px] font-bold">{course.title}</Text>
-
-				{/* Spacer to push the Unsubscribe Button to the right */}
-				<View style={{ flex: 1 }}></View>
-
 			</View>
 
 			{/* Conditionally render the sections if they exist */}
