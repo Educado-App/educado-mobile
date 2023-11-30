@@ -1,6 +1,7 @@
 /** Utility functions used in Explore and Course screens **/
 import * as StorageService from '../services/StorageService.js';
 import * as userApi from '../api/userApi.js';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 /**
  * Converts a numeric difficulty level to a human-readable label.
@@ -9,14 +10,14 @@ import * as userApi from '../api/userApi.js';
  */
 export function getDifficultyLabel(lvl) {
 	switch (lvl) {
-	case 1:
-		return 'Iniciante';
-	case 2:
-		return 'Intermediário';
-	case 3:
-		return 'Avançado';
-	default:
-		return 'Iniciante';
+		case 1:
+			return 'Iniciante';
+		case 2:
+			return 'Intermediário';
+		case 3:
+			return 'Avançado';
+		default:
+			return 'Iniciante';
 	}
 }
 
@@ -27,13 +28,13 @@ export function getDifficultyLabel(lvl) {
  */
 export const convertMsToTime = (ms) => {
 
-	if (ms < 0){
+	if (ms < 0) {
 		return '00:00';
 	}
 
 	let seconds = Math.floor((ms / 1000) % 60);
 	let minutes = Math.floor(ms / (1000 * 60));
- 
+
 	seconds = seconds < 10 ? '0' + seconds : seconds;
 	minutes = minutes < 10 ? '0' + minutes : minutes;
 
@@ -47,16 +48,16 @@ export const convertMsToTime = (ms) => {
  */
 export function determineCategory(category) {
 	switch (category) {
-	case 'personal finance':
-		return 'Finanças pessoais';
-	case 'health and workplace safety':
-		return 'Saúde e segurança no trabalho';
-	case 'sewing':
-		return 'Costura';
-	case 'electronics':
-		return 'Eletrônica';
-	default: 'other';
-		return 'Outro';
+		case 'personal finance':
+			return 'Finanças pessoais';
+		case 'health and workplace safety':
+			return 'Saúde e segurança no trabalho';
+		case 'sewing':
+			return 'Costura';
+		case 'electronics':
+			return 'Eletrônica';
+		default: 'other';
+			return 'Outro';
 	}
 }
 
@@ -67,16 +68,16 @@ export function determineCategory(category) {
  */
 export function determineIcon(category) {
 	switch (category) {
-	case 'personal finance':
-		return 'finance';
-	case 'health and workplace safety':
-		return 'medical-bag';
-	case 'sewing':
-		return 'scissors-cutting';
-	case 'electronics':
-		return 'laptop';
-	default:
-		return 'bookshelf';
+		case 'personal finance':
+			return 'finance';
+		case 'health and workplace safety':
+			return 'medical-bag';
+		case 'sewing':
+			return 'scissors-cutting';
+		case 'electronics':
+			return 'laptop';
+		default:
+			return 'bookshelf';
 	}
 }
 
@@ -85,7 +86,7 @@ export function determineIcon(category) {
  * @param {string} courseDate - The date the course was last updated in ISO format.
  * @returns {string} The formatted date in 'YYYY/MM/DD' format.
  */
-export function getUpdatedDate(courseDate){
+export function getUpdatedDate(courseDate) {
 
 	const date = new Date(courseDate);
 
@@ -156,7 +157,7 @@ export async function completeComponent(comp, courseId, isComplete) {
 	const loginToken = await StorageService.getLoginToken();
 
 	const isFirstAttempt = isFirstAttemptExercise(studentInfo, comp._id);
-	const isCompComplete = isComponentCompleted(studentInfo, comp._id); 
+	const isCompComplete = isComponentCompleted(studentInfo, comp._id);
 
 	// If the exercise is present but it's field "isComplete" is false, it means the user has answered wrong before and only gets 5 points.
 	const points = isFirstAttempt && !isCompComplete && isComplete ? 10 : (!isFirstAttempt && !isCompComplete && isComplete ? 5 : 0);
@@ -194,6 +195,8 @@ export function isComponentCompleted(student, compId) {
 	);
 }
 
+
+
 function isFirstAttemptExercise(student, compId) {
 	return student.courses.some(course =>
 		course.sections.some(section =>
@@ -204,13 +207,36 @@ function isFirstAttemptExercise(student, compId) {
 	);
 }
 
+// Returns the students progress of a course in percentage
+export async function checkProgressCourse(courseId) {
+	const userId = await StorageService.getUserId();
+	const student = await userApi.getStudentInfo(userId);
+	const sections = await StorageService.getSectionList(courseId);
+
+	let totalComponents = 0;
+	let progress = 0;
+
+	for (let i = 0; i < sections.length; i++) {
+		totalComponents += sections[i].components.length;
+		for(let j = 0; j < sections[i].components.length; j++) {
+			if (isComponentCompleted(student, sections[i].components[j].compId)) {
+				progress++;
+			}
+		}
+	}
+
+	progress = (progress / totalComponents) * 100;
+
+	return progress;
+}
+
 export function findCompletedCourse(student, courseId) {
 	return student.courses.find(course => course.courseId == courseId);
 }
 
 export function findCompletedSection(student, courseId, sectionId) {
 	const course = findCompletedCourse(student, courseId);
-  
+
 	return course?.sections.find(section => section.sectionId == sectionId);
 }
 
@@ -252,18 +278,19 @@ export function findIndexOfUncompletedComp(student, courseId, sectionId) {
 
 export async function handleLastComponent(comp, course, navigation) {
 
-	// For future reference
+	// For future reference 
 	// const student = await StorageService.getStudentInfo();
 	// const isComplete = isSectionCompleted(student, comp.parentSection);
-  
+
 	navigation.reset({
 		index: 0,
 		routes: [
 			{
 				name: 'CompleteSection',
-				params: { 
-					parsedCourse: course, 
-					sectionId: comp.parentSection }
+				params: {
+					parsedCourse: course,
+					sectionId: comp.parentSection
+				}
 			},
 		],
 	});
