@@ -9,8 +9,23 @@ import AnimatedNumbers from '../../components/gamification/AnimatedNumber';
 import { generateSectionCompletePhrases } from '../../constants/Phrases';
 import { getStudentInfo } from '../../services/StorageService';
 import { findCompletedSection, isCourseCompleted } from '../../services/utilityFunctions';
+import PropTypes from 'prop-types';
+
+/* 
+Description: 	This screen is displayed when the student completes a section. 
+				It displays the points earned in the section, an animation, and a button to continue. 
+				The button will take the student to the section overview.
+				The points earned are retrieved from the student model (in the field courses.sections) in the database, 
+				which are stored in async storage when logging in.
+Dependencies: 	Routes which in this case are the whole course object and the sectionId
+*/
 
 export default function CompleteSectionScreen() {
+	CompleteSectionScreen.propsTypes = {
+		parsedCourse: PropTypes.object.isRequired,
+		sectionId: PropTypes.string.isRequired,
+	};
+
 	const route = useRoute();
 	const { parsedCourse, sectionId } = route.params;
 	const [points, setPoints] = useState(0);
@@ -86,7 +101,10 @@ export default function CompleteSectionScreen() {
 			navigation.reset({
 				index: 0,
 				routes: [
-					{ name: 'CompleteCourse' },
+					{ 
+						name: 'CompleteCourse',
+						params: { course: parsedCourse }
+					},
 				],
 			});
 		} else {

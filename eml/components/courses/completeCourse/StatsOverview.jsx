@@ -5,7 +5,9 @@ import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import { Easing } from 'react-native-reanimated';
 import { getStudentInfo } from '../../../services/StorageService';
 import { findCompletedCourse } from '../../../services/utilityFunctions';
-import PropTypes from 'prop-types'; 
+import PropTypes from 'prop-types';
+
+/* Check the CompleteCourseSlider file in the screens folder for more info */
 
 const StatsOverview = forwardRef(({ courseObject }, ref) => {
 	StatsOverview.propTypes = {
@@ -22,7 +24,7 @@ const StatsOverview = forwardRef(({ courseObject }, ref) => {
   
 	async function getPercentage() {
 		try {
-			const completedCourse = findCompletedCourse(await getStudentInfo(), courseObject.id);
+			const completedCourse = findCompletedCourse(await getStudentInfo(), courseObject.courseId);
 			let totalExercises = 0;
 			let totalExercisesWithFirstTry = 0;
   
@@ -48,10 +50,8 @@ const StatsOverview = forwardRef(({ courseObject }, ref) => {
 		}
 	}
 
-	const startAnimation = (index) => {
-		if (index === 1) {
-			circularProgressRef.current?.animate(percentage, 1250, Easing.quad);
-		}
+	const startAnimation = () => {
+		circularProgressRef.current?.animate(percentage, 1250, Easing.quad);
 	};
 
 	useImperativeHandle(ref, () => ({

@@ -4,6 +4,8 @@ import Text from '../../general/Text';
 import LottieView from 'lottie-react-native';
 import { getUserInfo } from '../../../services/StorageService';
 
+/* Check the CompleteCourseSlider file in the screens folder for more info */
+
 export default function Congratulation() {
 	const [name, setName] = useState('');
 

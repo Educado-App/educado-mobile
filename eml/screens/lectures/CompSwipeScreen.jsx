@@ -9,6 +9,19 @@ import { completeComponent, findIndexOfUncompletedComp } from '../../services/ut
 import {getComponentList, getStudentInfo} from '../../services/StorageService';
 import PropTypes from 'prop-types';
 
+/* 
+Description: 	This screen is displayed when the student is doing a component.
+				It displays the component, which can be a lecture or an exercise.
+				When the student presses the continue button, or swipes, the next component is displayed.
+				The swiper is disabled when the student is doing an exercise.
+				The swiper starts at the first uncompleted component in the section.
+				The swiper is enabled when the student is doing a lecture.
+				The screen has a progress bar at the top, which shows the progress in the section.
+				It also shows the points the student has earned in the course.
+Dependencies:	That there exists a course object and a section object, which has components.
+Props:			- route: The route object, which contains the section object and the course object
+*/
+
 const LectureType = {
 	TEXT: 'text',
 	VIDEO: 'video',
@@ -21,10 +34,10 @@ const ComponentType = {
 
 /**
  * when navigating to this page sectionId, parsedCourse must be passed as parameters
- * @param {} param0 
+ * @param {} param
  * @returns 
  */
-export default function LectureSwipeScreen({ route }) {
+export default function CompSwipeScreen({ route }) {
 	const { section, parsedCourse } = route.params;
 	const [loading, setLoading] = useState(true);
 	const [currentLectureType, setCurrentLectureType] = useState(LectureType.TEXT);
@@ -125,7 +138,7 @@ export default function LectureSwipeScreen({ route }) {
 	}
 }
 
-LectureSwipeScreen.propTypes = {
+CompSwipeScreen.propTypes = {
 	route: PropTypes.shape({
 		params: PropTypes.shape({
 			section: PropTypes.object,

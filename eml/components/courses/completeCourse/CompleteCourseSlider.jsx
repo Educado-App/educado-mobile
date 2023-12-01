@@ -7,6 +7,11 @@ import StatsOverview from './StatsOverview';
 import Certification from './Certification';
 import PropTypes from 'prop-types'; 
 
+/* Check the CompleteCourse file in the screens folder for more info
+props: 			onIndexChanged: function that is called when the index of which slide the student are currently on changes
+				courseObject: the course object
+*/
+
 const CompleteCourseSlider = forwardRef(({ onIndexChanged, courseObject }, ref) => {
 
 	CompleteCourseSlider.propTypes = {
@@ -51,7 +56,9 @@ const CompleteCourseSlider = forwardRef(({ onIndexChanged, courseObject }, ref) 
 			showsButtons={true}
 			onIndexChanged={(index) => {
 				onIndexChanged(index);
-				statsOverviewRef.current.startAnimation(index);
+				if (index === 1) {
+					statsOverviewRef.current.startAnimation();
+				}
 			}}
 			autoplayTimeout={10}
 			autoplay={true}

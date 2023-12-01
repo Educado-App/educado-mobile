@@ -3,18 +3,26 @@ import { View, TouchableOpacity, SafeAreaView } from 'react-native';
 import { BgLinearGradient } from '../../constants/BgLinearGradient';
 import CompleteCourseSlider from '../../components/courses/completeCourse/CompleteCourseSlider';
 import Text from '../../components/general/Text.js';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import PropTypes from 'prop-types';
+
+/* 
+Description: 	This screen is displayed when the student completes a course.
+				The screen dispalys three slides. The first slide displays a congratulation message and an animation.
+				The second slide displays a circular progress bar, which shows the percentage of exercises completed in the first try.
+				The third slide displays the certificate gained by completing the course.
+				When the student presses the continue button, the student is taken to the next slide. 
+				On the last slide, the student is taken to the home screen when the student presses the continue button.
+Dependencies: 	The student must have the course in their course list.
+*/
 
 export default function CompleteCourseScreen() {
 	const completeCourseSliderRef = useRef(null);
 	let currentSlide = 0;
 
-	const courseObject = {
-		id: '6540f668536b2b37a49457dc',
-		title: 'Curso de Teste',
-	};
-
 	const navigation = useNavigation();
+	const route = useRoute();
+	const { course } = route.params;
 
 	const handleIndexChange = (index) => {
 		currentSlide = index;
@@ -41,7 +49,7 @@ export default function CompleteCourseScreen() {
 						<CompleteCourseSlider 
 							onIndexChanged={handleIndexChange}
 							ref={completeCourseSliderRef}  
-							courseObject={courseObject}
+							courseObject={course}
 						/>
 					</View>
 
@@ -58,4 +66,8 @@ export default function CompleteCourseScreen() {
 		</BgLinearGradient>
 	);
 }
+
+CompleteCourseScreen.propsTypes = {
+	course: PropTypes.object.isRequired,
+};
 

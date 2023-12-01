@@ -4,6 +4,8 @@ import LottieView from 'lottie-react-native';
 import Text from '../../general/Text';
 import PropTypes from 'prop-types'; 
 
+/* Check the CompleteCourseSlider file in the screens folder for more info */
+
 export default function Certification({ courseObject }) {
 	Certification.propTypes = {
 		courseObject: PropTypes.object.isRequired,
