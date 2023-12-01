@@ -10,22 +10,22 @@ import PropTypes from 'prop-types';
  * @returns {JSX.Element} - The rendered component.
  */
 const SubscriptionCancel = ({ onPress }) => {
-  SubscriptionCancel.propTypes = {
-    onPress: PropTypes.func.isRequired,
-  };
+	SubscriptionCancel.propTypes = {
+		onPress: PropTypes.func.isRequired,
+	};
 
-  return (
-    <View className="py-4 self-center justify-end">
-      <Button
-        mode={'contained'}
-        color={tailwindConfig.theme.colors.error}
-        testID="subscriptionCancelButton"
-        onPress={onPress}
-      >
+	return (
+		<View className="py-4 self-center justify-end">
+			<Button
+				mode={'contained'}
+				color={tailwindConfig.theme.colors.error}
+				testID="subscriptionCancelButton"
+				onPress={onPress}
+			>
               Cancelar inscrição
-      </Button>
-    </View>
-  );
+			</Button>
+		</View>
+	);
 };
 
 export default SubscriptionCancel;
