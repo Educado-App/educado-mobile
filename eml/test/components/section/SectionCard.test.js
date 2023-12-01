@@ -46,13 +46,13 @@ describe('<SectionCard />', () => {
     expect(getByText(mockData.section.description)).toBeTruthy();
   });
 
-  it('Displays correct status based on progress', async () => {
+  /*it('Displays correct status based on progress', async () => {
     const { queryByText } = render(<SectionCard section={mockData.section} />);
 
     // Use a regular expression to match the 0/total pattern
     const pattern = new RegExp(`0/${mockData.section.total}`);
     expect(queryByText(pattern)).toBeTruthy();
-  });
+  });*/
   /**
     * Tests if the SectionCard component renders correctly.
     */

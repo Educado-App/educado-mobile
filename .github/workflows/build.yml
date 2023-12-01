@@ -81,6 +81,6 @@ jobs:
           
         run: expo login -u sofiiagran1 -p $PASSWORD
 
-      - name: Install dependencies and build using EAS
-        run: cd eml && npm run build
+      - name: Build using EAS
+        run: cd eml && eas build -p android --profile preview
     

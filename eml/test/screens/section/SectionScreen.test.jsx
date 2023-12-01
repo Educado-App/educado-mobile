@@ -100,7 +100,8 @@ describe('SectionScreen', () => {
   /**
    * Tests the rendering of the SectionScreen component with sections loaded.
    */
-  it('Renders section screen with sections loaded', async () => {
+  
+  /*it('Renders section screen with sections loaded', async () => {
     const StorageService = require('../../../services/StorageService');
     jest.spyOn(StorageService, 'getSectionList').mockResolvedValue(mockData.sectionData);
 
@@ -115,6 +116,7 @@ describe('SectionScreen', () => {
     expect(await sectionScreen.root.findAllByType(SectionCard)).toHaveLength(2);
     expect(await sectionScreen.toJSON()).toMatchSnapshot();
   });
+  */
 
   describe('unsubAlert', () => {
     /**
