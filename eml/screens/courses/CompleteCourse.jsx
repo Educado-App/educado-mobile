@@ -22,7 +22,7 @@ export default function CompleteCourseScreen() {
 
 	const navigation = useNavigation();
 	const route = useRoute();
-	const { courseObject } = route.params;
+	const { course } = route.params;
 
 	const handleIndexChange = (index) => {
 		currentSlide = index;
@@ -49,7 +49,7 @@ export default function CompleteCourseScreen() {
 						<CompleteCourseSlider 
 							onIndexChanged={handleIndexChange}
 							ref={completeCourseSliderRef}  
-							courseObject={courseObject}
+							courseObject={course}
 						/>
 					</View>
 
@@ -67,7 +67,7 @@ export default function CompleteCourseScreen() {
 	);
 }
 
-CompleteCourseScreen.propTypes = {
-	route: PropTypes.object,
+CompleteCourseScreen.propsTypes = {
+	course: PropTypes.object.isRequired,
 };
 

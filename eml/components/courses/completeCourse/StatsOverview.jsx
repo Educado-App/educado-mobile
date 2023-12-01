@@ -24,7 +24,7 @@ const StatsOverview = forwardRef(({ courseObject }, ref) => {
   
 	async function getPercentage() {
 		try {
-			const completedCourse = findCompletedCourse(await getStudentInfo(), courseObject.id);
+			const completedCourse = findCompletedCourse(await getStudentInfo(), courseObject.courseId);
 			let totalExercises = 0;
 			let totalExercisesWithFirstTry = 0;
   
@@ -50,10 +50,8 @@ const StatsOverview = forwardRef(({ courseObject }, ref) => {
 		}
 	}
 
-	const startAnimation = (index) => {
-		if (index === 1) {
-			circularProgressRef.current?.animate(percentage, 1250, Easing.quad);
-		}
+	const startAnimation = () => {
+		circularProgressRef.current?.animate(percentage, 1250, Easing.quad);
 	};
 
 	useImperativeHandle(ref, () => ({

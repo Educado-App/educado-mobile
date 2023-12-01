@@ -9,6 +9,7 @@ import AnimatedNumbers from '../../components/gamification/AnimatedNumber';
 import { generateSectionCompletePhrases } from '../../constants/Phrases';
 import { getStudentInfo } from '../../services/StorageService';
 import { findCompletedSection, isCourseCompleted } from '../../services/utilityFunctions';
+import PropTypes from 'prop-types';
 
 /* 
 Description: 	This screen is displayed when the student completes a section. 
@@ -20,6 +21,11 @@ Dependencies: 	Routes which in this case are the whole course object and the sec
 */
 
 export default function CompleteSectionScreen() {
+	CompleteSectionScreen.propsTypes = {
+		parsedCourse: PropTypes.object.isRequired,
+		sectionId: PropTypes.string.isRequired,
+	};
+
 	const route = useRoute();
 	const { parsedCourse, sectionId } = route.params;
 	const [points, setPoints] = useState(0);
