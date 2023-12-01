@@ -51,8 +51,7 @@ export const setStudentInfo = async (userId) => {
  * @returns {Promise<Object>} A promise that resolves with the fetched student information.
  */
 export const getStudentInfo = async () => {
-	const fetchedStudentInfo = JSON.parse(await AsyncStorage.getItem(STUDENT_INFO));
-	return fetchedStudentInfo;
+	return JSON.parse(await AsyncStorage.getItem(STUDENT_INFO));
 };
 
 export const updateStudentInfo = async (studentInfo) => {
@@ -64,8 +63,7 @@ export const updateStudentInfo = async (studentInfo) => {
  * @returns {Promise<string>} A promise that resolves with the fetched login token.
  */
 export const getLoginToken = async () => {
-	const fetchedToken = await AsyncStorage.getItem(LOGIN_TOKEN);
-	return fetchedToken;
+	return await AsyncStorage.getItem(LOGIN_TOKEN);
 };
 
 /**
@@ -92,7 +90,7 @@ export const setUserInfo = async (userInfo) => {
 		email: userInfo.email,
 	};
 	await AsyncStorage.setItem(USER_INFO, JSON.stringify(obj));
-	await AsyncStorage.setItem(USER_ID, userInfo.id); // needs to be seperate
+	await AsyncStorage.setItem(USER_ID, userInfo.id); // needs to be separate
 	await setStudentInfo(userInfo.id);
 };
 
@@ -128,9 +126,9 @@ export const getCourseList = async () => {
 			courseList = await api.getCourses();
 		} catch (error) {
 			if (error?.response?.data != null) {
-				throw new Error('API error in getCourses:', error.response.data);
+				throw new Error('API error in getCourses:' + error.response.data);
 			} else {
-				throw new Error('API error in getCourses:', error);
+				throw new Error('API error in getCourses:' + error);
 			}
 		} finally {
 			return await refreshCourseList(courseList);
@@ -169,9 +167,9 @@ const refreshCourseList = async (courseList) => {
 		return newCourseList;
 	} catch (error) {
 		if (error?.response?.data != null) {
-			throw new Error('API error in refreshCourseList:', error.response.data);
+			throw new Error('API error in refreshCourseList:' + error.response.data);
 		} else {
-			throw new Error('API error in refreshCourseList:', error);
+			throw new Error('API error in refreshCourseList:' + error);
 		}
 	}
 };
@@ -259,12 +257,12 @@ export const getSectionList = async (course_id) => {
 		// Use locally stored section if they exist and the DB cannot be reached
 		try {
 			sectionList = JSON.parse(await AsyncStorage.getItem('S' + course_id));
-			throw new Error('JSON parse error in getSectionList', error);
+			throw new Error('JSON parse error in getSectionList' + error);
 		} catch (e){
 			if (e?.response?.data != null) {
-				throw new Error('Error in getSectionList: ', e.response.data);
+				throw new Error('Error in getSectionList: ' + e.response.data);
 			} else {
-				throw new Error('Error in getSectionList: ', e);
+				throw new Error('Error in getSectionList: ' + e);
 			}
 		}
 	} finally {
@@ -296,9 +294,9 @@ export const refreshSectionList = async (sectionList) => {
 		}
 	} catch (error) {
 		if (error?.response?.data != null) {
-			throw new Error('Error in refreshSectionList: ', error.response.data);
+			throw new Error('Error in refreshSectionList: ' + error.response.data);
 		} else {
-			throw new Error('Error in refreshSectionList: ', error);
+			throw new Error('Error in refreshSectionList: ' + error);
 		}
 	} finally {
 		//Returns new fitted section list, or empty list if there was no data fetched from DB or Storage,
@@ -326,13 +324,13 @@ export const getComponentList = async (sectionID) => {
 		// Use locally stored components if they exist and the DB cannot be reached
 		try {
 			if ((componentList = JSON.parse(await AsyncStorage.getItem('C' + sectionID))) === null){
-				throw new Error('JSON parse error in getComponentsList', error);
+				throw new Error('JSON parse error in getComponentsList ' + error);
 			}
 		} catch (e) {
 			if (e?.response?.data != null) {
-				throw new Error('Error in getComponentsList: ', e.response.data);
+				throw new Error('Error in getComponentsList: ' + e.response.data);
 			} else {
-				throw new Error('Error in getComponentsList: ', e);
+				throw new Error('Error in getComponentsList: ' + e);
 			}
 		}
 	} finally {
@@ -359,13 +357,13 @@ export const fetchLectureImage = async (imageID, lectureID) => {
 		// Use locally stored lectures if they exist and the DB cannot be reached
 		try {
 			if((image = JSON.parse(await AsyncStorage.getItem('I' + lectureID))) === null){
-				throw new Error('JSON parse error in fetchLectureImage', error);
+				throw new Error('JSON parse error in fetchLectureImage ' + error);
 			}
 		} catch (e){
 			if (e?.response?.data != null) {
-				throw new Error('Error in fetchLectureImage: ', e.response.data);
+				throw new Error('Error in fetchLectureImage: ' + e.response.data);
 			} else {
-				throw new Error('Error in fetchLectureImage: ', e);
+				throw new Error('Error in fetchLectureImage: ' + e);
 			}
 		}
 	} finally {
@@ -396,9 +394,9 @@ export const getVideoURL = async (videoName, resolution) => {
 			videoUrl = await FileSystem.readAsStringAsync(lectureVideoPath + videoName + '.json');
 		} catch (e){
 			if (e?.response?.data != null) {
-				throw new Error('Error in getVideoURL: ', e.response.data);
+				throw new Error('Error in getVideoURL: ' + e.response.data);
 			} else {
-				throw new Error('Error in getVideoURL: ', e);
+				throw new Error('Error in getVideoURL: ' + e);
 			}
 		}
 	} finally {
@@ -473,9 +471,9 @@ export const refreshSubCourseList = async (userId) => {
 		})
 		.catch((error) => {
 			if (error?.response?.data != null) {
-				throw new Error('API error in refreshSubCourseList:', error.response.data);
+				throw new Error('API error in refreshSubCourseList:' + error.response.data);
 			} else {
-				throw new Error('API error in refreshSubCourseList:', error);
+				throw new Error('API error in refreshSubCourseList:' + error);
 			}
 		});
 };

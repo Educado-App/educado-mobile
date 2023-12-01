@@ -39,7 +39,7 @@ module.exports = {
 		'**/*.test.js', '**/*.test.jsX', '**/*.spec.js', '**/*.spec.jsx', '**/*.config.js', 'jestSetup.js',
 	],
 	'rules': {
-		'indent': ['error', 'tab'],
+		'indent': ['error', 'tab'], // Use tabs for indentation, it is set to two spaces
 		'quotes': ['error', 'single'], // Specify single quotes
 		'semi': ['error', 'always'], // Require semicolons
 		'no-unsafe-finally': 'off', // Disable no-unsafe-finally rule

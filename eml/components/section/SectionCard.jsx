@@ -11,6 +11,7 @@ import PropTypes from 'prop-types';
  * A component that displays a section card with collapsible content.
  * @param {Object} section - The section object containing the section data.
  * @param {Object} course - The course object containing the course data.
+ * @param {Number} progress - The progress containing the student's progress.
  * @returns {JSX.Element} - The SectionCard component.
  */
 export default function SectionCard({ section, course, progress }) {

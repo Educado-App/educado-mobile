@@ -37,16 +37,15 @@ export default function CourseCard({ course, isOnline}) {
 
 	const layout = downloaded || isOnline ? enabledUI : disabledUI;
 
-	let isDisabled = layout === disabledUI ? true : false;
+	let isDisabled = layout === disabledUI;
 
 	return (
 		<Pressable testID="courseCard"
 			className={layout}
-			onPress={() => {
-				layout === enabledUI ?
-					navigation.navigate('Section', {
-						course: course,
-					}) : null;
+			onPress={() => { layout === enabledUI ?
+				navigation.navigate('Section', {
+					course: course,
+				}) : null;
 			}}
 		>
 			<View>
@@ -55,7 +54,7 @@ export default function CourseCard({ course, isOnline}) {
 						{course.title ? course.title : 'Título do curso'}
 					</Text>
 					<View className="flex-2 pr-6">
-						<DownloadCourseButton course={course} disabled={isDisabled} />
+						<DownloadCourseButton course={course} disabled={isDisabled}/>
 					</View>
 				</View>
 				<View className="h-[1] bg-disable m-[2%]" />
@@ -72,11 +71,10 @@ export default function CourseCard({ course, isOnline}) {
 				<View className="flex-row items-center">
 					<CustomProgressBar width={56} progress={studentProgress} height={1} />
 					<Pressable className="z-[1]"
-						onPress={() => {
-							layout === enabledUI ?
-								navigation.navigate('Section', {
-									course: course,
-								}) : null;
+						onPress={() => {layout === enabledUI ?
+							navigation.navigate('Section', {
+								course: course,
+							}) : null;
 						}}
 					>
 						<MaterialCommunityIcons size={28} name="play-circle" color={tailwindConfig.theme.colors.primary}></MaterialCommunityIcons>
@@ -92,6 +90,6 @@ CourseCard.propTypes = {
 		PropTypes.object,
 		PropTypes.array,
 	]),
-	isOnline: PropTypes.bool,
+	isOnline: PropTypes.bool
 };
 
