@@ -45,7 +45,7 @@ export default function WelcomeScreen() {
 
 						<View className="mt-6">
 							<TouchableOpacity 
-								onPress={() => { navigation.navigate('LoginStack', { initialRoute: 'Register' }); }}
+								onPress={() => { navigation.navigate('Register', { initialRoute: 'Register' }); }}
 							>
 								<Text className="text-center font-sans-bold text-body underline">Cadastrer</Text>
 							</TouchableOpacity>
