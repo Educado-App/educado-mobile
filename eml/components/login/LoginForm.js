@@ -1,194 +1,162 @@
-import React, {useState} from 'react';
-import {Dimensions, Pressable, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, Alert} from "react-native";
-import {useNavigation} from "@react-navigation/native";
-import {loginUser} from "../../api/userApi";
-import AsyncStorage from '@react-native-async-storage/async-storage'
-
-const LOGIN_TOKEN = '@loginToken';
-const USER_INFO = '@userInfo';
-
-//When Logout: back button should be disabled!!!!
-
-export default function LoginForm(props) {
-
-    const navigation = useNavigation();
-
-    const [phoneNumber, setPhoneNumber] = useState('');
-    const [password, setPassword] = useState('');
-
-    async function login (phoneNumber, password) {
-
-        //clearing input
-        setPhoneNumber('');
-        setPassword('');
-
-        //The Object must be hashed before it is sent to backend (before loginUser() is called)
-        //The Input must be conditioned (at least one capital letter, minimum 8 letters and a number etc.)
-        const obj = {
-            phone: phoneNumber,
-            password: password
-        };
-
-        try{
-            await loginUser(obj)
-                .then((response) => {
-                    AsyncStorage.setItem(LOGIN_TOKEN, response.data.accessToken);
-                    console.log(response);
-                    navigation.navigate('HomeStack');
-                })
-                .catch(error => {
-
-                    switch (error.message){
-
-                        case "Request failed with status code 404":
-                            //Wrong Phone Number
-                            showAlert("Número de telefone errado!")
-                            break;
-
-                        case "Request failed with status code 400":
-                            //Wrong Password
-                            showAlert("Senha incorreta!")
-                            break;
-
-                        default: console.log(error);
-                    }
-                });
-        }
-        catch (e){
-            console.log(e);
-        }
-
-    }
-
-    const showAlert = (error) =>
-        Alert.alert(
-            error,
-            //Try again
-            "Tente novamente",
-            [
-                {
-                    //OK
-                    text: "Certo",
-                    style: "cancel",
-                },
-            ],
-            {
-                cancelable: true,
-            }
-        );
+import React, { useState } from 'react';
+import { View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { loginUser } from '../../api/userApi';
+import FormTextField from '../general/forms/FormTextField';
+import FormButton from '../general/forms/FormButton';
+import PasswordEye from '../general/forms/PasswordEye';
+import ResetPassword from './ResetPassword';
+import FormFieldAlert from '../general/forms/FormFieldAlert';
+import { removeEmojis } from '../general/Validation';
+import Text from '../general/Text';
+import ShowAlert from '../general/ShowAlert';
 
 
-    return (
-        <View style ={styles.container}>
-            <View style ={StyleSheet.absoluteFill}>
-                <View>
-                    <Text style={styles.textLogoContainer}>Educado</Text>
-                </View>
-            </View>
-            <View style={styles.bottomContainer}>
-                <View style={styles.formInputContainer}>
-                    <TextInput style={styles.textInput}
-                        //Phone Number
-                        placeholder="Número de telefone"
-                        placeholderTextColor="green"
-                        keyboardType={"phone-pad"}
-                        onChangeText={phoneNumber => setPhoneNumber(phoneNumber)}
-                        value={phoneNumber}
-                    />
-                    <TextInput
-                        style={styles.textInput}
-                        //Password
-                        placeholder="Senha"
-                        placeholderTextColor="green"
-                        secureTextEntry={true}
-                        onChangeText={password => setPassword(password)}
-                        value={password}
-                    />
-                    <Pressable style={({ pressed }) => [
-                        { opacity: pressed ? 0.5 : 1.0 }
-                    ]} onPressOut={()=>{
-                        login(phoneNumber, password);
-                    }}>
-                        <View style={styles.formButton}>
-                            {/* Login */}
-                            <Text style={styles.buttonText}>Conecte-se</Text>
-                        </View>
-                    </Pressable>
-                </View>
-            </View>
-        </View>
-    );
+// Services
+import { setUserInfo, setJWT } from '../../services/StorageService';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+/**
+ * Login form component for login screen containing email and password input fields and a login button.
+ * @returns {React.Element} Component for logging in (login screen)
+ */
+export default function LoginForm() {
+
+	const navigation = useNavigation();
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+	const [modalVisible, setModalVisible] = useState(false);
+	const [passwordAlert, setPasswordAlert] = useState('');
+	const [emailAlert, setEmailAlert] = useState('');
+	// State variable to track password visibility
+	const [showPassword, setShowPassword] = useState(false);
+
+	/**
+   * Logs user in with the entered credentials 
+   * @param {String} email Email user tries to login with
+   * @param {String} password Password user tries to login with
+   */
+	async function login(email, password) {
+
+		//Reset alerts
+		setEmailAlert('');
+		setPasswordAlert('');
+
+		//The Object must be hashed before it is sent to backend (before loginUser() is called)
+		//The Input must be conditioned (at least one capital letter, minimum 8 letters and a number etc.)
+		const obj = {
+			email: email,
+			password: password,
+		};
+
+
+		// Await the response from the backend API for login
+		await loginUser(obj).then(async (response) => {
+			// Set login token in AsyncStorage and navigate to home screen
+			await setJWT(response.accessToken);
+			await setUserInfo(response.userInfo);
+			await AsyncStorage.setItem('loggedIn', 'true');
+			navigation.navigate('HomeStack');
+		}).catch((error) => {
+			switch (error?.error?.code) {
+			case 'E0004':
+				// No user exists with this email!
+				setEmailAlert('Não existe nenhum usuário com este email!');
+				break;
+
+			case 'E0105':
+				// Password is incorrect!
+				setPasswordAlert('Senha incorreta!');
+				break;
+
+			case 'E0003':
+				// Error connecting to server!
+				ShowAlert('Erro de conexão com o servidor!');
+				break;
+
+				// TODO: What error should we give here instead? Unknown error? 
+			default: // Errors not currently handled with specific alerts
+				ShowAlert('Erro desconhecido!');
+			}
+		});
+	}
+
+
+	// Function to close the reset password modal
+	const closeModal = () => {
+		setModalVisible(false);
+	};
+
+
+	// Function to toggle the password visibility state
+	const toggleShowPassword = () => {
+		setShowPassword(!showPassword);
+	};
+
+	return (
+		<View>
+			<View className="mb-6">
+				<FormTextField
+					testId="emailInput"
+					placeholder="Insira sua e-mail"
+					onChangeText={(email) => setEmail(email)}
+					label="E-mail"
+					required={true}
+					keyboardType="email-address"
+				/>
+				<FormFieldAlert testId="emailAlert" label={emailAlert} />
+			</View>
+
+
+			<View className="relative mb-6">
+				<FormTextField
+					testId="passwordInput"
+					placeholder="Insira sua senha" // Type your password
+					value={password}
+					onChangeText={(inputPassword) => {
+						setPassword(removeEmojis(inputPassword, password));
+					}}
+					label="Senha" // Password
+					required={true}
+					secureTextEntry={!showPassword}
+				/>
+				<PasswordEye
+					testId="passwordEye"
+					showPasswordIcon={showPassword}
+					toggleShowPassword={toggleShowPassword}
+				/>
+				<FormFieldAlert testId="passwordAlert" label={passwordAlert} />
+			</View>
+
+			<View>
+				{/* TODO: tilføj onPress til nedenstående; reset password */}
+				<Text
+					className={'text-right underline text-base text-projectBlack mb-15'}
+					onPress={() => setModalVisible(true)}
+				>
+					{/* reset your password? */}
+          Esqueceu a senha?
+				</Text>
+			</View>
+			{/* Enter */}
+			<FormButton
+				testId="loginButton"
+				onPress={() => login(email, password)}
+				disabled={!(password.length > 0 && email.length > 0)}
+				className='mt-4'
+			>
+        Entrar
+			</FormButton>
+			<View className="pt-10">
+				<ResetPassword
+					className={(!modalVisible ? 'hidden' : '')}
+					modalVisible={modalVisible}
+					onModalClose={closeModal}
+					testId="resetPasswordModal"
+					// Reset password
+					title="Redefinir senha"
+				/>
+			</View>
+		</View>
+	);
 }
-
-const styles = StyleSheet.create({
-        container: {
-            flex: 1,
-            justifyContent : 'flex-start',
-        },
-        button: {
-            backgroundColor : 'rgba(123,104,238,0.8)',
-            height : 55,
-            alignItems : 'center',
-            justifyContent : 'center',
-            borderRadius: 35,
-            marginHorizontal : 20,
-            marginVertical: 10,
-            borderWidth: 1,
-            borderColor: 'white'
-        },
-        buttonText:{
-            fontSize: 20,
-            fontWeight: '600',
-            color: 'black',
-            letterSpacing: 0.5
-
-        },
-        bottomContainer:{
-            marginVertical: '75%',
-            justifyContent: 'center',
-            height: '33%',
-        },
-        textInput: {
-            height: 50,
-            borderWidth: 1,
-            borderColor: 'rgba(0,0,0, 0.2)',
-            marginHorizontal: 20,
-            marginVertical: 10,
-            borderRadius: 25,
-            paddingLeft: 10
-        },
-        formButton: {
-            backgroundColor : 'white',
-            height : 55,
-            alignItems : 'center',
-            justifyContent : 'center',
-            borderRadius: 35,
-            marginHorizontal : 20,
-            marginVertical: 10,
-            borderWidth: 1,
-            borderColor: 'white',
-            shadowColor: "#000",
-            shadowOffset: {
-                width: 0,
-                height: 4,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 3.84,
-            elevation: 5,
-
-        },
-        formInputContainer:{
-            marginBottom: 70
-        },
-        textLogoContainer: {
-            marginHorizontal : '33%',
-            marginVertical: '33%',
-            fontSize: 35,
-            fontWeight: '400',
-            color: 'green',
-            letterSpacing: 0.5,
-            height: 50,
-            width: 1000,
-            justifyContent: 'center'
-        }
-});

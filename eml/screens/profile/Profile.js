@@ -1,62 +1,96 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import {
-  StyleSheet,
-  View,
-  SafeAreaView,
-  Platform,
-  ScrollView
-} from 'react-native'
-import AddFriendButton from '../../components/profile/addFriendButton'
-import ProfileImage from '../../components/profile/profileImage'
-import ProfileName from '../../components/profile/profileName'
-import ProfileSettings from '../../components/profile/profileSettings'
-import LogOutButton from '../../components/profile/LogOutButton'
-import DeleteAccount from '../../components/profile/deleteAccount'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+	View,
+	SafeAreaView,
+	ScrollView,
+} from 'react-native';
+import LogOutButton from '../../components/profile/LogOutButton';
+import ProfileNavigationButton from '../../components/profile/ProfileNavigationButton.js';
+import UserInfo from '../../components/profile/UserInfo';
+import { useNavigation } from '@react-navigation/native';
+import { getUserInfo } from '../../services/StorageService';
+import errorSwitch from '../../components/general/errorSwitch';
+import ShowAlert from '../../components/general/ShowAlert';
+import { getStudentInfo } from '../../services/StorageService';
+import ProfileStatsBox from '../../components/profile/ProfileStatsBox';
 
-const USER_INFO = '@userInfo'
-
+/**
+ * Profile screen
+ * @returns {React.Element} Component for the profile screen
+ */
 export default function ProfileComponent() {
-  const [id, setId] = useState('')
-  const [userName, setUserName] = useState('')
-  const [phoneNumber, setPhoneNumber] = useState('')
+	const [firstName, setFirstName] = useState('');
+	const [lastName, setLastName] = useState('');
+	const [email, setEmail] = useState('');
+	const navigation = useNavigation();
+	const [studentLevel, setStudentLevel] = useState(0);
+	const [levelProgress, setLevelProgress] = useState(0);
+	const [totalPoints, setTotalPoints] = useState(0);
 
-  const getProfile = async () => {
-    try {
-      const fetchedProfile = JSON.parse(await AsyncStorage.getItem(USER_INFO))
+	useEffect(() => {
+		const getInfo = navigation.addListener('focus', () => {
+			getProfile();
+		});
+		return getInfo;
+	}, [navigation]);
 
-      if (fetchedProfile !== null) {
-        setId(fetchedProfile.id)
-        setUserName(fetchedProfile.userName)
-        setPhoneNumber(fetchedProfile.phoneNumber)
-      }
-    } catch (e) {
-      console.log(e)
-    }
-  }
+	const getLevelProgress = (student) => {
+		const pointsForPreviousLevel = (student.level - 1) * 100;
+		const pointsForNextLevel = student.level * 100;
 
-  useEffect(() => {
-    getProfile()
-  }, [])
+		return ((student.points - pointsForPreviousLevel)/(pointsForNextLevel - pointsForPreviousLevel)) * 100;
+	};
 
-  return (
-    <SafeAreaView className="bg-babyBlue">
-      <ScrollView>
-        <View className="flex-1 flex-col justify-center h-screen">
-          <ProfileName Name={userName} PhoneNumber={phoneNumber}></ProfileName>
-          <LogOutButton></LogOutButton>
-          <DeleteAccount></DeleteAccount>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  )
+	/**
+  * Fetches the user's profile from local storage
+  */ 
+	const getProfile = async () => {
+		try {
+			const fetchedProfile = await getUserInfo();
+			const fetchedStudent = await getStudentInfo();
+			if (fetchedProfile !== null) {
+				setFirstName(fetchedProfile.firstName);
+				setLastName(fetchedProfile.lastName);
+				setEmail(fetchedProfile.email);
+			} else if (fetchedStudent !== null) {
+				setStudentLevel(fetchedStudent.level);
+				setTotalPoints(fetchedStudent.points);
+				setLevelProgress(getLevelProgress(fetchedStudent));
+			}
+		} catch (error) {
+			ShowAlert(errorSwitch(error));
+		}
+	};
+
+	useEffect(() => {
+		getProfile();
+	}, []);
+
+	const fetchStudentProfile = async () => {
+		const studentInfo = await getStudentInfo();
+		setStudentLevel(studentInfo.level);
+		setTotalPoints(studentInfo.points);
+		setLevelProgress(getLevelProgress(studentInfo));
+	};
+  
+	useEffect(() => {
+		fetchStudentProfile();
+	}, []);
+
+	return (
+		<SafeAreaView className='bg-secondary'>
+			<ScrollView className='flex flex-col'>
+				<View className="flex-1 justify-start pt-[20%] h-screen">
+					<UserInfo firstName={firstName} lastName={lastName} email={email} points={totalPoints}></UserInfo>
+					<ProfileStatsBox studentLevel={studentLevel} levelProgress={levelProgress} />
+					<ProfileNavigationButton label='Editar perfil' testId={'editProfileNav'} onPress={() => navigation.navigate('EditProfile')}></ProfileNavigationButton>
+					<ProfileNavigationButton label='Certificados' onPress={() => navigation.navigate('CertificateStack')}></ProfileNavigationButton>
+					<ProfileNavigationButton label='Download'></ProfileNavigationButton>
+					<View className='flex flex-row pb-4'>
+						<LogOutButton testID='logoutBtn'></LogOutButton>
+					</View>
+				</View>
+			</ScrollView>
+		</SafeAreaView>
+	);
 }
-
-const styles = StyleSheet.create({
-  settings: {
-    textAlign: 'right'
-  },
-  container: {
-    paddingTop: Platform.OS === 'android' ? 25 : 0
-  }
-})

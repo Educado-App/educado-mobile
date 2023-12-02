@@ -1,272 +1,332 @@
-import React, {useState} from "react";
-import {Alert, Dimensions, Pressable, StyleSheet, Text, TextInput, View} from "react-native";
-import {useNavigation} from "@react-navigation/native";
-import {loginUser, registerUser} from "../../api/userApi";
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import PasswordStrengthMeter from "./PasswordStrengthMeter";
+import React, { useEffect, useState } from 'react';
+import { View } from 'react-native';
+import { loginUser, registerUser } from '../../api/userApi';
+import FormTextField from '../general/forms/FormTextField';
+import FormButton from '../general/forms/FormButton';
+import PasswordEye from '../general/forms/PasswordEye';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import ShowAlert from '../general/ShowAlert';
+import FormFieldAlert from '../general/forms/FormFieldAlert';
+import { removeEmojis, validatePasswordContainsLetter, validatePasswordLength, validateEmail, validateName } from '../general/Validation';
+import Text from '../general/Text';
+import errorSwitch from '../general/errorSwitch';
+import { useNavigation } from '@react-navigation/native';
+import DialogNotification from '../general/DialogNotification';
+import { AlertNotificationRoot } from 'react-native-alert-notification';
+import tailwindConfig from '../../tailwind.config';
+import { setUserInfo, setJWT } from '../../services/StorageService';
 
-const USER_INFO = '@userInfo';
-const LOGIN_TOKEN = '@loginToken';
+/**
+ * Component for registering a new account in the system, used in the register screen
+ * @returns {React.Element} Component containing the form for registering a new user
+ */
 
-const {height} = Dimensions.get('window');
+export default function RegisterForm() {
 
-export default function LoginForm(props) {
+	const tailwindColors = tailwindConfig.theme.colors;
 
-    const navigation = useNavigation();
+	const navigation = useNavigation();
+	const [firstName, setFirstName] = useState('');
+	const [lastName, setLastName] = useState('');
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+	const [confirmPassword, setConfirmPassword] = useState('');
 
-    const [userName, setUserName] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
-    const [password, setPassword] = useState('');
+	const [emailAlert, setEmailAlert] = useState('');
+	const [nameAlert, setNameAlert] = useState('');
+	const [isAllInputValid, setIsAllInputValid] = useState(false);
+	const [confirmPasswordAlert, setConfirmPasswordAlert] = useState('');
 
-    async function register (phoneNumber, password) {
+	// State variable to track password visibility
+	const [showPassword, setShowPassword] = useState(false);
+	const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-        // clearing input
-        setPhoneNumber('');
-        setPassword('');
+	// Password Constraint variables
+	const [passwordContainsLetter, setPasswordContainsLetter] = useState(false);
+	const [passwordLengthValid, setPasswordLengthValid] = useState(false);
 
-        const obj = {
-            phone: phoneNumber,
-            password: password
-        };
+	useEffect(() => {
+		// Clear input and alerts on first render
+		setFirstName('');
+		setLastName('');
+		setEmail('');
+		setPassword('');
+		setConfirmPassword('');
 
-        try {
-            await registerUser(obj)
-                .then(async function (response) {
+		setNameAlert('');
+		setEmailAlert('');
+		setIsAllInputValid(false);
+		setConfirmPasswordAlert('');
+	}, []);
 
-                    console.log(response);
+	useEffect(() => {
+		const containsLetter = validatePasswordContainsLetter(password);
+		setPasswordContainsLetter(containsLetter);
+		const lengthValid = validatePasswordLength(password);
+		setPasswordLengthValid(lengthValid);
+		checkIfPasswordsMatch(password, confirmPassword);
+	}, [password]);
 
-                    try{
-                        await loginUser(obj)
-                            .then(function (response) {
+	useEffect(() => {
+		checkIfPasswordsMatch(password, confirmPassword);
+	}, [confirmPassword]);
 
-                                AsyncStorage.setItem(LOGIN_TOKEN, response.data.accessToken);
-                                console.log(response);
-                                navigation.navigate('HomeStack');
+	useEffect(() => {
+		let validationError = '';
+		if (firstName !== '') {
+			validationError = validateName(firstName, 'Nome'); // First name
+		}
+		if (validationError === '' && lastName !== '') {
+			validationError = validateName(lastName, 'Sobrenome'); // Last name
+		}
 
-                            })
-                            .catch(error => {
+		setNameAlert(validationError);
+	}, [firstName, lastName]);
 
-                                switch (error.message) {
+	useEffect(() => {
+		if (email === '') {
+			setEmailAlert('');
+			return;
+		}
 
-                                    case "Request failed with status code 404":
-                                        // Wrong Phone Number
-                                        console.log("Número de telefone errado!");
-                                        break;
+		const validationError = validateEmail(email);
+		setEmailAlert(validationError);
+	}, [email]);
 
-                                    case "Request failed with status code 400":
-                                        //Wrong Password
-                                        console.log("Senha incorreta!");
-                                        break;
+	useEffect(() => {
+		validateInput();
+	}, [nameAlert, emailAlert, passwordLengthValid, passwordContainsLetter, confirmPasswordAlert]);
 
-                                    default:
-                                        console.log(error);
-                                }
-                            });
-                    }
-                    catch (e) {
-                        console.log(e);
-                    }
+	// Functions to toggle password visibility states
+	const toggleShowPassword = () => {
+		setShowPassword(!showPassword);
+	};
 
-                    await createProfile(response._id, userName, phoneNumber);
+	const toggleShowConfirmPassword = () => {
+		setShowConfirmPassword(!showConfirmPassword);
+	};
 
-                })
-                .catch(error => {
+	const checkIfPasswordsMatch = (password, confirmPassword) => {
+		if (password === confirmPassword) {
+			setConfirmPasswordAlert('');
+		} else {
+			// The passwords do not match
+			setConfirmPasswordAlert('Os campos de senha precisam ser iguais');
+		}
+	};
 
-                    console.log(error);
-                    switch (error.message){
+	// TODO: This function should take into consideration
+	// that alerts might be empty when input is yet to be given
+	/**
+   * Function for validating all input fields' content
+   */
+	function validateInput() {
+		const validationPassed = (
+			nameAlert === '' &&
+      emailAlert === '' &&
+      firstName != '' &&
+      lastName != '' &&
+      email != '' &&
+      passwordLengthValid &&
+      passwordContainsLetter &&
+      confirmPasswordAlert === ''
+		);
 
-                        case "Request failed with status code 500":
-                            // Phone Number already exists
-                            showAlert("Número de telefone já existe!");
-                            break;
+		setIsAllInputValid(validationPassed);
+	}
 
-                        default: console.log(error);
-                    }
-                });
-        }
-        catch (e){
-            console.log(e);
-        }
-    }
+	/**
+   * Function for registering a new user in the database
+   * @param {String} firstName 
+   * @param {String} lastName
+   * @param {String} email 
+   * @param {String} password
+   */
+	async function register() {
+
+		validateInput(firstName, email, password);
+
+		if (!isAllInputValid) {
+			return;
+		}
+
+		const obj = {
+			firstName: firstName,
+			lastName: lastName,
+			email: email,
+			password: password,
+		};
+
+		try {
+			await registerUser(obj)
+				.then(async function (response) {
+					// Save user info in storage
+					// TODO: Refactor backend to get the same response as on login
+					const userInfo = {
+						id: response.baseUser._id,
+						...response.baseUser,
+					};
+					await setUserInfo(userInfo);
+				}).then(async function () {
+					// logs in the user, if no errors occur, navigates to home screen and sets token
+					await loginFromRegister(obj);
+				})
+				.catch((error) => {
+					ShowAlert(errorSwitch(error));
+				});
+		} catch (e) {
+			console.log(e);
+		}
+	}
+
+	/**
+ * function to log in the user and set the login token, meant to be called after registering
+ * @param {Object} obj the object containing the following fields:
+ *  firstName: String
+ *  lastName: String
+ *  email: String
+ */
+	async function loginFromRegister(obj) {
+		try {
+			await loginUser(obj).then((response) => {
+				setJWT(response.accessToken);
+				DialogNotification('success', 'Usuário cadastrado! Cantando em...');
+				setTimeout(() => {
+					navigation.navigate('HomeStack');
+				}, 2500);
+			}).catch((error) => {
+				console.log(error);
+			});
+		} catch (e) {
+			console.log(e);
+		}
+	}
 
 
-    async function createProfile (id, userName, phoneNumber){
+	return (
+		<View>
+			<AlertNotificationRoot>
+				<View className="mb-6">
+					<FormTextField
+						label="Nome" // first name
+						name={'Nome'}
+						value={firstName}
+						testId="firstNameInput"
+						placeholder="Nome"
+						required={true}
+						onChangeText={(firstName) => {
+							setFirstName(firstName);
+						}}
+					/>
+				</View>
+				<View className="mb-6">
+					<FormTextField
+						label="Sobrenome" // Last name
+						name={'Sobrenome'}
+						value={lastName}
+						testId="lastNameInput"
+						placeholder="Sobrenome"
 
-        try {
-            const obj = {
-                id: id,
-                userName: userName,
-                phoneNumber: phoneNumber,
-            }
+						required={true}
+						onChangeText={(lastName) => {
+							setLastName(lastName);
+						}}
+					/>
+					<FormFieldAlert label={nameAlert} />
+				</View>
+				<View className="mb-6">
+					<FormTextField
+						className="mb-6"
+						label="E-mail"
+						name={'E-mail'}
+						testId="emailInput"
+						value={email}
+						placeholder="Insira sua e-mail"
+						keyboardType="email-address"
+						required={true}
+						onChangeText={async (email) => { setEmail(email); validateEmail(email); }}
+					/>
+					<FormFieldAlert label={emailAlert} testId="emailAlert" />
+				</View>
+				<View className="mb-6">
+					<View className="relative">
+						<FormTextField
+							label="Senha" //Password
+							name={'Senha'}
+							testId="passwordInput"
+							value={password}
+							placeholder="Insira sua senha" // Enter your password
+							placeholderTextColor={tailwindColors.projectGray}
+							secureTextEntry={!showPassword}
+							required={true}
+							onChangeText={(inputPassword) => {
+								setPassword(removeEmojis(inputPassword, password));
 
-            await AsyncStorage.setItem(USER_INFO, JSON.stringify(obj));
-        }
-        catch (e){
-            console.log(e);
-        }
+							}}
+						/>
+						<PasswordEye
+							testId="passwordEye"
+							showPasswordIcon={showPassword}
+							toggleShowPassword={toggleShowPassword}
+						/>
+					</View>
 
-    }
+					<View className="flex-row justify-start mt-1 h-6">
+						<Text testId="passwordLengthAlert" className={'text-xs' + ((passwordLengthValid || !password) ? ' text-projectGray' : ' text-error')}>
+							{/* Minimum 8 characters */}
+              • Mínimo 8 caracteres
+						</Text>
+						<View className="flex-row items-center -translate-y-1">
+							{passwordLengthValid ? (
+								<MaterialCommunityIcons name="check" size={20} color={tailwindColors.success} />
+							) : null}
+						</View>
+					</View>
+					<View className="flex-row justify-start h-6">
+						<Text testId="passwordLetterAlert" className={'text-xs font-sans' + ((passwordContainsLetter || !password) ? ' text-projectGray' : ' text-error')}>
+							{/* Must contain at least one letter */}
+              • Conter pelo menos uma letra
+						</Text>
+						<View className="flex-row items-center -translate-y-1">
+							{passwordContainsLetter ? (
+								<MaterialCommunityIcons name="check" size={20} color={tailwindColors.success} />
+							) : null}
+						</View>
+					</View>
+				</View>
+				<View className="mb-2">
+					<View className="relative">
+						<FormTextField
+							label="Confirmar senha" // Confirm password
+							value={confirmPassword}
+							testId="confirmPasswordInput"
+							onChangeText={(inputConfirmPassword) => {
+								setConfirmPassword(removeEmojis(inputConfirmPassword, confirmPassword));
+							}}
 
-    const passwordObj = {
-        passwordStrength : password
-    };
-
-    const showAlert = (error) =>
-        Alert.alert(
-            error,
-            //Try again
-            "Tente novamente",
-
-            [
-                {
-                    //OK
-                    text: "Certo",
-                    style: "cancel",
-                },
-            ],
-            {
-                cancelable: true,
-            }
-        );
-
-    return (
-        <View style ={styles.container}>
-            <View style ={StyleSheet.absoluteFill}>
-                <View>
-                    {/* Register user */}
-                    <Text style={styles.textLogoContainer}>Registrar usuário</Text>
-                </View>
-            </View>
-            <View style={styles.bottomContainer}>
-                <View style={styles.formInputContainer}>
-
-                    <TextInput style={styles.textInput}
-                               name={"userName"}
-                               value={userName}
-                               //Username
-                               placeholder="Nome do usuário"
-                               placeholderTextColor="green"
-                               onChangeText={userName => setUserName(userName)}
-                    />
-
-                    <TextInput style={styles.textInput}
-                               name={"phone"}
-                               value={phoneNumber}
-                               //Phone Number
-                               placeholder="Número de telefone"
-                               placeholderTextColor="green"
-                               keyboardType={"phone-pad"}
-                               onChangeText={phoneNumber => setPhoneNumber(phoneNumber)}
-
-                    />
-                    <TextInput
-                        style={styles.textInput}
-                        name={"password"}
-                        value={password}
-                        //Password
-                        placeholder="Senha"
-                        placeholderTextColor="green"
-                        secureTextEntry={true}
-                        onChangeText={password => setPassword(password)}
-                    />
-                    <View>
-                        <PasswordStrengthMeter passwordObj={passwordObj}/>
-                    </View>
-                    <Pressable style={({ pressed }) => [
-                        { opacity: pressed ? 0.5 : 1.0 }
-                    ]} onPress={()=>{
-                        register(phoneNumber, password);
-                    }}>
-                        <View style={styles.formButton}>
-                            {/* Register */}
-                            <Text style={styles.buttonText}>Registro</Text>
-                        </View>
-                    </Pressable>
-                    <Pressable style={({ pressed }) => [
-                        { opacity: pressed ? 0.5 : 1.0 }
-                    ]} onPress={()=>{
-                        navigation.navigate("Login");
-                    }}>
-                        <View style={styles.formButton}>
-                            {/* Go to Login */}
-                            <Text style={styles.buttonText}>Ir para Entrar</Text>
-                        </View>
-                    </Pressable>
-                </View>
-            </View>
-        </View>
-    );
+							placeholder="Confirme sua senha" // Confirm your password
+							secureTextEntry={!showConfirmPassword}
+							required={true}
+						/>
+						<PasswordEye
+							testId="confirmPasswordEye"
+							showPasswordIcon={showConfirmPassword}
+							toggleShowPassword={toggleShowConfirmPassword}
+						/>
+					</View>
+					<FormFieldAlert label={confirmPasswordAlert} />
+				</View>
+				{/* Register */}
+				<View className="my-2">
+					<FormButton
+						onPress={() => register(firstName, lastName, email, password)}
+						testId="registerButton"
+						disabled={!isAllInputValid}
+					>
+            Cadastrar
+					</FormButton>
+				</View>
+			</AlertNotificationRoot>
+		</View>
+	);
 }
-
-const styles = StyleSheet.create({
-
-    container: {
-        flex: 1,
-        justifyContent : 'flex-start',
-        backgroundColor: 'rgba(86, 255, 131, 0.6)'
-    },
-    button: {
-        backgroundColor : 'rgba(123,104,238,0.8)',
-        height : 55,
-        alignItems : 'center',
-        justifyContent : 'center',
-        borderRadius: 35,
-        marginHorizontal : 20,
-        marginVertical: 10,
-        borderWidth: 1,
-        borderColor: 'white'
-    },
-    buttonText:{
-        fontSize: 20,
-        fontWeight: '600',
-        color: 'black',
-        letterSpacing: 0.5
-
-    },
-    bottomContainer:{
-        justifyContent: 'center',
-        height: height,
-    },
-    textInput: {
-        height: 50,
-        borderWidth: 1,
-        borderColor: 'rgba(0,0,0, 0.2)',
-        marginHorizontal: 20,
-        marginVertical: 10,
-        borderRadius: 25,
-        paddingLeft: 10
-    },
-    formButton: {
-        backgroundColor : 'white',
-        height : 55,
-        alignItems : 'center',
-        justifyContent : 'center',
-        borderRadius: 35,
-        marginHorizontal : 20,
-        marginVertical: 10,
-        borderWidth: 1,
-        borderColor: 'white',
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 4,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
-    },
-    formInputContainer:{
-        marginBottom: 70
-    },
-    textLogoContainer: {
-        marginHorizontal : '20%',
-        marginVertical: '25%',
-        fontSize: 35,
-        fontWeight: '400',
-        color: 'green',
-        letterSpacing: 0.5,
-        height: 50,
-        width: 1000,
-        justifyContent: 'center'
-    }
-});
