@@ -1,8 +1,21 @@
-jest.mock('@react-native-async-storage/async-storage', () =>
-    require('@react-native-async-storage/async-storage/jest/async-storage-mock')
-);
+import mockAsyncStorage from '@react-native-async-storage/async-storage/jest/async-storage-mock';
+import { Animated } from 'react-native';
 
-// jest.mock('screens/explore/Explore.jsx', () => {
-//     const mockComponent = require('react-native/jest/mockComponent');
-//     return mockComponent('screens/explore/Explore.jsx');
-// });
+Animated.timing = () => ({
+  start: () => jest.fn(),
+});
+
+jest.mock('@react-native-async-storage/async-storage', () => mockAsyncStorage);
+
+jest.mock('react-native-keyboard-aware-scroll-view', () => {
+  return {
+    KeyboardAwareScrollView: jest.fn().mockImplementation(({ children }) => children),
+  };
+});
+
+jest.mock('react-native-alert-notification', () => {
+  return {
+    AlertNotificationRoot: jest.fn().mockImplementation(({ children }) => children),
+  };
+});
+

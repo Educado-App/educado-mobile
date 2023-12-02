@@ -1,29 +1,68 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useEffect, useState, Suspense } from 'react';
-import { StyleSheet, Text, View, Image, Button, Dimensions} from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import { useNavigation } from "@react-navigation/native";
-import RegisterForm from "../../components/login/RegisterForm";
+import React, { useEffect } from 'react';
+import { View, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import RegisterForm from '../../components/login/RegisterForm';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import LogoBackButton from '../../components/login/LogoBackButton';
+import Text from '../../components/general/Text';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const {width, height} = Dimensions.get('window');
+const LOGIN_TOKEN = '@loginToken';
 
+export default function Register() {
 
-export default function Register(props) {
+	const navigation = useNavigation();
 
-    const navigation = useNavigation();
+	const checkLoginToken = async () => {
+		try {
+			const fetchedToken = await AsyncStorage.getItem(LOGIN_TOKEN);
+			if (fetchedToken !== null) {
+				navigation.navigate('HomeStack');
+			}
+		} catch (error) {
+			console.log('Failed to fetch the login token from storage');
+		}
+	};
 
-    return (
-        <View style={styles.container}>
-            <RegisterForm/>
-        </View>
-    );
+	useEffect(() => {
+		checkLoginToken();
+	}, []);
+
+	return (
+		<SafeAreaView className="flex-1 justify-start bg-secondary">
+			<KeyboardAwareScrollView
+				className="flex-1"
+				resetScrollToCoords={{ x: 0, y: 0 }}
+				scrollEnabled={true}
+			>
+				<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+					<View>
+						<View className="mt-10">
+							<LogoBackButton navigationPlace={'Login'} />
+						</View>
+						<View className="mx-6">
+							<View className="mt-8">
+								<RegisterForm />
+							</View>
+							<View className="flex-row justify-center items-end">
+								<Text className="text-projectGray leading-5 text-base">
+									{/* Already have an account? */}
+                  Já possui conta?
+								</Text>
+								<Text
+									testId={'loginNav'}
+									className={'text-projectBlack leading-5 text-base underline'}
+									onPress={() => navigation.navigate('Login')}
+								>
+									{/* Log in now */}
+                  Entre agora
+								</Text>
+							</View>
+						</View>
+					</View>
+				</TouchableWithoutFeedback>
+			</KeyboardAwareScrollView>
+		</SafeAreaView>
+	);
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'flex-end',
-        backgroundColor: 'Green'
-    },
-
-});
