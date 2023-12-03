@@ -18,6 +18,7 @@
 ```
 npm i
 ```
+```
 expo start
 ```
 - Now press "a" to launch the android emulator when prompted
