@@ -4,6 +4,32 @@
 ## Getting Started
 
 ### Mac
+**Recommended: using android studio for emulator**
+*Since the app is designed for android, using an android emulator is strongly recommended*
+
+- Download android studio
+- On the welcome page, click on the three dots in the right corner, and then click "Virtual device manager"
+- A new screen will open, click on "Create device"
+- Chose the phone model you want, click next, chose an API level that is minimum 33 (Tiramisu is recommended), click on next and then finish.
+- Now the phone you created is on your device manager, click on the play symbol (launch this AVD in the emulator)
+
+- You can now go back to your project in VS.
+- Run the following in the terminal: 
+```
+cd eml (if you are not already in the root of the project)
+```
+npm i (you will get a lot of warning, just ignore them)
+```
+expo start
+```
+- Now press "a" to launch the android emulator when prompted
+- Wait for the emulator to start (this can take a lot of time)
+- Press "r" to restart, sometimes this is a good idea if the app won’t bundle. 
+
+
+**Alternative: using xcode for IOS emulato**
+*Since the app is designed for android, this is not recommended*
+
 - Download Xcode and run it once (make sure to select and install the iPhone emulator if prompted during installation)
 - Open the repository in your editor (all of the commands below should be executed in the root folder)
 - Run the following in the terminal: 
