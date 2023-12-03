@@ -128,13 +128,7 @@ const certificateUrl = 'http://172.30.245.212:8080';
 <img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/0b9f5c8b-0228-4ffd-968c-4c127ad917e5" width="250">
 <img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/a4988a71-0eb4-4b22-b73b-3d5bc068ccbc" width="250">
 
-- Then go offline:
+- Then go offline, the course is no more grayified, and all sections/lectures/exercises within the course can be accessed.
 <img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/ac8f9349-bb21-4531-af88-b534942e63e1" width="250">
 <img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/5f530c39-5526-410f-ba98-dcb5d47dcc49" width="250">
-
-
-
-  
-
-
 
