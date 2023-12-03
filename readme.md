@@ -117,4 +117,24 @@ const certificateUrl = 'http://172.30.245.212:8080';
 <img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/5de5f66b-f140-41dd-a1d8-d3380cec6ff9" width="180">
 <img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/19874314-5eef-499a-94da-052d8f0191a5" width="180">
 
+### Offline mode:
+*Can only be tested on your own phone or emulator when the app is downloaded, not with expo go*
+*However, as an alternative, if you are running on local backend, you can dissconnect the backend to simulate no internet connection*
+
+- Without downnloaded courses:
+<img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/c5095e43-1b57-4b4c-bcf4-8b2d28965b11" width="250">
+
+- How to download on online: click on the cloud/download button:
+<img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/0b9f5c8b-0228-4ffd-968c-4c127ad917e5" width="250">
+<img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/a4988a71-0eb4-4b22-b73b-3d5bc068ccbc" width="250">
+
+- Then go offline:
+<img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/ac8f9349-bb21-4531-af88-b534942e63e1" width="250">
+<img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/5f530c39-5526-410f-ba98-dcb5d47dcc49" width="250">
+
+
+
+  
+
+
 
