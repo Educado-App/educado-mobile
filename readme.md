@@ -18,6 +18,7 @@
 ```
 npm i
 ```
+You will get a lot of warnings, ignore them for now :)
 ```
 expo start
 ```
