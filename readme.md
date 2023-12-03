@@ -96,27 +96,25 @@ const certificateUrl = 'http://172.30.245.212:8080';
 - To use your phone wirelessly you have to be on the same wifi/internet as your computer and scan the QR code with the Expo Go app when you run your code.
 
 ## Images of the app
-<img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/815d55a1-dbf2-4fec-bc08-866603f510ac" width="200">
-<img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/75f8c4e8-c341-47df-9571-207b88301f2c" width="200">
-<img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/28739181-d904-41dc-b831-e153b66e9956" width="200">
-<img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/26fac1c8-d471-4686-a4c2-d3234b8dbb70" width="200">
-<img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/a5d91fac-a652-440c-bd7a-67f54e042a20" width="200">
-<img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/cf9a12e6-1df9-4aaa-86d1-bde16b0659ae" width="200">
-<img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/ab3b2262-7b85-40c2-a2d0-17ed24717660" width="200">
-<img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/b54971f4-a012-42ac-9d6a-9653d4cd8464" width="200">
-<img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/0079dead-d1d9-4e8f-8391-a1db8ff5a3c5" width="200">
-<img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/93ec1bf8-bb58-4620-9557-72d99b64037c" width="200">
-<img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/5bdc84c0-ee6d-486f-910f-99ab9c3465ae" width="200">
-<img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/178a1378-d568-4160-b8a9-5f1d10e8c047" width="200">
-<img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/d4db021b-88d1-4553-af44-5ff551dc8396" width="200">
-<img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/7822eb76-e953-4c65-a74d-135942fbef29" width="200">
-<img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/54592297-4b86-4000-873e-852f5366049d" width="200">
-<img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/e3163710-570f-4631-b333-d60aeb4ff511" width="200">
-<img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/5dd2f9c4-0256-4a39-8c9d-a0f029f403b9" width="200">
-<img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/e019c342-ab4b-450b-8b39-42de6eff943f" width="200">
-<img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/5de5f66b-f140-41dd-a1d8-d3380cec6ff9" width="200">
-<img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/19874314-5eef-499a-94da-052d8f0191a5" width="200">
-
-## Development notes
+<img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/815d55a1-dbf2-4fec-bc08-866603f510ac" width="180">
+<img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/75f8c4e8-c341-47df-9571-207b88301f2c" width="180">
+<img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/28739181-d904-41dc-b831-e153b66e9956" width="180">
+<img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/26fac1c8-d471-4686-a4c2-d3234b8dbb70" width="180">
+<img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/a5d91fac-a652-440c-bd7a-67f54e042a20" width="180">
+<img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/cf9a12e6-1df9-4aaa-86d1-bde16b0659ae" width="180">
+<img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/ab3b2262-7b85-40c2-a2d0-17ed24717660" width="180">
+<img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/b54971f4-a012-42ac-9d6a-9653d4cd8464" width="180">
+<img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/0079dead-d1d9-4e8f-8391-a1db8ff5a3c5" width="180">
+<img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/93ec1bf8-bb58-4620-9557-72d99b64037c" width="180">
+<img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/5bdc84c0-ee6d-486f-910f-99ab9c3465ae" width="180">
+<img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/178a1378-d568-4160-b8a9-5f1d10e8c047" width="180">
+<img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/d4db021b-88d1-4553-af44-5ff551dc8396" width="180">
+<img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/7822eb76-e953-4c65-a74d-135942fbef29" width="180">
+<img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/54592297-4b86-4000-873e-852f5366049d" width="180">
+<img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/e3163710-570f-4631-b333-d60aeb4ff511" width="180">
+<img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/5dd2f9c4-0256-4a39-8c9d-a0f029f403b9" width="180">
+<img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/e019c342-ab4b-450b-8b39-42de6eff943f" width="180">
+<img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/5de5f66b-f140-41dd-a1d8-d3380cec6ff9" width="180">
+<img src= "https://github.com/Educado-App/educado-mobile/assets/92582321/19874314-5eef-499a-94da-052d8f0191a5" width="180">
 
 
