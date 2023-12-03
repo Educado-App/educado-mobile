@@ -13,12 +13,10 @@
 - Chose the phone model you want, click next, chose an API level that is minimum 33 (Tiramisu is recommended), click on next and then finish.
 - Now the phone you created is on your device manager, click on the play symbol (launch this AVD in the emulator)
 
-- You can now go back to your project in VS.
+- You can now go back to your project in VS and open the root of the project (eml)
 - Run the following in the terminal: 
 ```
-cd eml (if you are not already in the root of the project)
-```
-npm i (you will get a lot of warning, just ignore them)
+npm i
 ```
 expo start
 ```
