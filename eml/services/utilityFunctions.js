@@ -225,6 +225,7 @@ export async function checkProgressCourse(courseId) {
 		}
 
 		progress = (progress / totalComponents) * 100;
+		progress = Math.floor(progress); // Round down to the nearest integer
 
 		return progress;
 	} catch (e) {
