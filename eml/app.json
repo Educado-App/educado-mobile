@@ -14,7 +14,7 @@
     ],
     "name": "Educado",
     "slug": "educado-mobile",
-    "version": "2.2.0",
+    "version": "2.1.2",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "splash": {
@@ -39,9 +39,9 @@
       },
       "package": "com.blackchakers.eml",
       "release": {
-              "releaseName": "Educado"
+        "releaseName": "Educado"
       },
-      "versionCode": 3
+      "versionCode": 4
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
