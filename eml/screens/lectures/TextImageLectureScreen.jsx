@@ -23,7 +23,7 @@ const TextImageLectureScreen = ({ lectureObject, courseObject, isLastSlide }) =>
 		if (lectureObject.image) {
 			getLectureImage();
 		}
-		splitText(lectureObject.description);
+		splitText(lectureObject.content);
 	}, []);
 
 
