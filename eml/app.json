@@ -37,7 +37,11 @@
         "foregroundImage": "./assets/images/icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.blackchakers.eml"
+      "package": "com.blackchakers.eml",
+      "release": {
+              "releaseName": "Educado"
+      },
+      "versionCode": 3
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
