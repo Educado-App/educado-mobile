@@ -41,7 +41,7 @@
       "release": {
         "releaseName": "Educado"
       },
-      "versionCode": 4
+      "versionCode": 6
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
