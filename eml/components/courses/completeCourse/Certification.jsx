@@ -28,10 +28,11 @@ export default function Certification({ courseObject }) {
       
 			<View className="-mt-5">
 				<TouchableOpacity 
-					// TODO: for the cert group - navigatie to certification
+					// TODO - navigatie to certification when ready
 					onPress={() => {}}
 				>
-					<Text className="text-center font-sans-bold text-base underline text-projectBlack">Ver Certificado</Text>
+					{/* Commented out for now, since the certification is not ready */}
+					{/*<Text className="text-center font-sans-bold text-base underline text-projectBlack">Ver Certificado</Text>*/}
 				</TouchableOpacity>
 			</View>
 

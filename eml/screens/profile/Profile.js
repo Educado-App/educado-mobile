@@ -84,8 +84,10 @@ export default function ProfileComponent() {
 					<UserInfo firstName={firstName} lastName={lastName} email={email} points={totalPoints}></UserInfo>
 					<ProfileStatsBox studentLevel={studentLevel} levelProgress={levelProgress} />
 					<ProfileNavigationButton label='Editar perfil' testId={'editProfileNav'} onPress={() => navigation.navigate('EditProfile')}></ProfileNavigationButton>
-					<ProfileNavigationButton label='Certificados' onPress={() => navigation.navigate('CertificateStack')}></ProfileNavigationButton>
-					<ProfileNavigationButton label='Download'></ProfileNavigationButton>
+					{/* The certificate page is created and works, it is only commented out to get it approved on play store
+						<ProfileNavigationButton label='Certificados' onPress={() => navigation.navigate('CertificateStack')}></ProfileNavigationButton>*/}
+					{/* Download page is not implemented yet. However, download works and can be accessed on home page when offline
+					<ProfileNavigationButton label='Download'></ProfileNavigationButton>*/}
 					<View className='flex flex-row pb-4'>
 						<LogOutButton testID='logoutBtn'></LogOutButton>
 					</View>
