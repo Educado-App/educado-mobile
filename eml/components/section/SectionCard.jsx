@@ -5,6 +5,8 @@ import Text from '../general/Text';
 import Collapsible from 'react-native-collapsible';
 import { useNavigation } from '@react-navigation/native';
 import PropTypes from 'prop-types';
+import { Button } from '@rneui/base';
+import tailwindConfig from '../../tailwind.config';
 
 
 /**
@@ -66,14 +68,24 @@ export default function SectionCard({ section, course, progress }) {
 					<View className="h-[1] bg-disable" />
 					<Text className="mx-[20] my-[10]">{section.description}</Text>
 					<View className="w-[100%]">
-						<TouchableOpacity className="w-[100%] h-[300] items-center justify-center relative"
-							onPress={handleImagePress}>
+						<View className="w-[100%] h-[300] items-center justify-center relative">
 							<Image source={require('../../assets/images/sectionThumbnail.png')} className="w-[100%] h-[300] object-cover" />
-							<View className="absolute z-[1]">
-								<MaterialCommunityIcons name="play-circle-outline" size={100} color="lightblue" />
-							</View>
-						</TouchableOpacity>
+						</View>
 					</View>
+					<Button title="Iniciar"
+						onPress={handleImagePress}
+						color={tailwindConfig.theme.colors.projectWhite}
+						titleStyle={{ color: tailwindConfig.theme.colors.projectBlack}}
+						icon={
+							<MaterialCommunityIcons
+								name="play-circle-outline" 
+								size={30} 
+								color="lightblue"
+								style={{ marginRight: 8 }}
+							/>
+						}
+						iconRight>
+						</Button>	
 				</Collapsible>
 			</Pressable>
 		</View>
