@@ -72,7 +72,7 @@ export default function SectionCard({ section, course, progress }) {
 							<Image source={require('../../assets/images/sectionThumbnail.png')} className="w-[100%] h-[300] object-cover" />
 						</View>
 					</View>
-					<Button title="Iniciar"
+					<Button title="Começar"
 						onPress={handleImagePress}
 						color={tailwindConfig.theme.colors.projectWhite}
 						titleStyle={{ color: tailwindConfig.theme.colors.projectBlack}}
