@@ -2,6 +2,7 @@
 module.exports = {
   preset: 'jest-expo',
   testEnvironment: 'node',
+  verbose: true,
   transform: {
     '^.+\\.ts?$': 'ts-jest',
     '^.+\\.(js|jsx)$': 'babel-jest',
