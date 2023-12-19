@@ -15,6 +15,7 @@ const STUDENT_INFO = '@studentInfo';
 const LOGIN_TOKEN = '@loginToken';
 const lectureVideoPath = FileSystem.documentDirectory + 'lectureVideos/';
 let isOnline = true;
+const jwt = require('jsonwebtoken');
 
 /**
  * Updates the network status.
@@ -26,8 +27,39 @@ const updateNetworkStatus = (networkStatus) => {
 
 NetworkStatusService.getInstance().addObserver({ update: updateNetworkStatus });
 
-/** STUDENT **/
 
+/** LOGIN TOKEN **/
+
+/**
+ * Retrieves the login token from AsyncStorage.
+ * @returns {Promise<Boolean>} A promise that resolves with the a true or false value.
+ */
+export const getLoginToken = async () => {
+	return await AsyncStorage.getItem(LOGIN_TOKEN);
+};
+
+/**
+ * Check if login token is valid.
+ * @returns {boolean} Returns a boolean indicating whether the token is valid.
+ */
+export const isLoginTokenValid = async () => {
+	const token = await getLoginToken();
+	try {
+		if (!token) {
+			return false;
+		}
+
+		/*global process*/
+		const jwtSecret = process.env.JWT_SECRET;
+		jwt.verify(token, jwtSecret);
+		return true;
+
+	} catch (e) {
+		return false;
+	}
+};
+
+/** STUDENT **/
 /**
  * Retrieves and stores student information for a given user ID.
  * @param userId - The user ID to retrieve student information for.
@@ -56,14 +88,6 @@ export const getStudentInfo = async () => {
 
 export const updateStudentInfo = async (studentInfo) => {
 	await AsyncStorage.setItem(STUDENT_INFO, JSON.stringify(studentInfo));
-};
-
-/**
- * Retrieves the login token from AsyncStorage.
- * @returns {Promise<string>} A promise that resolves with the fetched login token.
- */
-export const getLoginToken = async () => {
-	return await AsyncStorage.getItem(LOGIN_TOKEN);
 };
 
 /**

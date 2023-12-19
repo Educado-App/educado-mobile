@@ -11,8 +11,6 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import LoadingScreen from '../../components/loading/Loading';
 import * as StorageService from '../../services/StorageService';
 
-const LOGIN_TOKEN = '@loginToken';
-
 /**
  * Login screen component containing a login form and possibilities of resetting password or registering a new user.
  * @param {Object} props not used in this component as of now
@@ -30,15 +28,15 @@ export default function Login() {
    */
 	const checkLoginToken = async () => {
 		try {
-			const fetchedToken = await AsyncStorage.getItem(LOGIN_TOKEN);
-			if (fetchedToken !== null) {
+			const isValid = await StorageService.isLoginTokenValid();
+			if (isValid) {
 				await AsyncStorage.setItem('loggedIn', 'true');
 				StorageService.updateStoredCourses();
 				navigation.navigate('HomeStack');
 			}
 			setLoading(false);
 		} catch (error) {
-			console.log('Failed to fetch the login token from storage');
+			console.log('Token expired or not found');
 			setLoading(false);
 		}
 	};
