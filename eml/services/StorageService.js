@@ -15,7 +15,6 @@ const STUDENT_INFO = '@studentInfo';
 const LOGIN_TOKEN = '@loginToken';
 const lectureVideoPath = FileSystem.documentDirectory + 'lectureVideos/';
 let isOnline = true;
-const jwt = require('jsonwebtoken');
 
 /**
  * Updates the network status.
@@ -43,6 +42,7 @@ export const getLoginToken = async () => {
  * @returns {boolean} Returns a boolean indicating whether the token is valid.
  */
 export const isLoginTokenValid = async () => {
+	const jwt = require('jsonwebtoken');
 	const token = await getLoginToken();
 	try {
 		if (!token) {
