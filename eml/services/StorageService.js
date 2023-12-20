@@ -50,7 +50,7 @@ export const isLoginTokenValid = async () => {
 		}
 
 		/*global process*/
-		const jwtSecret = process.env.JWT_SECRET;
+		const jwtSecret = process.env.TOKEN_SECRET;
 		jwt.verify(token, jwtSecret);
 		return true;
 

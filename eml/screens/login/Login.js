@@ -28,7 +28,7 @@ export default function Login() {
    */
 	const checkLoginToken = async () => {
 		try {
-			const isValid = await StorageService.isLoginTokenValid();
+			const isValid = StorageService.isLoginTokenValid();
 			if (isValid) {
 				await AsyncStorage.setItem('loggedIn', 'true');
 				StorageService.updateStoredCourses();

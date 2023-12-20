@@ -74,6 +74,9 @@ jobs:
 
       - name: Install dependencies
         run: cd eml && npm install
+      
+      - name: Use JWT secret
+        run: cd eml && echo ${{ secrets.TOKEN_SECRET }}
 
       - name: Authenticate with Expo 
         env:
