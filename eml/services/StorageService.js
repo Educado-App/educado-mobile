@@ -4,8 +4,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {NetworkStatusService} from './NetworkStatusService';
 import defaultImage from '../assets/images/defaultImage-base64.json';
 import * as FileSystem from 'expo-file-system';
-
-
+import * as Crypto from 'expo-crypto';
+import * as jwt from 'expo-jwt'; 
 
 const SUB_COURSE_LIST = '@subCourseList';
 const USER_ID = '@userId';
@@ -42,7 +42,6 @@ export const getLoginToken = async () => {
  * @returns {boolean} Returns a boolean indicating whether the token is valid.
  */
 export const isLoginTokenValid = async () => {
-	const jwt = require('jsonwebtoken');
 	const token = await getLoginToken();
 	try {
 		if (!token) {
@@ -50,13 +49,27 @@ export const isLoginTokenValid = async () => {
 		}
 
 		const jwtSecret = process.env.JWT_SECRET;
-		jwt.verify(token, jwtSecret);
+
+		// Calculate the base64 encoded representation of the secret using Expo's Crypto module
+		const base64Secret = await Crypto.digestStringAsync(
+			Crypto.CryptoDigestAlgorithm.SHA256,
+			jwtSecret
+		);
+
+		// Verify the token using expo-jwt
+		const decodedToken = jwt.decode(token, base64Secret);
+		if (!decodedToken) {
+			return false;
+		}
+
+		// If the token is decoded successfully, consider it valid
 		return true;
 
 	} catch (e) {
 		return false;
 	}
 };
+
 
 /** STUDENT **/
 /**
