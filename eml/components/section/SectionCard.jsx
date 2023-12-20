@@ -1,99 +1,126 @@
-import React, { useState } from 'react';
-import { View, Pressable, Image, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Alert, View, TouchableOpacity } from 'react-native';
+import Text from '../../components/general/Text';
+import * as StorageService from '../../services/StorageService';
+import SectionCard from '../../components/section/SectionCard';
+import { ScrollView } from 'react-native-gesture-handler';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import Text from '../general/Text';
-import Collapsible from 'react-native-collapsible';
 import { useNavigation } from '@react-navigation/native';
+import CustomProgressBar from '../../components/exercise/Progressbar';
+import BaseScreen from '../../components/general/BaseScreen';
+import SubscriptionCancel from '../../components/section/CancelSubscriptionButton';
+import { unsubscribe } from '../../services/StorageService';
 import PropTypes from 'prop-types';
-import { Button } from '@rneui/base';
-import tailwindConfig from '../../tailwind.config';
-
+import { checkProgressCourse, checkProgressSection } from '../../services/utilityFunctions';
 
 /**
- * A component that displays a section card with collapsible content.
- * @param {Object} section - The section object containing the section data.
- * @param {Object} course - The course object containing the course data.
- * @param {Number} progress - The progress containing the student's progress.
- * @returns {JSX.Element} - The SectionCard component.
+ * Section screen component that displays a list of sections for a given course.
+ * @param {object} route - The route object containing the courseId parameter.
+ * @returns {JSX.Element} - The SectionScreen component.
  */
-export default function SectionCard({ section, course, progress }) {
-
-
+export default function SectionScreen({ route }) {
+	SectionScreen.propTypes = {
+		route: PropTypes.object,
+	};
+	const { course } = route.params;
 	const navigation = useNavigation();
-	const isComplete = progress === section.components.length;
-	const inProgress = 0 < progress && progress < section.components.length;
-	const notPossible = progress > section.components.length;
-	const [isOpen, setIsOpen] = useState(false);
-	const backgroundColor = isComplete ? 'bg-limeGreenDarker' : inProgress ? 'bg-cyanBlue' : notPossible ? 'bg-error' : {};
+	const [sections, setSections] = useState(null);
+	const [studentProgress, setStudentProgress] = useState(0);
+	const [completedComponents, setCompletedComponents] = useState(0);
 
 	/**
-     * Toggles the dropdown state.
-     */
-	const toggleDropdown = () => {
-		setIsOpen(!isOpen);
+	 * Loads the sections for the given course from the backend.
+	 * @param {string} id - The id of the course to load sections for.
+	 */
+	async function loadSections(id) {
+		const sectionData = await StorageService.getSectionList(id);
+		setSections(sectionData);
+	}
+
+	const checkProgress = async () => {
+		const progress = await checkProgressCourse(course.courseId);
+		setStudentProgress(progress);
 	};
 
+	const checkProgressInSection = async (sectionId) => {
+		const completed = await checkProgressSection(sectionId);
+		setCompletedComponents(completed);
+	};
 
-	/**
-     * Handles the image press event.
-     */
-	const handleImagePress = () => {
-		navigation.navigate('Components', {
-			section: section,
-			parsedCourse: course,
+	useEffect(() => {
+		// this makes sure loadcourses is called when the screen is focused
+		const update = navigation.addListener('focus', () => {
+			checkProgress();
 		});
-	};
+		return update;
+	}, [navigation]);
 
+	// Fetch courses from backend and replace dummy data!
+	useEffect(() => {
+		let componentIsMounted = true;
+
+		/**
+		 * Loads the sections and course data for the given courseId.
+		 */
+		async function loadData() {
+			await loadSections(course.courseId);
+		}
+
+		if (componentIsMounted) {
+			loadData();
+		}
+
+		checkProgress();
+
+		return () => componentIsMounted = false;
+	}, []);
+
+	/**
+	 * Displays an alert to confirm unsubscribing from the course.
+	 */
+	const unsubAlert = () =>
+		Alert.alert('Cancelar subscrição', 'Tem certeza?', [
+			{
+				text: 'Não',
+				style: 'cancel',
+			},
+			{ text: 'Sim', onPress: () => { unsubscribe(course.courseId); setTimeout(() => { navigation.goBack(); }, 300); } },
+		]);
 
 	return (
-		<View>
-			<Pressable testID="collapsible" onPress={toggleDropdown} className="bg-projectWhite rounded-lg shadow-lg shadow-opacity-[0.3] mb-[15] mx-[18] overflow-hidden elevation-[8]">
-				<View className={'flex-row items-center justify-between px-[25] py-[15] ' + backgroundColor}>
-					<Text className="text-[16px] font-bold text-projectBlack flex-[1]">
-						{section.title}
-					</Text>
-					<Text className="mr-[10] text-projectBlack">
-						{/* completed */}
-						{progress}/{section.components.length} concluídos
-					</Text>
-					<MaterialCommunityIcons
-						testID={isOpen ? 'chevron-up' : 'chevron-down'}
-						name={isOpen ? 'chevron-up' : 'chevron-down'}
-						size={25}
-						color="gray"
-					/>
-				</View>
+		<BaseScreen>
+			<View className="flex flex-row flex-wrap items-center justify-between px-6 pt-[20%]">
 
-				<Collapsible collapsed={!isOpen}>
-					<View className="h-[1] bg-disable" />
-					<Text className="mx-[20] my-[10]">{section.description}</Text>
-					<View className="w-[100%]">
-						<View className="w-[100%] h-[300] items-center justify-center relative">
-							<Image source={require('../../assets/images/sectionThumbnail.png')} className="w-[100%] h-[300] object-cover" />
-						</View>
+				{/* Back Button */}
+				<TouchableOpacity className="pr-3" onPress={() => navigation.goBack()}>
+					<MaterialCommunityIcons name="chevron-left" size={25} color="black" />
+				</TouchableOpacity>
+
+				{/* Course Title */}
+				<Text className="text-[25px] font-bold">{course.title}</Text>
+			</View>
+
+			{/* Conditionally render the sections if they exist */}
+			{sections ? (
+				sections.length === 0 ? null : (
+					<View className="flex-[1] flex-col my-[10px]">
+
+						{/* Progress Bar */}
+						<CustomProgressBar width={60} progress={studentProgress} height={3}></CustomProgressBar>
+
+						{/* Section Cards */}
+						<ScrollView className="mt-[5%]" showsVerticalScrollIndicator={false}>
+							{sections.map((section, i) => {
+								checkProgressInSection(section.sectionId);
+								return <SectionCard key={i} section={section} course={course} progress={completedComponents}></SectionCard>;
+							})}
+						</ScrollView>
+						{/* Unsubscribe Button */}
+						<SubscriptionCancel onPress={unsubAlert} />
 					</View>
-					<Button title="Começar"
-						onPress={handleImagePress}
-						color={tailwindConfig.theme.colors.projectWhite}
-						titleStyle={{ color: tailwindConfig.theme.colors.projectBlack}}
-						icon={
-							<MaterialCommunityIcons
-								name="play-circle-outline" 
-								size={30} 
-								color="lightblue"
-								style={{ marginRight: 8 }}
-							/>
-						}
-						iconRight>
-						</Button>	
-				</Collapsible>
-			</Pressable>
-		</View>
+				)
+			) : null}
+
+		</BaseScreen>
 	);
 }
-
-SectionCard.propTypes = {
-	section: PropTypes.object,
-	course: PropTypes.object,
-	progress: PropTypes.number,
-};
