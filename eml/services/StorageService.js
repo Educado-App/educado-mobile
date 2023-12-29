@@ -50,8 +50,7 @@ export const isLoginTokenValid = async () => {
 		}
 
 		// Access JWT_SECRET
-		const jwtSecretString = Constants.expoConfig.extra.JWT_SECRET;
-		const jwtSecret = JSON.parse(jwtSecretString); 
+		const jwtSecret = Constants.expoConfig.extra.JWT_SECRET;
 
 		const decodedToken = jwt.decode(token, jwtSecret);
 
