@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { View, Keyboard } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
@@ -10,8 +10,7 @@ import Text from '../../components/general/Text';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import LoadingScreen from '../../components/loading/Loading';
 import * as StorageService from '../../services/StorageService';
-
-const LOGIN_TOKEN = '@loginToken';
+import { useFocusEffect } from '@react-navigation/native';
 
 /**
  * Login screen component containing a login form and possibilities of resetting password or registering a new user.
@@ -30,22 +29,24 @@ export default function Login() {
    */
 	const checkLoginToken = async () => {
 		try {
-			const fetchedToken = await AsyncStorage.getItem(LOGIN_TOKEN);
-			if (fetchedToken !== null) {
-				await AsyncStorage.setItem('loggedIn', 'true');
+			const isValid = await StorageService.isLoginTokenValid();
+			if (isValid) {
 				StorageService.updateStoredCourses();
+				await AsyncStorage.setItem('loggedIn', 'true');
 				navigation.navigate('HomeStack');
+			} else {
+				setLoading(false);
 			}
-			setLoading(false);
 		} catch (error) {
-			console.log('Failed to fetch the login token from storage');
 			setLoading(false);
 		}
 	};
 
-	useEffect(() => {
-		checkLoginToken();
-	}, []);
+	useFocusEffect(
+		useCallback(() => {
+			checkLoginToken();
+		}, [])
+	);
 
 	return (
 		<SafeAreaView className="justify-start bg-secondary flex-1">

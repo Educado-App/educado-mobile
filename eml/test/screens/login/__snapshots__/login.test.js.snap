@@ -26,792 +26,103 @@ exports[`Login screen Login screen renders 1`] = `
     ]
   }
 >
-  <View
-    accessible={true}
-    focusable={true}
-    onClick={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
+  <RNCSafeAreaView
+    edges={
+      [
+        "bottom",
+        "left",
+        "right",
+        "top",
+      ]
+    }
+    style={
+      [
+        {
+          "paddingBottom": 40,
+          "paddingTop": 40,
+        },
+        {
+          "paddingLeft": 24,
+          "paddingRight": 24,
+        },
+        {
+          "justifyContent": "center",
+        },
+        {
+          "alignItems": "center",
+        },
+        {
+          "flexBasis": "0%",
+          "flexGrow": 1,
+          "flexShrink": 1,
+        },
+        {
+          "marginLeft": -40,
+          "marginTop": -40,
+        },
+        {
+          "backgroundColor": "#F1F9FB",
+        },
+      ]
+    }
   >
-    <View
+    <Image
+      source={1}
       style={
         [
           {
+            "marginLeft": 40,
             "marginTop": 40,
           },
         ]
       }
-    >
-      <View
-        style={
-          [
-            {
-              "flexDirection": "row",
-            },
-            {
-              "justifyContent": "center",
-            },
-            {
-              "alignItems": "center",
-            },
-            {
-              "width": "100%",
-            },
-            {
-              "marginTop": 16,
-            },
-          ]
-        }
-      >
-        <View
-          style={
-            [
-              {
-                "position": "absolute",
-              },
-              {
-                "left": 0,
-              },
-              {
-                "zIndex": 50,
-              },
-            ]
-          }
-        >
-          <View
-            style={
-              [
-                {
-                  "overflow": "hidden",
-                },
-                {
-                  "borderRadius": 20,
-                },
-                undefined,
-                false,
-              ]
-            }
-            testID="RNE_BUTTON_WRAPPER"
-          >
-            <View
-              accessibilityRole="button"
-              accessibilityState={
-                {
-                  "busy": false,
-                  "disabled": false,
-                }
-              }
-              accessible={true}
-              collapsable={false}
-              focusable={true}
-              onClick={[Function]}
-              onResponderGrant={[Function]}
-              onResponderMove={[Function]}
-              onResponderRelease={[Function]}
-              onResponderTerminate={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
-              style={
-                {
-                  "opacity": 1,
-                }
-              }
-            >
-              <View
-                style={
-                  {
-                    "alignItems": "center",
-                    "backgroundColor": "invisible",
-                    "borderColor": "#2089dc",
-                    "borderRadius": 20,
-                    "borderWidth": 0,
-                    "flexDirection": "row",
-                    "height": 50,
-                    "justifyContent": "center",
-                    "padding": 4,
-                    "paddingHorizontal": 6,
-                    "width": 50,
-                  }
-                }
-              >
-                <View
-                  style={
-                    {
-                      "overflow": "hidden",
-                    }
-                  }
-                  testID="RNE__ICON__CONTAINER"
-                >
-                  <View
-                    accessibilityRole="button"
-                    android_ripple={
-                      {
-                        "borderless": false,
-                        "color": "rgba(0, 0, 0, 0.3)",
-                        "radius": -5,
-                      }
-                    }
-                    disabled={false}
-                    testID="RNE__ICON__CONTAINER_ACTION"
-                  >
-                    <View
-                      style={
-                        {
-                          "alignItems": "center",
-                          "backgroundColor": "transparent",
-                          "justifyContent": "center",
-                        }
-                      }
-                      testID="RNE__ICON"
-                    >
-                      <Text
-                        allowFontScaling={false}
-                        selectable={false}
-                        style={
-                          [
-                            {
-                              "color": "#383838",
-                              "fontSize": 25,
-                            },
-                            {
-                              "backgroundColor": "transparent",
-                            },
-                            {
-                              "fontFamily": "material-community",
-                              "fontStyle": "normal",
-                              "fontWeight": "normal",
-                            },
-                            {},
-                          ]
-                        }
-                        testID="RNE__ICON__Component"
-                      >
-                        󰅁
-                      </Text>
-                    </View>
-                  </View>
-                </View>
-              </View>
-            </View>
-          </View>
-        </View>
-        <View
-          style={
-            [
-              {
-                "alignItems": "center",
-              },
-              {
-                "justifyContent": "center",
-              },
-              {
-                "width": "100%",
-              },
-            ]
-          }
-        >
-          <Image
-            resizeMode="contain"
-            source={1}
-            style={
-              [
-                {
-                  "height": 48,
-                },
-              ]
-            }
-          />
-        </View>
-      </View>
-    </View>
-    <View
+    />
+    <Text
       style={
         [
           {
-            "marginLeft": 24,
-            "marginRight": 24,
+            "fontFamily": "Montserrat-Regular",
           },
+          {
+            "color": "#383838",
+          },
+          {
+            "fontSize": 16,
+          },
+          [
+            {
+              "textAlign": "center",
+            },
+            {
+              "fontSize": 16,
+            },
+            {
+              "color": "#383838",
+            },
+            [
+              {
+                "marginLeft": 40,
+                "marginTop": 40,
+              },
+            ],
+          ],
         ]
       }
     >
-      <View
-        style={
-          [
-            {
-              "marginBottom": 32,
-              "marginTop": 32,
-            },
-          ]
-        }
-      >
-        <View>
-          <View
-            style={
-              [
-                {
-                  "marginBottom": 24,
-                },
-              ]
-            }
-          >
-            <View>
-              <View
-                style={
-                  [
-                    {
-                      "display": "flex",
-                    },
-                    {
-                      "flexDirection": "row",
-                    },
-                  ]
-                }
-              >
-                <Text
-                  style={
-                    [
-                      {
-                        "fontFamily": "Montserrat-Regular",
-                      },
-                      {
-                        "color": "#383838",
-                      },
-                      {
-                        "fontSize": 16,
-                      },
-                      [
-                        {
-                          "marginLeft": 8,
-                        },
-                        {
-                          "fontSize": 12,
-                          "lineHeight": 16,
-                        },
-                      ],
-                    ]
-                  }
-                >
-                  E-mail
-                </Text>
-                <Text
-                  style={
-                    [
-                      {
-                        "fontFamily": "Montserrat-Regular",
-                      },
-                      {
-                        "color": "#383838",
-                      },
-                      {
-                        "fontSize": 16,
-                      },
-                      [
-                        {
-                          "marginLeft": 4,
-                        },
-                        {
-                          "fontSize": 12,
-                          "lineHeight": 16,
-                        },
-                        {
-                          "color": "#FF4949",
-                        },
-                      ],
-                    ]
-                  }
-                >
-                  *
-                </Text>
-              </View>
-              <View>
-                <TextInput
-                  autoComplete="off"
-                  keyboardType="email-address"
-                  onChangeText={[Function]}
-                  passwordGuidelines={false}
-                  placeholder="Insira sua e-mail"
-                  secureTextEntry={false}
-                  style={
-                    [
-                      {
-                        "paddingBottom": 4,
-                        "paddingTop": 4,
-                      },
-                      {
-                        "paddingLeft": 10,
-                      },
-                      {
-                        "backgroundColor": "#FFFFFF",
-                      },
-                      {
-                        "borderBottomLeftRadius": 8,
-                        "borderBottomRightRadius": 8,
-                        "borderTopLeftRadius": 8,
-                        "borderTopRightRadius": 8,
-                      },
-                    ]
-                  }
-                />
-              </View>
-            </View>
-            <View
-              style={
-                [
-                  {
-                    "flexDirection": "row",
-                  },
-                  {
-                    "alignItems": "center",
-                  },
-                ]
-              }
-            >
-              <Text
-                style={
-                  [
-                    {
-                      "fontFamily": "Montserrat-Regular",
-                    },
-                    {
-                      "color": "#383838",
-                    },
-                    {
-                      "fontSize": 16,
-                    },
-                    [
-                      {
-                        "fontSize": 12,
-                        "lineHeight": 16,
-                      },
-                      {
-                        "color": "#FF4949",
-                      },
-                      {
-                        "marginLeft": 8,
-                        "marginRight": 8,
-                      },
-                    ],
-                  ]
-                }
-              />
-            </View>
-          </View>
-          <View
-            style={
-              [
-                {
-                  "position": "relative",
-                },
-                {
-                  "marginBottom": 24,
-                },
-              ]
-            }
-          >
-            <View>
-              <View
-                style={
-                  [
-                    {
-                      "display": "flex",
-                    },
-                    {
-                      "flexDirection": "row",
-                    },
-                  ]
-                }
-              >
-                <Text
-                  style={
-                    [
-                      {
-                        "fontFamily": "Montserrat-Regular",
-                      },
-                      {
-                        "color": "#383838",
-                      },
-                      {
-                        "fontSize": 16,
-                      },
-                      [
-                        {
-                          "marginLeft": 8,
-                        },
-                        {
-                          "fontSize": 12,
-                          "lineHeight": 16,
-                        },
-                      ],
-                    ]
-                  }
-                >
-                  Senha
-                </Text>
-                <Text
-                  style={
-                    [
-                      {
-                        "fontFamily": "Montserrat-Regular",
-                      },
-                      {
-                        "color": "#383838",
-                      },
-                      {
-                        "fontSize": 16,
-                      },
-                      [
-                        {
-                          "marginLeft": 4,
-                        },
-                        {
-                          "fontSize": 12,
-                          "lineHeight": 16,
-                        },
-                        {
-                          "color": "#FF4949",
-                        },
-                      ],
-                    ]
-                  }
-                >
-                  *
-                </Text>
-              </View>
-              <View>
-                <TextInput
-                  autoComplete="off"
-                  keyboardType="default"
-                  onChangeText={[Function]}
-                  passwordGuidelines={false}
-                  placeholder="Insira sua senha"
-                  secureTextEntry={true}
-                  style={
-                    [
-                      {
-                        "paddingBottom": 4,
-                        "paddingTop": 4,
-                      },
-                      {
-                        "paddingLeft": 10,
-                      },
-                      {
-                        "backgroundColor": "#FFFFFF",
-                      },
-                      {
-                        "borderBottomLeftRadius": 8,
-                        "borderBottomRightRadius": 8,
-                        "borderTopLeftRadius": 8,
-                        "borderTopRightRadius": 8,
-                      },
-                    ]
-                  }
-                  value=""
-                />
-              </View>
-            </View>
-            <View
-              accessible={true}
-              collapsable={false}
-              focusable={true}
-              onBlur={[Function]}
-              onClick={[Function]}
-              onFocus={[Function]}
-              onResponderGrant={[Function]}
-              onResponderMove={[Function]}
-              onResponderRelease={[Function]}
-              onResponderTerminate={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
-              style={
-                [
-                  {
-                    "position": "absolute",
-                  },
-                  {
-                    "right": 0,
-                  },
-                  {
-                    "top": 8,
-                  },
-                  {
-                    "paddingBottom": 12,
-                    "paddingLeft": 12,
-                    "paddingRight": 12,
-                    "paddingTop": 12,
-                  },
-                ]
-              }
-            >
-              <Text
-                allowFontScaling={false}
-                selectable={false}
-                style={
-                  [
-                    {
-                      "color": "gray",
-                      "fontSize": 24,
-                    },
-                    undefined,
-                    {
-                      "fontFamily": "material-community",
-                      "fontStyle": "normal",
-                      "fontWeight": "normal",
-                    },
-                    {},
-                  ]
-                }
-              >
-                󰈈
-              </Text>
-            </View>
-            <View
-              style={
-                [
-                  {
-                    "flexDirection": "row",
-                  },
-                  {
-                    "alignItems": "center",
-                  },
-                ]
-              }
-            >
-              <Text
-                style={
-                  [
-                    {
-                      "fontFamily": "Montserrat-Regular",
-                    },
-                    {
-                      "color": "#383838",
-                    },
-                    {
-                      "fontSize": 16,
-                    },
-                    [
-                      {
-                        "fontSize": 12,
-                        "lineHeight": 16,
-                      },
-                      {
-                        "color": "#FF4949",
-                      },
-                      {
-                        "marginLeft": 8,
-                        "marginRight": 8,
-                      },
-                    ],
-                  ]
-                }
-              />
-            </View>
-          </View>
-          <View>
-            <Text
-              onPress={[Function]}
-              style={
-                [
-                  {
-                    "fontFamily": "Montserrat-Regular",
-                  },
-                  {
-                    "color": "#383838",
-                  },
-                  {
-                    "fontSize": 16,
-                  },
-                  [
-                    {
-                      "textAlign": "right",
-                    },
-                    {
-                      "textDecorationLine": "underline",
-                    },
-                    {
-                      "fontSize": 16,
-                      "lineHeight": 24,
-                    },
-                    {
-                      "color": "#383838",
-                    },
-                  ],
-                ]
-              }
-            >
-              Esqueceu a senha?
-            </Text>
-          </View>
-          <View>
-            <View
-              accessibilityState={
-                {
-                  "disabled": true,
-                }
-              }
-              accessible={true}
-              collapsable={false}
-              focusable={true}
-              onClick={[Function]}
-              onResponderGrant={[Function]}
-              onResponderMove={[Function]}
-              onResponderRelease={[Function]}
-              onResponderTerminate={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
-              style={
-                {
-                  "backgroundColor": "#5ECCE9",
-                  "borderBottomLeftRadius": 8,
-                  "borderBottomRightRadius": 8,
-                  "borderTopLeftRadius": 8,
-                  "borderTopRightRadius": 8,
-                  "marginTop": 16,
-                  "opacity": 0.5,
-                  "paddingBottom": 16,
-                  "paddingLeft": 16,
-                  "paddingRight": 16,
-                  "paddingTop": 16,
-                }
-              }
-            >
-              <Text
-                style={
-                  [
-                    {
-                      "fontFamily": "Montserrat-Regular",
-                    },
-                    {
-                      "color": "#383838",
-                    },
-                    {
-                      "fontSize": 16,
-                    },
-                    [
-                      {
-                        "textAlign": "center",
-                      },
-                      {
-                        "fontFamily": "Montserrat-Bold",
-                      },
-                      {
-                        "fontSize": 16,
-                      },
-                      {
-                        "color": "#FFFFFF",
-                      },
-                    ],
-                  ]
-                }
-              >
-                Entrar
-              </Text>
-            </View>
-          </View>
-          <View
-            style={
-              [
-                {
-                  "paddingTop": 40,
-                },
-              ]
-            }
-          >
-            <Modal
-              animationType="slide"
-              hardwareAccelerated={false}
-              style={
-                [
-                  {
-                    "borderBottomWidth": 8,
-                    "borderLeftWidth": 8,
-                    "borderRightWidth": 8,
-                    "borderTopWidth": 8,
-                  },
-                ]
-              }
-              visible={false}
-            />
-          </View>
-        </View>
-      </View>
-      <View
-        style={
-          [
-            {
-              "flexDirection": "row",
-            },
-            {
-              "justifyContent": "center",
-            },
-          ]
-        }
-      >
-        <Text
-          style={
-            [
-              {
-                "fontFamily": "Montserrat-Regular",
-              },
-              {
-                "color": "#383838",
-              },
-              {
-                "fontSize": 16,
-              },
-              [
-                {
-                  "fontSize": 16,
-                  "lineHeight": 24,
-                },
-                {
-                  "color": "#A1ACB2",
-                },
-                {
-                  "marginRight": 4,
-                },
-              ],
-            ]
-          }
-        >
-          Ainda não tem conta?
-        </Text>
-        <Text
-          onPress={[Function]}
-          style={
-            [
-              {
-                "fontFamily": "Montserrat-Regular",
-              },
-              {
-                "color": "#383838",
-              },
-              {
-                "fontSize": 16,
-              },
-              [
-                {
-                  "fontSize": 16,
-                  "lineHeight": 24,
-                },
-                {
-                  "color": "#383838",
-                },
-                {
-                  "textDecorationLine": "underline",
-                },
-              ],
-            ]
-          }
-          testId="registerNav"
-        >
-          Cadastre-se agora
-        </Text>
-      </View>
-    </View>
-  </View>
+      Transformando conhecimento em liberdade
+    </Text>
+    <ActivityIndicator
+      color="#5ECCE9"
+      size={115}
+      style={
+        [
+          {
+            "marginLeft": 40,
+            "marginTop": 40,
+          },
+        ]
+      }
+    />
+  </RNCSafeAreaView>
 </RNCSafeAreaView>
 `;
