@@ -4,8 +4,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {NetworkStatusService} from './NetworkStatusService';
 import defaultImage from '../assets/images/defaultImage-base64.json';
 import * as FileSystem from 'expo-file-system';
-import * as Crypto from 'expo-crypto';
-import * as jwt from 'expo-jwt'; 
+import jwt from 'expo-jwt';
+
 
 const SUB_COURSE_LIST = '@subCourseList';
 const USER_ID = '@userId';
@@ -44,29 +44,30 @@ export const getLoginToken = async () => {
 export const isLoginTokenValid = async () => {
 	const token = await getLoginToken();
 	try {
-		if (!token) {
+		if (token === null) {
 			return false;
 		}
-
 		const jwtSecret = process.env.JWT_SECRET;
+		const decodedToken = jwt.decode(token, jwtSecret);
 
-		// Calculate the base64 encoded representation of the secret using Expo's Crypto module
-		const base64Secret = await Crypto.digestStringAsync(
-			Crypto.CryptoDigestAlgorithm.SHA256,
-			jwtSecret
-		);
-
-		// Verify the token using expo-jwt
-		const decodedToken = jwt.decode(token, base64Secret);
-		if (!decodedToken) {
+		if (!decodedToken || !decodedToken.exp) {
+			// Token or expiration time not available
 			return false;
 		}
 
-		// If the token is decoded successfully, consider it valid
-		return true;
+		// Get the current time in seconds
+		const currentTime = Math.floor(Date.now() / 1000) + (60 * 60 * 3); // Add 3 hours to make sure session do not expire while in use
+    
 
-	} catch (e) {
-		return false;
+		// Check if the expiration time (exp) is in the future
+		if(decodedToken.exp > currentTime) {
+			return true; // return true if valid time 
+		}
+
+	} catch (error) {
+		console.log(error);
+		// An error occurred during decoding or validation
+		return false; // Treat as expired 
 	}
 };
 

@@ -28,13 +28,14 @@ export default function Login() {
    */
 	const checkLoginToken = async () => {
 		try {
-			const isValid = StorageService.isLoginTokenValid();
+			const isValid = await StorageService.isLoginTokenValid();
 			if (isValid) {
-				await AsyncStorage.setItem('loggedIn', 'true');
 				StorageService.updateStoredCourses();
+				await AsyncStorage.setItem('loggedIn', 'true');
 				navigation.navigate('HomeStack');
+			} else {
+				setLoading(false);
 			}
-			setLoading(false);
 		} catch (error) {
 			console.log('Token expired or not found');
 			setLoading(false);
