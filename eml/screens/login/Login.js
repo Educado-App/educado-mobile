@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { View, Keyboard } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
@@ -10,6 +10,7 @@ import Text from '../../components/general/Text';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import LoadingScreen from '../../components/loading/Loading';
 import * as StorageService from '../../services/StorageService';
+import { useFocusEffect } from '@react-navigation/native';
 
 /**
  * Login screen component containing a login form and possibilities of resetting password or registering a new user.
@@ -37,14 +38,15 @@ export default function Login() {
 				setLoading(false);
 			}
 		} catch (error) {
-			console.log('Token expired or not found');
 			setLoading(false);
 		}
 	};
 
-	useEffect(() => {
-		checkLoginToken();
-	}, []);
+	useFocusEffect(
+		useCallback(() => {
+			checkLoginToken();
+		}, [])
+	);
 
 	return (
 		<SafeAreaView className="justify-start bg-secondary flex-1">
