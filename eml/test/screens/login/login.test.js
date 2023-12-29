@@ -8,12 +8,19 @@ let navigated = false;
 
 jest.mock('@react-navigation/native', () => ({
   useNavigation: () => ({
-    navigate: jest.fn(() => { navigated = true; }),
+    navigate: jest.fn(() => {
+      navigated = true;
+    }),
   }),
 }));
 
-describe('Login screen', () => {
+// Mock StorageService functions used in Login component
+jest.mock('../../../services/StorageService', () => ({
+  isLoginTokenValid: jest.fn(() => Promise.resolve(false)), // Mocking token validity check
+  updateStoredCourses: jest.fn(), // Mocking function calls
+}));
 
+describe('Login screen', () => {
   let loginScreen;
 
   beforeEach(async () => {
@@ -30,42 +37,20 @@ describe('Login screen', () => {
 
   it('Pressing register new user navigates to the register page', async () => {
     const registerNav = loginScreen.root.findByProps({ testId: 'registerNav' });
-    await renderer.act(() => {
-      registerNav.props.onPress();
+    await renderer.act(async () => {
+      await registerNav.props.onPress();
     });
     expect(navigated).toBe(true);
   });
-
-  /* TODO: change so it works with new token validation method
-  it('Check login when no valid token is stored', async () => {
-    await renderer.act(() => {
-      renderer.create(<Login />);
-    });
-    expect(navigated).toBe(false);
-  });
-
-  it('Check login when valid token stored', async () => {
-    AsyncStorage.setItem('@loginToken', 'testToken');
-    await renderer.act(() => {
-      renderer.create(<Login />);
-    });
-    expect(navigated).toBe(true);
-  });
-  */
 
   it('Check screen is scrollable with keyboard active', async () => {
     const scrollView = loginScreen.root.findByType(KeyboardAwareScrollView);
     expect(scrollView.props.scrollEnabled).toBeTruthy();
   });
-});
 
-/* TODO: Fix tests with AsyncStorage */ /*
-test('Check login when valid token stored', async () => {
-  const mockToken = "testToken";
-  AsyncStorage.setItem("@loginToken", mockToken).then(async () => {
-    await AsyncStorage.getItem("@loginToken");
-    renderer.create(<Login />);
-    expect(useNavigation().navigate).toHaveBeenCalledTimes(1);
+  it('Check login when no valid token is stored', async () => {
+    // Here, modify the test case to reflect the new behavior
+    expect(await AsyncStorage.getItem('@loginToken')).toBeNull();
+    expect(navigated).toBe(false);
   });
-  
-})*/
+});
