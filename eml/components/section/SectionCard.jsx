@@ -25,16 +25,16 @@ export default function SectionCard({ section, course, progress }) {
 	const backgroundColor = isComplete ? 'bg-limeGreenDarker' : inProgress ? 'bg-cyanBlue' : notPossible ? 'bg-error' : {};
 
 	/**
-     * Toggles the dropdown state.
-     */
+		 * Toggles the dropdown state.
+		 */
 	const toggleDropdown = () => {
 		setIsOpen(!isOpen);
 	};
 
 
 	/**
-     * Handles the image press event.
-     */
+		 * Handles the image press event.
+		 */
 	const handleImagePress = () => {
 		navigation.navigate('Components', {
 			section: section,

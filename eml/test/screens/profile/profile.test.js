@@ -4,12 +4,12 @@ import ProfileComponent from "../../../screens/profile/Profile";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 let navigated = false;
-const mockToken = "testToken";
 
 jest.mock('@react-navigation/native', () => ({
   useNavigation: () => ({
     navigate: jest.fn(() => { navigated = true }),
   }),
+  useFocusEffect: jest.fn(),
 }))
 
 describe('Profile screen', () => {
