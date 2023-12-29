@@ -75,11 +75,11 @@ jobs:
       - name: Install dependencies
         run: cd eml && npm install
 
-      - name: Use JWT secret
+      - name: Update JWT_SECRET in app.json
         env: 
           TOKEN_SECRET: ${{ secrets.TOKEN_SECRET }}
-          
-        run: cd eml && echo "JWT_SECRET=$TOKEN_SECRET" > .env
+        run: |
+          sed -i "s|\"JWT_SECRET\":.*|\"JWT_SECRET\": \"$TOKEN_SECRET\"|" app.json
       
       - name: Authenticate with Expo 
         env:

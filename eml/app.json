@@ -44,7 +44,7 @@
       "favicon": "./assets/images/favicon.png"
     },
     "extra": {
-      "JWT_SECRET": "process.env.JWT_SECRET",
+      "JWT_SECRET": "test",
       "eas": {
         "projectId": "33029e48-261a-46db-a3d6-211aa40139f0"
       }
