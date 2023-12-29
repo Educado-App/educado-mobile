@@ -1,4 +1,3 @@
-
 name: CI/CD
 
 on:
@@ -75,6 +74,12 @@ jobs:
       - name: Install dependencies
         run: cd eml && npm install
 
+      - name: Use JWT secret
+        env: 
+          TOKEN_SECRET: ${{ secrets.TOKEN_SECRET }}
+          
+        run: cd eml && echo "JWT_SECRET=$TOKEN_SECRET" > .env
+      
       - name: Authenticate with Expo 
         env:
           PASSWORD: ${{ secrets.EXPO_PASSWORD }}

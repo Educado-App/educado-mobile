@@ -4,7 +4,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {NetworkStatusService} from './NetworkStatusService';
 import defaultImage from '../assets/images/defaultImage-base64.json';
 import * as FileSystem from 'expo-file-system';
-
+import jwt from 'expo-jwt';
+import Constants from 'expo-constants';
 
 
 const SUB_COURSE_LIST = '@subCourseList';
@@ -26,8 +27,56 @@ const updateNetworkStatus = (networkStatus) => {
 
 NetworkStatusService.getInstance().addObserver({ update: updateNetworkStatus });
 
-/** STUDENT **/
 
+/** LOGIN TOKEN **/
+
+/**
+ * Retrieves the login token from AsyncStorage.
+ * @returns {Promise<Boolean>} A promise that resolves with the a true or false value.
+ */
+export const getLoginToken = async () => {
+	return await AsyncStorage.getItem(LOGIN_TOKEN);
+};
+
+/**
+ * Check if login token is valid.
+ * @returns {boolean} Returns a boolean indicating whether the token is valid.
+ */
+export const isLoginTokenValid = async () => {
+	const token = await getLoginToken();
+	try {
+		if (token === null) {
+			return false;
+		}
+
+		// Access JWT_SECRET
+		const jwtSecret = Constants.expoConfig.extra.JWT_SECRET;
+
+		const decodedToken = jwt.decode(token, jwtSecret);
+
+		if (!decodedToken || !decodedToken.exp) {
+			// Token or expiration time not available
+			return false;
+		}
+
+		// Get the current time in seconds
+		const currentTime = Math.floor(Date.now() / 1000) + (60 * 60 * 3); // Add 3 hours to make sure session do not expire while in use
+    
+
+		// Check if the expiration time (exp) is in the future
+		if(decodedToken.exp > currentTime) {
+			return true; // return true if valid time 
+		}
+
+	} catch (error) {
+		console.log(error);
+		// An error occurred during decoding or validation
+		return false; // Treat as expired 
+	}
+};
+
+
+/** STUDENT **/
 /**
  * Retrieves and stores student information for a given user ID.
  * @param userId - The user ID to retrieve student information for.
@@ -56,14 +105,6 @@ export const getStudentInfo = async () => {
 
 export const updateStudentInfo = async (studentInfo) => {
 	await AsyncStorage.setItem(STUDENT_INFO, JSON.stringify(studentInfo));
-};
-
-/**
- * Retrieves the login token from AsyncStorage.
- * @returns {Promise<string>} A promise that resolves with the fetched login token.
- */
-export const getLoginToken = async () => {
-	return await AsyncStorage.getItem(LOGIN_TOKEN);
 };
 
 /**
