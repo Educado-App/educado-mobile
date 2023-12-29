@@ -5,6 +5,7 @@ import {NetworkStatusService} from './NetworkStatusService';
 import defaultImage from '../assets/images/defaultImage-base64.json';
 import * as FileSystem from 'expo-file-system';
 import jwt from 'expo-jwt';
+import Constants from 'expo-constants';
 
 
 const SUB_COURSE_LIST = '@subCourseList';
@@ -47,7 +48,10 @@ export const isLoginTokenValid = async () => {
 		if (token === null) {
 			return false;
 		}
-		const jwtSecret = process.env.JWT_SECRET;
+
+		// Access JWT_SECRET
+		const jwtSecret = Constants.manifest.extra.JWT_SECRET;
+
 		const decodedToken = jwt.decode(token, jwtSecret);
 
 		if (!decodedToken || !decodedToken.exp) {
