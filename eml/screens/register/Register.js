@@ -6,9 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import LogoBackButton from '../../components/login/LogoBackButton';
 import Text from '../../components/general/Text';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
-const LOGIN_TOKEN = '@loginToken';
+import * as StorageService from '../../services/StorageService';
 
 export default function Register() {
 
@@ -16,8 +14,8 @@ export default function Register() {
 
 	const checkLoginToken = async () => {
 		try {
-			const fetchedToken = await AsyncStorage.getItem(LOGIN_TOKEN);
-			if (fetchedToken !== null) {
+			const isValid = await StorageService.isLoginTokenValid();
+			if (isValid) {
 				navigation.navigate('HomeStack');
 			}
 		} catch (error) {
