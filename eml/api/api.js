@@ -2,10 +2,9 @@ import axios from 'axios';
 
 const timeoutInMs = 1200;
 
-// const url = 'https://educado-backend-staging-x7rgvjso4a-ew.a.run.app/';// Change this to your LOCAL IP address when testing.
-const url = '172.30.213.120';// Change this to your LOCAL IP address when testing.
+const url = '192.168.1.14';// Change this to your LOCAL IP address when testing.
 
-const certificateUrl = '172.30.213.120';
+const certificateUrl = '192.168.1.14';
 
 /* Commented out for avoiding linting errors :))
  * TODO: move IP address to .env file !!!

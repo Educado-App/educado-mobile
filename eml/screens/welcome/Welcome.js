@@ -45,7 +45,7 @@ export default function WelcomeScreen() {
 
 						<View className="mt-6">
 							<TouchableOpacity 
-								onPress={() => { navigation.navigate('Register'); }}
+								onPress={() => { navigation.navigate('Register', {previousScreen: 'Welcome'}); }}
 							>
 								<Text className="text-center font-sans-bold text-body underline">Cadastrer</Text>
 							</TouchableOpacity>
