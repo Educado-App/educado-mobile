@@ -76,10 +76,39 @@ export default function ExploreCard({ course, isPublished, subscribed }) {
                 </View>
 		    </View>
 		    <Collapsible className="w-full" collapsed={isCollapsed}>
-                <View className="py-7 flex-row items-center justify-between px-1">
+                <View className="py-7 px-1 bg-projectWhite h-4/5 px-6 py-10">
+                    <View className="flex-row justify-between w-full items-center">
+                       <Text className="text-projectBlack font-medium text-lg">{course.title}</Text>
+                   </View>
+                     <View className="flex-row items-center justify-start pb-2 flex-wrap">
+                        <CardLabel
+                            title={Utility.determineCategory(course.category)}
+                            icon={Utility.determineIcon(course.category)}
+                        />
+                        <View className="w-2.5" />
+                        <CardLabel
+                            title={Utility.formatHours(course.estimatedHours)}
+                            icon={'clock-outline'}
+                        />
+                        <View className="w-2.5" />
+                        <CardLabel
+                            title={Utility.getDifficultyLabel(course.difficulty)}
+                            icon={'book-multiple-outline'}
+                        />
+                    </View>
+                     <CustomRating rating={course.rating} />
+                     <View className="h-1 border-b-[1px] w-full border-projectGray opacity-50 pt-2"></View>
                     <Text className="text-projectBlack text-m">{course.description}</Text>
+                    <View className="border rounded-2xl p-4 mt-8">
+                        <Text className="text-projectBlack text-m pb-3">{course.estimatedHours} horas de conteúdo (vídeos, exercícios, leituras complementares)</Text>
+                        <Text className="text-projectBlack text-m pb-3">Certificado de Conclusão</Text>
+                        <Text className="text-projectBlack text-m">Início imediato</Text>
+                        <Text className="text-projectBlack text-m">Acesso total por 1 ano</Text>
+                        <Text className="text-projectBlack text-m">Chat e suporte com inteligência artificial</Text>
+                        <Text className="text-projectBlack text-m">Acesso a comunidade do curso</Text>
+                        <Text className="text-projectBlack text-m">Assista onde e quando quiser!</Text>
+                    </View>
                 </View>
-                    <Text className="text-projectBlack text-m">{course.estimatedHours} horas de conteúdo (vídeos, exercícios, leituras complementares)</Text>
                 <View>
                     {
                         subscribed ? (
