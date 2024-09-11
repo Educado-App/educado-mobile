@@ -50,10 +50,6 @@ export default function ExerciseScreen({ exerciseObject, sectionObject, courseOb
 
 		setIsCorrectAnswer(selectedAnswer);
 
-		setButtonClassName(
-			`bg-project${selectedAnswer ? 'Green' : 'Red'}`
-		);
-
 		setShowFeedback(true);
 		setButtonText(continueText);
 		if (buttonText !== continueText) {
@@ -104,7 +100,7 @@ export default function ExerciseScreen({ exerciseObject, sectionObject, courseOb
 										<Text className='pt-2 pb-1 w-72 font-montserrat text-body text-projectBlack'>{answer.text}</Text>
 									</TouchableOpacity>
 
-									{showFeedback ? (
+									{showFeedback && selectedAnswer === index ? (
 										<View className={`flex-row pb-2 w-fit rounded-medium ${answer.correct ? 'bg-projectGreen' : 'bg-projectRed'}`}>
 											<View className='pl-2 pt-1'>
 												<View className='pt-1.5'>
@@ -127,7 +123,7 @@ export default function ExerciseScreen({ exerciseObject, sectionObject, courseOb
 											</View>
 											<Text className={`w-72 pl-1 pt-2 pr-2 text-caption-medium ${answer.correct ? 'text-success' : 'text-error'}`}>{answer.feedback}</Text>
 										</View>
-									) : null}
+										) : null}
 								</View>
 							</View>
 						))}
