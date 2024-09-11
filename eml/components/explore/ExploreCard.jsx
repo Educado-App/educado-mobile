@@ -87,10 +87,10 @@ export default function ExploreCard({ course, isPublished, subscribed }) {
           <View style={styles.transparentBackground}>
               <View style={styles.modalView}>
                   <Pressable onPress={() => setModalVisible(false)}>
-                      <View className="flex-row justify-between w-full items-center">
-                          <Text className="text-projectBlack font-medium text-lg">{course.title}</Text>
+                      <View className="flex-row justify-between w-full items-center py-4">
+                          <Text className="text-projectBlack font-medium text-2xl">{course.title}</Text>
                       </View>
-                      <View className="flex-row items-center justify-start pb-2 flex-wrap">
+                      <View className="flex-row items-center justify-start pb-4 flex-wrap text-xs">
                           <CardLabel
                               title={Utility.determineCategory(course.category)}
                               icon={Utility.determineIcon(course.category)}
@@ -107,54 +107,31 @@ export default function ExploreCard({ course, isPublished, subscribed }) {
                           />
                       </View>
                   </Pressable>
+                    <CustomRating rating={course.rating} />
+                    <View className="h-1 border-b-[1px] w-full border-projectGray opacity-50 pt-4 mb-4"></View>
+                    <Text className="text-projectBlack text-lg">{course.description}</Text>
+                    <View className="border rounded-2xl border-projectGray p-4 mt-8">
+                        <Text className="text-projectBlack pb-3 text-sm">{course.estimatedHours} horas de conteúdo (vídeos, exercícios, leituras complementares)</Text>
+                        <Text className="text-projectBlack pb-3 text-sm">Certificado de Conclusão</Text>
+                        <Text className="text-projectBlack pb-3 text-sm">Início imediato</Text>
+                        <Text className="text-projectBlack pb-3 text-sm">Acesso total por 1 ano</Text>
+                        <Text className="text-projectBlack pb-3 text-sm">Chat e suporte com inteligência artificial</Text>
+                        <Text className="text-projectBlack pb-3 text-sm">Acesso a comunidade do curso</Text>
+                        <Text className="text-projectBlack pb-3 text-sm">Assista onde e quando quiser!</Text>
+                    </View>
+               <View className="mt-10">
+                  {
+                      subscribed ? (
+                          <AccessCourseButton course={course} />
+                      ) : (
+                          <SubscriptionButton course={course} />
+                      )
+                  }
+                  <UpdateDate dateUpdated={Utility.getUpdatedDate(course.dateUpdated)} />
+              </View>
               </View>
           </View>
         </Modal>
-		    {  /*  <Collapsible className="w-full" collapsed={isCollapsed}>
-                <View className="py-7 px-1 bg-projectWhite h-4/5 px-6 py-10">
-                    <View className="flex-row justify-between w-full items-center">
-                       <Text className="text-projectBlack font-medium text-lg">{course.title}</Text>
-                   </View>
-                     <View className="flex-row items-center justify-start pb-2 flex-wrap">
-                        <CardLabel
-                            title={Utility.determineCategory(course.category)}
-                            icon={Utility.determineIcon(course.category)}
-                        />
-                        <View className="w-2.5" />
-                        <CardLabel
-                            title={Utility.formatHours(course.estimatedHours)}
-                            icon={'clock-outline'}
-                        />
-                        <View className="w-2.5" />
-                        <CardLabel
-                            title={Utility.getDifficultyLabel(course.difficulty)}
-                            icon={'book-multiple-outline'}
-                        />
-                    </View>
-                     <CustomRating rating={course.rating} />
-                     <View className="h-1 border-b-[1px] w-full border-projectGray opacity-50 pt-2"></View>
-                    <Text className="text-projectBlack text-m">{course.description}</Text>
-                    <View className="border rounded-2xl p-4 mt-8">
-                        <Text className="text-projectBlack text-m pb-3">{course.estimatedHours} horas de conteúdo (vídeos, exercícios, leituras complementares)</Text>
-                        <Text className="text-projectBlack text-m pb-3">Certificado de Conclusão</Text>
-                        <Text className="text-projectBlack text-m">Início imediato</Text>
-                        <Text className="text-projectBlack text-m">Acesso total por 1 ano</Text>
-                        <Text className="text-projectBlack text-m">Chat e suporte com inteligência artificial</Text>
-                        <Text className="text-projectBlack text-m">Acesso a comunidade do curso</Text>
-                        <Text className="text-projectBlack text-m">Assista onde e quando quiser!</Text>
-                    </View>
-                </View>
-                <View>
-                    {
-                        subscribed ? (
-                            <AccessCourseButton course={course} />
-                        ) : (
-                            <SubscriptionButton course={course} />
-                        )
-                    }
-                    <UpdateDate dateUpdated={Utility.getUpdatedDate(course.dateUpdated)} />
-                </View>
-            </Collapsible> */}
 		</View>
 	) : null;
 }
@@ -162,18 +139,17 @@ export default function ExploreCard({ course, isPublished, subscribed }) {
 const styles = StyleSheet.create({
   transparentBackground: {
       flex: 1,
-      backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent background
+      backgroundColor: 'rgba(228, 242, 245, 0.5)', // Semi-transparent background
       justifyContent: 'flex-end', // Align the modal to the bottom
   },
   modalView: {
-      height: '80%', // Set the height to 80% of the screen
-      width: '100%', // Set the width to 100% of the screen
-      backgroundColor: 'white', // Set the background color
-      borderTopLeftRadius: 20, // Add border radius to the top left
-      borderTopRightRadius: 20, // Add border radius to the top right
-      padding: 20, // Add padding
-      alignItems: 'center', // Center the content
-      shadowColor: '#000', // Add shadow
+      height: '90%',
+      width: '100%',
+      backgroundColor: '#F1F9FB',
+      borderTopLeftRadius: 40,
+      borderTopRightRadius: 40,
+      padding: 20,
+      shadowColor: '#B3B3B3',
       shadowOffset: {
           width: 0,
           height: 2,
