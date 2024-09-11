@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, Pressable } from 'react-native';
+import {View, Text, StyleSheet,Pressable, Modal } from 'react-native';
 import Collapsible from 'react-native-collapsible';
 import UpdateDate from './ExploreUpdate';
 import { MaterialCommunityIcons, AntDesign } from '@expo/vector-icons';
@@ -19,6 +19,7 @@ import PropTypes from 'prop-types';
  */
 export default function ExploreCard({ course, isPublished, subscribed }) {
 	const [isCollapsed, setIsCollapsed] = useState(true);
+	const [modalVisible, setModalVisible] = useState(false);
 
 	return isPublished ? (
         <View>
@@ -52,7 +53,7 @@ export default function ExploreCard({ course, isPublished, subscribed }) {
                             <View className="h-1.25 opacity-50"/>
                             <CustomRating rating={course.rating} />
                             <View className="w-full justify-end flex-row">
-                                <Pressable onPress={() => setIsCollapsed(!isCollapsed)}>
+                                <Pressable onPress={() => setModalVisible(true)}>
                                 <View className="flex-row items-center border-b border-profileCircle">
                                     <Text className="text-profileCircle text-xs font-bold pr-2">Saiba Mais</Text>
                                     <AntDesign name="doubleright" size={12} color="text-profileCircle"/>
@@ -75,7 +76,39 @@ export default function ExploreCard({ course, isPublished, subscribed }) {
                     </View>
                 </View>
 		    </View>
-		    <Collapsible className="w-full" collapsed={isCollapsed}>
+
+		    <Modal
+		    animationType="slide"
+		    transparent={true}
+		    visible={modalVisible}
+		    onRequestClose = {() => {
+                setModalVisible(!modalVisible);
+                }}>
+            <View style={styles.centeredView}>
+                <Pressable onPress={() => setModalVisible(false)}>
+                       <View className="flex-row justify-between w-full items-center">
+                         <Text className="text-projectBlack font-medium text-lg">{course.title}</Text>
+                     </View>
+                     <View className="flex-row items-center justify-start pb-2 flex-wrap">
+                         <CardLabel
+                             title={Utility.determineCategory(course.category)}
+                             icon={Utility.determineIcon(course.category)}
+                         />
+                         <View className="w-2.5" />
+                         <CardLabel
+                             title={Utility.formatHours(course.estimatedHours)}
+                             icon={'clock-outline'}
+                         />
+                         <View className="w-2.5" />
+                         <CardLabel
+                             title={Utility.getDifficultyLabel(course.difficulty)}
+                             icon={'book-multiple-outline'}
+                         />
+                     </View>
+                  </Pressable>
+            </View>
+            </Modal>
+		   {/*  <Collapsible className="w-full" collapsed={isCollapsed}>
                 <View className="py-7 px-1 bg-projectWhite h-4/5 px-6 py-10">
                     <View className="flex-row justify-between w-full items-center">
                        <Text className="text-projectBlack font-medium text-lg">{course.title}</Text>
@@ -119,10 +152,16 @@ export default function ExploreCard({ course, isPublished, subscribed }) {
                     }
                     <UpdateDate dateUpdated={Utility.getUpdatedDate(course.dateUpdated)} />
                 </View>
-            </Collapsible>
+            </Collapsible> */}
 		</View>
 	) : null;
 }
+
+const styles = StyleSheet.create({
+    centeredView: {
+        backgroundColor: '#000'
+        }
+    });
 
 ExploreCard.propTypes = {
 	course: PropTypes.object,
