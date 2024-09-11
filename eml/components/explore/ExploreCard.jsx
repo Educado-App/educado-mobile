@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {View, Text, StyleSheet,Pressable, Modal } from 'react-native';
 import Collapsible from 'react-native-collapsible';
 import UpdateDate from './ExploreUpdate';
-import { MaterialCommunityIcons, AntDesign } from '@expo/vector-icons';
+import { MaterialCommunityIcons, AntDesign, EvilIcons, MaterialIcons, Octicons } from '@expo/vector-icons';
 import CardLabel from './CardLabel';
 import CustomRating from './CustomRating';
 import SubscriptionButton from './SubscriptionButton';
@@ -89,6 +89,7 @@ export default function ExploreCard({ course, isPublished, subscribed }) {
                   <Pressable onPress={() => setModalVisible(false)}>
                       <View className="flex-row justify-between w-full items-center py-4">
                           <Text className="text-projectBlack font-medium text-2xl">{course.title}</Text>
+                          <MaterialIcons name="keyboard-arrow-down" size={24} color="black" />
                       </View>
                       <View className="flex-row items-center justify-start pb-4 flex-wrap text-xs">
                           <CardLabel
@@ -111,15 +112,36 @@ export default function ExploreCard({ course, isPublished, subscribed }) {
                     <View className="h-1 border-b-[1px] w-full border-projectGray opacity-50 pt-4 mb-4"></View>
                     <Text className="text-projectBlack text-lg">{course.description}</Text>
                     <View className="border rounded-2xl border-projectGray p-4 mt-8">
-                        <Text className="text-projectBlack pb-3 text-sm">{course.estimatedHours} horas de conteúdo (vídeos, exercícios, leituras complementares)</Text>
-                        <Text className="text-projectBlack pb-3 text-sm">Certificado de Conclusão</Text>
-                        <Text className="text-projectBlack pb-3 text-sm">Início imediato</Text>
-                        <Text className="text-projectBlack pb-3 text-sm">Acesso total por 1 ano</Text>
-                        <Text className="text-projectBlack pb-3 text-sm">Chat e suporte com inteligência artificial</Text>
-                        <Text className="text-projectBlack pb-3 text-sm">Acesso a comunidade do curso</Text>
-                        <Text className="text-projectBlack pb-3 text-sm">Assista onde e quando quiser!</Text>
+                      <View className="flex-row items-center">
+                          <EvilIcons name="clock" size={24} color="grey" />
+                          <Text className="text-projectBlack pb-3 text-sm ml-2">{course.estimatedHours} horas de conteúdo (vídeos, exercícios, leituras complementares)</Text>
+                      </View>
+                      <View className="flex-row">
+                          <MaterialCommunityIcons name="certificate-outline" size={24} color="grey" />
+                          <Text className="text-projectBlack pb-3 text-sm ml-2">Certificado de Conclusão</Text>
+                      </View>
+                      <View className="flex-row">
+                          <MaterialCommunityIcons name="clock-fast" size={24} color="grey" />
+                          <Text className="text-projectBlack pb-3 text-sm ml-2">Início imediato</Text>
+                      </View>
+                      <View className="flex-row">
+                          <MaterialCommunityIcons name="calendar-month" size={24} color="grey" />
+                          <Text className="text-projectBlack pb-3 text-sm ml-2">Acesso total por 1 ano</Text>
+                      </View>
+                      <View className="flex-row">
+                          <MaterialCommunityIcons name="robot-outline" size={24} color="grey" />
+                          <Text className="text-projectBlack pb-3 text-sm ml-2">Chat e suporte com inteligência artificial</Text>
+                      </View>
+                      <View className="flex-row">
+                          <Octicons name="comment-discussion" size={24} color="grey" />
+                          <Text className="text-projectBlack pb-3 text-sm ml-2">Acesso a comunidade do curso</Text>
+                      </View>
+                      <View className="flex-row">
+                          <MaterialIcons name="phonelink" size={24} color="grey" />
+                          <Text className="text-projectBlack pb-3 text-sm ml-2">Assista onde e quando quiser!</Text>
+                      </View>
                     </View>
-               <View className="mt-10">
+                <View className="mt-10">
                   {
                       subscribed ? (
                           <AccessCourseButton course={course} />
@@ -127,9 +149,8 @@ export default function ExploreCard({ course, isPublished, subscribed }) {
                           <SubscriptionButton course={course} />
                       )
                   }
-                  <UpdateDate dateUpdated={Utility.getUpdatedDate(course.dateUpdated)} />
-              </View>
-              </View>
+                </View>
+            </View>
           </View>
         </Modal>
 		</View>
@@ -149,7 +170,7 @@ const styles = StyleSheet.create({
       borderTopLeftRadius: 40,
       borderTopRightRadius: 40,
       padding: 20,
-      shadowColor: '#B3B3B3',
+      shadowColor: '#000',
       shadowOffset: {
           width: 0,
           height: 2,
