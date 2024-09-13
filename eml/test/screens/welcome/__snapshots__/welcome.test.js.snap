@@ -113,7 +113,7 @@ exports[`WelcomeScreen renders welcomeScreen correctly 1`] = `
           }
         >
           <RCTScrollView
-            activeDotColor="#5ECCE9"
+            activeDotColor="#166276"
             activeDotStyle={
               {
                 "height": 10,
@@ -577,7 +577,7 @@ exports[`WelcomeScreen renders welcomeScreen correctly 1`] = `
               style={
                 [
                   {
-                    "backgroundColor": "#5ECCE9",
+                    "backgroundColor": "#166276",
                     "borderRadius": 4,
                     "height": 8,
                     "marginBottom": 3,
@@ -786,7 +786,7 @@ exports[`WelcomeScreen renders welcomeScreen correctly 1`] = `
             onStartShouldSetResponder={[Function]}
             style={
               {
-                "backgroundColor": "#5ECCE9",
+                "backgroundColor": "#166276",
                 "borderBottomLeftRadius": 8,
                 "borderBottomRightRadius": 8,
                 "borderTopLeftRadius": 8,

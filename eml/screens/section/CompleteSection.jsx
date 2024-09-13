@@ -145,7 +145,7 @@ export default function CompleteSectionScreen() {
 
 			<View className="absolute bottom-0 px-6 w-full z-20 items-center justify-end h-3/4">
 				<View className="w-fit h-40 justify-center mb-8">
-					<Text className="text-center text-3xl font-sans-bold text-primary bg-secondary">
+					<Text className="text-center text-3xl font-sans-bold text-primary_custom bg-secondary">
 						{randomPhrase}
 					</Text>
 				</View>

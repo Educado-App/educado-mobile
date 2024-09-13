@@ -13,7 +13,7 @@ export default function Certification({ courseObject }) {
 
 	return (
 		<View className='flex w-full h-full justify-start items-center'>
-			<Text className="text-center font-sans-bold text-3xl text-primary p-4">Você Recebeu um Certificado!</Text>
+			<Text className="text-center font-sans-bold text-3xl text-primary_custom p-4">Você Recebeu um Certificado!</Text>
 
 			<View className="h-80 w-full items-center">
 				<LottieView

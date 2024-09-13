@@ -25,7 +25,7 @@ const ProfileStatsBox = ({ studentLevel, levelProgress }) => {
       </View> */}
 			{/* Level and Progress Bar */}
 			<View className='flex flex-row justify-between'>
-				<Text className='font-sans-bold text-primary w-24'>Nível {studentLevel}</Text>
+				<Text className='font-sans-bold text-primary_custom w-24'>Nível {studentLevel}</Text>
 				<CustomProgressBar progress={levelProgress} width={65} height={1} displayLabel={false} />
 			</View>
 		</View>
