@@ -23,7 +23,7 @@ export default function NavBar() {
 				tabBarActiveTintColor: 'black',
 				tabBarActiveBackgroundColor: tailwindConfig.theme.colors.cyanBlue,
 				tabBarLabelStyle: {
-					fontSize: 12,
+					fontSize: 14,
 				},
 
 				tabBarStyle: {
