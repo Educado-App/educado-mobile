@@ -84,20 +84,20 @@ const StatsOverview = forwardRef(({ courseObject }, ref) => {
 						</Text>
 					)}
 				</AnimatedCircularProgress>
-				<Text className="text-center text-base text-projectBlack pt-10 px-10">Você respondeu {percentage}% correta, bravo!</Text>
+				<Text className="text-center text-lg text-projectBlack pt-10 px-10">Você respondeu {percentage}% correta, bravo!</Text>
 			</View>
 
 			{/* ---------------------------- Code for leaderboard goes from here ------------------------------------------------------------------------------------
 
-      <Text className="text-center font-sans-bold text-base text-projectBlack mb-3">Placar Educado</Text>
+      <Text className="text-center font-sans-bold text-lg text-projectBlack mb-3">Placar Educado</Text>
 
       <View className="px-6 w-screen">
         <View className="bg-lightGray h-14 rounded-full flex flex-row justify-between items-center px-2">
           <View className="flex flex-row items-center">
             <Image source={require('../../../assets/images/profileEX.jpg')} alt="arrow-right" className="h-10 w-10 rounded-full" />
-            <Text className="text-center font-sans-bold text-base text-projectWhite ml-3">Hans Zimmer</Text>
+            <Text className="text-center font-sans-bold text-lg text-projectWhite ml-3">Hans Zimmer</Text>
           </View>
-          <Text className="text-center font-sans-bold text-base text-projectWhite">1099</Text>
+          <Text className="text-center font-sans-bold text-lg text-projectWhite">1099</Text>
         </View>
       </View>
 
@@ -105,9 +105,9 @@ const StatsOverview = forwardRef(({ courseObject }, ref) => {
         <View className="bg-primary h-14 rounded-full flex flex-row justify-between items-center px-2">
           <View className="flex flex-row items-center">
             <Image source={require('../../../assets/images/profileEX.jpg')} alt="arrow-right" className="h-10 w-10 rounded-full" />
-            <Text className="text-center font-sans-bold text-base text-projectWhite ml-3">Hans Zimmer</Text>
+            <Text className="text-center font-sans-bold text-lg text-projectWhite ml-3">Hans Zimmer</Text>
           </View>
-          <Text className="text-center font-sans-bold text-base text-projectWhite">1100</Text>
+          <Text className="text-center font-sans-bold text-lg text-projectWhite">1100</Text>
         </View>
       </View>
 
@@ -115,9 +115,9 @@ const StatsOverview = forwardRef(({ courseObject }, ref) => {
         <View className="bg-lightGray h-14 rounded-full flex flex-row justify-between items-center px-2">
           <View className="flex flex-row items-center">
             <Image source={require('../../../assets/images/profileEX.jpg')} alt="arrow-right" className="h-10 w-10 rounded-full" />
-            <Text className="text-center font-sans-bold text-base text-projectWhite ml-3">Hans Zimmer</Text>
+            <Text className="text-center font-sans-bold text-lg text-projectWhite ml-3">Hans Zimmer</Text>
           </View>
-          <Text className="text-center font-sans-bold text-base text-projectWhite">1101</Text>
+          <Text className="text-center font-sans-bold text-lg text-projectWhite">1101</Text>
         </View>
       </View>
 

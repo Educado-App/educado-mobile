@@ -67,13 +67,13 @@ export default function Login() {
 								</View>
 								{/* Register button */}
 								<View className="flex-row justify-center">
-									<Text className="text-base text-projectGray mr-1">
+									<Text className="text-lg text-projectGray mr-1">
 										{/* Dont have an account yet? */}
                     Ainda não tem conta?
 									</Text>
 									<Text
 										testId="registerNav"
-										className={'text-base text-projectBlack underline'}
+										className={'text-lg text-projectBlack underline'}
 										onPress={() => navigation.navigate('Register')}
 									>
 										{/* Sign up now */}

@@ -12,7 +12,7 @@ export default function StandardButton({ props }) {
 			className="bg-primary px-10 py-4 rounded-lg"
 			onPress={onPress}
 		>
-			<Text className='text-center font-sans-bold text-base text-projectWhite'>{buttonText}</Text>
+			<Text className='text-center font-sans-bold text-lg text-projectWhite'>{buttonText}</Text>
 		</TouchableOpacity>
 	);
 }

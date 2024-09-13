@@ -32,11 +32,11 @@ export default function Certification({ courseObject }) {
 					onPress={() => {}}
 				>
 					{/* Commented out for now, since the certification is not ready */}
-					{/*<Text className="text-center font-sans-bold text-base underline text-projectBlack">Ver Certificado</Text>*/}
+					{/*<Text className="text-center font-sans-bold text-lg underline text-projectBlack">Ver Certificado</Text>*/}
 				</TouchableOpacity>
 			</View>
 
-			<Text className="text-center text-base text-projectBlack px-5 mt-8">Parabéns, você concluiu o curso {courseObject.title} e recebeu uma certificação. Clique aqui para ver o certificado ou acesse em Perfil.</Text>
+			<Text className="text-center text-lg text-projectBlack px-5 mt-8">Parabéns, você concluiu o curso {courseObject.title} e recebeu uma certificação. Clique aqui para ver o certificado ou acesse em Perfil.</Text>
 		</View>
 	);
 }
