@@ -10,11 +10,11 @@ import PropTypes from 'prop-types';
  * @param placeholder - The placeholder text for the search bar.
  * @returns {JSX.Element} - Returns a JSX element.
  */
-function SearchBar({ onSearchChange, placeholder }) {
+function SearchBar({ onSearchChange }) {
 	return (
 		<View className="flex-row items-center relative bg-projectWhite border-projectGray border border-black rounded-md pr-2.5 mb-2.5 mx-2.5">
 			<TextInput
-				placeholder={"Pesquise aqui..."}
+				placeholder={'Pesquise aqui...'}
 				onChangeText={onSearchChange}
 				className="flex-1 px-2.5 py-3 pr-35"
 			/>
