@@ -75,6 +75,12 @@ jobs:
       - name: Install dependencies
         run: cd eml && npm install
 
+      - name: Update JWT_SECRET in app.json
+        env: 
+          TOKEN_SECRET: ${{ secrets.TOKEN_SECRET }}
+        run: |
+          cd eml && sed -i "s|\"JWT_SECRET\":.*|\"JWT_SECRET\": \"$TOKEN_SECRET\",|" app.json
+      
       - name: Authenticate with Expo 
         env:
           PASSWORD: ${{ secrets.EXPO_PASSWORD }}
@@ -82,5 +88,5 @@ jobs:
         run: expo login -u sofiiagran1 -p $PASSWORD
 
       - name: Build using EAS
-        run: cd eml && eas build -p android --profile preview
+        run: cd eml && eas build -p android --profile preview --non-interactive
     
