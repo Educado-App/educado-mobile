@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import {View, Text, StyleSheet,Pressable, Modal } from 'react-native';
-import Collapsible from 'react-native-collapsible';
-import UpdateDate from './ExploreUpdate';
-import { MaterialCommunityIcons, AntDesign } from '@expo/vector-icons';
+import { View, Text, StyleSheet, Pressable, Modal } from 'react-native';
+import { MaterialCommunityIcons, AntDesign, EvilIcons, MaterialIcons, Octicons } from '@expo/vector-icons';
 import CardLabel from './CardLabel';
 import CustomRating from './CustomRating';
 import SubscriptionButton from './SubscriptionButton';
@@ -18,10 +16,9 @@ import PropTypes from 'prop-types';
  * @returns {JSX.Element|null} - Returns a JSX element. If the course is not published, returns null.
  */
 export default function ExploreCard({ course, isPublished, subscribed }) {
-	const [isCollapsed, setIsCollapsed] = useState(true);
-	const [modalVisible, setModalVisible] = useState(false);
+    const [modalVisible, setModalVisible] = useState(false);
 
-	return isPublished ? (
+    return isPublished ? (
         <View>
             <View className="bg-projectWhite rounded-lg shadow-2xl mb-4 mx-4 p-6 overflow-hidden">
                 <View className="flex-col items-center">
@@ -50,16 +47,16 @@ export default function ExploreCard({ course, isPublished, subscribed }) {
                                     icon={'book-multiple-outline'}
                                 />
                             </View>
-                            <View className="h-1.25 opacity-50"/>
+                            <View className="h-1.25 opacity-50" />
                             <CustomRating rating={course.rating} />
                             <View className="w-full justify-end flex-row">
                                 <Pressable onPress={() => setModalVisible(true)}>
-                                <View className="flex-row items-center border-b border-profileCircle">
-                                    <Text className="text-profileCircle text-xs font-bold pr-2">Saiba Mais</Text>
-                                    <AntDesign name="doubleright" size={12} color="text-profileCircle"/>
-                                </View>
+                                    <View className="flex-row items-center border-b border-profileCircle">
+                                        <Text className="text-profileCircle text-xs font-bold pr-2">Saiba Mais</Text>
+                                        <AntDesign name="doubleright" size={12} color="text-profileCircle" />
+                                    </View>
                                 </Pressable>
-                             </View>
+                            </View>
                         </View>
                     </View>
                 </View>
@@ -69,123 +66,120 @@ export default function ExploreCard({ course, isPublished, subscribed }) {
                         {
                             subscribed ? (
                                 <Text className="bg-yellow text-xs text-projectWhite font-bold px-8 -left-8 -top-4 drop-shadow-sm">
-                  Inscrito
+                                    Inscrito
                                 </Text>
                             ) : null
                         }
                     </View>
                 </View>
-		    </View>
+            </View>
 
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => {
-              setModalVisible(!modalVisible);
-          }}>
-          <View style={styles.transparentBackground}>
-              <View style={styles.modalView}>
-                  <Pressable onPress={() => setModalVisible(false)}>
-                      <View className="flex-row justify-between w-full items-center">
-                          <Text className="text-projectBlack font-medium text-lg">{course.title}</Text>
-                      </View>
-                      <View className="flex-row items-center justify-start pb-2 flex-wrap">
-                          <CardLabel
-                              title={Utility.determineCategory(course.category)}
-                              icon={Utility.determineIcon(course.category)}
-                          />
-                          <View className="w-2.5" />
-                          <CardLabel
-                              title={Utility.formatHours(course.estimatedHours)}
-                              icon={'clock-outline'}
-                          />
-                          <View className="w-2.5" />
-                          <CardLabel
-                              title={Utility.getDifficultyLabel(course.difficulty)}
-                              icon={'book-multiple-outline'}
-                          />
-                      </View>
-                  </Pressable>
-              </View>
-          </View>
-        </Modal>
-		    {  /*  <Collapsible className="w-full" collapsed={isCollapsed}>
-                <View className="py-7 px-1 bg-projectWhite h-4/5 px-6 py-10">
-                    <View className="flex-row justify-between w-full items-center">
-                       <Text className="text-projectBlack font-medium text-lg">{course.title}</Text>
-                   </View>
-                     <View className="flex-row items-center justify-start pb-2 flex-wrap">
-                        <CardLabel
-                            title={Utility.determineCategory(course.category)}
-                            icon={Utility.determineIcon(course.category)}
-                        />
-                        <View className="w-2.5" />
-                        <CardLabel
-                            title={Utility.formatHours(course.estimatedHours)}
-                            icon={'clock-outline'}
-                        />
-                        <View className="w-2.5" />
-                        <CardLabel
-                            title={Utility.getDifficultyLabel(course.difficulty)}
-                            icon={'book-multiple-outline'}
-                        />
-                    </View>
-                     <CustomRating rating={course.rating} />
-                     <View className="h-1 border-b-[1px] w-full border-projectGray opacity-50 pt-2"></View>
-                    <Text className="text-projectBlack text-m">{course.description}</Text>
-                    <View className="border rounded-2xl p-4 mt-8">
-                        <Text className="text-projectBlack text-m pb-3">{course.estimatedHours} horas de conteúdo (vídeos, exercícios, leituras complementares)</Text>
-                        <Text className="text-projectBlack text-m pb-3">Certificado de Conclusão</Text>
-                        <Text className="text-projectBlack text-m">Início imediato</Text>
-                        <Text className="text-projectBlack text-m">Acesso total por 1 ano</Text>
-                        <Text className="text-projectBlack text-m">Chat e suporte com inteligência artificial</Text>
-                        <Text className="text-projectBlack text-m">Acesso a comunidade do curso</Text>
-                        <Text className="text-projectBlack text-m">Assista onde e quando quiser!</Text>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                    setModalVisible(!modalVisible);
+                }}>
+                <View style={styles.transparentBackground}>
+                    <View style={styles.modalView}>
+                        <Pressable onPress={() => setModalVisible(false)}>
+                            <View className="flex-row justify-between w-full items-center py-4">
+                                <Text className="text-projectBlack font-medium text-2xl">{course.title}</Text>
+                                <MaterialIcons name="keyboard-arrow-down" size={24} color="black" />
+                            </View>
+                            <View className="flex-row items-center justify-start pb-4 flex-wrap text-xs">
+                                <CardLabel
+                                    title={Utility.determineCategory(course.category)}
+                                    icon={Utility.determineIcon(course.category)}
+                                />
+                                <View className="w-2.5" />
+                                <CardLabel
+                                    title={Utility.formatHours(course.estimatedHours)}
+                                    icon={'clock-outline'}
+                                />
+                                <View className="w-2.5" />
+                                <CardLabel
+                                    title={Utility.getDifficultyLabel(course.difficulty)}
+                                    icon={'book-multiple-outline'}
+                                />
+                            </View>
+                        </Pressable>
+                        <CustomRating rating={course.rating} />
+                        <View className="h-1 border-b-[1px] w-full border-projectGray opacity-50 pt-4 mb-4"></View>
+                        <Text className="text-projectBlack text-lg">{course.description}</Text>
+                        <View className="border rounded-2xl border-projectGray p-4 mt-8">
+                            <View className="flex-row items-center">
+                                <EvilIcons name="clock" size={24} color="grey" />
+                                <Text className="text-projectBlack pb-3 text-sm ml-2">{course.estimatedHours} horas de conteúdo (vídeos, exercícios, leituras complementares)</Text>
+                            </View>
+                            <View className="flex-row">
+                                <MaterialCommunityIcons name="certificate-outline" size={24} color="grey" />
+                                <Text className="text-projectBlack pb-3 text-sm ml-2">Certificado de Conclusão</Text>
+                            </View>
+                            <View className="flex-row">
+                                <MaterialCommunityIcons name="clock-fast" size={24} color="grey" />
+                                <Text className="text-projectBlack pb-3 text-sm ml-2">Início imediato</Text>
+                            </View>
+                            <View className="flex-row">
+                                <MaterialCommunityIcons name="calendar-month" size={24} color="grey" />
+                                <Text className="text-projectBlack pb-3 text-sm ml-2">Acesso total por 1 ano</Text>
+                            </View>
+                            <View className="flex-row">
+                                <MaterialCommunityIcons name="robot-outline" size={24} color="grey" />
+                                <Text className="text-projectBlack pb-3 text-sm ml-2">Chat e suporte com inteligência artificial</Text>
+                            </View>
+                            <View className="flex-row">
+                                <Octicons name="comment-discussion" size={24} color="grey" />
+                                <Text className="text-projectBlack pb-3 text-sm ml-2">Acesso a comunidade do curso</Text>
+                            </View>
+                            <View className="flex-row">
+                                <MaterialIcons name="phonelink" size={24} color="grey" />
+                                <Text className="text-projectBlack pb-3 text-sm ml-2">Assista onde e quando quiser!</Text>
+                            </View>
+                        </View>
+                        <View className="mt-10">
+                            {
+                                subscribed ? (
+                                    <AccessCourseButton course={course} />
+                                ) : (
+                                    <SubscriptionButton course={course} />
+                                )
+                            }
+                        </View>
                     </View>
                 </View>
-                <View>
-                    {
-                        subscribed ? (
-                            <AccessCourseButton course={course} />
-                        ) : (
-                            <SubscriptionButton course={course} />
-                        )
-                    }
-                    <UpdateDate dateUpdated={Utility.getUpdatedDate(course.dateUpdated)} />
-                </View>
-            </Collapsible> */}
-		</View>
-	) : null;
+            </Modal>
+        </View>
+    ) : null;
 }
 
 const styles = StyleSheet.create({
-  transparentBackground: {
-      flex: 1,
-      backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent background
-      justifyContent: 'flex-end', // Align the modal to the bottom
-  },
-  modalView: {
-      height: '80%', // Set the height to 80% of the screen
-      width: '100%', // Set the width to 100% of the screen
-      backgroundColor: 'white', // Set the background color
-      borderTopLeftRadius: 20, // Add border radius to the top left
-      borderTopRightRadius: 20, // Add border radius to the top right
-      padding: 20, // Add padding
-      alignItems: 'center', // Center the content
-      shadowColor: '#000', // Add shadow
-      shadowOffset: {
-          width: 0,
-          height: 2,
-      },
-      shadowOpacity: 0.25,
-      shadowRadius: 4,
-      elevation: 5,
-  },
+    transparentBackground: {
+        flex: 1,
+        backgroundColor: 'rgba(228, 242, 245, 0.5)', // Semi-transparent background
+        justifyContent: 'flex-end', // Align the modal to the bottom
+    },
+    modalView: {
+        height: '90%',
+        width: '100%',
+        backgroundColor: '#F1F9FB',
+        borderTopLeftRadius: 40,
+        borderTopRightRadius: 40,
+        padding: 20,
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+    },
 });
 
 ExploreCard.propTypes = {
-	course: PropTypes.object,
-	isPublished: PropTypes.bool,
-	subscribed: PropTypes.bool,
+    course: PropTypes.object,
+    isPublished: PropTypes.bool,
+    subscribed: PropTypes.bool,
 };
