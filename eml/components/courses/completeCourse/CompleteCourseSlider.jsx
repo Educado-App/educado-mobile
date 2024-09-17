@@ -5,14 +5,27 @@ import Slick from 'react-native-slick';
 import Congratulation from './Congratulation';
 import StatsOverview from './StatsOverview';
 import Certification from './Certification';
-import PropTypes from 'prop-types'; 
+import PropTypes from 'prop-types';
+import { getUserInfo } from '../../../services/StorageService';
+import { getStudentInfo } from '../../../api/userApi';
 
 /* Check the CompleteCourse file in the screens folder for more info
 props: 			onIndexChanged: function that is called when the index of which slide the student are currently on changes
 				courseObject: the course object
 */
 
-const CompleteCourseSlider = forwardRef(({ onIndexChanged, courseObject }, ref) => {
+const CompleteCourseSlider = forwardRef(async ({ onIndexChanged, courseObject }, ref) => {
+
+	const userInfo = await getUserInfo();
+	const studentInfo = await getStudentInfo(userInfo.id);
+
+	const displayAnimations = false;
+
+	for (const studentCourse of studentInfo.courses) {
+		if ((studentCourse.id === courseObject.id) && (studentCourse.isComplete)) {
+			displayAnimations = true;
+		}
+	}
 
 	CompleteCourseSlider.propTypes = {
 		courseObject: PropTypes.object.isRequired,
@@ -26,11 +39,22 @@ const CompleteCourseSlider = forwardRef(({ onIndexChanged, courseObject }, ref) 
 	const projectColors = tailwindConfig.theme.colors;
 	const statsOverviewRef = useRef(null);
 
-	const screens = [
-		<Congratulation key={0}/>,
-		<StatsOverview ref={statsOverviewRef} courseObject={courseObject} key={1}/>,
-		<Certification courseObject={courseObject} key={2}/>,
-	];
+	let screen = [];
+	if (displayAnimations) {
+		screen = [
+			<Congratulation key={0} />,
+			<StatsOverview ref={statsOverviewRef} courseObject={courseObject} key={1} />,
+			<Certification courseObject={courseObject} key={2} />,
+		]
+	}
+
+	// const screens = displayAnimations ? [
+	// 	<Congratulation key={0} />,
+	// 	<StatsOverview ref={statsOverviewRef} courseObject={courseObject} key={1} />,
+	// 	<Certification courseObject={courseObject} key={2} />,
+	// ] : [];
+
+	// console.log(screens);
 
 	const scrollBy = (number) => {
 		if (slick.current) {
