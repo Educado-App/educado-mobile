@@ -39,9 +39,9 @@ const CompleteCourseSlider = forwardRef(async ({ onIndexChanged, courseObject },
 	const projectColors = tailwindConfig.theme.colors;
 	const statsOverviewRef = useRef(null);
 
-	let screen = [];
+	let screens = [];
 	if (displayAnimations) {
-		screen = [
+		screens = [
 			<Congratulation key={0} />,
 			<StatsOverview ref={statsOverviewRef} courseObject={courseObject} key={1} />,
 			<Certification courseObject={courseObject} key={2} />,
@@ -54,7 +54,7 @@ const CompleteCourseSlider = forwardRef(async ({ onIndexChanged, courseObject },
 	// 	<Certification courseObject={courseObject} key={2} />,
 	// ] : [];
 
-	// console.log(screens);
+	console.log(screens);
 
 	const scrollBy = (number) => {
 		if (slick.current) {
