@@ -4,48 +4,48 @@ module.exports = {
     es2022: true,
     node: true,
   },
-  extends: ["eslint:recommended", "plugin:react/recommended"],
+  extends: ['eslint:recommended', 'plugin:react/recommended'],
   overrides: [
     {
       files: [
-        "**/*.js", // Include .js files
-        ".eslintrc.{js,cjs}",
+        '**/*.js', // Include .js files
+        '.eslintrc.{js,cjs}',
       ],
       parserOptions: {
-        sourceType: "module",
+        sourceType: 'module',
       },
     },
     {
       files: [
-        "**/*.jsx", // Include .jsx files
+        '**/*.jsx', // Include .jsx files
       ],
-      parser: "@babel/eslint-parser", // Specify the parser
+      parser: '@babel/eslint-parser', // Specify the parser
       parserOptions: {
         ecmaFeatures: {
           jsx: true,
           js: true,
         },
-        sourceType: "module",
+        sourceType: 'module',
       },
     },
   ],
-  plugins: ["react"],
+  plugins: ['react'],
   ignorePatterns: [
-    "**/*.test.js",
-    "**/*.test.jsX",
-    "**/*.spec.js",
-    "**/*.spec.jsx",
-    "**/*.config.js",
-    "jestSetup.js",
+    '**/*.test.js',
+    '**/*.test.jsX',
+    '**/*.spec.js',
+    '**/*.spec.jsx',
+    '**/*.config.js',
+    'jestSetup.js',
   ],
   rules: {
-    quotes: ["error", "single"], // Specify single quotes
-    semi: ["error", "always"], // Require semicolons
-    "no-unsafe-finally": "off", // Disable no-unsafe-finally rule
+    quotes: ['error', 'single'], // Specify single quotes
+    semi: ['error', 'always'], // Require semicolons
+    'no-unsafe-finally': 'off', // Disable no-unsafe-finally rule
   },
   settings: {
     react: {
-      version: "16.13.1",
+      version: '16.13.1',
     },
   },
 };
