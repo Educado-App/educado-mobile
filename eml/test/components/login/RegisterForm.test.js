@@ -152,13 +152,13 @@ describe('password validation', () => {
   test('Test password length validation', async () => {
     await renderer.act(() => {
       changePassword('12345678a').then(() => {
-        expectClass(passwordLengthAlert, 'text-xs font-montserrat text-gray');
+        expectClass(passwordLengthAlert, 'text-sm font-montserrat text-gray');
       });
     });
 
     await renderer.act(() => {
       changePassword('1278a').then(() => {
-        expectClass(passwordLengthAlert, 'text-xs font-montserrat text-error');
+        expectClass(passwordLengthAlert, 'text-sm font-montserrat text-error');
       });
     });
   });
@@ -166,13 +166,13 @@ describe('password validation', () => {
   test('Test password letter inclusion validation', async () => {
     await renderer.act(() => {
       changePassword('testPassword').then(() => {
-        expectClass(passwordLetterAlert, 'text-xs font-montserrat text-gray');
+        expectClass(passwordLetterAlert, 'text-sm font-montserrat text-gray');
       });
     });
 
     await renderer.act(() => {
       changePassword('12783290189').then(() => {
-        expectClass(passwordLengthAlert, 'text-xs font-montserrat text-error');
+        expectClass(passwordLengthAlert, 'text-sm font-montserrat text-error');
       });
     });
   });

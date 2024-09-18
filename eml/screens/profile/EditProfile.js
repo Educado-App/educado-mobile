@@ -172,7 +172,7 @@ export default function EditProfile() {
 							<FormButton className='py-2'>
                 Trocar imagem
 							</FormButton>
-							<Text className='text-primary underline'>Remover imagem</Text>
+							<Text className='text-primary_custom underline'>Remover imagem</Text>
 						</View>
 					</View>
 				</View>
@@ -228,7 +228,7 @@ export default function EditProfile() {
 
 					<View className='flex flex-row justify-between items-center pt-12'>
 						<Text 
-							className='text-primary text-sm underline'
+							className='text-primary_custom text-sm underline'
 							onPress={() => deleteAccountAlert()}  
 						>Excluir minha conta</Text>
 						<FormButton

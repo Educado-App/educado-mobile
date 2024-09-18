@@ -77,7 +77,7 @@ export default function CourseCard({ course, isOnline}) {
 							}) : null;
 						}}
 					>
-						<MaterialCommunityIcons size={28} name="play-circle" color={tailwindConfig.theme.colors.primary}></MaterialCommunityIcons>
+						<MaterialCommunityIcons size={28} name="play-circle" color={tailwindConfig.theme.colors.primary_custom}></MaterialCommunityIcons>
 					</Pressable>
 				</View>
 			</View>
