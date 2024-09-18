@@ -4,12 +4,14 @@ import WelcomeScreen from '../../../screens/welcome/Welcome';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useWelcomeScreenLogic } from '../../../App'; // Update the import path as needed
 
+
 let navigated = false;
 
 jest.mock('@react-navigation/native', () => ({
   useNavigation: () => ({
     navigate: jest.fn(() => { navigated = true; }),
   }),
+  useRoute: jest.fn(),
 }));
 
 jest.mock('@react-navigation/bottom-tabs', () => ({
@@ -35,6 +37,25 @@ afterEach(() => {
 
 describe('WelcomeScreen', () => {
   it('renders welcomeScreen correctly', () => {
+    expect(welcomeScreen.toJSON()).toMatchSnapshot();
+  });
+
+  it('renders welcomeScreen correctly with default route', () => {
+    require('@react-navigation/native').useRoute.mockReturnValue({
+      params: { previousScreen: 'Home' },
+    });
+
+    welcomeScreen = renderer.create(<WelcomeScreen />);
+    expect(welcomeScreen.toJSON()).toMatchSnapshot();
+  });
+
+  it('renders welcomeScreen correctly with previousScreen as Login', () => {
+    // Override the useRoute mock for this specific test case
+    require('@react-navigation/native').useRoute.mockReturnValue({
+      params: { previousScreen: 'Login' },
+    });
+
+    welcomeScreen = renderer.create(<WelcomeScreen />);
     expect(welcomeScreen.toJSON()).toMatchSnapshot();
   });
 
