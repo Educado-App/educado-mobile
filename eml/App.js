@@ -34,11 +34,19 @@ function WelcomeStack() {
 					headerShown: false,
 				}}
 			/>
+			<Stack.Screen
+				name="Register"
+				component={RegisterScreen}
+				options={{
+					headerShown: false,
+				}}
+			/>
 		</Stack.Navigator>
 	);
 }
 
 function LoginStack() {
+	// const initialRoute = route.params?.initialRoute || 'Login';
 	return (
 		<Stack.Navigator initialRouteName={'Login'}>
 			<Stack.Screen

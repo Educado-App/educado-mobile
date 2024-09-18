@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { View, TouchableWithoutFeedback, Keyboard } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import RegisterForm from '../../components/login/RegisterForm';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import LogoBackButton from '../../components/login/LogoBackButton';
@@ -8,9 +8,13 @@ import Text from '../../components/general/Text';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import * as StorageService from '../../services/StorageService';
 
+
 export default function Register() {
 
 	const navigation = useNavigation();
+	const route = useRoute();
+	const previousScreen = route.params?.previousScreen || 'Home';
+
 
 	const checkLoginToken = async () => {
 		try {
@@ -37,7 +41,7 @@ export default function Register() {
 				<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 					<View>
 						<View className="mt-10">
-							<LogoBackButton navigationPlace={'Login'} />
+							<LogoBackButton navigationPlace={previousScreen} />
 						</View>
 						<View className="mx-6">
 							<View className="mt-8">

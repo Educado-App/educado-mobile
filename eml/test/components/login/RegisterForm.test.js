@@ -2,6 +2,7 @@ import renderer from 'react-test-renderer';
 import React from 'react';
 import RegisterForm from '../../../components/login/RegisterForm';
 
+
 let registerForm;
 
 jest.useRealTimers('legacy');
@@ -9,6 +10,11 @@ jest.useRealTimers('legacy');
 jest.mock('@react-navigation/native', () => ({
   useNavigation: () => ({
     navigate: jest.fn(),
+  }),
+  useRoute: jest.fn().mockReturnValue({
+    params: {
+      previousScreen: 'Home',
+    },
   }),
 }));
 
