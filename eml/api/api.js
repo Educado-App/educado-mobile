@@ -2,9 +2,11 @@ import axios from 'axios';
 
 const timeoutInMs = 1200;
 
-const url = '192.168.196.1:8888';// Change this to your LOCAL IP address when testing.
+
+const url = '172.20.10.3';// Change this to your LOCAL IP address when testing.
 
 const certificateUrl = '192.168.196.1:8080';
+
 
 /* Commented out for avoiding linting errors :))
  * TODO: move IP address to .env file !!!
