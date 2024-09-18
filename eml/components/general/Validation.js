@@ -64,12 +64,12 @@ const validateName = (name, wordForName = 'Nome') => {
 		return `${wordForName} obrigatório`; // Name required
 	}
 
-    if (name[0] === ' ') {
-        return  `${wordForName} não pode ter espaço no início.`; // Name can't start with space
-    }
+	if (name[0] === ' ') {
+		return  `${wordForName} não pode ter espaço no início.`; // Name can't start with space
+	}
 
 	if (name[name.length - 1] === ' ') {
-	    return  `${wordForName} não pode ter espaço no final.`; // Name can't end with space
+		return  `${wordForName} não pode ter espaço no final.`; // Name can't end with space
 	}
 
 
