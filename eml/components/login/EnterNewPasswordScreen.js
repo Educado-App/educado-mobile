@@ -148,7 +148,7 @@ export default function EnterNewPasswordScreen(props) {
 				<PasswordEye id="showPasswordEye" showPasswordIcon={showPassword} toggleShowPassword={() => toggleShowPassword(setShowPassword, showPassword)} />
 			</View>
 			<View className="flex-row justify-start mt-1 h-6">
-				<Text testId="passwordLengthAlert" className={'text-sm' + ((passwordLengthValid || !newPassword) ? ' text-projectGray' : ' text-error')}>
+				<Text testId="passwordLengthAlert" className={'text-xs' + ((passwordLengthValid || !newPassword) ? ' text-projectGray' : ' text-error')}>
 					{/* Minimum 8 characters */}
           • Mínimo 8 caracteres
 				</Text>
@@ -159,7 +159,7 @@ export default function EnterNewPasswordScreen(props) {
 				</View>
 			</View>
 			<View className="flex-row justify-start h-6">
-				<Text testId="passwordLetterAlert" className={'text-sm font-sans' + ((passwordContainsLetter || !newPassword) ? ' text-projectGray' : ' text-error')}>
+				<Text testId="passwordLetterAlert" className={'text-xs font-sans' + ((passwordContainsLetter || !newPassword) ? ' text-projectGray' : ' text-error')}>
 					{/* Must contain at least one letter */}
           • Conter pelo menos uma letra
 				</Text>
@@ -193,12 +193,12 @@ export default function EnterNewPasswordScreen(props) {
         Entrar
 			</FormButton>
 			<View className="flex-row justify-center items-end mt-2">
-				<Text className="text-projectGray leading-5 text-lg mr-1">
+				<Text className="text-projectGray leading-5 text-base mr-1">
 					{/* Wrong email? */}
           E-mail errado?
 				</Text>
 				<Text
-					className="text-projectBlack leading-5 text-lg underline"
+					className="text-projectBlack leading-5 text-base underline"
 					onPress={() => props.resetState()}
 				>
 					{/* Go back */}

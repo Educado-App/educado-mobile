@@ -131,7 +131,7 @@ export default function LoginForm() {
 			<View>
 				{/* TODO: tilføj onPress til nedenstående; reset password */}
 				<Text
-					className={'text-right underline text-lg text-projectBlack mb-15'}
+					className={'text-right underline text-base text-projectBlack mb-15'}
 					onPress={() => setModalVisible(true)}
 				>
 					{/* reset your password? */}

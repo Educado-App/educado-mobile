@@ -11,8 +11,8 @@ export default function IconButton({ size = 24, icon = 'menu', onClick, pressed 
 
 	return (
 		<Pressable onPress={onClick} >
-			< View className={pressed ? 'flex-col rounded-full justify-center active:bg-opacity-50 items-center  w-[10vw] h-[10vw] bg-projectWhite' : 'flex-col rounded-full justify-center active:bg-opacity-50 items-center  w-[10vw] h-[10vw] bg-primary_custom '}>
-				<MaterialCommunityIcons name={icon} size={size} color={pressed ? tailwindConfig.theme.colors.primary_custom : tailwindConfig.theme.colors.projectWhite} />
+			< View className={pressed ? 'flex-col rounded-full justify-center active:bg-opacity-50 items-center  w-[10vw] h-[10vw] bg-projectWhite' : 'flex-col rounded-full justify-center active:bg-opacity-50 items-center  w-[10vw] h-[10vw] bg-primary '}>
+				<MaterialCommunityIcons name={icon} size={size} color={pressed ? tailwindConfig.theme.colors.primary : tailwindConfig.theme.colors.projectWhite} />
 			</View >
 		</Pressable>
 	);

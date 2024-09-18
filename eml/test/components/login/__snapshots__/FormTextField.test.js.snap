@@ -31,8 +31,8 @@ exports[`Ensure that the text field is rendered correctly 1`] = `
               "marginLeft": 8,
             },
             {
-              "fontSize": 14,
-              "lineHeight": 20,
+              "fontSize": 12,
+              "lineHeight": 16,
             },
           ],
         ]
@@ -55,8 +55,8 @@ exports[`Ensure that the text field is rendered correctly 1`] = `
               "marginLeft": 4,
             },
             {
-              "fontSize": 14,
-              "lineHeight": 20,
+              "fontSize": 12,
+              "lineHeight": 16,
             },
             {
               "color": "#FF4949",

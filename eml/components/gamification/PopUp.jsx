@@ -130,7 +130,7 @@ export default function PopUp({ pointAmount, isCorrectAnswer }) {
 						},
 					],
 				}}
-				className="bg-bgprimary_custom absolute bottom-0 p-4 w-screen h-[12.5%] z-20 rounded-large shadow-md shadow-projectBlack flex-row justify-between"
+				className="bg-bgPrimary absolute bottom-0 p-4 w-screen h-[12.5%] z-20 rounded-large shadow-md shadow-projectBlack flex-row justify-between"
 				testID={'PopUp'}
 			>
 				<View className={`${isCorrectAnswer === true ? 'w-10/12' : 'w-full'}`}>

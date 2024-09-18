@@ -26,7 +26,7 @@ const SubscriptionButton = ({ course }) => {
 		<View className="">
 			<Pressable
 				onPress={handlePress}
-				className="w-full flex items-center justify-center rounded-lg bg-primary_custom p-2"
+				className="w-full flex items-center justify-center rounded-lg bg-primary p-2"
 			>
 				<Text className="text-projectWhite p-1 font-bold">
           Inscrever-se agora

@@ -18,7 +18,7 @@ export default function WelcomeSlider() {
 			index={0}
 			dotColor={projectColors.projectWhite}
 			dotStyle={{ width: 10, height: 10 }}
-			activeDotColor={projectColors.primary_custom}
+			activeDotColor={projectColors.primary}
 			activeDotStyle={{ width: 10, height: 10 }}
 			height={265}
 			showsButtons={true}

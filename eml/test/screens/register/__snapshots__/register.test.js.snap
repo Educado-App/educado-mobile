@@ -264,8 +264,8 @@ exports[`Register screen Login screen renders 1`] = `
                           "marginLeft": 8,
                         },
                         {
-                          "fontSize": 14,
-                          "lineHeight": 20,
+                          "fontSize": 12,
+                          "lineHeight": 16,
                         },
                       ],
                     ]
@@ -290,8 +290,8 @@ exports[`Register screen Login screen renders 1`] = `
                           "marginLeft": 4,
                         },
                         {
-                          "fontSize": 14,
-                          "lineHeight": 20,
+                          "fontSize": 12,
+                          "lineHeight": 16,
                         },
                         {
                           "color": "#FF4949",
@@ -375,8 +375,8 @@ exports[`Register screen Login screen renders 1`] = `
                           "marginLeft": 8,
                         },
                         {
-                          "fontSize": 14,
-                          "lineHeight": 20,
+                          "fontSize": 12,
+                          "lineHeight": 16,
                         },
                       ],
                     ]
@@ -401,8 +401,8 @@ exports[`Register screen Login screen renders 1`] = `
                           "marginLeft": 4,
                         },
                         {
-                          "fontSize": 14,
-                          "lineHeight": 20,
+                          "fontSize": 12,
+                          "lineHeight": 16,
                         },
                         {
                           "color": "#FF4949",
@@ -472,8 +472,8 @@ exports[`Register screen Login screen renders 1`] = `
                     },
                     [
                       {
-                        "fontSize": 14,
-                        "lineHeight": 20,
+                        "fontSize": 12,
+                        "lineHeight": 16,
                       },
                       {
                         "color": "#FF4949",
@@ -527,8 +527,8 @@ exports[`Register screen Login screen renders 1`] = `
                           "marginLeft": 8,
                         },
                         {
-                          "fontSize": 14,
-                          "lineHeight": 20,
+                          "fontSize": 12,
+                          "lineHeight": 16,
                         },
                       ],
                     ]
@@ -553,8 +553,8 @@ exports[`Register screen Login screen renders 1`] = `
                           "marginLeft": 4,
                         },
                         {
-                          "fontSize": 14,
-                          "lineHeight": 20,
+                          "fontSize": 12,
+                          "lineHeight": 16,
                         },
                         {
                           "color": "#FF4949",
@@ -624,8 +624,8 @@ exports[`Register screen Login screen renders 1`] = `
                     },
                     [
                       {
-                        "fontSize": 14,
-                        "lineHeight": 20,
+                        "fontSize": 12,
+                        "lineHeight": 16,
                       },
                       {
                         "color": "#FF4949",
@@ -688,8 +688,8 @@ exports[`Register screen Login screen renders 1`] = `
                             "marginLeft": 8,
                           },
                           {
-                            "fontSize": 14,
-                            "lineHeight": 20,
+                            "fontSize": 12,
+                            "lineHeight": 16,
                           },
                         ],
                       ]
@@ -714,8 +714,8 @@ exports[`Register screen Login screen renders 1`] = `
                             "marginLeft": 4,
                           },
                           {
-                            "fontSize": 14,
-                            "lineHeight": 20,
+                            "fontSize": 12,
+                            "lineHeight": 16,
                           },
                           {
                             "color": "#FF4949",
@@ -827,8 +827,8 @@ exports[`Register screen Login screen renders 1`] = `
                     },
                     [
                       {
-                        "fontSize": 14,
-                        "lineHeight": 20,
+                        "fontSize": 12,
+                        "lineHeight": 16,
                       },
                       {
                         "color": "#A1ACB2",
@@ -892,8 +892,8 @@ exports[`Register screen Login screen renders 1`] = `
                     },
                     [
                       {
-                        "fontSize": 14,
-                        "lineHeight": 20,
+                        "fontSize": 12,
+                        "lineHeight": 16,
                       },
                       {
                         "fontFamily": "Montserrat-Regular",
@@ -980,8 +980,8 @@ exports[`Register screen Login screen renders 1`] = `
                             "marginLeft": 8,
                           },
                           {
-                            "fontSize": 14,
-                            "lineHeight": 20,
+                            "fontSize": 12,
+                            "lineHeight": 16,
                           },
                         ],
                       ]
@@ -1006,8 +1006,8 @@ exports[`Register screen Login screen renders 1`] = `
                             "marginLeft": 4,
                           },
                           {
-                            "fontSize": 14,
-                            "lineHeight": 20,
+                            "fontSize": 12,
+                            "lineHeight": 16,
                           },
                           {
                             "color": "#FF4949",
@@ -1113,8 +1113,8 @@ exports[`Register screen Login screen renders 1`] = `
                     },
                     [
                       {
-                        "fontSize": 14,
-                        "lineHeight": 20,
+                        "fontSize": 12,
+                        "lineHeight": 16,
                       },
                       {
                         "color": "#FF4949",
@@ -1161,7 +1161,7 @@ exports[`Register screen Login screen renders 1`] = `
                 onStartShouldSetResponder={[Function]}
                 style={
                   {
-                    "backgroundColor": "#166276",
+                    "backgroundColor": "#5ECCE9",
                     "borderBottomLeftRadius": 8,
                     "borderBottomRightRadius": 8,
                     "borderTopLeftRadius": 8,
@@ -1245,8 +1245,8 @@ exports[`Register screen Login screen renders 1`] = `
                   "lineHeight": 20,
                 },
                 {
-                  "fontSize": 18,
-                  "lineHeight": 28,
+                  "fontSize": 16,
+                  "lineHeight": 24,
                 },
               ],
             ]
@@ -1275,8 +1275,8 @@ exports[`Register screen Login screen renders 1`] = `
                   "lineHeight": 20,
                 },
                 {
-                  "fontSize": 18,
-                  "lineHeight": 28,
+                  "fontSize": 16,
+                  "lineHeight": 24,
                 },
                 {
                   "textDecorationLine": "underline",

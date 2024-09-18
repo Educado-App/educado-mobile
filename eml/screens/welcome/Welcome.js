@@ -36,7 +36,7 @@ export default function WelcomeScreen() {
 
 						<View className="px-6 w-screen">
 							{/* Replace with standard button */}
-							<TouchableOpacity className="bg-primary_custom px-10 py-4 rounded-medium"
+							<TouchableOpacity className="bg-primary px-10 py-4 rounded-medium"
 								onPress={() => { navigation.navigate('LoginStack'); }}
 							>
 								<Text className="text-center font-sans-bold text-body text-projectWhite">Entrar</Text>

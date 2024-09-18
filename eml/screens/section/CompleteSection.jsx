@@ -66,7 +66,7 @@ export default function CompleteSectionScreen() {
 		return (
 			<View className={`h-24 w-40 ${color === 'green' ? 'bg-success' : 'bg-yellow'} rounded-lg items-center justify-between px-2 pb-2 shadow shadow-projectGray`}>
 				<View className="w-full h-2/5 justify-center">
-					<Text className="text-projectWhite text-lg font-sans-bold text-center capitalize">
+					<Text className="text-projectWhite text-base font-sans-bold text-center capitalize">
 						{text}
 					</Text>
 				</View>
@@ -145,7 +145,7 @@ export default function CompleteSectionScreen() {
 
 			<View className="absolute bottom-0 px-6 w-full z-20 items-center justify-end h-3/4">
 				<View className="w-fit h-40 justify-center mb-8">
-					<Text className="text-center text-3xl font-sans-bold text-primary_custom bg-secondary">
+					<Text className="text-center text-3xl font-sans-bold text-primary bg-secondary">
 						{randomPhrase}
 					</Text>
 				</View>
