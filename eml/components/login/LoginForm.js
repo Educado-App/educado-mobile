@@ -77,7 +77,6 @@ export default function LoginForm() {
 				// TODO: What error should we give here instead? Unknown error? 
 			default: // Errors not currently handled with specific alerts
 				ShowAlert('Erro desconhecido!');
-				console.log(error);
 			}
 		});
 	}
