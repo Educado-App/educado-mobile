@@ -155,7 +155,7 @@ export default function EditProfile() {
 		<SafeAreaView className='bg-secondary'>
 			<View className='h-full'>
 				<View>
-					<View className='relative mx-4 mt-12 mb-6'>
+					<View className='relative mx-4 mt-12 mb-4'>
 						{/* Back button */}
 						<BackButton onPress={() => navigation.navigate('Perfil')} />
 
@@ -180,7 +180,7 @@ export default function EditProfile() {
 				<ScrollView showsVerticalScrollIndicator={true}>
 					<View className="flex flex-col px-8 pt-8 w-screen overflow-auto">
 
-						<View className='mb-8'>
+						<View className='mb-4'>
 							<FormTextField
 								label='Nome'
 								required={true}
@@ -194,7 +194,7 @@ export default function EditProfile() {
 								testId='firstNameAlert'
 							/>
 						</View>
-						<View className='mb-8'>
+						<View className='mb-4'>
 							<FormTextField
 								label='Sobrenome'
 								required={true}
@@ -208,7 +208,7 @@ export default function EditProfile() {
 								testId='lastNameAlert'
 							/>
 						</View>
-						<View className='mb-12'>
+						<View className='mb-4'>
 							<FormTextField
 								label='E-mail'
 								required={true}
@@ -224,20 +224,20 @@ export default function EditProfile() {
 							/>
 						</View>
 
-
-
 						{/* Change password */}
 						<ChangePasswordModal />
 
-						<View className='flex flex-row justify-between items-center pt-12'>
+						<FormButton className='mb-4'
+							onPress={() => saveUserInfo()}
+							disabled={!validateInput()}>
+								Salvar
+						</FormButton>
+
+						<View className='mb-4 flex flex-row justify-center items-center'>
 							<Text 
 								className='text-error text-sm underline'
 								onPress={() => deleteAccountAlert()}  
 							>Excluir minha conta</Text>
-							<FormButton
-								onPress={() => saveUserInfo()}
-								disabled={!validateInput()}
-							>Salvar</FormButton>
 						</View>
 					</View>
 				</ScrollView>

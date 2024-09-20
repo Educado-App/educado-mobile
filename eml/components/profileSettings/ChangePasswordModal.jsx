@@ -88,7 +88,7 @@ const ChangePasswordModal = () => {
 
 	return <>
 		{/* Button for opening modal */}
-		<FormButton
+		<FormButton className='mb-8'
 			type='warning'
 			onPress={() => setModalVisible(true)}
 		>
