@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import {
 	View,
 	SafeAreaView,
-	Alert
+	Alert,
+	ScrollView
 } from 'react-native';
 import Text from '../../components/general/Text';
 import ProfileNameCircle from '../../components/profile/ProfileNameCircle';
@@ -176,67 +177,70 @@ export default function EditProfile() {
 						</View>
 					</View>
 				</View>
+				<ScrollView showsVerticalScrollIndicator={true}>
+					<View className="flex flex-col px-8 pt-8 w-screen overflow-auto">
 
-				<View className="flex flex-col px-8 pt-8 w-screen">
+						<View className='mb-8'>
+							<FormTextField
+								label='Nome'
+								required={true}
+								placeholder='Insira sua nome'
+								value={firstName}
+								onChangeText={(firstName) => {setFirstName(firstName); validateName(firstName);}}
+								testId='firstName'
+							></FormTextField>
+							<FormFieldAlert 
+								label={firstNameAlert}
+								testId='firstNameAlert'
+							/>
+						</View>
+						<View className='mb-8'>
+							<FormTextField
+								label='Sobrenome'
+								required={true}
+								placeholder='Insira sua sobrenome'
+								value={lastName}
+								onChangeText={(lastName) => {setLastName(lastName); validateName(lastName);}}
+								testId='lastName'
+							></FormTextField>
+							<FormFieldAlert 
+								label={lastNameAlert}
+								testId='lastNameAlert'
+							/>
+						</View>
+						<View className='mb-12'>
+							<FormTextField
+								label='E-mail'
+								required={true}
+								placeholder='Insira sua e-mail'
+								value={email}
+								keyboardType="email-address"
+								onChangeText={async (email) => {setEmail(email); validateEmail(email);}}
+								testId='email'
+							></FormTextField>
+							<FormFieldAlert 
+								label={emailAlert}
+								testId='emailAlert'
+							/>
+						</View>
 
-					<View className='mb-8'>
-						<FormTextField
-							label='Nome'
-							required={true}
-							placeholder='Insira sua nome'
-							value={firstName}
-							onChangeText={(firstName) => {setFirstName(firstName); validateName(firstName);}}
-							testId='firstName'
-						></FormTextField>
-						<FormFieldAlert 
-							label={firstNameAlert}
-							testId='firstNameAlert'
-						/>
-					</View>
-					<View className='mb-8'>
-						<FormTextField
-							label='Sobrenome'
-							required={true}
-							placeholder='Insira sua sobrenome'
-							value={lastName}
-							onChangeText={(lastName) => {setLastName(lastName); validateName(lastName);}}
-							testId='lastName'
-						></FormTextField>
-						<FormFieldAlert 
-							label={lastNameAlert}
-							testId='lastNameAlert'
-						/>
-					</View>
-					<View className='mb-12'>
-						<FormTextField
-							label='E-mail'
-							required={true}
-							placeholder='Insira sua e-mail'
-							value={email}
-							keyboardType="email-address"
-							onChangeText={async (email) => {setEmail(email); validateEmail(email);}}
-							testId='email'
-						></FormTextField>
-						<FormFieldAlert 
-							label={emailAlert}
-							testId='emailAlert'
-						/>
-					</View>
 
-					{/* Change password */}
-					<ChangePasswordModal />
 
-					<View className='flex flex-row justify-between items-center pt-12'>
-						<Text 
-							className='text-primary text-sm underline'
-							onPress={() => deleteAccountAlert()}  
-						>Excluir minha conta</Text>
-						<FormButton
-							onPress={() => saveUserInfo()}
-							disabled={!validateInput()}
-						>Salvar</FormButton>
+						{/* Change password */}
+						<ChangePasswordModal />
+
+						<View className='flex flex-row justify-between items-center pt-12'>
+							<Text 
+								className='text-error text-sm underline'
+								onPress={() => deleteAccountAlert()}  
+							>Excluir minha conta</Text>
+							<FormButton
+								onPress={() => saveUserInfo()}
+								disabled={!validateInput()}
+							>Salvar</FormButton>
+						</View>
 					</View>
-				</View>
+				</ScrollView>
 			</View>
 		</SafeAreaView>
 	);
