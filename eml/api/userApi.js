@@ -181,6 +181,55 @@ export const addCourseToStudent = async (user_Id, course_Id, token) => {
 	}
 };
 
+export const uploadPhoto = async (user_id, photo, token) => {
+	try{
+		const formData = new FormData();
+		const photoBlob = await uriToBlob(photo); // Photo is a uri
+		formData.append('file', photoBlob, 'photo.jpg');
+		const res = await client.patch('/api/students/' + user_id + '/photo', formData, {
+			headers: {
+				'Content-Type': 'multipart/form-data',
+				'token': token,
+			}
+		});
+
+		return res.data;
+	} catch (e) {
+		if (e?.response?.data != null) {
+			throw e.response.data;
+		} else {
+			throw e;
+		}
+	}
+};
+
+export const getPhoto = async (user_id, token) => {
+	try{
+		const res = await client.get('/api/students/' + user_id + '/photo', {
+			headers: {
+				'Content-Type': 'multipart/form-data',
+				'token': token,
+			}
+		});
+		if (res.data) {
+			return URL.createObjectURL(res.data); // Convert blob to object URL
+		} else {
+			console.log('No profile photo found');
+		}
+	} catch (e) {
+		if (e?.response?.data != null) {
+			throw e.response.data;
+		} else {
+			throw e;
+		}
+	}
+};
+
+const uriToBlob = async (uri) => {
+	const response = await fetch(uri);
+	const blob = await response.blob();
+	return blob;
+};
 
 
 /**

@@ -129,6 +129,7 @@ export const setUserInfo = async (userInfo) => {
 		firstName: userInfo.firstName,
 		lastName: userInfo.lastName,
 		email: userInfo.email,
+		photo: userInfo.photo ? userInfo.photo : null,
 	};
 	await AsyncStorage.setItem(USER_INFO, JSON.stringify(obj));
 	await AsyncStorage.setItem(USER_ID, userInfo.id); // needs to be separate

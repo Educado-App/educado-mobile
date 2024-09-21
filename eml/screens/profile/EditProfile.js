@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import {
 	View,
 	SafeAreaView,
-	Alert
+	Alert,
+	Image,
+	TouchableOpacity,
 } from 'react-native';
 import Text from '../../components/general/Text';
 import ProfileNameCircle from '../../components/profile/ProfileNameCircle';
@@ -18,6 +20,7 @@ import { getUserInfo, setUserInfo, getJWT } from '../../services/StorageService'
 import ShowAlert from '../../components/general/ShowAlert';
 import errorSwitch from '../../components/general/errorSwitch';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect } from '@react-navigation/native';
 
 /**
  * Edit profile screen
@@ -35,6 +38,7 @@ export default function EditProfile() {
 	const [emailAlert, setEmailAlert] = useState('');
 	const [firstNameAlert, setFirstNameAlert] = useState('');
 	const [lastNameAlert, setLastNameAlert] = useState('');
+	const [photo, setPhoto] = useState('');
 
 	const navigation = useNavigation();
 
@@ -86,15 +90,26 @@ export default function EditProfile() {
 				setFirstName(fetchedProfile.firstName);
 				setLastName(fetchedProfile.lastName);
 				setEmail(fetchedProfile.email);
+				setPhoto(fetchedProfile.photo);
 			}
 		} catch (e) {
 			console.log(e);
 		}
 	};
 
-	useEffect(() => {
-		getProfile();
-	}, []);
+	useFocusEffect(
+		useCallback(() => {
+			const runAsyncFunction = async () => {
+				try {
+					await getProfile();
+				} catch (error) {
+					console.error('Error fetching profile:', error);
+				}
+			};
+	
+			runAsyncFunction();
+		}, [])
+	);
 
 	/**
    * persists the changed user info
@@ -150,6 +165,18 @@ export default function EditProfile() {
 		}
 	};
 
+	const removeImage = () => {
+		const profile = {
+			id: id,
+			firstName: fetchedFirstName,
+			lastName: fetchedLastName,
+			email: fetchedEmail,
+			photo: '',
+		};
+		setUserInfo(profile);
+		setPhoto('');
+	};
+
 	return (
 		<SafeAreaView className='bg-secondary'>
 			<View className='h-full'>
@@ -166,13 +193,18 @@ export default function EditProfile() {
 
 					<View className='flex flex-row w-screen px-6 justify-evenly'>
 						{/* Profile image */}
-						<ProfileNameCircle firstName={fetchedFirstName} lastName={fetchedLastName} />
+						{ photo 
+							? <Image source={{ uri: photo }} className='w-24 h-24 rounded-full' />
+							: <ProfileNameCircle firstName={fetchedFirstName} lastName={fetchedLastName} />
+						}
 						{/* Edit image */}
 						<View className='flex flex-col justify-evenly items-center'>
-							<FormButton className='py-2'>
+							<FormButton className='py-2' onPress={() => navigation.navigate('Camera')}>
                 Trocar imagem
 							</FormButton>
-							<Text className='text-primary underline'>Remover imagem</Text>
+							<TouchableOpacity onPress={removeImage}>
+								<Text className='text-primary underline'>Remover imagem</Text>
+							</TouchableOpacity>
 						</View>
 					</View>
 				</View>

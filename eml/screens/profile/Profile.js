@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import {
 	View,
 	SafeAreaView,
@@ -13,6 +13,7 @@ import errorSwitch from '../../components/general/errorSwitch';
 import ShowAlert from '../../components/general/ShowAlert';
 import { getStudentInfo } from '../../services/StorageService';
 import ProfileStatsBox from '../../components/profile/ProfileStatsBox';
+import { useFocusEffect } from '@react-navigation/native';
 
 /**
  * Profile screen
@@ -22,6 +23,7 @@ export default function ProfileComponent() {
 	const [firstName, setFirstName] = useState('');
 	const [lastName, setLastName] = useState('');
 	const [email, setEmail] = useState('');
+	const [photo, setPhoto] = useState('');
 	const navigation = useNavigation();
 	const [studentLevel, setStudentLevel] = useState(0);
 	const [levelProgress, setLevelProgress] = useState(0);
@@ -52,6 +54,7 @@ export default function ProfileComponent() {
 				setFirstName(fetchedProfile.firstName);
 				setLastName(fetchedProfile.lastName);
 				setEmail(fetchedProfile.email);
+				setPhoto(fetchedProfile.photo);
 			} else if (fetchedStudent !== null) {
 				setStudentLevel(fetchedStudent.level);
 				setTotalPoints(fetchedStudent.points);
@@ -62,9 +65,19 @@ export default function ProfileComponent() {
 		}
 	};
 
-	useEffect(() => {
-		getProfile();
-	}, []);
+	useFocusEffect(
+		useCallback(() => {
+			const runAsyncFunction = async () => {
+				try {
+					await getProfile();  // Make sure to use await here since getProfile is async
+				} catch (error) {
+					console.error('Error fetching profile:', error);
+				}
+			};
+	
+			runAsyncFunction();
+		}, [])
+	);
 
 	const fetchStudentProfile = async () => {
 		const studentInfo = await getStudentInfo();
@@ -81,7 +94,7 @@ export default function ProfileComponent() {
 		<SafeAreaView className='bg-secondary'>
 			<ScrollView className='flex flex-col'>
 				<View className="flex-1 justify-start pt-[20%] h-screen">
-					<UserInfo firstName={firstName} lastName={lastName} email={email} points={totalPoints}></UserInfo>
+					<UserInfo firstName={firstName} lastName={lastName} email={email} points={totalPoints} photo={photo}></UserInfo>
 					<ProfileStatsBox studentLevel={studentLevel} levelProgress={levelProgress} />
 					<ProfileNavigationButton label='Editar perfil' testId={'editProfileNav'} onPress={() => navigation.navigate('EditProfile')}></ProfileNavigationButton>
 					{/* The certificate page is created and works, it is only commented out to get it approved on play store
