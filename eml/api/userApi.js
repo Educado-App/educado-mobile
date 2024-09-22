@@ -193,7 +193,7 @@ export const uploadPhoto = async (user_id, photo, token) => {
 			}
 		});
 
-		return URL.createObjectURL(res.data);
+		return `data:image/jpeg;base64,${res.data}`;
 	} catch (e) {
 		if (e?.response?.data != null) {
 			throw e.response.data;
@@ -204,15 +204,15 @@ export const uploadPhoto = async (user_id, photo, token) => {
 };
 
 export const getPhoto = async (user_id, token) => {
-	try{
+	try {
 		const res = await client.get('/api/students/' + user_id + '/photo', {
 			headers: {
-				'Content-Type': 'multipart/form-data',
+				'Content-Type': 'application/json',
 				'token': token,
 			}
 		});
 		if (res.data) {
-			return URL.createObjectURL(res.data); // Convert blob to object URL
+			return `data:image/jpeg;base64,${res.data}`; // Return the base64 photo with the proper data URI
 		} else {
 			console.log('No profile photo found');
 		}
@@ -230,7 +230,6 @@ const uriToBlob = async (uri) => {
 	const blob = await response.blob();
 	return blob;
 };
-
 
 /**
  * Function to send mail to user with code to reset password
