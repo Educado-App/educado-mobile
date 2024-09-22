@@ -40,34 +40,40 @@ export default function ExerciseScreen({ exerciseObject, sectionObject, courseOb
 	const [isPopUpVisible, setIsPopUpVisible] = useState(false); 
 	const [isCorrectAnswer, setIsCorrectAnswer] = useState(false);
 	const [points, setPoints] = useState(10);
+	const [attempts, setAttempts] = useState(0);
 
 	const handleAnswerSelect = (answerIndex) => {
 		setSelectedAnswer(answerIndex);
+		// No need to reset showFeedback or buttonText here since they are handled in handleReviewAnswer
 	};
-  
-	async function handleReviewAnswer(selectedAnswer) {
-		const continueText = 'Continuar';
 
-		setIsCorrectAnswer(selectedAnswer);
-
-		setButtonClassName(
-			`bg-project${selectedAnswer ? 'Green' : 'Red'}`
-		);
-
-		setShowFeedback(true);
-		setButtonText(continueText);
-		if (buttonText !== continueText) {
-			const obj = await completeComponent(exerciseObject, courseObject.courseId, selectedAnswer);
-			setPoints(obj.points);
-			setIsPopUpVisible(true);
-		} else {
+	async function handleReviewAnswer(isAnswerCorrect) {
+		if (buttonText === 'Confirmar Resposta') {
+			setShowFeedback(true);
+			if (isAnswerCorrect) {
+				setIsCorrectAnswer(true);
+				setButtonText('Continuar');
+				// Award points based on number of attempts
+				setPoints(attempts === 0 ? 10 : 5);
+				const obj = await completeComponent(exerciseObject, courseObject.courseId, isAnswerCorrect);
+				setIsPopUpVisible(true);
+			} else {
+				setIsCorrectAnswer(false);
+				setButtonText('Tentar Novamente');
+				setAttempts(attempts + 1);
+			}
+		} else if (buttonText === 'Tentar Novamente') {
+			// Reset selectedAnswer and feedback
+			setSelectedAnswer(null);
+			setShowFeedback(false);
+			setButtonText('Confirmar Resposta');
+		} else if (buttonText === 'Continuar') {
 			setIsPopUpVisible(false);
 			if (onContinue()) {
 				handleLastComponent(exerciseObject, courseObject, navigation);
 			}
 		}
 	}
-  
 
 	return (
 		<SafeAreaView className="h-full bg-secondary">
@@ -88,7 +94,7 @@ export default function ExerciseScreen({ exerciseObject, sectionObject, courseOb
 							>
 								<View>
 									<RadioButton.Android
-										disabled={showFeedback}
+										disabled={buttonText === 'Continuar'}
 										value={index}
 										status={
 											selectedAnswer === index ? 'checked' : 'unchecked'
@@ -100,11 +106,11 @@ export default function ExerciseScreen({ exerciseObject, sectionObject, courseOb
 								</View>
 
 								<View>
-									<TouchableOpacity onPress={() => handleAnswerSelect(index)} disabled={showFeedback}>
+									<TouchableOpacity onPress={() => handleAnswerSelect(index)} disabled={buttonText === 'Continuar'}>
 										<Text className='pt-2 pb-1 w-72 font-montserrat text-body text-projectBlack'>{answer.text}</Text>
 									</TouchableOpacity>
 
-									{showFeedback ? (
+									{showFeedback && selectedAnswer === index ? (
 										<View className={`flex-row pb-2 w-fit rounded-medium ${answer.correct ? 'bg-projectGreen' : 'bg-projectRed'}`}>
 											<View className='pl-2 pt-1'>
 												<View className='pt-1.5'>
@@ -127,7 +133,7 @@ export default function ExerciseScreen({ exerciseObject, sectionObject, courseOb
 											</View>
 											<Text className={`w-72 pl-1 pt-2 pr-2 text-caption-medium ${answer.correct ? 'text-success' : 'text-error'}`}>{answer.feedback}</Text>
 										</View>
-									) : null}
+										) : null}
 								</View>
 							</View>
 						))}
@@ -135,15 +141,15 @@ export default function ExerciseScreen({ exerciseObject, sectionObject, courseOb
 				</View>
 				<View className='px-6 pt-10 w-screen'>
 					<TouchableOpacity
-						disabled={selectedAnswer === null ? true : false}
+						disabled={selectedAnswer === null}
 						className={`${selectedAnswer !== null ? 'opacity-100' : 'opacity-30'} bg-primary_custom px-10 py-4 rounded-medium`}
-						onPress={() => handleReviewAnswer(exerciseObject.answers[selectedAnswer].correct)}
+						onPress={() => handleReviewAnswer(exerciseObject.answers[selectedAnswer]?.correct)}
 					>
 						<Text className='text-center font-sans-bold text-body text-projectWhite'>{buttonText}</Text>
 					</TouchableOpacity>
 				</View>
 			</View>
-    
+			
 
 			{isPopUpVisible ? (
 				<PopUp pointAmount={points} isCorrectAnswer={isCorrectAnswer} />
@@ -161,58 +167,3 @@ ExerciseScreen.propTypes = {
 	courseObject: PropTypes.object,
 	onContinue: PropTypes.func,
 };
-
-/*
-async function getExercise() {
-  const exercise = await StorageService.getNextExercise(sectionId);
-
-  if (exercise !== null) {
-    console.log(exercise);
-
-    if (exercise === true) {
-      navigation.navigate("SectionComplete", {
-        courseId: courseId,
-        sectionId: sectionId,
-      });
-    } else {
-      setExerciseData(exercise);
-    }
-  } else {
-    navigation.navigate("ErrorScreen");
-  }
-}*/
-
-/*async function isSectionComplete(courseId, sectionId) {
-const course = await StorageService.getCourseById(courseId);
-const sections = course.sections;
-
-for (let i = 0; i < sections.length; i++) {
-  console.log("Section is complete: ", sections[i].isComplete);
-  if (sections[i].id === sectionId) {
-    return sections[i].isComplete;
-  }
-}
-}
-
-async function getExercise() {
-  // Instead of calling StorageService.getNextExercise, use the dummy data
-  const exercise = dummyExerciseData;
-
-  if (exercise !== null) {
-    const courseId = exercise.courseId || "defaultCourseId";
-    const sectionId = exercise.sectionId || "defaultSectionId";
-
-    if (exercise === true) {
-        navigation.navigate("SectionComplete", {
-        courseId: courseId,
-        sectionId: sectionId,
-      });
-    } else {
-      setExerciseData(exercise);
-    }
-  } else {
-    navigation.navigate("ErrorScreen");
-  }
-}
-*/
-
