@@ -20,7 +20,7 @@ const ProgressTopBar = ({ courseObject, lectureType, components, currentIndex = 
 		//if lecture is completed show check
 		if (_index < _currentIndex || components[_index].component?.completed ? true : false) {
 			return (
-				<View key={_index} className=" mx-1  w-4 h-4 rounded-full bg-primary flex-col justify-center items-center">
+				<View key={_index} className=" mx-1  w-4 h-4 rounded-full bg-primary_custom flex-col justify-center items-center">
 					<MaterialCommunityIcons name="check-bold" size={12} color={tailwindConfig.theme.colors.projectWhite} />
 				</View>
 			);
@@ -28,8 +28,8 @@ const ProgressTopBar = ({ courseObject, lectureType, components, currentIndex = 
 		//if lecture is current indicate with circle
 		else if (_index === _currentIndex) {
 			return (
-				<View key={_index} className=" mx-1  w-4 h-4 rounded-full bg-primary flex-col justify-center items-center opacity-50">
-					{/* <MaterialCommunityIcons name={_index >= allLectures.length ? "check" : "check"} size={12} color={tailwindConfig.theme.colors.primary} /> */}
+				<View key={_index} className=" mx-1  w-4 h-4 rounded-full bg-primary_custom flex-col justify-center items-center opacity-50">
+					{/* <MaterialCommunityIcons name={_index >= allLectures.length ? "check" : "check"} size={12} color={tailwindConfig.theme.colors.primary_custom} /> */}
 				</View>
 			);
 		}
@@ -45,7 +45,7 @@ const ProgressTopBar = ({ courseObject, lectureType, components, currentIndex = 
 		//if lecture is completed show check
 		if (_index < _currentIndex || components[_index].completed) {
 			return (
-				<View key={_index} className=" mx-1  w-5 h-5 rounded-full bg-primary flex-col justify-center items-center">
+				<View key={_index} className=" mx-1  w-5 h-5 rounded-full bg-primary_custom flex-col justify-center items-center">
 					<MaterialCommunityIcons name="check-bold" size={12} color={tailwindConfig.theme.colors.projectWhite} />
 				</View>
 			);
@@ -53,8 +53,8 @@ const ProgressTopBar = ({ courseObject, lectureType, components, currentIndex = 
 		//if lecture is current indicate with circle
 		else if (_index === _currentIndex) {
 			return (
-				<View key={_index} className=" mx-1  w-5 h-5 rounded-full bg-primary flex-col justify-center items-center opacity-50">
-					{/* <MaterialCommunityIcons name={_index >= allLectures.length ? "check" : "check"} size={12} color={tailwindConfig.theme.colors.primary} /> */}
+				<View key={_index} className=" mx-1  w-5 h-5 rounded-full bg-primary_custom flex-col justify-center items-center opacity-50">
+					{/* <MaterialCommunityIcons name={_index >= allLectures.length ? "check" : "check"} size={12} color={tailwindConfig.theme.colors.primary_custom} /> */}
 				</View>
 			);
 		}

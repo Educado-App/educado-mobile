@@ -41,8 +41,8 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
                   "marginLeft": 8,
                 },
                 {
-                  "fontSize": 12,
-                  "lineHeight": 16,
+                  "fontSize": 14,
+                  "lineHeight": 20,
                 },
               ],
             ]
@@ -67,8 +67,8 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
                   "marginLeft": 4,
                 },
                 {
-                  "fontSize": 12,
-                  "lineHeight": 16,
+                  "fontSize": 14,
+                  "lineHeight": 20,
                 },
                 {
                   "color": "#FF4949",
@@ -152,8 +152,8 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
                   "marginLeft": 8,
                 },
                 {
-                  "fontSize": 12,
-                  "lineHeight": 16,
+                  "fontSize": 14,
+                  "lineHeight": 20,
                 },
               ],
             ]
@@ -178,8 +178,8 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
                   "marginLeft": 4,
                 },
                 {
-                  "fontSize": 12,
-                  "lineHeight": 16,
+                  "fontSize": 14,
+                  "lineHeight": 20,
                 },
                 {
                   "color": "#FF4949",
@@ -249,8 +249,8 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
             },
             [
               {
-                "fontSize": 12,
-                "lineHeight": 16,
+                "fontSize": 14,
+                "lineHeight": 20,
               },
               {
                 "color": "#FF4949",
@@ -304,8 +304,8 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
                   "marginLeft": 8,
                 },
                 {
-                  "fontSize": 12,
-                  "lineHeight": 16,
+                  "fontSize": 14,
+                  "lineHeight": 20,
                 },
               ],
             ]
@@ -330,8 +330,8 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
                   "marginLeft": 4,
                 },
                 {
-                  "fontSize": 12,
-                  "lineHeight": 16,
+                  "fontSize": 14,
+                  "lineHeight": 20,
                 },
                 {
                   "color": "#FF4949",
@@ -401,8 +401,8 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
             },
             [
               {
-                "fontSize": 12,
-                "lineHeight": 16,
+                "fontSize": 14,
+                "lineHeight": 20,
               },
               {
                 "color": "#FF4949",
@@ -465,8 +465,8 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
                     "marginLeft": 8,
                   },
                   {
-                    "fontSize": 12,
-                    "lineHeight": 16,
+                    "fontSize": 14,
+                    "lineHeight": 20,
                   },
                 ],
               ]
@@ -491,8 +491,8 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
                     "marginLeft": 4,
                   },
                   {
-                    "fontSize": 12,
-                    "lineHeight": 16,
+                    "fontSize": 14,
+                    "lineHeight": 20,
                   },
                   {
                     "color": "#FF4949",
@@ -624,8 +624,8 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
             },
             [
               {
-                "fontSize": 12,
-                "lineHeight": 16,
+                "fontSize": 14,
+                "lineHeight": 20,
               },
               {
                 "color": "#A1ACB2",
@@ -689,8 +689,8 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
             },
             [
               {
-                "fontSize": 12,
-                "lineHeight": 16,
+                "fontSize": 14,
+                "lineHeight": 20,
               },
               {
                 "fontFamily": "Montserrat-Regular",
@@ -777,8 +777,8 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
                     "marginLeft": 8,
                   },
                   {
-                    "fontSize": 12,
-                    "lineHeight": 16,
+                    "fontSize": 14,
+                    "lineHeight": 20,
                   },
                 ],
               ]
@@ -803,8 +803,8 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
                     "marginLeft": 4,
                   },
                   {
-                    "fontSize": 12,
-                    "lineHeight": 16,
+                    "fontSize": 14,
+                    "lineHeight": 20,
                   },
                   {
                     "color": "#FF4949",
@@ -930,8 +930,8 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
             },
             [
               {
-                "fontSize": 12,
-                "lineHeight": 16,
+                "fontSize": 14,
+                "lineHeight": 20,
               },
               {
                 "color": "#FF4949",
@@ -952,6 +952,9 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
         {
           "marginBottom": 8,
           "marginTop": 8,
+        },
+        {
+          "backgroundColor": "#9DE89C",
         },
       ]
     }
@@ -975,7 +978,7 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
         onStartShouldSetResponder={[Function]}
         style={
           {
-            "backgroundColor": "#5ECCE9",
+            "backgroundColor": "#166276",
             "borderBottomLeftRadius": 8,
             "borderBottomRightRadius": 8,
             "borderTopLeftRadius": 8,

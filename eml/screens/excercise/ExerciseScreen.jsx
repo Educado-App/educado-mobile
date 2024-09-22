@@ -100,8 +100,8 @@ export default function ExerciseScreen({ exerciseObject, sectionObject, courseOb
 											selectedAnswer === index ? 'checked' : 'unchecked'
 										}
 										onPress={() => handleAnswerSelect(index)}
-										color={projectColors.primary}
-										uncheckedColor={projectColors.primary}
+										color={projectColors.primary_custom}
+										uncheckedColor={projectColors.primary_custom}
 									/>
 								</View>
 
@@ -142,7 +142,7 @@ export default function ExerciseScreen({ exerciseObject, sectionObject, courseOb
 				<View className='px-6 pt-10 w-screen'>
 					<TouchableOpacity
 						disabled={selectedAnswer === null}
-						className={`${selectedAnswer !== null ? 'opacity-100' : 'opacity-30'} bg-primary px-10 py-4 rounded-medium`}
+						className={`${selectedAnswer !== null ? 'opacity-100' : 'opacity-30'} bg-primary_custom px-10 py-4 rounded-medium`}
 						onPress={() => handleReviewAnswer(exerciseObject.answers[selectedAnswer]?.correct)}
 					>
 						<Text className='text-center font-sans-bold text-body text-projectWhite'>{buttonText}</Text>
