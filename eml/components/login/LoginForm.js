@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { loginUser } from '../../api/userApi';
+import { getPhoto, loginUser } from '../../api/userApi';
 import FormTextField from '../general/forms/FormTextField';
 import FormButton from '../general/forms/FormButton';
 import PasswordEye from '../general/forms/PasswordEye';
@@ -54,7 +54,12 @@ export default function LoginForm() {
 		await loginUser(obj).then(async (response) => {
 			// Set login token in AsyncStorage and navigate to home screen
 			await setJWT(response.accessToken);
-			await setUserInfo(response.userInfo);
+			await getPhoto(response.userInfo.id).then((photo) => {
+				setUserInfo({ ...response.userInfo, photo: photo });
+			}).catch((error) => {
+				console.log(`Error fetching photo: ${error}`);
+				setUserInfo({ ...response.userInfo });
+			});
 			await AsyncStorage.setItem('loggedIn', 'true');
 			navigation.navigate('HomeStack');
 		}).catch((error) => {

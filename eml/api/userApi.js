@@ -193,7 +193,7 @@ export const uploadPhoto = async (user_id, photo, token) => {
 			}
 		});
 
-		return res.data;
+		return URL.createObjectURL(res.data);
 	} catch (e) {
 		if (e?.response?.data != null) {
 			throw e.response.data;
