@@ -30,19 +30,12 @@ export default function FormTextField(props) {
 				</Text>
 
 				{/* Text size for red asterisks (fields required) */}
-
-				<Text className={'ml-2 text-lg'}>
-					{props.label ?? ''}
-				</Text>
-
 				<Text className={'ml-1 text-lg text-error'}>
 					{props.required ? '*' : ''}
 				</Text>
 			</View>
 			<View className=''>
-
-				{/* Text size for input fields on loin and registration */}
-
+				{/* Various properties for text input fields */}
 				<TextInput className={'text-base h-50 br-25 py-1 pl-[10px] bg-projectWhite rounded-lg' +
           (props.bordered ? ' border-2 border-projectGray' : '') + (props.error ? ' border-2 border-error' : '')}
 				placeholder={props.placeholder ?? ''} // Placeholder text to be displayed
