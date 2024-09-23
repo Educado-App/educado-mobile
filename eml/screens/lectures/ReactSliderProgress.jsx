@@ -37,9 +37,9 @@ const ReactSliderProgress = ({ elapsedMs = 10000, totalMs = 20000, videoRef }) =
 				value={sliderValue}
 				onValueChange={value => setSliderValue(value)}
 				onSlidingComplete={onSlidingComplete}
-				minimumTrackTintColor={tailwindConfig.theme.colors.primary}
+				minimumTrackTintColor={tailwindConfig.theme.colors.primary_custom}
 				maximumTrackTintColor={tailwindConfig.theme.colors.projectGray}
-				thumbTintColor={tailwindConfig.theme.colors.primary}
+				thumbTintColor={tailwindConfig.theme.colors.primary_custom}
 			/>
 			{/* End Time */}
 			<Text className="text-projectWhite">{convertMsToTime(totalMs)}</Text>

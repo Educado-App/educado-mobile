@@ -7,8 +7,8 @@ module.exports = {
   ],
   theme: {
     colors: {
-      bgPrimary: '#C9E5EC',
-      primary: '#5ECCE9',
+      bgprimary_custom: '#166276',
+      primary_custom: '#166276',
       secondary: '#F1F9FB',
       projectWhite: '#FFFFFF',
       projectBlack: '#383838',
@@ -21,10 +21,10 @@ module.exports = {
       projectRed: '#FFE4E4',
       projectGreen: '#E4F1E4',
       projectLightGray: '#F1F9FB',
-      cyanBlue: '#65D4EE',
+      cyanBlue: '#166276',
       limeGreen: '#9DE89C',
       yellow: '#FAC12F',
-      babyBlue: '#CFE9EF',
+      babyBlue: '#166276',
       limeGreenDarker: '#8DD08C',
       correctAnswer: '#00897B',
       wrongAnswer: '#CF6679',

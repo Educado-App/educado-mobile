@@ -103,7 +103,7 @@ export default function CompSwipeScreen({ route }) {
 	if (loading || !section || !parsedCourse || !combinedLecturesAndExercises) {
 		return (
 			<View className="flex-col justify-center items-center h-screen" >
-				<ActivityIndicator size="large" color={tailwindConfig.theme.colors.primary} />
+				<ActivityIndicator size="large" color={tailwindConfig.theme.colors.primary_custom} />
 				<Text>Loading...</Text>
 			</View>
 		);

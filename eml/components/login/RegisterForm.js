@@ -272,7 +272,7 @@ export default function RegisterForm() {
 					</View>
 
 					<View className="flex-row justify-start mt-1 h-6">
-						<Text testId="passwordLengthAlert" className={'text-xs' + ((passwordLengthValid || !password) ? ' text-projectGray' : ' text-error')}>
+						<Text testId="passwordLengthAlert" className={'text-sm' + ((passwordLengthValid || !password) ? ' text-projectGray' : ' text-error')}>
 							{/* Minimum 8 characters */}
               • Mínimo 8 caracteres
 						</Text>
@@ -283,7 +283,7 @@ export default function RegisterForm() {
 						</View>
 					</View>
 					<View className="flex-row justify-start h-6">
-						<Text testId="passwordLetterAlert" className={'text-xs font-sans' + ((passwordContainsLetter || !password) ? ' text-projectGray' : ' text-error')}>
+						<Text testId="passwordLetterAlert" className={'text-sm font-sans' + ((passwordContainsLetter || !password) ? ' text-projectGray' : ' text-error')}>
 							{/* Must contain at least one letter */}
               • Conter pelo menos uma letra
 						</Text>
@@ -317,7 +317,7 @@ export default function RegisterForm() {
 					<FormFieldAlert label={confirmPasswordAlert} />
 				</View>
 				{/* Register */}
-				<View className="my-2 bg-limeGreen">
+				<View className="my-2 bg-primary">
 					<FormButton
 						onPress={() => register(firstName, lastName, email, password)}
 						testId="registerButton"

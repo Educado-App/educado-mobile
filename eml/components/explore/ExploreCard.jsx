@@ -5,6 +5,7 @@ import CardLabel from './CardLabel';
 import CustomRating from './CustomRating';
 import SubscriptionButton from './SubscriptionButton';
 import AccessCourseButton from './AccessCourseButton';
+import UpdateDate from './ExploreUpdate';
 import * as Utility from '../../services/utilityFunctions';
 import PropTypes from 'prop-types';
 
@@ -70,6 +71,7 @@ export default function ExploreCard({ course, isPublished, subscribed }) {
 								</Text>
 							) : null
 						}
+						<UpdateDate dateUpdated={Utility.getUpdatedDate(course.dateUpdated)} />
 					</View>
 				</View>
 			</View>

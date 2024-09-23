@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
  */
 const UpdateDate = ({ dateUpdated }) => (
 	<View>
-		<Text className="text-xs opacity-40 pt-3">
+		<Text className="text-sm opacity-40 pt-3">
       ATUALIZADO: {dateUpdated}
 		</Text>
 	</View>
