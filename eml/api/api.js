@@ -5,8 +5,7 @@ const timeoutInMs = 1200;
 
 const url = '172.20.10.3';// Change this to your LOCAL IP address when testing.
 
-const certificateUrl = '192.168.196.1:8080';
-
+const certificateUrl = 'https://educado-certificate-service-staging-x7rgvjso4a-ew.a.run.app/';
 
 /* Commented out for avoiding linting errors :))
  * TODO: move IP address to .env file !!!
