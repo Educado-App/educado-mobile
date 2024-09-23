@@ -77,7 +77,7 @@ export default function Login() {
 										onPress={() => navigation.navigate('Register', { previousScreen: 'Login' })}
 									>
 										{/* Sign up now */}
-                    Cadastre-se agora
+										D806383stre-se agora
 									</Text>
 								</View>
 							</View>
