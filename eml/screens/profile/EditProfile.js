@@ -90,7 +90,7 @@ export default function EditProfile() {
 				setFirstName(fetchedProfile.firstName);
 				setLastName(fetchedProfile.lastName);
 				setEmail(fetchedProfile.email);
-				setPhoto(fetchedProfile.photo);
+				setPhoto(fetchedProfile.profilePhoto);
 			}
 		} catch (e) {
 			console.log(e);
