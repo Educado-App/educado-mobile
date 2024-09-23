@@ -317,7 +317,7 @@ export default function RegisterForm() {
 					<FormFieldAlert label={confirmPasswordAlert} />
 				</View>
 				{/* Register */}
-				<View className="my-2 bg-limeGreen">
+				<View className="my-2 bg-primary">
 					<FormButton
 						onPress={() => register(firstName, lastName, email, password)}
 						testId="registerButton"
