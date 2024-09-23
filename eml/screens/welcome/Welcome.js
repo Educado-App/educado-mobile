@@ -47,10 +47,11 @@ export default function WelcomeScreen() {
 							<TouchableOpacity className="bg-limeGreen px-10 py-4 rounded-medium"
 								onPress={() => { navigation.navigate('Register', {previousScreen: 'Welcome'}); }}
 							>
-
+							<Text>
 								{/* Login now  */}
 								Entrar agora
 							</Text>
+							</TouchableOpacity
 						</View>
 
 					</View>
