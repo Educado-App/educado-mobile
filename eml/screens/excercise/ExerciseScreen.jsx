@@ -8,7 +8,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import PopUp from '../../components/gamification/PopUp';
 import { StatusBar } from 'expo-status-bar';
 import PropTypes from 'prop-types';
-import { completeComponent, handleLastComponent } from '../../services/utilityFunctions';
+import { handleLastComponent } from '../../services/utilityFunctions';
 import { useNavigation } from '@react-navigation/native';
 
 /* 
@@ -34,7 +34,7 @@ export default function ExerciseScreen({ exerciseObject, sectionObject, courseOb
 	const navigation = useNavigation();
 
 	const [selectedAnswer, setSelectedAnswer] = useState(null);
-	const [buttonClassName, setButtonClassName] = useState('');
+	const [buttonClassName] = useState('');
 	const [showFeedback, setShowFeedback] = useState(false);
 	const [buttonText, setButtonText] = useState('Confirmar Resposta'); 
 	const [isPopUpVisible, setIsPopUpVisible] = useState(false); 
@@ -55,7 +55,7 @@ export default function ExerciseScreen({ exerciseObject, sectionObject, courseOb
 				setButtonText('Continuar');
 				// Award points based on number of attempts
 				setPoints(attempts === 0 ? 10 : 5);
-				const obj = await completeComponent(exerciseObject, courseObject.courseId, isAnswerCorrect);
+				// const obj = await completeComponent(exerciseObject, courseObject.courseId, isAnswerCorrect);
 				setIsPopUpVisible(true);
 			} else {
 				setIsCorrectAnswer(false);
@@ -133,7 +133,7 @@ export default function ExerciseScreen({ exerciseObject, sectionObject, courseOb
 											</View>
 											<Text className={`w-72 pl-1 pt-2 pr-2 text-caption-medium ${answer.correct ? 'text-success' : 'text-error'}`}>{answer.feedback}</Text>
 										</View>
-										) : null}
+									) : null}
 								</View>
 							</View>
 						))}
