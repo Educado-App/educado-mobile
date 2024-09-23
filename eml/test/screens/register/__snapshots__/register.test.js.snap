@@ -1136,9 +1136,6 @@ exports[`Register screen Login screen renders 1`] = `
                   "marginBottom": 8,
                   "marginTop": 8,
                 },
-                {
-                  "backgroundColor": "#9DE89C",
-                },
               ]
             }
           >
