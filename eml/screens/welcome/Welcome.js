@@ -36,10 +36,13 @@ export default function WelcomeScreen() {
 
 						<View className="px-6 w-screen">
 							{/* Replace with standard button */}
-							<TouchableOpacity className="bg-primary_custom px-10 py-4 rounded-medium"
-											  onPress={() => { navigation.navigate('Register', {previousScreen: 'Welcome'}); }}
+							<TouchableOpacity
+								className="bg-primary_custom px-10 py-4 rounded-medium"
+								onPress={() => { navigation.navigate('Register', {previousScreen: 'Welcome'}); }}
 							>
-								<Text className="text-center font-sans-bold text-body text-projectWhite">Cadastrer</Text>
+								<Text className="text-center font-sans-bold text-body text-projectWhite">
+									Cadastrer
+								</Text>
 							</TouchableOpacity>
 						</View>
 
@@ -55,9 +58,9 @@ export default function WelcomeScreen() {
 							>
 								{/* Login now */}
 								Entrar agora
-						</Text>
+							</Text>
+						</View>
 					</View>
-				</View>
 				</View>
 			</SafeAreaView>
 		</BgLinearGradient>
