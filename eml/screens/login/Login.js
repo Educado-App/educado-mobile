@@ -76,7 +76,7 @@ export default function Login() {
 										className={'text-lg text-projectBlack underline'}
 										onPress={() => navigation.navigate('Register', { previousScreen: 'Login' })}>
 										{/* Sign up now */}
-                    Cadastre-se agora
+										Cadastre-se agora
 									</Text>
 								</View>
 							</View>
