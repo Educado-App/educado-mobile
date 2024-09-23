@@ -53,7 +53,7 @@ export default function WelcomeScreen() {
 								className={'text-base text-projectBlack underline'}
 								onPress={() => navigation.navigate('Login', { previousScreen: 'Welcome' })}
 							>
-								{/* Login now */}
+								{/* Login now  */}
 								Entrar agora
 							</Text>
 						</View>
