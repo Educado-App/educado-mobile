@@ -46,20 +46,18 @@ export default function WelcomeScreen() {
 							</TouchableOpacity>
 						</View>
 
-						<View className="flex-row justify-center">
-							<Text className="text-base text-projectGray mr-1">
-								{/* Already have an account? */}
-								Já tem uma conta?
-							</Text>
-							<Text
-								testId="loginNav"
-								className={'text-base text-projectBlack underline'}
+						<View className="px-6 w-screen">
+							{/* Replace with standard button */}
+							<TouchableOpacity
+								className="px-10 py-4 rounded-medium"
 								onPress={() => navigation.navigate('Login', { previousScreen: 'Welcome' })}
 							>
-								{/* Login now */}
-								Entrar agora
-							</Text>
+								<Text className="text-center font-sans-bold text-body underline">
+									Entrar
+								</Text>
+							</TouchableOpacity>
 						</View>
+
 					</View>
 				</View>
 			</SafeAreaView>
