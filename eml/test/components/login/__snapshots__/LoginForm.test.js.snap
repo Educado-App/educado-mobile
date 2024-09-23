@@ -41,8 +41,8 @@ exports[`login Check LoginForm renders correctly 1`] = `
                   "marginLeft": 8,
                 },
                 {
-                  "fontSize": 12,
-                  "lineHeight": 16,
+                  "fontSize": 14,
+                  "lineHeight": 20,
                 },
               ],
             ]
@@ -67,8 +67,8 @@ exports[`login Check LoginForm renders correctly 1`] = `
                   "marginLeft": 4,
                 },
                 {
-                  "fontSize": 12,
-                  "lineHeight": 16,
+                  "fontSize": 14,
+                  "lineHeight": 20,
                 },
                 {
                   "color": "#FF4949",
@@ -137,8 +137,8 @@ exports[`login Check LoginForm renders correctly 1`] = `
             },
             [
               {
-                "fontSize": 12,
-                "lineHeight": 16,
+                "fontSize": 14,
+                "lineHeight": 20,
               },
               {
                 "color": "#FF4949",
@@ -195,8 +195,8 @@ exports[`login Check LoginForm renders correctly 1`] = `
                   "marginLeft": 8,
                 },
                 {
-                  "fontSize": 12,
-                  "lineHeight": 16,
+                  "fontSize": 14,
+                  "lineHeight": 20,
                 },
               ],
             ]
@@ -221,8 +221,8 @@ exports[`login Check LoginForm renders correctly 1`] = `
                   "marginLeft": 4,
                 },
                 {
-                  "fontSize": 12,
-                  "lineHeight": 16,
+                  "fontSize": 14,
+                  "lineHeight": 20,
                 },
                 {
                   "color": "#FF4949",
@@ -347,8 +347,8 @@ exports[`login Check LoginForm renders correctly 1`] = `
             },
             [
               {
-                "fontSize": 12,
-                "lineHeight": 16,
+                "fontSize": 14,
+                "lineHeight": 20,
               },
               {
                 "color": "#FF4949",
@@ -385,8 +385,8 @@ exports[`login Check LoginForm renders correctly 1`] = `
               "textDecorationLine": "underline",
             },
             {
-              "fontSize": 16,
-              "lineHeight": 24,
+              "fontSize": 18,
+              "lineHeight": 28,
             },
             {
               "color": "#383838",
@@ -417,7 +417,7 @@ exports[`login Check LoginForm renders correctly 1`] = `
       onStartShouldSetResponder={[Function]}
       style={
         {
-          "backgroundColor": "#5ECCE9",
+          "backgroundColor": "#166276",
           "borderBottomLeftRadius": 8,
           "borderBottomRightRadius": 8,
           "borderTopLeftRadius": 8,

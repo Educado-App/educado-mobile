@@ -7,7 +7,7 @@ export function BgLinearGradient({ children }) {
 	const projectColors = tailwindConfig.theme.colors;
 
 	const gradientColors = [
-		projectColors.bgPrimary,
+		projectColors.bgprimary_custom,
 		projectColors.projectWhite,
 	];
 
