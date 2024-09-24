@@ -2,8 +2,7 @@ import axios from 'axios';
 
 const timeoutInMs = 1200;
 
-
-const url = '172.20.10.3';// Change this to your LOCAL IP address when testing.
+const url = 'https://educado-backend-staging-x7rgvjso4a-ew.a.run.app/';// Change this to your LOCAL IP address when testing.
 
 const certificateUrl = 'https://educado-certificate-service-staging-x7rgvjso4a-ew.a.run.app/';
 
@@ -61,6 +60,8 @@ export const getCourse = async (courseId) => {
 
 // Get all courses
 export const getCourses = async () => {
+	const res = await axios.get(url + '/api/courses');
+	console.log(res);
 	try {
 		const res = await axios.get(url + '/api/courses');
 		return res.data;

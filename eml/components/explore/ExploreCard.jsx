@@ -58,6 +58,8 @@ export default function ExploreCard({ course, isPublished, subscribed }) {
 									</View>
 								</Pressable>
 							</View>
+							<UpdateDate dateUpdated={Utility.getUpdatedDate(course.dateUpdated)} />
+
 						</View>
 					</View>
 				</View>
@@ -71,7 +73,6 @@ export default function ExploreCard({ course, isPublished, subscribed }) {
 								</Text>
 							) : null
 						}
-						<UpdateDate dateUpdated={Utility.getUpdatedDate(course.dateUpdated)} />
 					</View>
 				</View>
 			</View>
