@@ -59,7 +59,6 @@ export default function ExploreCard({ course, isPublished, subscribed }) {
 								</Pressable>
 							</View>
 							<UpdateDate dateUpdated={Utility.getUpdatedDate(course.dateUpdated)} />
-
 						</View>
 					</View>
 				</View>
@@ -89,7 +88,7 @@ export default function ExploreCard({ course, isPublished, subscribed }) {
 						<Pressable onPress={() => setModalVisible(false)}>
 							<View className="flex-row justify-between w-full items-center py-4">
 								<Text className="text-projectBlack font-medium text-2xl">{course.title}</Text>
-								<MaterialIcons name="keyboard-arrow-down" size={24} color="black" />
+								<MaterialIcons name="keyboard-arrow-down" size={34} color="black" />
 							</View>
 							<View className="flex-row items-center justify-start pb-4 flex-wrap text-xs">
 								<CardLabel
