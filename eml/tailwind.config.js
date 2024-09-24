@@ -8,6 +8,7 @@ module.exports = {
   theme: {
     colors: {
       bgprimary_custom: '#166276',
+      bgPrimary: '#C9E5EC',
       primary_custom: '#166276',
       secondary: '#F1F9FB',
       projectWhite: '#FFFFFF',
