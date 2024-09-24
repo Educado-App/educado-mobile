@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Pressable, Modal } from 'react-native';
+import { View, Text, StyleSheet, Pressable, Modal, TouchableWithoutFeedback } from 'react-native';
 import { MaterialCommunityIcons, AntDesign, EvilIcons, MaterialIcons, Octicons } from '@expo/vector-icons';
 import CardLabel from './CardLabel';
 import CustomRating from './CustomRating';
@@ -78,81 +78,88 @@ export default function ExploreCard({ course, isPublished, subscribed }) {
 			</View>
 
 			<Modal
-				animationType="slide"
-				transparent={true}
-				visible={modalVisible}
-				onRequestClose={() => {
-					setModalVisible(!modalVisible);
-				}}>
-				<View style={styles.transparentBackground}>
-					<View style={styles.modalView}>
-						<Pressable onPress={() => setModalVisible(false)}>
-							<View className="flex-row justify-between w-full items-center py-4">
-								<Text className="text-projectBlack font-medium text-2xl">{course.title}</Text>
-								<MaterialIcons name="keyboard-arrow-down" size={24} color="black" />
-							</View>
-							<View className="flex-row items-center justify-start pb-4 flex-wrap text-xs">
-								<CardLabel
-									title={Utility.determineCategory(course.category)}
-									icon={Utility.determineIcon(course.category)}
-								/>
-								<View className="w-2.5" />
-								<CardLabel
-									title={Utility.formatHours(course.estimatedHours)}
-									icon={'clock-outline'}
-								/>
-								<View className="w-2.5" />
-								<CardLabel
-									title={Utility.getDifficultyLabel(course.difficulty)}
-									icon={'book-multiple-outline'}
-								/>
-							</View>
-						</Pressable>
-						<CustomRating rating={course.rating} />
-						<View className="h-1 border-b-[1px] w-full border-projectGray opacity-50 pt-4 mb-4"></View>
-						<Text className="text-projectBlack text-lg">{course.description}</Text>
-						<View className="border rounded-2xl border-projectGray p-4 mt-8">
-							<View className="flex-row items-center">
-								<EvilIcons name="clock" size={24} color="grey" />
-								<Text className="text-projectBlack pb-3 text-sm ml-2">{course.estimatedHours} horas de conteúdo (vídeos, exercícios, leituras complementares)</Text>
-							</View>
-							<View className="flex-row">
-								<MaterialCommunityIcons name="certificate-outline" size={24} color="grey" />
-								<Text className="text-projectBlack pb-3 text-sm ml-2">Certificado de Conclusão</Text>
-							</View>
-							<View className="flex-row">
-								<MaterialCommunityIcons name="clock-fast" size={24} color="grey" />
-								<Text className="text-projectBlack pb-3 text-sm ml-2">Início imediato</Text>
-							</View>
-							<View className="flex-row">
-								<MaterialCommunityIcons name="calendar-month" size={24} color="grey" />
-								<Text className="text-projectBlack pb-3 text-sm ml-2">Acesso total por 1 ano</Text>
-							</View>
-							<View className="flex-row">
-								<MaterialCommunityIcons name="robot-outline" size={24} color="grey" />
-								<Text className="text-projectBlack pb-3 text-sm ml-2">Chat e suporte com inteligência artificial</Text>
-							</View>
-							<View className="flex-row">
-								<Octicons name="comment-discussion" size={24} color="grey" />
-								<Text className="text-projectBlack pb-3 text-sm ml-2">Acesso a comunidade do curso</Text>
-							</View>
-							<View className="flex-row">
-								<MaterialIcons name="phonelink" size={24} color="grey" />
-								<Text className="text-projectBlack pb-3 text-sm ml-2">Assista onde e quando quiser!</Text>
-							</View>
-						</View>
-						<View className="mt-10">
-							{
-								subscribed ? (
-									<AccessCourseButton course={course} />
-								) : (
-									<SubscriptionButton course={course} />
-								)
-							}
-						</View>
-					</View>
-				</View>
-			</Modal>
+                  animationType="slide"
+                  transparent={true}
+                  visible={modalVisible}
+                  onRequestClose={() => {
+                    setModalVisible(!modalVisible);
+                  }}
+                >
+                  {/* Detect touches outside the modal */}
+                  <TouchableWithoutFeedback onPress={() => setModalVisible(false)}>
+                    <View style={styles.transparentBackground}>
+                      {/* Prevent the modal content from closing the modal when clicked */}
+                      <TouchableWithoutFeedback>
+                        <View style={styles.modalView}>
+                          <Pressable onPress={() => setModalVisible(false)}>
+                            <View className="flex-row justify-between w-full items-center py-4">
+                              <Text className="text-projectBlack font-medium text-2xl">{course.title}</Text>
+                              <MaterialIcons name="keyboard-arrow-down" size={24} color="black" />
+                            </View>
+                            <View className="flex-row items-center justify-start pb-4 flex-wrap text-xs">
+                              <CardLabel
+                                title={Utility.determineCategory(course.category)}
+                                icon={Utility.determineIcon(course.category)}
+                              />
+                              <View className="w-2.5" />
+                              <CardLabel
+                                title={Utility.formatHours(course.estimatedHours)}
+                                icon={'clock-outline'}
+                              />
+                              <View className="w-2.5" />
+                              <CardLabel
+                                title={Utility.getDifficultyLabel(course.difficulty)}
+                                icon={'book-multiple-outline'}
+                              />
+                            </View>
+                          </Pressable>
+                          <CustomRating rating={course.rating} />
+                          <View className="h-1 border-b-[1px] w-full border-projectGray opacity-50 pt-4 mb-4"></View>
+                          <Text className="text-projectBlack text-lg">{course.description}</Text>
+                          <View className="border rounded-2xl border-projectGray p-4 mt-8">
+                            <View className="flex-row items-center">
+                              <EvilIcons name="clock" size={24} color="grey" />
+                              <Text className="text-projectBlack pb-3 text-sm ml-2">
+                                {course.estimatedHours} horas de conteúdo (vídeos, exercícios, leituras complementares)
+                              </Text>
+                            </View>
+                            <View className="flex-row">
+                              <MaterialCommunityIcons name="certificate-outline" size={24} color="grey" />
+                              <Text className="text-projectBlack pb-3 text-sm ml-2">Certificado de Conclusão</Text>
+                            </View>
+                            <View className="flex-row">
+                              <MaterialCommunityIcons name="clock-fast" size={24} color="grey" />
+                              <Text className="text-projectBlack pb-3 text-sm ml-2">Início imediato</Text>
+                            </View>
+                            <View className="flex-row">
+                              <MaterialCommunityIcons name="calendar-month" size={24} color="grey" />
+                              <Text className="text-projectBlack pb-3 text-sm ml-2">Acesso total por 1 ano</Text>
+                            </View>
+                            <View className="flex-row">
+                              <MaterialCommunityIcons name="robot-outline" size={24} color="grey" />
+                              <Text className="text-projectBlack pb-3 text-sm ml-2">Chat e suporte com inteligência artificial</Text>
+                            </View>
+                            <View className="flex-row">
+                              <Octicons name="comment-discussion" size={24} color="grey" />
+                              <Text className="text-projectBlack pb-3 text-sm ml-2">Acesso a comunidade do curso</Text>
+                            </View>
+                            <View className="flex-row">
+                              <MaterialIcons name="phonelink" size={24} color="grey" />
+                              <Text className="text-projectBlack pb-3 text-sm ml-2">Assista onde e quando quiser!</Text>
+                            </View>
+                          </View>
+                          <View className="mt-10">
+                            {subscribed ? (
+                              <AccessCourseButton course={course} />
+                            ) : (
+                              <SubscriptionButton course={course} />
+                            )}
+                          </View>
+                        </View>
+                      </TouchableWithoutFeedback>
+                    </View>
+                  </TouchableWithoutFeedback>
+                </Modal>
 		</View>
 	) : null;
 }
