@@ -60,8 +60,6 @@ export const getCourse = async (courseId) => {
 
 // Get all courses
 export const getCourses = async () => {
-	const res = await axios.get(url + '/api/courses');
-	console.log(res);
 	try {
 		const res = await axios.get(url + '/api/courses');
 		return res.data;
