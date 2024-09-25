@@ -69,7 +69,7 @@ export default function ExerciseScreen({ exerciseObject, sectionObject, courseOb
 			setButtonText('Confirmar Resposta');
 		} else if (buttonText === 'Continuar') {
 			setIsPopUpVisible(false);
-			if (onContinue()) {
+			if (onContinue(isAnswerCorrect)) {
 				handleLastComponent(exerciseObject, courseObject, navigation);
 			}
 		}

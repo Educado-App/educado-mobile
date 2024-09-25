@@ -74,7 +74,11 @@ export default function CompSwipeScreen({ route }) {
 	}, [section, parsedCourse]);
 
 
-	const handleExerciseContinue = () => {
+	const handleExerciseContinue = (isCorrectAnswer) => {
+		if (!isCorrectAnswer) {
+			// combinedLecturesAndExercises.append();
+			// append the just finished exercise if answer is wrong
+		}
 		swiperRef.current.scrollBy(1, true);
 		setScrollEnabled(true);
 
@@ -129,7 +133,7 @@ export default function CompSwipeScreen({ route }) {
 							comp.type === ComponentType.LECTURE ?
 								<LectureScreen key={_index} currentIndex={index} indexCount={combinedLecturesAndExercises.length} lectureObject={comp.component} courseObject={parsedCourse} />
 								:
-								<ExerciseScreen key={_index} exerciseObject={comp.component} sectionObject={section} courseObject={parsedCourse} onContinue={() => handleExerciseContinue()} />
+								<ExerciseScreen key={_index} exerciseObject={comp.component} sectionObject={section} courseObject={parsedCourse} onContinue={(isCorrectAnswer) => handleExerciseContinue(isCorrectAnswer)} />
 						))}
 					</Swiper>
 				)}
