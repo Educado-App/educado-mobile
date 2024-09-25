@@ -77,7 +77,6 @@ export default function ExploreCard({ course, isPublished, subscribed }) {
 			</View>
 
 			<Modal
-
                   animationType="slide"
                   transparent={true}
                   visible={modalVisible}
