@@ -103,6 +103,11 @@ export const getStudentInfo = async () => {
 	return JSON.parse(await AsyncStorage.getItem(STUDENT_INFO));
 };
 
+export const getStudentProfilePhoto = async () => {
+	const student = await getStudentInfo();
+	return student.photo;
+};
+
 export const updateStudentInfo = async (studentInfo) => {
 	await AsyncStorage.setItem(STUDENT_INFO, JSON.stringify(studentInfo));
 };
@@ -129,7 +134,6 @@ export const setUserInfo = async (userInfo) => {
 		firstName: userInfo.firstName,
 		lastName: userInfo.lastName,
 		email: userInfo.email,
-		profilePhoto: userInfo.profilePhoto ? userInfo.profilePhoto : null,
 	};
 	await AsyncStorage.setItem(USER_INFO, JSON.stringify(obj));
 	await AsyncStorage.setItem(USER_ID, userInfo.id); // needs to be separate

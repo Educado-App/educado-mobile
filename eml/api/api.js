@@ -244,7 +244,7 @@ export const getBucketImage = async (fileName) => {
 		const res = await axios.get(
 			`${url}/api/bucket/${fileName}`
 			, {timeout: timeoutInMs});
-		return `data:image/png;base64,${res.data}`;
+		return res.data;
 	} catch (err) {
 		if (err?.response?.data != null) {
 			throw err.response.data;

@@ -193,29 +193,7 @@ export const uploadPhoto = async (user_id, photo, token) => {
 			}
 		});
 
-		return `data:image/jpeg;base64,${res.data}`;
-	} catch (e) {
-		if (e?.response?.data != null) {
-			throw e.response.data;
-		} else {
-			throw e;
-		}
-	}
-};
-
-export const getPhoto = async (user_id, token) => {
-	try {
-		const res = await client.get('/api/students/' + user_id + '/photo', {
-			headers: {
-				'Content-Type': 'application/json',
-				'token': token,
-			}
-		});
-		if (res.data) {
-			return `data:image/jpeg;base64,${res.data}`; // Return the base64 photo with the proper data URI
-		} else {
-			console.log('No profile photo found');
-		}
+		return res.data;
 	} catch (e) {
 		if (e?.response?.data != null) {
 			throw e.response.data;

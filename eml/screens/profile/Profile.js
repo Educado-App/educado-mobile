@@ -54,8 +54,8 @@ export default function ProfileComponent() {
 				setFirstName(fetchedProfile.firstName);
 				setLastName(fetchedProfile.lastName);
 				setEmail(fetchedProfile.email);
-				setPhoto(fetchedProfile.profilePhoto);
 			} else if (fetchedStudent !== null) {
+				setPhoto(fetchedProfile.photo);
 				setStudentLevel(fetchedStudent.level);
 				setTotalPoints(fetchedStudent.points);
 				setLevelProgress(getLevelProgress(fetchedStudent));
@@ -69,7 +69,7 @@ export default function ProfileComponent() {
 		useCallback(() => {
 			const runAsyncFunction = async () => {
 				try {
-					await getProfile();  // Make sure to use await here since getProfile is async
+					await getProfile();
 				} catch (error) {
 					console.error('Error fetching profile:', error);
 				}

@@ -3,8 +3,8 @@ import { View, TouchableOpacity, Text, Image } from 'react-native';
 import { Camera } from 'expo-camera';
 import { useNavigation } from '@react-navigation/native';
 import { Camera as CameraIcon, SwitchCamera, Check, X } from 'lucide-react-native';
-import { getUserInfo, setUserInfo } from '../../services/StorageService';
-// import { uploadPhoto } from '../../api/userApi';
+import { getStudentInfo, updateStudentInfo } from '../../services/StorageService';
+import { uploadPhoto } from '../../api/userApi';
 
 const CameraScreen = () => {
 	const [hasPermission, setHasPermission] = useState(null);
@@ -36,13 +36,13 @@ const CameraScreen = () => {
 	};
 
 	const handleAccept = async () => {
-		let profile = await getUserInfo();
+		let profile = await getStudentInfo();
 		profile.profilePhoto = capturedImage.uri;
-		await setUserInfo(profile);
+		await updateStudentInfo(profile);
 		navigation.navigate('EditProfile');
-		// let photo = await uploadPhoto(capturedImage.uri);
-		// profile.photo = photo;
-		// await setUserInfo(profile);
+		let photo = await uploadPhoto(capturedImage.uri);
+		profile.photo = photo;
+		await updateStudentInfo(profile);
 	};
 
 	const handleDeny = () => {
