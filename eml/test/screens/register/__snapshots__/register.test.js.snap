@@ -1175,7 +1175,7 @@ exports[`Register screen Login screen renders 1`] = `
                 onStartShouldSetResponder={[Function]}
                 style={
                   {
-                    "backgroundColor": "#5ECCE9",
+                    "backgroundColor": "#166276",
                     "borderBottomLeftRadius": 8,
                     "borderBottomRightRadius": 8,
                     "borderTopLeftRadius": 8,
@@ -1259,8 +1259,8 @@ exports[`Register screen Login screen renders 1`] = `
                   "lineHeight": 20,
                 },
                 {
-                  "fontSize": 16,
-                  "lineHeight": 24,
+                  "fontSize": 18,
+                  "lineHeight": 28,
                 },
               ],
             ]
@@ -1289,8 +1289,8 @@ exports[`Register screen Login screen renders 1`] = `
                   "lineHeight": 20,
                 },
                 {
-                  "fontSize": 16,
-                  "lineHeight": 24,
+                  "fontSize": 18,
+                  "lineHeight": 28,
                 },
                 {
                   "textDecorationLine": "underline",
