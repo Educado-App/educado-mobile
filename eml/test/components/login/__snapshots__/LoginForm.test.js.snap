@@ -41,8 +41,8 @@ exports[`login Check LoginForm renders correctly 1`] = `
                   "marginLeft": 8,
                 },
                 {
-                  "fontSize": 12,
-                  "lineHeight": 16,
+                  "fontSize": 18,
+                  "lineHeight": 28,
                 },
               ],
             ]
@@ -67,8 +67,8 @@ exports[`login Check LoginForm renders correctly 1`] = `
                   "marginLeft": 4,
                 },
                 {
-                  "fontSize": 12,
-                  "lineHeight": 16,
+                  "fontSize": 18,
+                  "lineHeight": 28,
                 },
                 {
                   "color": "#FF4949",
@@ -90,6 +90,10 @@ exports[`login Check LoginForm renders correctly 1`] = `
           secureTextEntry={false}
           style={
             [
+              {
+                "fontSize": 16,
+                "lineHeight": 24,
+              },
               {
                 "paddingBottom": 4,
                 "paddingTop": 4,
@@ -137,8 +141,8 @@ exports[`login Check LoginForm renders correctly 1`] = `
             },
             [
               {
-                "fontSize": 12,
-                "lineHeight": 16,
+                "fontSize": 16,
+                "lineHeight": 24,
               },
               {
                 "color": "#FF4949",
@@ -195,8 +199,8 @@ exports[`login Check LoginForm renders correctly 1`] = `
                   "marginLeft": 8,
                 },
                 {
-                  "fontSize": 12,
-                  "lineHeight": 16,
+                  "fontSize": 18,
+                  "lineHeight": 28,
                 },
               ],
             ]
@@ -221,8 +225,8 @@ exports[`login Check LoginForm renders correctly 1`] = `
                   "marginLeft": 4,
                 },
                 {
-                  "fontSize": 12,
-                  "lineHeight": 16,
+                  "fontSize": 18,
+                  "lineHeight": 28,
                 },
                 {
                   "color": "#FF4949",
@@ -244,6 +248,10 @@ exports[`login Check LoginForm renders correctly 1`] = `
           secureTextEntry={true}
           style={
             [
+              {
+                "fontSize": 16,
+                "lineHeight": 24,
+              },
               {
                 "paddingBottom": 4,
                 "paddingTop": 4,
@@ -288,7 +296,7 @@ exports[`login Check LoginForm renders correctly 1`] = `
             "right": 0,
           },
           {
-            "top": 8,
+            "top": 20,
           },
           {
             "paddingBottom": 12,
@@ -347,8 +355,8 @@ exports[`login Check LoginForm renders correctly 1`] = `
             },
             [
               {
-                "fontSize": 12,
-                "lineHeight": 16,
+                "fontSize": 16,
+                "lineHeight": 24,
               },
               {
                 "color": "#FF4949",
