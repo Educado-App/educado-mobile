@@ -70,13 +70,13 @@ export default function Login() {
 									<Text className="text-lg text-projectBlack mr-1">
 
 										{/* Dont have an account yet? */}
-                    Ainda não tem conta?
+                    								Ainda não tem conta?
 									</Text>
 									<Text
 										testId="registerNav"
 										className={'text-lg text-profileCircle underline left-1'}
 										onPress={() => navigation.navigate('Register', { previousScreen: 'Login' })}
-                  >
+                  							>
 										{/* Sign up now */}
 										Cadastre-se agora
 									</Text>
