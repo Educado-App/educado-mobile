@@ -55,7 +55,6 @@ const validateEmail = (email) => {
  * @returns {String} error message if name is invalid, empty string otherwise
  */
 const validateName = (name, wordForName = 'Nome') => {
-	const namePattern = /^(\p{L}+[- '])*\p{L}+$/u;
 
 	if (name.length > 50) { // Check this number
 		return `${wordForName} muito longo`; // Name too long
@@ -64,16 +63,7 @@ const validateName = (name, wordForName = 'Nome') => {
 		return `${wordForName} obrigatório`; // Name required
 	}
 
-	if (name[0] === ' ') {
-		return  `${wordForName} não pode ter espaço no início.`; // Name can't start with space
-	}
-
-	if (name[name.length - 1] === ' ') {
-		return  `${wordForName} não pode ter espaço no final.`; // Name can't end with space
-	}
-
-
-	if (!namePattern.test(name)) {
+	if (!patterns.name.test(name)) {
 		return `${wordForName} inválido`; // Invalid name
 	}
 

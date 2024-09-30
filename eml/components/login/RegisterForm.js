@@ -150,9 +150,14 @@ export default function RegisterForm() {
 			return;
 		}
 
+		//Sanitize names to removes spaces infront and after
+		const sanitizedFirstName = firstName.trim();
+		const sanitizedLastName = lastName.trim();
+
+
 		const obj = {
-			firstName: firstName,
-			lastName: lastName,
+			firstName: sanitizedFirstName,
+			lastName: sanitizedLastName,
 			email: email,
 			password: password,
 		};
@@ -167,9 +172,12 @@ export default function RegisterForm() {
 						...response.baseUser,
 					};
 					await setUserInfo(userInfo);
+
 				}).then(async function () {
+
 					// logs in the user, if no errors occur, navigates to home screen and sets token
 					await loginFromRegister(obj);
+
 				})
 				.catch((error) => {
 					ShowAlert(errorSwitch(error));
