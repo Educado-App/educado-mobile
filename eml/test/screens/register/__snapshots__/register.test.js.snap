@@ -831,7 +831,7 @@ exports[`Register screen Login screen renders 1`] = `
                         "lineHeight": 16,
                       },
                       {
-                        "color": "#A1ACB2",
+                        "color": "#383838",
                       },
                     ],
                   ]
