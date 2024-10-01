@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+console.log(process.env);
+
 const timeoutInMs = 1200;
 
 const url = 'https://educado-backend-staging-x7rgvjso4a-ew.a.run.app/';	// Change this to your LOCAL IP address when testing.
