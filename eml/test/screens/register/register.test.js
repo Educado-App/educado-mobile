@@ -10,6 +10,11 @@ jest.mock('@react-navigation/native', () => ({
   useNavigation: () => ({
     navigate: jest.fn(() => { navigated = true; }),
   }),
+  useRoute: jest.fn().mockReturnValue({
+    params: {
+      previousScreen: 'Home',
+    },
+  }),
 }));
 
 describe('Register screen', () => {

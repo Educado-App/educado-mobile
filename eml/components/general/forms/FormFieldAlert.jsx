@@ -14,8 +14,8 @@ export default function FormFieldAlert(props) {
 	return (
 		<View className="flex-row items-center">
 			{props.success ?
-				<Text className="text-xs text-success mx-2">{props.label}</Text>
-				: <Text className="text-xs text-error mx-2">{props.label}</Text>}
+				<Text className="text-base text-success mx-2">{props.label}</Text>
+				: <Text className="text-base text-error mx-2">{props.label}</Text>}
 		</View >
 	);
 }
