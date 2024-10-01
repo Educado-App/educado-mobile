@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Camera as CameraIcon, SwitchCamera, Check, X } from 'lucide-react-native';
 import { getStudentInfo, updateStudentInfo } from '../../services/StorageService';
 import { uploadPhoto } from '../../api/userApi';
+import BackButton from '../../components/general/BackButton';
 
 const CameraScreen = () => {
 	const [hasPermission, setHasPermission] = useState(null);
@@ -63,16 +64,19 @@ const CameraScreen = () => {
 	if (capturedImage) {
 		return (
 			<View className="flex-1">
+				<View className="absolute top-12 left-4">
+					<BackButton onPress={() => navigation.navigate('EditProfile')} />
+				</View>
 				<Image
 					source={{ uri: capturedImage.uri }}
 					className="flex-1"
 				/>
-				<View className="flex-row justify-around items-center p-4 bg-projectWhite">
-					<TouchableOpacity onPress={handleDeny} className="bg-error rounded-full p-3">
-						<X size={24} color="white" />
+				<View className="absolute bottom-0 left-10 right-10 flex-row justify-around items-center p-4">
+					<TouchableOpacity onPress={handleDeny} className="bg-error rounded-full p-3 border border-projectWhite">
+						<X size={24} className="text-projectWhite"/>
 					</TouchableOpacity>
-					<TouchableOpacity onPress={handleAccept} className="bg-success rounded-full p-3">
-						<Check size={24} color="white" />
+					<TouchableOpacity onPress={handleAccept} className="bg-success rounded-full p-3 border border-projectWhite">
+						<Check size={24} className="text-projectWhite"/>
 					</TouchableOpacity>
 				</View>
 			</View>
@@ -80,8 +84,11 @@ const CameraScreen = () => {
 	}
 
 	return (
-		<View className="flex-1 bg-gray-900">
+		<View className="flex-1 bg-projectGray">
 			<Camera className="flex-1" type={type} ref={cameraRef}>
+				<View className="mx-4 mt-12 mb-6">
+					<BackButton onPress={() => navigation.navigate('EditProfile')} />
+				</View>
 				<View className="flex-1 bg-transparent justify-end items-center pb-10">
 					<View className="flex-row justify-around items-center w-full px-4">
 						<TouchableOpacity onPress={toggleCameraType} className="bg-projectGray rounded-full p-3">
