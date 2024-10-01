@@ -68,7 +68,10 @@
     "react-native-svg": "12.3.0",
     "react-native-swiper": "^1.6.0",
     "react-test-renderer": "^18.0.0",
-    "tailwindcss-react-native": "^1.7.10"
+    "tailwindcss-react-native": "^1.7.10",
+    "react-native-web": "~0.18.7",
+    "react-dom": "18.0.0",
+    "@expo/webpack-config": "^0.17.0"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",

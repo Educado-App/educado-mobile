@@ -54,7 +54,7 @@ export default function CompleteCourseScreen() {
 					</View>
 
 					<View className="px-6 w-screen">
-						<TouchableOpacity className="bg-primary px-10 py-4 rounded-medium"
+						<TouchableOpacity className="bg-primary_custom px-10 py-4 rounded-medium"
 							onPress={() => {handleNextSlide();}}
 						>
 							<Text className="text-center font-sans-bold text-body text-projectWhite">Continuar</Text>
