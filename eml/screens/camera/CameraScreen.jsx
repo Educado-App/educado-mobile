@@ -38,11 +38,13 @@ const CameraScreen = () => {
 	const handleAccept = async () => {
 		let profile = await getStudentInfo();
 		profile.profilePhoto = capturedImage.uri;
+		profile.photo = capturedImage.uri; // Temporarily set photo to local uri
 		await updateStudentInfo(profile);
 		navigation.navigate('EditProfile');
-		let photo = await uploadPhoto(capturedImage.uri);
-		profile.photo = photo;
-		await updateStudentInfo(profile);
+		await uploadPhoto(capturedImage.uri).then(async (photo) => {
+			profile.photo = photo;
+			await updateStudentInfo(profile);
+		});
 	};
 
 	const handleDeny = () => {

@@ -54,8 +54,8 @@ export default function ProfileComponent() {
 				setFirstName(fetchedProfile.firstName);
 				setLastName(fetchedProfile.lastName);
 				setEmail(fetchedProfile.email);
+				if (fetchedStudent !== null) setPhoto(fetchedStudent.photo);
 			} else if (fetchedStudent !== null) {
-				setPhoto(fetchedProfile.photo);
 				setStudentLevel(fetchedStudent.level);
 				setTotalPoints(fetchedStudent.points);
 				setLevelProgress(getLevelProgress(fetchedStudent));

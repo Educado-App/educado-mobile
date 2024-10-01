@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { getStudentInfo, loginUser } from '../../api/userApi';
+import { loginUser } from '../../api/userApi';
 import FormTextField from '../general/forms/FormTextField';
 import FormButton from '../general/forms/FormButton';
 import PasswordEye from '../general/forms/PasswordEye';
@@ -13,9 +13,8 @@ import ShowAlert from '../general/ShowAlert';
 
 
 // Services
-import { setUserInfo, setJWT, updateStudentInfo } from '../../services/StorageService';
+import { setUserInfo, setJWT } from '../../services/StorageService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { getBucketImage } from '../../api/api';
 
 /**
  * Login form component for login screen containing email and password input fields and a login button.
@@ -56,14 +55,6 @@ export default function LoginForm() {
 			// Set login token in AsyncStorage and navigate to home screen
 			await setJWT(response.accessToken);
 			await setUserInfo({ ...response.userInfo });
-			let student = await getStudentInfo();
-			await getBucketImage(student.profilePicture).then((photo) => {
-				student.photo = photo;
-				updateStudentInfo(student);
-			}).catch((error) => {
-				console.log(`Error fetching photo: ${error}`);
-				setUserInfo({ ...response.userInfo });
-			});
 			await AsyncStorage.setItem('loggedIn', 'true');
 			navigation.navigate('HomeStack');
 		}).catch((error) => {

@@ -16,7 +16,7 @@ import BackButton from '../../components/general/BackButton';
 import { useNavigation } from '@react-navigation/native';
 import { validateEmail, validateName } from '../../components/general/Validation';
 import FormFieldAlert from '../../components/general/forms/FormFieldAlert';
-import { getUserInfo, setUserInfo, getJWT } from '../../services/StorageService';
+import { getUserInfo, setUserInfo, getJWT, getStudentProfilePhoto } from '../../services/StorageService';
 import ShowAlert from '../../components/general/ShowAlert';
 import errorSwitch from '../../components/general/errorSwitch';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -90,7 +90,8 @@ export default function EditProfile() {
 				setFirstName(fetchedProfile.firstName);
 				setLastName(fetchedProfile.lastName);
 				setEmail(fetchedProfile.email);
-				setPhoto(AsyncStorage.getStudentProfilePhoto());
+				const photo = await getStudentProfilePhoto();
+				setPhoto(photo);
 			}
 		} catch (e) {
 			console.log(e);
