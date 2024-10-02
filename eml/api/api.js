@@ -250,8 +250,14 @@ export const getBucketImage = async (fileName) => {
 
 		fileType = fileName.split('.').pop();
 
+		if (fileType === 'jpg') {
+			fileType = 'jpeg';
+		} else if (!fileType) { // Default to png
+			fileType = 'png';
+		}
+
 		// Convert the image to base64
-		const image = `data:image/jpeg;base64,${Buffer.from(res.data, 'binary').toString('base64')}`;
+		const image = `data:image/${fileType};base64,${Buffer.from(res.data, 'binary').toString('base64')}`;
 		return image;
 	} catch (err) {
 		if (err?.response?.data != null) {
