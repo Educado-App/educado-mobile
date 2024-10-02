@@ -5,7 +5,7 @@ exports[`WelcomeScreen renders welcomeScreen correctly 1`] = `
   proxiedProperties={
     {
       "colors": [
-        4279657078,
+        4291421676,
         4294967295,
       ],
       "endPoint": [
@@ -828,7 +828,7 @@ exports[`WelcomeScreen renders welcomeScreen correctly 1`] = `
                 ]
               }
             >
-              Entrar
+              Cadastrer
             </Text>
           </View>
         </View>
@@ -836,77 +836,74 @@ exports[`WelcomeScreen renders welcomeScreen correctly 1`] = `
           style={
             [
               {
-                "marginBottom": 8,
-                "marginTop": 8,
+                "flexDirection": "row",
               },
               {
-                "paddingLeft": 24,
-                "paddingRight": 24,
-              },
-              {
-                "width": 750,
+                "justifyContent": "center",
               },
             ]
           }
         >
-          <View
-            accessible={true}
-            collapsable={false}
-            focusable={true}
-            onClick={[Function]}
-            onResponderGrant={[Function]}
-            onResponderMove={[Function]}
-            onResponderRelease={[Function]}
-            onResponderTerminate={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
+          <Text
             style={
-              {
-                "backgroundColor": "#9DE89C",
-                "borderBottomLeftRadius": 8,
-                "borderBottomRightRadius": 8,
-                "borderTopLeftRadius": 8,
-                "borderTopRightRadius": 8,
-                "opacity": 1,
-                "paddingBottom": 16,
-                "paddingLeft": 40,
-                "paddingRight": 40,
-                "paddingTop": 16,
-              }
-            }
-          >
-            <Text
-              style={
+              [
+                {
+                  "fontFamily": "Montserrat-Regular",
+                },
+                {
+                  "color": "#383838",
+                },
+                {
+                  "fontSize": 16,
+                },
                 [
                   {
-                    "fontFamily": "Montserrat-Regular",
+                    "fontSize": 16,
+                    "lineHeight": 24,
+                  },
+                  {
+                    "color": "#A1ACB2",
+                  },
+                  {
+                    "marginRight": 4,
+                  },
+                ],
+              ]
+            }
+          >
+            Já tem uma conta?
+          </Text>
+          <Text
+            onPress={[Function]}
+            style={
+              [
+                {
+                  "fontFamily": "Montserrat-Regular",
+                },
+                {
+                  "color": "#383838",
+                },
+                {
+                  "fontSize": 16,
+                },
+                [
+                  {
+                    "fontSize": 16,
+                    "lineHeight": 24,
                   },
                   {
                     "color": "#383838",
                   },
                   {
-                    "fontSize": 16,
+                    "textDecorationLine": "underline",
                   },
-                  [
-                    {
-                      "textAlign": "center",
-                    },
-                    {
-                      "fontFamily": "Montserrat-Bold",
-                    },
-                    {
-                      "fontSize": 16,
-                    },
-                    {
-                      "color": "#FFFFFF",
-                    },
-                  ],
-                ]
-              }
-            >
-              Cadastrer
-            </Text>
-          </View>
+                ],
+              ]
+            }
+            testId="loginNav"
+          >
+            Entrar agora
+          </Text>
         </View>
       </View>
     </View>
@@ -919,7 +916,7 @@ exports[`WelcomeScreen renders welcomeScreen correctly with default route 1`] = 
   proxiedProperties={
     {
       "colors": [
-        4279657078,
+        4291421676,
         4294967295,
       ],
       "endPoint": [
@@ -1742,7 +1739,7 @@ exports[`WelcomeScreen renders welcomeScreen correctly with default route 1`] = 
                 ]
               }
             >
-              Entrar
+              Cadastrer
             </Text>
           </View>
         </View>
@@ -1750,77 +1747,74 @@ exports[`WelcomeScreen renders welcomeScreen correctly with default route 1`] = 
           style={
             [
               {
-                "marginBottom": 8,
-                "marginTop": 8,
+                "flexDirection": "row",
               },
               {
-                "paddingLeft": 24,
-                "paddingRight": 24,
-              },
-              {
-                "width": 750,
+                "justifyContent": "center",
               },
             ]
           }
         >
-          <View
-            accessible={true}
-            collapsable={false}
-            focusable={true}
-            onClick={[Function]}
-            onResponderGrant={[Function]}
-            onResponderMove={[Function]}
-            onResponderRelease={[Function]}
-            onResponderTerminate={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
+          <Text
             style={
-              {
-                "backgroundColor": "#9DE89C",
-                "borderBottomLeftRadius": 8,
-                "borderBottomRightRadius": 8,
-                "borderTopLeftRadius": 8,
-                "borderTopRightRadius": 8,
-                "opacity": 1,
-                "paddingBottom": 16,
-                "paddingLeft": 40,
-                "paddingRight": 40,
-                "paddingTop": 16,
-              }
-            }
-          >
-            <Text
-              style={
+              [
+                {
+                  "fontFamily": "Montserrat-Regular",
+                },
+                {
+                  "color": "#383838",
+                },
+                {
+                  "fontSize": 16,
+                },
                 [
                   {
-                    "fontFamily": "Montserrat-Regular",
+                    "fontSize": 16,
+                    "lineHeight": 24,
+                  },
+                  {
+                    "color": "#A1ACB2",
+                  },
+                  {
+                    "marginRight": 4,
+                  },
+                ],
+              ]
+            }
+          >
+            Já tem uma conta?
+          </Text>
+          <Text
+            onPress={[Function]}
+            style={
+              [
+                {
+                  "fontFamily": "Montserrat-Regular",
+                },
+                {
+                  "color": "#383838",
+                },
+                {
+                  "fontSize": 16,
+                },
+                [
+                  {
+                    "fontSize": 16,
+                    "lineHeight": 24,
                   },
                   {
                     "color": "#383838",
                   },
                   {
-                    "fontSize": 16,
+                    "textDecorationLine": "underline",
                   },
-                  [
-                    {
-                      "textAlign": "center",
-                    },
-                    {
-                      "fontFamily": "Montserrat-Bold",
-                    },
-                    {
-                      "fontSize": 16,
-                    },
-                    {
-                      "color": "#FFFFFF",
-                    },
-                  ],
-                ]
-              }
-            >
-              Cadastrer
-            </Text>
-          </View>
+                ],
+              ]
+            }
+            testId="loginNav"
+          >
+            Entrar agora
+          </Text>
         </View>
       </View>
     </View>
@@ -1833,7 +1827,7 @@ exports[`WelcomeScreen renders welcomeScreen correctly with previousScreen as Lo
   proxiedProperties={
     {
       "colors": [
-        4279657078,
+        4291421676,
         4294967295,
       ],
       "endPoint": [
@@ -2656,7 +2650,7 @@ exports[`WelcomeScreen renders welcomeScreen correctly with previousScreen as Lo
                 ]
               }
             >
-              Entrar
+              Cadastrer
             </Text>
           </View>
         </View>
@@ -2664,77 +2658,74 @@ exports[`WelcomeScreen renders welcomeScreen correctly with previousScreen as Lo
           style={
             [
               {
-                "marginBottom": 8,
-                "marginTop": 8,
+                "flexDirection": "row",
               },
               {
-                "paddingLeft": 24,
-                "paddingRight": 24,
-              },
-              {
-                "width": 750,
+                "justifyContent": "center",
               },
             ]
           }
         >
-          <View
-            accessible={true}
-            collapsable={false}
-            focusable={true}
-            onClick={[Function]}
-            onResponderGrant={[Function]}
-            onResponderMove={[Function]}
-            onResponderRelease={[Function]}
-            onResponderTerminate={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
+          <Text
             style={
-              {
-                "backgroundColor": "#9DE89C",
-                "borderBottomLeftRadius": 8,
-                "borderBottomRightRadius": 8,
-                "borderTopLeftRadius": 8,
-                "borderTopRightRadius": 8,
-                "opacity": 1,
-                "paddingBottom": 16,
-                "paddingLeft": 40,
-                "paddingRight": 40,
-                "paddingTop": 16,
-              }
-            }
-          >
-            <Text
-              style={
+              [
+                {
+                  "fontFamily": "Montserrat-Regular",
+                },
+                {
+                  "color": "#383838",
+                },
+                {
+                  "fontSize": 16,
+                },
                 [
                   {
-                    "fontFamily": "Montserrat-Regular",
+                    "fontSize": 16,
+                    "lineHeight": 24,
+                  },
+                  {
+                    "color": "#A1ACB2",
+                  },
+                  {
+                    "marginRight": 4,
+                  },
+                ],
+              ]
+            }
+          >
+            Já tem uma conta?
+          </Text>
+          <Text
+            onPress={[Function]}
+            style={
+              [
+                {
+                  "fontFamily": "Montserrat-Regular",
+                },
+                {
+                  "color": "#383838",
+                },
+                {
+                  "fontSize": 16,
+                },
+                [
+                  {
+                    "fontSize": 16,
+                    "lineHeight": 24,
                   },
                   {
                     "color": "#383838",
                   },
                   {
-                    "fontSize": 16,
+                    "textDecorationLine": "underline",
                   },
-                  [
-                    {
-                      "textAlign": "center",
-                    },
-                    {
-                      "fontFamily": "Montserrat-Bold",
-                    },
-                    {
-                      "fontSize": 16,
-                    },
-                    {
-                      "color": "#FFFFFF",
-                    },
-                  ],
-                ]
-              }
-            >
-              Cadastrer
-            </Text>
-          </View>
+                ],
+              ]
+            }
+            testId="loginNav"
+          >
+            Entrar agora
+          </Text>
         </View>
       </View>
     </View>
