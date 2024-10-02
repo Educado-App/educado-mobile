@@ -738,6 +738,30 @@ export const checkCourseStoredLocally = async (courseID) => {
 	}
 };
 
+export const isAllSectionsComplete = async(studentInfo, courseID) => {
+	
+	const sections = studentInfo.courses;
+	// studentInfo.courses.forEach(course => {
+	// 	console.log("\n" + course.courseId);
+	// });
+	
+	const course = sections.find(course => course.courseId === courseID);
+	// console.log("Course: \n" + JSON.stringify(course));
+	
+	const sectionList = course.sections;
+	// console.log("SectionList: \n" + JSON.stringify(sectionList));
+	
+	let allSectionsComplete = true;
+	sectionList.forEach(section => {
+		console.log(JSON.stringify(section) + "\n");
+		if (!section.isComplete) {
+			allSectionsComplete = false;
+		}
+	});
+	console.log(allSectionsComplete);
+	return allSectionsComplete;
+}
+
 /**
  * Clears all data from AsyncStorage.
  */

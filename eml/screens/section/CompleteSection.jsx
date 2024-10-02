@@ -7,7 +7,7 @@ import Text from '../../components/general/Text';
 import StandardButton from '../../components/general/StandardButton';
 import AnimatedNumbers from '../../components/gamification/AnimatedNumber';
 import { generateSectionCompletePhrases } from '../../constants/Phrases';
-import { getStudentInfo } from '../../services/StorageService';
+import { getStudentInfo, getSectionList, isAllSectionsComplete } from '../../services/StorageService';
 import { findCompletedSection, isCourseCompleted } from '../../services/utilityFunctions';
 import PropTypes from 'prop-types';
 
@@ -97,6 +97,7 @@ export default function CompleteSectionScreen() {
 	async function handleAllSectionsCompleted() {
 		const studentInfo = await getStudentInfo();
 
+		isAllSectionsComplete(studentInfo, parsedCourse.courseId);
 		if (isCourseCompleted(studentInfo, parsedCourse.courseId)) {
 			navigation.reset({
 				index: 0,

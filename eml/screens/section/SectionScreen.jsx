@@ -13,11 +13,6 @@ import { unsubscribe } from '../../services/StorageService';
 import PropTypes from 'prop-types';
 import { checkProgressCourse, checkProgressSection } from '../../services/utilityFunctions';
 
-/**
- * Section screen component that displays a list of sections for a given course.
- * @param {object} route - The route object containing the courseId parameter.
- * @returns {JSX.Element} - The SectionScreen component.
- */
 export default function SectionScreen({ route }) {
 	SectionScreen.propTypes = {
 		route: PropTypes.object,
@@ -26,58 +21,52 @@ export default function SectionScreen({ route }) {
 	const navigation = useNavigation();
 	const [sections, setSections] = useState(null);
 	const [studentProgress, setStudentProgress] = useState(0);
-	const [completedComponents, setCompletedComponents] = useState(0);
+	const [completedComponents, setCompletedComponents] = useState({});
 
-	/**
-   * Loads the sections for the given course from the backend.
-   * @param {string} id - The id of the course to load sections for.
-   */
+	// Fetch sections for the course
 	async function loadSections(id) {
 		const sectionData = await StorageService.getSectionList(id);
 		setSections(sectionData);
 	}
 
+	// Fetch course progress
 	const checkProgress = async () => {
 		const progress = await checkProgressCourse(course.courseId);
 		setStudentProgress(progress);
 	};
 
-	const checkProgressInSection = async (sectionId) => {
-		const completed = await checkProgressSection(sectionId);
-		setCompletedComponents(completed);
+	// Fetch progress for all sections
+	const loadSectionProgress = async (sections) => {
+		const progressData = {};
+		for (const section of sections) {
+			const completed = await checkProgressSection(section.sectionId);
+			progressData[section.sectionId] = completed;
+		}
+		setCompletedComponents(progressData);
 	};
 
 	useEffect(() => {
-		// this makes sure loadcourses is called when the screen is focused
-		const update = navigation.addListener('focus', () => {
+		// Add focus listener to refresh progress on screen focus
+		const unsubscribe = navigation.addListener('focus', () => {
 			checkProgress();
 		});
-		return update;
+		return unsubscribe; // Cleanup the listener
 	}, [navigation]);
 
-	// Fetch courses from backend and replace dummy data!
 	useEffect(() => {
-		let componentIsMounted = true;
-
-		/**
-     * Loads the sections and course data for the given courseId.
-     */
 		async function loadData() {
 			await loadSections(course.courseId);
+			checkProgress(); // Fetch course progress
+
+			// Once sections are loaded, fetch their progress
+			if (sections && sections.length > 0) {
+				await loadSectionProgress(sections);
+			}
 		}
 
-		if (componentIsMounted) {
-			loadData();
-		}
+		loadData();
+	}, [course.courseId, sections]);
 
-		checkProgress();
-
-		return () => componentIsMounted = false;
-	}, []);
-
-	/**
-   * Displays an alert to confirm unsubscribing from the course.
-   */
 	const unsubAlert = () =>
 		Alert.alert('Cancelar subscrição', 'Tem certeza?', [
 			{
@@ -90,7 +79,6 @@ export default function SectionScreen({ route }) {
 	return (
 		<BaseScreen>
 			<View className="flex flex-row flex-wrap items-center justify-between px-6 pt-[20%]">
-
 				{/* Back Button */}
 				<TouchableOpacity className="pr-3" onPress={() => navigation.goBack()}>
 					<MaterialCommunityIcons name="chevron-left" size={25} color="black" />
@@ -100,27 +88,30 @@ export default function SectionScreen({ route }) {
 				<Text className="text-[25px] font-bold">{course.title}</Text>
 			</View>
 
-			{/* Conditionally render the sections if they exist */}
+			{/* Render sections */}
 			{sections ? (
 				sections.length === 0 ? null : (
 					<View className="flex-[1] flex-col my-[10px]">
-
 						{/* Progress Bar */}
 						<CustomProgressBar width={60} progress={studentProgress} height={3}></CustomProgressBar>
 
 						{/* Section Cards */}
 						<ScrollView className="mt-[5%]" showsVerticalScrollIndicator={false}>
-							{sections.map((section, i) => {
-								checkProgressInSection(section.sectionId);
-								return <SectionCard key={i} section={section} course={course} progress={completedComponents}></SectionCard>;
-							})}
+							{sections.map((section, i) => (
+								<SectionCard
+									key={i}
+									section={section}
+									course={course}
+									progress={completedComponents[section.sectionId] || 0} // Use loaded progress
+								/>
+							))}
 						</ScrollView>
+
 						{/* Unsubscribe Button */}
 						<SubscriptionCancel onPress={unsubAlert} />
 					</View>
 				)
 			) : null}
-
 		</BaseScreen>
 	);
 }
