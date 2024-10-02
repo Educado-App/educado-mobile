@@ -216,12 +216,6 @@ export const uploadPhoto = async (user_id, photo, token) => {
 	}
 };
 
-const uriToBlob = async (uri) => {
-	const response = await fetch(uri);
-	const blob = await response.blob();
-	return blob;
-};
-
 /**
  * Function to send mail to user with code to reset password
  * @param {Object} email should contain an email, to receive a reset password message
