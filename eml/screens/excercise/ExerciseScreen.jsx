@@ -59,17 +59,20 @@ export default function ExerciseScreen({ exerciseObject, sectionObject, courseOb
 				setIsPopUpVisible(true);
 			} else {
 				setIsCorrectAnswer(false);
-				setButtonText('Tentar Novamente');
+				setButtonText('Continuar');
 				setAttempts(attempts + 1);
 			}
-		} else if (buttonText === 'Tentar Novamente') {
-			// Reset selectedAnswer and feedback
-			setSelectedAnswer(null);
-			setShowFeedback(false);
-			setButtonText('Confirmar Resposta');
-		} else if (buttonText === 'Continuar') {
+
+		// } else if (buttonText === 'Tentar Novamente') {
+		// 	// Reset selectedAnswer and feedback
+		// 	setSelectedAnswer(null);
+		// 	setShowFeedback(false);
+		// 	setButtonText('Confirmar Resposta');
+		// } else 
+		}
+		if (buttonText === 'Continuar') {
 			setIsPopUpVisible(false);
-			if (onContinue()) {
+			if (onContinue(isAnswerCorrect)) {
 				handleLastComponent(exerciseObject, courseObject, navigation);
 			}
 		}
@@ -166,4 +169,8 @@ ExerciseScreen.propTypes = {
 	sectionObject: PropTypes.object,
 	courseObject: PropTypes.object,
 	onContinue: PropTypes.func,
+};
+
+ExerciseScreen.defaultProps = {
+	onContinue: (isCorrect) => {},
 };
