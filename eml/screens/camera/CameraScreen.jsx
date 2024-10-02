@@ -6,6 +6,9 @@ import { Camera as CameraIcon, SwitchCamera, Check, X } from 'lucide-react-nativ
 import { getStudentInfo, updateStudentInfo } from '../../services/StorageService';
 import { uploadPhoto } from '../../api/userApi';
 import BackButton from '../../components/general/BackButton';
+import { getLoginToken } from '../../services/StorageService';
+import { getBucketImage } from '../../api/api';
+
 
 const CameraScreen = () => {
 	const [hasPermission, setHasPermission] = useState(null);
@@ -42,10 +45,15 @@ const CameraScreen = () => {
 		profile.photo = capturedImage.uri; // Temporarily set photo to local uri
 		await updateStudentInfo(profile);
 		navigation.navigate('EditProfile');
-		await uploadPhoto(capturedImage.uri).then(async (photo) => {
-			profile.photo = photo;
-			await updateStudentInfo(profile);
-		});
+		try {
+			await uploadPhoto(profile.baseUser, capturedImage.uri, await getLoginToken()).then(async (res) => {
+				photo = await getBucketImage(res.profilePhoto);
+				profile.photo = photo;
+				await updateStudentInfo(profile);
+			});
+		} catch (e) {
+			console.log(e);
+		}
 	};
 
 	const handleDeny = () => {

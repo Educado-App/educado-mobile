@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Buffer } from 'buffer';
 
 const timeoutInMs = 1200;
 
@@ -241,9 +242,17 @@ export const getLectureById = async (lectureId) => {
 export const getBucketImage = async (fileName) => {
 	try {
 		const res = await axios.get(
-			`${url}/api/bucket/${fileName}`
-			, {timeout: timeoutInMs});
-		return res.data;
+			`${url}/api/bucket/${fileName}`,
+		{
+			responseType: 'arraybuffer',
+			accept: "image/jpeg", 
+		});
+
+		fileType = fileName.split('.').pop();
+
+		// Convert the image to base64
+		const image = `data:image/jpeg;base64,${Buffer.from(res.data, 'binary').toString('base64')}`;
+		return image;
 	} catch (err) {
 		if (err?.response?.data != null) {
 			throw err.response.data;

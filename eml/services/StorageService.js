@@ -85,12 +85,14 @@ export const setStudentInfo = async (userId) => {
 	if (isOnline) {
 		try {
 			const fetchedStudentInfo = await userApi.getStudentInfo(userId);
-			try {
-				const photo = await api.getBucketImage(fetchedStudentInfo.profilePicture);
-				fetchedStudentInfo.photo = photo;
-			} catch (error) {
-				fetchedStudentInfo.photo = null;
-				console.log(`Failed to fetch photo. Proceeding without it: ${error}`);
+			if (fetchedStudentInfo.profilePhoto){
+				try {
+					const photo = await api.getBucketImage(fetchedStudentInfo.profilePhoto);
+					fetchedStudentInfo.photo = photo;
+				} catch (error) {
+					fetchedStudentInfo.photo = null;
+					console.log(`Failed to fetch photo. Proceeding without it: ${error}`);
+				}
 			}
 			await updateStudentInfo(fetchedStudentInfo);
 			await AsyncStorage.setItem(STUDENT_ID, fetchedStudentInfo._id); // needs to be seperate
