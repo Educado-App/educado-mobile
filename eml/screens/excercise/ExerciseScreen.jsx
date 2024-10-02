@@ -55,20 +55,12 @@ export default function ExerciseScreen({ exerciseObject, sectionObject, courseOb
 				setButtonText('Continuar');
 				// Award points based on number of attempts
 				setPoints(attempts === 0 ? 10 : 5);
-				// const obj = await completeComponent(exerciseObject, courseObject.courseId, isAnswerCorrect);
 				setIsPopUpVisible(true);
 			} else {
 				setIsCorrectAnswer(false);
 				setButtonText('Continuar');
 				setAttempts(attempts + 1);
 			}
-
-		// } else if (buttonText === 'Tentar Novamente') {
-		// 	// Reset selectedAnswer and feedback
-		// 	setSelectedAnswer(null);
-		// 	setShowFeedback(false);
-		// 	setButtonText('Confirmar Resposta');
-		// } else 
 		}
 		if (buttonText === 'Continuar') {
 			setIsPopUpVisible(false);
