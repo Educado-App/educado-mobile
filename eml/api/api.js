@@ -243,12 +243,12 @@ export const getBucketImage = async (fileName) => {
 	try {
 		const res = await axios.get(
 			`${url}/api/bucket/${fileName}`,
-		{
-			responseType: 'arraybuffer',
-			accept: "image/jpeg", 
-		});
+			{
+				responseType: 'arraybuffer',
+				accept: 'image/jpeg', 
+			});
 
-		fileType = fileName.split('.').pop();
+		let fileType = fileName.split('.').pop();
 
 		if (fileType === 'jpg') {
 			fileType = 'jpeg';
