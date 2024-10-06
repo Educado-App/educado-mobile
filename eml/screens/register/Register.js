@@ -47,13 +47,14 @@ export default function Register() {
 								<RegisterForm />
 							</View>
 							<View className="flex-row justify-center items-end">
-								<Text className="text-projectGray leading-5 text-lg">
+								<Text className="text-projectBlack leading-5 text-lg">
+
 									{/* Already have an account? */}
                   Já possui conta?
 								</Text>
 								<Text
 									testId={'loginNav'}
-									className={'text-projectBlack leading-5 text-lg underline'}
+									className={'text-profileCircle leading-5 text-lg underline left-1'}
 									onPress={() => navigation.navigate('Login')}
 								>
 									{/* Log in now */}
