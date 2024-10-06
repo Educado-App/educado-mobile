@@ -1,4 +1,5 @@
 import axios from 'axios';
+import * as FileSystem from 'expo-file-system';
 
 /* Commented out to avoid linting errors 
  * TODO: move IP address to .env file !!!
@@ -181,7 +182,58 @@ export const addCourseToStudent = async (user_Id, course_Id, token) => {
 	}
 };
 
+export const uploadPhoto = async (user_id, photo, token) => {
+	try{
+		const formData = new FormData();
 
+		const file = await FileSystem.getInfoAsync(photo);
+
+		if (!file.exists) {
+			throw new Error('File does not exist');
+		}
+
+		formData.append('file', {
+			uri: file.uri,          // The URI from expo-file-system
+			type: 'image/jpeg',         // You can adjust this to the actual file type
+			name: 'photo.jpg'           // File name
+		});
+
+		const res = await client.put('/api/students/' + user_id + '/photo', formData, {
+			headers: {
+				'Content-Type': 'multipart/form-data',
+				'accept': 'application/json',
+				'token': token,
+			}
+		});
+
+		return res.data;
+	} catch (e) {
+		if (e?.response?.data != null) {
+			throw e.response.data;
+		} else {
+			throw e;
+		}
+	}
+};
+
+export const deletePhoto = async (user_id, token) => {
+	try {
+		const res = await client.delete('/api/students/' + user_id + '/photo', {
+			headers: {
+				'Content-Type': 'application/json',
+				'token': token,
+			}
+		});
+
+		return res.data;
+	} catch (e) {
+		if (e?.response?.data != null) {
+			throw e.response.data;
+		} else {
+			throw e;
+		}
+	}
+};
 
 /**
  * Function to send mail to user with code to reset password
