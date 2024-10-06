@@ -22,6 +22,10 @@ jest.mock('@react-navigation/native-stack', () => ({
   createNativeStackNavigator: jest.fn(),
 }));
 
+jest.mock('expo-camera', () => ({
+  Camera: jest.fn(),
+}));
+
 let welcomeScreen;
 
 beforeEach(() => {
