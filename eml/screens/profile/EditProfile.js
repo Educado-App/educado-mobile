@@ -11,12 +11,12 @@ import ProfileNameCircle from '../../components/profile/ProfileNameCircle';
 import FormButton from '../../components/general/forms/FormButton';
 import ChangePasswordModal from '../../components/profileSettings/ChangePasswordModal';
 import FormTextField from '../../components/general/forms/FormTextField';
-import { deleteUser, updateUserFields } from '../../api/userApi';
+import { deletePhoto, deleteUser, getStudentInfo, updateUserFields } from '../../api/userApi';
 import BackButton from '../../components/general/BackButton';
 import { useNavigation } from '@react-navigation/native';
 import { validateEmail, validateName } from '../../components/general/Validation';
 import FormFieldAlert from '../../components/general/forms/FormFieldAlert';
-import { getUserInfo, setUserInfo, getJWT, getStudentProfilePhoto } from '../../services/StorageService';
+import { getUserInfo, setUserInfo, getJWT, getStudentProfilePhoto, updateStudentInfo, getLoginToken, getUserId } from '../../services/StorageService';
 import ShowAlert from '../../components/general/ShowAlert';
 import errorSwitch from '../../components/general/errorSwitch';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -166,16 +166,12 @@ export default function EditProfile() {
 		}
 	};
 
-	const removeImage = () => {
-		const profile = {
-			id: id,
-			firstName: fetchedFirstName,
-			lastName: fetchedLastName,
-			email: fetchedEmail,
-			photo: '',
-		};
-		setUserInfo(profile);
+	const removeImage = async () => {
 		setPhoto('');
+		var profile = getStudentInfo();
+		updateStudentInfo({ ...profile, photo: '' });
+		const userId = await getUserId();
+		await deletePhoto(userId, await getLoginToken());
 	};
 
 	return (

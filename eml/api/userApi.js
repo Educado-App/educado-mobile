@@ -216,6 +216,25 @@ export const uploadPhoto = async (user_id, photo, token) => {
 	}
 };
 
+export const deletePhoto = async (user_id, token) => {
+	try {
+		const res = await client.delete('/api/students/' + user_id + '/photo', {
+			headers: {
+				'Content-Type': 'application/json',
+				'token': token,
+			}
+		});
+
+		return res.data;
+	} catch (e) {
+		if (e?.response?.data != null) {
+			throw e.response.data;
+		} else {
+			throw e;
+		}
+	}
+};
+
 /**
  * Function to send mail to user with code to reset password
  * @param {Object} email should contain an email, to receive a reset password message
