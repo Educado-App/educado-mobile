@@ -163,6 +163,6 @@ ExerciseScreen.propTypes = {
 	onContinue: PropTypes.func,
 };
 
-ExerciseScreen.defaultProps = {
+/* ExerciseScreen.defaultProps = {
 	onContinue: (isCorrect) => {},
-};
+}; */

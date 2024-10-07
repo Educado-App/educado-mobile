@@ -78,7 +78,7 @@ export default function CompSwipeScreen({ route }) {
 	const handleExerciseContinue = (isCorrect) => {
 		console.log('answer is correct');
 		if (!isCorrect) {
-			console.log('no it is not')
+			console.log('no it is not');
 			combinedLecturesAndExercises.push(combinedLecturesAndExercises[index]); // If answer is incorrect, add exercise as last section item
 		}
 		swiperRef.current.scrollBy(1, true);
