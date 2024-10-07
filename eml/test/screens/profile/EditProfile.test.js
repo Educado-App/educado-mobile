@@ -6,6 +6,7 @@ jest.mock('@react-navigation/native', () => ({
   useNavigation: () => ({
     navigate: jest.fn(),
   }),
+  useFocusEffect: jest.fn(),
 }))
 
 let editProfileScreen;

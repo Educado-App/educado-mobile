@@ -162,4 +162,3 @@ ExerciseScreen.propTypes = {
 	courseObject: PropTypes.object,
 	onContinue: PropTypes.func,
 };
-
