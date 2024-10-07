@@ -8,7 +8,6 @@ import Text from '../../components/general/Text';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import * as StorageService from '../../services/StorageService';
 
-
 export default function Register() {
 
 	const navigation = useNavigation();

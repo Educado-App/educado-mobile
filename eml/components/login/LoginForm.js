@@ -54,7 +54,7 @@ export default function LoginForm() {
 		await loginUser(obj).then(async (response) => {
 			// Set login token in AsyncStorage and navigate to home screen
 			await setJWT(response.accessToken);
-			await setUserInfo(response.userInfo);
+			await setUserInfo({ ...response.userInfo });
 			await AsyncStorage.setItem('loggedIn', 'true');
 			navigation.navigate('HomeStack');
 		}).catch((error) => {

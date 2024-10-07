@@ -1,8 +1,7 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, Image } from 'react-native';
 import Text from '../general/Text';
 import ProfileNameCircle from './ProfileNameCircle';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import PropTypes from 'prop-types';
 import { FontAwesome5 } from '@expo/vector-icons';
 import tailwindConfig from '../../tailwind.config';
@@ -23,15 +22,17 @@ export default function UserInfo(props) {
 		firstName: PropTypes.string,
 		lastName: PropTypes.string,
 		email: PropTypes.string,
-		points: PropTypes.number
+		points: PropTypes.number,
+		photo: PropTypes.string,
 	};
 
 	return (
 		<View className="p-6 flex flex-row items-center">
 			<View className='pr-5'>
-				<TouchableOpacity>
-					<ProfileNameCircle firstName={props.firstName} lastName={props.lastName}/>
-				</TouchableOpacity>
+				{ props.photo 
+					? <Image source={{ uri: props.photo }} className='w-24 h-24 rounded-full' />
+					: <ProfileNameCircle firstName={props.firstName} lastName={props.lastName} />
+				}
 			</View>
 			<View className='w-[70%]'>
 				<Text className="text-xl font-sans-bold">{props.firstName} {props.lastName}</Text>
