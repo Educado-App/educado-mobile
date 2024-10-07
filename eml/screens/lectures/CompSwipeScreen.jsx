@@ -62,6 +62,7 @@ export default function CompSwipeScreen({ route }) {
 				}
 
 				setCombinedLecturesAndExercises(compList);
+				combinedLecturesAndExercises.reverse();
 				setCurrentLectureType(compList[initialIndex]?.lectureType === LectureType.VIDEO ? LectureType.VIDEO : LectureType.TEXT);
 				setIndex(initialIndex);
 				setLoading(false);
@@ -74,11 +75,15 @@ export default function CompSwipeScreen({ route }) {
 	}, [section, parsedCourse]);
 
 
-	const handleExerciseContinue = () => {
+	const handleExerciseContinue = (isCorrect) => {
+		if (!isCorrect) {
+			combinedLecturesAndExercises.push(combinedLecturesAndExercises[index]); // If answer is incorrect, add exercise as last section item
+		}
 		swiperRef.current.scrollBy(1, true);
 		setScrollEnabled(true);
 
-		return index === combinedLecturesAndExercises.length - 1;
+		return index === combinedLecturesAndExercises.length - 1; //True if this is last lecture/exercise
+
 	};
 
 	const handleIndexChange = async (_index) => {
@@ -129,7 +134,7 @@ export default function CompSwipeScreen({ route }) {
 							comp.type === ComponentType.LECTURE ?
 								<LectureScreen key={_index} currentIndex={index} indexCount={combinedLecturesAndExercises.length} lectureObject={comp.component} courseObject={parsedCourse} />
 								:
-								<ExerciseScreen key={_index} exerciseObject={comp.component} sectionObject={section} courseObject={parsedCourse} onContinue={() => handleExerciseContinue()} />
+								<ExerciseScreen key={_index} exerciseObject={comp.component} sectionObject={section} courseObject={parsedCourse} onContinue={(isCorrect) => handleExerciseContinue(isCorrect)} />
 						))}
 					</Swiper>
 				)}
