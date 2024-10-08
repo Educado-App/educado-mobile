@@ -19,6 +19,7 @@ import CompSwipeScreen from './screens/lectures/CompSwipeScreen';
 import ErrorScreen from './screens/errors/ErrorScreen';
 import CourseScreen from './screens/courses/CourseScreen';
 import EditProfileScreen from './screens/profile/EditProfile';
+import EditPasswordScreen from './screens/profile/EditPassword';
 import CertificateScreen from './screens/certificate/CertificateScreen';
 import CompleteCourseScreen from './screens/courses/CompleteCourse';
 import CameraScreen from './screens/camera/CameraScreen';
@@ -220,6 +221,12 @@ export default function App() {
 								component={EditProfileScreen}
 								options={{ headerShown: false }}
 							/>
+							<Stack.Screen
+								name="EditPassword"
+								component={EditPasswordScreen}
+								options={{ headerShown: false }}
+							/>
+						
 							<Stack.Screen
 								name="Exercise"
 								component={ExerciseScreen}
