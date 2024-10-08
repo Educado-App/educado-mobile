@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 import LogOutButton from '../../components/profile/LogOutButton';
 import ProfileNavigationButton from '../../components/profile/ProfileNavigationButton.js';
+import CertificateBtn from '../../components/profile/CertificateNavigationButton.js';
 import UserInfo from '../../components/profile/UserInfo';
 import { useNavigation } from '@react-navigation/native';
 import { getUserInfo } from '../../services/StorageService';
@@ -101,6 +102,7 @@ export default function ProfileComponent() {
 						<ProfileNavigationButton label='Certificados' onPress={() => navigation.navigate('CertificateStack')}></ProfileNavigationButton>*/}
 					{/* Download page is not implemented yet. However, download works and can be accessed on home page when offline
 					<ProfileNavigationButton label='Download'></ProfileNavigationButton>*/}
+					<CertificateBtn label='Certificados' onPress={() => navigation.navigate('CertificateStack')}></CertificateBtn>
 					<View className='flex flex-row pb-4'>
 						<LogOutButton testID='logoutBtn'></LogOutButton>
 					</View>
