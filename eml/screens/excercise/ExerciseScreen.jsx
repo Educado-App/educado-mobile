@@ -64,8 +64,13 @@ export default function ExerciseScreen({ exerciseObject, sectionObject, courseOb
 		}
 		if (buttonText === 'Continuar') {
 			setIsPopUpVisible(false);
-			if (onContinue(isAnswerCorrect)) {
+			const currentIndex = sectionObject.components.findIndex(component => component.compId === exerciseObject._id)
+			if (onContinue(isAnswerCorrect) && currentIndex === sectionObject.components.length - 1) {
+				console.log(sectionObject.components);
 				handleLastComponent(exerciseObject, courseObject, navigation);
+			} 
+			else {
+				// Find a way to go to the next exercise
 			}
 		}
 	}
@@ -98,7 +103,7 @@ export default function ExerciseScreen({ exerciseObject, sectionObject, courseOb
 										color={projectColors.primary_custom}
 										uncheckedColor={projectColors.primary_custom}
 									/>
-								</View>
+								</View> 
 
 								<View>
 									<TouchableOpacity onPress={() => handleAnswerSelect(index)} disabled={buttonText === 'Continuar'}>
