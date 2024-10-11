@@ -14,10 +14,12 @@ const StartNowButton = ({ course }) => {
 	};
 
 	return (
-		<View className="">
+		<View
+            className="flex justify-center items-center"
+        >
 			<Pressable
 				onPress={handlePress}
-				className="w-full flex items-center justify-center rounded-lg bg-primary_custom p-4"
+				className="w-80 flex items-center justify-center rounded-lg bg-primary_custom p-4"
 			>
 				<Text className="text-projectWhite p-1 font-bold text-lg">
                     Começar agora
