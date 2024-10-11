@@ -3,6 +3,7 @@ import {
 	View,
 	SafeAreaView,
 	ScrollView,
+	Image
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import BackButton from '../../components/general/BackButton';
@@ -12,6 +13,7 @@ import CertificateCard from '../../components/certificate/CertificateCard';
 import { determineCategory } from '../../services/utilityFunctions';
 import { fetchCertificates } from '../../api/api';
 import { getUserInfo } from '../../services/StorageService';
+import noCertificateImage from '../../assets/images/no-certificates.png';
 
 /**
  * Profile screen
@@ -66,6 +68,35 @@ export default function CertificateScreen() {
 		}
 	};
 
+	if (certificates.length === 0) {
+		return (
+			<SafeAreaView className='bg-secondary'>
+			<View className='h-full'>
+				<View className='relative mx-4 mt-12 mb-6'>
+						<BackButton onPress={() => navigation.navigate('Perfil')} />
+
+						<Text className='w-full text-center text-xl font-sans-bold'>
+				Certificados
+						</Text>
+					</View>
+
+				<View className='flex items-center justify-around h-[500px]'>
+					<View className='w-[342px] flex items-center'>
+					
+						<Image
+									  source={noCertificateImage}
+									  style={{ width: 105, height: 105 }}
+									  alt="No Certificates"
+						/>
+						<Text className='text-2xl text-center font-montserrat-semi-bold my-4'>Nenhum certificado disponível :(</Text>
+						<Text className='text-center text-lg'>Você ainda não finalizou um curso. Acesse a página de cursos e continue seus estudos para emitir certificados.</Text>
+					</View>
+				</View>
+			</View>
+		</SafeAreaView>
+		  
+		);
+	  }
 	return (
 		<SafeAreaView className='bg-secondary'>
 			<View className='h-full'>
