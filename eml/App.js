@@ -22,6 +22,7 @@ import EditProfileScreen from './screens/profile/EditProfile';
 import CertificateScreen from './screens/certificate/CertificateScreen';
 import CompleteCourseScreen from './screens/courses/CompleteCourse';
 import CameraScreen from './screens/camera/CameraScreen';
+import SubscribedToCourseScreen from './screens/courses/SubscribedToCourseScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -118,14 +119,6 @@ function CourseStack() {
 				component={ErrorScreen}
 				options={{
 					headerShown: false,
-				}}
-			/>
-			<Stack.Screen
-				name="Subscribed"
-				component={SubscribedToCourseScreen}
-				initialParams={{course_id: ''}}
-				options={{
-					headerShown : false,
 				}}
 			/>
 		</Stack.Navigator>
@@ -258,6 +251,12 @@ export default function App() {
 								name="Camera"
 								component={CameraScreen}
 								options={{ headerShown: false }}
+							/>
+							<Stack.Screen
+								name="Subscribed"
+								component={SubscribedToCourseScreen}
+								initialParams={{course_id: ''}}
+								options={{headerShown: false}}
 							/>
 						</Stack.Navigator>
 					</NavigationContainer>
