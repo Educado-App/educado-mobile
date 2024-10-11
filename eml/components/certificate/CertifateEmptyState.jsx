@@ -12,7 +12,7 @@ export default function CertificateEmptyState() {
     <SafeAreaView className='bg-secondary'>
 			<View className='h-full flex items-center justify-center'>
 				<View className='absolute top-0 left-0 right-0 mx-4 mt-12 mb-6'>
-						<BackButton onPress={() => navigation.navigate('Perfil')} />
+						<BackButton onPress={() => navigation.navigate('ProfileHome')} />
 
 						<Text className='w-full text-center text-xl font-sans-bold'>
 							Certificados

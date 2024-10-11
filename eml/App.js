@@ -124,6 +124,8 @@ function CourseStack() {
 	);
 }
 
+
+
 export function useWelcomeScreenLogic(loadingTime, onResult) {
 
 	setTimeout(() => {
@@ -216,11 +218,6 @@ export default function App() {
 								options={{ headerShown: false }}
 							/>
 							<Stack.Screen
-								name="EditProfile"
-								component={EditProfileScreen}
-								options={{ headerShown: false }}
-							/>
-							<Stack.Screen
 								name="Exercise"
 								component={ExerciseScreen}
 								options={{
@@ -230,13 +227,6 @@ export default function App() {
 							<Stack.Screen
 								name="Components"
 								component={CompSwipeScreen}
-								options={{
-									headerShown: false,
-								}}
-							/>
-							<Stack.Screen
-								name="CertificateStack"
-								component={CertificateStack}
 								options={{
 									headerShown: false,
 								}}

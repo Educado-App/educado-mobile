@@ -1,17 +1,53 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import CourseScreen from '../../screens/courses/CourseScreen';
 import Explore from '../../screens/explore/Explore';
 import ProfileComponent from '../../screens/profile/Profile';
+import EditProfile from '../../screens/profile/EditProfile';
+import CertificateScreen from '../../screens/certificate/CertificateScreen';
 import { Icon } from '@rneui/themed';
 import { Platform } from 'react-native';
 import tailwindConfig from '../../tailwind.config';
 
 const Tab = createBottomTabNavigator();
 
+const ProfileStack = createNativeStackNavigator();
+
+function ProfileStackScreen({navigation}) {
+	
+	return (
+		<ProfileStack.Navigator initialRouteName='ProfileHome'>
+			<ProfileStack.Screen
+				name="ProfileHome"
+				component={ProfileComponent}
+				options={{
+					headerShown: false,
+				}}
+			/>
+			<ProfileStack.Screen
+				name="EditProfile"
+				component={EditProfile}
+				options={{
+					headerShown: false,
+				}}
+			/>
+			<ProfileStack.Screen
+				name="Certificate"
+				component={CertificateScreen}
+				options={{
+					headerShown: false,
+				}}
+			/>
+		</ProfileStack.Navigator>
+	);
+}
+
 /**
  * This component is used to display the navigation bar at the bottom of the screen.
  * @returns {JSX.Element} - Returns a JSX element.
+ * 
+ * 
  */
 export default function NavBar() {
 
@@ -99,7 +135,7 @@ export default function NavBar() {
 			/>
 			<Tab.Screen
 				name="Perfil"
-				component={ProfileComponent}
+				component={ProfileStackScreen}
 				options={{
 					tabBarActiveBackgroundColor: tailwindConfig.theme.colors.cyanBlue,
 					headerShown: false,

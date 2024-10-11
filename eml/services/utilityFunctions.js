@@ -1,7 +1,8 @@
 /** Utility functions used in Explore and Course screens **/
 import * as StorageService from '../services/StorageService.js';
 import * as userApi from '../api/userApi.js';
-
+import 'intl';
+import 'intl/locale-data/jsonp/en-GB'; // Import the locale you need
 /**
  * Converts a numeric difficulty level to a human-readable label.
  * @param {number} lvl - The difficulty level of the course.
@@ -9,14 +10,14 @@ import * as userApi from '../api/userApi.js';
  */
 export function getDifficultyLabel(lvl) {
 	switch (lvl) {
-	case 1:
-		return 'Iniciante';
-	case 2:
-		return 'Intermediário';
-	case 3:
-		return 'Avançado';
-	default:
-		return 'Iniciante';
+		case 1:
+			return 'Iniciante';
+		case 2:
+			return 'Intermediário';
+		case 3:
+			return 'Avançado';
+		default:
+			return 'Iniciante';
 	}
 }
 
@@ -47,16 +48,16 @@ export const convertMsToTime = (ms) => {
  */
 export function determineCategory(category) {
 	switch (category) {
-	case 'personal finance':
-		return 'Finanças pessoais';
-	case 'health and workplace safety':
-		return 'Saúde e segurança no trabalho';
-	case 'sewing':
-		return 'Costura';
-	case 'electronics':
-		return 'Eletrônica';
-	default: 'other';
-		return 'Outro';
+		case 'personal finance':
+			return 'Finanças pessoais';
+		case 'health and workplace safety':
+			return 'Saúde e segurança no trabalho';
+		case 'sewing':
+			return 'Costura';
+		case 'electronics':
+			return 'Eletrônica';
+		default: 'other';
+			return 'Outro';
 	}
 }
 
@@ -67,16 +68,16 @@ export function determineCategory(category) {
  */
 export function determineIcon(category) {
 	switch (category) {
-	case 'personal finance':
-		return 'finance';
-	case 'health and workplace safety':
-		return 'medical-bag';
-	case 'sewing':
-		return 'scissors-cutting';
-	case 'electronics':
-		return 'laptop';
-	default:
-		return 'bookshelf';
+		case 'personal finance':
+			return 'finance';
+		case 'health and workplace safety':
+			return 'medical-bag';
+		case 'sewing':
+			return 'scissors-cutting';
+		case 'electronics':
+			return 'laptop';
+		default:
+			return 'bookshelf';
 	}
 }
 
@@ -140,6 +141,15 @@ export function formatHours(number) {
 	} else {
 		return `${number} Horas`;
 	}
+}
+
+export function formatDate(dateString) {
+	const date = new Date(dateString);
+	return new Intl.DateTimeFormat('en-GB', {
+		day: '2-digit',
+		month: '2-digit',
+		year: 'numeric',
+	}).format(date);
 }
 
 export async function completeComponent(comp, courseId, isComplete) {

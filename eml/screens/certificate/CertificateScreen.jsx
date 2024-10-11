@@ -72,13 +72,17 @@ export default function CertificateScreen() {
 	const noCertificate = certificates.length === 0;
 
 	if (noCertificate) {
-		return <CertificateEmptyState/>;
-	  }
+        return (
+            <View>
+                <CertificateEmptyState />
+            </View>
+        );
+    }
 	return (
 		<SafeAreaView className='bg-secondary'>
 			<View className='h-full'>
 				<View className='relative mx-4 mt-12 mb-6'>
-					<BackButton onPress={() => navigation.navigate('Perfil')} />
+					<BackButton onPress={() => navigation.navigate('ProfileHome')} />
 
 					<Text className='w-full text-center text-xl font-sans-bold'>
             Certificados
@@ -93,12 +97,12 @@ export default function CertificateScreen() {
 				/>
 				<ScrollView showsVerticalScrollIndicator={true}>
 					<View>
-						{certificates.length !== 0 ? filteredCertificates.map((certificate, index) => (
+						{!noCertificate && filteredCertificates.map((certificate, index) => (
 							<CertificateCard
 								key={index}
 								certificate={certificate}
 							></CertificateCard>
-						)) : <Text className="justify-center mx-auto">sem certificados</Text>}
+						))}
 					</View>
 				</ScrollView>
 			</View>
