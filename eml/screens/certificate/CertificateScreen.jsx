@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {
 	View,
 	SafeAreaView,
+	Pressable,
 	ScrollView,
 	Image
 } from 'react-native';
@@ -10,6 +11,7 @@ import BackButton from '../../components/general/BackButton';
 import Text from '../../components/general/Text';
 import FilterNavBar from '../../components/explore/FilterNavBar';
 import CertificateCard from '../../components/certificate/CertificateCard';
+import CertificateEmptyState from '../../components/certificate/CertifateEmptyState';
 import { determineCategory } from '../../services/utilityFunctions';
 import { fetchCertificates } from '../../api/api';
 import { getUserInfo } from '../../services/StorageService';
@@ -67,35 +69,10 @@ export default function CertificateScreen() {
 			setSelectedCategory(category); // Set selectedCategory to the selected category label
 		}
 	};
+	const noCertificate = certificates.length === 0;
 
-	if (certificates.length === 0) {
-		return (
-			<SafeAreaView className='bg-secondary'>
-			<View className='h-full'>
-				<View className='relative mx-4 mt-12 mb-6'>
-						<BackButton onPress={() => navigation.navigate('Perfil')} />
-
-						<Text className='w-full text-center text-xl font-sans-bold'>
-				Certificados
-						</Text>
-					</View>
-
-				<View className='flex items-center justify-around h-[500px]'>
-					<View className='w-[342px] flex items-center'>
-					
-						<Image
-									  source={noCertificateImage}
-									  style={{ width: 105, height: 105 }}
-									  alt="No Certificates"
-						/>
-						<Text className='text-2xl text-center font-montserrat-semi-bold my-4'>Nenhum certificado disponível :(</Text>
-						<Text className='text-center text-lg'>Você ainda não finalizou um curso. Acesse a página de cursos e continue seus estudos para emitir certificados.</Text>
-					</View>
-				</View>
-			</View>
-		</SafeAreaView>
-		  
-		);
+	if (noCertificate) {
+		return <CertificateEmptyState/>;
 	  }
 	return (
 		<SafeAreaView className='bg-secondary'>
