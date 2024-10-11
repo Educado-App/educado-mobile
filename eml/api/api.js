@@ -1,9 +1,10 @@
 import axios from 'axios';
+import { Buffer } from 'buffer';
 
 const timeoutInMs = 1200;
 
-const url = 'https://educado-backend-staging-x7rgvjso4a-ew.a.run.app/';// Change this to your LOCAL IP address when testing.
 
+const url = 'https://educado-backend-staging-x7rgvjso4a-ew.a.run.app/'; // Change this to your LOCAL IP address when testing.
 const certificateUrl = 'https://educado-certificate-service-staging-x7rgvjso4a-ew.a.run.app/';
 
 /* Commented out for avoiding linting errors :))
@@ -242,9 +243,23 @@ export const getLectureById = async (lectureId) => {
 export const getBucketImage = async (fileName) => {
 	try {
 		const res = await axios.get(
-			`${url}/api/bucket/${fileName}`
-			, {timeout: timeoutInMs});
-		return `data:image/png;base64,${res.data}`;
+			`${url}/api/bucket/${fileName}`,
+			{
+				responseType: 'arraybuffer',
+				accept: 'image/jpeg', 
+			});
+
+		let fileType = fileName.split('.').pop();
+
+		if (fileType === 'jpg') {
+			fileType = 'jpeg';
+		} else if (!fileType) { // Default to png
+			fileType = 'png';
+		}
+
+		// Convert the image to base64
+		const image = `data:image/${fileType};base64,${Buffer.from(res.data, 'binary').toString('base64')}`;
+		return image;
 	} catch (err) {
 		if (err?.response?.data != null) {
 			throw err.response.data;

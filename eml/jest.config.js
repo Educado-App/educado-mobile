@@ -15,5 +15,6 @@ module.exports = {
   },
   moduleNameMapper: {
     'expo-font': require.resolve('expo-font'),
+    'expo-camera': require.resolve('./test/mockData/mockExpoCamera'),
   },
 };

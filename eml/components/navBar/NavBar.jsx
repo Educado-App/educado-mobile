@@ -23,7 +23,7 @@ export default function NavBar() {
 				tabBarActiveTintColor: 'black',
 				tabBarActiveBackgroundColor: tailwindConfig.theme.colors.cyanBlue,
 				tabBarLabelStyle: {
-					fontSize: 12,
+					fontSize: 14,
 				},
 
 				tabBarStyle: {
@@ -69,7 +69,7 @@ export default function NavBar() {
 					headerShown: false,
 					tabBarIcon: ({ color }) => ( // Pass the color as a parameter to the icon component
 						<Icon
-							size={17}
+							size={25}
 							name="home-outline"
 							type="material-community"
 							color={color} // Use the color parameter here
@@ -87,7 +87,7 @@ export default function NavBar() {
 					headerShown: false,
 					tabBarIcon: ({ color }) => ( // Pass the color as a parameter to the icon component
 						<Icon
-							size={17}
+							size={25}
 							name="compass-outline"
 							type="material-community"
 							color={color} // Use the color parameter here
@@ -105,7 +105,7 @@ export default function NavBar() {
 					headerShown: false,
 					tabBarIcon: ({ color }) => ( // Pass the color as a parameter to the icon component
 						<Icon
-							size={17}
+							size={34}
 							name="account-outline"
 							type="material-community"
 							color={color} // Use the color parameter here

@@ -36,23 +36,31 @@ export default function WelcomeScreen() {
 
 						<View className="px-6 w-screen">
 							{/* Replace with standard button */}
-							<TouchableOpacity className="bg-primary px-10 py-4 rounded-medium"
-								onPress={() => { navigation.navigate('LoginStack'); }}
+							<TouchableOpacity
+								className="bg-primary_custom px-10 py-4 rounded-medium"
+								onPress={() => { navigation.navigate('Register', {previousScreen: 'Welcome'}); }}
 							>
-								<Text className="text-center font-sans-bold text-body text-projectWhite">Entrar</Text>
+								<Text className="text-center font-sans-bold text-body text-projectWhite">
+									Cadastrer
+								</Text>
 							</TouchableOpacity>
 						</View>
 
-						<View className="mt-6">
-							<TouchableOpacity 
-								onPress={() => { navigation.navigate('Register'); }}
+						<View className="flex-row justify-center">
+							<Text className="text-base text-projectGray mr-1">
+								{/* Already have an account? */}
+								Já tem uma conta?
+							</Text>
+							<Text
+								testId="loginNav"
+								className={'text-base text-projectBlack underline'}
+								onPress={() => navigation.navigate('Login', { previousScreen: 'Welcome' })}
 							>
-								<Text className="text-center font-sans-bold text-body underline">Cadastrer</Text>
-							</TouchableOpacity>
+								{/* Login now */}
+								Entrar agora
+							</Text>
 						</View>
-
 					</View>
-
 				</View>
 			</SafeAreaView>
 		</BgLinearGradient>

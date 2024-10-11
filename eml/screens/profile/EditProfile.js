@@ -1,23 +1,26 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import {
 	View,
 	SafeAreaView,
-	Alert
+	Alert,
+	Image,
+	TouchableOpacity,
 } from 'react-native';
 import Text from '../../components/general/Text';
 import ProfileNameCircle from '../../components/profile/ProfileNameCircle';
 import FormButton from '../../components/general/forms/FormButton';
 import ChangePasswordModal from '../../components/profileSettings/ChangePasswordModal';
 import FormTextField from '../../components/general/forms/FormTextField';
-import { deleteUser, updateUserFields } from '../../api/userApi';
+import { deletePhoto, deleteUser, getStudentInfo, updateUserFields } from '../../api/userApi';
 import BackButton from '../../components/general/BackButton';
 import { useNavigation } from '@react-navigation/native';
 import { validateEmail, validateName } from '../../components/general/Validation';
 import FormFieldAlert from '../../components/general/forms/FormFieldAlert';
-import { getUserInfo, setUserInfo, getJWT } from '../../services/StorageService';
+import { getUserInfo, setUserInfo, getJWT, getStudentProfilePhoto, updateStudentInfo, getLoginToken, getUserId } from '../../services/StorageService';
 import ShowAlert from '../../components/general/ShowAlert';
 import errorSwitch from '../../components/general/errorSwitch';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect } from '@react-navigation/native';
 
 /**
  * Edit profile screen
@@ -35,6 +38,7 @@ export default function EditProfile() {
 	const [emailAlert, setEmailAlert] = useState('');
 	const [firstNameAlert, setFirstNameAlert] = useState('');
 	const [lastNameAlert, setLastNameAlert] = useState('');
+	const [photo, setPhoto] = useState('');
 
 	const navigation = useNavigation();
 
@@ -86,15 +90,27 @@ export default function EditProfile() {
 				setFirstName(fetchedProfile.firstName);
 				setLastName(fetchedProfile.lastName);
 				setEmail(fetchedProfile.email);
+				const photo = await getStudentProfilePhoto();
+				setPhoto(photo);
 			}
 		} catch (e) {
 			console.log(e);
 		}
 	};
 
-	useEffect(() => {
-		getProfile();
-	}, []);
+	useFocusEffect(
+		useCallback(() => {
+			const runAsyncFunction = async () => {
+				try {
+					await getProfile();
+				} catch (error) {
+					console.error('Error fetching profile:', error);
+				}
+			};
+	
+			runAsyncFunction();
+		}, [])
+	);
 
 	/**
    * persists the changed user info
@@ -150,6 +166,14 @@ export default function EditProfile() {
 		}
 	};
 
+	const removeImage = async () => {
+		setPhoto('');
+		var profile = getStudentInfo();
+		updateStudentInfo({ ...profile, photo: '' });
+		const userId = await getUserId();
+		await deletePhoto(userId, await getLoginToken());
+	};
+
 	return (
 		<SafeAreaView className='bg-secondary'>
 			<View className='h-full'>
@@ -166,13 +190,18 @@ export default function EditProfile() {
 
 					<View className='flex flex-row w-screen px-6 justify-evenly'>
 						{/* Profile image */}
-						<ProfileNameCircle firstName={fetchedFirstName} lastName={fetchedLastName} />
+						{ photo 
+							? <Image source={{ uri: photo }} className='w-24 h-24 rounded-full' />
+							: <ProfileNameCircle firstName={fetchedFirstName} lastName={fetchedLastName} />
+						}
 						{/* Edit image */}
 						<View className='flex flex-col justify-evenly items-center'>
-							<FormButton className='py-2'>
+							<FormButton className='py-2' onPress={() => navigation.navigate('Camera')}>
                 Trocar imagem
 							</FormButton>
-							<Text className='text-primary underline'>Remover imagem</Text>
+							<TouchableOpacity onPress={removeImage}>
+								<Text className='text-primary_custom underline'>Remover imagem</Text>
+							</TouchableOpacity>
 						</View>
 					</View>
 				</View>
@@ -228,7 +257,7 @@ export default function EditProfile() {
 
 					<View className='flex flex-row justify-between items-center pt-12'>
 						<Text 
-							className='text-primary text-sm underline'
+							className='text-primary_custom text-sm underline'
 							onPress={() => deleteAccountAlert()}  
 						>Excluir minha conta</Text>
 						<FormButton
