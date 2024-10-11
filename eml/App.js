@@ -120,6 +120,14 @@ function CourseStack() {
 					headerShown: false,
 				}}
 			/>
+			<Stack.Screen
+				name="Subscribed"
+				component={SubscribedToCourseScreen}
+				initialParams={{course_id: ''}}
+				options={{
+					headerShown : false,
+				}}
+			/>
 		</Stack.Navigator>
 	);
 }
