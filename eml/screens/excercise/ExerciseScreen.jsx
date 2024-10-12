@@ -64,13 +64,16 @@ export default function ExerciseScreen({ exerciseObject, sectionObject, courseOb
 		}
 		if (buttonText === 'Continuar') {
 			setIsPopUpVisible(false);
+			// Check if it is the last component in the section
 			const currentIndex = sectionObject.components.findIndex(component => component.compId === exerciseObject._id)
-			if (onContinue(isAnswerCorrect) && currentIndex === sectionObject.components.length - 1) {
-				console.log(sectionObject.components);
+			const lastComponent = currentIndex === sectionObject.components.length - 1 ? true : false;
+
+			// If the answer is correct and it is the last component in the section, handleLastComponent is called
+			if (isAnswerCorrect && lastComponent) {
 				handleLastComponent(exerciseObject, courseObject, navigation);
 			} 
 			else {
-				// Find a way to go to the next exercise
+				onContinue(isAnswerCorrect);
 			}
 		}
 	}
