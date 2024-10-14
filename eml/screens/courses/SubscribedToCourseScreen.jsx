@@ -1,10 +1,10 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
-import { View } from 'react-native';
+import { View, SafeAreaView } from 'react-native';
+import LottieView from 'lottie-react-native';
 import Text from '../../components/general/Text';
 import PropTypes from 'prop-types';
 import BaseScreen from '../../components/general/BaseScreen';
-import BackButton from '../../components/general/BackButton';
 import StartNowButton from '../../components/courses/courseSubsription/StartNowButton';
 import StartLaterButton from '../../components/courses/courseSubsription/StartLaterButton';
 
@@ -18,25 +18,28 @@ export default function SubscribedToCourseScreen({ route }) {
     const navigation = useNavigation();
 
     return (
-        <BaseScreen>
-            <View>
-					<View className='relative mx-4 mt-12 mb-6'>
-						{/* Back button */}
-                        {/* If user uses back button should they unsubscribe?*/}
-						<BackButton onPress={() => navigation.navigate('Explorar')} />
+            <SafeAreaView className="flex flex-col justify-center items-center bg-secondary h-screen w-screen">
+			    <LottieView
+				    className="z-10 absolute top-8 w-full"
+				    source={require('../../assets/animations/subscribedToCourse.json')}
+				    autoPlay
+			    />
 
-						{/* Title */}
-						<Text className='w-full text-center text-xl font-sans-bold'>
-                            Parabéns! Você está inscrito no curso "{course.title}"
-						</Text>
-					</View>
+                <View className="flex px-6 w-full z-20 items-center justify-end h-3/4">
+                    <View className="w-fit h-40 justify-center mb-8">
+                        <Text className="text-center text-3xl font-montserrat-bold text-heading text-primary_custom bg-secondary">
+                        Parabéns! Você está inscrito no curso "{course.title}"
+                        </Text>
+                    </View>
+                </View>
+
                 <View className='mt-10'>
                     <StartNowButton course={course} />
                 </View>
                 <View>
                     <StartLaterButton />
                 </View>
-            </View>
-        </BaseScreen>
+            </SafeAreaView>
     )
 }
+
