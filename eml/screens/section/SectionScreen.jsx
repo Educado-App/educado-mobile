@@ -12,8 +12,8 @@ import SubscriptionCancel from '../../components/section/CancelSubscriptionButto
 import { unsubscribe } from '../../services/StorageService';
 import PropTypes from 'prop-types';
 import { checkProgressCourse, checkProgressSection } from '../../services/utilityFunctions';
-import CertificateGenerateButton from '../../components/certificate/GenerateCertificatebtn';
-import GenerateCertificate from '../../components/certificate/GenerateCertificatebtn';
+import CertificateGenerateButton from '../../components/certificate/GenerateCertificate';
+import GenerateCertificate from '../../components/certificate/GenerateCertificate';
 
 /**
  * Section screen component that displays a list of sections for a given course.
@@ -118,7 +118,6 @@ export default function SectionScreen({ route }) {
 							})}
 						</ScrollView>
 						{/* Unsubscribe Button */}
-						<GenerateCertificate course={course.id} />
 						<SubscriptionCancel onPress={unsubAlert} />
 					</View>
 				)
