@@ -8,7 +8,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import PopUp from '../../components/gamification/PopUp';
 import { StatusBar } from 'expo-status-bar';
 import PropTypes from 'prop-types';
-import { handleLastComponent } from '../../services/utilityFunctions';
+import { completeComponent, handleLastComponent } from '../../services/utilityFunctions';
 import { useNavigation } from '@react-navigation/native';
 
 /* 
@@ -70,6 +70,12 @@ export default function ExerciseScreen({ exerciseObject, sectionObject, courseOb
 
 			// If the answer is correct and it is the last component in the section, handleLastComponent is called
 			if (isAnswerCorrect && lastComponent) {
+				try {
+					await completeComponent(exerciseObject, courseObject.courseId, true);
+				} catch (error) {
+					throw new Error('Error completing course');
+				}
+
 				handleLastComponent(exerciseObject, courseObject, navigation);
 			} 
 			else {
