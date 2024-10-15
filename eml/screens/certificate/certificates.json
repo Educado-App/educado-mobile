@@ -1,0 +1,28 @@
+{
+    "data": [
+        {
+            "_id": "6560a9a131587a2348fc8674",
+            "courseName": "Finanças Pessoais",
+            "courseId": "6540f668536b2b37a49457dc",
+            "studentId": "655497c39f7d503604a2b098",
+            "studentFirstName": "Lasse",
+            "studentLastName": "Drongesen",
+            "courseCreator": "Some guy",
+            "estimatedCourseDuration": 2,
+            "dateOfCompletion": "2023-11-10T22:00:00.000Z",
+            "courseCategory": "personal finance"
+        },
+        {
+            "_id": "6560a9a131587a2348fc8678",
+            "courseName": "Pitaman",
+            "courseId": "6540f668536b2b37a49457dc",
+            "studentId": "655497c39f7d503604a2b098",
+            "studentFirstName": "Lasse",
+            "studentLastName": "Drongesen",
+            "courseCreator": "Some guy",
+            "estimatedCourseDuration": 2,
+            "dateOfCompletion": "2023-11-10T22:00:00.000Z",
+            "courseCategory": "sewing"
+        }
+    ]
+}
