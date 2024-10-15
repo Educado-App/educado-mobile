@@ -24,7 +24,7 @@ export default function CertificateCard({ certificate }) {
 	  setPopupVisible(false);
 	};
 	return (
-		<View>
+		<View className="relative w-full h-[40%] min-h-[260px]">
 			<CertificateTemplate
 				studentName={certificate.studentFirstName + " " + certificate.studentLastName}
 				estimatedCourseDuration={certificate.estimatedCourseDuration}
@@ -32,15 +32,12 @@ export default function CertificateCard({ certificate }) {
 				dateOfCompletion={Utility.formatDate(certificate.dateOfCompletion)}
 				creatorName={certificate.courseCreator}
 			/>
-			<View className="h-[210px] bg-projectWhite rounded-lg mx-4">
-				<View className="bg-projectWhite rounded-lg shadow-2xl mb-4 mx-4  overflow-hidden absolute bottom-0 left-0">
-					<View className="flex-col items-end">
-						<View className="flex-row justify-between w-full items-center">
-							<Text className="text-black font-medium text-lg">{certificate.courseName}</Text>
-						</View>
-						<View className="h-1 border-b-[1px] w-full border-gray opacity-50 pt-2"></View>
+			<View className="absolute bottom-0 left-0 right-0 h-1/2 bg-projectWhite rounded-lg mx-4 px-2 opacity-95">
+					<View className="flex-col mx-4 relative">
+						<Text className="text-black font-medium text-lg mt-2">{certificate.courseName}</Text>
+						<View className="h-1 border-b-[1px] w-full border-gray opacity-20 pt-1"></View>
 						<View className="w-full h-[0.5] bg-gray-500 opacity-50 pt-2" />
-						<View className="flex-row justify-between w-full items-start mb-6">
+						<View className="flex-row justify-between w-full items-start">
 							<View className="flex-col items-start justify-between">
 								<View className="flex-row items-center justify-start pb-2 flex-wrap">
 									<CardLabel
@@ -59,14 +56,14 @@ export default function CertificateCard({ certificate }) {
 								</View>
 							</View>
 						</View>
-						<TouchableOpacity className="flex w-[90px]" onPress={handleVisualizarClick}>
-							<View className="flex flex-row items-center justify-center w-full">
-								<Text className="text-primary_custom font-bold mr-1">visualizar</Text>
-								<MaterialCommunityIcons name={'eye'} size={13} color={"#166276"} />
-							</View>
-							<View className="border-b-[1px] w-full border-primary_custom pt-[2px]"></View>
-						</TouchableOpacity>
 					</View>
+					<TouchableOpacity className="flex items-center absolute bottom-0 right-0 m-6" onPress={handleVisualizarClick}>
+							<View className="flex flex-row items-center justify-center mt-2">
+								<Text className="text-primary_custom font-bold mr-1">visualizar</Text>
+								<MaterialCommunityIcons name={'eye'} size={13} color={"#166276"}/>
+							</View>
+							<View className="border-b-[1px] w-[90px] border-primary_custom pt-[2px]"></View>
+					</TouchableOpacity>
 				</View>
 			</View>
 			<Popup visible={popupVisible} onClose={handleClosePopup} title={"test title"} message={"test"} />
