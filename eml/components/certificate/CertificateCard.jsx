@@ -1,11 +1,11 @@
-import React from 'react';
-import { View, Text } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
 import CardLabel from '../explore/CardLabel';
 import * as Utility from '../../services/utilityFunctions';
 import PropTypes from 'prop-types';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import CertificateTemplate from './CertificateTemplate';
-
+import Popup from '../popup/popup';
 
 /**
  * This component is used to display a certificate card.
@@ -14,6 +14,15 @@ import CertificateTemplate from './CertificateTemplate';
  * @returns {JSX.Element|null} - Returns a JSX element.
  */
 export default function CertificateCard({ certificate }) {
+	const [popupVisible, setPopupVisible] = useState(false);
+  
+	const handleVisualizarClick = () => {
+	  setPopupVisible(true);
+	};
+  
+	const handleClosePopup = () => {
+	  setPopupVisible(false);
+	};
 	return (
 		<View>
 			<CertificateTemplate
@@ -23,7 +32,7 @@ export default function CertificateCard({ certificate }) {
 				dateOfCompletion={Utility.formatDate(certificate.dateOfCompletion)}
 				creatorName={certificate.courseCreator}
 			/>
-			{/* <View className="h-[210px] bg-projectWhite rounded-lg mx-4">
+			<View className="h-[210px] bg-projectWhite rounded-lg mx-4">
 				<View className="bg-projectWhite rounded-lg shadow-2xl mb-4 mx-4  overflow-hidden absolute bottom-0 left-0">
 					<View className="flex-col items-end">
 						<View className="flex-row justify-between w-full items-center">
@@ -50,18 +59,18 @@ export default function CertificateCard({ certificate }) {
 								</View>
 							</View>
 						</View>
-						<View className="flex w-[90px]">
+						<TouchableOpacity className="flex w-[90px]" onPress={handleVisualizarClick}>
 							<View className="flex flex-row items-center justify-center w-full">
 								<Text className="text-primary_custom font-bold mr-1">visualizar</Text>
 								<MaterialCommunityIcons name={'eye'} size={13} color={"#166276"} />
 							</View>
 							<View className="border-b-[1px] w-full border-primary_custom pt-[2px]"></View>
-						</View>
+						</TouchableOpacity>
 					</View>
 				</View>
-			</View> */}
+			</View>
+			<Popup visible={popupVisible} onClose={handleClosePopup} />
 		</View>
-
 	);
 }
 
