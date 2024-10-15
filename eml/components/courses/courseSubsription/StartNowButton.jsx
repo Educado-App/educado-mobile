@@ -9,15 +9,15 @@ const StartNowButton = ({ course }) => {
 
 	const handlePress = () => {
 		navigation.navigate('Section', {
-		course: course
+			course: course
 		});
 	};
 
 	return (
 		<View className="flex justify-center items-center">
 			<Pressable
-			onPress={handlePress}
-			className="w-80 flex items-center justify-center rounded-lg bg-primary_custom p-4"
+				onPress={handlePress}
+				className="w-80 flex items-center justify-center rounded-lg bg-primary_custom p-4"
 			>
 				<Text className="text-projectWhite p-1 font-bold text-lg">
 					Começar agora
@@ -25,7 +25,7 @@ const StartNowButton = ({ course }) => {
 			</Pressable>
 		</View>
 	);
-	};
+};
 
 StartNowButton.propTypes = {
 	course: PropTypes.object,
