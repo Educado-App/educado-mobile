@@ -16,6 +16,7 @@ import { determineCategory } from '../../services/utilityFunctions';
 import { fetchCertificates } from '../../api/api';
 import { getUserInfo } from '../../services/StorageService';
 import noCertificateImage from '../../assets/images/no-certificates.png';
+import certificatesDummy from './certificates.json';
 
 /**
  * Profile screen
@@ -31,11 +32,13 @@ export default function CertificateScreen() {
 
 	const getProfile = async () => {
 		try {
-			const fetchedProfile = await getUserInfo();
+			/* const fetchedProfile = await getUserInfo();
 			if (fetchedProfile !== null) {
 				const fetchedCertificates = await fetchCertificates(fetchedProfile.id);
 				setCertificates(fetchedCertificates);
-			}
+			} */
+			console.log(certificatesDummy.data);
+			setCertificates(certificatesDummy.data);
 		} catch (e) {
 			console.log(e);
 		}
@@ -72,12 +75,12 @@ export default function CertificateScreen() {
 	const noCertificate = certificates.length === 0;
 
 	if (noCertificate) {
-        return (
-            <View>
-                <CertificateEmptyState />
-            </View>
-        );
-    }
+		return (
+			<View>
+				<CertificateEmptyState />
+			</View>
+		);
+	}
 	return (
 		<SafeAreaView className='bg-secondary'>
 			<View className='h-full'>
@@ -85,7 +88,7 @@ export default function CertificateScreen() {
 					<BackButton onPress={() => navigation.navigate('ProfileHome')} />
 
 					<Text className='w-full text-center text-xl font-sans-bold'>
-            Certificados
+						Certificados
 					</Text>
 				</View>
 
