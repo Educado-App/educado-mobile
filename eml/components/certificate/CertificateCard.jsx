@@ -69,7 +69,7 @@ export default function CertificateCard({ certificate }) {
 					</View>
 				</View>
 			</View>
-			<Popup visible={popupVisible} onClose={handleClosePopup} />
+			<Popup visible={popupVisible} onClose={handleClosePopup} title={"test title"} message={"test"} />
 		</View>
 	);
 }

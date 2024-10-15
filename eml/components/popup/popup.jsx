@@ -1,10 +1,25 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import { Modal, View, Text, TouchableOpacity, Animated, StyleSheet, Dimensions } from 'react-native';
+import { PanGestureHandler, State } from 'react-native-gesture-handler';
+import { MaterialIcons } from '@expo/vector-icons';
 
 const { height } = Dimensions.get('window');
 
-const Popup = ({ visible, onClose }) => {
+const Popup = ({ visible, onClose, title, message }) => {
   const slideAnim = useRef(new Animated.Value(height)).current;
+
+  const handleGesture = Animated.event(
+    [{ nativeEvent: { translationY: slideAnim } }],
+    { useNativeDriver: true }
+  );
+
+  const handleStateChange = ({ nativeEvent }) => {
+    if (nativeEvent.state === State.END) {
+      if (nativeEvent.translationY > 50) {
+        onClose();
+      }
+    }
+  };
 
   if (visible) {
     Animated.timing(slideAnim, {
@@ -22,14 +37,17 @@ const Popup = ({ visible, onClose }) => {
 
   return (
     <Modal transparent visible={visible} animationType="none">
-      <View style={styles.overlay}>
-        <Animated.View style={[styles.popup, { transform: [{ translateY: slideAnim }] }]}>
-          <Text>This is a popup!</Text>
-          <TouchableOpacity onPress={onClose}>
-            <Text>Close</Text>
-          </TouchableOpacity>
-        </Animated.View>
-      </View>
+      <TouchableOpacity style={styles.overlay} activeOpacity={1}>
+        <PanGestureHandler onGestureEvent={handleGesture} onHandlerStateChange={handleStateChange}>
+          <Animated.View style={[styles.popup, { transform: [{ translateY: slideAnim }] }]}>
+            <TouchableOpacity onPress={onClose} style={styles.closeButton}>
+              <MaterialIcons name='keyboard-arrow-down' size={34} color='black' />
+            </TouchableOpacity>
+            <Text style={styles.title}>{title}</Text>
+            <Text>{message}</Text>
+          </Animated.View>
+        </PanGestureHandler>
+      </TouchableOpacity>
     </Modal>
   );
 };
@@ -41,11 +59,22 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   popup: {
-    height: 200,
+    minHeight: 250,
     backgroundColor: 'white',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     padding: 20,
+    position: 'relative',
+  },
+  closeButton: {
+    position: 'absolute',
+    top: 20,
+    right: 20,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
   },
 });
 
