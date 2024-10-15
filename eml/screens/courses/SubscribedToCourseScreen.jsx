@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import { View, SafeAreaView } from 'react-native';
 import LottieView from 'lottie-react-native';
 import Text from '../../components/general/Text';
@@ -17,9 +17,9 @@ export default function SubscribedToCourseScreen({ route }) {
     return (
         <SafeAreaView className="flex flex-col justify-center items-center bg-secondary h-screen w-screen">
             <LottieView
-            className="z-10 absolute top-8 w-full"
-            source={require('../../assets/animations/subscribedToCourse.json')}
-            autoPlay
+                className="z-10 absolute top-8 w-full"
+                source={require('../../assets/animations/subscribedToCourse.json')}
+                autoPlay
             />
 
             <View className="flex px-6 w-full z-20 items-center justify-end h-3/4">

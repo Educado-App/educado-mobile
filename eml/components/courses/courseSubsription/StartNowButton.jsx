@@ -14,9 +14,7 @@ const StartNowButton = ({ course }) => {
 	};
 
 	return (
-		<View
-		className="flex justify-center items-center"
-		>
+		<View className="flex justify-center items-center">
 			<Pressable
 			onPress={handlePress}
 			className="w-80 flex items-center justify-center rounded-lg bg-primary_custom p-4"
