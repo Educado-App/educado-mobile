@@ -65,11 +65,10 @@ export default function CertificateCard({ certificate }) {
 							<View className="border-b-[1px] w-[90px] border-primary_custom pt-[2px]"></View>
 					</TouchableOpacity>
 				</View>
+				<Popup visible={popupVisible} onClose={handleClosePopup} title={"test title"} message={"test"} />
 			</View>
-			<Popup visible={popupVisible} onClose={handleClosePopup} title={"test title"} message={"test"} />
-		</View>
 	);
-}
+}	
 
 CertificateCard.propTypes = {
 	certificate: PropTypes.object,
