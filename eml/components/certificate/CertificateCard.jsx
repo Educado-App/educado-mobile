@@ -15,7 +15,7 @@ import CertificateTemplate from './CertificateTemplate';
  */
 export default function CertificateCard({ certificate }) {
 	return (
-		<View>
+		<View className="relative w-full h-[40%] min-h-[260px]">
 			<CertificateTemplate
 				studentName={certificate.studentFirstName + " " + certificate.studentLastName}
 				estimatedCourseDuration={certificate.estimatedCourseDuration}
@@ -23,9 +23,8 @@ export default function CertificateCard({ certificate }) {
 				dateOfCompletion={Utility.formatDate(certificate.dateOfCompletion)}
 				creatorName={certificate.courseCreator}
 			/>
-			{/* <View className="h-[210px] bg-projectWhite rounded-lg mx-4">
-				<View className="bg-projectWhite rounded-lg shadow-2xl mb-4 mx-4  overflow-hidden absolute bottom-0 left-0">
-					<View className="flex-col items-end">
+			<View className="absolute bottom-0 left-0 right-0 h-1/2 bg-projectWhite rounded-lg mx-4 px-2">
+					<View className="flex-col items-end mx-4 relative">
 						<View className="flex-row justify-between w-full items-center">
 							<Text className="text-black font-medium text-lg">{certificate.courseName}</Text>
 						</View>
@@ -50,16 +49,15 @@ export default function CertificateCard({ certificate }) {
 								</View>
 							</View>
 						</View>
-						<View className="flex w-[90px]">
-							<View className="flex flex-row items-center justify-center w-full">
+						<View className="flex items-end absolute bottom-0 right-0">
+							<View className="flex flex-row items-center justify-center">
 								<Text className="text-primary_custom font-bold mr-1">visualizar</Text>
 								<MaterialCommunityIcons name={'eye'} size={13} color={"#166276"} />
 							</View>
-							<View className="border-b-[1px] w-full border-primary_custom pt-[2px]"></View>
+							<View className="border-b-[1px] w-[90px] border-primary_custom pt-[2px]"></View>
 						</View>
 					</View>
-				</View>
-			</View> */}
+			</View>
 		</View>
 
 	);
