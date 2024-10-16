@@ -98,7 +98,7 @@ export default function ExerciseScreen({ exerciseObject, sectionObject, courseOb
 								</View>
 
 								<View>
-									<TouchableOpacity onPress={() => handleAnswerSelect(index)} disabled={buttonText === 'Continuar'}>
+									<TouchableOpacity disabled={buttonText === 'Continuar'}>
 										<Text className='pt-2 pb-1 w-72 font-montserrat text-body text-projectBlack'>{answer.text}</Text>
 									</TouchableOpacity>
 
