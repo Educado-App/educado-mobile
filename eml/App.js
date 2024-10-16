@@ -23,6 +23,8 @@ import EditPasswordScreen from './screens/profile/EditPassword';
 import CertificateScreen from './screens/certificate/CertificateScreen';
 import CompleteCourseScreen from './screens/courses/CompleteCourse';
 import CameraScreen from './screens/camera/CameraScreen';
+import BaseScreen from './components/general/BaseScreen';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -154,6 +156,7 @@ export function useWelcomeScreenLogic(loadingTime, onResult) {
 }
 
 
+
 export default function App() {
 	const fontsLoaded = isFontsLoaded();
 	const [initialRoute, setInitialRoute] = useState('');
@@ -180,7 +183,7 @@ export default function App() {
 
 	return (
 		<TailwindProvider>
-			<>
+			<BaseScreen>
 				<IconRegistry icons={EvaIconsPack} />
 				<ApplicationProvider {...eva} theme={eva.light}>
 					<NavigationContainer>
@@ -226,27 +229,20 @@ export default function App() {
 								component={EditPasswordScreen}
 								options={{ headerShown: false }}
 							/>
-						
 							<Stack.Screen
 								name="Exercise"
 								component={ExerciseScreen}
-								options={{
-									headerShown: false,
-								}}
+								options={{ headerShown: false }}
 							/>
 							<Stack.Screen
 								name="Components"
 								component={CompSwipeScreen}
-								options={{
-									headerShown: false,
-								}}
+								options={{ headerShown: false }}
 							/>
 							<Stack.Screen
 								name="CertificateStack"
 								component={CertificateStack}
-								options={{
-									headerShown: false,
-								}}
+								options={{ headerShown: false }}
 							/>
 							<Stack.Screen
 								name="CompleteCourse"
@@ -261,7 +257,7 @@ export default function App() {
 						</Stack.Navigator>
 					</NavigationContainer>
 				</ApplicationProvider>
-			</>
+			</BaseScreen>
 		</TailwindProvider>
 	);
 }

@@ -5,7 +5,6 @@ import FilterNavBar from '../../components/explore/FilterNavBar';
 import ExploreCard from '../../components/explore/ExploreCard';
 import * as StorageService from '../../services/StorageService';
 import { useNavigation } from '@react-navigation/native';
-import BaseScreen from '../../components/general/BaseScreen';
 import IconHeader from '../../components/general/IconHeader';
 import { shouldUpdate, determineCategory } from '../../services/utilityFunctions';
 import Text from '../../components/general/Text';
@@ -119,7 +118,6 @@ export default function Explore() {
 	return (
 		<>
 			<NetworkStatusObserver setIsOnline={setIsOnline} />
-			<BaseScreen>
 				<IconHeader
 					title={'Explorar cursos'}
 					description={'Inscreva-se nos cursos do seu interesse e comece sua jornada'}
@@ -176,7 +174,6 @@ export default function Explore() {
 						</ScrollView>
 					</View>
 				}
-			</BaseScreen>
 		</>
 	);
 }

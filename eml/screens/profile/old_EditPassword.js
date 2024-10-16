@@ -13,8 +13,6 @@ import { updateUserPassword } from '../../api/userApi';
 import { getUserInfo, getJWT } from '../../services/StorageService';
 import FormFieldAlert from '../../components/general/forms/FormFieldAlert';
 import { validatePasswordContainsLetter, validatePasswordLength } from '../../components/general/Validation';
-import { alertErrorCode } from '../../services/ErrorAlertService';
-import BaseScreen from '../../components/general/BaseScreen';
 
 /**
  * Edit password screen
@@ -102,7 +100,6 @@ export default function EditPassword() {
 		}
 	};
 	return (
-		<BaseScreen>
 			<SafeAreaView className='bg-secondary'>
 				<View className='flex flex-col mx-4 z-10'>
 					<View>
@@ -143,6 +140,5 @@ export default function EditPassword() {
 					</FormButton>
 				</View>
 			</SafeAreaView>
-		</BaseScreen>
 	);
 }
