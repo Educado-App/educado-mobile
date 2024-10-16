@@ -62,15 +62,6 @@ export default function EditPassword() {
 		return true;
 	};
 
-	const checkIfPasswordsMatch = (password, confirmPassword) => {
-		if (password === confirmPassword) {
-			setPasswordAlert('');
-		} else {
-			// The passwords do not match
-			setPasswordAlert('Os campos de senha precisam ser iguais');
-		}
-	};
-
 	// Submit password change
 	const submitForm = async () => {
 		try {
