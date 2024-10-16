@@ -99,7 +99,7 @@ export default function CertificateScreen() {
 					onCategoryChange={handleCategoryFilter}
 				/>
 				<ScrollView showsVerticalScrollIndicator={true}>
-					<View>
+					<View className="flex flex-col justify-between items-center mx-4">
 						{!noCertificate && filteredCertificates.map((certificate, index) => (
 							<CertificateCard
 								key={index}

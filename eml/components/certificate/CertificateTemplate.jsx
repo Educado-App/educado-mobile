@@ -10,10 +10,10 @@ const CertificateTemplate = ({
     creatorName
 }) => {
     return (
-        <View className={"bg-projectWhite m-4 p-2 rounded-md flex items-center"}>
-            <View className={" w-full border-2"}/* style={styles.outerBleed} */>
+        <View className={"p-2 bg-projectWhite rounded-sm flex items-center"}>
+            <View className={"  border-2"}/* style={styles.outerBleed} */>
                 <View className={"flex border-2 m-2 border-progressBar"} /* style={styles.innerBleed} */>
-                    <View className={"flex flex-col items-center px-6 flex-grow justify-around"} /* style={styles.content} */>
+                    <View className={"flex flex-col items-center px-8 justify-around"} /* style={styles.content} */>
                         <Text className={"font-semibold text-primary_custom text-base mt-5 mb-2"}/* style={styles.title} */>CERTIFICADO DE CONCLUSÃO</Text>
                         <Text className={"text-center text-[12px]"}  /* style={styles.mainText} */>
                             Certificamos que {studentName} concluiu com sucesso {estimatedCourseDuration} horas do curso de {courseName} no dia {dateOfCompletion}, na modalidade de educação à distância na plataforma Educado.
