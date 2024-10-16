@@ -4,7 +4,6 @@ import {Image, Pressable, RefreshControl, ScrollView, View} from 'react-native';
 import Text from '../../components/general/Text';
 import * as StorageService from '../../services/StorageService';
 import CourseCard from '../../components/courses/courseCard/CourseCard';
-import BaseScreen from '../../components/general/BaseScreen';
 import IconHeader from '../../components/general/IconHeader';
 import {shouldUpdate} from '../../services/utilityFunctions';
 import ToastNotification from '../../components/general/ToastNotification';
@@ -81,7 +80,6 @@ export default function CourseScreen() {
 		loading ? <LoadingScreen /> :
 			<>
 				<NetworkStatusObserver setIsOnline={setIsOnline}/>
-				<BaseScreen>
 					{/** Checks if the course(s) has been loaded
            * If it has, it will render and map the courses
            * If not, it will render a message saying that there are no active courses (in portugese)
@@ -127,7 +125,6 @@ export default function CourseScreen() {
 								</View>
 							</View>
 						</View>}
-				</BaseScreen>
 			</>
 	);
 }
