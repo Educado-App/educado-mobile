@@ -31,24 +31,25 @@ export default function EditPassword() {
 	const [passwordAlert, setPasswordAlert] = useState('');
 	const navigation = useNavigation();
 
-	// useEffects
-	// useEffect(() => {
-	// 	if(newPassword.length == 0) return setPasswordAlert('');
-	// 	if(!validatePasswordContainsLetter(newPassword)) {
-	// 		// The password doesn't contain a letter TODO: Get confirmation from Luiza
-	// 		return setPasswordAlert('Senha deve conter pelo menos 1 letra');
-	// 	}
-	// 	if(!validatePasswordLength(newPassword)) {
-	// 		// The password is too short TODO: Get confirmation from Luiza
-	// 		return setPasswordAlert('Senha muito curta');
-	// 	}
-	// 	if(newPassword !== confirmPassword) {
-	// 		// The passwords don't match TODO: Get confirmation from Luiza
-	// 		return setPasswordAlert('As senhas não coincidem!');
-	// 	}
+	// password validation
+	useEffect(() => {
+		// reset alert if no new passsword has been entered
+		if (newPassword.length == 0) return setPasswordAlert('');
+		// password must contain at least one letter
+	 	if (!validatePasswordContainsLetter(newPassword)) {
+	 		return setPasswordAlert('Senha deve conter pelo menos 1 letra');
+	 	}
+		// validating password length (at least 8 characters)
+	 	if (!validatePasswordLength(newPassword)) {
+	 		return setPasswordAlert('Senha muito curta! Mínimo 8 caracteres');
+	 	}
 
-	// 	return setPasswordAlert('');
-	// }, [newPassword, confirmPassword]);
+		// newPassword and confirmPassword must match
+	 	if (newPassword !== confirmPassword) {
+	 		return setPasswordAlert('As senhas não coincidem!');
+	 	}
+	 	setPasswordAlert('');
+	 }, [newPassword, confirmPassword]);
 
 	useEffect(() => {
 		setIsFormFilledOut(checkIsFormFilledOut());
@@ -71,6 +72,7 @@ export default function EditPassword() {
 			setPasswordAlert('Os campos de senha precisam ser iguais');
 		}
 	};
+
 	// Submit password change
 	const submitForm = async () => {
 		try {
@@ -88,6 +90,9 @@ export default function EditPassword() {
 			setCurrentPassword('');
 			setNewPassword('');
 			setConfirmPassword('');
+
+			// reset error state
+			setPasswordAlert('');
 			
 			// Navigate to the profile screen
 			navigation.navigate('Perfil');
@@ -100,7 +105,7 @@ export default function EditPassword() {
 				case 'E0806':
 					// Your password is incorrect
 					console.log('Your password is incorrect!');
-					setPasswordAlert('Senha incorreta!');
+					setPasswordAlert('Senha atual está incorreta!');
 					setIsCurrentPasswordWrong(true);
 					break;
 				default: 
@@ -111,47 +116,45 @@ export default function EditPassword() {
 	
 	return (
 		
-			<SafeAreaView className='bg-secondary'>
-				<View className='flex flex-col mx-4 z-10'>
-					<View>
-						<View className='relative mt-12 mb-6'>
-							{/* Back button */}
-							<BackButton onPress={() => navigation.navigate('Perfil')} />
+		<SafeAreaView className='bg-secondary'>
+		<View className='flex flex-col mx-4 z-10'>
+			<View>
+				<View className='relative mt-12 mb-6'>
+					{/* Back button */}
+					<BackButton onPress={() => navigation.navigate('Perfil')} />
 
-							{/* Title */}
-							<Text className='w-full text-center text-xl font-sans-bold'>
-								Alterar senha
-							</Text>
-						</View>
-					</View>
-					<PasswordField
-						label='Senha atual'
-						password={currentPassword}
-						setPassword={setCurrentPassword}
-						className='mb-4'
-					/>
-					{isCurrentPasswordWrong && <FormFieldAlert testId="passwordAlert" label='Senha incorreta!' />}
-					<PasswordField
-						label='Nova senha'
-						password={newPassword}
-						setPassword={setNewPassword}
-						className='mb-4'
-					/>
-					<PasswordField
-						label='Confirmar senha'
-						password={confirmPassword}
-						setPassword={setConfirmPassword}
-					/>
-					{checkIfPasswordsMatch && <FormFieldAlert testId="passwordAlert" label={passwordAlert} />}
-					<FormButton
-						onPress={submitForm}
-						disabled={!isFormFilledOut}
-						className='mt-4'
-						
-					>
-						Confirmar
-					</FormButton>
+					{/* Title */}
+					<Text className='w-full text-center text-xl font-sans-bold'>
+				Alterar senha
+					</Text>
 				</View>
-			</SafeAreaView>
+			</View>
+			<PasswordField
+				label='Senha atual'
+				password={currentPassword}
+				setPassword={setCurrentPassword}
+				className='mb-4'
+				/>
+			<PasswordField
+				label='Nova senha'
+				password={newPassword}
+				setPassword={setNewPassword}
+				className='mb-4'
+				/>
+			<PasswordField
+				label='Confirmar senha'
+				password={confirmPassword}
+				setPassword={setConfirmPassword}
+				/>
+			<FormFieldAlert testId="passwordAlert" label={passwordAlert} />
+			<FormButton
+				onPress={submitForm}
+				disabled={!isFormFilledOut}
+				className='mt-4'
+				>
+				Confirmar
+			</FormButton>
+		</View>
+	</SafeAreaView>
 	);
 }
