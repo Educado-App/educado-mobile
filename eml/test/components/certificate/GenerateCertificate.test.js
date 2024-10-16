@@ -101,4 +101,45 @@ describe('generateCertificate', () => {
 
         await expect(generateCertificate(courseData._id, studentData._id)).rejects.toThrow('API call failed');
     });
+
+    it('should throw an error for invalid course ID', async () => {
+        axios.get.mockRejectedValue(new Error('Invalid course ID'));
+
+        await expect(generateCertificate('invalid_course_id', studentData._id)).rejects.toThrow('Invalid course ID');
+    });
+
+
+    it('should throw an error for invalid student ID', async () => {
+        axios.get.mockImplementation((url) => {
+            if (url === `/api/courses/${courseData._id}`) {
+                return Promise.resolve({ data: courseData });
+            } else if (url === `/api/students/invalid_student_id/info`) {
+                return Promise.reject(new Error('Invalid student ID'));
+            } else if (url === `/api/users/invalid_student_id`) {
+                return Promise.reject(new Error('Invalid student ID'));
+            }
+        });
+
+        await expect(generateCertificate(courseData._id, 'invalid_student_id')).rejects.toThrow('Invalid student ID');
+    });
+
+    it('should handle network errors gracefully', async () => {
+        axios.get.mockRejectedValue(new Error('Network Error'));
+
+        await expect(generateCertificate(courseData._id, studentData._id)).rejects.toThrow('Network Error');
+    });
+
+    it('should throw an error if only part of the data is loaded', async () => {
+        axios.get.mockImplementation((url) => {
+            if (url === `/api/courses/${courseData._id}`) {
+                return Promise.resolve({ data: courseData });
+            } else if (url === `/api/students/${studentData._id}/info`) {
+                return Promise.resolve({ data: studentData });
+            } else if (url === `/api/users/${studentData._id}`) {
+                return Promise.resolve({ data: null });
+            }
+        });
+
+        await expect(generateCertificate(courseData._id, studentData._id)).rejects.toThrow('Course, student, or user data not loaded');
+    });
 });
