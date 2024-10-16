@@ -38,7 +38,7 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.blackchakers.eml",
-      "versionCode": 9
+      "versionCode": 8
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
