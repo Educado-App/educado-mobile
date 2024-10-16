@@ -83,7 +83,7 @@ export default function SectionScreen({ route }) {
 				text: 'Não',
 				style: 'cancel',
 			},
-			{ text: 'Sim', onPress: () => { unsubscribe(course.courseId); setTimeout(() =>  {navigation.goBack();}, 300 ); }},
+			{ text: 'Sim', onPress: () => { unsubscribe(course.courseId); setTimeout(() =>  {navigation.navigate('Meus cursos');}, 300 ); }},
 		]);
 
 	return (
@@ -91,7 +91,7 @@ export default function SectionScreen({ route }) {
 			<View className="flex flex-row flex-wrap items-center justify-between px-6 pt-[20%]">
 
 				{/* Back Button */}
-				<TouchableOpacity className="pr-3" onPress={() => navigation.goBack()}>
+				<TouchableOpacity className="pr-3" onPress={() => navigation.navigate('Meus cursos')}>
 					<MaterialCommunityIcons name="chevron-left" size={25} color="black" />
 				</TouchableOpacity>
 
