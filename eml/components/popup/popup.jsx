@@ -5,7 +5,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 
 const { height } = Dimensions.get('window');
 
-const Popup = ({ visible, onClose, title, message }) => {
+const Popup = ({ visible, children }) => {
   const slideAnim = useRef(new Animated.Value(height)).current;
 
   const handleGesture = Animated.event(
@@ -37,17 +37,13 @@ const Popup = ({ visible, onClose, title, message }) => {
 
   return (
     <Modal transparent visible={visible} animationType="none">
-      <TouchableOpacity style={styles.overlay} activeOpacity={1}>
+      <View style={styles.overlay}>
         <PanGestureHandler onGestureEvent={handleGesture} onHandlerStateChange={handleStateChange}>
-          <Animated.View style={[styles.popup, { transform: [{ translateY: slideAnim }] }]}>
-            <TouchableOpacity onPress={onClose} style={styles.closeButton}>
-              <MaterialIcons name='keyboard-arrow-down' size={34} color='black' />
-            </TouchableOpacity>
-            <Text style={styles.title}>{title}</Text>
-            <Text>{message}</Text>
+          <Animated.View  className="flex justify-between bg-secondary"style={[styles.popup, { transform: [{ translateY: slideAnim }] }]}>
+            {children}
           </Animated.View>
         </PanGestureHandler>
-      </TouchableOpacity>
+        </View>
     </Modal>
   );
 };
@@ -59,22 +55,11 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   popup: {
-    minHeight: 250,
-    backgroundColor: 'white',
+    minHeight: 300,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     padding: 20,
     position: 'relative',
-  },
-  closeButton: {
-    position: 'absolute',
-    top: 20,
-    right: 20,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 10,
   },
 });
 
