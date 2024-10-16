@@ -12,6 +12,7 @@ import SubscriptionCancel from '../../components/section/CancelSubscriptionButto
 import { unsubscribe } from '../../services/StorageService';
 import PropTypes from 'prop-types';
 import { checkProgressCourse, checkProgressSection } from '../../services/utilityFunctions';
+import ContinueSection from '../../components/section/ContinueSectionButton';
 
 /**
  * Section screen component that displays a list of sections for a given course.
@@ -26,7 +27,8 @@ export default function SectionScreen({ route }) {
 	const navigation = useNavigation();
 	const [sections, setSections] = useState(null);
 	const [studentProgress, setStudentProgress] = useState(0);
-	const [completedComponents, setCompletedComponents] = useState(0);
+	const [sectionProgress, setSectionProgress] = useState({});
+	const [currentSection, setCurrentSection] = useState(null);
 
 	/**
    * Loads the sections for the given course from the backend.
@@ -44,7 +46,10 @@ export default function SectionScreen({ route }) {
 
 	const checkProgressInSection = async (sectionId) => {
 		const completed = await checkProgressSection(sectionId);
-		setCompletedComponents(completed);
+		setSectionProgress(prevProgress => ({
+			...prevProgress,
+			[sectionId]: completed,
+		}));
 	};
 
 	useEffect(() => {
@@ -87,6 +92,18 @@ export default function SectionScreen({ route }) {
 			{ text: 'Sim', onPress: () => { unsubscribe(course.courseId); setTimeout(() =>  {navigation.navigate('Meus cursos');}, 300 ); }},
 		]);
 
+	/**
+   * Navigates to the current section.
+   */
+	const navigateToCurrentSection = () => {
+		if (currentSection) {
+			navigation.navigate('Components', {
+				section: currentSection,
+				parsedCourse: course,
+			});
+		}
+	};
+
 	return (
 		<BaseScreen>
 			<View className="flex flex-row flex-wrap items-center justify-between px-6 pt-[20%]">
@@ -112,15 +129,20 @@ export default function SectionScreen({ route }) {
 						<ScrollView className="mt-[5%]" showsVerticalScrollIndicator={false}>
 							{sections.map((section, i) => {
 								checkProgressInSection(section.sectionId);
+								const completedComponents = sectionProgress[section.sectionId] || 0;
+								if (completedComponents < section.components.length && !currentSection) {
+									setCurrentSection(section);
+								}
 								return <SectionCard key={i} section={section} course={course} progress={completedComponents}></SectionCard>;
 							})}
 						</ScrollView>
 						{/* Unsubscribe Button */}
 						<SubscriptionCancel onPress={unsubAlert} />
+						{/* Navigate to Current Section Button */}
+						<ContinueSection onPress={navigateToCurrentSection} />
 					</View>
 				)
 			) : null}
-
 		</BaseScreen>
 	);
 }
