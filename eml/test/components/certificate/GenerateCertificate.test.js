@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { generateCertificate } from '../../../api/api.js';
+import { url as backendUrl, certificateUrl, generateCertificate } from '../../../api/api.js';
 import { mockDataAPI } from '../../mockData/mockDataAPI';
 
 jest.mock('axios');
@@ -16,11 +16,11 @@ describe('generateCertificate', () => {
 
     it('should generate a certificate successfully', async () => {
         axios.get.mockImplementation((url) => {
-            if (url === `/api/courses/${courseData._id}`) {
+            if (url === `${backendUrl}/api/courses/${courseData._id}`) {
                 return Promise.resolve({ data: courseData });
-            } else if (url === `/api/students/${studentData._id}/info`) {
+            } else if (url === `${backendUrl}/api/students/${studentData._id}/info`) {
                 return Promise.resolve({ data: studentData });
-            } else if (url === `/api/users/${studentData._id}`) {
+            } else if (url === `${backendUrl}/api/users/${studentData._id}`) {
                 return Promise.resolve({ data: userData });
             }
         });
@@ -31,7 +31,7 @@ describe('generateCertificate', () => {
 
         expect(result).toEqual({ success: true });
         expect(axios.get).toHaveBeenCalledTimes(3);
-        expect(axios.put).toHaveBeenCalledWith('/api/student-certificates', {
+        expect(axios.put).toHaveBeenCalledWith(`${certificateUrl}/api/student-certificates`, {
             courseName: courseData.name,
             courseId: courseData._id,
             studentId: studentData._id,
@@ -46,11 +46,11 @@ describe('generateCertificate', () => {
 
     it('should throw an error if course data is not loaded', async () => {
         axios.get.mockImplementation((url) => {
-            if (url === `/api/courses/${courseData._id}`) {
+            if (url === `${backendUrl}/api/courses/${courseData._id}`) {
                 return Promise.resolve({ data: null });
-            } else if (url === `/api/students/${studentData._id}/info`) {
+            } else if (url === `${backendUrl}/api/students/${studentData._id}/info`) {
                 return Promise.resolve({ data: studentData });
-            } else if (url === `/api/users/${studentData._id}`) {
+            } else if (url === `${backendUrl}/api/users/${studentData._id}`) {
                 return Promise.resolve({ data: userData });
             }
         });
@@ -60,11 +60,11 @@ describe('generateCertificate', () => {
 
     it('should throw an error if student data is not loaded', async () => {
         axios.get.mockImplementation((url) => {
-            if (url === `/api/courses/${courseData._id}`) {
+            if (url === `${backendUrl}/api/courses/${courseData._id}`) {
                 return Promise.resolve({ data: courseData });
-            } else if (url === `/api/students/${studentData._id}/info`) {
+            } else if (url === `${backendUrl}/api/students/${studentData._id}/info`) {
                 return Promise.resolve({ data: null });
-            } else if (url === `/api/users/${studentData._id}`) {
+            } else if (url === `${backendUrl}/api/users/${studentData._id}`) {
                 return Promise.resolve({ data: userData });
             }
         });
@@ -74,11 +74,11 @@ describe('generateCertificate', () => {
 
     it('should throw an error if user data is not loaded', async () => {
         axios.get.mockImplementation((url) => {
-            if (url === `/api/courses/${courseData._id}`) {
+            if (url === `${backendUrl}/api/courses/${courseData._id}`) {
                 return Promise.resolve({ data: courseData });
-            } else if (url === `/api/students/${studentData._id}/info`) {
+            } else if (url === `${backendUrl}/api/students/${studentData._id}/info`) {
                 return Promise.resolve({ data: studentData });
-            } else if (url === `/api/users/${studentData._id}`) {
+            } else if (url === `${backendUrl}/api/users/${studentData._id}`) {
                 return Promise.resolve({ data: null });
             }
         });
@@ -88,11 +88,11 @@ describe('generateCertificate', () => {
 
     it('should throw an error if the API call to generate the certificate fails', async () => {
         axios.get.mockImplementation((url) => {
-            if (url === `/api/courses/${courseData._id}`) {
+            if (url === `${backendUrl}/api/courses/${courseData._id}`) {
                 return Promise.resolve({ data: courseData });
-            } else if (url === `/api/students/${studentData._id}/info`) {
+            } else if (url === `${backendUrl}/api/students/${studentData._id}/info`) {
                 return Promise.resolve({ data: studentData });
-            } else if (url === `/api/users/${studentData._id}`) {
+            } else if (url === `${backendUrl}/api/users/${studentData._id}`) {
                 return Promise.resolve({ data: userData });
             }
         });
@@ -111,11 +111,11 @@ describe('generateCertificate', () => {
 
     it('should throw an error for invalid student ID', async () => {
         axios.get.mockImplementation((url) => {
-            if (url === `/api/courses/${courseData._id}`) {
+            if (url === `${backendUrl}/api/courses/${courseData._id}`) {
                 return Promise.resolve({ data: courseData });
-            } else if (url === `/api/students/invalid_student_id/info`) {
+            } else if (url === `${backendUrl}/api/students/invalid_student_id/info`) {
                 return Promise.reject(new Error('Invalid student ID'));
-            } else if (url === `/api/users/invalid_student_id`) {
+            } else if (url === `${backendUrl}/api/users/invalid_student_id`) {
                 return Promise.reject(new Error('Invalid student ID'));
             }
         });
@@ -131,11 +131,11 @@ describe('generateCertificate', () => {
 
     it('should throw an error if only part of the data is loaded', async () => {
         axios.get.mockImplementation((url) => {
-            if (url === `/api/courses/${courseData._id}`) {
+            if (url === `${backendUrl}/api/courses/${courseData._id}`) {
                 return Promise.resolve({ data: courseData });
-            } else if (url === `/api/students/${studentData._id}/info`) {
+            } else if (url === `${backendUrl}/api/students/${studentData._id}/info`) {
                 return Promise.resolve({ data: studentData });
-            } else if (url === `/api/users/${studentData._id}`) {
+            } else if (url === `${backendUrl}/api/users/${studentData._id}`) {
                 return Promise.resolve({ data: null });
             }
         });

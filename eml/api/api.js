@@ -4,8 +4,9 @@ import { Buffer } from 'buffer';
 const timeoutInMs = 1200;
 
 
-const url = 'https://educado-backend-staging-x7rgvjso4a-ew.a.run.app/'; // Change this to your LOCAL IP address when testing.
-const certificateUrl = 'https://educado-certificate-service-staging-x7rgvjso4a-ew.a.run.app/';
+// move these to .env file next sprint
+export const url = 'https://educado-backend-staging-x7rgvjso4a-ew.a.run.app/'; // Change this to your LOCAL IP address when testing.
+export const certificateUrl = 'https://educado-certificate-service-staging-x7rgvjso4a-ew.a.run.app/';
 
 /* Commented out for avoiding linting errors :))
  * TODO: move IP address to .env file !!!
@@ -206,13 +207,13 @@ export const fetchCertificates = async (userId) => {
 export const generateCertificate = async (courseId, studentId) => {
 	try {
 		// Fetch course data
-		const courseResponse = await axios.get(api + `/api/courses/${courseId}`);
+		const courseResponse = await axios.get(url + `/api/courses/${courseId}`);
 		const courseData = courseResponse.data;
 
 		// Fetch student data and user data concurrently
 		const [studentResponse, userResponse] = await Promise.all([
-			axios.get(api + `/api/students/${studentId}/info`),
-			axios.get(api + `/api/users/${studentId}`)
+			axios.get(url + `/api/students/${studentId}/info`),
+			axios.get(url + `/api/users/${studentId}`)
 		]);
 
 		const studentData = studentResponse.data;
