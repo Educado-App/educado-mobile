@@ -95,9 +95,9 @@ const TextImageLectureScreen = ({ lectureObject, courseObject, isLastSlide }) =>
 						if (paragraphs.length <= 2 || index !== paragraphs.length - 1) {
 							return (
 								index == 0 ?
-									<Text key={index} className="text-base pt-4 px-4 text-primary">{paragraph}</Text>
+									<Text key={index} className="text-lg pt-4 px-4 text-primary_custom">{paragraph}</Text>
 									:
-									<Text key={index} className="text-base pt-4 px-4 text-projectGray">{paragraph}</Text>
+									<Text key={index} className="text-lg pt-4 px-4 text-projectGray">{paragraph}</Text>
 							);
 						}
 						return null;

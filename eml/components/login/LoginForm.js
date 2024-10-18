@@ -54,7 +54,7 @@ export default function LoginForm() {
 		await loginUser(obj).then(async (response) => {
 			// Set login token in AsyncStorage and navigate to home screen
 			await setJWT(response.accessToken);
-			await setUserInfo(response.userInfo);
+			await setUserInfo({ ...response.userInfo });
 			await AsyncStorage.setItem('loggedIn', 'true');
 			navigation.navigate('HomeStack');
 		}).catch((error) => {
@@ -131,7 +131,7 @@ export default function LoginForm() {
 			<View>
 				{/* TODO: tilføj onPress til nedenstående; reset password */}
 				<Text
-					className={'text-right underline text-base text-projectBlack mb-15'}
+					className={'text-right underline text-lg text-projectBlack mb-15'}
 					onPress={() => setModalVisible(true)}
 				>
 					{/* reset your password? */}

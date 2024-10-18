@@ -15,7 +15,7 @@ const LoadingScreen = () => {
 			</Text>
 			<ActivityIndicator
 				size={115}
-				color={tailwindConfig.theme.colors.primary}
+				color={tailwindConfig.theme.colors.primary_custom}
 			/>
 		</SafeAreaView>
 	);
