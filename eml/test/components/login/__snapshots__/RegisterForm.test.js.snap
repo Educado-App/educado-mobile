@@ -628,7 +628,7 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
                 "lineHeight": 16,
               },
               {
-                "color": "#A1ACB2",
+                "color": "#383838",
               },
             ],
           ]
@@ -696,7 +696,7 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
                 "fontFamily": "Montserrat-Regular",
               },
               {
-                "color": "#A1ACB2",
+                "color": "#383838",
               },
             ],
           ]
