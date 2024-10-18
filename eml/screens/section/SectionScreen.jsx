@@ -26,7 +26,7 @@ export default function SectionScreen({ route }) {
 	const navigation = useNavigation();
 	const [sections, setSections] = useState(null);
 	const [studentProgress, setStudentProgress] = useState(0);
-	const [completedComponents, setCompletedComponents] = useState(0);
+	const [completedComponents, setCompletedComponents] = useState([]);
 
 	/**
    * Loads the sections for the given course from the backend.
@@ -42,38 +42,36 @@ export default function SectionScreen({ route }) {
 		setStudentProgress(progress);
 	};
 
-	const checkProgressInSection = async (sectionId) => {
-		const completed = await checkProgressSection(sectionId);
-		setCompletedComponents(completed);
+	/**
+	 * Fetch and set progress for each section in bulk to avoid re-renders
+	 */
+	const loadAllSectionProgress = async () => {
+		if (sections) {
+			// Map over each section ID and fetch their progress
+			const progressArray = await Promise.all(
+				sections.map(section => checkProgressSection(section.sectionId))
+			);
+			setCompletedComponents(progressArray);
+		}
 	};
 
 	useEffect(() => {
-		// this makes sure loadcourses is called when the screen is focused
+		// this makes sure checkProgress is called when the screen is focused
 		const update = navigation.addListener('focus', () => {
 			checkProgress();
 		});
 		return update;
 	}, [navigation]);
 
-	// Fetch courses from backend and replace dummy data!
+	// Fetch sections from backend and progress for each section
 	useEffect(() => {
-		let componentIsMounted = true;
-
-		/**
-     * Loads the sections and course data for the given courseId.
-     */
-		async function loadData() {
+		const loadData = async () => {
 			await loadSections(course.courseId);
-		}
-
-		if (componentIsMounted) {
-			loadData();
-		}
-
-		checkProgress();
-
-		return () => componentIsMounted = false;
-	}, []);
+			checkProgress();  // Load total course progress
+			await loadAllSectionProgress();  // Load progress for each section
+		};
+		loadData();
+	}, [sections]);
 
 	/**
    * Displays an alert to confirm unsubscribing from the course.
@@ -110,17 +108,15 @@ export default function SectionScreen({ route }) {
 
 						{/* Section Cards */}
 						<ScrollView className="mt-[5%]" showsVerticalScrollIndicator={false}>
-							{sections.map((section, i) => {
-								checkProgressInSection(section.sectionId);
-								return <SectionCard key={i} section={section} course={course} progress={completedComponents}></SectionCard>;
-							})}
+							{sections.map((section, i) => (
+								<SectionCard key={i} section={section} course={course} progress={completedComponents[i] || 0}></SectionCard>
+							))}
 						</ScrollView>
 						{/* Unsubscribe Button */}
 						<SubscriptionCancel onPress={unsubAlert} />
 					</View>
 				)
 			) : null}
-
 		</BaseScreen>
 	);
 }
