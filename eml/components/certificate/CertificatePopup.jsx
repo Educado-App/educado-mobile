@@ -1,11 +1,11 @@
 import React, { useRef } from 'react';
-import { Modal, View, Text, TouchableOpacity, Animated, StyleSheet, Dimensions } from 'react-native';
+import { Modal, View,Animated, StyleSheet, Dimensions } from 'react-native';
 import { PanGestureHandler, State } from 'react-native-gesture-handler';
-import { MaterialIcons } from '@expo/vector-icons';
+
 
 const { height } = Dimensions.get('window');
 
-const Popup = ({ visible, children }) => {
+const CertificatePopup = ({ visible, children }) => {
   const slideAnim = useRef(new Animated.Value(height)).current;
 
   const handleGesture = Animated.event(
@@ -63,4 +63,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Popup;
+export default CertificatePopup;

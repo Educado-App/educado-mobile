@@ -7,10 +7,10 @@ const prod = 'http://educado.somethingnew.dk';
 const test = 'http://172.30.211.110:8888'; // Change this to your LOCAL IP address when testing.
 const local = 'http://localhost:8888';
 const digitalOcean = 'http://207.154.213.68:8888';
-*/ 
+*/
 
 
-const url = 'https://educado-backend-staging-x7rgvjso4a-ew.a.run.app/';// Change this to your LOCAL IP address when testing.
+const url = 'http://192.168.0.106:8888';// Change this to your LOCAL IP address when testing.
 
 /**
  * This is the client that will be used to make requests to the backend.
@@ -128,7 +128,7 @@ export const updateUserPassword = async (user_id, oldPassword, newPassword, toke
 };
 
 export const completeComponent = async (user_id, comp, isComplete, points, token) => {
-	try{
+	try {
 		const res = await client.patch('/api/students/' + user_id + '/complete', { comp: comp, isComplete: isComplete, points: points }, {
 			headers: {
 				'Content-Type': 'application/json',
@@ -184,7 +184,7 @@ export const addCourseToStudent = async (user_Id, course_Id, token) => {
 };
 
 export const uploadPhoto = async (user_id, photo, token) => {
-	try{
+	try {
 		const formData = new FormData();
 
 		const file = await FileSystem.getInfoAsync(photo);

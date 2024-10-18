@@ -48,7 +48,7 @@ export const getSectionById = async (sectionId) => {
 
 export const getCourse = async (courseId) => {
 	try {
-		const res = await axios.get(url + '/api/courses/' + courseId, {timeout: timeoutInMs});
+		const res = await axios.get(url + '/api/courses/' + courseId, { timeout: timeoutInMs });
 		return res.data;
 	} catch (e) {
 		if (e?.response?.data != null) {
@@ -76,7 +76,7 @@ export const getCourses = async () => {
 // Get all sections for a specific course
 export const getAllSections = async (courseId) => {
 	try {
-		const res = await axios.get(url + '/api/courses/' + courseId + '/sections', {timeout: timeoutInMs});
+		const res = await axios.get(url + '/api/courses/' + courseId + '/sections', { timeout: timeoutInMs });
 		return res.data;
 	} catch (e) {
 		if (e?.response?.data != null) {
@@ -110,7 +110,7 @@ export const getLecturesInSection = async (sectionId) => {
 	try {
 		const res = await axios.get(
 			url + '/api/lectures/section/' + sectionId
-			, {timeout: timeoutInMs});
+			, { timeout: timeoutInMs });
 		return res.data;
 	} catch (e) {
 		if (e?.response?.data != null) {
@@ -131,7 +131,7 @@ export const getSubscriptions = async (userId) => {
 		// passing user ID as request body for get request gives error
 		const res = await axios.get(
 			url + '/api/students/' + userId + '/subscriptions',
-			{timeout: 1200});
+			{ timeout: 1200 });
 
 		return res.data;
 	} catch (e) {
@@ -188,7 +188,7 @@ export const fetchCertificates = async (userId) => {
 		}
 		const res = await axios.get(certificateUrl + '/api/student-certificates/student/' + userId);
 		return res.data;
-	}  catch (e) {
+	} catch (e) {
 		if (e?.response?.data != null) {
 			throw e.response.data;
 		} else {
@@ -196,6 +196,55 @@ export const fetchCertificates = async (userId) => {
 		}
 	}
 };
+
+
+/* Generates a certificate for a student.
+ * @param {string} courseId - The ID of the course.
+ * @param {string} studentId - The ID of the student.
+ * @returns {Promise<Object>} - The response from the server.
+ */
+export const generateCertificate = async (courseId, studentId) => {
+	try {
+		// Fetch course data
+		const courseResponse = await axios.get(api + `/api/courses/${courseId}`);
+		const courseData = courseResponse.data;
+
+		// Fetch student data and user data concurrently
+		const [studentResponse, userResponse] = await Promise.all([
+			axios.get(api + `/api/students/${studentId}/info`),
+			axios.get(api + `/api/users/${studentId}`)
+		]);
+
+		const studentData = studentResponse.data;
+		const userData = userResponse.data;
+
+		// Ensure data is loaded
+		if (!courseData || !studentData || !userData) {
+			throw new Error('Course, student, or user data not loaded');
+		}
+
+		// Call the endpoint to generate the certificate
+		const response = await axios.put(certificateUrl + '/api/student-certificates', {
+			courseName: courseData.name,
+			courseId: courseData._id,
+			studentId: studentData._id,
+			studentFirstName: userData.firstName,
+			studentLastName: userData.lastName,
+			courseCreator: courseData.creator,
+			estimatedCourseDuration: courseData.estimatedDuration,
+			dateOfCompletion: new Date().toISOString().split('T')[0], // current date
+			courseCategory: courseData.category,
+		});
+
+		console.log('Certificate generated:', response.data);
+		return response.data;
+	} catch (error) {
+		console.error('Error generating certificate:', error.response?.data || error.message);
+		throw error;
+	}
+};
+
+
 
 //CREATED BY VIDEO STREAM TEAM
 /*This will be improved in next pull request to handle getting different resolutions properly 
@@ -206,20 +255,20 @@ export const getVideoStreamUrl = (fileName, resolution) => {
 
 	let resolutionPostfix;
 	switch (resolution) {
-	case '360':
-		resolutionPostfix = '_360x640';
-		break;
-	case '480':
-		resolutionPostfix = '_480x854';
-		break;
-	case '720':
-		resolutionPostfix = '_720x1280';
-		break;
-	case '1080':
-		resolutionPostfix = '_1080x1920';
-		break;
-	default:
-		resolutionPostfix = '_360x640';
+		case '360':
+			resolutionPostfix = '_360x640';
+			break;
+		case '480':
+			resolutionPostfix = '_480x854';
+			break;
+		case '720':
+			resolutionPostfix = '_720x1280';
+			break;
+		case '1080':
+			resolutionPostfix = '_1080x1920';
+			break;
+		default:
+			resolutionPostfix = '_360x640';
 	}
 
 	return `${url}/api/bucket/stream/${fileName}${resolutionPostfix}.mp4`;
@@ -246,7 +295,7 @@ export const getBucketImage = async (fileName) => {
 			`${url}/api/bucket/${fileName}`,
 			{
 				responseType: 'arraybuffer',
-				accept: 'image/jpeg', 
+				accept: 'image/jpeg',
 			});
 
 		let fileType = fileName.split('.').pop();

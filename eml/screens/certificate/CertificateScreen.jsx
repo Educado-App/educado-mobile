@@ -32,13 +32,11 @@ export default function CertificateScreen() {
 
 	const getProfile = async () => {
 		try {
-			/* const fetchedProfile = await getUserInfo();
+			const fetchedProfile = await getUserInfo();
 			if (fetchedProfile !== null) {
 				const fetchedCertificates = await fetchCertificates(fetchedProfile.id);
 				setCertificates(fetchedCertificates);
-			} */
-			console.log(certificatesDummy.data);
-			setCertificates(certificatesDummy.data);
+			}
 		} catch (e) {
 			console.log(e);
 		}

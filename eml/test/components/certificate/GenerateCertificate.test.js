@@ -1,5 +1,5 @@
 import axios from 'axios';
-import generateCertificate from '../../../components/certificate/GenerateCertificate.jsx';
+import { generateCertificate } from '../../../api/api.js';
 import { mockDataAPI } from '../../mockData/mockDataAPI';
 
 jest.mock('axios');
