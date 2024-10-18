@@ -69,10 +69,11 @@ export default function ExerciseScreen({ exerciseObject, sectionObject, courseOb
 			setButtonText('Confirmar Resposta');
 		} else if (buttonText === 'Continuar') {
 			setIsPopUpVisible(false);
-			if (onContinue()) {
-				await completeComponent(exerciseObject, courseObject.courseId, true);
+			await completeComponent(exerciseObject, courseObject.courseId, true);
+			if(onContinue()){
 				handleLastComponent(exerciseObject, courseObject, navigation);
 			}
+			
 		}
 	}
 
