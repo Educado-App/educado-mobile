@@ -8,7 +8,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import PopUp from '../../components/gamification/PopUp';
 import { StatusBar } from 'expo-status-bar';
 import PropTypes from 'prop-types';
-import { handleLastComponent } from '../../services/utilityFunctions';
+import { completeComponent, handleLastComponent } from '../../services/utilityFunctions';
 import { useNavigation } from '@react-navigation/native';
 
 /* 
@@ -70,6 +70,7 @@ export default function ExerciseScreen({ exerciseObject, sectionObject, courseOb
 		} else if (buttonText === 'Continuar') {
 			setIsPopUpVisible(false);
 			if (onContinue()) {
+				await completeComponent(exerciseObject, courseObject.courseId, true);
 				handleLastComponent(exerciseObject, courseObject, navigation);
 			}
 		}
