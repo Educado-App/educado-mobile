@@ -14,7 +14,7 @@ const Tab = createBottomTabNavigator();
 
 const ProfileStack = createNativeStackNavigator();
 
-function ProfileStackScreen({navigation}) {
+function ProfileStackScreen() {
 	
 	return (
 		<ProfileStack.Navigator initialRouteName='ProfileHome'>

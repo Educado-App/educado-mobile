@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {
 	View,
 	SafeAreaView,
-	Pressable,
 	ScrollView,
-	Image
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import BackButton from '../../components/general/BackButton';
@@ -15,8 +13,7 @@ import CertificateEmptyState from '../../components/certificate/CertifateEmptySt
 import { determineCategory } from '../../services/utilityFunctions';
 import { fetchCertificates } from '../../api/api';
 import { getUserInfo } from '../../services/StorageService';
-import noCertificateImage from '../../assets/images/no-certificates.png';
-import certificatesDummy from './certificates.json';
+
 
 /**
  * Profile screen

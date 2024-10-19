@@ -10,14 +10,14 @@ import 'intl/locale-data/jsonp/en-GB'; // Import the locale you need
  */
 export function getDifficultyLabel(lvl) {
 	switch (lvl) {
-		case 1:
-			return 'Iniciante';
-		case 2:
-			return 'Intermediário';
-		case 3:
-			return 'Avançado';
-		default:
-			return 'Iniciante';
+	case 1:
+		return 'Iniciante';
+	case 2:
+		return 'Intermediário';
+	case 3:
+		return 'Avançado';
+	default:
+		return 'Iniciante';
 	}
 }
 
@@ -48,16 +48,16 @@ export const convertMsToTime = (ms) => {
  */
 export function determineCategory(category) {
 	switch (category) {
-		case 'personal finance':
-			return 'Finanças pessoais';
-		case 'health and workplace safety':
-			return 'Saúde e segurança no trabalho';
-		case 'sewing':
-			return 'Costura';
-		case 'electronics':
-			return 'Eletrônica';
-		default: 'other';
-			return 'Outro';
+	case 'personal finance':
+		return 'Finanças pessoais';
+	case 'health and workplace safety':
+		return 'Saúde e segurança no trabalho';
+	case 'sewing':
+		return 'Costura';
+	case 'electronics':
+		return 'Eletrônica';
+	default: 'other';
+		return 'Outro';
 	}
 }
 
@@ -68,16 +68,16 @@ export function determineCategory(category) {
  */
 export function determineIcon(category) {
 	switch (category) {
-		case 'personal finance':
-			return 'finance';
-		case 'health and workplace safety':
-			return 'medical-bag';
-		case 'sewing':
-			return 'scissors-cutting';
-		case 'electronics':
-			return 'laptop';
-		default:
-			return 'bookshelf';
+	case 'personal finance':
+		return 'finance';
+	case 'health and workplace safety':
+		return 'medical-bag';
+	case 'sewing':
+		return 'scissors-cutting';
+	case 'electronics':
+		return 'laptop';
+	default:
+		return 'bookshelf';
 	}
 }
 
