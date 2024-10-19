@@ -13,6 +13,7 @@ import { unsubscribe } from '../../services/StorageService';
 import PropTypes from 'prop-types';
 import { checkProgressCourse, checkProgressSection } from '../../services/utilityFunctions';
 
+
 /**
  * Section screen component that displays a list of sections for a given course.
  * @param {object} route - The route object containing the courseId parameter.

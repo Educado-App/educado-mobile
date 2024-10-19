@@ -72,8 +72,8 @@ export default function EditProfile() {
    * Validates the input fields
    */
 	function validateInput() {
-		return firstNameAlert === '' && lastNameAlert === '' && emailAlert === '' && 
-    (changedFields.firstName !== undefined || changedFields.lastName !== undefined || changedFields.email !== undefined);
+		return firstNameAlert === '' && lastNameAlert === '' && emailAlert === '' &&
+			(changedFields.firstName !== undefined || changedFields.lastName !== undefined || changedFields.email !== undefined);
 	}
 
 	/**
@@ -107,7 +107,7 @@ export default function EditProfile() {
 					console.error('Error fetching profile:', error);
 				}
 			};
-	
+
 			runAsyncFunction();
 		}, [])
 	);
@@ -127,7 +127,7 @@ export default function EditProfile() {
 			lastName: fetchedLastName,
 			email: fetchedEmail,
 		};
-    
+
 		const updatedProfile = {
 			...fetchedProfile,
 			...(changedFields.firstName !== undefined ? { firstName: changedFields.firstName } : {}),
@@ -151,7 +151,7 @@ export default function EditProfile() {
 				text: 'Não',
 				style: 'cancel'
 			},
-			{ text: 'Sim', onPress: deleteAccount}
+			{ text: 'Sim', onPress: deleteAccount }
 		]);
 
 	const deleteAccount = async () => {
@@ -180,24 +180,24 @@ export default function EditProfile() {
 				<View>
 					<View className='relative mx-4 mt-12 mb-6'>
 						{/* Back button */}
-						<BackButton onPress={() => navigation.navigate('Perfil')} />
+						<BackButton onPress={() => navigation.navigate('ProfileHome')} />
 
 						{/* Title */}
 						<Text className='w-full text-center text-xl font-sans-bold'>
-              Editar perfil
+							Editar perfil
 						</Text>
 					</View>
 
 					<View className='flex flex-row w-screen px-6 justify-evenly'>
 						{/* Profile image */}
-						{ photo 
+						{photo
 							? <Image source={{ uri: photo }} className='w-24 h-24 rounded-full' />
 							: <ProfileNameCircle firstName={fetchedFirstName} lastName={fetchedLastName} />
 						}
 						{/* Edit image */}
 						<View className='flex flex-col justify-evenly items-center'>
 							<FormButton className='py-2' onPress={() => navigation.navigate('Camera')}>
-                Trocar imagem
+								Trocar imagem
 							</FormButton>
 							<TouchableOpacity onPress={removeImage}>
 								<Text className='text-primary_custom underline'>Remover imagem</Text>
@@ -214,10 +214,10 @@ export default function EditProfile() {
 							required={true}
 							placeholder='Insira sua nome'
 							value={firstName}
-							onChangeText={(firstName) => {setFirstName(firstName); validateName(firstName);}}
+							onChangeText={(firstName) => { setFirstName(firstName); validateName(firstName); }}
 							testId='firstName'
 						></FormTextField>
-						<FormFieldAlert 
+						<FormFieldAlert
 							label={firstNameAlert}
 							testId='firstNameAlert'
 						/>
@@ -228,10 +228,10 @@ export default function EditProfile() {
 							required={true}
 							placeholder='Insira sua sobrenome'
 							value={lastName}
-							onChangeText={(lastName) => {setLastName(lastName); validateName(lastName);}}
+							onChangeText={(lastName) => { setLastName(lastName); validateName(lastName); }}
 							testId='lastName'
 						></FormTextField>
-						<FormFieldAlert 
+						<FormFieldAlert
 							label={lastNameAlert}
 							testId='lastNameAlert'
 						/>
@@ -243,10 +243,10 @@ export default function EditProfile() {
 							placeholder='Insira sua e-mail'
 							value={email}
 							keyboardType="email-address"
-							onChangeText={async (email) => {setEmail(email); validateEmail(email);}}
+							onChangeText={async (email) => { setEmail(email); validateEmail(email); }}
 							testId='email'
 						></FormTextField>
-						<FormFieldAlert 
+						<FormFieldAlert
 							label={emailAlert}
 							testId='emailAlert'
 						/>
@@ -256,9 +256,9 @@ export default function EditProfile() {
 					<ChangePasswordModal />
 
 					<View className='flex flex-row justify-between items-center pt-12'>
-						<Text 
+						<Text
 							className='text-primary_custom text-sm underline'
-							onPress={() => deleteAccountAlert()}  
+							onPress={() => deleteAccountAlert()}
 						>Excluir minha conta</Text>
 						<FormButton
 							onPress={() => saveUserInfo()}
