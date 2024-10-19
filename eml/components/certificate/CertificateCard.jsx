@@ -19,13 +19,15 @@ import CardLabel from '../explore/CardLabel';
 export default function CertificateCard({ certificate }) {
 	CertificateCard.propTypes = {
 		certificate: PropTypes.shape({
-		  studentName: PropTypes.string.isRequired,
-		  estimatedCourseDuration: PropTypes.string.isRequired,
-		  courseName: PropTypes.string.isRequired,
-		  dateOfCompletion: PropTypes.instanceOf(Date).isRequired,
-		  creatorName: PropTypes.string.isRequired,
+			studentFirstName: PropTypes.string.isRequired,
+			studentLastName: PropTypes.string.isRequired,
+			courseCategory: PropTypes.string.isRequired,
+			estimatedCourseDuration: PropTypes.number.isRequired,
+			courseName: PropTypes.string.isRequired,
+			dateOfCompletion: PropTypes.instanceOf(Date).isRequired,
+			courseCreator: PropTypes.string.isRequired,
 		}).isRequired,
-	  };
+	};
 	const [popupVisible, setPopupVisible] = useState(false);
 	
 	
