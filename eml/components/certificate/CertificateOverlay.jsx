@@ -10,8 +10,8 @@ const CertificateOverlay = ({ certificate, handleVisualizarClick}) => {
 		certificate: PropTypes.shape({
 			courseName: PropTypes.string.isRequired,
 			courseCategory: PropTypes.string.isRequired,
-			estimatedCourseDuration: PropTypes.string.isRequired,
-			dateOfCompletion: PropTypes.string.isRequired,
+			estimatedCourseDuration: PropTypes.number.isRequired,
+			dateOfCompletion: PropTypes.instanceOf(Date).isRequired,
 		}).isRequired,
 		handleVisualizarClick: PropTypes.func.isRequired,
 	};

@@ -86,8 +86,6 @@ export default function CertificateScreen() {
 						Certificados
 					</Text>
 				</View>
-
-
 				<FilterNavBar
 					searchPlaceholder={'Buscar certificados'}
 					onChangeText={(text) => handleFilter(text)}

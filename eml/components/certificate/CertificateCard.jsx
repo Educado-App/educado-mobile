@@ -17,6 +17,15 @@ import CardLabel from '../explore/CardLabel';
  * @returns {JSX.Element|null} - Returns a JSX element.
  */
 export default function CertificateCard({ certificate }) {
+	CertificateCard.propTypes = {
+		certificate: PropTypes.shape({
+		  studentName: PropTypes.string.isRequired,
+		  estimatedCourseDuration: PropTypes.string.isRequired,
+		  courseName: PropTypes.string.isRequired,
+		  dateOfCompletion: PropTypes.instanceOf(Date).isRequired,
+		  creatorName: PropTypes.string.isRequired,
+		}).isRequired,
+	  };
 	const [popupVisible, setPopupVisible] = useState(false);
 	
 	
@@ -31,18 +40,18 @@ export default function CertificateCard({ certificate }) {
 
 	/* const handleDownloadClick = () => {
 		// Add your PDF download logic here
-	}; */
+	} */
 	return (
-		<View className="relative max-h-[33%] min-h-[260px]  m-2 flex items-center rounded-lg border-[3px] border-lightGray">
+		<View className='relative max-h-[33%] min-h-[260px]  m-2 flex items-center rounded-lg border-[3px] border-lightGray'>
 			<CertificateTemplate
-				studentName={certificate.studentFirstName + ' ' + certificate.studentLastName}
+				studentName={certificate.studentFirstName + '' + certificate.studentLastName}
 				estimatedCourseDuration={certificate.estimatedCourseDuration}
 				courseName={certificate.courseName}
 				dateOfCompletion={Utility.formatDate(certificate.dateOfCompletion)}
 				creatorName={certificate.courseCreator}
 			/>
 			<CertificateOverlay certificate={certificate} handleVisualizarClick={handleVisualizarClick}/>
-					
+			
 			<CertificatePopup visible={popupVisible} onClose={handleClosePopup}>
 				<View className="flex flex-col justify-between">
 					<View className="flex flex-row justify-between items-center ">
@@ -51,7 +60,7 @@ export default function CertificateCard({ certificate }) {
 							<MaterialIcons name='keyboard-arrow-down' size={32} color='black' />
 						</TouchableOpacity>
 					</View>
-							
+					
 					<View className="flex-row justify-between w-full items-start mt-2">
 						<View className="flex-col items-start justify-between">
 							<View className="flex-row items-center justify-start pb-2 flex-wrap">
@@ -72,7 +81,7 @@ export default function CertificateCard({ certificate }) {
 						</View>
 					</View>
 					<View className="h-1 border-b-[1px] w-full border-gray opacity-20 pt-2 mb-44"></View>
-							
+					
 					<View className="origin-center rotate-90 scale-150 mb-44">
 						<CertificateTemplate
 							studentName={certificate.studentFirstName + ' ' + certificate.studentLastName}
@@ -82,16 +91,16 @@ export default function CertificateCard({ certificate }) {
 							creatorName={certificate.courseCreator}
 						/>
 					</View>
-					<View className="">
+					<View >
 						<TouchableOpacity
-									
+							
 							onPress={() => {
 
 								// Add your PDF download logic here
 							}}>
-							<View className="flex flex-row justify-center items-end bg-primary_custom py-4 px-10 rounded-lg opacity-50">
+							<View className='flex flex-row justify-center items-end bg-primary_custom py-4 px-10 rounded-lg opacity-50'>
 								<MaterialCommunityIcons name={'download'} size={24} color={'white'}/>
-								<Text className="text-projectWhite text-lg font-montserrat-bold ml-2 text-center">Baixar PDF</Text>
+								<Text className='text-projectWhite text-lg font-montserrat-bold ml-2 text-center'>Baixar PDF</Text>
 							</View>
 						</TouchableOpacity>
 					</View>
@@ -100,7 +109,3 @@ export default function CertificateCard({ certificate }) {
 		</View>
 	);
 }	
-
-CertificateCard.propTypes = {
-	certificate: PropTypes.object,
-};
