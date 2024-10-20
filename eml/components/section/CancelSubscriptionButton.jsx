@@ -15,7 +15,7 @@ const SubscriptionCancel = ({ onPress }) => {
 	};
 
 	return (
-		<View className="py-4 self-center justify-end">
+		<View className="py-4 self-center justify-end w-1/2">
 			<Button
 				mode={'contained'}
 				color={tailwindConfig.theme.colors.error}
