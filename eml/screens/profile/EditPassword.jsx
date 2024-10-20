@@ -113,7 +113,7 @@ export default function EditPassword() {
 			}
 		}
 	};
-	
+	// TODO: move the error messesages to under the field where the error is
 	return (
 		
 		<SafeAreaView className='bg-secondary'>

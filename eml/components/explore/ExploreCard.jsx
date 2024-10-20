@@ -21,6 +21,7 @@ import AccessCourseButton from './AccessCourseButton';
 import UpdateDate from './ExploreUpdate';
 import * as Utility from '../../services/utilityFunctions';
 import PropTypes from 'prop-types';
+import { ScrollView } from 'react-native-gesture-handler';
 
 /**
  * This component is used to display a course card.
@@ -103,6 +104,7 @@ export default function ExploreCard({ course, isPublished, subscribed }) {
 				onRequestClose={() => {
 					setModalVisible(!modalVisible);
 				}}
+				scrollable
 			>
 				{/* Detect touches outside the modal */}
 				<TouchableWithoutFeedback onPress={() => setModalVisible(false)}>
@@ -140,9 +142,11 @@ export default function ExploreCard({ course, isPublished, subscribed }) {
 								</Pressable>
 								<CustomRating rating={course.rating} />
 								<View className='h-1 border-b-[1px] w-full border-projectGray opacity-50 pt-4 mb-4'></View>
-								<Text className='text-projectBlack text-lg'>
-									{course.description}
-								</Text>
+								<ScrollView style={{ maxHeight: '40%' }}>
+									<Text className='text-projectBlack text-lg' onStartShouldSetResponder={() => true} >
+										{course.description}
+									</Text>
+								</ScrollView>
 								<View className='border rounded-2xl border-projectGray p-4 mt-8'>
 									<View className='flex-row items-center'>
 										<EvilIcons name='clock' size={24} color='grey' />

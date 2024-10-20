@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import LogOutButton from '../../components/profile/LogOutButton';
 import ProfileNavigationButton from '../../components/profile/ProfileNavigationButton.js';
+
 import UserInfo from '../../components/profile/UserInfo';
 import { useNavigation } from '@react-navigation/native';
 import { getUserInfo } from '../../services/StorageService';
@@ -42,12 +43,12 @@ export default function ProfileComponent() {
 		const pointsForPreviousLevel = (student.level - 1) * 100;
 		const pointsForNextLevel = student.level * 100;
 
-		return ((student.points - pointsForPreviousLevel)/(pointsForNextLevel - pointsForPreviousLevel)) * 100;
+		return ((student.points - pointsForPreviousLevel) / (pointsForNextLevel - pointsForPreviousLevel)) * 100;
 	};
 
 	/**
   * Fetches the user's profile from local storage
-  */ 
+  */
 	const getProfile = async () => {
 		try {
 			const fetchedProfile = await getUserInfo();

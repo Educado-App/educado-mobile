@@ -70,7 +70,6 @@ function LoginStack() {
 		</Stack.Navigator>
 	);
 }
-
 function CertificateStack() {
 	return (
 		<Stack.Navigator initialRouteName={'Certificate'}>
@@ -84,7 +83,6 @@ function CertificateStack() {
 		</Stack.Navigator>
 	);
 }
-
 
 function CourseStack() {
 	return (
@@ -126,6 +124,8 @@ function CourseStack() {
 		</Stack.Navigator>
 	);
 }
+
+
 
 export function useWelcomeScreenLogic(loadingTime, onResult) {
 

@@ -1,7 +1,8 @@
 /** Utility functions used in Explore and Course screens **/
 import * as StorageService from '../services/StorageService.js';
 import * as userApi from '../api/userApi.js';
-
+import 'intl';
+import 'intl/locale-data/jsonp/en-GB'; // Import the locale you need
 /**
  * Converts a numeric difficulty level to a human-readable label.
  * @param {number} lvl - The difficulty level of the course.
@@ -140,6 +141,15 @@ export function formatHours(number) {
 	} else {
 		return `${number} Horas`;
 	}
+}
+
+export function formatDate(dateString) {
+	const date = new Date(dateString);
+	return new Intl.DateTimeFormat('en-GB', {
+		day: '2-digit',
+		month: '2-digit',
+		year: 'numeric',
+	}).format(date);
 }
 
 export async function completeComponent(comp, courseId, isComplete) {
