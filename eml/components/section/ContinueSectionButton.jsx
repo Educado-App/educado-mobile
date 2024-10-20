@@ -22,7 +22,7 @@ const ContinueSection = ({ onPress }) => {
 				testID="continueSectionButton"
 				onPress={onPress}
 			>
-              Continue Section
+              Continuar seção
 			</Button>
 		</View>
 	);

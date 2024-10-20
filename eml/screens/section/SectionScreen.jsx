@@ -14,11 +14,6 @@ import PropTypes from 'prop-types';
 import { checkProgressCourse, checkProgressSection } from '../../services/utilityFunctions';
 import ContinueSection from '../../components/section/ContinueSectionButton';
 
-/**
- * Section screen component that displays a list of sections for a given course.
- * @param {object} route - The route object containing the courseId parameter.
- * @returns {JSX.Element} - The SectionScreen component.
- */
 export default function SectionScreen({ route }) {
 	SectionScreen.propTypes = {
 		route: PropTypes.object,
@@ -30,10 +25,6 @@ export default function SectionScreen({ route }) {
 	const [sectionProgress, setSectionProgress] = useState({});
 	const [currentSection, setCurrentSection] = useState(null);
 
-	/**
-   * Loads the sections for the given course from the backend.
-   * @param {string} id - The id of the course to load sections for.
-   */
 	async function loadSections(id) {
 		const sectionData = await StorageService.getSectionList(id);
 		setSections(sectionData);
@@ -53,20 +44,8 @@ export default function SectionScreen({ route }) {
 	};
 
 	useEffect(() => {
-		// this makes sure loadcourses is called when the screen is focused
-		const update = navigation.addListener('focus', () => {
-			checkProgress();
-		});
-		return update;
-	}, [navigation]);
-
-	// Fetch courses from backend and replace dummy data!
-	useEffect(() => {
 		let componentIsMounted = true;
 
-		/**
-     * Loads the sections and course data for the given courseId.
-     */
 		async function loadData() {
 			await loadSections(course.courseId);
 		}
@@ -75,14 +54,41 @@ export default function SectionScreen({ route }) {
 			loadData();
 		}
 
-		checkProgress();
-
-		return () => componentIsMounted = false;
+		return () => {
+			componentIsMounted = false;
+		};
 	}, []);
 
-	/**
-   * Displays an alert to confirm unsubscribing from the course.
-   */
+	useEffect(() => {
+		if (sections) {
+			sections.forEach(section => {
+				checkProgressInSection(section.sectionId);
+			});
+		}
+	}, [sections]);
+
+	useEffect(() => {
+		if (sections) {
+			const incompleteSection = sections.find(section => {
+				const completedComponents = sectionProgress[section.sectionId] || 0;
+				return completedComponents < section.components.length;
+			});
+			setCurrentSection(incompleteSection);
+		}
+	}, [sectionProgress, sections]);
+
+	useEffect(() => {
+		const update = navigation.addListener('focus', () => {
+			checkProgress();
+			if (sections) {
+				sections.forEach(section => {
+					checkProgressInSection(section.sectionId);
+				});
+			}
+		});
+		return update;
+	}, [navigation]);
+
 	const unsubAlert = () =>
 		Alert.alert('Cancelar subscrição', 'Tem certeza?', [
 			{
@@ -92,9 +98,6 @@ export default function SectionScreen({ route }) {
 			{ text: 'Sim', onPress: () => { unsubscribe(course.courseId); setTimeout(() =>  {navigation.navigate('Meus cursos');}, 300 ); }},
 		]);
 
-	/**
-   * Navigates to the current section.
-   */
 	const navigateToCurrentSection = () => {
 		if (currentSection) {
 			navigation.navigate('Components', {
@@ -107,32 +110,23 @@ export default function SectionScreen({ route }) {
 	return (
 		<BaseScreen>
 			<View className="flex flex-row flex-wrap items-center justify-between px-6 pt-[20%]">
-
 				{/* Back Button */}
 				<TouchableOpacity className="pr-3" onPress={() => navigation.navigate('Meus cursos')}>
 					<MaterialCommunityIcons name="chevron-left" size={25} color="black" />
 				</TouchableOpacity>
-
 				{/* Course Title */}
 				<Text className="text-[25px] font-bold">{course.title}</Text>
 			</View>
-
 			{/* Conditionally render the sections if they exist */}
 			{sections ? (
 				sections.length === 0 ? null : (
 					<View className="flex-[1] flex-col my-[10px]">
-
 						{/* Progress Bar */}
 						<CustomProgressBar width={60} progress={studentProgress} height={3}></CustomProgressBar>
-
 						{/* Section Cards */}
 						<ScrollView className="mt-[5%]" showsVerticalScrollIndicator={false}>
 							{sections.map((section, i) => {
-								checkProgressInSection(section.sectionId);
 								const completedComponents = sectionProgress[section.sectionId] || 0;
-								if (completedComponents < section.components.length && !currentSection) {
-									setCurrentSection(section);
-								}
 								return <SectionCard key={i} section={section} course={course} progress={completedComponents}></SectionCard>;
 							})}
 						</ScrollView>
