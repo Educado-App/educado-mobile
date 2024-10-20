@@ -18,8 +18,6 @@ import NavBar from './components/navBar/NavBar';
 import CompSwipeScreen from './screens/lectures/CompSwipeScreen';
 import ErrorScreen from './screens/errors/ErrorScreen';
 import CourseScreen from './screens/courses/CourseScreen';
-import EditProfileScreen from './screens/profile/EditProfile';
-import CertificateScreen from './screens/certificate/CertificateScreen';
 import CompleteCourseScreen from './screens/courses/CompleteCourse';
 import CameraScreen from './screens/camera/CameraScreen';
 import SubscribedToCourseScreen from './screens/courses/SubscribedToCourseScreen';
@@ -69,21 +67,6 @@ function LoginStack() {
 	);
 }
 
-function CertificateStack() {
-	return (
-		<Stack.Navigator initialRouteName={'Certificate'}>
-			<Stack.Screen
-				name="Certificate"
-				component={CertificateScreen}
-				options={{
-					headerShown: false,
-				}}
-			/>
-		</Stack.Navigator>
-	);
-}
-
-
 function CourseStack() {
 	return (
 		<Stack.Navigator>
@@ -124,6 +107,8 @@ function CourseStack() {
 		</Stack.Navigator>
 	);
 }
+
+
 
 export function useWelcomeScreenLogic(loadingTime, onResult) {
 
@@ -217,11 +202,6 @@ export default function App() {
 								options={{ headerShown: false }}
 							/>
 							<Stack.Screen
-								name="EditProfile"
-								component={EditProfileScreen}
-								options={{ headerShown: false }}
-							/>
-							<Stack.Screen
 								name="Exercise"
 								component={ExerciseScreen}
 								options={{
@@ -231,13 +211,6 @@ export default function App() {
 							<Stack.Screen
 								name="Components"
 								component={CompSwipeScreen}
-								options={{
-									headerShown: false,
-								}}
-							/>
-							<Stack.Screen
-								name="CertificateStack"
-								component={CertificateStack}
 								options={{
 									headerShown: false,
 								}}

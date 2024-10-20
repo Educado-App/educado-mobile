@@ -9,6 +9,15 @@ export function mockDataAPI () {
 			email: 'test@mail.dk',
 			subscriptions: ['651d596a26cd9875d86a12b7'],
 		},
+		studentData: {
+			points: 10,
+			_id: '651d596a26cd9875d86a12b7',
+			name: 'test student',
+			email: 'test@mail.dk',
+			courses: ['651d3a15cda7d5bd2878dfc7'],
+			baseUser: '66edc6ed4a7b2734b83b1d63',
+			__v: 0,
+		},
 		courseData: {
 			title: 'Course math',
 			_id: '651d3a15cda7d5bd2878dfc7',
