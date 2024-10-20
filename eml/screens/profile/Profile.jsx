@@ -99,7 +99,7 @@ export default function ProfileComponent() {
 		try {
 			console.log('Checking password reset');
 			if (await AsyncStorage.getItem('passwordUpdated') == 'true') {
-				ToastNotification('success', 'Your password has been updated!');
+				ToastNotification('success', 'Senha alterada com sucesso');
 				await AsyncStorage.setItem('passwordUpdated', 'false');
 				return;
 			}

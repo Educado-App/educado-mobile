@@ -15,6 +15,7 @@ import { getUserInfo, getJWT } from '../../services/StorageService';
 import FormFieldAlert from '../../components/general/forms/FormFieldAlert';
 import { validatePasswordContainsLetter, validatePasswordLength } from '../../components/general/Validation';
 import { alertErrorCode } from '../../services/ErrorAlertService';
+import { set } from 'react-native-reanimated';
 
 /**
  * Edit password screen
@@ -24,54 +25,74 @@ export default function EditPassword() {
 	// States
 	const [currentPassword, setCurrentPassword] = useState('');
 	const [isCurrentPasswordWrong, setIsCurrentPasswordWrong] = useState(false);
+	const [oldPasswordAttempt, setOldPasswordAttempt] = useState('');
 	const [isMatchPasswordWrong, setisMatchPasswordWrong] = useState(false);
 	const [newPassword, setNewPassword] = useState('');
 	const [confirmPassword, setConfirmPassword] = useState('');
 	const [isFormFilledOut, setIsFormFilledOut] = useState(false);
+	const [wrongCurentPasswordAlert, setWrongCurrentPasswordAlert] = useState('');
+	const [newPasswordAlert, setNewPasswordAlert] = useState('');
+	const [confirmPasswordAlert, setConfirmPasswordAlert] = useState('');
+
 	const [passwordAlert, setPasswordAlert] = useState('');
 	const navigation = useNavigation();
 
 	// password validation
 	useEffect(() => {
-		// reset alert if no new passsword has been entered
-		if (newPassword.length == 0) return setPasswordAlert('');
-		// password must contain at least one letter
-	 	if (!validatePasswordContainsLetter(newPassword)) {
-	 		return setPasswordAlert('Senha deve conter pelo menos 1 letra');
-	 	}
-		// validating password length (at least 8 characters)
-	 	if (!validatePasswordLength(newPassword)) {
-	 		return setPasswordAlert('Senha muito curta! Mínimo 8 caracteres');
-	 	}
-
-		// newPassword and confirmPassword must match
-	 	if (newPassword !== confirmPassword) {
-	 		return setPasswordAlert('As senhas não coincidem!');
-	 	}
-	 	setPasswordAlert('');
-	 }, [newPassword, confirmPassword]);
+		console.log('useEffect triggered');
+		
+		// Reset the wrong password alert if the user changes their current password
+		if (isCurrentPasswordWrong && oldPasswordAttempt !== currentPassword) {
+			setWrongCurrentPasswordAlert('');
+			setIsCurrentPasswordWrong(false);
+		}
+	
+		// Password validation
+		if (!validatePasswordContainsLetter(newPassword)) {
+			setNewPasswordAlert('Senha deve conter pelo menos 1 letra');
+		} else if (!validatePasswordLength(newPassword)) {
+			setNewPasswordAlert('Senha muito curta! Mínimo 8 caracteres');
+		} else {
+			setNewPasswordAlert('');
+		}
+		
+		// Check if newPassword and confirmPassword match
+		if (newPassword !== confirmPassword) {
+			setConfirmPasswordAlert('As senhas não coincidem!');
+		} else {
+			setConfirmPasswordAlert('');
+		}
+		
+		// Reset alerts when fields are empty
+		if (newPassword.length === 0) setNewPasswordAlert('');
+		if (confirmPassword.length === 0) setConfirmPasswordAlert('');
+	
+	}, [currentPassword, newPassword, confirmPassword, oldPasswordAttempt, isCurrentPasswordWrong]);
+	
 
 	useEffect(() => {
 		setIsFormFilledOut(checkIsFormFilledOut());
-	}, [currentPassword, newPassword, confirmPassword, passwordAlert]);
+	}, [currentPassword, newPassword, confirmPassword, wrongCurentPasswordAlert, newPasswordAlert, confirmPasswordAlert]);
 
 	// Gauge whether the form is filled out
 	const checkIsFormFilledOut = () => {
 		if(currentPassword.length == 0) return false;
 		if(newPassword.length == 0) return false;
 		if(confirmPassword.length == 0) return false;
-		if(passwordAlert != '') return false;
+		if(wrongCurentPasswordAlert != '') return false;
+		if(newPasswordAlert != '') return false;
+		if(confirmPasswordAlert != '') return false;
 		return true;
 	};
 
-	const checkIfPasswordsMatch = (password, confirmPassword) => {
+	/* const checkIfPasswordsMatch = (password, confirmPassword) => {
 		if (password === confirmPassword) {
 			setPasswordAlert('');
 		} else {
 			// The passwords do not match
 			setPasswordAlert('Os campos de senha precisam ser iguais');
 		}
-	};
+	}; */
 
 	// Submit password change
 	const submitForm = async () => {
@@ -86,13 +107,13 @@ export default function EditPassword() {
 			// safe true to a session storage to show a success message in the profile screen
 			await AsyncStorage.setItem('passwordUpdated', 'true');
 	
-			// Clear fields
+			// Clear form fields and reset alerts
 			setCurrentPassword('');
 			setNewPassword('');
 			setConfirmPassword('');
-
-			// reset error state
-			setPasswordAlert('');
+			setWrongCurrentPasswordAlert('');
+			setNewPasswordAlert('');
+			setConfirmPasswordAlert('');
 			
 			// Navigate to the profile screen
 			navigation.navigate('Perfil');
@@ -105,7 +126,8 @@ export default function EditPassword() {
 				case 'E0806':
 					// Your password is incorrect
 					console.log('Your password is incorrect!');
-					setPasswordAlert('Senha atual está incorreta!');
+					setWrongCurrentPasswordAlert('Senha atual está incorreta!');
+					setOldPasswordAttempt(currentPassword);
 					setIsCurrentPasswordWrong(true);
 					break;
 				default: 
@@ -135,18 +157,20 @@ export default function EditPassword() {
 				setPassword={setCurrentPassword}
 				className='mb-4'
 				/>
+			<FormFieldAlert testId="wrongCurentPasswordAlert" label={wrongCurentPasswordAlert} />
 			<PasswordField
 				label='Nova senha'
 				password={newPassword}
 				setPassword={setNewPassword}
 				className='mb-4'
 				/>
+			<FormFieldAlert testId="newPasswordAlert" label={newPasswordAlert} />
 			<PasswordField
 				label='Confirmar senha'
 				password={confirmPassword}
 				setPassword={setConfirmPassword}
 				/>
-			<FormFieldAlert testId="passwordAlert" label={passwordAlert} />
+			<FormFieldAlert testId="confirmPasswordAlert" label={confirmPasswordAlert} />
 			<FormButton
 				onPress={submitForm}
 				disabled={!isFormFilledOut}
