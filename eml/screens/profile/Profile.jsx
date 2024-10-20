@@ -3,7 +3,6 @@ import ToastNotification from '../../components/general/ToastNotification';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
 	View,
-	SafeAreaView,
 	ScrollView,
 } from 'react-native';
 import LogOutButton from '../../components/profile/LogOutButton';
@@ -114,7 +113,7 @@ export default function ProfileComponent() {
 				<UserInfo firstName={firstName} lastName={lastName} email={email} points={totalPoints} photo={photo}></UserInfo>
 				<ProfileStatsBox studentLevel={studentLevel} levelProgress={levelProgress} />
 				<ProfileNavigationButton label='Editar perfil' testId={'editProfileNav'} onPress={() => navigation.navigate('EditProfile')}></ProfileNavigationButton>
-				<ProfileNavigationButton label='Alterar senha' testId={'editProfileNav'} onPress={() => navigation.navigate('EditPassword')}></ProfileNavigationButton>
+				<ProfileNavigationButton label='Alterar senha' testId={'editPasswordNav'} onPress={() => navigation.navigate('EditPassword')}></ProfileNavigationButton>
 				
 				{/* The certificate page is created and works, it is only commented out to get it approved on play store
 					<ProfileNavigationButton label='Certificados' onPress={() => navigation.navigate('CertificateStack')}></ProfileNavigationButton>*/}

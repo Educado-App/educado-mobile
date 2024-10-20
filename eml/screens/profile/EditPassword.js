@@ -14,8 +14,6 @@ import { updateUserPassword } from '../../api/userApi';
 import { getUserInfo, getJWT } from '../../services/StorageService';
 import FormFieldAlert from '../../components/general/forms/FormFieldAlert';
 import { validatePasswordContainsLetter, validatePasswordLength } from '../../components/general/Validation';
-import { alertErrorCode } from '../../services/ErrorAlertService';
-import { set } from 'react-native-reanimated';
 
 /**
  * Edit password screen
@@ -26,21 +24,16 @@ export default function EditPassword() {
 	const [currentPassword, setCurrentPassword] = useState('');
 	const [isCurrentPasswordWrong, setIsCurrentPasswordWrong] = useState(false);
 	const [oldPasswordAttempt, setOldPasswordAttempt] = useState('');
-	const [isMatchPasswordWrong, setisMatchPasswordWrong] = useState(false);
 	const [newPassword, setNewPassword] = useState('');
 	const [confirmPassword, setConfirmPassword] = useState('');
 	const [isFormFilledOut, setIsFormFilledOut] = useState(false);
 	const [wrongCurentPasswordAlert, setWrongCurrentPasswordAlert] = useState('');
 	const [newPasswordAlert, setNewPasswordAlert] = useState('');
 	const [confirmPasswordAlert, setConfirmPasswordAlert] = useState('');
-
-	const [passwordAlert, setPasswordAlert] = useState('');
 	const navigation = useNavigation();
 
 	// password validation
-	useEffect(() => {
-		console.log('useEffect triggered');
-		
+	useEffect(() => {		
 		// Reset the wrong password alert if the user changes their current password
 		if (isCurrentPasswordWrong && oldPasswordAttempt !== currentPassword) {
 			setWrongCurrentPasswordAlert('');
@@ -85,15 +78,6 @@ export default function EditPassword() {
 		return true;
 	};
 
-	/* const checkIfPasswordsMatch = (password, confirmPassword) => {
-		if (password === confirmPassword) {
-			setPasswordAlert('');
-		} else {
-			// The passwords do not match
-			setPasswordAlert('Os campos de senha precisam ser iguais');
-		}
-	}; */
-
 	// Submit password change
 	const submitForm = async () => {
 		try {
@@ -123,62 +107,62 @@ export default function EditPassword() {
 			console.log('Error updating password:', error?.data?.error ?? error);
 	
 			switch (error?.error?.code) {
-				case 'E0806':
-					// Your password is incorrect
-					console.log('Your password is incorrect!');
-					setWrongCurrentPasswordAlert('Senha atual está incorreta!');
-					setOldPasswordAttempt(currentPassword);
-					setIsCurrentPasswordWrong(true);
-					break;
-				default: 
-					ToastNotification('error', 'Erro desconhecido!');
+			case 'E0806':
+				// Your password is incorrect
+				console.log('Your password is incorrect!');
+				setWrongCurrentPasswordAlert('Senha atual está incorreta!');
+				setOldPasswordAttempt(currentPassword);
+				setIsCurrentPasswordWrong(true);
+				break;
+			default: 
+				ToastNotification('error', 'Erro desconhecido!');
 			}
 		}
 	};
-	// TODO: move the error messesages to under the field where the error is
 	return (
 		
 		<SafeAreaView className='bg-secondary'>
-		<View className='flex flex-col mx-4 z-10'>
-			<View>
-				<View className='relative mt-12 mb-6'>
-					{/* Back button */}
-					<BackButton onPress={() => navigation.navigate('Perfil')} />
+			<View className='flex flex-col mx-4 z-10'>
+				<View>
+					<View className='relative mt-12 mb-6'>
+						{/* Back button */}
+						<BackButton onPress={() => navigation.navigate('Perfil')} />
 
-					{/* Title */}
-					<Text className='w-full text-center text-xl font-sans-bold'>
+						{/* Title */}
+						<Text className='w-full text-center text-xl font-sans-bold'>
 				Alterar senha
-					</Text>
+						</Text>
+					</View>
 				</View>
-			</View>
-			<PasswordField
-				label='Senha atual'
-				password={currentPassword}
-				setPassword={setCurrentPassword}
-				className='mb-4'
+				<PasswordField
+					label='Senha atual'
+					password={currentPassword}
+					setPassword={setCurrentPassword}
+					className='mb-4'
 				/>
-			<FormFieldAlert testId="wrongCurentPasswordAlert" label={wrongCurentPasswordAlert} />
-			<PasswordField
-				label='Nova senha'
-				password={newPassword}
-				setPassword={setNewPassword}
-				className='mb-4'
+				<FormFieldAlert testId="wrongCurentPasswordAlert" label={wrongCurentPasswordAlert} />
+				<PasswordField
+					label='Nova senha'
+					password={newPassword}
+					setPassword={setNewPassword}
+					className='mb-4'
 				/>
-			<FormFieldAlert testId="newPasswordAlert" label={newPasswordAlert} />
-			<PasswordField
-				label='Confirmar senha'
-				password={confirmPassword}
-				setPassword={setConfirmPassword}
+				<FormFieldAlert testId="newPasswordAlert" label={newPasswordAlert} />
+				<PasswordField
+					label='Confirmar senha'
+					password={confirmPassword}
+					setPassword={setConfirmPassword}
 				/>
-			<FormFieldAlert testId="confirmPasswordAlert" label={confirmPasswordAlert} />
-			<FormButton
-				onPress={submitForm}
-				disabled={!isFormFilledOut}
-				className='mt-4'
+				<FormFieldAlert testId="confirmPasswordAlert" label={confirmPasswordAlert} />
+				<FormButton
+					testId='confirmButton'
+					onPress={submitForm}
+					disabled={!isFormFilledOut}
+					className='mt-4'
 				>
 				Confirmar
-			</FormButton>
-		</View>
-	</SafeAreaView>
+				</FormButton>
+			</View>
+		</SafeAreaView>
 	);
 }
