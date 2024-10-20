@@ -8,7 +8,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import PopUp from '../../components/gamification/PopUp';
 import { StatusBar } from 'expo-status-bar';
 import PropTypes from 'prop-types';
-import { handleLastComponent } from '../../services/utilityFunctions';
+import { completeComponent, handleLastComponent } from '../../services/utilityFunctions';
 import { useNavigation } from '@react-navigation/native';
 
 /* 
@@ -61,8 +61,22 @@ export default function ExerciseScreen({ exerciseObject, sectionObject, courseOb
 		}
 		if (buttonText === 'Continuar') {
 			setIsPopUpVisible(false);
-			if (onContinue(isAnswerCorrect)) {
+			// Check if it is the last component in the section
+			const currentIndex = sectionObject.components.findIndex(component => component.compId === exerciseObject._id)
+			const lastComponent = currentIndex === sectionObject.components.length - 1 ? true : false;
+
+			// If the answer is correct and it is the last component in the section, handleLastComponent is called
+			if (isAnswerCorrect && lastComponent) {
+				try {
+					await completeComponent(exerciseObject, courseObject.courseId, true);
+				} catch (error) {
+					throw new Error('Error completing course');
+				}
+
 				handleLastComponent(exerciseObject, courseObject, navigation);
+			} 
+			else {
+				onContinue(isAnswerCorrect);
 			}
 			
 		}
@@ -96,7 +110,7 @@ export default function ExerciseScreen({ exerciseObject, sectionObject, courseOb
 										color={projectColors.primary_custom}
 										uncheckedColor={projectColors.primary_custom}
 									/>
-								</View>
+								</View> 
 
 								<View>
 									<TouchableOpacity disabled={buttonText === 'Continuar'}>

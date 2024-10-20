@@ -45,6 +45,7 @@ export default function CompSwipeScreen({ route }) {
 	const [scrollEnabled, setScrollEnabled] = useState(true);
 	const [combinedLecturesAndExercises, setCombinedLecturesAndExercises] = useState([]);
 	const swiperRef = useRef(null);
+	const [resetKey, setResetKey] = useState(0);
 
 	useEffect(() => {
 		async function fetchData() {
@@ -77,13 +78,23 @@ export default function CompSwipeScreen({ route }) {
 
 	const handleExerciseContinue = (isCorrect) => {
 		if (!isCorrect) {
-			combinedLecturesAndExercises.push(combinedLecturesAndExercises[index]); // If answer is incorrect, add exercise as last section item
+			// Update the section component list to move the incorrect exercise to the end
+			const currentComp = combinedLecturesAndExercises[index];
+			const updatedCombinedLecturesAndExercises = [
+				...combinedLecturesAndExercises.slice(0, index), // Elements before the current index
+				...combinedLecturesAndExercises.slice(index + 1), // Elements after the current index
+				currentComp // Add the current component to the end
+			];
+			setCombinedLecturesAndExercises(updatedCombinedLecturesAndExercises);
+
+			// Force re-render by updating the resetKey
+			setResetKey(prevKey => prevKey + 1);
+		} else {
+			swiperRef.current.scrollBy(1, true);
+			setScrollEnabled(true);
 		}
-		swiperRef.current.scrollBy(1, true);
-		setScrollEnabled(true);
 
 		return index === combinedLecturesAndExercises.length - 1; //True if this is last lecture/exercise
-
 	};
 
 	const handleIndexChange = async (_index) => {
@@ -134,7 +145,7 @@ export default function CompSwipeScreen({ route }) {
 							comp.type === ComponentType.LECTURE ?
 								<LectureScreen key={_index} currentIndex={index} indexCount={combinedLecturesAndExercises.length} lectureObject={comp.component} courseObject={parsedCourse} />
 								:
-								<ExerciseScreen key={_index} exerciseObject={comp.component} sectionObject={section} courseObject={parsedCourse} onContinue={(isCorrect) => handleExerciseContinue(isCorrect)} />
+								<ExerciseScreen key={resetKey} exerciseObject={comp.component} sectionObject={section} courseObject={parsedCourse} onContinue={(isCorrect) => handleExerciseContinue(isCorrect)} />
 						))}
 					</Swiper>
 				)}
