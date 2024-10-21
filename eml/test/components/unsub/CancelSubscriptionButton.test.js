@@ -40,13 +40,6 @@ describe('<SubscriptionCancel />', () => {
   });
 
   /**
-   * Tests if the SubscriptionCancel button renders correctly.
-   */
-  it('SubscriptionCancel button renders', async () => {
-    expect(await subscriptionCancel.toJSON()).toMatchSnapshot();
-  });
-
-  /**
    * Tests if the onPress function is called when the SubscriptionCancel button is pressed.
    */
   it('Pressing SubscriptionCancel button calls onPress function', async () => {

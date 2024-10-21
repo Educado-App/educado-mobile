@@ -16,7 +16,6 @@ export default function LectureScreen({ lectureObject, courseObject, currentInde
 		setCourse(courseObject);
 	}, []);
 
-
 	//Safe area should not be used if we want to use the full screen
 	return (
 		<View className="flex-1 bg-projectWhite">
