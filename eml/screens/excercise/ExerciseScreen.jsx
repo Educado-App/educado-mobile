@@ -61,6 +61,7 @@ export default function ExerciseScreen({ exerciseObject, sectionObject, courseOb
 		}
 		if (buttonText === 'Continuar') {
 			setIsPopUpVisible(false);
+      
 			// Check if it is the last component in the section
 			const currentIndex = sectionObject.components.findIndex(component => component.compId === exerciseObject._id)
 			const lastComponent = currentIndex === sectionObject.components.length - 1 ? true : false;
