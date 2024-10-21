@@ -63,7 +63,7 @@ export default function ExerciseScreen({ exerciseObject, sectionObject, courseOb
 			setIsPopUpVisible(false);
       
 			// Check if it is the last component in the section
-			const currentIndex = sectionObject.components.findIndex(component => component.compId === exerciseObject._id)
+			const currentIndex = sectionObject.components.findIndex(component => component.compId === exerciseObject._id);
 			const lastComponent = currentIndex === sectionObject.components.length - 1 ? true : false;
 
 			// If the answer is correct and it is the last component in the section, handleLastComponent is called
