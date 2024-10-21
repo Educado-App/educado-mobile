@@ -28,7 +28,7 @@ Props:			- exerciseObject: The exercise object, which contains the question and 
 				when the exercise is completed and it is the last component in the section, the student is taken to the section complete screen
 */
 
-export default function ExerciseScreen({ exerciseObject, sectionObject, courseObject, onContinue }) {
+export default function ExerciseScreen({ componentList, exerciseObject, sectionObject, courseObject, onContinue }) {
 	const tailwindConfig = require('../../tailwind.config.js');
 	const projectColors = tailwindConfig.theme.colors;
 	const navigation = useNavigation();
@@ -63,11 +63,11 @@ export default function ExerciseScreen({ exerciseObject, sectionObject, courseOb
 			setIsPopUpVisible(false);
       
 			// Check if it is the last component in the section
-			const currentIndex = sectionObject.components.findIndex(component => component.compId === exerciseObject._id);
-			const lastComponent = currentIndex === sectionObject.components.length - 1 ? true : false;
-
+			const currentLastComponent = componentList[componentList.length - 1];
+			const isLastComponent = currentLastComponent.component._id === exerciseObject._id;   
+			
 			// If the answer is correct and it is the last component in the section, handleLastComponent is called
-			if (isAnswerCorrect && lastComponent) {
+			if (isAnswerCorrect && isLastComponent) {  
 				try {
 					await completeComponent(exerciseObject, courseObject.courseId, true);
 				} catch (error) {
