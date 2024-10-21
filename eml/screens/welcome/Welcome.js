@@ -38,7 +38,7 @@ export default function WelcomeScreen() {
 							{/* Replace with standard button */}
 							<TouchableOpacity
 								className="bg-primary_custom px-10 py-4 rounded-medium"
-								onPress={() => { navigation.navigate('Register', {previousScreen: 'Welcome'}); }}
+								onPress={() => { navigation.navigate('LoginStack', { screen: 'Register' }, {previousScreen: 'Welcome'}); }}
 							>
 								<Text className="text-center font-sans-bold text-body text-projectWhite">
 									Cadastrer
@@ -54,7 +54,7 @@ export default function WelcomeScreen() {
 							<Text
 								testId="loginNav"
 								className={'text-base text-projectBlack underline'}
-								onPress={() => navigation.navigate('Login', { previousScreen: 'Welcome' })}
+								onPress={() => navigation.navigate('LoginStack', { previousScreen: 'Welcome' })}
 							>
 								{/* Login now */}
 								Entrar agora

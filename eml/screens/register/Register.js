@@ -12,7 +12,7 @@ export default function Register() {
 
 	const navigation = useNavigation();
 	const route = useRoute();
-	const previousScreen = route.params?.previousScreen || 'Home';
+	const previousScreen = route.params?.previousScreen || 'WelcomeStack';
 
 
 	const checkLoginToken = async () => {
@@ -55,7 +55,7 @@ export default function Register() {
 								<Text
 									testId={'loginNav'}
 									className={'text-profileCircle leading-5 text-lg underline left-1'}
-									onPress={() => navigation.navigate('Login')}
+									onPress={() => navigation.navigate('Login', { previousScreen: 'Register' })}
 								>
 									{/* Log in now */}
                   Entre agora
