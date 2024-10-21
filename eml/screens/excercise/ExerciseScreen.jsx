@@ -42,8 +42,6 @@ export default function ExerciseScreen({ componentList, exerciseObject, sectionO
 	const [points, setPoints] = useState(10);
 	const [attempts, setAttempts] = useState(0);
 
-	
-
 	async function handleReviewAnswer(isAnswerCorrect, answerIndex) {
 		setSelectedAnswer(answerIndex);
 		if (buttonText === null) {
@@ -174,4 +172,5 @@ ExerciseScreen.propTypes = {
 	sectionObject: PropTypes.object,
 	courseObject: PropTypes.object,
 	onContinue: PropTypes.func,
+	componentList: PropTypes.object,
 };
