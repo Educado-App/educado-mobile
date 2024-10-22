@@ -99,6 +99,7 @@ export default function ProfileComponent() {
 					<ProfileStatsBox studentLevel={studentLevel} levelProgress={levelProgress} />
 					<ProfileNavigationButton label='Editar perfil' testId={'editProfileNav'} onPress={() => navigation.navigate('EditProfile')}></ProfileNavigationButton>
 					<ProfileNavigationButton label='Certificados' onPress={() => navigation.navigate('Certificate')}></ProfileNavigationButton>
+					<ProfileNavigationButton label='Download' onPress={() => navigation.navigate('Download')}></ProfileNavigationButton>
 					{/* Download page is not implemented yet. However, download works and can be accessed on home page when offline
 					<ProfileNavigationButton label='Download'></ProfileNavigationButton>*/}
 

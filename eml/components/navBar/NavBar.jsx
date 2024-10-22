@@ -2,6 +2,7 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import CourseScreen from '../../screens/courses/CourseScreen';
+import DownloadScreen from '../../screens/download/DownloadScreen';
 import Explore from '../../screens/explore/Explore';
 import ProfileComponent from '../../screens/profile/Profile';
 import EditProfile from '../../screens/profile/EditProfile';
@@ -35,6 +36,13 @@ function ProfileStackScreen() {
 			<ProfileStack.Screen
 				name="Certificate"
 				component={CertificateScreen}
+				options={{
+					headerShown: false,
+				}}
+			/>
+			<ProfileStack.Screen
+				name="Download"
+				component={DownloadScreen}
 				options={{
 					headerShown: false,
 				}}
