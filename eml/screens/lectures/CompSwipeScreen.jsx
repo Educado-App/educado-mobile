@@ -80,6 +80,10 @@ export default function CompSwipeScreen({ route }) {
 const handleLectureContinue = () => {
 	swiperRef.current.scrollBy(1, true);
   };
+
+ const handleLectureReturn = () => {
+ 	swiperRef.current.scrollBy(-1, true);
+   };
   
 	const handleExerciseContinue = (isCorrect) => {
 		if (!isCorrect) {
@@ -148,9 +152,9 @@ const handleLectureContinue = () => {
 					>
 						{combinedLecturesAndExercises.map((comp, _index) => (
 							comp.type === ComponentType.LECTURE ?
-								<LectureScreen key={_index} currentIndex={index} indexCount={combinedLecturesAndExercises.length} lectureObject={comp.component} courseObject={parsedCourse} onContinue={handleLectureContinue} />
+								<LectureScreen key={_index} currentIndex={index} indexCount={combinedLecturesAndExercises.length} lectureObject={comp.component} courseObject={parsedCourse} onContinue={handleLectureContinue} onReturn={handleLectureReturn}/>
 								:
-								<ExerciseScreen key={resetKey} componentList={combinedLecturesAndExercises} exerciseObject={comp.component} sectionObject={section} courseObject={parsedCourse} onContinue={(isCorrect) => handleExerciseContinue(isCorrect)} />
+								<ExerciseScreen key={resetKey} componentList={combinedLecturesAndExercises} exerciseObject={comp.component} sectionObject={section} courseObject={parsedCourse} onContinue={(isCorrect) => handleExerciseContinue(isCorrect)} onReturn={handleLectureReturn}/>
 						))}
 					</Swiper>
 				)}

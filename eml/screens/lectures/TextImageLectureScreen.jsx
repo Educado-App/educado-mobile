@@ -9,7 +9,7 @@ import { useNavigation } from '@react-navigation/native';
 import StandardButton from '../../components/general/StandardButton';
 import { completeComponent, handleLastComponent } from '../../services/utilityFunctions';
 
-const TextImageLectureScreen = ({ lectureObject, courseObject, isLastSlide, onContinue}) => {
+const TextImageLectureScreen = ({ lectureObject, courseObject, isLastSlide, onContinue, onReturn }) => {
 	const [imageUrl, setImageUrl] = useState(null);
 	const [paragraphs, setParagraphs] = useState(null);
 	const navigation = useNavigation();
@@ -17,12 +17,13 @@ const TextImageLectureScreen = ({ lectureObject, courseObject, isLastSlide, onCo
 	const handleContinue = async () => {
 		await completeComponent(lectureObject, courseObject.courseId, true);
 		if (isLastSlide) {
-		  handleLastComponent(lectureObject, courseObject, navigation);
+			handleLastComponent(lectureObject, courseObject, navigation);
 		} else {
-		  onContinue(); // Call onContinue to advance the slide
+			onContinue(); // Call onContinue to advance the slide
 		}
-	  };
+	};
 
+	const handleReturn = () => onReturn();
 
 	useEffect(() => {
 		if (lectureObject.image) {
@@ -31,14 +32,11 @@ const TextImageLectureScreen = ({ lectureObject, courseObject, isLastSlide, onCo
 		splitText(lectureObject.content);
 	}, []);
 
-
 	const getLectureImage = async () => {
 		try {
 			const imageRes = await StorageService.fetchLectureImage(lectureObject.image, lectureObject._id);
 			setImageUrl(imageRes);
-		}
-		catch (err) {
-
+		} catch (err) {
 			setImageUrl(null);
 		}
 	};
@@ -87,61 +85,64 @@ const TextImageLectureScreen = ({ lectureObject, courseObject, isLastSlide, onCo
 	};
 
 	return (
-		<View className={'absolute w-full h-full px-4 pt-20'}>
+		<View className={'absolute w-full h-full px-4'}>
+			{/* Course and Lecture Name in the center */}
+			<View className="flex-col w-full items-center mt-24">
+				<Text className="text-projectGray">Nome do curso: {courseObject.title}</Text>
+				<Text className="text-xl font-bold text-projectBlack">{lectureObject.title}</Text>
+			</View>
+
 			{/* Content */}
-			<Text className="text-center text-2xl pt-6 font-bold">BEM VINDO!</Text>
-			<ScrollView className="mt-2">
-				
-
-
-				{
-					// Rendering all paragraphs above the image if the array has two or fewer elements
-					// If the array has more than two elements, rendering all but the last paragraph above the image
-					paragraphs && paragraphs.map((paragraph, index) => {
+			<Text className="text-center text-2xl font-bold">BEM VINDO!</Text>
+			<ScrollView>
+				{paragraphs &&
+					paragraphs.map((paragraph, index) => {
 						if (paragraphs.length <= 2 || index !== paragraphs.length - 1) {
 							return (
-								index == 0 ?
-									<Text key={index} className="text-lg pt-4 px-4 text-primary_custom">{paragraph}</Text>
-									:
-									<Text key={index} className="text-lg pt-4 px-4 text-projectGray">{paragraph}</Text>
+								index === 0 ? (
+									<Text key={index} className="text-lg pt-4 px-4 text-primary_custom">
+										{paragraph}
+									</Text>
+								) : (
+									<Text key={index} className="text-lg pt-4 px-4 text-projectGray">
+										{paragraph}
+									</Text>
+								)
 							);
 						}
 						return null;
-					})
-				}
+					})}
 
 				{/* Image */}
-				{imageUrl && <View className="w-full h-[25vh] px-4 pt-8" >
-					<Image
-						source={{ uri: imageUrl }}
-						className="w-full h-full"
-					/>
-				</View>}
-				{
-					// Rendering the last paragraph below the image if the array has more than two elements
-					paragraphs && paragraphs.length > 2 &&
-        <Text className="text-[18px] px-4 text-projectGray">{paragraphs[paragraphs.length - 1]}</Text>
-				}
+				{imageUrl && (
+					<View className="w-full h-[25vh] px-4 pt-8">
+						<Image source={{ uri: imageUrl }} className="w-full h-full" />
+					</View>
+				)}
+
+				{paragraphs && paragraphs.length > 2 && (
+					<Text className="text-[18px] px-4 text-projectGray">{paragraphs[paragraphs.length - 1]}</Text>
+				)}
 			</ScrollView>
 
-			<StandardButton
-    props={{
-      buttonText: 'Continuar',
-      onPress: handleContinue,
-    }}
-  />
-
-	<View className="flex-col w-full justify-left drop-shadow-2xl mt-2 pb-4 pt-2" >
-				{/* Course name and lecturen name */}
-				<View className="w-full flex-row justify-between">
-
-					<View className="flex-col mb-8">
-						<Text className="text-projectGray" >Nome do curso: {courseObject.title}</Text>
-						<Text className="text-xl font-bold text-projectBlack" >{lectureObject.title}</Text>
-					</View>
-				</View>
+			<View className="my-5">
+				<StandardButton
+					props={{
+						buttonText: 'Continuar',
+						onPress: handleContinue,
+					}}
+				/>
 			</View>
-		</View>);
+            <View className="mb-20">
+			<StandardButton
+				props={{
+					buttonText: 'Return',
+					onPress: handleReturn,
+				}}
+			/>
+			</View>
+		</View>
+	);
 };
 
 TextImageLectureScreen.propTypes = {

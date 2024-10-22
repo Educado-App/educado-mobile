@@ -12,7 +12,7 @@ Props: 			courseTitle - The title of the course the student is in.
 
 const ExerciseInfo = ({ courseTitle, sectionTitle }) => {
 	return (
-		<View className="items-start px-6 absolute bottom-10 z-10">
+		<View className="items-start px-6">
 			<Text className="font-sans text-caption-small text-projectGray">
         Course name: {courseTitle}
 			</Text>
