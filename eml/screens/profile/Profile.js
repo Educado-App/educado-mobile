@@ -5,7 +5,7 @@ import {
 	ScrollView,
 } from 'react-native';
 import LogOutButton from '../../components/profile/LogOutButton';
-import ProfileNavigationButton from '../../components/profile/ProfileNavigationButton.js';
+import ProfileNavigationButton from '../../components/profile/ProfileNavigationButton';
 
 import UserInfo from '../../components/profile/UserInfo';
 import { useNavigation } from '@react-navigation/native';
@@ -15,6 +15,8 @@ import ShowAlert from '../../components/general/ShowAlert';
 import { getStudentInfo } from '../../services/StorageService';
 import ProfileStatsBox from '../../components/profile/ProfileStatsBox';
 import { useFocusEffect } from '@react-navigation/native';
+import {joyride } from "react-native-joyride";
+import JoyRideWrapper from '../../components/Joyride/JoyRideWrapper';
 
 /**
  * Profile screen
@@ -97,7 +99,14 @@ export default function ProfileComponent() {
 				<View className="flex-1 justify-start pt-[20%] h-screen">
 					<UserInfo firstName={firstName} lastName={lastName} email={email} points={totalPoints} photo={photo}></UserInfo>
 					<ProfileStatsBox studentLevel={studentLevel} levelProgress={levelProgress} />
-					<ProfileNavigationButton label='Editar perfil' testId={'editProfileNav'} onPress={() => navigation.navigate('EditProfile')}></ProfileNavigationButton>
+				
+					<ProfileNavigationButton
+					label="Editar perfil"
+					testId="editProfileNav"
+					onPress={() => navigation.navigate('EditProfile')}
+					/>
+					
+					
 					<ProfileNavigationButton label='Certificados' onPress={() => navigation.navigate('Certificate')}></ProfileNavigationButton>
 					{/* Download page is not implemented yet. However, download works and can be accessed on home page when offline
 					<ProfileNavigationButton label='Download'></ProfileNavigationButton>*/}
