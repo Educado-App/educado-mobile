@@ -1,12 +1,13 @@
 import axios from 'axios';
 import { Buffer } from 'buffer';
+import { URL, CERTIFICATE_URL } from '@env';
 
 const timeoutInMs = 1200;
 
 
 // move these to .env file next sprint
-export const url = 'https://educado-backend-staging-x7rgvjso4a-ew.a.run.app/'; // Change this to your LOCAL IP address when testing.
-export const certificateUrl = 'https://educado-certificate-service-staging-x7rgvjso4a-ew.a.run.app/';
+const url = URL; // Change this to your LOCAL IP address when testing.
+const certificateUrl = CERTIFICATE_URL;
 
 /* Commented out for avoiding linting errors :))
  * TODO: move IP address to .env file !!!
@@ -256,20 +257,20 @@ export const getVideoStreamUrl = (fileName, resolution) => {
 
 	let resolutionPostfix;
 	switch (resolution) {
-	case '360':
-		resolutionPostfix = '_360x640';
-		break;
-	case '480':
-		resolutionPostfix = '_480x854';
-		break;
-	case '720':
-		resolutionPostfix = '_720x1280';
-		break;
-	case '1080':
-		resolutionPostfix = '_1080x1920';
-		break;
-	default:
-		resolutionPostfix = '_360x640';
+		case '360':
+			resolutionPostfix = '_360x640';
+			break;
+		case '480':
+			resolutionPostfix = '_480x854';
+			break;
+		case '720':
+			resolutionPostfix = '_720x1280';
+			break;
+		case '1080':
+			resolutionPostfix = '_1080x1920';
+			break;
+		default:
+			resolutionPostfix = '_360x640';
 	}
 
 	return `${url}/api/bucket/stream/${fileName}${resolutionPostfix}.mp4`;

@@ -63,7 +63,7 @@ export default function ExerciseScreen({ componentList, exerciseObject, sectionO
 			// Check if it is the last component in the section
 			const currentLastComponent = componentList[componentList.length - 1];
 			const isLastComponent = currentLastComponent.component._id === exerciseObject._id;   
-			
+
 			// If the answer is correct and it is the last component in the section, handleLastComponent is called
 			if (isAnswerCorrect && isLastComponent) {  
 				try {
