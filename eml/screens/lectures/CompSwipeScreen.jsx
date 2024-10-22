@@ -145,7 +145,7 @@ export default function CompSwipeScreen({ route }) {
 							comp.type === ComponentType.LECTURE ?
 								<LectureScreen key={_index} currentIndex={index} indexCount={combinedLecturesAndExercises.length} lectureObject={comp.component} courseObject={parsedCourse} />
 								:
-								<ExerciseScreen key={resetKey} exerciseObject={comp.component} sectionObject={section} courseObject={parsedCourse} onContinue={(isCorrect) => handleExerciseContinue(isCorrect)} />
+								<ExerciseScreen key={resetKey} componentList={combinedLecturesAndExercises} exerciseObject={comp.component} sectionObject={section} courseObject={parsedCourse} onContinue={(isCorrect) => handleExerciseContinue(isCorrect)} />
 						))}
 					</Swiper>
 				)}

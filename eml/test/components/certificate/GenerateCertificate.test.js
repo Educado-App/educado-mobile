@@ -1,6 +1,10 @@
 import axios from 'axios';
-import { url as backendUrl, certificateUrl, generateCertificate } from '../../../api/api.js';
+import { generateCertificate } from '../../../api/api.js';
 import { mockDataAPI } from '../../mockData/mockDataAPI';
+import { URL, CERTIFICATE_URL } from '@env';
+
+const backendUrl = URL;
+const certificateUrl = CERTIFICATE_URL;
 
 jest.mock('axios');
 
