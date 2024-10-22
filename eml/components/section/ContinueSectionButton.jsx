@@ -5,12 +5,12 @@ import tailwindConfig from '../../tailwind.config';
 import PropTypes from 'prop-types';
 
 /**
- * Renders a button component for cancelling a subscription.
+ * Renders a button component for continuing a section.
  * @param {Function} onPress - The function to be called when the button is pressed.
  * @returns {JSX.Element} - The rendered component.
  */
-const SubscriptionCancel = ({ onPress }) => {
-	SubscriptionCancel.propTypes = {
+const ContinueSection = ({ onPress }) => {
+	ContinueSection.propTypes = {
 		onPress: PropTypes.func.isRequired,
 	};
 
@@ -18,14 +18,14 @@ const SubscriptionCancel = ({ onPress }) => {
 		<View className="py-4 self-center justify-end w-1/2">
 			<Button
 				mode={'contained'}
-				color={tailwindConfig.theme.colors.error}
-				testID="subscriptionCancelButton"
+				color={tailwindConfig.theme.colors.bgprimary_custom}
+				testID="continueSectionButton"
 				onPress={onPress}
 			>
-              Cancelar inscrição
+              Continuar seção
 			</Button>
 		</View>
 	);
 };
 
-export default SubscriptionCancel;
+export default ContinueSection;
