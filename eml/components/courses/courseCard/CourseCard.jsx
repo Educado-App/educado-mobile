@@ -9,6 +9,7 @@ import { determineIcon, determineCategory, formatHours, checkProgressCourse} fro
 import DownloadCourseButton from './DownloadCourseButton';
 import PropTypes from 'prop-types';
 import { checkCourseStoredLocally } from '../../../services/StorageService';
+import CourseFeedback from '../courseFeedback/courseFeedback';
 
 /**
  * CourseCard component displays a card for a course with its details
@@ -20,6 +21,7 @@ export default function CourseCard({ course, isOnline}) {
 	const [downloaded, setDownloaded] = useState(false);
 	const navigation = useNavigation();
 	const [studentProgress, setStudentProgress] = useState(0);
+	const [modalVisible, setModalVisible] = useState(false);
 
 
 	const checkDownload = async () => {
@@ -42,13 +44,14 @@ export default function CourseCard({ course, isOnline}) {
 	return (
 		<Pressable testID="courseCard"
 			className={layout}
-			onPress={() => { layout === enabledUI ?
+			onPress={() => setModalVisible(true)/* { layout === enabledUI ?
 				navigation.navigate('Section', {
 					course: course,
 				}) : null;
-			}}
+			} */}
 		>
 			<View>
+				<CourseFeedback course={course} modalVisible={modalVisible} setModalVisible={setModalVisible} />
 				<View className="flex-row items-start justify-between px-[1%] py-[1%]">
 					<Text className="text-[18px] text-projectBlack flex-1 self-center font-montserrat-semi-bold">
 						{course.title ? course.title : 'Título do curso'}
