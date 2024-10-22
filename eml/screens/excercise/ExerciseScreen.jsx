@@ -28,7 +28,7 @@ Props:			- exerciseObject: The exercise object, which contains the question and 
 				when the exercise is completed and it is the last component in the section, the student is taken to the section complete screen
 */
 
-export default function ExerciseScreen({ exerciseObject, sectionObject, courseObject, onContinue }) {
+export default function ExerciseScreen({ componentList, exerciseObject, sectionObject, courseObject, onContinue }) {
 	const tailwindConfig = require('../../tailwind.config.js');
 	const projectColors = tailwindConfig.theme.colors;
 	const navigation = useNavigation();
@@ -41,8 +41,6 @@ export default function ExerciseScreen({ exerciseObject, sectionObject, courseOb
 	const [isCorrectAnswer, setIsCorrectAnswer] = useState(false);
 	const [points, setPoints] = useState(10);
 	const [attempts, setAttempts] = useState(0);
-
-	
 
 	async function handleReviewAnswer(isAnswerCorrect, answerIndex) {
 		setSelectedAnswer(answerIndex);
@@ -61,12 +59,13 @@ export default function ExerciseScreen({ exerciseObject, sectionObject, courseOb
 		}
 		if (buttonText === 'Continuar') {
 			setIsPopUpVisible(false);
+      
 			// Check if it is the last component in the section
-			const currentIndex = sectionObject.components.findIndex(component => component.compId === exerciseObject._id);
-			const lastComponent = currentIndex === sectionObject.components.length - 1 ? true : false;
+			const currentLastComponent = componentList[componentList.length - 1];
+			const isLastComponent = currentLastComponent.component._id === exerciseObject._id;   
 
 			// If the answer is correct and it is the last component in the section, handleLastComponent is called
-			if (isAnswerCorrect && lastComponent) {
+			if (isAnswerCorrect && isLastComponent) {  
 				try {
 					await completeComponent(exerciseObject, courseObject.courseId, true);
 				} catch (error) {
@@ -173,4 +172,5 @@ ExerciseScreen.propTypes = {
 	sectionObject: PropTypes.object,
 	courseObject: PropTypes.object,
 	onContinue: PropTypes.func,
+	componentList: PropTypes.object,
 };

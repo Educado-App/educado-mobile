@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { View, Keyboard } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import LoginForm from '../../components/login/LoginForm';
 import LogoBackButton from '../../components/login/LogoBackButton';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -20,6 +20,8 @@ export default function Login() {
 
 	const [loading, setLoading] = useState(true);
 	const navigation = useNavigation();
+	const route = useRoute();
+	const previousScreen = route.params?.previousScreen || 'WelcomeStack';
 
 	/**
    * TODO: Refactor error to use new error handling system
@@ -58,7 +60,7 @@ export default function Login() {
 					<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 						<View>
 							<View className="mt-10">
-								<LogoBackButton navigationPlace="WelcomeStack" />
+								<LogoBackButton navigationPlace={previousScreen} />
 							</View>
 							<View className="mx-6">
 								{/* Login form */}
