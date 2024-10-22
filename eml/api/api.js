@@ -1,11 +1,13 @@
 import axios from 'axios';
 import { Buffer } from 'buffer';
+import { URL, CERTIFICATE_URL } from '@env';
 
 const timeoutInMs = 1200;
 
 
-const url = 'https://educado-backend-staging-x7rgvjso4a-ew.a.run.app/'; // Change this to your LOCAL IP address when testing.
-const certificateUrl = 'https://educado-certificate-service-staging-x7rgvjso4a-ew.a.run.app/';
+// move these to .env file next sprint
+const url = URL; // Change this to your LOCAL IP address when testing.
+const certificateUrl = CERTIFICATE_URL;
 
 /* Commented out for avoiding linting errors :))
  * TODO: move IP address to .env file !!!
@@ -48,7 +50,7 @@ export const getSectionById = async (sectionId) => {
 
 export const getCourse = async (courseId) => {
 	try {
-		const res = await axios.get(url + '/api/courses/' + courseId, {timeout: timeoutInMs});
+		const res = await axios.get(url + '/api/courses/' + courseId, { timeout: timeoutInMs });
 		return res.data;
 	} catch (e) {
 		if (e?.response?.data != null) {
@@ -76,7 +78,7 @@ export const getCourses = async () => {
 // Get all sections for a specific course
 export const getAllSections = async (courseId) => {
 	try {
-		const res = await axios.get(url + '/api/courses/' + courseId + '/sections', {timeout: timeoutInMs});
+		const res = await axios.get(url + '/api/courses/' + courseId + '/sections', { timeout: timeoutInMs });
 		return res.data;
 	} catch (e) {
 		if (e?.response?.data != null) {
@@ -110,7 +112,7 @@ export const getLecturesInSection = async (sectionId) => {
 	try {
 		const res = await axios.get(
 			url + '/api/lectures/section/' + sectionId
-			, {timeout: timeoutInMs});
+			, { timeout: timeoutInMs });
 		return res.data;
 	} catch (e) {
 		if (e?.response?.data != null) {
@@ -131,7 +133,7 @@ export const getSubscriptions = async (userId) => {
 		// passing user ID as request body for get request gives error
 		const res = await axios.get(
 			url + '/api/students/' + userId + '/subscriptions',
-			{timeout: 1200});
+			{ timeout: 1200 });
 
 		return res.data;
 	} catch (e) {
@@ -188,7 +190,7 @@ export const fetchCertificates = async (userId) => {
 		}
 		const res = await axios.get(certificateUrl + '/api/student-certificates/student/' + userId);
 		return res.data;
-	}  catch (e) {
+	} catch (e) {
 		if (e?.response?.data != null) {
 			throw e.response.data;
 		} else {
@@ -206,20 +208,20 @@ export const getVideoStreamUrl = (fileName, resolution) => {
 
 	let resolutionPostfix;
 	switch (resolution) {
-	case '360':
-		resolutionPostfix = '_360x640';
-		break;
-	case '480':
-		resolutionPostfix = '_480x854';
-		break;
-	case '720':
-		resolutionPostfix = '_720x1280';
-		break;
-	case '1080':
-		resolutionPostfix = '_1080x1920';
-		break;
-	default:
-		resolutionPostfix = '_360x640';
+		case '360':
+			resolutionPostfix = '_360x640';
+			break;
+		case '480':
+			resolutionPostfix = '_480x854';
+			break;
+		case '720':
+			resolutionPostfix = '_720x1280';
+			break;
+		case '1080':
+			resolutionPostfix = '_1080x1920';
+			break;
+		default:
+			resolutionPostfix = '_360x640';
 	}
 
 	return `${url}/api/bucket/stream/${fileName}${resolutionPostfix}.mp4`;
@@ -246,7 +248,7 @@ export const getBucketImage = async (fileName) => {
 			`${url}/api/bucket/${fileName}`,
 			{
 				responseType: 'arraybuffer',
-				accept: 'image/jpeg', 
+				accept: 'image/jpeg',
 			});
 
 		let fileType = fileName.split('.').pop();
