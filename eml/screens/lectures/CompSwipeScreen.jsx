@@ -76,6 +76,11 @@ export default function CompSwipeScreen({ route }) {
 	}, [section, parsedCourse]);
 
 
+
+const handleLectureContinue = () => {
+	swiperRef.current.scrollBy(1, true);
+  };
+  
 	const handleExerciseContinue = (isCorrect) => {
 		if (!isCorrect) {
 			// Update the section component list to move the incorrect exercise to the end
@@ -143,7 +148,7 @@ export default function CompSwipeScreen({ route }) {
 					>
 						{combinedLecturesAndExercises.map((comp, _index) => (
 							comp.type === ComponentType.LECTURE ?
-								<LectureScreen key={_index} currentIndex={index} indexCount={combinedLecturesAndExercises.length} lectureObject={comp.component} courseObject={parsedCourse} />
+								<LectureScreen key={_index} currentIndex={index} indexCount={combinedLecturesAndExercises.length} lectureObject={comp.component} courseObject={parsedCourse} onContinue={handleLectureContinue} />
 								:
 								<ExerciseScreen key={resetKey} componentList={combinedLecturesAndExercises} exerciseObject={comp.component} sectionObject={section} courseObject={parsedCourse} onContinue={(isCorrect) => handleExerciseContinue(isCorrect)} />
 						))}

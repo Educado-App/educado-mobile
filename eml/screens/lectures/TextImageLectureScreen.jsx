@@ -9,15 +9,20 @@ import { useNavigation } from '@react-navigation/native';
 import StandardButton from '../../components/general/StandardButton';
 import { completeComponent, handleLastComponent } from '../../services/utilityFunctions';
 
-const TextImageLectureScreen = ({ lectureObject, courseObject, isLastSlide }) => {
+const TextImageLectureScreen = ({ lectureObject, courseObject, isLastSlide, onContinue}) => {
 	const [imageUrl, setImageUrl] = useState(null);
 	const [paragraphs, setParagraphs] = useState(null);
 	const navigation = useNavigation();
 
 	const handleContinue = async () => {
 		await completeComponent(lectureObject, courseObject.courseId, true);
-		handleLastComponent(lectureObject, courseObject, navigation);
-	};
+		if (isLastSlide) {
+		  handleLastComponent(lectureObject, courseObject, navigation);
+		} else {
+		  onContinue(); // Call onContinue to advance the slide
+		}
+	  };
+
 
 	useEffect(() => {
 		if (lectureObject.image) {
@@ -86,6 +91,7 @@ const TextImageLectureScreen = ({ lectureObject, courseObject, isLastSlide }) =>
 			{/* Content */}
 			<Text className="text-center text-2xl pt-6 font-bold">BEM VINDO!</Text>
 			<ScrollView className="mt-2">
+				
 
 
 				{
@@ -118,22 +124,14 @@ const TextImageLectureScreen = ({ lectureObject, courseObject, isLastSlide }) =>
 				}
 			</ScrollView>
 
-			{isLastSlide ?
-				<View className="w-full items-center">
-					<View className="px-6 mb-3 w-screen">
-						<StandardButton
-							props={{
-								buttonText: 'Continuar',
-								onPress: () => {
-									handleContinue();
-								}
-							}}
-						/>
-					</View>
-				</View>
-				: null}
+			<StandardButton
+    props={{
+      buttonText: 'Continuar',
+      onPress: handleContinue,
+    }}
+  />
 
-			<View className="flex-col w-full justify-left drop-shadow-2xl mt-2 pb-4 pt-2" >
+	<View className="flex-col w-full justify-left drop-shadow-2xl mt-2 pb-4 pt-2" >
 				{/* Course name and lecturen name */}
 				<View className="w-full flex-row justify-between">
 
@@ -149,7 +147,8 @@ const TextImageLectureScreen = ({ lectureObject, courseObject, isLastSlide }) =>
 TextImageLectureScreen.propTypes = {
 	lectureObject: PropTypes.object,
 	courseObject: PropTypes.object,
-	isLastSlide: PropTypes.bool
+	isLastSlide: PropTypes.bool,
+	onContinue: PropTypes.func.isRequired,
 };
 
 export default TextImageLectureScreen;

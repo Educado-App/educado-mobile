@@ -5,7 +5,7 @@ import TextImageLectureScreen from './TextImageLectureScreen';
 import PropTypes from 'prop-types';
 import Text from '../../components/general/Text';
 
-export default function LectureScreen({ lectureObject, courseObject, currentIndex, indexCount }) {
+export default function LectureScreen({ lectureObject, courseObject, currentIndex, indexCount, onContinue}) {
 
 	const [course, setCourse] = useState(courseObject);
 	const [lecture, setLecture] = useState(lectureObject);
@@ -26,7 +26,7 @@ export default function LectureScreen({ lectureObject, courseObject, currentInde
 					{lecture.video ?
 						<VideoLectureScreen lectureObject={lecture} courseObject={course} isLastSlide={isLastSlide} />
 						:
-						<TextImageLectureScreen lectureObject={lecture} courseObject={course} isLastSlide={isLastSlide} />
+						<TextImageLectureScreen lectureObject={lecture} courseObject={course} isLastSlide={isLastSlide} onContinue={onContinue} />
 					}
           
 				</View>
@@ -45,4 +45,5 @@ LectureScreen.propTypes = {
 	courseObject: PropTypes.object,
 	currentIndex: PropTypes.number,
 	indexCount: PropTypes.number,
+	onContinue: PropTypes.func.isRequired,
 };
