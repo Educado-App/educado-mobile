@@ -620,6 +620,27 @@ export const makeDirectory = () => {
  * @param {String} courseID - A string with the ID of the course to be stored
  * @returns {Promise<boolean>} A promise that resolves with `true` if the course was stored successfully.
  */
+
+export const getAllCoursesLocally = async () => {
+	let courseList = [];
+	try {
+		const keys = await AsyncStorage.getAllKeys();
+		for (let key of keys) {
+			if (key.includes(await AsyncStorage.getItem(USER_ID))) {
+				courseList.push(JSON.parse(await AsyncStorage.getItem(key)));
+			}
+		}
+	}
+	catch (error) {
+		if (error?.response?.data != null) {
+			throw new Error(error.response.data);
+		} else {
+			throw new Error(error);
+		}
+	}
+	return courseList;
+};
+
 export const storeCourseLocally = async (courseID) => {
 	let success = true;
 	if (isOnline) {
@@ -655,6 +676,13 @@ export const storeCourseLocally = async (courseID) => {
 						}
 					}
 				}
+
+				//add a new variable "DateOfDownload" to the course object
+				course.dateOfDownload = new Date().toISOString();
+				await AsyncStorage.setItem(courseID + await AsyncStorage.getItem(USER_ID), JSON.stringify(course));
+				
+				console.log('Course stored locally');
+
 			}
 		} catch (error) {
 			success = false;

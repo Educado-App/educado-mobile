@@ -27,6 +27,10 @@ export default function DownloadCourseButton(props) {
 		if (animationState === ANIMATION_STATES.INITIAL || animationState === ANIMATION_STATES.COMPLETED) {
 			let result = await StorageService.checkCourseStoredLocally(course.courseId);
 			setAnimationState(result ? ANIMATION_STATES.COMPLETED : ANIMATION_STATES.INITIAL);
+
+			//console log for testing purposes JSON.stringify getAllCoursesLocally
+			console.log(JSON.stringify(await StorageService.getAllCoursesLocally()));
+			
 		}
 	};
 

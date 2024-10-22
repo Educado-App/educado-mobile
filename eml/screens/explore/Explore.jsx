@@ -69,6 +69,8 @@ export default function Explore() {
 		setRefreshing(false);
 	};
 
+	
+
 	useEffect(() => {
 		// this makes sure loadcourses is called when the screen is focused
 		const update = navigation.addListener('focus', () => {

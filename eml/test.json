@@ -1,0 +1,20 @@
+[
+    {
+        "status": "published",
+        "rating": 1,
+        "numOfSubscriptions": 56,
+        "sections": ["65687cdae0c67a423c59ac2c", "66f2cfa4d0f674002c2f6b1b"],
+        "_id": "65687cbee0c67a423c59ac21",
+        "title": "Como calcular seu dinheiro",
+        "category": "personal finance",
+        "difficulty": 1,
+        "description": "Este curso é sobre como calcular suas finanças e economizar dinheiro para o futuro.\nQualquer coisa, desde fazer um plano semanal até aproveitar ao máximo a economia de dinheiro no longo prazo.",
+        "creator": "656872d7e0c67a423c59abf8",
+        "coverImg": "65687cbee0c67a423c59ac21_c",
+        "dateCreated": "2023-11-30T12:14:54.484Z",
+        "dateUpdated": "2024-10-01T14:06:41.216Z",
+        "estimatedHours": null,
+        "__v": 7,
+        "dateOfDownload": "2024-10-22T12:11:45.876Z"
+    }
+]
