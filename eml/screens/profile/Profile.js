@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 import LogOutButton from '../../components/profile/LogOutButton';
 import ProfileNavigationButton from '../../components/profile/ProfileNavigationButton.js';
+
 import UserInfo from '../../components/profile/UserInfo';
 import { useNavigation } from '@react-navigation/native';
 import { getUserInfo } from '../../services/StorageService';
@@ -40,12 +41,12 @@ export default function ProfileComponent() {
 		const pointsForPreviousLevel = (student.level - 1) * 100;
 		const pointsForNextLevel = student.level * 100;
 
-		return ((student.points - pointsForPreviousLevel)/(pointsForNextLevel - pointsForPreviousLevel)) * 100;
+		return ((student.points - pointsForPreviousLevel) / (pointsForNextLevel - pointsForPreviousLevel)) * 100;
 	};
 
 	/**
   * Fetches the user's profile from local storage
-  */ 
+  */
 	const getProfile = async () => {
 		try {
 			const fetchedProfile = await getUserInfo();
@@ -74,7 +75,7 @@ export default function ProfileComponent() {
 					console.error('Error fetching profile:', error);
 				}
 			};
-	
+
 			runAsyncFunction();
 		}, [])
 	);
@@ -85,7 +86,7 @@ export default function ProfileComponent() {
 		setTotalPoints(studentInfo.points);
 		setLevelProgress(getLevelProgress(studentInfo));
 	};
-  
+
 	useEffect(() => {
 		fetchStudentProfile();
 	}, []);
@@ -97,10 +98,10 @@ export default function ProfileComponent() {
 					<UserInfo firstName={firstName} lastName={lastName} email={email} points={totalPoints} photo={photo}></UserInfo>
 					<ProfileStatsBox studentLevel={studentLevel} levelProgress={levelProgress} />
 					<ProfileNavigationButton label='Editar perfil' testId={'editProfileNav'} onPress={() => navigation.navigate('EditProfile')}></ProfileNavigationButton>
-					{/* The certificate page is created and works, it is only commented out to get it approved on play store
-						<ProfileNavigationButton label='Certificados' onPress={() => navigation.navigate('CertificateStack')}></ProfileNavigationButton>*/}
+					<ProfileNavigationButton label='Certificados' onPress={() => navigation.navigate('Certificate')}></ProfileNavigationButton>
 					{/* Download page is not implemented yet. However, download works and can be accessed on home page when offline
 					<ProfileNavigationButton label='Download'></ProfileNavigationButton>*/}
+
 					<View className='flex flex-row pb-4'>
 						<LogOutButton testID='logoutBtn'></LogOutButton>
 					</View>

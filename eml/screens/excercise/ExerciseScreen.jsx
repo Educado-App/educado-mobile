@@ -28,7 +28,7 @@ Props:			- exerciseObject: The exercise object, which contains the question and 
 				when the exercise is completed and it is the last component in the section, the student is taken to the section complete screen
 */
 
-export default function ExerciseScreen({ exerciseObject, sectionObject, courseObject, onContinue }) {
+export default function ExerciseScreen({ componentList, exerciseObject, sectionObject, courseObject, onContinue }) {
 	const tailwindConfig = require('../../tailwind.config.js');
 	const projectColors = tailwindConfig.theme.colors;
 	const navigation = useNavigation();
@@ -36,42 +36,46 @@ export default function ExerciseScreen({ exerciseObject, sectionObject, courseOb
 	const [selectedAnswer, setSelectedAnswer] = useState(null);
 	const [buttonClassName] = useState('');
 	const [showFeedback, setShowFeedback] = useState(false);
-	const [buttonText, setButtonText] = useState('Confirmar Resposta'); 
+	const [buttonText, setButtonText] = useState(null); 
 	const [isPopUpVisible, setIsPopUpVisible] = useState(false); 
 	const [isCorrectAnswer, setIsCorrectAnswer] = useState(false);
 	const [points, setPoints] = useState(10);
 	const [attempts, setAttempts] = useState(0);
 
-	const handleAnswerSelect = (answerIndex) => {
+	async function handleReviewAnswer(isAnswerCorrect, answerIndex) {
 		setSelectedAnswer(answerIndex);
-		// No need to reset showFeedback or buttonText here since they are handled in handleReviewAnswer
-	};
-
-	async function handleReviewAnswer(isAnswerCorrect) {
-		if (buttonText === 'Confirmar Resposta') {
+		if (buttonText === null) {
+			setButtonText('Continuar');
 			setShowFeedback(true);
 			if (isAnswerCorrect) {
 				setIsCorrectAnswer(true);
-				setButtonText('Continuar');
 				// Award points based on number of attempts
 				setPoints(attempts === 0 ? 10 : 5);
-				// const obj = await completeComponent(exerciseObject, courseObject.courseId, isAnswerCorrect);
 				setIsPopUpVisible(true);
 			} else {
 				setIsCorrectAnswer(false);
-				setButtonText('Tentar Novamente');
 				setAttempts(attempts + 1);
 			}
-		} else if (buttonText === 'Tentar Novamente') {
-			// Reset selectedAnswer and feedback
-			setSelectedAnswer(null);
-			setShowFeedback(false);
-			setButtonText('Confirmar Resposta');
-		} else if (buttonText === 'Continuar') {
+		}
+		if (buttonText === 'Continuar') {
 			setIsPopUpVisible(false);
-			await completeComponent(exerciseObject, courseObject.courseId, true);
-			if(onContinue()){
+      
+			// Check if it is the last component in the section
+			const currentLastComponent = componentList[componentList.length - 1];
+			const isLastComponent = currentLastComponent.component._id === exerciseObject._id;   
+			
+			// If the answer is correct and it is the last component in the section, handleLastComponent is called
+			if (isAnswerCorrect && isLastComponent) {  
+				try {
+					await completeComponent(exerciseObject, courseObject.courseId, true);
+				} catch (error) {
+					throw new Error('Error completing course');
+				}
+
 				handleLastComponent(exerciseObject, courseObject, navigation);
+			} 
+			else {
+				onContinue(isAnswerCorrect);
 			}
 			
 		}
@@ -101,14 +105,14 @@ export default function ExerciseScreen({ exerciseObject, sectionObject, courseOb
 										status={
 											selectedAnswer === index ? 'checked' : 'unchecked'
 										}
-										onPress={() => handleAnswerSelect(index)}
+										onPress={() => handleReviewAnswer(exerciseObject.answers[selectedAnswer]?.correct, index)}
 										color={projectColors.primary_custom}
 										uncheckedColor={projectColors.primary_custom}
 									/>
-								</View>
+								</View> 
 
 								<View>
-									<TouchableOpacity onPress={() => handleAnswerSelect(index)} disabled={buttonText === 'Continuar'}>
+									<TouchableOpacity disabled={buttonText === 'Continuar'}>
 										<Text className='pt-2 pb-1 w-72 font-montserrat text-body text-projectBlack'>{answer.text}</Text>
 									</TouchableOpacity>
 
@@ -144,8 +148,8 @@ export default function ExerciseScreen({ exerciseObject, sectionObject, courseOb
 				<View className='px-6 pt-10 w-screen'>
 					<TouchableOpacity
 						disabled={selectedAnswer === null}
-						className={`${selectedAnswer !== null ? 'opacity-100' : 'opacity-30'} bg-primary_custom px-10 py-4 rounded-medium`}
-						onPress={() => handleReviewAnswer(exerciseObject.answers[selectedAnswer]?.correct)}
+						className={`${selectedAnswer !== null ? 'opacity-100' : 'opacity-0'} bg-primary_custom px-10 py-4 rounded-medium`}
+						onPress={() => handleReviewAnswer(exerciseObject.answers[selectedAnswer]?.correct, 8)}
 					>
 						<Text className='text-center font-sans-bold text-body text-projectWhite'>{buttonText}</Text>
 					</TouchableOpacity>
@@ -168,4 +172,5 @@ ExerciseScreen.propTypes = {
 	sectionObject: PropTypes.object,
 	courseObject: PropTypes.object,
 	onContinue: PropTypes.func,
+	componentList: PropTypes.object,
 };

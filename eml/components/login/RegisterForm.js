@@ -150,9 +150,14 @@ export default function RegisterForm() {
 			return;
 		}
 
+		//Sanitize names to removes spaces infront and after
+		const sanitizedFirstName = firstName.trim();
+		const sanitizedLastName = lastName.trim();
+
+
 		const obj = {
-			firstName: firstName,
-			lastName: lastName,
+			firstName: sanitizedFirstName,
+			lastName: sanitizedLastName,
 			email: email,
 			password: password,
 		};
@@ -167,9 +172,12 @@ export default function RegisterForm() {
 						...response.baseUser,
 					};
 					await setUserInfo(userInfo);
+
 				}).then(async function () {
+
 					// logs in the user, if no errors occur, navigates to home screen and sets token
 					await loginFromRegister(obj);
+
 				})
 				.catch((error) => {
 					ShowAlert(errorSwitch(error));
@@ -272,7 +280,8 @@ export default function RegisterForm() {
 					</View>
 
 					<View className="flex-row justify-start mt-1 h-6">
-						<Text testId="passwordLengthAlert" className={'text-sm' + ((passwordLengthValid || !password) ? ' text-projectBlack' : ' text-error')}>
+
+						<Text testId="passwordLengthAlert" className={'text-xs' + ((passwordLengthValid || !password) ? ' text-projectBlack' : ' text-error')}>
 
 							{/* Minimum 8 characters */}
               • Mínimo 8 caracteres
@@ -284,7 +293,7 @@ export default function RegisterForm() {
 						</View>
 					</View>
 					<View className="flex-row justify-start h-6">
-						<Text testId="passwordLetterAlert" className={'text-sm' + ((passwordContainsLetter || !password) ? ' text-projectBlack' : ' text-error')}>
+						<Text testId="passwordLetterAlert" className={'text-xs font-sans' + ((passwordContainsLetter || !password) ? ' text-projectBlack' : ' text-error')}>
 
 							{/* Must contain at least one letter */}
               • Conter pelo menos uma letra

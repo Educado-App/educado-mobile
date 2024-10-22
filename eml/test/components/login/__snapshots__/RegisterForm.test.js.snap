@@ -640,8 +640,8 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
             },
             [
               {
-                "fontSize": 14,
-                "lineHeight": 20,
+                "fontSize": 12,
+                "lineHeight": 16,
               },
               {
                 "color": "#383838",
@@ -705,8 +705,11 @@ exports[`Ensure that the RegisterForm component renders correctly 1`] = `
             },
             [
               {
-                "fontSize": 14,
-                "lineHeight": 20,
+                "fontSize": 12,
+                "lineHeight": 16,
+              },
+              {
+                "fontFamily": "Montserrat-Regular",
               },
               {
                 "color": "#383838",

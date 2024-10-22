@@ -9,9 +9,11 @@ import BackButton from '../../components/general/BackButton';
 import Text from '../../components/general/Text';
 import FilterNavBar from '../../components/explore/FilterNavBar';
 import CertificateCard from '../../components/certificate/CertificateCard';
+import CertificateEmptyState from '../../components/certificate/CertifateEmptyState';
 import { determineCategory } from '../../services/utilityFunctions';
 import { fetchCertificates } from '../../api/api';
 import { getUserInfo } from '../../services/StorageService';
+
 
 /**
  * Profile screen
@@ -65,32 +67,38 @@ export default function CertificateScreen() {
 			setSelectedCategory(category); // Set selectedCategory to the selected category label
 		}
 	};
+	const noCertificate = certificates.length === 0;
 
+	if (noCertificate) {
+		return (
+			<View>
+				<CertificateEmptyState />
+			</View>
+		);
+	}
 	return (
 		<SafeAreaView className='bg-secondary'>
 			<View className='h-full'>
 				<View className='relative mx-4 mt-12 mb-6'>
-					<BackButton onPress={() => navigation.navigate('Perfil')} />
+					<BackButton onPress={() => navigation.navigate('ProfileHome')} />
 
 					<Text className='w-full text-center text-xl font-sans-bold'>
-            Certificados
+						Certificados
 					</Text>
 				</View>
-
-
 				<FilterNavBar
 					searchPlaceholder={'Buscar certificados'}
 					onChangeText={(text) => handleFilter(text)}
 					onCategoryChange={handleCategoryFilter}
 				/>
 				<ScrollView showsVerticalScrollIndicator={true}>
-					<View>
-						{certificates.length !== 0 ? filteredCertificates.map((certificate, index) => (
+					<View className="flex flex-col justify-between items-center mx-4">
+						{!noCertificate && filteredCertificates.map((certificate, index) => (
 							<CertificateCard
 								key={index}
 								certificate={certificate}
 							></CertificateCard>
-						)) : <Text className="justify-center mx-auto">sem certificados</Text>}
+						))}
 					</View>
 				</ScrollView>
 			</View>

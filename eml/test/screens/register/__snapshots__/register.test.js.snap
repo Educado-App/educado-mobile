@@ -843,8 +843,8 @@ exports[`Register screen Login screen renders 1`] = `
                     },
                     [
                       {
-                        "fontSize": 14,
-                        "lineHeight": 20,
+                        "fontSize": 12,
+                        "lineHeight": 16,
                       },
                       {
                         "color": "#383838",
@@ -908,8 +908,11 @@ exports[`Register screen Login screen renders 1`] = `
                     },
                     [
                       {
-                        "fontSize": 14,
-                        "lineHeight": 20,
+                        "fontSize": 12,
+                        "lineHeight": 16,
+                      },
+                      {
+                        "fontFamily": "Montserrat-Regular",
                       },
                       {
                         "color": "#383838",
