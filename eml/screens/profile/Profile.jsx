@@ -113,7 +113,9 @@ export default function ProfileComponent() {
 				<UserInfo firstName={firstName} lastName={lastName} email={email} points={totalPoints} photo={photo}></UserInfo>
 				<ProfileStatsBox studentLevel={studentLevel} levelProgress={levelProgress} />
 				<ProfileNavigationButton label='Editar perfil' testId={'editProfileNav'} onPress={() => navigation.navigate('EditProfile')}></ProfileNavigationButton>
-				<ProfileNavigationButton label='Alterar senha' testId={'editPasswordNav'} onPress={() => navigation.navigate('EditPassword')}></ProfileNavigationButton>
+				<ProfileNavigationButton label='Alterar senha' onPress={() => navigation.navigate('EditPassword')}></ProfileNavigationButton>
+				<ProfileNavigationButton label='Certificados' onPress={() => navigation.navigate('Certificate')}></ProfileNavigationButton>
+				<ProfileNavigationButton label='Download' onPress={() => navigation.navigate('Download')}></ProfileNavigationButton>
 				
 				{/* The certificate page is created and works, it is only commented out to get it approved on play store
 					<ProfileNavigationButton label='Certificados' onPress={() => navigation.navigate('CertificateStack')}></ProfileNavigationButton>*/}
