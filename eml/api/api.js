@@ -6,8 +6,8 @@ const timeoutInMs = 1200;
 
 
 // move these to .env file next sprint
-const url = URL; // Change this to your LOCAL IP address when testing.
-const certificateUrl = CERTIFICATE_URL;
+const url = "http://192.168.0.153:8888"; // Change this to your LOCAL IP address when testing.
+const certificateUrl = "http://192.168.0.153:8080";
 
 /* Commented out for avoiding linting errors :))
  * TODO: move IP address to .env file !!!

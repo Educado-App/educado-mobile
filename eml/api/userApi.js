@@ -11,7 +11,7 @@ const digitalOcean = 'http://207.154.213.68:8888';
 */
 
 
-const url = URL;// Change this to your LOCAL IP address when testing.
+const url = "http://192.168.0.153:8888";// Change this to your LOCAL IP address when testing.
 
 /**
  * This is the client that will be used to make requests to the backend.

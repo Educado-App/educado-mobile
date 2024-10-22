@@ -16,7 +16,14 @@ import ShowAlert from '../../components/general/ShowAlert';
 import { getStudentInfo } from '../../services/StorageService';
 import ProfileStatsBox from '../../components/profile/ProfileStatsBox';
 import { useFocusEffect } from '@react-navigation/native';
+import {
+	CopilotProvider,
+	CopilotStep,
+	walkthroughable,
+  } from "react-native-copilot";
 
+
+  const WPNB = walkthroughable(ProfileNavigationButton);
 /**
  * Profile screen
  * @returns {React.Element} Component for the profile screen
@@ -106,6 +113,10 @@ export default function ProfileComponent() {
 			console.error(e);
 		}
 	};
+	useEffect(() => {
+		start(); // Start the tour when the component mounts
+	}, [start]);
+
 
 	return (
 		<ScrollView className='flex flex-col'>
@@ -113,8 +124,10 @@ export default function ProfileComponent() {
 				<UserInfo firstName={firstName} lastName={lastName} email={email} points={totalPoints} photo={photo}></UserInfo>
 				<ProfileStatsBox studentLevel={studentLevel} levelProgress={levelProgress} />
 				<ProfileNavigationButton label='Editar perfil' testId={'editProfileNav'} onPress={() => navigation.navigate('EditProfile')}></ProfileNavigationButton>
-				<ProfileNavigationButton label='Alterar senha' testId={'editPasswordNav'} onPress={() => navigation.navigate('EditPassword')}></ProfileNavigationButton>
 				
+				<CopilotStep text="This is a hello world example!" order={1} name="hello">
+					<WPNB label='Alterar senha' testId={'editPasswordNav'} onPress={() => navigation.navigate('EditPassword')}></WPNB>
+      			</CopilotStep>
 				{/* The certificate page is created and works, it is only commented out to get it approved on play store
 					<ProfileNavigationButton label='Certificados' onPress={() => navigation.navigate('CertificateStack')}></ProfileNavigationButton>*/}
 				{/* Download page is not implemented yet. However, download works and can be accessed on home page when offline
