@@ -19,7 +19,6 @@ import ShowAlert from '../../components/general/ShowAlert';
  * @returns {React.Element} Component for the profile screen
 */
 export default function Download() {
-    const [courses, setCourses] = useState([]);
     const [courseLoaded, setCourseLoaded] = useState(false);
     const [downloadedCourses, setDownloadedCourses] = useState([]);
     const [refreshing, setRefreshing] = useState(false);
@@ -28,28 +27,19 @@ export default function Download() {
 	const navigation = useNavigation();
 
     async function loadCourses() {
-        const courseData = await StorageService.getSubCourseList();
+        // Get all the downloaded courses for a user
+        const downloadedCoursesData = await StorageService.getAllCoursesLocally();
         
-        if (shouldUpdate(courses, courseData)) {
-            if (courseData.length !== 0 && Array.isArray(courseData)) {
-                
-                // Create an array of promises to check if courses are downloaded
-                const downloadedCoursePromises = courseData.map(async (course) => {
-                    const isDownloaded = await checkCourseStoredLocally(course.courseId);
-                    if (isDownloaded) {
-                        return course;  // Return the course if it's downloaded
-                    }
-                    return null;  // Return null for courses that are not downloaded
-                });
-    
-                // Wait for all download checks to complete
-                const downloadedCoursesResults = await Promise.all(downloadedCoursePromises);
-                // Filter out null values (courses that are not downloaded)
-                const filteredDownloadedCourses = downloadedCoursesResults.filter(course => course !== null);
-    
-                
-                setDownloadedCourses(filteredDownloadedCourses);
-                setCourses(courseData);
+        if (shouldUpdate(downloadedCourses, downloadedCoursesData)) {
+            if (downloadedCoursesData.length !== 0 && Array.isArray(downloadedCoursesData)) {
+
+                // normalize the data because of the difference in structure between the downloaded courses and the courses from the server
+                const normalizedDownloadedCourses = downloadedCoursesData.map(course => ({
+                    ...course,
+                    courseId: course._id,  // Map `_id` to `courseId`
+                }));
+
+                setDownloadedCourses(normalizedDownloadedCourses);
                 setCourseLoaded(true);
     
             } else {

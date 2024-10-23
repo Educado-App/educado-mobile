@@ -21,7 +21,6 @@ export default function CourseCard({ course, isOnline}) {
 	const navigation = useNavigation();
 	const [studentProgress, setStudentProgress] = useState(0);
 
-
 	const checkDownload = async () => {
 		setDownloaded(await checkCourseStoredLocally(course.courseId));
 	};
