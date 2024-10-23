@@ -1,12 +1,13 @@
 import axios from 'axios';
 import { Buffer } from 'buffer';
+import { URL, CERTIFICATE_URL } from '@env';
 
 const timeoutInMs = 1200;
 
 
 // move these to .env file next sprint
-export const url = 'https://educado-backend-staging-x7rgvjso4a-ew.a.run.app/'; // Change this to your LOCAL IP address when testing.
-export const certificateUrl = 'https://educado-certificate-service-staging-x7rgvjso4a-ew.a.run.app/';
+const url = URL; // Change this to your LOCAL IP address when testing.
+const certificateUrl = CERTIFICATE_URL;
 
 /* Commented out for avoiding linting errors :))
  * TODO: move IP address to .env file !!!

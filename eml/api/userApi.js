@@ -1,5 +1,6 @@
 import axios from 'axios';
 import * as FileSystem from 'expo-file-system';
+import { URL } from '@env';
 
 /* Commented out to avoid linting errors 
  * TODO: move IP address to .env file !!!
@@ -10,7 +11,7 @@ const digitalOcean = 'http://207.154.213.68:8888';
 */
 
 
-const url = 'https://educado-backend-staging-x7rgvjso4a-ew.a.run.app/';// Change this to your LOCAL IP address when testing.
+const url = URL;// Change this to your LOCAL IP address when testing.
 
 /**
  * This is the client that will be used to make requests to the backend.
