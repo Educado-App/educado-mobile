@@ -626,77 +626,73 @@ export const getAllCoursesLocally = async () => {
 	try {
 		const keys = await AsyncStorage.getAllKeys();
 		for (let key of keys) {
-			if (key.includes(await AsyncStorage.getItem(USER_ID))) {
-				courseList.push(JSON.parse(await AsyncStorage.getItem(key)));
-			}
+			if (!key.includes(await AsyncStorage.getItem(USER_ID))) continue;
+			courseList.push(JSON.parse(await AsyncStorage.getItem(key)));
 		}
-	}
-	catch (error) {
-		if (error?.response?.data != null) {
-			throw new Error(error.response.data);
-		} else {
+	} catch (error) {
+		if (error?.response?.data == null) {
 			throw new Error(error);
 		}
+		throw new Error(error.response.data);
 	}
 	return courseList;
 };
 
 export const storeCourseLocally = async (courseID) => {
 	let success = true;
-	if (isOnline) {
-		try {
-			//Stores the course data
-			const course = await api.getCourse(courseID);
-			await AsyncStorage.setItem(courseID + await AsyncStorage.getItem(USER_ID), JSON.stringify(course));
+	if (!isOnline) { return false; }
+	try {
+		//Stores the course data
+		const course = await api.getCourse(courseID);
+		//await AsyncStorage.setItem(courseID + await AsyncStorage.getItem(USER_ID), JSON.stringify(course));
 
-			//Stores section data
-			const sectionList = await api.getAllSections(courseID);
-			await AsyncStorage.setItem('S' + courseID, JSON.stringify(sectionList));
-			for (let section of sectionList) {
-
-				//Stores lecture data
-				let componentList = await api.getComponents(section._id);
-				await AsyncStorage.setItem('C' + section._id, JSON.stringify(componentList));
-				for (let component of componentList) {
-					if (component.type === 'lecture'){
-						if (component.component.image) {
-
-							//Stores images
-							try {
-								let image = await api.getBucketImage(component.component.image);
-								await AsyncStorage.setItem('I' + component.component._id, JSON.stringify(image));
-							} catch {
-								await AsyncStorage.setItem('I' + component.component._id, defaultImage.base64);
-							}
-						} else if (component.component.video){
-
-							//Stores videos
-							await makeDirectory();
-							await FileSystem.writeAsStringAsync(lectureVideoPath + component.component.video + '.json', await api.getBucketImage(component.component.video));
-						}
-					}
-				}
-
-				//add a new variable "DateOfDownload" to the course object
-				course.dateOfDownload = new Date().toISOString();
-				await AsyncStorage.setItem(courseID + await AsyncStorage.getItem(USER_ID), JSON.stringify(course));
-				
-				console.log('Course stored locally');
-
-			}
-		} catch (error) {
-			success = false;
-			deleteLocallyStoredCourse(courseID);
-			if (error?.response?.data != null) {
-				throw new Error(error.response.data);
-			} else {
-				throw new Error(error);
-			}
-		} finally {
-			return success;
+		//Stores section data
+		const sectionList = await api.getAllSections(courseID);
+		await AsyncStorage.setItem('S' + courseID, JSON.stringify(sectionList));
+		await storeLectureData(sectionList, course);
+		await AsyncStorage.setItem(courseID + await AsyncStorage.getItem(USER_ID), JSON.stringify(course));
+	} catch (error) {
+		success = false;
+		deleteLocallyStoredCourse(courseID);
+		if (error?.response?.data != null) {
+			throw new Error(error.response.data);
+		} else {
+			throw new Error(error);
 		}
-	} else {
-		return false;
+	} finally {
+		return success;
+	}
+
+	async function storeLectureData(sectionList, course) {
+		for (let section of sectionList) {
+
+			//Stores lecture data
+			let componentList = await api.getComponents(section._id);
+			await AsyncStorage.setItem('C' + section._id, JSON.stringify(componentList));
+			for (let component of componentList) {
+				if (component.type === 'lecture') { continue; }
+				if (component.component.image) {
+
+					//Stores images
+					try {
+						let image = await api.getBucketImage(component.component.image);
+						await AsyncStorage.setItem('I' + component.component._id, JSON.stringify(image));
+					} catch {
+						await AsyncStorage.setItem('I' + component.component._id, defaultImage.base64);
+					}
+				} else if (component.component.video) {
+
+					//Stores videos
+					await makeDirectory();
+					await FileSystem.writeAsStringAsync(lectureVideoPath + component.component.video + '.json', await api.getBucketImage(component.component.video));
+				}
+			}
+
+			//add a new variable "DateOfDownload" to the course object
+			if (course.dateOfDownload === undefined) {
+				course.dateOfDownload = new Date().toISOString();
+			}
+		}
 	}
 };
 

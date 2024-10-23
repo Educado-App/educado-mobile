@@ -1,20 +1,42 @@
 [
     {
-        "status": "published",
-        "rating": 1,
-        "numOfSubscriptions": 56,
-        "sections": ["65687cdae0c67a423c59ac2c", "66f2cfa4d0f674002c2f6b1b"],
-        "_id": "65687cbee0c67a423c59ac21",
-        "title": "Como calcular seu dinheiro",
-        "category": "personal finance",
+        "__v": 1,
+        "_id": "656d824c79e554002769ac8e",
+        "category": "other",
+        "coverImg": "",
+        "creator": "656b2af486cda1fd046828ea",
+        "dateCreated": "2023-12-04T07:39:56.820Z",
+        "dateOfDownload": "2024-10-22T12:52:06.102Z",
+        "dateUpdated": "2023-12-04T12:42:25.645Z",
+        "description": "Neste curso você aprenderá um pouco de inglês básico",
         "difficulty": 1,
-        "description": "Este curso é sobre como calcular suas finanças e economizar dinheiro para o futuro.\nQualquer coisa, desde fazer um plano semanal até aproveitar ao máximo a economia de dinheiro no longo prazo.",
-        "creator": "656872d7e0c67a423c59abf8",
-        "coverImg": "65687cbee0c67a423c59ac21_c",
-        "dateCreated": "2023-11-30T12:14:54.484Z",
-        "dateUpdated": "2024-10-01T14:06:41.216Z",
-        "estimatedHours": null,
+        "estimatedHours": 1,
+        "numOfSubscriptions": 40,
+        "rating": 0,
+        "sections": ["656d825179e554002769ac90"],
+        "status": "published",
+        "title": " Curso de inglês"
+    },
+    {
         "__v": 7,
-        "dateOfDownload": "2024-10-22T12:11:45.876Z"
+        "_id": "65b0076a8cf0df00273f5eb6",
+        "category": "personal finance",
+        "coverImg": "",
+        "creator": "65b004448cf0df00273f5e95",
+        "dateCreated": "2024-01-23T18:37:30.328Z",
+        "dateOfDownload": "2024-10-22T12:52:34.266Z",
+        "dateUpdated": "2024-09-25T07:56:06.405Z",
+        "description": "O curso de Introdução a Finanças Pessoais é projetado para fornecer uma compreensão abrangente dos princípios fundamentais necessários para gerenciar efetivamente as finanças pessoais. Este curso destina-se a indivíduos de todas as idades e níveis de conhecimento financeiro, oferecendo uma abordagem acessível e prática para construir uma base sólida para o futuro financeiro.",
+        "difficulty": 1,
+        "estimatedHours": null,
+        "numOfSubscriptions": 30,
+        "rating": 0,
+        "sections": [
+            "65b0077d8cf0df00273f5eb8",
+            "65b0087e8cf0df00273f5ef8",
+            "65b008f18cf0df00273f5f1a"
+        ],
+        "status": "published",
+        "title": "Introdução a Finanças Pessoais"
     }
 ]
