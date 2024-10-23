@@ -246,7 +246,44 @@ export const generateCertificate = async (courseId, studentId) => {
 	}
 };
 
+export const giveFeedback = async (courseId, studentId, rating, feedbackString, feedbackOptions) => {
+    try {
+        const response = await axios.post(url + '/api/courses/' + courseId + '/feedback', {
+            studentId: studentId,
+            rating: rating,
+            feedbackString: feedbackString,
+            feedbackOptions: feedbackOptions,
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error giving feedback:', error.response?.data || error.message);
+        throw error;
+    }
+}
 
+export const getFeedback = async (courseId, studentID) => {
+    try {
+        const response = await axios.get(`${url}/api/courses/${courseId}/feedback`, {
+            params: {
+                studentId: studentID,
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error getting feedback:', error.response?.data || error.message);
+        throw error;
+    }
+}
+
+export const getAllFeedbackOptions = async () => {
+    try {
+        const response = await axios.get(`${url}/api/feedbackOptions`);
+        return response.data;
+    } catch (error) {
+        console.error('Error getting feedback options:', error.response?.data || error.message);
+        throw error;
+    }
+}
 
 //CREATED BY VIDEO STREAM TEAM
 /*This will be improved in next pull request to handle getting different resolutions properly 
