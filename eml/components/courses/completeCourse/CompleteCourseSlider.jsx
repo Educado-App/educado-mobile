@@ -6,17 +6,19 @@ import Congratulation from './Congratulation';
 import StatsOverview from './StatsOverview';
 import Certification from './Certification';
 import PropTypes from 'prop-types'; 
+import Feedback from './Feedback';
 
 /* Check the CompleteCourse file in the screens folder for more info
 props: 			onIndexChanged: function that is called when the index of which slide the student are currently on changes
 				courseObject: the course object
 */
 
-const CompleteCourseSlider = forwardRef(({ onIndexChanged, courseObject }, ref) => {
+const CompleteCourseSlider = forwardRef(({ onIndexChanged, courseObject, setFeedbackData }, ref) => {
 
 	CompleteCourseSlider.propTypes = {
 		courseObject: PropTypes.object.isRequired,
 		onIndexChanged: PropTypes.func.isRequired,
+		setFeedbackData: PropTypes.func.isRequired,
 	};
 
 	CompleteCourseSlider.displayName = 'CompleteCourseSlider';
@@ -30,6 +32,7 @@ const CompleteCourseSlider = forwardRef(({ onIndexChanged, courseObject }, ref) 
 		<Congratulation key={0}/>,
 		<StatsOverview ref={statsOverviewRef} courseObject={courseObject} key={1}/>,
 		<Certification courseObject={courseObject} key={2}/>,
+		<Feedback courseObject={courseObject} setFeedbackData={setFeedbackData} key={3}/>,
 	];
 
 	const scrollBy = (number) => {

@@ -1,10 +1,11 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { View, TouchableOpacity, SafeAreaView } from 'react-native';
 import { BgLinearGradient } from '../../constants/BgLinearGradient';
 import CompleteCourseSlider from '../../components/courses/completeCourse/CompleteCourseSlider';
 import Text from '../../components/general/Text.js';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import PropTypes from 'prop-types';
+import { setCommentRange } from 'typescript';
 
 /* 
 Description: 	This screen is displayed when the student completes a course.
@@ -17,20 +18,26 @@ Dependencies: 	The student must have the course in their course list.
 */
 
 export default function CompleteCourseScreen() {
+	const [currentSlide, setCurrentSlide] = useState(0);
 	const completeCourseSliderRef = useRef(null);
-	let currentSlide = 0;
+	const [feedbackData, setFeedbackData] = useState({});
+	
 
 	const navigation = useNavigation();
 	const route = useRoute();
 	const { course } = route.params;
 
 	const handleIndexChange = (index) => {
-		currentSlide = index;
+		setCurrentSlide(index);
+	};
+	const handleSubmitFeedback = () => {
+		console.log(feedbackData);
 	};
 
 	const handleNextSlide = () => {
 		if (completeCourseSliderRef.current) {
-			if (currentSlide === 2) {
+			if (currentSlide === 3) {
+				handleSubmitFeedback();
 				navigation.reset({
 					index: 0,
 					routes: [{ name: 'HomeStack' }],
@@ -46,7 +53,8 @@ export default function CompleteCourseScreen() {
 			<SafeAreaView >
 				<View className="justify-around items-center flex flex-col h-full w-full">
 					<View className="flex w-screen h-5/6 justify-center items-center">
-						<CompleteCourseSlider 
+						<CompleteCourseSlider
+							setFeedbackData={setFeedbackData} 
 							onIndexChanged={handleIndexChange}
 							ref={completeCourseSliderRef}  
 							courseObject={course}
@@ -57,7 +65,7 @@ export default function CompleteCourseScreen() {
 						<TouchableOpacity className="bg-primary_custom px-10 py-4 rounded-medium"
 							onPress={() => {handleNextSlide();}}
 						>
-							<Text className="text-center font-sans-bold text-body text-projectWhite">Continuar</Text>
+							<Text className="text-center font-sans-bold text-body text-projectWhite">{currentSlide === 3 ? "Meus Cursos" : "Continuar"}</Text>
 						</TouchableOpacity>
 					</View>
 
