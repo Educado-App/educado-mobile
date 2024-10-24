@@ -20,6 +20,7 @@ import ErrorScreen from './screens/errors/ErrorScreen';
 import CourseScreen from './screens/courses/CourseScreen';
 import EditProfileScreen from './screens/profile/EditProfile';
 import EditPasswordScreen from './screens/profile/EditPassword';
+import DownloadScreen from './screens/download/DownloadScreen';
 import CertificateScreen from './screens/certificate/CertificateScreen';
 import CompleteCourseScreen from './screens/courses/CompleteCourse';
 import CameraScreen from './screens/camera/CameraScreen';
@@ -209,6 +210,11 @@ export default function App() {
 							<Stack.Screen
 								name={'CompleteSection'}
 								component={CompleteSectionScreen}
+								options={{ headerShown: false }}
+							/>
+							<Stack.Screen
+								name={'Download'}
+								component={DownloadScreen}
 								options={{ headerShown: false }}
 							/>
 							<Stack.Screen

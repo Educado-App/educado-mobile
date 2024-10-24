@@ -4,6 +4,7 @@ import {Image, Pressable, RefreshControl, ScrollView, View, SafeAreaView,} from 
 import Text from '../../components/general/Text';
 import * as StorageService from '../../services/StorageService';
 import { checkCourseStoredLocally } from '../../services/StorageService';
+import BackButton from '../../components/general/BackButton';
 import CourseCard from '../../components/courses/courseCard/CourseCard';
 import IconHeader from '../../components/general/IconHeader';
 import {shouldUpdate} from '../../services/utilityFunctions';
@@ -39,11 +40,20 @@ export default function Download() {
                     courseId: course._id,  // Map `_id` to `courseId`
                 }));
 
-                setDownloadedCourses(normalizedDownloadedCourses);
-                setCourseLoaded(true);
+                // Filter out expired courses and delete them
+                const validCourses = normalizedDownloadedCourses.filter(course => {
+                    const isExpired = isDownloadedCourseExpired(course);
+                    if (isExpired) {
+                        // Delete expired course
+                        StorageService.deleteLocallyStoredCourse(course.courseId);
+                    }
+                    return !isExpired; // Only keep valid courses
+                });
+
+                setDownloadedCourses(validCourses); // Only set non-expired courses
+                setCourseLoaded(validCourses.length > 0);
     
             } else {
-                setCourses([]);
                 setCourseLoaded(false);
             }
         }
@@ -83,11 +93,25 @@ export default function Download() {
 		}
 	}, []);
 
+    function isDownloadedCourseExpired(course) {
+        const currentDate = new Date();
+        const courseDate = new Date(course.dateOfDownload);
+        // Calculate the difference in milliseconds
+        const diffInMilliseconds = currentDate - courseDate;
+    
+        // Convert milliseconds to days (1 day = 24 * 60 * 60 * 1000 ms)
+        const diffInDays = diffInMilliseconds / (1000 * 60 * 60 * 24);
+    
+        // Return true if the course is older than 30 days
+        return diffInDays > 30;
+    }
+
 	return (
        loading ? <LoadingScreen /> :
             <>
                 <NetworkStatusObserver setIsOnline={setIsOnline}/>
                 <SafeAreaView className='bg-secondary'>
+                <BackButton onPress={() => navigation.navigate('Perfil')} />
                 {courseLoaded ?
 					<View height="100%">
                     <IconHeader
@@ -102,8 +126,8 @@ export default function Download() {
                     </ScrollView>
                 </View>
 					:
-					<View className="bg-secondary justify-center items-center ">
-						<Text className="text-center text-white text-2xl">No courses available</Text>
+					<View className="bg-secondary justify-center items-center mt-20">
+						<Text className="text-center text-white text-2xl">Nenhum curso disponível</Text>
 					</View>}
                 </SafeAreaView>
             </>

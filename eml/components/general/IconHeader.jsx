@@ -1,8 +1,10 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 import { View, Image } from 'react-native';
 import Text from './Text';
 import PropTypes from 'prop-types';
 import OfflineBanner from './OfflineBanner';
+import NetworkStatusObserver from '../../hooks/NetworkStatusObserver';
 
 /**
  * Custom header component with an icon and title.
@@ -10,7 +12,7 @@ import OfflineBanner from './OfflineBanner';
  * @returns {JSX.Element} The IconHeader component.
  */
 export default function IconHeader({ title, description }) {
-
+	const [isOnline, setIsOnline] = useState(false);
 	IconHeader.propTypes = {
 		title: PropTypes.string,
 		description: PropTypes.string,
@@ -18,18 +20,15 @@ export default function IconHeader({ title, description }) {
 
 	return (
 		<>
-			<OfflineBanner />
+			<NetworkStatusObserver setIsOnline={setIsOnline} />
 			<View className="flex flex-row items-center pl-6 pb-2 pt-[20%]">
-            
-				<Image
-					source={require('../../assets/images/singleIcon.png')}
-					alt="Icon"
-					className="w-8 h-8 mr-2"
-				/>
-				<Text className="text-xl font-bold">{title}</Text>
-            
-			</View>
-			<Text className="text-sm font-montserrat px-6 pl-6 pb-4">{description}</Text>
-		</>
+
+					<Image
+						source={require('../../assets/images/singleIcon.png')}
+						alt="Icon"
+						className="w-8 h-8 mr-2" />
+					<Text className="text-xl font-bold">{title}</Text>
+
+			</View><Text className="text-sm font-montserrat px-6 pl-6 pb-4">{description}</Text></>
 	);
 }

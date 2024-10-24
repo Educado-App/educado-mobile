@@ -16,6 +16,7 @@ import ShowAlert from '../../components/general/ShowAlert';
 import { getStudentInfo } from '../../services/StorageService';
 import ProfileStatsBox from '../../components/profile/ProfileStatsBox';
 import { useFocusEffect } from '@react-navigation/native';
+import IconHeader from '../../components/general/IconHeader';
 
 /**
  * Profile screen
@@ -108,23 +109,25 @@ export default function ProfileComponent() {
 	};
 
 	return (
-		<ScrollView className='flex flex-col'>
-			<View className="flex-1 justify-start pt-[20%] h-screen">
-				<UserInfo firstName={firstName} lastName={lastName} email={email} points={totalPoints} photo={photo}></UserInfo>
-				<ProfileStatsBox studentLevel={studentLevel} levelProgress={levelProgress} />
-				<ProfileNavigationButton label='Editar perfil' testId={'editProfileNav'} onPress={() => navigation.navigate('EditProfile')}></ProfileNavigationButton>
-				<ProfileNavigationButton label='Alterar senha' onPress={() => navigation.navigate('EditPassword')}></ProfileNavigationButton>
-				<ProfileNavigationButton label='Certificados' onPress={() => navigation.navigate('Certificate')}></ProfileNavigationButton>
-				<ProfileNavigationButton label='Download' onPress={() => navigation.navigate('Download')}></ProfileNavigationButton>
-				
-				{/* The certificate page is created and works, it is only commented out to get it approved on play store
-					<ProfileNavigationButton label='Certificados' onPress={() => navigation.navigate('CertificateStack')}></ProfileNavigationButton>*/}
-				{/* Download page is not implemented yet. However, download works and can be accessed on home page when offline
-				<ProfileNavigationButton label='Download'></ProfileNavigationButton>*/}
-				<View className='flex flex-row pb-4'>
-					<LogOutButton testID='logoutBtn'></LogOutButton>
+		<>
+			<ScrollView className='flex flex-col'>
+				<View className="flex-1 justify-start pt-[20%] h-screen">
+					<UserInfo firstName={firstName} lastName={lastName} email={email} points={totalPoints} photo={photo}></UserInfo>
+					<ProfileStatsBox studentLevel={studentLevel} levelProgress={levelProgress} />
+					<ProfileNavigationButton label='Editar perfil' testId={'editProfileNav'} onPress={() => navigation.navigate('EditProfile')}></ProfileNavigationButton>
+					<ProfileNavigationButton label='Alterar senha' onPress={() => navigation.navigate('EditPassword')}></ProfileNavigationButton>
+					<ProfileNavigationButton label='Certificados' onPress={() => navigation.navigate('Certificate')}></ProfileNavigationButton>
+					<ProfileNavigationButton label='Download' onPress={() => navigation.navigate('Download')}></ProfileNavigationButton>
+					
+					{/* The certificate page is created and works, it is only commented out to get it approved on play store
+						<ProfileNavigationButton label='Certificados' onPress={() => navigation.navigate('CertificateStack')}></ProfileNavigationButton>*/}
+					{/* Download page is not implemented yet. However, download works and can be accessed on home page when offline
+					<ProfileNavigationButton label='Download'></ProfileNavigationButton>*/}
+					<View className='flex flex-row pb-4'>
+						<LogOutButton testID='logoutBtn'></LogOutButton>
+					</View>
 				</View>
-			</View>
-		</ScrollView>
+			</ScrollView>
+		</>
 	);
 }

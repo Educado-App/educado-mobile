@@ -1,12 +1,14 @@
-import React from 'react';
+import React, {useState } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import CourseScreen from '../../screens/courses/CourseScreen';
 import DownloadScreen from '../../screens/download/DownloadScreen';
 import Explore from '../../screens/explore/Explore';
+import Offline from '../../screens/offline/OfflineScreen';
 import ProfileComponent from '../../screens/profile/Profile';
 import EditProfile from '../../screens/profile/EditProfile';
 import CertificateScreen from '../../screens/certificate/CertificateScreen';
+import NetworkStatusObserver from '../../hooks/NetworkStatusObserver';
 import { Icon } from '@rneui/themed';
 import { Platform } from 'react-native';
 import tailwindConfig from '../../tailwind.config';
@@ -58,8 +60,10 @@ function ProfileStackScreen() {
  * 
  */
 export default function NavBar() {
-
+	const [isOnline, setIsOnline] = useState(false);
 	return (
+		<>
+		<NetworkStatusObserver setIsOnline={setIsOnline} />
 		<Tab.Navigator
 			testID="navBar" // Make sure you set the testID on the correct element
 			initialRouteName={'Central'}
@@ -69,12 +73,12 @@ export default function NavBar() {
 				tabBarLabelStyle: {
 					fontSize: 14,
 				},
-
+				
 				tabBarStyle: {
 					backgroundColor: 'white',
 					height: '10%',
 					paddingBottom: '2%',
-
+					
 					// THIS IS SHADOW STUFF - HAVE TO BE PLATFORM SPECIFIC
 					...Platform.select({
 						ios: {
@@ -104,61 +108,62 @@ export default function NavBar() {
 					paddingTop: '1%', // Vertical padding for the icon
 				},
 			}}
-		>
+			>
 			<Tab.Screen
 				name="Meus cursos"
-				component={CourseScreen}
+				component={isOnline ? CourseScreen : Offline}
 				options={{
 					tabBarActiveBackgroundColor: tailwindConfig.theme.colors.cyanBlue,
 					headerShown: false,
 					tabBarIcon: ({ color }) => ( // Pass the color as a parameter to the icon component
 						<Icon
-							size={25}
-							name="home-outline"
-							type="material-community"
-							color={color} // Use the color parameter here
+						size={25}
+						name="home-outline"
+						type="material-community"
+						color={color} // Use the color parameter here
 						/>
 					),
 					tabBarActiveTintColor: 'white', // Set the active text color to white
 					tabBarInactiveTintColor: 'grey', // Set the inactive text color to grey
 				}}
-			/>
+				/>
 			<Tab.Screen
 				name="Explorar"
-				component={Explore}
+				component={isOnline ? Explore : Offline}
 				options={{
 					tabBarActiveBackgroundColor: tailwindConfig.theme.colors.cyanBlue,
 					headerShown: false,
 					tabBarIcon: ({ color }) => ( // Pass the color as a parameter to the icon component
 						<Icon
-							size={25}
-							name="compass-outline"
-							type="material-community"
-							color={color} // Use the color parameter here
+						size={25}
+						name="compass-outline"
+						type="material-community"
+						color={color} // Use the color parameter here
 						/>
 					),
 					tabBarActiveTintColor: 'white', // Set the active text color to white
 					tabBarInactiveTintColor: 'grey', // Set the inactive text color to grey
 				}}
-			/>
+				/>
 			<Tab.Screen
 				name="Perfil"
-				component={ProfileStackScreen}
+				component={isOnline ? ProfileStackScreen : Offline}
 				options={{
 					tabBarActiveBackgroundColor: tailwindConfig.theme.colors.cyanBlue,
 					headerShown: false,
 					tabBarIcon: ({ color }) => ( // Pass the color as a parameter to the icon component
 						<Icon
-							size={34}
-							name="account-outline"
-							type="material-community"
-							color={color} // Use the color parameter here
+						size={34}
+						name="account-outline"
+						type="material-community"
+						color={color} // Use the color parameter here
 						/>
 					),
 					tabBarActiveTintColor: 'white', // Set the active text color to white
 					tabBarInactiveTintColor: 'grey', // Set the inactive text color to grey
 				}}
-			/>
+				/>
 		</Tab.Navigator>
+		</>
 	);
 }

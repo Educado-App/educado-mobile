@@ -1,8 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Animated, Text, Modal, Easing, View, Pressable, Image  } from 'react-native';
+import { Animated, Text, Easing, View, Pressable, Image  } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import NetworkStatusObserver from '../../hooks/NetworkStatusObserver';
-import tailwindConfig from '../../tailwind.config';
 import { useNavigation } from '@react-navigation/native';
 
 
@@ -11,9 +10,8 @@ import { useNavigation } from '@react-navigation/native';
  * It checks periodically for backend connectivity and displays a banner if the backend is not reachable.
  * @returns {JSX.Element} - The rendered component.
  */
-export default function OfflineBanner() {
+export default function OfflineScreen() {
 	const [isOnline, setIsOnline] = useState(false);
-	const [modalVisible, setModalVisible] = useState(true);
 	const translateY = useRef(new Animated.Value(-100)).current;
 	const navigation = useNavigation();
 
@@ -29,10 +27,6 @@ export default function OfflineBanner() {
 	return (
 		<>
 			<NetworkStatusObserver setIsOnline={setIsOnline} />
-
-			<Modal
-			visible={modalVisible}
-			>
 				<View className="justify-center px-1 pt-6">
 					<View className="mb-20 mt-6 self-center">
 						<Image 
@@ -62,16 +56,13 @@ export default function OfflineBanner() {
 						<Pressable
 							testID={'offlineExploreButton'}
 							className="rounded-r-8 rounded-md bg-primary_custom justify-center items-center p-2 h-14 w-80"
-							onPress={() => {
-								navigation.navigate('Perfil', { screen: 'Download' });
-								setModalVisible(!modalVisible);
-							  }}>
+							onPress={() => 
+								navigation.navigate('Download')}>
 							{/* Click to explore courses */}
 							<Text className="text-projectWhite font-sans-bold text-center text-body" >Acesse meus cursos baixados</Text>
 						</Pressable>
 					</View>
 				</View>
-			</Modal>
 		</>
 	);
 }
