@@ -140,7 +140,7 @@ export default function ExerciseScreen({ componentList, exerciseObject, sectionO
 			<View className='items-center'>
                 <View className="mt-20">
                 			<ExerciseInfo courseTitle={courseObject.title} sectionTitle={sectionObject.title} />
-                			</View>
+                </View>
 				<Text testID='exerciseQuestion'
 					className='pt-0 pb-5 text-center text-body font-sans-bold text-projectBlack w-11/12'>
 					{exerciseObject.question}
@@ -198,31 +198,33 @@ export default function ExerciseScreen({ componentList, exerciseObject, sectionO
 					</ScrollView>
 				</View>
 
-				<View className='px-6 pt-10 w-screen'>
-{selectedAnswers[currentIndex] !== null && (
-    <StandardButton
-        props={{
-            buttonText: buttonTexts[currentIndex],
-            onPress: () => handleReviewAnswer(exerciseObject.answers[selectedAnswers[currentIndex]]?.correct, 8),
-            disabled: selectedAnswers[currentIndex] === null,
-        }}
-    />
-)}
+				<View className='flex-row content-center justify-between mt-20 place-end'>
 
+					{currentIndex > 0 && (
+						<View className='flex-1 ml-2 mr-1'>
+							<StandardButton
+								props={{
+									buttonText: 'Return',
+									onPress: handleReturn,
+								}}
+							/>
+						</View>
+					)}
 
+					<View className='flex-1 ml-1 mr-2'>
+						{selectedAnswers[currentIndex] !== null && (
+							<StandardButton
+								props={{
+									buttonText: buttonTexts[currentIndex],
+									onPress: () => handleReviewAnswer(exerciseObject.answers[selectedAnswers[currentIndex]]?.correct, 8),
+									disabled: selectedAnswers[currentIndex] === null,
+								}}
+							/>
+						)}
+					</View>
 
 				</View>
-
-				{currentIndex > 0 && (
-					<View className='px-6 pt-5 w-screen'>
-						<StandardButton
-							props={{
-								buttonText: 'Return',
-								onPress: handleReturn,
-							}}
-						/>
-					</View>
-				)}
+				
 			</View>
 
 			{isPopUpVisible ? (
